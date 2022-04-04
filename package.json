@@ -7,7 +7,7 @@
   "scripts": {
     "build": "yarn run lock:types && yarn run build:types && yarn run build:ts && yarn run build:extension",
     "clean": "yarn run clean:ts && yarn run build:types",
-    "lock:types": "cross-env XDG_DATA_DIRS=$XDG_DATA_DIRS:/usr/share/gnome-shell:/usr/lib/mutter-10 yarn run gi-ts config --lock",
+    "lock:types": "rm -rf docs-lock.json && cross-env XDG_DATA_DIRS=$XDG_DATA_DIRS:/usr/share/gir-1.0:/usr/share/gnome-shell:/usr/lib/mutter-10:/usr/lib64/mutter-10 yarn run gi-ts config --lock",
     "build:types": "yarn run clean:types && gi-ts generate",
     "clean:types": "rm -rf ./@types",
     "build:ts": "yarn run clean:ts && rollup -c",
@@ -18,7 +18,8 @@
     "build:package": "yarn run build && rm -rf './dist/pano@elhan.io.zip' && cd ./dist && zip -qr 'pano@elhan.io.zip' .",
     "watch": "yarn run build && yarn run rollup -c --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint --ext .ts src/"
+    "lint": "eslint --ext .ts src/",
+    "shell:restart": "busctl --user call org.gnome.Shell /io/elhan/Pano io.elhan.Pano restart"
   },
   "commitlint": {
     "extends": [

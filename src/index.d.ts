@@ -10,6 +10,7 @@ declare const imports: {
   };
   misc: {
     extensionUtils: {
+      getCurrentExtension: () => any;
       getSettings: () => any;
     };
     config: any;
