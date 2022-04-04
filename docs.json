@@ -1,0 +1,24 @@
+{
+  "options": {
+    "inferGenerics": true,
+    "promisify": true,
+    "propertyCase": "both",
+    "versionedOutput": true,
+    "versionedImports": true,
+    "withDocs": true,
+    "out": "./@types"
+  },
+  "libraries": {
+    "Gtk": ["4.0", "3.0"],
+    "Soup": ["2.4"],
+    "St": ["1.0"],
+    "Shell": ["0.1"],
+    "Gio": ["2.0"],
+    "GObject": ["2.0"],
+    "Gdk": ["4.0", "3.0"],
+    "GdkPixbuf": ["2.0"],
+    "GLib": ["2.0"],
+    "Meta": ["10"],
+    "Cogl": ["10"]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "lib": ["ES2017"],
+    "target": "ES2017",
+    "strict": true,
+    "noImplicitAny": false,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "allowJs": true,
+    "strictPropertyInitialization": false,
+    "baseUrl": "./src/",
+    "moduleResolution": "Node",
+    "paths": {
+      "@imports/*": ["../@types/*"],
+      "@pano/*": ["./*"]
+    }
+  }
+}

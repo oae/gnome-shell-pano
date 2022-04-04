@@ -1,0 +1,9 @@
+{
+  "name": "Pano",
+  "description": "Clipboard manager",
+  "uuid": "pano@elhan.io",
+  "version": 999,
+  "settings-schema": "org.gnome.shell.extensions.pano",
+  "url": "https://github.com/oae/gnome-shell-pano",
+  "shell-version": ["42"]
+}
