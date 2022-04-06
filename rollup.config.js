@@ -16,6 +16,7 @@ const globals = {
   '@imports/st1': 'imports.gi.St',
   '@imports/shell0': 'imports.gi.Shell',
   '@imports/meta10': 'imports.gi.Meta',
+  '@imports/clutter10': 'imports.gi.Clutter',
   '@imports/soup2': 'imports.gi.Soup',
   '@imports/gobject2': 'imports.gi.GObject',
 };

@@ -34,3 +34,5 @@ export const loadInterfaceXML = (iface: string): any => {
 
   return null;
 };
+
+export const wm = imports.ui.main.wm;

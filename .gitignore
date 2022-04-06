@@ -183,7 +183,7 @@ tags
 
 # End of https://www.gitignore.io/api/vim,linux,sublimetext,visualstudiocode
 gschemas.compiled
-extensions-sync@elhan.io*.zip
+pano@elhan.io*.zip
 _build
 node_modules
 @types

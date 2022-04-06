@@ -19,7 +19,8 @@
     "watch": "yarn run build && yarn run rollup -c --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext .ts src/",
-    "shell:restart": "busctl --user call org.gnome.Shell /io/elhan/Pano io.elhan.Pano restart"
+    "shell:restart": "busctl --user call org.gnome.Shell /io/elhan/Pano io.elhan.Pano restart",
+    "build-and-restart": "yarn run build && yarn run shell:restart"
   },
   "commitlint": {
     "extends": [

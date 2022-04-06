@@ -4,6 +4,7 @@ declare const imports: {
     main: {
       notify: (arg: string) => void;
       panel: any;
+      wm: any;
     };
     panelMenu: any;
     popupMenu: any;
