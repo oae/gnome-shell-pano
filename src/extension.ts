@@ -1,16 +1,14 @@
-import { logger, loadInterfaceXML } from '@pano/utils/shell';
 import { DBus, DBusExportedObject } from '@imports/gio2';
-import './styles/stylesheet.css';
-import { restart } from '@imports/meta10';
-import { BlurEffect, BlurMode, Global } from '@imports/shell0';
+import { restart as restartShell } from '@imports/meta10';
+import { Global } from '@imports/shell0';
 import { PanoWindow } from '@pano/components/panoWindow';
 import { KeyManager } from '@pano/utils/keyManager';
-import { AnimationMode, Color } from '@imports/clutter10';
-const BLUR_BRIGHTNESS = 0.55;
-const BLUR_SIGMA = 60;
+import { loadInterfaceXML, logger } from '@pano/utils/shell';
+import './styles/stylesheet.css';
 
 const debug = logger('extension');
 
+const global = Global.get();
 class PanoExtension {
   private dbus: DBusExportedObject;
   private panoWindow;
@@ -26,39 +24,13 @@ class PanoExtension {
 
   enable(): void {
     this.dbus.export(DBus.session, '/io/elhan/Pano');
-    this.keyManager.listenFor('<super><shift>c', () => {
-      if (this.panoWindow.is_visible()) {
-        this.panoWindow.ease({
-          opacity: 0,
-          duration: 1000,
-          mode: AnimationMode.EASE_OUT_QUAD,
-          onComplete: () => this.panoWindow.hide(),
-        });
-      } else {
-        if (!this.panoWindow.get_effect('blur')) {
-          this.panoWindow.add_effect(
-            new BlurEffect({
-              brightness: BLUR_BRIGHTNESS,
-              sigma: BLUR_SIGMA,
-              mode: BlurMode.ACTOR,
-            }),
-          );
-        }
-        this.panoWindow.show();
-        this.panoWindow.ease({
-          opacity: 200,
-          duration: 1000,
-          background_color: Color.from_pixel(0x000000cc),
-          mode: AnimationMode.EASE_OUT_QUAD,
-        });
-      }
-    });
-    Global.get().stage.add_actor(this.panoWindow);
+    this.keyManager.listenFor('<super><shift>c', () => this.panoWindow.toggle());
+    global.stage.add_actor(this.panoWindow);
     debug('extension is enabled');
   }
 
   private restart(): void {
-    restart('Restarting for Pano');
+    restartShell('Restarting for Pano');
   }
 
   disable(): void {

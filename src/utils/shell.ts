@@ -1,4 +1,5 @@
 import { File, Settings } from '@imports/gio2';
+import { Global } from '@imports/shell0';
 
 export const logger =
   (prefix: string) =>
@@ -6,6 +7,8 @@ export const logger =
     log(`[pano] [${prefix}] ${content}`);
 
 const debug = logger('utils');
+
+const global = Global.get();
 
 export const getCurrentExtension = (): any => imports.misc.extensionUtils.getCurrentExtension();
 
@@ -36,3 +39,20 @@ export const loadInterfaceXML = (iface: string): any => {
 };
 
 export const wm = imports.ui.main.wm;
+
+const getMonitors = (): Monitor[] => imports.ui.main.layoutManager.monitors;
+
+export const getMonitorIndexForPointer = () => {
+  const [x, y] = global.get_pointer();
+  const monitors = getMonitors();
+
+  for (let i = 0; i <= monitors.length; i++) {
+    const monitor = monitors[i];
+
+    if (x >= monitor.x && x < monitor.x + monitor.width && y >= monitor.y && y < monitor.y + monitor.height) {
+      return i;
+    }
+  }
+
+  return imports.ui.main.layoutManager.primaryIndex;
+};
