@@ -1,13 +1,26 @@
-import { Actor, ActorAlign, AnimationMode, Color, EVENT_PROPAGATE, KeyEvent, KEY_Escape } from '@imports/clutter10';
+import {
+  Actor,
+  ActorAlign,
+  AnimationMode,
+  BindConstraint,
+  BindCoordinate,
+  EVENT_PROPAGATE,
+  KeyEvent,
+  KEY_Escape,
+} from '@imports/clutter10';
 import { registerClass } from '@imports/gobject2';
+import { BoxLayout, PolicyType, ScrollView, Widget } from '@imports/st1';
 import { getMonitorIndexForPointer, logger } from '@pano/utils/shell';
+import { PanoItem } from './panoItem';
 
 const debug = logger('pano-window');
 
 export const PanoWindow = registerClass(
   {},
-  class PanoWindow extends Actor {
-    private switcher;
+  class PanoWindow extends BoxLayout {
+    private panoItems: any[];
+    private scrollView: ScrollView;
+    private list;
 
     constructor() {
       super({
@@ -15,15 +28,14 @@ export const PanoWindow = registerClass(
         constraints: new imports.ui.layout.MonitorConstraint({
           index: getMonitorIndexForPointer(),
         }),
+        style_class: 'pano-window',
         x_align: ActorAlign.FILL,
         y_align: ActorAlign.END,
         visible: false,
         reactive: true,
-        background_color: Color.from_pixel(0x000000cc),
         height: 300,
         opacity: 0,
       });
-      // this.switcher = new PanoItem();
     }
 
     override show() {
@@ -33,11 +45,12 @@ export const PanoWindow = registerClass(
           index: getMonitorIndexForPointer(),
         }),
       );
+
+      this.add_actor(this.scrollView);
       super.show();
       this.ease({
         opacity: 255,
         duration: 250,
-        background_color: Color.from_pixel(0x000000cc),
         mode: AnimationMode.EASE_OUT_QUAD,
       });
       this.grab_key_focus();
@@ -49,14 +62,18 @@ export const PanoWindow = registerClass(
         opacity: 0,
         duration: 200,
         mode: AnimationMode.EASE_OUT_QUAD,
-        onComplete: () => super.hide(),
+        onComplete: () => {
+          super.hide();
+
+          this.remove_actor(this.scrollView);
+        },
       });
       debug('hiding pano');
     }
 
-    override vfunc_key_focus_out(): void {
-      this.hide();
-    }
+    // override vfunc_key_focus_out(): void {
+    //   this.hide();
+    // }
 
     override vfunc_key_press_event(event: KeyEvent): boolean {
       if (event.keyval === KEY_Escape) {
