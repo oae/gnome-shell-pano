@@ -58,5 +58,8 @@
     "rollup-plugin-styles": "^4.0.0",
     "typescript": "^4.6.3",
     "xml2js": "^0.4.23"
+  },
+  "dependencies": {
+    "date-fns": "^2.28.0"
   }
 }
