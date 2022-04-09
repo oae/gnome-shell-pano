@@ -1,12 +1,15 @@
 /* Add your custom extension styling here */
 
 .pano-item {
-  border-radius: 24px;
-  margin: 24px;
+  border-radius: 10px;
+  margin: 10px;
   background-color: #f9fbff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  height: 300px;
+  width: 300px;
 }
 
 .pano-window {
-  background-color: rgba(216, 208, 213, 0.9);
+  background-color: rgba(0, 0, 0, 0.8);
+  height: 320px;
 }

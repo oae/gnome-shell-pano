@@ -7,13 +7,14 @@
     "strictNullChecks": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
-    "allowJs": true,
     "strictPropertyInitialization": false,
     "baseUrl": "./src/",
     "moduleResolution": "Node",
+    "experimentalDecorators": true,
     "paths": {
       "@imports/*": ["../@types/*"],
       "@pano/*": ["./*"]
     }
-  }
+  },
+  "exclude": ["./dist"]
 }

@@ -1,11 +1,13 @@
 {
   "options": {
     "inferGenerics": true,
-    "promisify": true,
-    "propertyCase": "both",
+    "promisify": false,
+    "propertyCase": "underscore",
     "versionedOutput": true,
     "versionedImports": true,
+    "noAdvancedVariants": true,
     "withDocs": true,
+    "importPrefix": "./",
     "out": "./@types"
   },
   "libraries": {

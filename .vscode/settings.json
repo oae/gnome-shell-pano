@@ -1,10 +1,10 @@
 {
   "files.watcherExclude": {
+    "**/.dart_tool": true,
     "**/.git/objects/**": true,
     "**/.git/subtree-cache/**": true,
     "**/node_modules/*/**": true,
     "**/.hg/store/**": true,
-    "**/.dart_tool": true,
     ".flatpak/**": true,
     "_build/**": true
   },
@@ -12,15 +12,15 @@
     "commands": [
       {
         "match": "\\.ts$",
-        "cmd": "yarn run build:ts && yarn run shell:restart"
+        "cmd": "#yarn run build:ts && yarn run shell:restart"
       },
       {
         "match": "\\.css$",
-        "cmd": "yarn run build:ts && yarn run shell:restart"
+        "cmd": "#yarn run build:ts && yarn run shell:restart"
       },
       {
         "match": "\\.xml",
-        "cmd": "yarn run build:ts && yarn run shell:restart"
+        "cmd": "#yarn run build:ts && yarn run shell:restart"
       }
     ]
   }

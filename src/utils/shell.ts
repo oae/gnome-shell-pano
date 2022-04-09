@@ -1,3 +1,4 @@
+import { Actor } from '@imports/clutter10';
 import { File, Settings } from '@imports/gio2';
 import { Global } from '@imports/shell0';
 
@@ -56,3 +57,5 @@ export const getMonitorIndexForPointer = () => {
 
   return imports.ui.main.layoutManager.primaryIndex;
 };
+
+export const addChrome = (actor: Actor, options?: any) => imports.ui.main.layoutManager.addChrome(actor, options);
