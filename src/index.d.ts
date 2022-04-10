@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { Actor, AnimationMode } from '@imports/clutter10';
 
 export {};
@@ -102,5 +103,20 @@ declare module '@imports/clutter10' {
 declare module '@imports/st1' {
   interface Adjustment {
     ease(target: any, params: EasingParamsWithProperties): void;
+  }
+}
+
+declare module '@imports/gobject2' {
+  export interface MetaInfo {
+    GTypeName: string;
+    GTypeFlags?: TypeFlags;
+    Implements?: Function[];
+    Properties?: { [K: string]: ParamSpec };
+    Signals?: { [K: string]: SignalDefinition };
+    Requires?: Function[];
+    CssName?: string;
+    Template?: string;
+    Children?: string[];
+    InternalChildren?: string[];
   }
 }

@@ -5,6 +5,7 @@ import { PanoWindow } from '@pano/components/panoWindow';
 import { KeyManager } from '@pano/utils/keyManager';
 import { addChrome, loadInterfaceXML, logger, removeChrome } from '@pano/utils/shell';
 import './styles/stylesheet.css';
+import { clipboardManager } from './utils/clipboard';
 
 const debug = logger('extension');
 
@@ -29,6 +30,8 @@ class PanoExtension {
     addChrome(this.panoWindow);
     // TODO: read from settings
     this.keyManager.listenFor('<super><shift>c', () => this.panoWindow.toggle());
+    clipboardManager.startTracking();
+
     debug('extension is enabled');
   }
 
@@ -38,6 +41,7 @@ class PanoExtension {
 
   disable(): void {
     this.keyManager.stopListening();
+    clipboardManager.stopTracking();
     this.dbus.unexport();
     global.stage.remove_actor(this.panoWindow);
     removeChrome(this.panoWindow);
