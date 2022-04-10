@@ -64,3 +64,4 @@ export const getMonitorConstraint = () =>
   });
 
 export const addChrome = (actor: Actor, options?: any) => imports.ui.main.layoutManager.addChrome(actor, options);
+export const removeChrome = (actor: Actor) => imports.ui.main.layoutManager.removeChrome(actor);

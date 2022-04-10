@@ -15,6 +15,7 @@ declare global {
           monitors: Monitor[];
           primaryIndex: number;
           addChrome(param: any, options?: any): any;
+          removeChrome(param: any): any;
           addTopChrome(param: any, options?: any): any;
         };
       };
