@@ -1,9 +1,7 @@
 import { ActorAlign, AnimationMode, EVENT_PROPAGATE, KeyEvent, KEY_Escape } from '@imports/clutter10';
 import { BoxLayout, Entry, Icon } from '@imports/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { PanoItemTypes } from '@pano/utils/panoItemType';
-import { getMonitorIndexForPointer, logger } from '@pano/utils/shell';
-import { PanoItem } from './panoItem';
+import { getMonitorConstraint, logger } from '@pano/utils/shell';
 import { PanoScrollView } from './panoScrollView';
 
 const debug = logger('pano-window');
@@ -16,9 +14,7 @@ export class PanoWindow extends BoxLayout {
   constructor() {
     super({
       name: 'pano-window',
-      constraints: new imports.ui.layout.MonitorConstraint({
-        index: getMonitorIndexForPointer(),
-      }),
+      constraints: getMonitorConstraint(),
       style_class: 'pano-window',
       x_align: ActorAlign.FILL,
       y_align: ActorAlign.END,
@@ -49,16 +45,8 @@ export class PanoWindow extends BoxLayout {
   }
 
   override show() {
-    this.scrollView.addItem(new PanoItem(PanoItemTypes.FILE, new Date()));
-    this.scrollView.addItem(new PanoItem(PanoItemTypes.IMAGE, new Date()));
-    this.scrollView.addItem(new PanoItem(PanoItemTypes.TEXT, new Date()));
-    this.scrollView.addItem(new PanoItem(PanoItemTypes.LINK, new Date()));
     this.clear_constraints();
-    this.add_constraint(
-      new imports.ui.layout.MonitorConstraint({
-        index: getMonitorIndexForPointer(),
-      }),
-    );
+    this.add_constraint(getMonitorConstraint());
     super.show();
     this.search.grab_key_focus();
     this.ease({

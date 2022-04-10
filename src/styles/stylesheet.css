@@ -2,46 +2,54 @@
 
 .pano-item {
   border-radius: 10px;
-  margin-top: 20px;
+  margin-top: 10px;
   margin-bottom: 20px;
   margin-left: 10px;
   margin-right: 10px;
-  background-color: #f9fbff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   height: 280px;
   width: 280px;
 }
 
-.pano-item-top {
+.pano-item:first-child {
+  margin-left: 20px;
+}
+
+.pano-item-header {
   border-radius: 10px 10px 0px 0px;
 }
 
-.pano-item-top-image {
-  background-color: #25b4f3;
+.pano-item-header-link {
+  background-color: #4361ee;
 }
 
-.pano-item-top-text {
-  background-color: #e0b20a;
+.pano-item-header-text {
+  background-color: #238277;
 }
 
-.pano-item-top-file {
-  background-color: #3a87e5;
+.pano-item-header-file {
+  background-color: #3a0ca3;
 }
 
-.pano-item-top-link {
-  background-color: #fa684a;
+.pano-item-header-image {
+  background-color: #dc2f02;
 }
 
-.pano-item-bottom {
+.pano-item-header-code {
+  background-color: #1a1b26;
+}
+
+.pano-item-body {
   border-radius: 0px 0px 10px 10px;
+  background-color: white;
+  padding: 12px;
 }
 
-.pano-item-top-title {
+.pano-item-title {
   font-size: 24px;
   color: white;
 }
 
-.pano-item-top-date {
+.pano-item-date {
   font-size: 12px;
   color: #f7f7f7;
 }

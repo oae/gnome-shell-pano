@@ -58,4 +58,9 @@ export const getMonitorIndexForPointer = () => {
   return imports.ui.main.layoutManager.primaryIndex;
 };
 
+export const getMonitorConstraint = () =>
+  new imports.ui.layout.MonitorConstraint({
+    index: getMonitorIndexForPointer(),
+  });
+
 export const addChrome = (actor: Actor, options?: any) => imports.ui.main.layoutManager.addChrome(actor, options);
