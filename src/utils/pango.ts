@@ -11,9 +11,11 @@ const CLASS_NAMES = [
   { classNames: 'doctype', fgcolor: '#636f88' },
   { classNames: 'cdata', fgcolor: '#636f88' },
   { classNames: 'punctuation', fgcolor: '#81A1C1' },
+  { classNames: 'interpolation-punctuation', fgcolor: '#81A1C1' },
+  { classNames: 'template-punctuation', fgcolor: '#81A1C1' },
   { classNames: 'property', fgcolor: '#81A1C1' },
   { classNames: 'parameter', fgcolor: '#81A1C1' },
-  { classNames: 'literal-property property', fgcolor: '#81A1C1' },
+  { classNames: 'literal-property', fgcolor: '#81A1C1' },
   { classNames: 'tag', fgcolor: '#81A1C1' },
   { classNames: 'constant', fgcolor: '#81A1C1' },
   { classNames: 'symbol', fgcolor: '#81A1C1' },
@@ -23,19 +25,25 @@ const CLASS_NAMES = [
   { classNames: 'selector', fgcolor: '#A3BE8C' },
   { classNames: 'attr-name', fgcolor: '#A3BE8C' },
   { classNames: 'string', fgcolor: '#A3BE8C' },
+  { classNames: 'template-string', fgcolor: '#A3BE8C' },
   { classNames: 'char', fgcolor: '#A3BE8C' },
   { classNames: 'builtin', fgcolor: '#A3BE8C' },
+  { classNames: 'interpolation', fgcolor: '#A3BE8C' },
   { classNames: 'inserted', fgcolor: '#A3BE8C' },
   { classNames: 'operator', fgcolor: '#81A1C1' },
   { classNames: 'entity', fgcolor: '#81A1C1' },
   { classNames: 'url', fgcolor: '#81A1C1' },
   { classNames: 'variable', fgcolor: '#81A1C1' },
+  { classNames: 'function-variable', fgcolor: '#81A1C1' },
   { classNames: 'atrule', fgcolor: '#88C0D0' },
   { classNames: 'attr-value', fgcolor: '#88C0D0' },
   { classNames: 'function', fgcolor: '#88C0D0' },
   { classNames: 'class-name', fgcolor: '#88C0D0' },
   { classNames: 'keyword', fgcolor: '#81A1C1' },
   { classNames: 'regex', fgcolor: '#EBCB8B' },
+  { classNames: 'regex-delimiter', fgcolor: '#EBCB8B' },
+  { classNames: 'regex-source', fgcolor: '#EBCB8B' },
+  { classNames: 'regex-flags', fgcolor: '#EBCB8B' },
   { classNames: 'important', fgcolor: '#EBCB8B' },
 ];
 
@@ -71,33 +79,12 @@ const stringify = (o, language) => {
     language: language,
   };
 
-  const aliases = o.alias;
-  if (aliases) {
-    if (Array.isArray(aliases)) {
-      Array.prototype.push.apply(env.classes, aliases);
-    } else {
-      env.classes.push(aliases);
-    }
-  }
-
   let attributes = '';
   for (const name in env.attributes) {
-    attributes += ' ' + name + '="' + (env.attributes[name] || '').replace(/"/g, '&quot;') + '"';
+    attributes += ` ${name}="${(env.attributes[name] || '').replace(/"/g, '&quot;')}"`;
   }
 
-  return (
-    '<' +
-    env.tag +
-    ' fgcolor="' +
-    getColor(env.classes.join(' ')) +
-    '"' +
-    attributes +
-    '>' +
-    env.content +
-    '</' +
-    env.tag +
-    '>'
-  );
+  return `<${env.tag} fgcolor="${getColor(env.classes.join(' '))}" ${attributes}>${env.content}</${env.tag}>`;
 };
 
 export const markupCode = (text: string): string => {
