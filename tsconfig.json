@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "lib": ["ES2017"],
-    "target": "ES2017",
+    "lib": ["ES2021"],
+    "target": "ES2021",
     "strict": true,
     "noImplicitAny": false,
     "strictNullChecks": true,

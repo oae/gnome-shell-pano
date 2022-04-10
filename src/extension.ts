@@ -5,7 +5,7 @@ import { PanoWindow } from '@pano/components/panoWindow';
 import { KeyManager } from '@pano/utils/keyManager';
 import { addChrome, loadInterfaceXML, logger, removeChrome } from '@pano/utils/shell';
 import './styles/stylesheet.css';
-import { clipboardManager } from './utils/clipboard';
+import { clipboardManager } from './utils/clipboardManager';
 
 const debug = logger('extension');
 

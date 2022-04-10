@@ -19,6 +19,7 @@ const globals = {
   '@imports/clutter10': 'imports.gi.Clutter',
   '@imports/soup2': 'imports.gi.Soup',
   '@imports/gobject2': 'imports.gi.GObject',
+  '@imports/pango1': 'imports.gi.Pango',
 };
 
 const external = Object.keys(globals);

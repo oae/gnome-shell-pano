@@ -16,6 +16,7 @@
 
 .pano-item-header {
   border-radius: 10px 10px 0px 0px;
+  height: 80px;
 }
 
 .pano-item-header-link {
@@ -42,6 +43,10 @@
   border-radius: 0px 0px 10px 10px;
   background-color: white;
   padding: 12px;
+}
+
+.pano-item-body-code {
+  background-color: #2E3440;
 }
 
 .pano-item-title {

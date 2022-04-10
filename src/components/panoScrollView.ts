@@ -1,6 +1,7 @@
-import { Actor, AnimationMode, EVENT_STOP, ScrollDirection, ScrollEvent } from '@imports/clutter10';
+import { AnimationMode, EVENT_STOP, ScrollDirection, ScrollEvent } from '@imports/clutter10';
 import { BoxLayout, PolicyType, ScrollView } from '@imports/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
+import { PanoItem } from './panoItem';
 
 @registerGObjectClass
 export class PanoScrollView extends ScrollView {
@@ -18,8 +19,8 @@ export class PanoScrollView extends ScrollView {
     this.add_actor(this.list);
   }
 
-  addItem(item: Actor) {
-    this.list.add_child(item);
+  addItem(item: PanoItem) {
+    this.list.insert_child_at_index(item, 0);
   }
 
   override vfunc_scroll_event(event: ScrollEvent): boolean {

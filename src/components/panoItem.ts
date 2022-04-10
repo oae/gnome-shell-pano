@@ -32,7 +32,6 @@ export class PanoItem extends BoxLayout {
       style_class: `pano-item-header pano-item-header-${this.itemType.classSuffix}`,
       vertical: false,
       x_expand: true,
-      height: 80,
     });
     const titleContainer = new BoxLayout({
       style: 'margin: 12px',
