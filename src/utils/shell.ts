@@ -33,7 +33,7 @@ export const loadInterfaceXML = (iface: string): any => {
     const [, bytes] = file.load_contents(null);
     return imports.byteArray.toString(bytes);
   } catch (e) {
-    log(`Failed to load D-Bus interface ${iface}`);
+    debug(`Failed to load D-Bus interface ${iface}`);
   }
 
   return null;
