@@ -14,6 +14,7 @@ const CLASS_NAMES = [
   { classNames: 'interpolation-punctuation', fgcolor: '#81A1C1' },
   { classNames: 'template-punctuation', fgcolor: '#81A1C1' },
   { classNames: 'property', fgcolor: '#81A1C1' },
+  { classNames: 'string-property', fgcolor: '#81A1C1' },
   { classNames: 'parameter', fgcolor: '#81A1C1' },
   { classNames: 'literal-property', fgcolor: '#81A1C1' },
   { classNames: 'tag', fgcolor: '#81A1C1' },

@@ -10,7 +10,7 @@ export class TextPanoItem extends PanoItem {
     super(PanoItemTypes.TEXT, date);
     const label = new Label({
       text: content,
-      style: 'color: #000; font-size: 12px',
+      style: 'color: #000; font-size: 13px',
     });
     this.body.style_class = 'pano-item-body pano-item-body-text';
     label.clutter_text.line_wrap = true;

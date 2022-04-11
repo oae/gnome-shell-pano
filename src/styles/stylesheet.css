@@ -46,7 +46,21 @@
 }
 
 .pano-item-body-code {
-  background-color: #2E3440;
+  background-color: #2e3440;
+}
+
+.pano-item-body-link {
+  padding: 0px;
+  background-color: #afbcf7;
+}
+
+.pano-item-body-text {
+  background-color: #f2dcb1;
+}
+
+.pano-item-body-image {
+  padding: 0px;
+  background-color: #f5a794;
 }
 
 .pano-item-title {

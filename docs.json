@@ -1,7 +1,7 @@
 {
   "options": {
     "inferGenerics": true,
-    "promisify": false,
+    "promisify": true,
     "propertyCase": "underscore",
     "versionedOutput": true,
     "versionedImports": true,
@@ -12,7 +12,7 @@
   },
   "libraries": {
     "Gtk": ["4.0", "3.0"],
-    "Soup": ["2.4"],
+    "Soup": ["3.0"],
     "St": ["1.0"],
     "Shell": ["0.1"],
     "Gio": ["2.0"],
