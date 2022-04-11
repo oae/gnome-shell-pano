@@ -92,7 +92,7 @@ export class PanoWindow extends BoxLayout {
         break;
       case ContentType.TEXT:
         const linkRegex =
-          /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&\/\/=]*)$/g;
+          /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%\$_\+.~#?&\/\/=]*)$/g;
 
         if (linkRegex.test(content.value)) {
           this.scrollView.addItem(new LinkPanoItem(content.value, new Date()));
