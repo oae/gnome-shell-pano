@@ -1,175 +1,110 @@
-import { ActorAlign, ContentGravity, Stage } from '@imports/clutter10';
+import { Actor, ActorAlign, ContentGravity, Stage } from '@imports/clutter10';
 import { File } from '@imports/gio2';
-import { PRIORITY_DEFAULT } from '@imports/glib2';
 import { Global } from '@imports/shell0';
-import { Message, Session } from '@imports/soup3';
-import { BoxLayout, Icon, Label, TextureCache, ThemeContext } from '@imports/st1';
+import { BoxLayout, Label, TextureCache, ThemeContext } from '@imports/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
+import { getDescription, getDocument, getImage, getMetaList, getTitle } from '@pano/utils/linkParser';
 import { PanoItemTypes } from '@pano/utils/panoItemType';
-import { XMLParser } from 'fast-xml-parser';
+import { getCurrentExtension } from '@pano/utils/shell';
 import { PanoItem } from './panoItem';
 
 const global = Global.get();
 
+const DEFAULT_LINK_PREVIEW_IMAGE_NAME = 'link-preview.png';
+
 @registerGObjectClass
 export class LinkPanoItem extends PanoItem {
+  private link: string;
+  private metaContainer: BoxLayout;
+  private imageContent: Actor;
+  private titleLabel: Label;
+  private descriptionLabel: Label;
+  private linkLabel: Label;
+
   constructor(content: string, date: Date) {
     super(PanoItemTypes.LINK, date);
     this.body.style_class = 'pano-item-body pano-item-body-link';
-    this.readOgData(content);
+    this.link = content;
+    this.metaContainer = new BoxLayout({
+      style: 'padding: 0px, 12px, 12px, 12px',
+      vertical: true,
+      x_expand: true,
+      y_align: ActorAlign.END,
+      x_align: ActorAlign.START,
+    });
+
+    const isHttpLink = this.link.startsWith('http');
+
+    this.titleLabel = new Label({
+      text: isHttpLink ? 'Loading...' : this.link,
+      style: 'font-size: 13px; color: #000; font-weight: bold;',
+    });
+
+    this.descriptionLabel = new Label({
+      text: isHttpLink ? 'Loading...' : this.link,
+      style: 'font-size: 12px; color: #000',
+    });
+    this.descriptionLabel.clutter_text.single_line_mode = true;
+
+    this.linkLabel = new Label({
+      text: this.link,
+      style: 'margin-top: 5px; font-size: 10px; color: #2c2f44',
+    });
+
+    const scaleFactor = ThemeContext.get_for_stage(global.stage as Stage).scale_factor;
+    const uri = `file:///${getCurrentExtension().path}/images/${DEFAULT_LINK_PREVIEW_IMAGE_NAME}`;
+    this.imageContent = TextureCache.get_default().load_file_async(
+      File.new_for_uri(uri),
+      -1,
+      168,
+      scaleFactor,
+      this.body.get_resource_scale(),
+    );
+    this.imageContent.content_gravity = ContentGravity.RESIZE_ASPECT;
+
+    this.body.add_child(this.imageContent);
+    this.metaContainer.add_child(this.titleLabel);
+
+    if (isHttpLink) {
+      this.metaContainer.add_child(this.descriptionLabel);
+      this.metaContainer.add_child(this.linkLabel);
+      this.readLinkMetaData();
+    }
+
+    this.body.add_child(this.metaContainer);
   }
 
-  async readOgData(url: string): Promise<void> {
-    const session = new Session();
-    let message = Message.new('GET', url);
-    let response = await session.send_and_read_async(message, PRIORITY_DEFAULT, null);
-    const decoder = new TextDecoder();
-    if (response == null) {
+  async readLinkMetaData(): Promise<void> {
+    const doc = await getDocument(this.link);
+
+    if (!doc) {
+      this.titleLabel.text = this.link;
+      this.descriptionLabel.hide();
+      this.linkLabel.hide();
       return;
     }
 
-    let bytes = response.get_data();
+    const metaList = getMetaList(doc);
 
-    if (bytes == null) {
-      return;
-    }
+    const title = getTitle(doc, metaList) || this.link;
+    const description = getDescription(metaList) || title;
+    const image = await getImage(metaList);
 
-    const body = decoder.decode(bytes);
-    const parser = new XMLParser({
-      ignoreAttributes: false,
-      unpairedTags: ['hr', 'br', 'link', 'meta'],
-      stopNodes: ['*.pre', '*.script', '*.html.body'],
-      processEntities: true,
-      htmlEntities: true,
-    });
-    try {
-      const parsed = parser.parse(body);
+    this.titleLabel.text = title;
+    this.descriptionLabel.text = description;
 
-      const metaList = [
-        ...(parsed.html?.head?.body?.['ytd-app']?.meta || []),
-        ...(parsed.html?.head?.meta || []),
-        ...(parsed['!doctype']?.html?.head?.meta || []),
-      ];
-
-      const backupTitle =
-        parsed.html?.head?.body?.['ytd-app']?.title ||
-        parsed.html?.head?.title ||
-        parsed['!doctype']?.html?.head?.title;
-
-      let description = metaList.find((i: any) => i['@_property'] === 'og:description');
-      if (description) {
-        description = description['@_content'];
-      }
-      let title = metaList.find((i: any) => i['@_property'] === 'og:title');
-      if (title) {
-        title = title['@_content'];
-      }
-      let host = metaList.find((i: any) => i['@_property'] === 'og:url');
-      if (host) {
-        host = host['@_content'];
-      }
-      let image = metaList.find((i: any) => i['@_property'] === 'og:image');
-      if (image) {
-        image = image['@_content'];
-      }
-
-      if (!title) {
-        title = backupTitle || url;
-      }
-      if (!description) {
-        description = title;
-      }
-      if (!host) {
-        host = url;
-      }
-      if (!image || !image.startsWith('http')) {
-        image = 'https://i.imgur.com/gCDsBYk.png';
-      }
-
-      message = Message.new('GET', image);
-
-      try {
-        response = await session.send_and_read_async(message, PRIORITY_DEFAULT, null);
-
-        if (response == null) {
-          this.body.add_child(
-            new Icon({
-              icon_name: 'earth-symbolic',
-              style: 'color: #000',
-              x_expand: true,
-              y_expand: true,
-            }),
-          );
-        } else {
-          bytes = response.get_data();
-          if (!bytes) {
-            this.body.add_child(
-              new Icon({
-                icon_name: 'earth-symbolic',
-                style: 'color: #000',
-                x_expand: true,
-                y_expand: true,
-              }),
-            );
-          } else {
-            const scaleFactor = ThemeContext.get_for_stage(global.stage as Stage).scale_factor;
-            const [file, ioStream] = File.new_tmp('XXXXXX.png');
-            ioStream.output_stream.write_bytes(bytes, null);
-            ioStream.close(null);
-            const actor = TextureCache.get_default().load_file_async(
-              file,
-              -1,
-              168,
-              scaleFactor,
-              this.body.get_resource_scale(),
-            );
-            if (actor) {
-              actor.content_gravity = ContentGravity.RESIZE_ASPECT;
-              this.body.add_child(actor);
-            }
-          }
-        }
-      } catch (err) {
-        log(err);
-        this.body.add_child(
-          new Icon({
-            icon_name: 'earth-symbolic',
-            style: 'color: #000',
-            x_expand: true,
-            y_expand: true,
-          }),
-        );
-      }
-      const urlMetaContainer = new BoxLayout({
-        style: 'padding: 0px, 12px, 12px, 12px',
-        vertical: true,
-        x_expand: true,
-        y_align: ActorAlign.END,
-        x_align: ActorAlign.START,
-      });
-
-      this.body.add_child(urlMetaContainer);
-
-      urlMetaContainer.add_child(
-        new Label({
-          text: title,
-          style: 'font-size: 13px; color: #000; font-weight: bold;',
-        }),
+    if (image) {
+      const scaleFactor = ThemeContext.get_for_stage(global.stage as Stage).scale_factor;
+      this.body.remove_actor(this.imageContent);
+      this.imageContent = TextureCache.get_default().load_file_async(
+        image,
+        -1,
+        168,
+        scaleFactor,
+        this.body.get_resource_scale(),
       );
-      const descriptionLabel = new Label({
-        text: description,
-        style: 'font-size: 12px; color: #000',
-      });
-      descriptionLabel.clutter_text.single_line_mode = true;
-      urlMetaContainer.add_child(descriptionLabel);
-      urlMetaContainer.add_child(
-        new Label({
-          text: host,
-          style: 'margin-top: 5px; font-size: 10px; color: #2c2f44',
-        }),
-      );
-    } catch (err) {
-      log(err);
+      this.imageContent.content_gravity = ContentGravity.RESIZE_ASPECT;
+      this.body.insert_child_at_index(this.imageContent, 0);
     }
   }
 }

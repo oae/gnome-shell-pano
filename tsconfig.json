@@ -8,6 +8,7 @@
     "noImplicitThis": true,
     "alwaysStrict": true,
     "strictPropertyInitialization": false,
+    "allowSyntheticDefaultImports": true,
     "baseUrl": "./src/",
     "moduleResolution": "Node",
     "experimentalDecorators": true,
