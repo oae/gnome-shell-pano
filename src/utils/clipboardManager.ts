@@ -12,7 +12,9 @@ const debug = logger('clipboard-manager');
 
 const MimeType = {
   IMAGE: 'image/png',
-  FILE: 'x-special/gnome-copied-files',
+  GNOME_FILE: 'x-special/gnome-copied-files',
+  KDE_FILE: 'application/x-kde4-urilist',
+  KDE_CUT_FILE: 'application/x-kde-cutselection',
 };
 
 export enum ContentType {
@@ -21,10 +23,15 @@ export enum ContentType {
   TEXT,
 }
 
+export const FileOperation = {
+  CUT: 'cut',
+  COPY: 'copy',
+};
+
 type ClipboardContentType =
   | {
       type: ContentType.FILE;
-      value: string[];
+      value: { operation: string; fileList: string[] };
     }
   | {
       type: ContentType.TEXT;
@@ -73,7 +80,6 @@ export class ClipboardManager extends Object {
     this.imageContent = new Icon();
     global.stage.add_actor(this.imageContent);
   }
-
   startTracking() {
     this.selectionChangedId = this.selection.connect('owner-changed', async (_, selectionType: SelectionType) => {
       if (selectionType === SelectionType.SELECTION_CLIPBOARD) {
@@ -96,55 +102,75 @@ export class ClipboardManager extends Object {
 
   private async getContent(): Promise<ClipboardContent | null> {
     return new Promise((resolve) => {
-      this.clipboard.get_text(ClipboardType.CLIPBOARD, (cb: Clipboard, text: string) => {
-        if (text) {
-          if (cb.get_mimetypes(ClipboardType.CLIPBOARD).indexOf(MimeType.FILE) >= 0) {
+      const cbMimeTypes = this.clipboard.get_mimetypes(ClipboardType.CLIPBOARD);
+      if (cbMimeTypes.indexOf(MimeType.GNOME_FILE) >= 0) {
+        this.clipboard.get_content(ClipboardType.CLIPBOARD, MimeType.GNOME_FILE, (_, bytes: Bytes | Uint8Array) => {
+          const data = bytes instanceof Bytes ? bytes.get_data() : bytes;
+          if (data && data.length > 0) {
+            const content = new TextDecoder().decode(data);
+            const fileContent = content.split('\n').filter((c) => !!c);
+            const hasOperation = fileContent[0] === FileOperation.CUT || fileContent[0] === FileOperation.COPY;
             resolve(
               new ClipboardContent({
                 type: ContentType.FILE,
-                value: text.split('\n'),
+                value: {
+                  operation: hasOperation ? fileContent[0] : FileOperation.COPY,
+                  fileList: hasOperation ? fileContent.slice(1) : fileContent,
+                },
               }),
             );
-          } else {
+            return;
+          }
+          resolve(null);
+        });
+      } else if (cbMimeTypes.indexOf(MimeType.KDE_FILE) >= 0) {
+        this.clipboard.get_content(ClipboardType.CLIPBOARD, MimeType.KDE_FILE, (_, bytes: Bytes | Uint8Array) => {
+          const data = bytes instanceof Bytes ? bytes.get_data() : bytes;
+          if (data && data.length > 0) {
+            const content = new TextDecoder().decode(data);
+            const fileContent = content.split('\n').filter((c) => !!c);
+            resolve(
+              new ClipboardContent({
+                type: ContentType.FILE,
+                value: {
+                  operation: cbMimeTypes.indexOf(MimeType.KDE_CUT_FILE) >= 0 ? FileOperation.CUT : FileOperation.COPY,
+                  fileList: fileContent,
+                },
+              }),
+            );
+            return;
+          }
+
+          resolve(null);
+        });
+      } else if (cbMimeTypes.indexOf(MimeType.IMAGE) >= 0) {
+        this.clipboard.get_content(ClipboardType.CLIPBOARD, MimeType.IMAGE, (_, bytes: Bytes | Uint8Array) => {
+          const data = bytes instanceof Bytes ? bytes.get_data() : bytes;
+          if (data && data.length > 0) {
+            resolve(
+              new ClipboardContent({
+                type: ContentType.IMAGE,
+                value: data,
+              }),
+            );
+            return;
+          }
+          resolve(null);
+        });
+      } else {
+        this.clipboard.get_text(ClipboardType.CLIPBOARD, (_: Clipboard, text: string) => {
+          if (text) {
             resolve(
               new ClipboardContent({
                 type: ContentType.TEXT,
                 value: text,
               }),
             );
+            return;
           }
           resolve(null);
-        } else {
-          this.clipboard.get_content(ClipboardType.CLIPBOARD, MimeType.IMAGE, (_, bytes: Bytes | Uint8Array) => {
-            if (bytes) {
-              if (bytes instanceof Bytes && bytes.get_size() > 0) {
-                const data = bytes.get_data();
-                if (data) {
-                  resolve(
-                    new ClipboardContent({
-                      type: ContentType.IMAGE,
-                      value: data,
-                    }),
-                  );
-                } else {
-                  resolve(null);
-                }
-              } else if (bytes instanceof Uint8Array && bytes.length > 0) {
-                resolve(
-                  new ClipboardContent({
-                    type: ContentType.IMAGE,
-                    value: bytes,
-                  }),
-                );
-              } else {
-                resolve(null);
-              }
-            } else {
-              resolve(null);
-            }
-          });
-        }
-      });
+        });
+      }
     });
   }
 }

@@ -38,7 +38,8 @@ export const createPanoItem = (clip: ClipboardContent): PanoItem | null => {
 
   switch (type) {
     case ContentType.FILE:
-      break;
+      debug(`op: ${value.operation}, list: ${value.fileList}`);
+      return null;
     case ContentType.IMAGE:
       return new ImagePanoItem(value, new Date());
     case ContentType.TEXT:
@@ -54,8 +55,6 @@ export const createPanoItem = (clip: ClipboardContent): PanoItem | null => {
       }
 
     default:
-      break;
+      return null;
   }
-
-  return null;
 };
