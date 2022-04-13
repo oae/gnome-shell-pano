@@ -63,6 +63,10 @@
   background-color: #f5a794;
 }
 
+.pano-item-body-file {
+  background-color: #fafafa;
+}
+
 .pano-item-title {
   font-size: 24px;
   color: white;
@@ -84,4 +88,22 @@
   margin-top: 2px;
   padding: 0 4px;
   color: inherit;
+}
+
+.pano-item-body-file .file-icon {
+  icon-size: 1em;
+  padding: 0 4px;
+  color: #000;
+}
+
+.pano-item-body-file .copied-file-name {
+  margin-bottom: 2px;
+}
+
+.copied-file-name.even {
+  background-color: #fafafa;
+}
+
+.copied-file-name.odd {
+  background-color: rgb(216, 216, 216);
 }

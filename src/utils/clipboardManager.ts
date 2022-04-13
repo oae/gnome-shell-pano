@@ -13,8 +13,6 @@ const debug = logger('clipboard-manager');
 const MimeType = {
   IMAGE: 'image/png',
   GNOME_FILE: 'x-special/gnome-copied-files',
-  KDE_FILE: 'application/x-kde4-urilist',
-  KDE_CUT_FILE: 'application/x-kde-cutselection',
 };
 
 export enum ContentType {
@@ -28,10 +26,15 @@ export const FileOperation = {
   COPY: 'copy',
 };
 
+export interface FileOperationValue {
+  operation: string;
+  fileList: string[];
+}
+
 type ClipboardContentType =
   | {
       type: ContentType.FILE;
-      value: { operation: string; fileList: string[] };
+      value: FileOperationValue;
     }
   | {
       type: ContentType.TEXT;
@@ -121,26 +124,6 @@ export class ClipboardManager extends Object {
             );
             return;
           }
-          resolve(null);
-        });
-      } else if (cbMimeTypes.indexOf(MimeType.KDE_FILE) >= 0) {
-        this.clipboard.get_content(ClipboardType.CLIPBOARD, MimeType.KDE_FILE, (_, bytes: Bytes | Uint8Array) => {
-          const data = bytes instanceof Bytes ? bytes.get_data() : bytes;
-          if (data && data.length > 0) {
-            const content = new TextDecoder().decode(data);
-            const fileContent = content.split('\n').filter((c) => !!c);
-            resolve(
-              new ClipboardContent({
-                type: ContentType.FILE,
-                value: {
-                  operation: cbMimeTypes.indexOf(MimeType.KDE_CUT_FILE) >= 0 ? FileOperation.CUT : FileOperation.COPY,
-                  fileList: fileContent,
-                },
-              }),
-            );
-            return;
-          }
-
           resolve(null);
         });
       } else if (cbMimeTypes.indexOf(MimeType.IMAGE) >= 0) {

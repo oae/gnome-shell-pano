@@ -7,11 +7,14 @@ import isUrl from 'is-url';
 import hljs from 'highlight.js';
 import { ClipboardContent, ContentType } from './clipboardManager';
 import { logger } from './shell';
+import { FilePanoItem } from '@pano/components/filePanoItem';
 
 const debug = logger('pano-item-factory');
 
 const SUPPORTED_LANGUAGES = [
   'python',
+  'markdown',
+  'yaml',
   'java',
   'javascript',
   'csharp',
@@ -38,8 +41,7 @@ export const createPanoItem = (clip: ClipboardContent): PanoItem | null => {
 
   switch (type) {
     case ContentType.FILE:
-      debug(`op: ${value.operation}, list: ${value.fileList}`);
-      return null;
+      return new FilePanoItem(value, new Date());
     case ContentType.IMAGE:
       return new ImagePanoItem(value, new Date());
     case ContentType.TEXT:
