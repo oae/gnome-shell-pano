@@ -11,6 +11,7 @@ const global = Global.get();
 const debug = logger('clipboard-manager');
 
 const MimeType = {
+  TEXT: 'text/plain',
   IMAGE: 'image/png',
   GNOME_FILE: 'x-special/gnome-copied-files',
 };
@@ -140,7 +141,7 @@ export class ClipboardManager extends Object {
           }
           resolve(null);
         });
-      } else {
+      } else if (cbMimeTypes.indexOf(MimeType.TEXT) >= 0) {
         this.clipboard.get_text(ClipboardType.CLIPBOARD, (_: Clipboard, text: string) => {
           if (text) {
             resolve(
@@ -153,6 +154,8 @@ export class ClipboardManager extends Object {
           }
           resolve(null);
         });
+      } else {
+        resolve(null);
       }
     });
   }
