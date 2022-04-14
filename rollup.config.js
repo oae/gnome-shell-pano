@@ -4,6 +4,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import styles from 'rollup-plugin-styles';
 import copy from 'rollup-plugin-copy';
 import cleanup from 'rollup-plugin-cleanup';
+import visualizer from 'rollup-plugin-visualizer';
 
 const buildPath = 'dist';
 
@@ -71,6 +72,7 @@ export default [
       cleanup({
         comments: 'none'
       }),
+      visualizer(),
     ],
   },
   {
