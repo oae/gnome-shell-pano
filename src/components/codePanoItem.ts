@@ -9,15 +9,16 @@ import { PanoItem } from './panoItem';
 export class CodePanoItem extends PanoItem {
   constructor(content: string, date: Date) {
     super(PanoItemTypes.CODE, date);
+    this.body.style_class = [this.body.style_class, 'pano-item-body-code'].join(' ');
+
     const label = new Label({
-      style: 'font-size: 13px',
+      style_class: 'pano-item-body-code-content',
+      clip_to_allocation: true,
     });
-    this.body.style_class = 'pano-item-body pano-item-body-code';
     label.clutter_text.use_markup = true;
     label.clutter_text.font_name = 'mono';
     label.clutter_text.set_markup(markupCode(content));
     label.clutter_text.ellipsize = EllipsizeMode.END;
-    label.clutter_text.height = 200;
     this.body.add_child(label);
   }
 }

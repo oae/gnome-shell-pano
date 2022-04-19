@@ -2,16 +2,15 @@
 
 .pano-item {
   border-radius: 10px;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  margin-left: 10px;
-  margin-right: 10px;
-  height: 280px;
-  width: 280px;
+  margin-bottom: 10px;
+  margin-right: 5px;
+  margin-left: 5px;
+  height: 300px;
+  width: 300px;
 }
 
 .pano-item:first-child {
-  margin-left: 20px;
+  margin-left: 10px;
 }
 
 .pano-item-header {
@@ -41,12 +40,16 @@
 
 .pano-item-body {
   border-radius: 0px 0px 10px 10px;
-  background-color: white;
-  padding: 12px;
+  height: 220px;
 }
 
 .pano-item-body-code {
   background-color: #2e3440;
+}
+
+.pano-item-body-code-content {
+  margin: 12px;
+  font-size: 13px;
 }
 
 .pano-item-body-link {
@@ -58,8 +61,13 @@
   background-color: #f2dcb1;
 }
 
+.pano-item-body-text-content {
+  margin: 12px;
+  font-size: 13px;
+  color: #000;
+}
+
 .pano-item-body-image {
-  padding: 0px;
   background-color: #f5a794;
 }
 
@@ -67,9 +75,27 @@
   background-color: #fafafa;
 }
 
+.pano-item-body-file-name-label {
+  font-size: 13px;
+  color: #000;
+  font-family: sans;
+}
+
+.pano-item-body-file-name-label.has-more {
+  font-weight: bold;
+}
+
+.pano-item-title-container {
+  margin: 12px;
+}
+
 .pano-item-title {
   font-size: 24px;
   color: white;
+}
+
+.pano-icon-container {
+  margin-right: 12px;
 }
 
 .pano-item-date {
@@ -78,22 +104,29 @@
 }
 
 .pano-window {
-  padding-top: 20px;
-  background-color: rgba(0, 0, 0, 0.8);
-  height: 380px;
+  background-color: rgba(0, 0, 0, 0.9);
+  height: 367px;
+}
+
+.pano-window .search-entry-container {
+  padding: 10px;
 }
 
 .pano-window .search-entry-icon {
-  icon-size: 1.09em;
-  margin-top: 2px;
+  icon-size: 13px;
   padding: 0 4px;
   color: inherit;
 }
 
 .pano-item-body-file .file-icon {
-  icon-size: 1em;
+  icon-size: 13px;
   padding: 0 4px;
   color: #000;
+}
+
+.copied-files-container {
+  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .pano-item-body-file .copied-file-name {
@@ -106,4 +139,25 @@
 
 .copied-file-name.odd {
   background-color: rgb(216, 216, 216);
+}
+
+.pano-item-body-link-meta-container {
+  padding: 0px, 12px, 12px, 12px;
+}
+
+.pano-item-body-link .link-title-label {
+  font-size: 13px;
+  color: #000;
+  font-weight: bold;
+}
+
+.pano-item-body-link .link-description-label {
+  font-size: 12px;
+  color: #000;
+}
+
+.pano-item-body-link .link-label {
+  margin-top: 5px;
+  font-size: 10px;
+  color: #2c2f44;
 }

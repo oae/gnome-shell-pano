@@ -13,8 +13,7 @@ export class ImagePanoItem extends PanoItem {
   constructor(content: Uint8Array, date: Date) {
     super(PanoItemTypes.IMAGE, date);
 
-    this.body.style_class = 'pano-item-body pano-item-body-image';
-
+    this.body.style_class = [this.body.style_class, 'pano-item-body-image'].join(' ');
     const scaleFactor = ThemeContext.get_for_stage(global.stage as Stage).scale_factor;
     const [file, ioStream] = File.new_tmp('XXXXXX.png');
     ioStream.output_stream.write_bytes(content, null);
@@ -22,12 +21,16 @@ export class ImagePanoItem extends PanoItem {
     const actor = TextureCache.get_default().load_file_async(
       file,
       -1,
-      225,
+      220,
       scaleFactor,
       this.body.get_resource_scale(),
     );
     if (actor) {
       actor.content_gravity = ContentGravity.RESIZE_ASPECT;
+      actor.margin_top = 10;
+      actor.margin_bottom = 10;
+      actor.margin_right = 0;
+      actor.margin_left = 0;
       this.body.add_child(actor);
     }
   }

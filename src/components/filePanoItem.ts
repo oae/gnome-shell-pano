@@ -10,20 +10,26 @@ import { PanoItem } from './panoItem';
 export class FilePanoItem extends PanoItem {
   constructor(content: FileOperationValue, date: Date) {
     super(PanoItemTypes.FILE, date);
-    this.body.style_class = 'pano-item-body pano-item-body-file';
-
+    this.body.style_class = [this.body.style_class, 'pano-item-body-file'].join(' ');
+    const container = new BoxLayout({
+      style_class: 'copied-files-container',
+      vertical: true,
+      x_expand: true,
+      clip_to_allocation: true,
+    });
     content.fileList
       .map((f) => {
         const items = f.split('://').filter((c) => !!c);
         return decodeURIComponent(items[items.length - 1]);
       })
-      .slice(0, 10)
+      .slice(0, 11)
       .forEach((uri, index) => {
         const bl = new BoxLayout({
           vertical: false,
           style_class: `copied-file-name ${index % 2 === 0 ? 'even' : 'odd'}`,
           x_expand: true,
           x_align: ActorAlign.FILL,
+          clip_to_allocation: true,
           y_align: ActorAlign.FILL,
         });
         bl.add_child(
@@ -33,15 +39,19 @@ export class FilePanoItem extends PanoItem {
             style_class: 'file-icon',
           }),
         );
+
+        const hasMore = index === 10 && content.fileList.length > 11;
+
         const uriLabel = new Label({
-          text: uri,
-          style: 'font-size: 13px; color: #000; font-family: sans;',
+          text: hasMore ? `...and ${content.fileList.length - index} more` : uri,
+          style_class: `pano-item-body-file-name-label ${hasMore ? 'has-more' : ''}`,
           x_align: ActorAlign.FILL,
           x_expand: true,
         });
         uriLabel.clutter_text.ellipsize = EllipsizeMode.MIDDLE;
         bl.add_child(uriLabel);
-        this.body.add_child(bl);
+        container.add_child(bl);
       });
+    this.body.add_child(container);
   }
 }

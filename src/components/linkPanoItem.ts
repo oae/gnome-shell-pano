@@ -23,10 +23,10 @@ export class LinkPanoItem extends PanoItem {
 
   constructor(content: string, date: Date) {
     super(PanoItemTypes.LINK, date);
-    this.body.style_class = 'pano-item-body pano-item-body-link';
+    this.body.style_class = [this.body.style_class, 'pano-item-body-link'].join(' ');
     this.link = content;
     this.metaContainer = new BoxLayout({
-      style: 'padding: 0px, 12px, 12px, 12px',
+      style_class: 'pano-item-body-link-meta-container',
       vertical: true,
       x_expand: true,
       y_align: ActorAlign.END,
@@ -37,18 +37,18 @@ export class LinkPanoItem extends PanoItem {
 
     this.titleLabel = new Label({
       text: isHttpLink ? 'Loading...' : this.link,
-      style: 'font-size: 13px; color: #000; font-weight: bold;',
+      style_class: 'link-title-label',
     });
 
     this.descriptionLabel = new Label({
       text: isHttpLink ? 'Loading...' : this.link,
-      style: 'font-size: 12px; color: #000',
+      style_class: 'link-description-label',
     });
     this.descriptionLabel.clutter_text.single_line_mode = true;
 
     this.linkLabel = new Label({
       text: this.link,
-      style: 'margin-top: 5px; font-size: 10px; color: #2c2f44',
+      style_class: 'link-label',
     });
 
     const scaleFactor = ThemeContext.get_for_stage(global.stage as Stage).scale_factor;

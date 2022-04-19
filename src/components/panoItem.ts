@@ -34,11 +34,11 @@ export class PanoItem extends BoxLayout {
       x_expand: true,
     });
     const titleContainer = new BoxLayout({
-      style: 'margin: 12px',
+      style_class: 'pano-item-title-container',
       vertical: true,
     });
     const iconContainer = new BoxLayout({
-      style: 'margin-right: 12px',
+      style_class: 'pano-icon-container',
       x_align: ActorAlign.END,
       y_align: ActorAlign.FILL,
       x_expand: true,
@@ -77,9 +77,9 @@ export class PanoItem extends BoxLayout {
 
     this.body = new BoxLayout({
       style_class: 'pano-item-body',
+      clip_to_allocation: true,
       vertical: true,
       x_expand: true,
-      y_expand: true,
     });
 
     this.add_child(this.header);

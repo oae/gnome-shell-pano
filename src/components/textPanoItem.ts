@@ -8,11 +8,11 @@ import { PanoItem } from './panoItem';
 export class TextPanoItem extends PanoItem {
   constructor(content: string, date: Date) {
     super(PanoItemTypes.TEXT, date);
+    this.body.style_class = [this.body.style_class, 'pano-item-body-text'].join(' ');
     const label = new Label({
       text: content,
-      style: 'color: #000; font-size: 13px',
+      style_class: 'pano-item-body-text-content',
     });
-    this.body.style_class = 'pano-item-body pano-item-body-text';
     label.clutter_text.line_wrap = true;
     label.clutter_text.ellipsize = EllipsizeMode.END;
     this.body.add_child(label);

@@ -29,6 +29,7 @@ export class PanoWindow extends BoxLayout {
     this.scrollView = new PanoScrollView();
     const searchBox = new BoxLayout({
       x_align: ActorAlign.CENTER,
+      style_class: 'search-entry-container',
       vertical: false,
     });
     this.search = new Entry({
