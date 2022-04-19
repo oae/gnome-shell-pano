@@ -1,7 +1,7 @@
 import { AnimationMode, EVENT_STOP, ScrollDirection, ScrollEvent } from '@imports/clutter10';
 import { BoxLayout, PolicyType, ScrollView } from '@imports/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { PanoItem } from './panoItem';
+import { PanoItem } from '@pano/components/panoItem';
 
 @registerGObjectClass
 export class PanoScrollView extends ScrollView {

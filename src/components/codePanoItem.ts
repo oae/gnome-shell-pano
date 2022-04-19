@@ -3,7 +3,7 @@ import { Label } from '@imports/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { markupCode } from '@pano/utils/pango';
 import { PanoItemTypes } from '@pano/utils/panoItemType';
-import { PanoItem } from './panoItem';
+import { PanoItem } from '@pano/components/panoItem';
 
 @registerGObjectClass
 export class CodePanoItem extends PanoItem {

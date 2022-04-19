@@ -4,7 +4,7 @@ import { Global } from '@imports/shell0';
 import { TextureCache, ThemeContext } from '@imports/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { PanoItemTypes } from '@pano/utils/panoItemType';
-import { PanoItem } from './panoItem';
+import { PanoItem } from '@pano/components/panoItem';
 
 const global = Global.get();
 

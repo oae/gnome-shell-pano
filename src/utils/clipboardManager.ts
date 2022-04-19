@@ -3,8 +3,8 @@ import { MetaInfo, Object } from '@imports/gobject2';
 import { Selection, SelectionType } from '@imports/meta10';
 import { Global } from '@imports/shell0';
 import { Clipboard, ClipboardType, Icon } from '@imports/st1';
-import { registerGObjectClass } from './gjs';
-import { logger } from './shell';
+import { registerGObjectClass } from '@pano/utils/gjs';
+import { logger } from '@pano/utils/shell';
 
 const global = Global.get();
 

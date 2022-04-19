@@ -1,11 +1,12 @@
+import './styles/stylesheet.css';
+
 import { DBus, DBusExportedObject } from '@imports/gio2';
 import { restart as restartShell } from '@imports/meta10';
 import { Global } from '@imports/shell0';
-import { PanoWindow } from '@pano/components/panoWindow';
+import { PanoWindow } from '@pano/containers/panoWindow';
 import { KeyManager } from '@pano/utils/keyManager';
 import { addChrome, loadInterfaceXML, logger, removeChrome } from '@pano/utils/shell';
-import './styles/stylesheet.css';
-import { clipboardManager } from './utils/clipboardManager';
+import { clipboardManager } from '@pano/utils/clipboardManager';
 
 const debug = logger('extension');
 

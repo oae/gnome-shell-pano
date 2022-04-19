@@ -4,7 +4,7 @@ import { BoxLayout, Icon, Label } from '@imports/st1';
 import { FileOperation, FileOperationValue } from '@pano/utils/clipboardManager';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { PanoItemTypes } from '@pano/utils/panoItemType';
-import { PanoItem } from './panoItem';
+import { PanoItem } from '@pano/components/panoItem';
 
 @registerGObjectClass
 export class FilePanoItem extends PanoItem {

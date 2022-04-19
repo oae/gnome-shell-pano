@@ -30,8 +30,8 @@ import { LinkPanoItem } from '@pano/components/linkPanoItem';
 import { PanoItem } from '@pano/components/panoItem';
 import { TextPanoItem } from '@pano/components/textPanoItem';
 import { FilePanoItem } from '@pano/components/filePanoItem';
-import { ClipboardContent, ContentType } from './clipboardManager';
-import { logger } from './shell';
+import { ClipboardContent, ContentType } from '@pano/utils/clipboardManager';
+import { logger } from '@pano/utils/shell';
 
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('markdown', markdown);

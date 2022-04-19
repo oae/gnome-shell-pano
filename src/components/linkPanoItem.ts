@@ -6,7 +6,7 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 import { getDescription, getDocument, getImage, getMetaList, getTitle } from '@pano/utils/linkParser';
 import { PanoItemTypes } from '@pano/utils/panoItemType';
 import { getCurrentExtension } from '@pano/utils/shell';
-import { PanoItem } from './panoItem';
+import { PanoItem } from '@pano/components/panoItem';
 
 const global = Global.get();
 

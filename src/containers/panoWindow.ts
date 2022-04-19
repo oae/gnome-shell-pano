@@ -4,7 +4,7 @@ import { ClipboardContent, clipboardManager } from '@pano/utils/clipboardManager
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { createPanoItem } from '@pano/utils/panoItemFactory';
 import { getMonitorConstraint, logger } from '@pano/utils/shell';
-import { PanoScrollView } from './panoScrollView';
+import { PanoScrollView } from '@pano/components/panoScrollView';
 
 const debug = logger('pano-window');
 
