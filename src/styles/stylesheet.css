@@ -1,16 +1,38 @@
-/* Add your custom extension styling here */
+.pano-window {
+  background-color: rgba(0, 0, 0, 0.9);
+  height: 380px;
+}
+
+.pano-window .search-entry-container {
+  padding: 10px;
+}
+
+.pano-window .search-entry-icon {
+  icon-size: 13px;
+  padding: 0 4px;
+  color: inherit;
+}
 
 .pano-item {
   border-radius: 10px;
+  margin-top: 10px;
   margin-bottom: 10px;
-  margin-right: 5px;
-  margin-left: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
   height: 300px;
   width: 300px;
 }
 
 .pano-item:first-child {
-  margin-left: 10px;
+  margin-left: 20px;
+}
+.pano-item:last-child {
+  margin-right: 20px;
+}
+
+.pano-item:selected {
+  box-shadow: 0px -2px 3px 2px rgba(100,175,255,1);
+  
 }
 
 .pano-item-header {
@@ -101,21 +123,6 @@
 .pano-item-date {
   font-size: 12px;
   color: #f7f7f7;
-}
-
-.pano-window {
-  background-color: rgba(0, 0, 0, 0.9);
-  height: 367px;
-}
-
-.pano-window .search-entry-container {
-  padding: 10px;
-}
-
-.pano-window .search-entry-icon {
-  icon-size: 13px;
-  padding: 0 4px;
-  color: inherit;
 }
 
 .pano-item-body-file .file-icon {

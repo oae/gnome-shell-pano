@@ -1,13 +1,30 @@
-import { ActorAlign } from '@imports/clutter10';
+import {
+  ActorAlign,
+  ButtonEvent,
+  EVENT_PROPAGATE,
+  EVENT_STOP,
+  KeyEvent,
+  KEY_ISO_Enter,
+  KEY_KP_Enter,
+  KEY_Return,
+} from '@imports/clutter10';
 import { icon_new_for_string } from '@imports/gio2';
+import { MetaInfo } from '@imports/gobject2';
+import { Point } from '@imports/graphene1';
 import { BoxLayout, Icon, Label } from '@imports/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { IPanoItemType } from '@pano/utils/panoItemType';
-import { getCurrentExtension } from '@pano/utils/shell';
+import { getCurrentExtension, logger } from '@pano/utils/shell';
 import { formatDistanceToNow } from 'date-fns';
+
+const debug = logger('pano-item');
 
 @registerGObjectClass
 export class PanoItem extends BoxLayout {
+  static metaInfo: MetaInfo = {
+    GTypeName: 'PanoItem',
+  };
+
   private itemType: IPanoItemType;
   private date: Date;
   private header: BoxLayout;
@@ -20,10 +37,14 @@ export class PanoItem extends BoxLayout {
     super({
       name: 'pano-item',
       visible: true,
+      pivot_point: new Point({ x: 0.5, y: 0.5 }),
       reactive: true,
       style_class: 'pano-item',
       vertical: true,
     });
+
+    this.connect('key-focus-in', () => this.setSelected(true));
+    this.connect('key-focus-out', () => this.setSelected(false));
 
     this.itemType = itemType;
     this.date = date;
@@ -84,6 +105,36 @@ export class PanoItem extends BoxLayout {
 
     this.add_child(this.header);
     this.add_child(this.body);
+  }
+
+  private setActivated() {
+    debug(`item activated with the content: ${this.itemType.title}`);
+  }
+
+  private setSelected(selected: boolean) {
+    if (selected) {
+      this.add_style_pseudo_class('selected');
+      this.grab_key_focus();
+    } else {
+      this.remove_style_pseudo_class('selected');
+    }
+  }
+
+  override vfunc_key_press_event(event: KeyEvent): boolean {
+    if (event.keyval === KEY_Return || event.keyval === KEY_ISO_Enter || event.keyval === KEY_KP_Enter) {
+      this.setActivated();
+      return EVENT_STOP;
+    }
+    return EVENT_PROPAGATE;
+  }
+
+  override vfunc_button_press_event(event: ButtonEvent): boolean {
+    if (event.button === 1) {
+      this.setActivated();
+      return EVENT_STOP;
+    }
+
+    return EVENT_PROPAGATE;
   }
 
   override vfunc_destroy(): void {

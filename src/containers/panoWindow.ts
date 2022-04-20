@@ -1,10 +1,19 @@
-import { ActorAlign, AnimationMode, EVENT_PROPAGATE, KeyEvent, KEY_Escape } from '@imports/clutter10';
-import { BoxLayout, Entry, Icon } from '@imports/st1';
+import {
+  ActorAlign,
+  AnimationMode,
+  Event,
+  EVENT_PROPAGATE,
+  KeyEvent,
+  KEY_Down,
+  KEY_Escape,
+  KEY_Up,
+} from '@imports/clutter10';
+import { BoxLayout, Entry, Icon, ScrollView } from '@imports/st1';
+import { PanoScrollView } from '@pano/components/panoScrollView';
 import { ClipboardContent, clipboardManager } from '@pano/utils/clipboardManager';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { createPanoItem } from '@pano/utils/panoItemFactory';
 import { getMonitorConstraint, logger } from '@pano/utils/shell';
-import { PanoScrollView } from '@pano/components/panoScrollView';
 
 const debug = logger('pano-window');
 
@@ -41,6 +50,17 @@ export class PanoWindow extends BoxLayout {
         style_class: 'search-entry-icon',
         icon_name: 'edit-find-symbolic',
       }),
+    });
+
+    this.search.connect('key-press-event', (_: Entry, event: Event) => {
+      if (event.get_key_symbol() === KEY_Down) {
+        this.scrollView.focus();
+      }
+    });
+    this.scrollView.connect('key-press-event', (_: ScrollView, event: Event) => {
+      if (event.get_key_symbol() === KEY_Up) {
+        this.search.grab_key_focus();
+      }
     });
     searchBox.add_child(this.search);
     this.add_actor(searchBox);
