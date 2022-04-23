@@ -8,6 +8,7 @@ import { PanoItemTypes } from '@pano/utils/panoItemType';
 import { getCurrentExtension } from '@pano/utils/shell';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/clipboardManager';
+import { db } from '@pano/db';
 
 const global = Global.get();
 
@@ -73,6 +74,10 @@ export class LinkPanoItem extends PanoItem {
     }
 
     this.body.add_child(this.metaContainer);
+
+    db.save('LINK', this.link, date);
+
+    this.connect('activated', this.setClipboardContent.bind(this));
   }
 
   async readLinkMetaData(): Promise<void> {
@@ -107,8 +112,6 @@ export class LinkPanoItem extends PanoItem {
       this.imageContent.content_gravity = ContentGravity.RESIZE_ASPECT;
       this.body.insert_child_at_index(this.imageContent, 0);
     }
-
-    this.connect('activated', this.setClipboardContent.bind(this));
   }
 
   private setClipboardContent(): void {

@@ -1,5 +1,5 @@
 import { Config, Connection, SqlBuilder, SqlStatementType } from '@imports/gda5';
-import { ContentType } from '@pano/utils/clipboardManager';
+import { ChecksumType, compute_checksum_for_bytes } from '@imports/glib2';
 import { getCurrentExtension, logger } from '@pano/utils/shell';
 
 const debug = logger('database');
@@ -17,10 +17,9 @@ class Database {
       create table if not exists clipboard
       (
           id          integer not null constraint clipboard_pk primary key autoincrement,
-          itemType    integer not null,
+          itemType    text not null,
           content     text,
-          contentBin  BLOB,
-          copyDate    TEXT not null
+          copyDate    text not null
       );
     `);
 
@@ -29,7 +28,7 @@ class Database {
     `);
   }
 
-  save(itemType: ContentType, content: string | Uint8Array | string[], date: Date) {
+  save(itemType: string, content: string | Uint8Array | string[], date: Date) {
     if (!this.connection || !this.connection.is_opened()) {
       debug('connection is not opened');
       return;
@@ -43,7 +42,7 @@ class Database {
     builder.add_field_value_as_gvalue('itemType', itemType as any);
     builder.add_field_value_as_gvalue('copyDate', date.toISOString() as any);
     if (content instanceof Uint8Array) {
-      builder.add_field_value_as_gvalue('contentBin', content as any);
+      builder.add_field_value_as_gvalue('content', compute_checksum_for_bytes(ChecksumType.MD5, content) as any);
     } else if (Array.isArray(content)) {
       builder.add_field_value_as_gvalue('content', JSON.stringify(content) as any);
     } else {

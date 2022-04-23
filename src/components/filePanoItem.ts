@@ -11,6 +11,7 @@ import {
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { PanoItemTypes } from '@pano/utils/panoItemType';
 import { PanoItem } from '@pano/components/panoItem';
+import { db } from '@pano/db';
 
 @registerGObjectClass
 export class FilePanoItem extends PanoItem {
@@ -63,6 +64,9 @@ export class FilePanoItem extends PanoItem {
         container.add_child(bl);
       });
     this.body.add_child(container);
+
+    db.save('FILE', [this.clipboardContent.operation, ...this.clipboardContent.fileList], date);
+
     this.connect('activated', this.setClipboardContent.bind(this));
   }
 

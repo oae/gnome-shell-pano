@@ -1,13 +1,12 @@
-import './styles/stylesheet.css';
-
 import { DBus, DBusExportedObject } from '@imports/gio2';
 import { restart as restartShell } from '@imports/meta10';
 import { Global } from '@imports/shell0';
 import { PanoWindow } from '@pano/containers/panoWindow';
-import { KeyManager } from '@pano/utils/keyManager';
-import { addChrome, loadInterfaceXML, logger, removeChrome } from '@pano/utils/shell';
-import { clipboardManager } from '@pano/utils/clipboardManager';
 import { db } from '@pano/db';
+import { clipboardManager } from '@pano/utils/clipboardManager';
+import { KeyManager } from '@pano/utils/keyManager';
+import { addChrome, loadInterfaceXML, logger, removeChrome, setupAppDirs } from '@pano/utils/shell';
+import './styles/stylesheet.css';
 
 const debug = logger('extension');
 
@@ -24,6 +23,7 @@ class PanoExtension {
     this.keyManager = new KeyManager();
     this.dbus = DBusExportedObject.wrapJSObject(iface, this);
     this.panoWindow = new PanoWindow();
+    setupAppDirs();
   }
 
   enable(): void {

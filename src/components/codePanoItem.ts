@@ -27,7 +27,7 @@ export class CodePanoItem extends PanoItem {
     label.clutter_text.ellipsize = EllipsizeMode.END;
     this.body.add_child(label);
 
-    db.save(ContentType.TEXT, this.clipboardContent, date);
+    db.save('CODE', this.clipboardContent, date);
 
     this.connect('activated', this.setClipboardContent.bind(this));
   }
