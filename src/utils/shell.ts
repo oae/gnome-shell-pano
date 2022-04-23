@@ -16,10 +16,16 @@ export const getAppDataPath = (): string => `${get_home_dir()}/.local/share/pano
 
 export const getImagesPath = (): string => `${get_home_dir()}/.local/share/pano/images`;
 
+export const getCachePath = (): string => `${get_home_dir()}/.cache/pano`;
+
 export const setupAppDirs = (): void => {
   const appDataPath = File.new_for_path(getImagesPath());
   if (!appDataPath.query_exists(null)) {
     appDataPath.make_directory_with_parents(null);
+  }
+  const cachePath = File.new_for_path(getCachePath());
+  if (!cachePath.query_exists(null)) {
+    cachePath.make_directory_with_parents(null);
   }
 };
 

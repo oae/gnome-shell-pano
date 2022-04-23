@@ -1,8 +1,8 @@
-import { File } from '@imports/gio2';
-import { PRIORITY_DEFAULT } from '@imports/glib2';
+import { File, FileCreateFlags } from '@imports/gio2';
+import { ChecksumType, compute_checksum_for_string, PRIORITY_DEFAULT } from '@imports/glib2';
 import { Message, Session } from '@imports/soup3';
 import { XMLParser } from 'fast-xml-parser';
-import { logger } from '@pano/utils/shell';
+import { getCachePath, logger } from '@pano/utils/shell';
 
 const DEFAULT_USER_AGENT =
   'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36';
@@ -90,6 +90,14 @@ export const getImage = async (metaList: any[]) => {
 
   if (imageUrl && imageUrl.startsWith('http')) {
     try {
+      const cachedImage = File.new_for_path(
+        `${getCachePath()}/${compute_checksum_for_string(ChecksumType.MD5, imageUrl, imageUrl.length)}.png`,
+      );
+
+      if (cachedImage.query_exists(null)) {
+        return cachedImage;
+      }
+
       const message = Message.new('GET', imageUrl);
       message.request_headers.append('user-agent', DEFAULT_USER_AGENT);
       const response = await session.send_and_read_async(message, PRIORITY_DEFAULT, null);
@@ -100,11 +108,10 @@ export const getImage = async (metaList: any[]) => {
       if (!data || data.length == 0) {
         throw new Error('empty response');
       }
-      const [file, ioStream] = File.new_tmp('XXXXXX.png');
-      ioStream.output_stream.write_bytes(data, null);
-      ioStream.close(null);
 
-      return file;
+      cachedImage.replace_contents(data, null, false, FileCreateFlags.REPLACE_DESTINATION, null);
+
+      return cachedImage;
     } catch (err) {
       debug(`failed to load image: ${imageUrl}. err: ${err}`);
     }
