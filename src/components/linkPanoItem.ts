@@ -7,6 +7,7 @@ import { getDescription, getDocument, getImage, getMetaList, getTitle } from '@p
 import { PanoItemTypes } from '@pano/utils/panoItemType';
 import { getCurrentExtension } from '@pano/utils/shell';
 import { PanoItem } from '@pano/components/panoItem';
+import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/clipboardManager';
 
 const global = Global.get();
 
@@ -106,5 +107,16 @@ export class LinkPanoItem extends PanoItem {
       this.imageContent.content_gravity = ContentGravity.RESIZE_ASPECT;
       this.body.insert_child_at_index(this.imageContent, 0);
     }
+
+    this.connect('activated', this.setClipboardContent.bind(this));
+  }
+
+  private setClipboardContent(): void {
+    clipboardManager.setContent(
+      new ClipboardContent({
+        type: ContentType.TEXT,
+        value: this.link,
+      }),
+    );
   }
 }

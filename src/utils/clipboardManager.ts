@@ -104,6 +104,20 @@ export class ClipboardManager extends Object {
     this.selection.disconnect(this.selectionChangedId);
   }
 
+  public setContent({ content }: ClipboardContent): void {
+    if (content.type === ContentType.TEXT) {
+      this.clipboard.set_text(ClipboardType.CLIPBOARD, content.value);
+    } else if (content.type === ContentType.IMAGE) {
+      this.clipboard.set_content(ClipboardType.CLIPBOARD, MimeType.IMAGE, content.value);
+    } else if (content.type === ContentType.FILE) {
+      this.clipboard.set_content(
+        ClipboardType.CLIPBOARD,
+        MimeType.GNOME_FILE,
+        new TextEncoder().encode([content.value.operation, ...content.value.fileList].join('\n')),
+      );
+    }
+  }
+
   private async getContent(): Promise<ClipboardContent | null> {
     return new Promise((resolve) => {
       const cbMimeTypes = this.clipboard.get_mimetypes(ClipboardType.CLIPBOARD);

@@ -23,6 +23,9 @@ const debug = logger('pano-item');
 export class PanoItem extends BoxLayout {
   static metaInfo: MetaInfo = {
     GTypeName: 'PanoItem',
+    Signals: {
+      activated: {},
+    },
   };
 
   private itemType: IPanoItemType;
@@ -109,6 +112,7 @@ export class PanoItem extends BoxLayout {
 
   private setActivated() {
     debug(`item activated with the content: ${this.itemType.title}`);
+    this.emit('activated');
   }
 
   private setSelected(selected: boolean) {
