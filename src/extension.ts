@@ -7,6 +7,7 @@ import { PanoWindow } from '@pano/containers/panoWindow';
 import { KeyManager } from '@pano/utils/keyManager';
 import { addChrome, loadInterfaceXML, logger, removeChrome } from '@pano/utils/shell';
 import { clipboardManager } from '@pano/utils/clipboardManager';
+import { db } from '@pano/db';
 
 const debug = logger('extension');
 
@@ -26,6 +27,7 @@ class PanoExtension {
   }
 
   enable(): void {
+    db.setup();
     this.dbus.export(DBus.session, '/io/elhan/Pano');
     global.stage.add_actor(this.panoWindow);
     addChrome(this.panoWindow);
@@ -47,6 +49,7 @@ class PanoExtension {
     global.stage.remove_actor(this.panoWindow);
     removeChrome(this.panoWindow);
     debug('extension is disabled');
+    db.shutdown();
   }
 }
 

@@ -22,6 +22,7 @@ const globals = {
   '@imports/gobject2': 'imports.gi.GObject',
   '@imports/pango1': 'imports.gi.Pango',
   '@imports/graphene1': 'imports.gi.Graphene',
+  '@imports/gda5': 'imports.gi.Gda',
 };
 
 const external = Object.keys(globals);

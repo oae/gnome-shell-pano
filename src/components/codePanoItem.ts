@@ -4,6 +4,7 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 import { markupCode } from '@pano/utils/pango';
 import { PanoItemTypes } from '@pano/utils/panoItemType';
 import { PanoItem } from '@pano/components/panoItem';
+import { db } from '@pano/db';
 import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/clipboardManager';
 
 @registerGObjectClass
@@ -25,6 +26,8 @@ export class CodePanoItem extends PanoItem {
     label.clutter_text.set_markup(markupCode(this.clipboardContent));
     label.clutter_text.ellipsize = EllipsizeMode.END;
     this.body.add_child(label);
+
+    db.save(ContentType.TEXT, this.clipboardContent, date);
 
     this.connect('activated', this.setClipboardContent.bind(this));
   }
