@@ -3,9 +3,12 @@ import {
   AnimationMode,
   Event,
   EVENT_PROPAGATE,
+  EVENT_STOP,
   KeyEvent,
+  keysym_to_unicode,
   KEY_Down,
   KEY_Escape,
+  KEY_Right,
   KEY_Up,
 } from '@imports/clutter10';
 import { BoxLayout, Entry, Icon, ScrollView } from '@imports/st1';
@@ -51,16 +54,32 @@ export class PanoWindow extends BoxLayout {
         icon_name: 'edit-find-symbolic',
       }),
     });
-
-    this.search.connect('key-press-event', (_: Entry, event: Event) => {
-      if (event.get_key_symbol() === KEY_Down) {
+    this.search.clutter_text.connect('key-press-event', (_: Entry, event: Event) => {
+      if (
+        event.get_key_symbol() === KEY_Down ||
+        (event.get_key_symbol() === KEY_Right && this.search.clutter_text.cursor_position === -1)
+      ) {
         this.scrollView.focus();
       }
     });
     this.scrollView.connect('key-press-event', (_: ScrollView, event: Event) => {
+      if (event.get_state()) {
+        return EVENT_PROPAGATE;
+      }
+
       if (event.get_key_symbol() === KEY_Up) {
         this.search.grab_key_focus();
+        return EVENT_STOP;
       }
+      const unicode = keysym_to_unicode(event.get_key_symbol());
+      if (unicode === 0) {
+        return EVENT_PROPAGATE;
+      }
+
+      this.search.grab_key_focus();
+      this.search.text += String.fromCharCode(unicode);
+
+      return EVENT_STOP;
     });
     searchBox.add_child(this.search);
     this.add_actor(searchBox);
