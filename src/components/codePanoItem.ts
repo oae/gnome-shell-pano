@@ -10,12 +10,10 @@ import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/cli
 @registerGObjectClass
 export class CodePanoItem extends PanoItem {
   private clipboardContent: string;
-  private id: number | null;
 
   constructor(id: number | null, content: string, date: Date) {
-    super(PanoItemTypes.CODE, date);
+    super(id, PanoItemTypes.CODE, date);
     this.clipboardContent = content;
-    this.id = id;
 
     this.body.style_class = [this.body.style_class, 'pano-item-body-code'].join(' ');
 
@@ -29,11 +27,11 @@ export class CodePanoItem extends PanoItem {
     label.clutter_text.ellipsize = EllipsizeMode.END;
     this.body.add_child(label);
 
-    if (!this.id) {
+    if (!this.dbId) {
       const savedId = db.save('CODE', this.clipboardContent, date);
 
       if (savedId) {
-        this.id = savedId;
+        this.dbId = savedId;
       }
     }
 

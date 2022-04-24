@@ -30,10 +30,11 @@ export class PanoItem extends BoxLayout {
   private header: BoxLayout;
   private dateLabel: Label;
   private dateUpdateIntervalId: any;
+  public dbId: number | null;
 
   protected body: BoxLayout;
 
-  constructor(itemType: IPanoItemType, date: Date) {
+  constructor(dbId: number | null, itemType: IPanoItemType, date: Date) {
     super({
       name: 'pano-item',
       visible: true,
@@ -46,8 +47,12 @@ export class PanoItem extends BoxLayout {
     this.connect('key-focus-in', () => this.setSelected(true));
     this.connect('key-focus-out', () => this.setSelected(false));
 
+    this.connect('enter-event', () => this.setSelected(true));
+    this.connect('leave-event', () => this.setSelected(false));
+
     this.itemType = itemType;
     this.date = date;
+    this.dbId = dbId;
 
     this.header = new BoxLayout({
       style_class: `pano-item-header pano-item-header-${this.itemType.classSuffix}`,

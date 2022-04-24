@@ -57,7 +57,14 @@ export class PanoScrollView extends ScrollView {
       mode: AnimationMode.EASE_OUT_QUAD,
     });
 
-    item.grab_key_focus();
+    const focus = (global.stage as Stage).key_focus;
+    if (this.parent.is_visible() && focus && this.parent.contains(focus)) {
+      item.grab_key_focus();
+    }
+  }
+
+  getItem(id: number): PanoItem | undefined {
+    return this.items.find((i) => i.dbId === id);
   }
 
   addItem(item: PanoItem) {
@@ -65,15 +72,19 @@ export class PanoScrollView extends ScrollView {
     this.items.unshift(item);
     this.lastFocus = item;
     item.connect('activated', () => {
-      this.list.remove_child(item);
-      this.list.insert_child_at_index(item, 0);
-      const index = this.items.indexOf(item);
-      this.items.splice(index, 1);
-      this.items.unshift(item);
-      this.lastFocus = item;
-      this.scrollToItem(this.lastFocus);
+      this.moveItemToStart(item);
       this.parent.hide();
     });
+  }
+
+  moveItemToStart(item: PanoItem) {
+    this.list.remove_child(item);
+    this.list.insert_child_at_index(item, 0);
+    const index = this.items.indexOf(item);
+    this.items.splice(index, 1);
+    this.items.unshift(item);
+    this.lastFocus = item;
+    this.scrollToItem(this.lastFocus);
   }
 
   focus() {

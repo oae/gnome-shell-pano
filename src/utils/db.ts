@@ -54,6 +54,38 @@ class Database {
     return (row?.get_nth_holder(0).get_value() as any as number) || null;
   }
 
+  find(itemType: string, content: string | Uint8Array | FileOperationValue): number | null {
+    let condition = content;
+    if (content instanceof Uint8Array) {
+      const checksum = compute_checksum_for_bytes(ChecksumType.MD5, content);
+      if (checksum) {
+        condition = checksum;
+      }
+    } else if (typeof content === 'object' && 'operation' in content && 'fileList' in content) {
+      condition = JSON.stringify(content);
+    }
+    const dm = this.connection.execute_select_command(
+      `select * from clipboard where itemType = '${itemType}' and content = '${condition}' order by copyDate asc`,
+    );
+
+    const iter = dm.create_iter();
+
+    while (iter.move_next()) {
+      const id = iter.get_value_for_field('id') as any as number;
+      const itemType = iter.get_value_for_field('itemType') as any as string;
+      const content = iter.get_value_for_field('content') as any as string;
+      const copyDate = iter.get_value_for_field('copyDate') as any as string;
+
+      if (!content || !itemType || !copyDate || !id) {
+        continue;
+      }
+
+      return id;
+    }
+
+    return null;
+  }
+
   query(): any[] {
     if (!this.connection || !this.connection.is_opened()) {
       return [];

@@ -15,13 +15,11 @@ const global = Global.get();
 @registerGObjectClass
 export class ImagePanoItem extends PanoItem {
   private clipboardContent: Uint8Array;
-  private id: number | null;
 
   constructor(id: number | null, content: Uint8Array, date: Date) {
-    super(PanoItemTypes.IMAGE, date);
+    super(id, PanoItemTypes.IMAGE, date);
 
     this.clipboardContent = content;
-    this.id = id;
 
     this.body.style_class = [this.body.style_class, 'pano-item-body-image'].join(' ');
     const scaleFactor = ThemeContext.get_for_stage(global.stage as Stage).scale_factor;
@@ -47,10 +45,10 @@ export class ImagePanoItem extends PanoItem {
       this.body.add_child(actor);
     }
 
-    if (!this.id) {
+    if (!this.dbId) {
       const savedId = db.save('IMAGE', this.clipboardContent, date);
       if (savedId) {
-        this.id = savedId;
+        this.dbId = savedId;
       }
     }
 

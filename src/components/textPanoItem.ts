@@ -8,12 +8,11 @@ import { db } from '@pano/utils/db';
 @registerGObjectClass
 export class TextPanoItem extends PanoItem {
   private clipboardContent: string;
-  private id: number | null;
 
   constructor(id: number | null, content: string, date: Date) {
-    super(PanoItemTypes.TEXT, date);
+    super(id, PanoItemTypes.TEXT, date);
     this.clipboardContent = content;
-    this.id = id;
+
     this.body.style_class = [this.body.style_class, 'pano-item-body-text'].join(' ');
     const label = new Label({
       text: this.clipboardContent,
@@ -23,10 +22,10 @@ export class TextPanoItem extends PanoItem {
     label.clutter_text.ellipsize = EllipsizeMode.END;
     this.body.add_child(label);
 
-    if (!this.id) {
+    if (!this.dbId) {
       const savedId = db.save('TEXT', this.clipboardContent, date);
       if (savedId) {
-        this.id = savedId;
+        this.dbId = savedId;
       }
     }
 

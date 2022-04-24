@@ -16,12 +16,11 @@ import { db } from '@pano/utils/db';
 @registerGObjectClass
 export class FilePanoItem extends PanoItem {
   private clipboardContent: FileOperationValue;
-  private id: number | null;
 
   constructor(id: number | null, content: FileOperationValue, date: Date) {
-    super(PanoItemTypes.FILE, date);
+    super(id, PanoItemTypes.FILE, date);
     this.clipboardContent = content;
-    this.id = id;
+
     this.body.style_class = [this.body.style_class, 'pano-item-body-file'].join(' ');
     const container = new BoxLayout({
       style_class: 'copied-files-container',
@@ -67,10 +66,10 @@ export class FilePanoItem extends PanoItem {
       });
     this.body.add_child(container);
 
-    if (!this.id) {
+    if (!this.dbId) {
       const savedId = db.save('FILE', this.clipboardContent, date);
       if (savedId) {
-        this.id = savedId;
+        this.dbId = savedId;
       }
     }
 

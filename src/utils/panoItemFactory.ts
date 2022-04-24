@@ -33,6 +33,7 @@ import { FilePanoItem } from '@pano/components/filePanoItem';
 import { ClipboardContent, ContentType } from '@pano/utils/clipboardManager';
 import { getImagesPath, logger } from '@pano/utils/shell';
 import { File } from '@imports/gio2';
+import { db } from './db';
 
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('markdown', markdown);
@@ -84,28 +85,55 @@ const SUPPORTED_LANGUAGES = [
   'haskell',
 ];
 
-export const createPanoItem = (clip: ClipboardContent): PanoItem | null => {
+export const createPanoItem = (clip: ClipboardContent, onNewItem: any, onOldItem: any): void => {
   const { value, type } = clip.content;
-
+  let id: number | null;
   switch (type) {
     case ContentType.FILE:
-      return new FilePanoItem(null, value, new Date());
+      id = db.find('FILE', value);
+      if (id) {
+        onOldItem(id);
+      } else {
+        onNewItem(new FilePanoItem(null, value, new Date()));
+      }
+      break;
     case ContentType.IMAGE:
-      return new ImagePanoItem(null, value, new Date());
+      id = db.find('IMAGE', value);
+      if (id) {
+        onOldItem(id);
+      } else {
+        onNewItem(new ImagePanoItem(null, value, new Date()));
+      }
+      break;
     case ContentType.TEXT:
       if (isUrl(value)) {
-        return new LinkPanoItem(null, value, new Date());
+        id = db.find('LINK', value);
+        if (id) {
+          onOldItem(id);
+        } else {
+          onNewItem(new LinkPanoItem(null, value, new Date()));
+        }
+        break;
       }
       const highlightResult = hljs.highlightAuto(value.slice(0, 1000), SUPPORTED_LANGUAGES);
       debug(`rel: ${highlightResult.relevance} ${highlightResult.language}`);
       if (highlightResult.relevance < 10) {
-        return new TextPanoItem(null, value, new Date());
+        id = db.find('TEXT', value);
+        if (id) {
+          onOldItem(id);
+        } else {
+          onNewItem(new TextPanoItem(null, value, new Date()));
+        }
+        break;
       } else {
-        return new CodePanoItem(null, value, new Date());
+        id = db.find('CODE', value);
+        if (id) {
+          onOldItem(id);
+        } else {
+          onNewItem(new CodePanoItem(null, value, new Date()));
+        }
+        break;
       }
-
-    default:
-      return null;
   }
 };
 

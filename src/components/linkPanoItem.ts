@@ -22,13 +22,11 @@ export class LinkPanoItem extends PanoItem {
   private titleLabel: Label;
   private descriptionLabel: Label;
   private linkLabel: Label;
-  private id: number | null;
 
   constructor(id: number | null, content: string, date: Date) {
-    super(PanoItemTypes.LINK, date);
+    super(id, PanoItemTypes.LINK, date);
     this.body.style_class = [this.body.style_class, 'pano-item-body-link'].join(' ');
     this.link = content;
-    this.id = id;
 
     this.metaContainer = new BoxLayout({
       style_class: 'pano-item-body-link-meta-container',
@@ -78,10 +76,10 @@ export class LinkPanoItem extends PanoItem {
 
     this.body.add_child(this.metaContainer);
 
-    if (!this.id) {
+    if (!this.dbId) {
       const savedId = db.save('LINK', this.link, date);
       if (savedId) {
-        this.id = savedId;
+        this.dbId = savedId;
       }
     }
 
