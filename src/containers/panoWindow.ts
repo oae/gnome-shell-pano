@@ -60,7 +60,8 @@ export class PanoWindow extends BoxLayout {
     this.search.clutter_text.connect('key-press-event', (_: Entry, event: Event) => {
       if (
         event.get_key_symbol() === KEY_Down ||
-        (event.get_key_symbol() === KEY_Right && this.search.clutter_text.cursor_position === -1)
+        (event.get_key_symbol() === KEY_Right &&
+          (this.search.clutter_text.cursor_position === -1 || this.search.text.length === 0))
       ) {
         this.scrollView.focus();
       }
