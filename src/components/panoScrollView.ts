@@ -80,7 +80,7 @@ export class PanoScrollView extends ScrollView {
   private focusNext() {
     const focus = (global.stage as Stage).get_key_focus() as PanoItem;
     const currentIndex = this.items.indexOf(focus);
-    if (currentIndex >= 0 && currentIndex < this.items.length) {
+    if (currentIndex >= 0 && currentIndex < this.items.length - 1) {
       this.lastFocus = this.items[currentIndex + 1];
       this.scrollToItem(this.lastFocus);
     }
