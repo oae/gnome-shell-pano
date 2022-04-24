@@ -117,6 +117,7 @@ export class PanoWindow extends BoxLayout {
         const item = this.scrollView.getItem(id);
         if (item) {
           this.scrollView.moveItemToStart(item);
+          // TODO: update timestamp in db
         }
       },
     );

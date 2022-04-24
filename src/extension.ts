@@ -46,8 +46,8 @@ class PanoExtension {
     this.keyManager.stopListening();
     clipboardManager.stopTracking();
     this.dbus.unexport();
-    global.stage.remove_actor(this.panoWindow);
     removeChrome(this.panoWindow);
+    global.stage.remove_actor(this.panoWindow);
     debug('extension is disabled');
     db.shutdown();
   }

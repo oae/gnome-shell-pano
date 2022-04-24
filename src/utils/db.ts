@@ -1,4 +1,4 @@
-import { Config, Connection, SqlBuilder, SqlStatementType } from '@imports/gda5';
+import { Config, Connection, SqlBuilder, SqlOperatorType, SqlStatementType } from '@imports/gda5';
 import { ChecksumType, compute_checksum_for_bytes } from '@imports/glib2';
 import { FileOperationValue } from '@pano/utils/clipboardManager';
 import { getCurrentExtension, logger } from '@pano/utils/shell';
@@ -61,22 +61,39 @@ class Database {
       if (checksum) {
         condition = checksum;
       }
-    } else if (typeof content === 'object' && 'operation' in content && 'fileList' in content) {
+    } else if (content && typeof content === 'object' && 'operation' in content && 'fileList' in content) {
       condition = JSON.stringify(content);
     }
-    const dm = this.connection.execute_select_command(
-      `select * from clipboard where itemType = '${itemType}' and content = '${condition}' order by copyDate asc`,
-    );
+    const builder = new SqlBuilder({
+      stmt_type: SqlStatementType.SELECT,
+    });
+
+    builder.select_add_field('id', 'clipboard', 'id');
+
+    const contentField = builder.add_field_id('content', 'clipboard');
+    const contentValue = builder.add_expr_value(null, condition as any);
+    const contentCond = builder.add_cond(SqlOperatorType.EQ, contentField, contentValue, 0);
+
+    const itemTypeField = builder.add_field_id('itemType', 'clipboard');
+    const itemTypeValue = builder.add_expr_value(null, itemType as any);
+    const itemTypeCond = builder.add_cond(SqlOperatorType.EQ, itemTypeField, itemTypeValue, 0);
+
+    builder.select_add_target('clipboard', null);
+
+    const cond = builder.add_cond(SqlOperatorType.AND, contentCond, itemTypeCond, 0);
+    builder.set_where(cond);
+
+    const dm = this.connection.statement_execute_select(builder.get_statement(), null);
+    if (!dm) {
+      return null;
+    }
 
     const iter = dm.create_iter();
 
     while (iter.move_next()) {
       const id = iter.get_value_for_field('id') as any as number;
-      const itemType = iter.get_value_for_field('itemType') as any as string;
-      const content = iter.get_value_for_field('content') as any as string;
-      const copyDate = iter.get_value_for_field('copyDate') as any as string;
 
-      if (!content || !itemType || !copyDate || !id) {
+      if (!id) {
         continue;
       }
 
