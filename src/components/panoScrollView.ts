@@ -64,7 +64,16 @@ export class PanoScrollView extends ScrollView {
     this.list.insert_child_at_index(item, 0);
     this.items.unshift(item);
     this.lastFocus = item;
-    item.connect('activated', () => this.parent.hide());
+    item.connect('activated', () => {
+      this.list.remove_child(item);
+      this.list.insert_child_at_index(item, 0);
+      const index = this.items.indexOf(item);
+      this.items.splice(index, 1);
+      this.items.unshift(item);
+      this.lastFocus = item;
+      this.scrollToItem(this.lastFocus);
+      this.parent.hide();
+    });
   }
 
   focus() {
