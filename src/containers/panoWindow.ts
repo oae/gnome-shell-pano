@@ -96,7 +96,7 @@ export class PanoWindow extends BoxLayout {
 
     const dbItems = db.query();
 
-    dbItems.forEach(([id, itemType, content, copyDate]) => {
+    dbItems.forEach(({ id, itemType, content, copyDate }) => {
       const item = createPanoItemFromDb(id, itemType, content, copyDate);
       if (item) {
         this.scrollView.addItem(item);

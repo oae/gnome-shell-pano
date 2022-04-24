@@ -97,6 +97,8 @@ class Database {
     const cond = builder.add_cond(SqlOperatorType.AND, contentCond, itemTypeCond, 0);
     builder.set_where(cond);
 
+    // debug(`${builder.get_statement().to_sql_extended(this.connection, null, StatementSqlFlag.PRETTY)}`);
+
     const dm = this.connection.statement_execute_select(builder.get_statement(), null);
     if (!dm) {
       return null;
@@ -137,7 +139,7 @@ class Database {
         continue;
       }
 
-      itemList.push([id, itemType, content, copyDate]);
+      itemList.push({ id, itemType, content, copyDate });
     }
 
     return itemList;
