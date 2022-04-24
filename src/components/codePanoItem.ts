@@ -4,16 +4,18 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 import { markupCode } from '@pano/utils/pango';
 import { PanoItemTypes } from '@pano/utils/panoItemType';
 import { PanoItem } from '@pano/components/panoItem';
-import { db } from '@pano/db';
+import { db } from '@pano/utils/db';
 import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/clipboardManager';
 
 @registerGObjectClass
 export class CodePanoItem extends PanoItem {
   private clipboardContent: string;
+  private id: number | null;
 
-  constructor(content: string, date: Date) {
+  constructor(id: number | null, content: string, date: Date) {
     super(PanoItemTypes.CODE, date);
     this.clipboardContent = content;
+    this.id = id;
 
     this.body.style_class = [this.body.style_class, 'pano-item-body-code'].join(' ');
 
@@ -27,7 +29,13 @@ export class CodePanoItem extends PanoItem {
     label.clutter_text.ellipsize = EllipsizeMode.END;
     this.body.add_child(label);
 
-    db.save('CODE', this.clipboardContent, date);
+    if (!this.id) {
+      const savedId = db.save('CODE', this.clipboardContent, date);
+
+      if (savedId) {
+        this.id = savedId;
+      }
+    }
 
     this.connect('activated', this.setClipboardContent.bind(this));
   }

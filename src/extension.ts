@@ -2,7 +2,7 @@ import { DBus, DBusExportedObject } from '@imports/gio2';
 import { restart as restartShell } from '@imports/meta10';
 import { Global } from '@imports/shell0';
 import { PanoWindow } from '@pano/containers/panoWindow';
-import { db } from '@pano/db';
+import { db } from '@pano/utils/db';
 import { clipboardManager } from '@pano/utils/clipboardManager';
 import { KeyManager } from '@pano/utils/keyManager';
 import { addChrome, loadInterfaceXML, logger, removeChrome, setupAppDirs } from '@pano/utils/shell';
@@ -18,6 +18,7 @@ class PanoExtension {
   private keyManager: KeyManager;
 
   constructor() {
+    db.setup();
     debug('extension is initialized');
     const iface = loadInterfaceXML('io.elhan.Pano');
     this.keyManager = new KeyManager();
@@ -27,7 +28,6 @@ class PanoExtension {
   }
 
   enable(): void {
-    db.setup();
     this.dbus.export(DBus.session, '/io/elhan/Pano');
     global.stage.add_actor(this.panoWindow);
     addChrome(this.panoWindow);

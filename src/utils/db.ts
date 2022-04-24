@@ -1,5 +1,6 @@
 import { Config, Connection, SqlBuilder, SqlStatementType } from '@imports/gda5';
 import { ChecksumType, compute_checksum_for_bytes } from '@imports/glib2';
+import { FileOperationValue } from '@pano/utils/clipboardManager';
 import { getCurrentExtension, logger } from '@pano/utils/shell';
 
 const debug = logger('database');
@@ -28,10 +29,10 @@ class Database {
     `);
   }
 
-  save(itemType: string, content: string | Uint8Array | string[], date: Date) {
+  save(itemType: string, content: string | Uint8Array | FileOperationValue, date: Date): number | null {
     if (!this.connection || !this.connection.is_opened()) {
       debug('connection is not opened');
-      return;
+      return null;
     }
 
     const builder = new SqlBuilder({
@@ -43,12 +44,40 @@ class Database {
     builder.add_field_value_as_gvalue('copyDate', date.toISOString() as any);
     if (content instanceof Uint8Array) {
       builder.add_field_value_as_gvalue('content', compute_checksum_for_bytes(ChecksumType.MD5, content) as any);
-    } else if (Array.isArray(content)) {
+    } else if (typeof content === 'object' && 'operation' in content && 'fileList' in content) {
       builder.add_field_value_as_gvalue('content', JSON.stringify(content) as any);
     } else {
       builder.add_field_value_as_gvalue('content', content as any);
     }
-    this.connection.statement_execute_non_select(builder.get_statement(), null);
+    const [_, row] = this.connection.statement_execute_non_select(builder.get_statement(), null);
+
+    return (row?.get_nth_holder(0).get_value() as any as number) || null;
+  }
+
+  query(): any[] {
+    if (!this.connection || !this.connection.is_opened()) {
+      return [];
+    }
+
+    const dm = this.connection.execute_select_command('select * from clipboard order by copyDate asc');
+
+    const iter = dm.create_iter();
+    const itemList: any[] = [];
+
+    while (iter.move_next()) {
+      const id = iter.get_value_for_field('id') as any as number;
+      const itemType = iter.get_value_for_field('itemType') as any as string;
+      const content = iter.get_value_for_field('content') as any as string;
+      const copyDate = iter.get_value_for_field('copyDate') as any as string;
+
+      if (!content || !itemType || !copyDate || !id) {
+        continue;
+      }
+
+      itemList.push([id, itemType, content, copyDate]);
+    }
+
+    return itemList;
   }
 
   shutdown() {

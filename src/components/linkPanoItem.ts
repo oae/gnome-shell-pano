@@ -8,7 +8,7 @@ import { PanoItemTypes } from '@pano/utils/panoItemType';
 import { getCurrentExtension } from '@pano/utils/shell';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/clipboardManager';
-import { db } from '@pano/db';
+import { db } from '@pano/utils/db';
 
 const global = Global.get();
 
@@ -22,11 +22,14 @@ export class LinkPanoItem extends PanoItem {
   private titleLabel: Label;
   private descriptionLabel: Label;
   private linkLabel: Label;
+  private id: number | null;
 
-  constructor(content: string, date: Date) {
+  constructor(id: number | null, content: string, date: Date) {
     super(PanoItemTypes.LINK, date);
     this.body.style_class = [this.body.style_class, 'pano-item-body-link'].join(' ');
     this.link = content;
+    this.id = id;
+
     this.metaContainer = new BoxLayout({
       style_class: 'pano-item-body-link-meta-container',
       vertical: true,
@@ -75,7 +78,12 @@ export class LinkPanoItem extends PanoItem {
 
     this.body.add_child(this.metaContainer);
 
-    db.save('LINK', this.link, date);
+    if (!this.id) {
+      const savedId = db.save('LINK', this.link, date);
+      if (savedId) {
+        this.id = savedId;
+      }
+    }
 
     this.connect('activated', this.setClipboardContent.bind(this));
   }

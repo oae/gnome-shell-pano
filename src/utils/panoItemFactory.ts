@@ -31,7 +31,8 @@ import { PanoItem } from '@pano/components/panoItem';
 import { TextPanoItem } from '@pano/components/textPanoItem';
 import { FilePanoItem } from '@pano/components/filePanoItem';
 import { ClipboardContent, ContentType } from '@pano/utils/clipboardManager';
-import { logger } from '@pano/utils/shell';
+import { getImagesPath, logger } from '@pano/utils/shell';
+import { File } from '@imports/gio2';
 
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('markdown', markdown);
@@ -88,20 +89,56 @@ export const createPanoItem = (clip: ClipboardContent): PanoItem | null => {
 
   switch (type) {
     case ContentType.FILE:
-      return new FilePanoItem(value, new Date());
+      return new FilePanoItem(null, value, new Date());
     case ContentType.IMAGE:
-      return new ImagePanoItem(value, new Date());
+      return new ImagePanoItem(null, value, new Date());
     case ContentType.TEXT:
       if (isUrl(value)) {
-        return new LinkPanoItem(value, new Date());
+        return new LinkPanoItem(null, value, new Date());
       }
       const highlightResult = hljs.highlightAuto(value.slice(0, 1000), SUPPORTED_LANGUAGES);
       debug(`rel: ${highlightResult.relevance} ${highlightResult.language}`);
       if (highlightResult.relevance < 10) {
-        return new TextPanoItem(value, new Date());
+        return new TextPanoItem(null, value, new Date());
       } else {
-        return new CodePanoItem(value, new Date());
+        return new CodePanoItem(null, value, new Date());
       }
+
+    default:
+      return null;
+  }
+};
+
+export const createPanoItemFromDb = (
+  id: number,
+  itemType: string,
+  content: string,
+  copyDate: string,
+): PanoItem | null => {
+  switch (itemType) {
+    case 'TEXT':
+      return new TextPanoItem(id, content, new Date(copyDate));
+    case 'CODE':
+      return new CodePanoItem(id, content, new Date(copyDate));
+    case 'LINK':
+      return new LinkPanoItem(id, content, new Date(copyDate));
+    case 'FILE':
+      return new FilePanoItem(id, JSON.parse(content), new Date(copyDate));
+    case 'IMAGE':
+      const savedImage = File.new_for_path(`${getImagesPath()}/${content}.png`);
+
+      if (!savedImage.query_exists(null)) {
+        return null;
+      }
+
+      const [bytes] = savedImage.load_bytes(null);
+
+      const data = bytes.get_data();
+
+      if (!data || data.length === 0) {
+        return null;
+      }
+      return new ImagePanoItem(id, data, new Date(copyDate));
 
     default:
       return null;

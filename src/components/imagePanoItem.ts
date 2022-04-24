@@ -6,7 +6,7 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 import { PanoItemTypes } from '@pano/utils/panoItemType';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/clipboardManager';
-import { db } from '@pano/db';
+import { db } from '@pano/utils/db';
 import { getImagesPath } from '@pano/utils/shell';
 import { ChecksumType, compute_checksum_for_bytes } from '@imports/glib2';
 
@@ -15,11 +15,14 @@ const global = Global.get();
 @registerGObjectClass
 export class ImagePanoItem extends PanoItem {
   private clipboardContent: Uint8Array;
+  private id: number | null;
 
-  constructor(content: Uint8Array, date: Date) {
+  constructor(id: number | null, content: Uint8Array, date: Date) {
     super(PanoItemTypes.IMAGE, date);
 
     this.clipboardContent = content;
+    this.id = id;
+
     this.body.style_class = [this.body.style_class, 'pano-item-body-image'].join(' ');
     const scaleFactor = ThemeContext.get_for_stage(global.stage as Stage).scale_factor;
     const imageFile = File.new_for_path(
@@ -44,7 +47,12 @@ export class ImagePanoItem extends PanoItem {
       this.body.add_child(actor);
     }
 
-    db.save('IMAGE', this.clipboardContent, date);
+    if (!this.id) {
+      const savedId = db.save('IMAGE', this.clipboardContent, date);
+      if (savedId) {
+        this.id = savedId;
+      }
+    }
 
     this.connect('activated', this.setClipboardContent.bind(this));
   }
