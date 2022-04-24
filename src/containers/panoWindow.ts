@@ -8,6 +8,7 @@ import {
   keysym_to_unicode,
   KEY_Down,
   KEY_Escape,
+  KEY_Left,
   KEY_Right,
   KEY_Up,
 } from '@imports/clutter10';
@@ -65,6 +66,11 @@ export class PanoWindow extends BoxLayout {
     this.scrollView.connect('key-press-event', (_: ScrollView, event: Event) => {
       if (event.get_state()) {
         return EVENT_PROPAGATE;
+      }
+
+      if (event.get_key_symbol() === KEY_Left && this.scrollView.canGiveFocus()) {
+        this.search.grab_key_focus();
+        return EVENT_STOP;
       }
 
       if (event.get_key_symbol() === KEY_Up) {

@@ -35,6 +35,10 @@ export class PanoScrollView extends ScrollView {
     this.items = [];
   }
 
+  canGiveFocus(): boolean {
+    return this.lastFocus && this.items.length > 0 && this.lastFocus === this.items[0];
+  }
+
   scrollToItem(item: PanoItem) {
     if (!item) {
       return;
