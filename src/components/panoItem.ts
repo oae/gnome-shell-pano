@@ -14,11 +14,8 @@ import { Point } from '@imports/graphene1';
 import { BoxLayout, Icon, Label } from '@imports/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { IPanoItemType } from '@pano/utils/panoItemType';
-import { getCurrentExtension, logger } from '@pano/utils/shell';
+import { getCurrentExtension } from '@pano/utils/shell';
 import { formatDistanceToNow } from 'date-fns';
-
-const debug = logger('pano-item');
-
 @registerGObjectClass
 export class PanoItem extends BoxLayout {
   static metaInfo: MetaInfo = {
@@ -111,7 +108,6 @@ export class PanoItem extends BoxLayout {
   }
 
   private setActivated() {
-    debug(`item activated with the content: ${this.itemType.title}`);
     this.emit('activated');
   }
 

@@ -12,6 +12,7 @@ import { Stage } from '@imports/meta10';
 import { Global } from '@imports/shell0';
 import { BoxLayout, PolicyType, ScrollView } from '@imports/st1';
 import { PanoItem } from '@pano/components/panoItem';
+import { PanoWindow } from '@pano/containers/panoWindow';
 import { registerGObjectClass } from '@pano/utils/gjs';
 
 const global = Global.get();
@@ -21,8 +22,9 @@ export class PanoScrollView extends ScrollView {
   private list: BoxLayout;
   private items: PanoItem[];
   private lastFocus: PanoItem;
+  private parent: PanoWindow;
 
-  constructor() {
+  constructor(parent: PanoWindow) {
     super({
       hscrollbar_policy: PolicyType.EXTERNAL,
       vscrollbar_policy: PolicyType.NEVER,
@@ -33,6 +35,7 @@ export class PanoScrollView extends ScrollView {
     this.list = new BoxLayout({ vertical: false, x_expand: true, y_expand: true });
     this.add_actor(this.list);
     this.items = [];
+    this.parent = parent;
   }
 
   canGiveFocus(): boolean {
@@ -61,6 +64,7 @@ export class PanoScrollView extends ScrollView {
     this.list.insert_child_at_index(item, 0);
     this.items.unshift(item);
     this.lastFocus = item;
+    item.connect('activated', () => this.parent.hide());
   }
 
   focus() {
