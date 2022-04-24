@@ -6,14 +6,23 @@ import { getCurrentExtension, logger } from '@pano/utils/shell';
 const debug = logger('database');
 
 class Database {
-  private connection: Connection;
+  private connection: Connection | null;
 
-  setup() {
+  private init() {
     this.connection = new Connection({
       provider: Config.get_provider('SQLite'),
       cnc_string: `DB_DIR=${getCurrentExtension().path};DB_NAME=pano`,
     });
     this.connection.open();
+  }
+
+  setup() {
+    this.init();
+    if (!this.connection || !this.connection.is_opened()) {
+      debug('connection is not opened');
+      return;
+    }
+
     this.connection.execute_non_select_command(`
       create table if not exists clipboard
       (
@@ -55,6 +64,11 @@ class Database {
   }
 
   find(itemType: string, content: string | Uint8Array | FileOperationValue): number | null {
+    if (!this.connection || !this.connection.is_opened()) {
+      debug('connection is not opened');
+      return null;
+    }
+
     let condition = content;
     if (content instanceof Uint8Array) {
       const checksum = compute_checksum_for_bytes(ChecksumType.MD5, content);
@@ -129,9 +143,20 @@ class Database {
     return itemList;
   }
 
+  start() {
+    if (!this.connection) {
+      this.init();
+    }
+
+    if (this.connection && !this.connection.is_opened()) {
+      this.connection.open();
+    }
+  }
+
   shutdown() {
     if (this.connection && this.connection.is_opened()) {
       this.connection.close();
+      this.connection = null;
     }
   }
 }

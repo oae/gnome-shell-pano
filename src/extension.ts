@@ -28,6 +28,7 @@ class PanoExtension {
   }
 
   enable(): void {
+    db.start();
     this.dbus.export(DBus.session, '/io/elhan/Pano');
     global.stage.add_actor(this.panoWindow);
     addChrome(this.panoWindow);
