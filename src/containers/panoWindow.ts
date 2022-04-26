@@ -6,6 +6,7 @@ import {
   EVENT_STOP,
   KeyEvent,
   keysym_to_unicode,
+  KEY_BackSpace,
   KEY_Down,
   KEY_Escape,
   KEY_Left,
@@ -86,6 +87,9 @@ export class PanoWindow extends BoxLayout {
         icon_name: 'edit-find-symbolic',
       }),
     });
+    this.search.clutter_text.connect('text-changed', () => {
+      this.scrollView.onSearch(this.search.text);
+    });
     this.search.clutter_text.connect('key-press-event', (_: Entry, event: Event) => {
       if (
         event.get_key_symbol() === KEY_Down ||
@@ -106,6 +110,11 @@ export class PanoWindow extends BoxLayout {
       }
 
       if (event.get_key_symbol() === KEY_Up) {
+        this.search.grab_key_focus();
+        return EVENT_STOP;
+      }
+      if (event.get_key_symbol() == KEY_BackSpace) {
+        this.search.text = this.search.text.slice(0, -1);
         this.search.grab_key_focus();
         return EVENT_STOP;
       }
@@ -141,12 +150,18 @@ export class PanoWindow extends BoxLayout {
       (item: PanoItem) => {
         if (item) {
           this.scrollView.addItem(item);
+          if (this.search.text) {
+            this.scrollView.onSearch(this.search.text);
+          }
         }
       },
       (id: number) => {
         const item = this.scrollView.getItem(id);
         if (item) {
           this.scrollView.moveItemToStart(item);
+          if (this.search.text) {
+            this.scrollView.onSearch(this.search.text);
+          }
           // TODO: update timestamp in db
         }
       },
@@ -177,6 +192,7 @@ export class PanoWindow extends BoxLayout {
     this.clear_constraints();
     this.add_constraint(getMonitorConstraint());
     super.show();
+    this.search.clutter_text.set_selection(0, this.search.text.length);
     this.search.grab_key_focus();
     this.ease({
       opacity: 255,

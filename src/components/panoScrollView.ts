@@ -13,6 +13,7 @@ import { Global } from '@imports/shell0';
 import { BoxLayout, PolicyType, ScrollView } from '@imports/st1';
 import { PanoItem } from '@pano/components/panoItem';
 import { PanoWindow } from '@pano/containers/panoWindow';
+import { db } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 
 const global = Global.get();
@@ -39,10 +40,11 @@ export class PanoScrollView extends ScrollView {
   }
 
   canGiveFocus(): boolean {
-    return this.lastFocus && this.items.length > 0 && this.lastFocus === this.items[0];
+    const visibleItems = this.items.filter((item) => item.is_visible());
+    return this.lastFocus && visibleItems.length > 0 && this.lastFocus === visibleItems[0];
   }
 
-  scrollToItem(item: PanoItem) {
+  scrollToItem(item: PanoItem, shouldFocus = true) {
     if (!item) {
       return;
     }
@@ -58,7 +60,7 @@ export class PanoScrollView extends ScrollView {
     });
 
     const focus = (global.stage as Stage).key_focus;
-    if (this.parent.is_visible() && focus && this.parent.contains(focus)) {
+    if (shouldFocus && this.parent.is_visible() && focus && this.parent.contains(focus)) {
       item.grab_key_focus();
     }
   }
@@ -70,7 +72,6 @@ export class PanoScrollView extends ScrollView {
   addItem(item: PanoItem) {
     this.list.insert_child_at_index(item, 0);
     this.items.unshift(item);
-    this.lastFocus = item;
     item.connect('activated', () => {
       this.moveItemToStart(item);
       this.parent.hide();
@@ -93,28 +94,56 @@ export class PanoScrollView extends ScrollView {
       return;
     }
 
-    if (this.lastFocus) {
+    const visibleItems = this.items.filter((item) => item.is_visible());
+    if (!visibleItems) {
+      return;
+    }
+
+    if (this.lastFocus && this.lastFocus.is_visible()) {
       this.scrollToItem(this.lastFocus);
       return;
     } else {
-      this.scrollToItem(this.items[0]);
+      this.scrollToItem(visibleItems[0]);
+    }
+  }
+
+  onSearch(keyword: string) {
+    if (!keyword) {
+      this.items.forEach((i) => i.show());
+      this.focusFirst();
+      return;
+    }
+
+    const result = db.search(keyword);
+
+    this.items.forEach((item) => (item.dbId !== null && result.indexOf(item.dbId) >= 0 ? item.show() : item.hide()));
+    this.focusFirst();
+  }
+
+  private focusFirst() {
+    const visibleItems = this.items.filter((i) => i.is_visible());
+    if (visibleItems.length > 0) {
+      this.lastFocus = visibleItems[0];
+      this.scrollToItem(this.lastFocus, false);
     }
   }
 
   private focusNext() {
     const focus = (global.stage as Stage).get_key_focus() as PanoItem;
-    const currentIndex = this.items.indexOf(focus);
-    if (currentIndex >= 0 && currentIndex < this.items.length - 1) {
-      this.lastFocus = this.items[currentIndex + 1];
+    const visibleItems = this.items.filter((i) => i.is_visible());
+    const currentIndex = visibleItems.indexOf(focus);
+    if (currentIndex >= 0 && currentIndex < visibleItems.length - 1) {
+      this.lastFocus = visibleItems[currentIndex + 1];
       this.scrollToItem(this.lastFocus);
     }
   }
 
   private focusPrevious() {
     const focus = (global.stage as Stage).get_key_focus() as PanoItem;
-    const currentIndex = this.items.indexOf(focus);
+    const visibleItems = this.items.filter((i) => i.is_visible());
+    const currentIndex = visibleItems.indexOf(focus);
     if (currentIndex > 0) {
-      this.lastFocus = this.items[currentIndex - 1];
+      this.lastFocus = visibleItems[currentIndex - 1];
       this.scrollToItem(this.lastFocus);
     }
   }

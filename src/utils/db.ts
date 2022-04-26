@@ -63,6 +63,56 @@ class Database {
     return (row?.get_nth_holder(0).get_value() as any as number) || null;
   }
 
+  search(content: string): number[] {
+    const result: number[] = [];
+    if (!this.connection || !this.connection.is_opened()) {
+      debug('connection is not opened');
+      return result;
+    }
+
+    const builder = new SqlBuilder({
+      stmt_type: SqlStatementType.SELECT,
+    });
+
+    builder.select_add_field('id', 'clipboard', 'id');
+
+    const contentField = builder.add_field_id('content', 'clipboard');
+    const contentValue = builder.add_expr_value(null, `%${content}%` as any);
+    const contentCond = builder.add_cond(SqlOperatorType.LIKE, contentField, contentValue, 0);
+    //TODO: add order by for date
+
+    const itemTypeField = builder.add_field_id('itemType', 'clipboard');
+
+    const itemTypeValue = builder.add_expr_value(null, 'IMAGE' as any);
+    const itemTypeCond = builder.add_cond(SqlOperatorType.NOTIN, itemTypeField, itemTypeValue, 0);
+
+    builder.select_add_target('clipboard', null);
+
+    const cond = builder.add_cond(SqlOperatorType.AND, contentCond, itemTypeCond, 0);
+    builder.set_where(cond);
+
+    // debug(`${builder.get_statement().to_sql_extended(this.connection, null, StatementSqlFlag.PRETTY)}`);
+
+    const dm = this.connection.statement_execute_select(builder.get_statement(), null);
+    if (!dm) {
+      return result;
+    }
+
+    const iter = dm.create_iter();
+
+    while (iter.move_next()) {
+      const id = iter.get_value_for_field('id') as any as number;
+
+      if (!id) {
+        continue;
+      }
+
+      result.push(id);
+    }
+
+    return result;
+  }
+
   find(itemType: string, content: string | Uint8Array | FileOperationValue): number | null {
     if (!this.connection || !this.connection.is_opened()) {
       debug('connection is not opened');
