@@ -1,17 +1,13 @@
 import { DBus, DBusExportedObject } from '@imports/gio2';
 import { restart as restartShell } from '@imports/meta10';
-import { Global } from '@imports/shell0';
 import { PanoWindow } from '@pano/containers/panoWindow';
-import { db } from '@pano/utils/db';
 import { clipboardManager } from '@pano/utils/clipboardManager';
+import { db } from '@pano/utils/db';
 import { KeyManager } from '@pano/utils/keyManager';
 import { addChrome, loadInterfaceXML, logger, removeChrome, setupAppDirs } from '@pano/utils/shell';
 import './styles/stylesheet.css';
 
 const debug = logger('extension');
-
-const global = Global.get();
-
 class PanoExtension {
   private dbus: DBusExportedObject;
   private panoWindow: PanoWindow;
@@ -30,7 +26,6 @@ class PanoExtension {
   enable(): void {
     db.start();
     this.dbus.export(DBus.session, '/io/elhan/Pano');
-    global.stage.add_actor(this.panoWindow);
     addChrome(this.panoWindow);
     // TODO: read from settings
     this.keyManager.listenFor('<super><shift>c', () => this.panoWindow.toggle());
@@ -48,7 +43,6 @@ class PanoExtension {
     clipboardManager.stopTracking();
     this.dbus.unexport();
     removeChrome(this.panoWindow);
-    global.stage.remove_actor(this.panoWindow);
     debug('extension is disabled');
     db.shutdown();
   }

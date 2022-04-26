@@ -12,6 +12,7 @@ import {
   KEY_Right,
   KEY_Up,
 } from '@imports/clutter10';
+import { MonitorManager } from '@imports/meta10';
 import { BoxLayout, Entry, Icon, ScrollView } from '@imports/st1';
 import { PanoItem } from '@pano/components/panoItem';
 import { PanoScrollView } from '@pano/components/panoScrollView';
@@ -19,14 +20,24 @@ import { ClipboardContent, clipboardManager } from '@pano/utils/clipboardManager
 import { db } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { createPanoItem, createPanoItemFromDb } from '@pano/utils/panoItemFactory';
-import { getMonitorConstraint, logger } from '@pano/utils/shell';
+import {
+  addChrome,
+  getMonitorConstraint,
+  getMonitorConstraintForIndex,
+  getMonitors,
+  logger,
+  removeChrome,
+} from '@pano/utils/shell';
 
 const debug = logger('pano-window');
+const monitorManager = MonitorManager.get();
 
 @registerGObjectClass
 export class PanoWindow extends BoxLayout {
   private scrollView: PanoScrollView;
   private search: Entry;
+  private monitorBox: BoxLayout;
+  private monitorChangedEventId: number;
 
   constructor() {
     super({
@@ -41,6 +52,24 @@ export class PanoWindow extends BoxLayout {
       opacity: 0,
       can_focus: true,
     });
+
+    this.monitorBox = new BoxLayout({
+      name: 'PanoMonitorBox',
+      visible: false,
+      vertical: true,
+      reactive: true,
+      opacity: 0,
+    });
+    this.monitorBox.connect('button-press-event', () => {
+      this.hide();
+      return EVENT_STOP;
+    });
+
+    this.monitorChangedEventId = monitorManager.connect('monitors-changed', this.updateMonitorBox.bind(this));
+    this.updateMonitorBox();
+
+    addChrome(this.monitorBox);
+
     this.scrollView = new PanoScrollView(this);
     const searchBox = new BoxLayout({
       x_align: ActorAlign.CENTER,
@@ -124,6 +153,22 @@ export class PanoWindow extends BoxLayout {
     );
   }
 
+  private updateMonitorBox(): void {
+    this.monitorBox.remove_all_children();
+    getMonitors().forEach((_, index) => {
+      const box = new BoxLayout({
+        constraints: getMonitorConstraintForIndex(index),
+        x_align: ActorAlign.FILL,
+        y_align: ActorAlign.FILL,
+        visible: true,
+        vertical: true,
+        reactive: true,
+        opacity: 0,
+      });
+      this.monitorBox.add_child(box);
+    });
+  }
+
   toggle(): void {
     this.is_visible() ? this.hide() : this.show();
   }
@@ -138,10 +183,12 @@ export class PanoWindow extends BoxLayout {
       duration: 250,
       mode: AnimationMode.EASE_OUT_QUAD,
     });
+    this.monitorBox.show();
     debug('showing pano');
   }
 
   override hide() {
+    this.monitorBox.hide();
     this.ease({
       opacity: 0,
       duration: 200,
@@ -159,5 +206,12 @@ export class PanoWindow extends BoxLayout {
     }
 
     return EVENT_PROPAGATE;
+  }
+
+  override destroy(): void {
+    monitorManager.disconnect(this.monitorChangedEventId);
+    removeChrome(this.monitorBox);
+    this.monitorBox.destroy();
+    super.destroy();
   }
 }

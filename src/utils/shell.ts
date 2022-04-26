@@ -59,7 +59,7 @@ export const loadInterfaceXML = (iface: string): any => {
 
 export const wm = imports.ui.main.wm;
 
-const getMonitors = (): Monitor[] => imports.ui.main.layoutManager.monitors;
+export const getMonitors = (): Monitor[] => imports.ui.main.layoutManager.monitors;
 
 export const getMonitorIndexForPointer = () => {
   const [x, y] = global.get_pointer();
@@ -79,6 +79,11 @@ export const getMonitorIndexForPointer = () => {
 export const getMonitorConstraint = () =>
   new imports.ui.layout.MonitorConstraint({
     index: getMonitorIndexForPointer(),
+  });
+
+export const getMonitorConstraintForIndex = (index: number) =>
+  new imports.ui.layout.MonitorConstraint({
+    index,
   });
 
 export const addChrome = (actor: Actor, options?: any) => imports.ui.main.layoutManager.addChrome(actor, options);
