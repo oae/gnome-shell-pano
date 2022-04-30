@@ -28,7 +28,7 @@ class PanoExtension {
     this.dbus.export(DBus.session, '/io/elhan/Pano');
     addChrome(this.panoWindow);
     // TODO: read from settings
-    this.keyManager.listenFor('<super><shift>c', () => this.panoWindow.toggle());
+    this.keyManager.listenFor('<super><shift>v', () => this.panoWindow.toggle());
     clipboardManager.startTracking();
 
     debug('extension is enabled');

@@ -1,5 +1,6 @@
 import {
   ActorAlign,
+  ButtonEvent,
   EVENT_PROPAGATE,
   EVENT_STOP,
   KeyEvent,
@@ -45,9 +46,6 @@ export class PanoItem extends BoxLayout {
 
     this.connect('key-focus-in', () => this.setSelected(true));
     this.connect('key-focus-out', () => this.setSelected(false));
-
-    // this.connect('enter-event', () => this.setSelected(true));
-    // this.connect('leave-event', () => this.setSelected(false));
 
     this.itemType = itemType;
     this.date = date;
@@ -132,14 +130,14 @@ export class PanoItem extends BoxLayout {
     return EVENT_PROPAGATE;
   }
 
-  // override vfunc_button_press_event(event: ButtonEvent): boolean {
-  //   if (event.button === 1) {
-  //     this.setActivated();
-  //     return EVENT_STOP;
-  //   }
+  override vfunc_button_release_event(event: ButtonEvent): boolean {
+    if (event.button === 1) {
+      this.setActivated();
+      return EVENT_STOP;
+    }
 
-  //   return EVENT_PROPAGATE;
-  // }
+    return EVENT_PROPAGATE;
+  }
 
   override vfunc_destroy(): void {
     clearInterval(this.dateUpdateIntervalId);
