@@ -28,10 +28,10 @@ export class CodePanoItem extends PanoItem {
     this.body.add_child(label);
 
     if (!this.dbId) {
-      const savedId = db.save('CODE', this.clipboardContent, date);
+      const savedItem = db.save('CODE', this.clipboardContent, date);
 
-      if (savedId) {
-        this.dbId = savedId;
+      if (savedItem) {
+        this.dbId = savedItem.id;
       }
     }
 

@@ -5,6 +5,13 @@ import { getCurrentExtension, logger } from '@pano/utils/shell';
 
 const debug = logger('database');
 
+type DBItem = {
+  id: number;
+  itemType: string;
+  content: string;
+  copyDate: Date;
+};
+
 class Database {
   private connection: Connection | null;
 
@@ -38,7 +45,7 @@ class Database {
     `);
   }
 
-  save(itemType: string, content: string | Uint8Array | FileOperationValue, date: Date): number | null {
+  save(itemType: string, content: string, copyDate: Date): DBItem | null {
     if (!this.connection || !this.connection.is_opened()) {
       debug('connection is not opened');
       return null;
@@ -50,17 +57,19 @@ class Database {
 
     builder.set_table('clipboard');
     builder.add_field_value_as_gvalue('itemType', itemType as any);
-    builder.add_field_value_as_gvalue('copyDate', date.toISOString() as any);
-    if (content instanceof Uint8Array) {
-      builder.add_field_value_as_gvalue('content', compute_checksum_for_bytes(ChecksumType.MD5, content) as any);
-    } else if (typeof content === 'object' && 'operation' in content && 'fileList' in content) {
-      builder.add_field_value_as_gvalue('content', JSON.stringify(content) as any);
-    } else {
-      builder.add_field_value_as_gvalue('content', content as any);
-    }
+    builder.add_field_value_as_gvalue('copyDate', copyDate.toISOString() as any);
+    builder.add_field_value_as_gvalue('content', content as any);
     const [_, row] = this.connection.statement_execute_non_select(builder.get_statement(), null);
-
-    return (row?.get_nth_holder(0).get_value() as any as number) || null;
+    const id = row?.get_nth_holder(0).get_value() as any as number;
+    if (!id) {
+      return null;
+    }
+    return {
+      id,
+      itemType,
+      content,
+      copyDate,
+    };
   }
 
   search(content: string): number[] {

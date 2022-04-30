@@ -67,9 +67,9 @@ export class FilePanoItem extends PanoItem {
     this.body.add_child(container);
 
     if (!this.dbId) {
-      const savedId = db.save('FILE', this.clipboardContent, date);
-      if (savedId) {
-        this.dbId = savedId;
+      const savedItem = db.save('FILE', JSON.stringify(this.clipboardContent), date);
+      if (savedItem) {
+        this.dbId = savedItem.id;
       }
     }
 

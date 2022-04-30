@@ -46,9 +46,12 @@ export class ImagePanoItem extends PanoItem {
     }
 
     if (!this.dbId) {
-      const savedId = db.save('IMAGE', this.clipboardContent, date);
-      if (savedId) {
-        this.dbId = savedId;
+      const checksum = compute_checksum_for_bytes(ChecksumType.MD5, this.clipboardContent);
+      if (checksum) {
+        const savedItem = db.save('IMAGE', checksum, date);
+        if (savedItem) {
+          this.dbId = savedItem.id;
+        }
       }
     }
 

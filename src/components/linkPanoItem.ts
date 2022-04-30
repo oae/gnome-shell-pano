@@ -77,9 +77,9 @@ export class LinkPanoItem extends PanoItem {
     this.body.add_child(this.metaContainer);
 
     if (!this.dbId) {
-      const savedId = db.save('LINK', this.link, date);
-      if (savedId) {
-        this.dbId = savedId;
+      const savedItem = db.save('LINK', this.link, date);
+      if (savedItem) {
+        this.dbId = savedItem.id;
       }
     }
 

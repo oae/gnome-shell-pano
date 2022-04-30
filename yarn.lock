@@ -460,6 +460,13 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
+"@types/highlight.js@^10.1.0":
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/@types/highlight.js/-/highlight.js-10.1.0.tgz#89bb0c202997d7a90a07bd2ec1f7d00c56bb90b4"
+  integrity sha512-77hF2dGBsOgnvZll1vymYiNUtqJ8cJfXPD6GG/2M0aLRc29PkvB7Au6sIDjIEFcSICBhCh2+Pyq6WSRS7LUm6A==
+  dependencies:
+    highlight.js "*"
+
 "@types/is-url@^1.2.30":
   version "1.2.30"
   resolved "https://registry.yarnpkg.com/@types/is-url/-/is-url-1.2.30.tgz#85567e8bee4fee69202bc3448f9fb34b0d56c50a"
@@ -1747,6 +1754,11 @@ has@^1.0.3:
   integrity sha512-f2dvO0VU6Oej7RkWJGrehjbzMAjFp5/VKPp5tTpWIV4JHHZK1/BxbFRtf/siA2SWTe09caDmVtYYzWEIbBS4zw==
   dependencies:
     function-bind "^1.1.1"
+
+highlight.js@*:
+  version "11.5.1"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-11.5.1.tgz#027c24e4509e2f4dcd00b4a6dda542ce0a1f7aea"
+  integrity sha512-LKzHqnxr4CrD2YsNoIf/o5nJ09j4yi/GcH5BnYz9UnVpZdS4ucMgvP61TDty5xJcFGRjnH4DpujkS9bHT3hq0Q==
 
 highlight.js@^11.5.0:
   version "11.5.0"
