@@ -5,7 +5,7 @@ import { getCurrentExtension, logger } from '@pano/utils/shell';
 
 const debug = logger('database');
 
-type DBItem = {
+export type DBItem = {
   id: number;
   itemType: string;
   content: string;
@@ -178,7 +178,7 @@ class Database {
     return null;
   }
 
-  query(): any[] {
+  findAll(): DBItem[] {
     if (!this.connection || !this.connection.is_opened()) {
       return [];
     }
@@ -186,7 +186,7 @@ class Database {
     const dm = this.connection.execute_select_command('select * from clipboard order by copyDate asc');
 
     const iter = dm.create_iter();
-    const itemList: any[] = [];
+    const itemList: DBItem[] = [];
 
     while (iter.move_next()) {
       const id = iter.get_value_for_field('id') as any as number;
@@ -198,7 +198,7 @@ class Database {
         continue;
       }
 
-      itemList.push({ id, itemType, content, copyDate });
+      itemList.push({ id, itemType, content, copyDate: new Date(copyDate) });
     }
 
     return itemList;

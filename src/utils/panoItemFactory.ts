@@ -33,7 +33,7 @@ import { FilePanoItem } from '@pano/components/filePanoItem';
 import { ClipboardContent, ContentType } from '@pano/utils/clipboardManager';
 import { getImagesPath, logger } from '@pano/utils/shell';
 import { File } from '@imports/gio2';
-import { db } from './db';
+import { db, DBItem } from './db';
 
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('markdown', markdown);
@@ -137,23 +137,18 @@ export const createPanoItem = (clip: ClipboardContent, onNewItem: any, onOldItem
   }
 };
 
-export const createPanoItemFromDb = (
-  id: number,
-  itemType: string,
-  content: string,
-  copyDate: string,
-): PanoItem | null => {
-  switch (itemType) {
+export const createPanoItemFromDb = (dbItem: DBItem): PanoItem | null => {
+  switch (dbItem.itemType) {
     case 'TEXT':
-      return new TextPanoItem(id, content, new Date(copyDate));
+      return new TextPanoItem(dbItem.id, dbItem.content, dbItem.copyDate);
     case 'CODE':
-      return new CodePanoItem(id, content, new Date(copyDate));
+      return new CodePanoItem(dbItem.id, dbItem.content, dbItem.copyDate);
     case 'LINK':
-      return new LinkPanoItem(id, content, new Date(copyDate));
+      return new LinkPanoItem(dbItem.id, dbItem.content, dbItem.copyDate);
     case 'FILE':
-      return new FilePanoItem(id, JSON.parse(content), new Date(copyDate));
+      return new FilePanoItem(dbItem.id, JSON.parse(dbItem.content), dbItem.copyDate);
     case 'IMAGE':
-      const savedImage = File.new_for_path(`${getImagesPath()}/${content}.png`);
+      const savedImage = File.new_for_path(`${getImagesPath()}/${dbItem.content}.png`);
 
       if (!savedImage.query_exists(null)) {
         return null;
@@ -166,7 +161,7 @@ export const createPanoItemFromDb = (
       if (!data || data.length === 0) {
         return null;
       }
-      return new ImagePanoItem(id, data, new Date(copyDate));
+      return new ImagePanoItem(dbItem.id, data, dbItem.copyDate);
 
     default:
       return null;

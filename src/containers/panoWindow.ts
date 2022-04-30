@@ -18,7 +18,7 @@ import { BoxLayout, Entry, Icon, ScrollView } from '@imports/st1';
 import { PanoItem } from '@pano/components/panoItem';
 import { PanoScrollView } from '@pano/components/panoScrollView';
 import { ClipboardContent, clipboardManager } from '@pano/utils/clipboardManager';
-import { db } from '@pano/utils/db';
+import { db, DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { createPanoItem, createPanoItemFromDb } from '@pano/utils/panoItemFactory';
 import {
@@ -132,10 +132,10 @@ export class PanoWindow extends BoxLayout {
     this.add_actor(searchBox);
     this.add_actor(this.scrollView);
 
-    const dbItems = db.query();
+    const dbItems = db.findAll();
 
-    dbItems.forEach(({ id, itemType, content, copyDate }) => {
-      const item = createPanoItemFromDb(id, itemType, content, copyDate);
+    dbItems.forEach((dbItem: DBItem) => {
+      const item = createPanoItemFromDb(dbItem);
       if (item) {
         this.scrollView.addItem(item);
       }
