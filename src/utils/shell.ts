@@ -1,6 +1,6 @@
 import { Actor } from '@imports/clutter10';
 import { File, Settings } from '@imports/gio2';
-import { get_home_dir } from '@imports/glib2';
+import { get_user_cache_dir, get_user_data_dir } from '@imports/glib2';
 import { Global } from '@imports/shell0';
 
 export const logger =
@@ -12,11 +12,11 @@ const debug = logger('utils');
 
 const global = Global.get();
 
-export const getAppDataPath = (): string => `${get_home_dir()}/.local/share/pano`;
+export const getAppDataPath = (): string => `${get_user_data_dir()}/pano`;
 
-export const getImagesPath = (): string => `${get_home_dir()}/.local/share/pano/images`;
+export const getImagesPath = (): string => `${getAppDataPath()}/images`;
 
-export const getCachePath = (): string => `${get_home_dir()}/.cache/pano`;
+export const getCachePath = (): string => `${get_user_cache_dir()}/pano`;
 
 export const setupAppDirs = (): void => {
   const appDataPath = File.new_for_path(getImagesPath());

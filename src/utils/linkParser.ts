@@ -62,14 +62,14 @@ export const getDocument = async (url: string): Promise<any> => {
     const parser = new XMLParser({
       ignoreAttributes: false,
       unpairedTags: ['hr', 'br', 'link', 'meta'],
-      stopNodes: ['*.pre', '*.script', '*.html.body'],
+      stopNodes: ['*.pre', '*.script'],
       attributeNamePrefix: '',
       processEntities: true,
       htmlEntities: true,
     });
     return parser.parse(data);
   } catch (err) {
-    debug(`failed to parse link ${url}`);
+    debug(`failed to parse link ${url}. err: ${err}`);
   }
 
   return null;

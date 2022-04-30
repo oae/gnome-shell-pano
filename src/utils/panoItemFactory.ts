@@ -106,7 +106,7 @@ export const createPanoItem = (clip: ClipboardContent, onNewItem: any, onOldItem
       }
       break;
     case ContentType.TEXT:
-      if (isUrl(value)) {
+      if (isUrl(value) && value.toLowerCase().startsWith('http')) {
         id = db.find('LINK', value);
         if (id) {
           onOldItem(id);
