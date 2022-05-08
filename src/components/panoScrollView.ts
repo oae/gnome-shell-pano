@@ -103,28 +103,28 @@ export class PanoScrollView extends ScrollView {
       this.scrollToItem(this.lastFocus);
       return;
     } else {
-      this.scrollToItem(visibleItems[0]);
+      this.focusFirst(true);
     }
   }
 
   onSearch(keyword: string) {
     if (!keyword) {
       this.items.forEach((i) => i.show());
-      this.focusFirst();
+      this.focusFirst(false);
       return;
     }
 
     const result = db.search(keyword);
 
     this.items.forEach((item) => (item.dbId !== null && result.indexOf(item.dbId) >= 0 ? item.show() : item.hide()));
-    this.focusFirst();
+    this.focusFirst(false);
   }
 
-  private focusFirst() {
+  private focusFirst(shouldGrabFocus: boolean) {
     const visibleItems = this.items.filter((i) => i.is_visible());
     if (visibleItems.length > 0) {
       this.lastFocus = visibleItems[0];
-      this.scrollToItem(this.lastFocus, false);
+      this.scrollToItem(this.lastFocus, shouldGrabFocus);
     }
   }
 
