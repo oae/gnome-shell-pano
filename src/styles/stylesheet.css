@@ -23,10 +23,10 @@
   width: 300px;
 }
 
-.pano-item:first-child {
+.pano-item:visible:first-child {
   margin-left: 20px;
 }
-.pano-item:last-child {
+.pano-item:visible:last-child {
   margin-right: 20px;
 }
 
