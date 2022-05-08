@@ -36,15 +36,13 @@ export class LinkPanoItem extends PanoItem {
       x_align: ActorAlign.START,
     });
 
-    const isHttpLink = this.link.startsWith('http');
-
     this.titleLabel = new Label({
-      text: isHttpLink ? 'Loading...' : this.link,
+      text: 'Loading...',
       style_class: 'link-title-label',
     });
 
     this.descriptionLabel = new Label({
-      text: isHttpLink ? 'Loading...' : this.link,
+      text: 'Loading...',
       style_class: 'link-description-label',
     });
     this.descriptionLabel.clutter_text.single_line_mode = true;
@@ -68,11 +66,9 @@ export class LinkPanoItem extends PanoItem {
     this.body.add_child(this.imageContent);
     this.metaContainer.add_child(this.titleLabel);
 
-    if (isHttpLink) {
-      this.metaContainer.add_child(this.descriptionLabel);
-      this.metaContainer.add_child(this.linkLabel);
-      this.readLinkMetaData();
-    }
+    this.metaContainer.add_child(this.descriptionLabel);
+    this.metaContainer.add_child(this.linkLabel);
+    this.readLinkMetaData();
 
     this.body.add_child(this.metaContainer);
 

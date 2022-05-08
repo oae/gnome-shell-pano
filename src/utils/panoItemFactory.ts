@@ -4,6 +4,7 @@ import hljs from 'highlight.js/lib/core';
 import python from 'highlight.js/lib/languages/python';
 import markdown from 'highlight.js/lib/languages/markdown';
 import yaml from 'highlight.js/lib/languages/yaml';
+import sql from 'highlight.js/lib/languages/sql';
 import java from 'highlight.js/lib/languages/java';
 import javascript from 'highlight.js/lib/languages/javascript';
 import csharp from 'highlight.js/lib/languages/csharp';
@@ -33,7 +34,8 @@ import { FilePanoItem } from '@pano/components/filePanoItem';
 import { ClipboardContent, ContentType } from '@pano/utils/clipboardManager';
 import { getImagesPath, logger } from '@pano/utils/shell';
 import { File } from '@imports/gio2';
-import { db, DBItem } from './db';
+import { ClipboardQueryBuilder, db, DBItem } from './db';
+import { ChecksumType, compute_checksum_for_bytes } from '@imports/glib2';
 
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('markdown', markdown);
@@ -57,6 +59,7 @@ hljs.registerLanguage('groovy', groovy);
 hljs.registerLanguage('perl', perl);
 hljs.registerLanguage('julia', julia);
 hljs.registerLanguage('haskell', haskell);
+hljs.registerLanguage('sql', sql);
 
 const debug = logger('pano-item-factory');
 
@@ -78,6 +81,7 @@ const SUPPORTED_LANGUAGES = [
   'ruby',
   'scala',
   'dart',
+  'sql',
   'lua',
   'groovy',
   'perl',
@@ -87,53 +91,49 @@ const SUPPORTED_LANGUAGES = [
 
 export const createPanoItem = (clip: ClipboardContent, onNewItem: any, onOldItem: any): void => {
   const { value, type } = clip.content;
-  let id: number | null;
+  let result: DBItem[];
   switch (type) {
     case ContentType.FILE:
-      id = db.find('FILE', value);
-      if (id) {
-        onOldItem(id);
-      } else {
+      result = db.query(new ClipboardQueryBuilder().withItemTypes(['FILE']).withContent(JSON.stringify(value)).build());
+
+      if (result.length === 0) {
         onNewItem(new FilePanoItem(null, value, new Date()));
+      } else {
+        onOldItem(result[0].id);
       }
       break;
     case ContentType.IMAGE:
-      id = db.find('IMAGE', value);
-      if (id) {
-        onOldItem(id);
-      } else {
+      result = db.query(
+        new ClipboardQueryBuilder()
+          .withItemTypes(['IMAGE'])
+          .withContent(compute_checksum_for_bytes(ChecksumType.MD5, value))
+          .build(),
+      );
+
+      if (result.length === 0) {
         onNewItem(new ImagePanoItem(null, value, new Date()));
+      } else {
+        onOldItem(result[0].id);
       }
       break;
     case ContentType.TEXT:
-      if (isUrl(value) && value.toLowerCase().startsWith('http')) {
-        id = db.find('LINK', value);
-        if (id) {
-          onOldItem(id);
-        } else {
+      result = db.query(new ClipboardQueryBuilder().withItemTypes(['LINK', 'TEXT', 'CODE']).withContent(value).build());
+      if (result.length === 0) {
+        if (value.toLowerCase().startsWith('http') && isUrl(value)) {
           onNewItem(new LinkPanoItem(null, value, new Date()));
+          break;
         }
-        break;
-      }
-      const highlightResult = hljs.highlightAuto(value.slice(0, 1000), SUPPORTED_LANGUAGES);
-      debug(`rel: ${highlightResult.relevance} ${highlightResult.language}`);
-      if (highlightResult.relevance < 10) {
-        id = db.find('TEXT', value);
-        if (id) {
-          onOldItem(id);
-        } else {
+        const highlightResult = hljs.highlightAuto(value.slice(0, 1000), SUPPORTED_LANGUAGES);
+        debug(`rel: ${highlightResult.relevance} ${highlightResult.language}`);
+        if (highlightResult.relevance < 10) {
           onNewItem(new TextPanoItem(null, value, new Date()));
-        }
-        break;
-      } else {
-        id = db.find('CODE', value);
-        if (id) {
-          onOldItem(id);
         } else {
           onNewItem(new CodePanoItem(null, value, new Date()));
         }
-        break;
+      } else {
+        onOldItem(result[0].id);
       }
+      break;
   }
 };
 

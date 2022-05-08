@@ -13,7 +13,7 @@ import { Global } from '@imports/shell0';
 import { BoxLayout, PolicyType, ScrollView } from '@imports/st1';
 import { PanoItem } from '@pano/components/panoItem';
 import { PanoWindow } from '@pano/containers/panoWindow';
-import { db } from '@pano/utils/db';
+import { ClipboardQueryBuilder, db } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 
 const global = Global.get();
@@ -114,7 +114,9 @@ export class PanoScrollView extends ScrollView {
       return;
     }
 
-    const result = db.search(keyword);
+    const result = db
+      .query(new ClipboardQueryBuilder().withContainingContent(keyword).build())
+      .map((dbItem) => dbItem.id);
 
     this.items.forEach((item) => (item.dbId !== null && result.indexOf(item.dbId) >= 0 ? item.show() : item.hide()));
     this.focusFirst(false);

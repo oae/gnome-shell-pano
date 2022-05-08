@@ -1,6 +1,12 @@
-import { Config, Connection, SqlBuilder, SqlOperatorType, SqlStatementType } from '@imports/gda5';
-import { ChecksumType, compute_checksum_for_bytes } from '@imports/glib2';
-import { FileOperationValue } from '@pano/utils/clipboardManager';
+import {
+  Config,
+  Connection,
+  SqlBuilder,
+  SqlOperatorType,
+  SqlStatementType,
+  Statement,
+  StatementSqlFlag,
+} from '@imports/gda5';
 import { getCurrentExtension, logger } from '@pano/utils/shell';
 
 const debug = logger('database');
@@ -12,6 +18,100 @@ export type DBItem = {
   copyDate: Date;
 };
 
+class ClipboardQuery {
+  readonly statement: Statement;
+
+  constructor(statement: Statement) {
+    this.statement = statement;
+  }
+}
+
+export class ClipboardQueryBuilder {
+  private readonly builder: SqlBuilder;
+  private conditions: number[];
+
+  constructor() {
+    this.conditions = [];
+    this.builder = new SqlBuilder({
+      stmt_type: SqlStatementType.SELECT,
+    });
+    this.builder.select_add_field('id', 'clipboard', 'id');
+    this.builder.select_add_field('itemType', 'clipboard', 'itemType');
+    this.builder.select_add_field('content', 'clipboard', 'content');
+    this.builder.select_add_field('copyDate', 'clipboard', 'copyDate');
+
+    this.builder.select_add_target('clipboard', null);
+  }
+
+  withId(id?: number | null) {
+    if (id !== null && id !== undefined) {
+      this.conditions.push(
+        this.builder.add_cond(
+          SqlOperatorType.EQ,
+          this.builder.add_field_id('id', 'clipboard'),
+          this.builder.add_expr_value(null, id as any),
+          0,
+        ),
+      );
+    }
+
+    return this;
+  }
+
+  withItemTypes(itemTypes?: string[] | null) {
+    if (itemTypes !== null && itemTypes !== undefined) {
+      const orConditions = itemTypes.map((itemType) =>
+        this.builder.add_cond(
+          SqlOperatorType.EQ,
+          this.builder.add_field_id('itemType', 'clipboard'),
+          this.builder.add_expr_value(null, itemType as any),
+          0,
+        ),
+      );
+      this.conditions.push(this.builder.add_cond_v(SqlOperatorType.OR, orConditions));
+    }
+
+    return this;
+  }
+
+  withContent(content?: string | null) {
+    if (content !== null && content !== undefined) {
+      this.conditions.push(
+        this.builder.add_cond(
+          SqlOperatorType.EQ,
+          this.builder.add_field_id('content', 'clipboard'),
+          this.builder.add_expr_value(null, content as any),
+          0,
+        ),
+      );
+    }
+
+    return this;
+  }
+
+  withContainingContent(content?: string | null) {
+    if (content !== null && content !== undefined) {
+      this.conditions.push(
+        this.builder.add_cond(
+          SqlOperatorType.LIKE,
+          this.builder.add_field_id('content', 'clipboard'),
+          this.builder.add_expr_value(null, `%${content}%` as any),
+          0,
+        ),
+      );
+    }
+
+    return this;
+  }
+
+  build(): ClipboardQuery {
+    if (this.conditions.length > 0) {
+      this.builder.set_where(this.builder.add_cond_v(SqlOperatorType.AND, this.conditions));
+    }
+
+    return new ClipboardQuery(this.builder.get_statement());
+  }
+}
 class Database {
   private connection: Connection | null;
 
@@ -35,7 +135,7 @@ class Database {
       (
           id          integer not null constraint clipboard_pk primary key autoincrement,
           itemType    text not null,
-          content     text,
+          content     text not null,
           copyDate    text not null
       );
     `);
@@ -72,118 +172,61 @@ class Database {
     };
   }
 
-  search(content: string): number[] {
-    const result: number[] = [];
+  update(dbItem: DBItem): void {
     if (!this.connection || !this.connection.is_opened()) {
       debug('connection is not opened');
-      return result;
+      return;
     }
 
     const builder = new SqlBuilder({
-      stmt_type: SqlStatementType.SELECT,
+      stmt_type: SqlStatementType.UPDATE,
     });
 
-    builder.select_add_field('id', 'clipboard', 'id');
-
-    const contentField = builder.add_field_id('content', 'clipboard');
-    const contentValue = builder.add_expr_value(null, `%${content}%` as any);
-    const contentCond = builder.add_cond(SqlOperatorType.LIKE, contentField, contentValue, 0);
-    //TODO: add order by for date
-
-    const itemTypeField = builder.add_field_id('itemType', 'clipboard');
-
-    const itemTypeValue = builder.add_expr_value(null, 'IMAGE' as any);
-    const itemTypeCond = builder.add_cond(SqlOperatorType.NOTIN, itemTypeField, itemTypeValue, 0);
-
-    builder.select_add_target('clipboard', null);
-
-    const cond = builder.add_cond(SqlOperatorType.AND, contentCond, itemTypeCond, 0);
-    builder.set_where(cond);
-
-    // debug(`${builder.get_statement().to_sql_extended(this.connection, null, StatementSqlFlag.PRETTY)}`);
-
-    const dm = this.connection.statement_execute_select(builder.get_statement(), null);
-    if (!dm) {
-      return result;
-    }
-
-    const iter = dm.create_iter();
-
-    while (iter.move_next()) {
-      const id = iter.get_value_for_field('id') as any as number;
-
-      if (!id) {
-        continue;
-      }
-
-      result.push(id);
-    }
-
-    return result;
+    builder.set_table('clipboard');
+    builder.add_field_value_as_gvalue('itemType', dbItem.itemType as any);
+    builder.add_field_value_as_gvalue('copyDate', dbItem.copyDate.toISOString() as any);
+    builder.add_field_value_as_gvalue('content', dbItem.content as any);
+    builder.set_where(
+      builder.add_cond(
+        SqlOperatorType.EQ,
+        builder.add_field_id('id', 'clipboard'),
+        builder.add_expr_value(null, dbItem.id as any),
+        0,
+      ),
+    );
+    this.connection.statement_execute_non_select(builder.get_statement(), null);
   }
 
-  find(itemType: string, content: string | Uint8Array | FileOperationValue): number | null {
+  delete(id: number): void {
     if (!this.connection || !this.connection.is_opened()) {
       debug('connection is not opened');
-      return null;
+      return;
     }
 
-    let condition = content;
-    if (content instanceof Uint8Array) {
-      const checksum = compute_checksum_for_bytes(ChecksumType.MD5, content);
-      if (checksum) {
-        condition = checksum;
-      }
-    } else if (content && typeof content === 'object' && 'operation' in content && 'fileList' in content) {
-      condition = JSON.stringify(content);
-    }
     const builder = new SqlBuilder({
-      stmt_type: SqlStatementType.SELECT,
+      stmt_type: SqlStatementType.DELETE,
     });
 
-    builder.select_add_field('id', 'clipboard', 'id');
-
-    const contentField = builder.add_field_id('content', 'clipboard');
-    const contentValue = builder.add_expr_value(null, condition as any);
-    const contentCond = builder.add_cond(SqlOperatorType.EQ, contentField, contentValue, 0);
-
-    const itemTypeField = builder.add_field_id('itemType', 'clipboard');
-    const itemTypeValue = builder.add_expr_value(null, itemType as any);
-    const itemTypeCond = builder.add_cond(SqlOperatorType.EQ, itemTypeField, itemTypeValue, 0);
-
-    builder.select_add_target('clipboard', null);
-
-    const cond = builder.add_cond(SqlOperatorType.AND, contentCond, itemTypeCond, 0);
-    builder.set_where(cond);
-
-    // debug(`${builder.get_statement().to_sql_extended(this.connection, null, StatementSqlFlag.PRETTY)}`);
-
-    const dm = this.connection.statement_execute_select(builder.get_statement(), null);
-    if (!dm) {
-      return null;
-    }
-
-    const iter = dm.create_iter();
-
-    while (iter.move_next()) {
-      const id = iter.get_value_for_field('id') as any as number;
-
-      if (!id) {
-        continue;
-      }
-
-      return id;
-    }
-
-    return null;
+    builder.set_table('clipboard');
+    builder.set_where(
+      builder.add_cond(
+        SqlOperatorType.EQ,
+        builder.add_field_id('id', 'clipboard'),
+        builder.add_expr_value(null, id as any),
+        0,
+      ),
+    );
+    this.connection.statement_execute_non_select(builder.get_statement(), null);
   }
 
-  findAll(): DBItem[] {
+  query(clipboardQuery: ClipboardQuery): DBItem[] {
     if (!this.connection || !this.connection.is_opened()) {
       return [];
     }
 
-    const dm = this.connection.execute_select_command('select * from clipboard order by copyDate asc');
+    debug(`${clipboardQuery.statement.to_sql_extended(this.connection, null, StatementSqlFlag.PRETTY)}`);
+
+    const dm = this.connection.statement_execute_select(clipboardQuery.statement, null);
 
     const iter = dm.create_iter();
     const itemList: DBItem[] = [];
@@ -193,10 +236,6 @@ class Database {
       const itemType = iter.get_value_for_field('itemType') as any as string;
       const content = iter.get_value_for_field('content') as any as string;
       const copyDate = iter.get_value_for_field('copyDate') as any as string;
-
-      if (!content || !itemType || !copyDate || !id) {
-        continue;
-      }
 
       itemList.push({ id, itemType, content, copyDate: new Date(copyDate) });
     }
