@@ -163,11 +163,17 @@ export class PanoScrollView extends ScrollView {
   override vfunc_scroll_event(event: ScrollEvent): boolean {
     const adjustment = this.hscroll.adjustment;
     let value = adjustment.value;
+
+    if (event.direction === ScrollDirection.SMOOTH) {
+      return EVENT_STOP;
+    }
+
     if (event.direction === ScrollDirection.UP || event.direction === ScrollDirection.LEFT) {
       value -= adjustment.step_increment * 2;
     } else if (event.direction === ScrollDirection.DOWN || event.direction === ScrollDirection.RIGHT) {
       value += adjustment.step_increment * 2;
     }
+
     adjustment.remove_transition('value');
     adjustment.ease(value, {
       duration: 150,
