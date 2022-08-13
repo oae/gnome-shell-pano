@@ -2,7 +2,7 @@ import { Bytes } from '@imports/glib2';
 import { MetaInfo, Object } from '@imports/gobject2';
 import { Selection, SelectionType } from '@imports/meta10';
 import { Global } from '@imports/shell0';
-import { Clipboard, ClipboardType, Icon } from '@imports/st1';
+import { Clipboard, ClipboardType } from '@imports/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { logger } from '@pano/utils/shell';
 
@@ -74,15 +74,12 @@ export class ClipboardManager extends Object {
   private clipboard: Clipboard;
   private selection: Selection;
   private selectionChangedId: number;
-  private imageContent: Icon;
 
   constructor() {
     super();
 
     this.clipboard = Clipboard.get_default();
     this.selection = global.get_display().get_selection();
-    this.imageContent = new Icon();
-    global.stage.add_actor(this.imageContent);
   }
   startTracking() {
     this.selectionChangedId = this.selection.connect('owner-changed', async (_, selectionType: SelectionType) => {

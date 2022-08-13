@@ -54,6 +54,11 @@ export class PanoScrollView extends ScrollView {
     const adjustment = this.hscroll.adjustment;
 
     const value = box.x1 + adjustment.step_increment / 2.0 - adjustment.page_size / 2.0;
+
+    if (!Number.isFinite(value)) {
+      return;
+    }
+
     adjustment.ease(value, {
       duration: 150,
       mode: AnimationMode.EASE_OUT_QUAD,
