@@ -1,47 +1,22 @@
-import {
-  ActorAlign,
-  AnimationMode,
-  Event,
-  EVENT_PROPAGATE,
-  EVENT_STOP,
-  KeyEvent,
-  keysym_to_unicode,
-  KEY_BackSpace,
-  KEY_Down,
-  KEY_Escape,
-  KEY_ISO_Enter,
-  KEY_KP_Enter,
-  KEY_Left,
-  KEY_Return,
-  KEY_Right,
-  KEY_Up,
-} from '@imports/clutter10';
-import { MonitorManager } from '@imports/meta10';
-import { BoxLayout, Entry, Icon, ScrollView } from '@imports/st1';
+import { ActorAlign, AnimationMode, EVENT_PROPAGATE, KeyEvent, KEY_Escape } from '@imports/clutter10';
+import { BoxLayout } from '@imports/st1';
+import { MonitorBox } from '@pano/components/monitorBox';
 import { PanoItem } from '@pano/components/panoItem';
 import { PanoScrollView } from '@pano/components/panoScrollView';
+import { SearchBox } from '@pano/components/searchBox';
 import { ClipboardContent, clipboardManager } from '@pano/utils/clipboardManager';
 import { ClipboardQueryBuilder, db, DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { createPanoItem, createPanoItemFromDb } from '@pano/utils/panoItemFactory';
-import {
-  addChrome,
-  getMonitorConstraint,
-  getMonitorConstraintForIndex,
-  getMonitors,
-  logger,
-  removeChrome,
-} from '@pano/utils/shell';
+import { getMonitorConstraint, logger } from '@pano/utils/shell';
 
 const debug = logger('pano-window');
-const monitorManager = MonitorManager.get();
 
 @registerGObjectClass
 export class PanoWindow extends BoxLayout {
   private scrollView: PanoScrollView;
-  private search: Entry;
-  private monitorBox: BoxLayout;
-  private monitorChangedEventId: number;
+  private searchBox: SearchBox;
+  private monitorBox: MonitorBox;
 
   constructor() {
     super({
@@ -57,89 +32,15 @@ export class PanoWindow extends BoxLayout {
       can_focus: true,
     });
 
-    this.monitorBox = new BoxLayout({
-      name: 'PanoMonitorBox',
-      visible: false,
-      vertical: true,
-      reactive: true,
-      opacity: 0,
-    });
-    this.monitorBox.connect('button-press-event', () => {
-      this.hide();
-      return EVENT_STOP;
-    });
-
-    this.monitorChangedEventId = monitorManager.connect('monitors-changed', this.updateMonitorBox.bind(this));
-    this.updateMonitorBox();
-
-    addChrome(this.monitorBox);
-
+    this.monitorBox = new MonitorBox();
     this.scrollView = new PanoScrollView(this);
-    const searchBox = new BoxLayout({
-      x_align: ActorAlign.CENTER,
-      style_class: 'search-entry-container',
-      vertical: false,
-    });
-    this.search = new Entry({
-      can_focus: true,
-      hint_text: 'Type to search',
-      track_hover: true,
-      width: 300,
-      primary_icon: new Icon({
-        style_class: 'search-entry-icon',
-        icon_name: 'edit-find-symbolic',
-      }),
-    });
-    this.search.clutter_text.connect('text-changed', () => {
-      this.scrollView.onSearch(this.search.text);
-    });
-    this.search.clutter_text.connect('key-press-event', (_: Entry, event: Event) => {
-      if (
-        event.get_key_symbol() === KEY_Down ||
-        (event.get_key_symbol() === KEY_Right &&
-          (this.search.clutter_text.cursor_position === -1 || this.search.text.length === 0))
-      ) {
-        this.scrollView.focus();
-      }
-      if (
-        event.get_key_symbol() === KEY_Return ||
-        event.get_key_symbol() === KEY_ISO_Enter ||
-        event.get_key_symbol() === KEY_KP_Enter
-      ) {
-        this.scrollView.selectFirstItem();
-      }
-    });
-    this.scrollView.connect('key-press-event', (_: ScrollView, event: Event) => {
-      if (event.get_state()) {
-        return EVENT_PROPAGATE;
-      }
+    this.searchBox = new SearchBox();
 
-      if (event.get_key_symbol() === KEY_Left && this.scrollView.canGiveFocus()) {
-        this.search.grab_key_focus();
-        return EVENT_STOP;
-      }
+    this.setupMonitorBox();
+    this.setupScrollView();
+    this.setupSearchBox();
 
-      if (event.get_key_symbol() === KEY_Up) {
-        this.search.grab_key_focus();
-        return EVENT_STOP;
-      }
-      if (event.get_key_symbol() == KEY_BackSpace) {
-        this.search.text = this.search.text.slice(0, -1);
-        this.search.grab_key_focus();
-        return EVENT_STOP;
-      }
-      const unicode = keysym_to_unicode(event.get_key_symbol());
-      if (unicode === 0) {
-        return EVENT_PROPAGATE;
-      }
-
-      this.search.grab_key_focus();
-      this.search.text += String.fromCharCode(unicode);
-
-      return EVENT_STOP;
-    });
-    searchBox.add_child(this.search);
-    this.add_actor(searchBox);
+    this.add_actor(this.searchBox);
     this.add_actor(this.scrollView);
 
     const dbItems = db.query(new ClipboardQueryBuilder().build());
@@ -154,14 +55,42 @@ export class PanoWindow extends BoxLayout {
     clipboardManager.connect('changed', this.onNewItem.bind(this));
   }
 
+  private setupMonitorBox() {
+    this.monitorBox.connect('hide', () => this.hide());
+    this.searchBox.connect('search-text-changed', (_: any, text: string) => {
+      this.scrollView.onSearch(text);
+    });
+  }
+
+  private setupSearchBox() {
+    this.searchBox.connect('search-focus-out', () => this.scrollView.focus());
+    this.searchBox.connect('search-submit', () => this.scrollView.selectFirstItem());
+  }
+
+  private setupScrollView() {
+    this.scrollView.connect('scroll-focus-out', () => {
+      this.searchBox.focus();
+    });
+
+    this.scrollView.connect('scroll-backspace-press', () => {
+      this.searchBox.removeChar();
+      this.searchBox.focus();
+    });
+
+    this.scrollView.connect('scroll-key-press', (_: any, text: string) => {
+      this.searchBox.focus();
+      this.searchBox.appendText(text);
+    });
+  }
+
   private onNewItem(_: any, content: ClipboardContent) {
     createPanoItem(
       content,
       (item: PanoItem) => {
         if (item) {
           this.scrollView.addItem(item);
-          if (this.search.text) {
-            this.scrollView.onSearch(this.search.text);
+          if (this.searchBox.getText()) {
+            this.scrollView.onSearch(this.searchBox.getText());
           }
         }
       },
@@ -169,29 +98,13 @@ export class PanoWindow extends BoxLayout {
         const item = this.scrollView.getItem(id);
         if (item) {
           this.scrollView.moveItemToStart(item);
-          if (this.search.text) {
-            this.scrollView.onSearch(this.search.text);
+          if (this.searchBox.getText()) {
+            this.scrollView.onSearch(this.searchBox.getText());
           }
           // TODO: update timestamp in db
         }
       },
     );
-  }
-
-  private updateMonitorBox(): void {
-    this.monitorBox.remove_all_children();
-    getMonitors().forEach((_, index) => {
-      const box = new BoxLayout({
-        constraints: getMonitorConstraintForIndex(index),
-        x_align: ActorAlign.FILL,
-        y_align: ActorAlign.FILL,
-        visible: true,
-        vertical: true,
-        reactive: true,
-        opacity: 0,
-      });
-      this.monitorBox.add_child(box);
-    });
   }
 
   toggle(): void {
@@ -202,8 +115,8 @@ export class PanoWindow extends BoxLayout {
     this.clear_constraints();
     this.add_constraint(getMonitorConstraint());
     super.show();
-    this.search.clutter_text.set_selection(0, this.search.text.length);
-    this.search.grab_key_focus();
+    this.searchBox.selectAll();
+    this.searchBox.focus();
     this.ease({
       opacity: 255,
       duration: 250,
@@ -235,9 +148,8 @@ export class PanoWindow extends BoxLayout {
   }
 
   override destroy(): void {
-    monitorManager.disconnect(this.monitorChangedEventId);
-    removeChrome(this.monitorBox);
     this.monitorBox.destroy();
+    this.searchBox.destroy();
     super.destroy();
   }
 }

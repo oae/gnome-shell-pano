@@ -31,8 +31,7 @@
 }
 
 .pano-item:selected {
-  box-shadow: 0px -2px 5px 0px rgba(100,175,255,1)
-  
+  box-shadow: 0px -2px 5px 0px rgba(100, 175, 255, 1);
 }
 
 .pano-item-header {
@@ -108,7 +107,7 @@
 }
 
 .pano-item-title-container {
-  margin: 12px;
+  margin-top: 16px;
 }
 
 .pano-item-title {
@@ -117,7 +116,8 @@
 }
 
 .pano-icon-container {
-  margin-right: 12px;
+  margin-right: 5px;
+  margin-left: 5px;
 }
 
 .pano-item-date {
@@ -167,4 +167,35 @@
   margin-top: 5px;
   font-size: 10px;
   color: #2c2f44;
+}
+
+.pano-item-remove-button {
+  color: #de4c4a;
+  background-color: rgba(0, 0, 0, 0.9);
+  border-radius: 99px;
+  padding: 5px;
+  margin: 5px;
+}
+
+.pano-item-remove-button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.pano-item-remove-button:active {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.pano-item-favorite-button {
+  color: #fdd835;
+  background-color: rgba(0, 0, 0, 0.9);
+  border-radius: 99px;
+  padding: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.pano-item-favorite-button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.pano-item-favorite-button:active {
+  background-color: rgba(0, 0, 0, 0.9);
 }

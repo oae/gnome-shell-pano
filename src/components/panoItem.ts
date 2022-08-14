@@ -11,7 +11,7 @@ import {
 import { icon_new_for_string } from '@imports/gio2';
 import { MetaInfo } from '@imports/gobject2';
 import { Point } from '@imports/graphene1';
-import { BoxLayout, Icon, Label } from '@imports/st1';
+import { BoxLayout, Button, Icon, Label } from '@imports/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { IPanoItemType } from '@pano/utils/panoItemType';
 import { getCurrentExtension } from '@pano/utils/shell';
@@ -59,12 +59,12 @@ export class PanoItem extends BoxLayout {
     const titleContainer = new BoxLayout({
       style_class: 'pano-item-title-container',
       vertical: true,
+      x_align: ActorAlign.FILL,
+      y_align: ActorAlign.FILL,
+      x_expand: true,
     });
     const iconContainer = new BoxLayout({
       style_class: 'pano-icon-container',
-      x_align: ActorAlign.END,
-      y_align: ActorAlign.FILL,
-      x_expand: true,
     });
 
     iconContainer.add_child(
@@ -95,8 +95,48 @@ export class PanoItem extends BoxLayout {
 
     titleContainer.add_child(this.dateLabel);
 
-    this.header.add_child(titleContainer);
+    const actionContainer = new BoxLayout({
+      style_class: 'pano-item-actions',
+      x_expand: false,
+      y_expand: true,
+      x_align: ActorAlign.END,
+      y_align: ActorAlign.START,
+    });
+
+    const favoriteIcon = new Icon({
+      icon_name: 'emblem-favorite-symbolic',
+      icon_size: 12,
+    });
+
+    const favoriteButton = new Button({
+      style_class: 'pano-item-favorite-button',
+      child: favoriteIcon,
+    });
+
+    favoriteButton.connect('clicked', () => {
+      log(`favorite item with id: ${this.dbId}`);
+    });
+
+    const removeIcon = new Icon({
+      icon_name: 'window-close-symbolic',
+      icon_size: 12,
+    });
+
+    const removeButton = new Button({
+      style_class: 'pano-item-remove-button',
+      child: removeIcon,
+    });
+
+    removeButton.connect('clicked', () => {
+      log(`removed item with id: ${this.dbId}`);
+    });
+
+    actionContainer.add_child(favoriteButton);
+    actionContainer.add_child(removeButton);
+
     this.header.add_child(iconContainer);
+    this.header.add_child(titleContainer);
+    this.header.add_child(actionContainer);
 
     this.body = new BoxLayout({
       style_class: 'pano-item-body',

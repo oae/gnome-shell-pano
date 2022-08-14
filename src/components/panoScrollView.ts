@@ -1,13 +1,18 @@
 import {
   AnimationMode,
+  Event,
   EVENT_PROPAGATE,
   EVENT_STOP,
   KeyEvent,
+  keysym_to_unicode,
+  KEY_BackSpace,
   KEY_Left,
   KEY_Right,
+  KEY_Up,
   ScrollDirection,
   ScrollEvent,
 } from '@imports/clutter10';
+import { MetaInfo, TYPE_STRING } from '@imports/gobject2';
 import { Stage } from '@imports/meta10';
 import { Global } from '@imports/shell0';
 import { BoxLayout, PolicyType, ScrollView } from '@imports/st1';
@@ -20,6 +25,18 @@ const global = Global.get();
 
 @registerGObjectClass
 export class PanoScrollView extends ScrollView {
+  static metaInfo: MetaInfo = {
+    GTypeName: 'PanoScrollView',
+    Signals: {
+      'scroll-focus-out': {},
+      'scroll-backspace-press': {},
+      'scroll-key-press': {
+        param_types: [TYPE_STRING],
+        accumulator: 0,
+      },
+    },
+  };
+
   private list: BoxLayout;
   private items: PanoItem[];
   private lastFocus: PanoItem;
@@ -37,6 +54,30 @@ export class PanoScrollView extends ScrollView {
     this.add_actor(this.list);
     this.items = [];
     this.parent = parent;
+
+    this.connect('key-press-event', (_: ScrollView, event: Event) => {
+      if (event.get_state()) {
+        return EVENT_PROPAGATE;
+      }
+
+      if ((event.get_key_symbol() === KEY_Left && this.canGiveFocus()) || event.get_key_symbol() === KEY_Up) {
+        this.emit('scroll-focus-out');
+        return EVENT_STOP;
+      }
+
+      if (event.get_key_symbol() == KEY_BackSpace) {
+        this.emit('scroll-backspace-press');
+        return EVENT_STOP;
+      }
+      const unicode = keysym_to_unicode(event.get_key_symbol());
+      if (unicode === 0) {
+        return EVENT_PROPAGATE;
+      }
+
+      this.emit('scroll-key-press', String.fromCharCode(unicode));
+
+      return EVENT_STOP;
+    });
   }
 
   canGiveFocus(): boolean {
