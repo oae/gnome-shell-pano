@@ -101,7 +101,7 @@ export class ClipboardManager extends Object {
     this.selection.disconnect(this.selectionChangedId);
   }
 
-  public setContent({ content }: ClipboardContent): void {
+  setContent({ content }: ClipboardContent): void {
     if (content.type === ContentType.TEXT) {
       this.clipboard.set_text(ClipboardType.CLIPBOARD, content.value);
     } else if (content.type === ContentType.IMAGE) {

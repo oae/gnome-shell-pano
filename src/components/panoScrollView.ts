@@ -127,6 +127,15 @@ export class PanoScrollView extends ScrollView {
     this.focusFirst(false);
   }
 
+  selectFirstItem() {
+    const visibleItems = this.items.filter((i) => i.is_visible());
+    if (visibleItems.length > 0) {
+      const item = visibleItems[0];
+      this.moveItemToStart(item);
+      item.emit('activated');
+    }
+  }
+
   private focusFirst(shouldGrabFocus: boolean) {
     const visibleItems = this.items.filter((i) => i.is_visible());
     if (visibleItems.length > 0) {

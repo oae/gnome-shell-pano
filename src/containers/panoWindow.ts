@@ -9,7 +9,10 @@ import {
   KEY_BackSpace,
   KEY_Down,
   KEY_Escape,
+  KEY_ISO_Enter,
+  KEY_KP_Enter,
   KEY_Left,
+  KEY_Return,
   KEY_Right,
   KEY_Up,
 } from '@imports/clutter10';
@@ -97,6 +100,13 @@ export class PanoWindow extends BoxLayout {
           (this.search.clutter_text.cursor_position === -1 || this.search.text.length === 0))
       ) {
         this.scrollView.focus();
+      }
+      if (
+        event.get_key_symbol() === KEY_Return ||
+        event.get_key_symbol() === KEY_ISO_Enter ||
+        event.get_key_symbol() === KEY_KP_Enter
+      ) {
+        this.scrollView.selectFirstItem();
       }
     });
     this.scrollView.connect('key-press-event', (_: ScrollView, event: Event) => {
