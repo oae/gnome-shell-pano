@@ -1,4 +1,4 @@
-import { File, FileCreateFlags } from '@imports/gio2';
+import { File, FileCreateFlags, FilePrototype } from '@imports/gio2';
 import { ChecksumType, compute_checksum_for_string, PRIORITY_DEFAULT } from '@imports/glib2';
 import { Message, Session } from '@imports/soup3';
 import { getCachePath, logger } from '@pano/utils/shell';
@@ -91,17 +91,16 @@ export const getDescription = (metaList: any[]): string => {
   return metaTagContent(metaList, 'og:description') || metaTagContent(metaList, 'twitter:description');
 };
 
-export const getImage = async (metaList: any[]) => {
+export const getImage = async (metaList: any[]): Promise<[string | null, FilePrototype | null]> => {
   const imageUrl = metaTagContent(metaList, 'og:image') || metaTagContent(metaList, 'twitter:image');
 
   if (imageUrl && imageUrl.startsWith('http')) {
     try {
-      const cachedImage = File.new_for_path(
-        `${getCachePath()}/${compute_checksum_for_string(ChecksumType.MD5, imageUrl, imageUrl.length)}.png`,
-      );
+      const checksum = compute_checksum_for_string(ChecksumType.MD5, imageUrl, imageUrl.length);
+      const cachedImage = File.new_for_path(`${getCachePath()}/${checksum}.png`);
 
       if (cachedImage.query_exists(null)) {
-        return cachedImage;
+        return [checksum, cachedImage];
       }
 
       const message = Message.new('GET', imageUrl);
@@ -117,11 +116,11 @@ export const getImage = async (metaList: any[]) => {
 
       cachedImage.replace_contents(data, null, false, FileCreateFlags.REPLACE_DESTINATION, null);
 
-      return cachedImage;
+      return [checksum, cachedImage];
     } catch (err) {
       debug(`failed to load image: ${imageUrl}. err: ${err}`);
     }
   }
 
-  return null;
+  return [null, null];
 };

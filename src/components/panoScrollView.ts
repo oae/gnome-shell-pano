@@ -161,7 +161,7 @@ export class PanoScrollView extends ScrollView {
     }
 
     const result = db
-      .query(new ClipboardQueryBuilder().withContainingContent(keyword).build())
+      .query(new ClipboardQueryBuilder().withContainingSearchValue(keyword).build())
       .map((dbItem) => dbItem.id);
 
     this.items.forEach((item) => (item.dbId !== null && result.indexOf(item.dbId) >= 0 ? item.show() : item.hide()));

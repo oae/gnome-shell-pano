@@ -16,6 +16,10 @@ export type DBItem = {
   itemType: string;
   content: string;
   copyDate: Date;
+  isFavorite: boolean;
+  matchValue: string;
+  searchValue?: string;
+  metaData?: string;
 };
 
 class ClipboardQuery {
@@ -39,6 +43,10 @@ export class ClipboardQueryBuilder {
     this.builder.select_add_field('itemType', 'clipboard', 'itemType');
     this.builder.select_add_field('content', 'clipboard', 'content');
     this.builder.select_add_field('copyDate', 'clipboard', 'copyDate');
+    this.builder.select_add_field('isFavorite', 'clipboard', 'isFavorite');
+    this.builder.select_add_field('matchValue', 'clipboard', 'matchValue');
+    this.builder.select_add_field('searchValue', 'clipboard', 'searchValue');
+    this.builder.select_add_field('metaData', 'clipboard', 'metaData');
 
     this.builder.select_add_target('clipboard', null);
   }
@@ -89,6 +97,21 @@ export class ClipboardQueryBuilder {
     return this;
   }
 
+  withMatchValue(matchValue?: string | null) {
+    if (matchValue !== null && matchValue !== undefined) {
+      this.conditions.push(
+        this.builder.add_cond(
+          SqlOperatorType.EQ,
+          this.builder.add_field_id('matchValue', 'clipboard'),
+          this.builder.add_expr_value(null, matchValue as any),
+          0,
+        ),
+      );
+    }
+
+    return this;
+  }
+
   withContainingContent(content?: string | null) {
     if (content !== null && content !== undefined) {
       this.conditions.push(
@@ -96,6 +119,21 @@ export class ClipboardQueryBuilder {
           SqlOperatorType.LIKE,
           this.builder.add_field_id('content', 'clipboard'),
           this.builder.add_expr_value(null, `%${content}%` as any),
+          0,
+        ),
+      );
+    }
+
+    return this;
+  }
+
+  withContainingSearchValue(searchValue?: string | null) {
+    if (searchValue !== null && searchValue !== undefined) {
+      this.conditions.push(
+        this.builder.add_cond(
+          SqlOperatorType.LIKE,
+          this.builder.add_field_id('searchValue', 'clipboard'),
+          this.builder.add_expr_value(null, `%${searchValue}%` as any),
           0,
         ),
       );
@@ -136,7 +174,11 @@ class Database {
           id          integer not null constraint clipboard_pk primary key autoincrement,
           itemType    text not null,
           content     text not null,
-          copyDate    text not null
+          copyDate    text not null,
+          isFavorite  integer not null,
+          matchValue  text not null,
+          searchValue text,
+          metaData    text
       );
     `);
 
@@ -145,7 +187,21 @@ class Database {
     `);
   }
 
-  save(itemType: string, content: string, copyDate: Date): DBItem | null {
+  keepLatestNItems() {
+    if (!this.connection || !this.connection.is_opened()) {
+      debug('connection is not opened');
+      return;
+    }
+
+    // TODO: read from settings
+    const limit = 500;
+
+    this.connection.execute_non_select_command(`
+      delete from clipboard where id not in (select id from clipboard order by copyDate desc limit ${limit});
+    `);
+  }
+
+  save(dbItem: Omit<DBItem, 'id'>): DBItem | null {
     if (!this.connection || !this.connection.is_opened()) {
       debug('connection is not opened');
       return null;
@@ -156,9 +212,17 @@ class Database {
     });
 
     builder.set_table('clipboard');
-    builder.add_field_value_as_gvalue('itemType', itemType as any);
-    builder.add_field_value_as_gvalue('copyDate', copyDate.toISOString() as any);
-    builder.add_field_value_as_gvalue('content', content as any);
+    builder.add_field_value_as_gvalue('itemType', dbItem.itemType as any);
+    builder.add_field_value_as_gvalue('content', dbItem.content as any);
+    builder.add_field_value_as_gvalue('copyDate', dbItem.copyDate.toISOString() as any);
+    builder.add_field_value_as_gvalue('isFavorite', +dbItem.isFavorite as any);
+    builder.add_field_value_as_gvalue('matchValue', dbItem.matchValue as any);
+    if (dbItem.searchValue) {
+      builder.add_field_value_as_gvalue('searchValue', dbItem.searchValue as any);
+    }
+    if (dbItem.metaData) {
+      builder.add_field_value_as_gvalue('metaData', dbItem.metaData as any);
+    }
     const [_, row] = this.connection.statement_execute_non_select(builder.get_statement(), null);
     const id = row?.get_nth_holder(0).get_value() as any as number;
     if (!id) {
@@ -166,9 +230,13 @@ class Database {
     }
     return {
       id,
-      itemType,
-      content,
-      copyDate,
+      itemType: dbItem.itemType,
+      content: dbItem.content,
+      copyDate: dbItem.copyDate,
+      isFavorite: dbItem.isFavorite,
+      matchValue: dbItem.matchValue,
+      searchValue: dbItem.searchValue,
+      metaData: dbItem.metaData,
     };
   }
 
@@ -184,8 +252,16 @@ class Database {
 
     builder.set_table('clipboard');
     builder.add_field_value_as_gvalue('itemType', dbItem.itemType as any);
-    builder.add_field_value_as_gvalue('copyDate', dbItem.copyDate.toISOString() as any);
     builder.add_field_value_as_gvalue('content', dbItem.content as any);
+    builder.add_field_value_as_gvalue('copyDate', dbItem.copyDate.toISOString() as any);
+    builder.add_field_value_as_gvalue('isFavorite', +dbItem.isFavorite as any);
+    builder.add_field_value_as_gvalue('matchValue', dbItem.matchValue as any);
+    if (dbItem.searchValue) {
+      builder.add_field_value_as_gvalue('searchValue', dbItem.searchValue as any);
+    }
+    if (dbItem.metaData) {
+      builder.add_field_value_as_gvalue('metaData', dbItem.metaData as any);
+    }
     builder.set_where(
       builder.add_cond(
         SqlOperatorType.EQ,
@@ -236,8 +312,21 @@ class Database {
       const itemType = iter.get_value_for_field('itemType') as any as string;
       const content = iter.get_value_for_field('content') as any as string;
       const copyDate = iter.get_value_for_field('copyDate') as any as string;
+      const isFavorite = iter.get_value_for_field('isFavorite') as any as string;
+      const matchValue = iter.get_value_for_field('matchValue') as any as string;
+      const searchValue = iter.get_value_for_field('searchValue') as any as string;
+      const metaData = iter.get_value_for_field('metaData') as any as string;
 
-      itemList.push({ id, itemType, content, copyDate: new Date(copyDate) });
+      itemList.push({
+        id,
+        itemType,
+        content,
+        copyDate: new Date(copyDate),
+        isFavorite: !!isFavorite,
+        matchValue,
+        searchValue,
+        metaData,
+      });
     }
 
     return itemList;

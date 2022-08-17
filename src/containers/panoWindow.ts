@@ -52,7 +52,7 @@ export class PanoWindow extends BoxLayout {
       }
     });
 
-    clipboardManager.connect('changed', this.onNewItem.bind(this));
+    clipboardManager.connect('changed', this.updateHistory.bind(this));
   }
 
   private setupMonitorBox() {
@@ -83,7 +83,7 @@ export class PanoWindow extends BoxLayout {
     });
   }
 
-  private onNewItem(_: any, content: ClipboardContent) {
+  private updateHistory(_: any, content: ClipboardContent) {
     createPanoItem(
       content,
       (item: PanoItem) => {

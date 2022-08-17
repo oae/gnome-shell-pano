@@ -67,7 +67,20 @@ export class FilePanoItem extends PanoItem {
     this.body.add_child(container);
 
     if (!this.dbId) {
-      const savedItem = db.save('FILE', JSON.stringify(this.clipboardContent), date);
+      const savedItem = db.save({
+        content: JSON.stringify(this.clipboardContent.fileList),
+        copyDate: date,
+        isFavorite: false,
+        itemType: 'FILE',
+        matchValue: `${this.clipboardContent.operation}${this.clipboardContent.fileList.sort().join('')}`,
+        searchValue: `${this.clipboardContent.fileList
+          .map((f) => {
+            const items = f.split('://').filter((c) => !!c);
+            return decodeURIComponent(items[items.length - 1]);
+          })
+          .join('')}`,
+        metaData: this.clipboardContent.operation,
+      });
       if (savedItem) {
         this.dbId = savedItem.id;
       }

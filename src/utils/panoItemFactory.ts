@@ -94,7 +94,12 @@ export const createPanoItem = (clip: ClipboardContent, onNewItem: any, onOldItem
   let result: DBItem[];
   switch (type) {
     case ContentType.FILE:
-      result = db.query(new ClipboardQueryBuilder().withItemTypes(['FILE']).withContent(JSON.stringify(value)).build());
+      result = db.query(
+        new ClipboardQueryBuilder()
+          .withItemTypes(['FILE'])
+          .withMatchValue(`${value.operation}${value.fileList.sort().join('')}`)
+          .build(),
+      );
 
       if (result.length === 0) {
         onNewItem(new FilePanoItem(null, value, new Date()));
@@ -106,7 +111,7 @@ export const createPanoItem = (clip: ClipboardContent, onNewItem: any, onOldItem
       result = db.query(
         new ClipboardQueryBuilder()
           .withItemTypes(['IMAGE'])
-          .withContent(compute_checksum_for_bytes(ChecksumType.MD5, value))
+          .withMatchValue(compute_checksum_for_bytes(ChecksumType.MD5, value))
           .build(),
       );
 
@@ -117,7 +122,9 @@ export const createPanoItem = (clip: ClipboardContent, onNewItem: any, onOldItem
       }
       break;
     case ContentType.TEXT:
-      result = db.query(new ClipboardQueryBuilder().withItemTypes(['LINK', 'TEXT', 'CODE']).withContent(value).build());
+      result = db.query(
+        new ClipboardQueryBuilder().withItemTypes(['LINK', 'TEXT', 'CODE']).withMatchValue(value).build(),
+      );
       if (result.length === 0) {
         if (value.toLowerCase().startsWith('http') && isUrl(value)) {
           onNewItem(new LinkPanoItem(null, value, new Date()));
@@ -146,7 +153,11 @@ export const createPanoItemFromDb = (dbItem: DBItem): PanoItem | null => {
     case 'LINK':
       return new LinkPanoItem(dbItem.id, dbItem.content, dbItem.copyDate);
     case 'FILE':
-      return new FilePanoItem(dbItem.id, JSON.parse(dbItem.content), dbItem.copyDate);
+      return new FilePanoItem(
+        dbItem.id,
+        { fileList: JSON.parse(dbItem.content), operation: dbItem.metaData || 'copy' },
+        dbItem.copyDate,
+      );
     case 'IMAGE':
       const savedImage = File.new_for_path(`${getImagesPath()}/${dbItem.content}.png`);
 

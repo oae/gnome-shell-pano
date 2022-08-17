@@ -28,7 +28,14 @@ export class CodePanoItem extends PanoItem {
     this.body.add_child(label);
 
     if (!this.dbId) {
-      const savedItem = db.save('CODE', this.clipboardContent, date);
+      const savedItem = db.save({
+        content: this.clipboardContent,
+        copyDate: date,
+        isFavorite: false,
+        itemType: 'CODE',
+        matchValue: this.clipboardContent,
+        searchValue: this.clipboardContent,
+      });
 
       if (savedItem) {
         this.dbId = savedItem.id;

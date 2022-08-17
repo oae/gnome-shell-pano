@@ -9,6 +9,7 @@ import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/cli
 import { db } from '@pano/utils/db';
 import { getImagesPath } from '@pano/utils/shell';
 import { ChecksumType, compute_checksum_for_bytes } from '@imports/glib2';
+import { Pixbuf } from '@imports/gdkpixbuf2';
 
 const global = Global.get();
 
@@ -23,9 +24,8 @@ export class ImagePanoItem extends PanoItem {
 
     this.body.style_class = [this.body.style_class, 'pano-item-body-image'].join(' ');
     const scaleFactor = ThemeContext.get_for_stage(global.stage as Stage).scale_factor;
-    const imageFile = File.new_for_path(
-      `${getImagesPath()}/${compute_checksum_for_bytes(ChecksumType.MD5, content)}.png`,
-    );
+    const imageFilePath = `${getImagesPath()}/${compute_checksum_for_bytes(ChecksumType.MD5, content)}.png`;
+    const imageFile = File.new_for_path(imageFilePath);
     if (!imageFile.query_exists(null)) {
       imageFile.replace_contents(this.clipboardContent, null, false, FileCreateFlags.REPLACE_DESTINATION, null);
     }
@@ -48,7 +48,19 @@ export class ImagePanoItem extends PanoItem {
     if (!this.dbId) {
       const checksum = compute_checksum_for_bytes(ChecksumType.MD5, this.clipboardContent);
       if (checksum) {
-        const savedItem = db.save('IMAGE', checksum, date);
+        const [, width, height] = Pixbuf.get_file_info(imageFilePath);
+        const savedItem = db.save({
+          content: checksum,
+          copyDate: date,
+          isFavorite: false,
+          itemType: 'IMAGE',
+          matchValue: checksum,
+          metaData: JSON.stringify({
+            width,
+            height,
+            size: content.length,
+          }),
+        });
         if (savedItem) {
           this.dbId = savedItem.id;
         }

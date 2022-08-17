@@ -23,7 +23,14 @@ export class TextPanoItem extends PanoItem {
     this.body.add_child(label);
 
     if (!this.dbId) {
-      const savedItem = db.save('TEXT', this.clipboardContent, date);
+      const savedItem = db.save({
+        content: this.clipboardContent,
+        copyDate: date,
+        isFavorite: false,
+        itemType: 'TEXT',
+        matchValue: this.clipboardContent,
+        searchValue: this.clipboardContent,
+      });
       if (savedItem) {
         this.dbId = savedItem.id;
       }

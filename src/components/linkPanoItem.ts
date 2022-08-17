@@ -1,14 +1,14 @@
 import { Actor, ActorAlign, ContentGravity, Stage } from '@imports/clutter10';
-import { File } from '@imports/gio2';
+import { File, FilePrototype } from '@imports/gio2';
 import { Global } from '@imports/shell0';
 import { BoxLayout, Label, TextureCache, ThemeContext } from '@imports/st1';
+import { PanoItem } from '@pano/components/panoItem';
+import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/clipboardManager';
+import { ClipboardQueryBuilder, db } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getDescription, getDocument, getImage, getMetaList, getTitle } from '@pano/utils/linkParser';
 import { PanoItemTypes } from '@pano/utils/panoItemType';
-import { getCurrentExtension } from '@pano/utils/shell';
-import { PanoItem } from '@pano/components/panoItem';
-import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/clipboardManager';
-import { db } from '@pano/utils/db';
+import { getCachePath, getCurrentExtension } from '@pano/utils/shell';
 
 const global = Global.get();
 
@@ -68,35 +68,91 @@ export class LinkPanoItem extends PanoItem {
 
     this.metaContainer.add_child(this.descriptionLabel);
     this.metaContainer.add_child(this.linkLabel);
-    this.readLinkMetaData();
-
     this.body.add_child(this.metaContainer);
 
     if (!this.dbId) {
-      const savedItem = db.save('LINK', this.link, date);
+      // const savedItem = db.save('LINK', this.link, date);
+      const savedItem = db.save({
+        content: this.link,
+        copyDate: date,
+        isFavorite: false,
+        itemType: 'LINK',
+        matchValue: this.link,
+      });
       if (savedItem) {
         this.dbId = savedItem.id;
       }
     }
-
+    this.readLinkMetaData();
     this.connect('activated', this.setClipboardContent.bind(this));
   }
 
-  async readLinkMetaData(): Promise<void> {
-    const doc = await getDocument(this.link);
+  private hideMissing() {
+    this.titleLabel.text = this.link;
+    this.descriptionLabel.hide();
+    this.linkLabel.hide();
+  }
 
-    if (!doc) {
-      this.titleLabel.text = this.link;
-      this.descriptionLabel.hide();
-      this.linkLabel.hide();
+  async readLinkMetaData(): Promise<void> {
+    if (this.dbId === null) {
+      this.hideMissing();
       return;
     }
 
-    const metaList = getMetaList(doc);
+    const result = db.query(new ClipboardQueryBuilder().withId(this.dbId).build());
 
-    const title = getTitle(doc, metaList) || this.link;
-    const description = getDescription(metaList) || title;
-    const image = await getImage(metaList);
+    if (result.length === 0) {
+      this.hideMissing();
+      return;
+    }
+
+    const linkDbItem = result[0];
+    let title: string, description: string, image: FilePrototype;
+    if (linkDbItem.metaData) {
+      const metaData = JSON.parse(linkDbItem.metaData);
+      title = decodeURI(metaData.title);
+      description = decodeURI(metaData.description);
+      const cachedImage = File.new_for_path(`${getCachePath()}/${metaData.image}.png`);
+
+      if (cachedImage.query_exists(null)) {
+        image = cachedImage;
+      } else {
+        image = File.new_for_uri(`file:///${getCurrentExtension().path}/images/${DEFAULT_LINK_PREVIEW_IMAGE_NAME}`);
+      }
+    } else {
+      const doc = await getDocument(this.link);
+
+      if (!doc) {
+        this.hideMissing();
+        return;
+      }
+
+      const metaList = getMetaList(doc);
+
+      title = getTitle(doc, metaList) || this.link;
+      description = getDescription(metaList) || title;
+      const [checksum, linkImage] = await getImage(metaList);
+      if (!linkImage) {
+        image = File.new_for_uri(`file:///${getCurrentExtension().path}/images/${DEFAULT_LINK_PREVIEW_IMAGE_NAME}`);
+      } else {
+        image = linkImage;
+      }
+
+      db.update({
+        id: this.dbId,
+        content: linkDbItem.content,
+        copyDate: linkDbItem.copyDate,
+        isFavorite: linkDbItem.isFavorite,
+        itemType: linkDbItem.itemType,
+        matchValue: linkDbItem.content,
+        searchValue: `${title}${description}${linkDbItem.content}`,
+        metaData: JSON.stringify({
+          title: encodeURI(title),
+          description: encodeURI(description),
+          image: checksum,
+        }),
+      });
+    }
 
     this.titleLabel.text = title;
     this.descriptionLabel.text = description;
