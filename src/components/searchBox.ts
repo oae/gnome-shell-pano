@@ -48,6 +48,12 @@ export class SearchBox extends BoxLayout {
           (this.search.clutter_text.cursor_position === -1 || this.search.text.length === 0))
       ) {
         this.emit('search-focus-out');
+      } else if (
+        event.get_key_symbol() === KEY_Right &&
+        this.search.clutter_text.get_selection() !== null &&
+        this.search.clutter_text.get_selection() === this.search.text
+      ) {
+        this.search.clutter_text.set_cursor_position(this.search.text.length);
       }
       if (
         event.get_key_symbol() === KEY_Return ||
