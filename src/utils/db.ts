@@ -7,7 +7,7 @@ import {
   Statement,
   StatementSqlFlag,
 } from '@imports/gda5';
-import { getCurrentExtension, logger } from '@pano/utils/shell';
+import { getAppDataPath, logger } from '@pano/utils/shell';
 
 const debug = logger('database');
 
@@ -156,7 +156,7 @@ class Database {
   private init() {
     this.connection = new Connection({
       provider: Config.get_provider('SQLite'),
-      cnc_string: `DB_DIR=${getCurrentExtension().path};DB_NAME=pano`,
+      cnc_string: `DB_DIR=${getAppDataPath()};DB_NAME=pano`,
     });
     this.connection.open();
   }
@@ -184,20 +184,6 @@ class Database {
 
     this.connection.execute_non_select_command(`
       create unique index if not exists clipboard_id_uindex on clipboard (id);
-    `);
-  }
-
-  keepLatestNItems() {
-    if (!this.connection || !this.connection.is_opened()) {
-      debug('connection is not opened');
-      return;
-    }
-
-    // TODO: read from settings
-    const limit = 500;
-
-    this.connection.execute_non_select_command(`
-      delete from clipboard where id not in (select id from clipboard order by copyDate desc limit ${limit});
     `);
   }
 
