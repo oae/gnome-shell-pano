@@ -134,6 +134,7 @@ export class PanoWindow extends BoxLayout {
       mode: AnimationMode.EASE_OUT_QUAD,
       onComplete: () => {
         super.hide();
+        this.scrollView.focusFirst(false);
       },
     });
     debug('hiding pano');

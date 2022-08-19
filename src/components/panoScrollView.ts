@@ -177,7 +177,7 @@ export class PanoScrollView extends ScrollView {
     }
   }
 
-  private focusFirst(shouldGrabFocus: boolean) {
+  focusFirst(shouldGrabFocus: boolean) {
     const visibleItems = this.items.filter((i) => i.is_visible());
     if (visibleItems.length > 0) {
       this.lastFocus = visibleItems[0];
