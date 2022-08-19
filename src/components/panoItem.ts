@@ -9,6 +9,8 @@ import {
 } from '@imports/clutter10';
 import { MetaInfo } from '@imports/gobject2';
 import { Point } from '@imports/graphene1';
+import { Cursor } from '@imports/meta10';
+import { Global } from '@imports/shell0';
 import { BoxLayout } from '@imports/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { IPanoItemType } from '@pano/utils/panoItemType';
@@ -34,10 +36,20 @@ export class PanoItem extends BoxLayout {
       reactive: true,
       style_class: 'pano-item',
       vertical: true,
+      track_hover: true,
     });
 
     this.connect('key-focus-in', () => this.setSelected(true));
     this.connect('key-focus-out', () => this.setSelected(false));
+    this.connect('enter-event', () => {
+      Global.get().display.set_cursor(Cursor.POINTING_HAND);
+    });
+    this.connect('motion-event', () => {
+      Global.get().display.set_cursor(Cursor.POINTING_HAND);
+    });
+    this.connect('leave-event', () => {
+      Global.get().display.set_cursor(Cursor.DEFAULT);
+    });
 
     this.dbId = dbId;
 
