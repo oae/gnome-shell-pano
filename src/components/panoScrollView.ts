@@ -112,7 +112,7 @@ export class PanoScrollView extends ScrollView {
   }
 
   getItem(id: number): PanoItem | undefined {
-    return this.items.find((i) => i.dbId === id);
+    return this.items.find((i) => i.dbItem.id === id);
   }
 
   addItem(item: PanoItem) {
@@ -122,6 +122,16 @@ export class PanoScrollView extends ScrollView {
       this.moveItemToStart(item);
       this.parent.hide();
     });
+  }
+
+  replaceOrAddItem(newItem: PanoItem, oldItem?: PanoItem) {
+    if (oldItem) {
+      const index = this.items.indexOf(oldItem);
+      this.items.splice(index, 1);
+      this.list.remove_child(oldItem);
+    }
+
+    this.addItem(newItem);
   }
 
   moveItemToStart(item: PanoItem) {
@@ -164,7 +174,9 @@ export class PanoScrollView extends ScrollView {
       .query(new ClipboardQueryBuilder().withContainingSearchValue(keyword).build())
       .map((dbItem) => dbItem.id);
 
-    this.items.forEach((item) => (item.dbId !== null && result.indexOf(item.dbId) >= 0 ? item.show() : item.hide()));
+    this.items.forEach((item) =>
+      item.dbItem.id !== null && result.indexOf(item.dbItem.id) >= 0 ? item.show() : item.hide(),
+    );
     this.focusFirst(false);
   }
 

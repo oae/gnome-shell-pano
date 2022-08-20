@@ -1,41 +1,43 @@
 import isUrl from 'is-url';
 
 import hljs from 'highlight.js/lib/core';
-import python from 'highlight.js/lib/languages/python';
-import markdown from 'highlight.js/lib/languages/markdown';
-import yaml from 'highlight.js/lib/languages/yaml';
-import sql from 'highlight.js/lib/languages/sql';
+import c from 'highlight.js/lib/languages/c';
+import cpp from 'highlight.js/lib/languages/cpp';
+import csharp from 'highlight.js/lib/languages/csharp';
+import dart from 'highlight.js/lib/languages/dart';
+import go from 'highlight.js/lib/languages/go';
+import groovy from 'highlight.js/lib/languages/groovy';
+import haskell from 'highlight.js/lib/languages/haskell';
 import java from 'highlight.js/lib/languages/java';
 import javascript from 'highlight.js/lib/languages/javascript';
-import csharp from 'highlight.js/lib/languages/csharp';
-import cpp from 'highlight.js/lib/languages/cpp';
-import c from 'highlight.js/lib/languages/c';
-import php from 'highlight.js/lib/languages/php';
-import typescript from 'highlight.js/lib/languages/typescript';
-import swift from 'highlight.js/lib/languages/swift';
-import kotlin from 'highlight.js/lib/languages/kotlin';
-import go from 'highlight.js/lib/languages/go';
-import rust from 'highlight.js/lib/languages/rust';
-import ruby from 'highlight.js/lib/languages/ruby';
-import scala from 'highlight.js/lib/languages/scala';
-import dart from 'highlight.js/lib/languages/dart';
-import lua from 'highlight.js/lib/languages/lua';
-import groovy from 'highlight.js/lib/languages/groovy';
-import perl from 'highlight.js/lib/languages/perl';
 import julia from 'highlight.js/lib/languages/julia';
-import haskell from 'highlight.js/lib/languages/haskell';
+import kotlin from 'highlight.js/lib/languages/kotlin';
+import lua from 'highlight.js/lib/languages/lua';
+import markdown from 'highlight.js/lib/languages/markdown';
+import perl from 'highlight.js/lib/languages/perl';
+import php from 'highlight.js/lib/languages/php';
+import python from 'highlight.js/lib/languages/python';
+import ruby from 'highlight.js/lib/languages/ruby';
+import rust from 'highlight.js/lib/languages/rust';
+import scala from 'highlight.js/lib/languages/scala';
+import sql from 'highlight.js/lib/languages/sql';
+import swift from 'highlight.js/lib/languages/swift';
+import typescript from 'highlight.js/lib/languages/typescript';
+import yaml from 'highlight.js/lib/languages/yaml';
 
+import { Pixbuf } from '@imports/gdkpixbuf2';
+import { File, FileCreateFlags } from '@imports/gio2';
+import { ChecksumType, compute_checksum_for_bytes } from '@imports/glib2';
 import { CodePanoItem } from '@pano/components/codePanoItem';
+import { FilePanoItem } from '@pano/components/filePanoItem';
 import { ImagePanoItem } from '@pano/components/imagePanoItem';
 import { LinkPanoItem } from '@pano/components/linkPanoItem';
 import { PanoItem } from '@pano/components/panoItem';
 import { TextPanoItem } from '@pano/components/textPanoItem';
-import { FilePanoItem } from '@pano/components/filePanoItem';
 import { ClipboardContent, ContentType } from '@pano/utils/clipboardManager';
 import { getImagesPath, logger } from '@pano/utils/shell';
-import { File } from '@imports/gio2';
 import { ClipboardQueryBuilder, db, DBItem } from './db';
-import { ChecksumType, compute_checksum_for_bytes } from '@imports/glib2';
+import { getDescription, getDocument, getImage, getMetaList, getTitle } from './linkParser';
 
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('markdown', markdown);
@@ -60,8 +62,6 @@ hljs.registerLanguage('perl', perl);
 hljs.registerLanguage('julia', julia);
 hljs.registerLanguage('haskell', haskell);
 hljs.registerLanguage('sql', sql);
-
-const debug = logger('pano-item-factory');
 
 const SUPPORTED_LANGUAGES = [
   'python',
@@ -89,90 +89,153 @@ const SUPPORTED_LANGUAGES = [
   'haskell',
 ];
 
-export const createPanoItem = (clip: ClipboardContent, onNewItem: any, onOldItem: any): void => {
+const debug = logger('pano-item-factory');
+
+const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null> => {
   const { value, type } = clip.content;
-  let result: DBItem[];
+  const queryBuilder = new ClipboardQueryBuilder();
   switch (type) {
     case ContentType.FILE:
-      result = db.query(
-        new ClipboardQueryBuilder()
-          .withItemTypes(['FILE'])
-          .withMatchValue(`${value.operation}${value.fileList.sort().join('')}`)
-          .build(),
-      );
-
-      if (result.length === 0) {
-        onNewItem(new FilePanoItem(null, value, new Date()));
-      } else {
-        onOldItem(result[0].id);
-      }
+      queryBuilder.withItemTypes(['FILE']).withMatchValue(`${value.operation}${value.fileList.sort().join('')}`);
       break;
     case ContentType.IMAGE:
-      result = db.query(
-        new ClipboardQueryBuilder()
-          .withItemTypes(['IMAGE'])
-          .withMatchValue(compute_checksum_for_bytes(ChecksumType.MD5, value))
-          .build(),
-      );
-
-      if (result.length === 0) {
-        onNewItem(new ImagePanoItem(null, value, new Date()));
-      } else {
-        onOldItem(result[0].id);
-      }
+      queryBuilder.withItemTypes(['IMAGE']).withMatchValue(compute_checksum_for_bytes(ChecksumType.MD5, value));
       break;
     case ContentType.TEXT:
-      result = db.query(
-        new ClipboardQueryBuilder().withItemTypes(['LINK', 'TEXT', 'CODE']).withMatchValue(value).build(),
-      );
-      if (result.length === 0) {
-        if (value.toLowerCase().startsWith('http') && isUrl(value)) {
-          onNewItem(new LinkPanoItem(null, value, new Date()));
-          break;
-        }
-        const highlightResult = hljs.highlightAuto(value.slice(0, 1000), SUPPORTED_LANGUAGES);
-        debug(`rel: ${highlightResult.relevance} ${highlightResult.language}`);
-        if (highlightResult.relevance < 10) {
-          onNewItem(new TextPanoItem(null, value, new Date()));
-        } else {
-          onNewItem(new CodePanoItem(null, value, new Date()));
-        }
-      } else {
-        onOldItem(result[0].id);
-      }
+      queryBuilder.withItemTypes(['LINK', 'TEXT', 'CODE']).withMatchValue(value).build();
       break;
+    default:
+      return null;
+  }
+
+  const result = db.query(queryBuilder.build());
+
+  if (result.length > 0) {
+    return db.update({
+      ...result[0],
+      copyDate: new Date(),
+    });
+  }
+  switch (type) {
+    case ContentType.FILE:
+      return db.save({
+        content: JSON.stringify(value.fileList),
+        copyDate: new Date(),
+        isFavorite: false,
+        itemType: 'FILE',
+        matchValue: `${value.operation}${value.fileList.sort().join('')}`,
+        searchValue: `${value.fileList
+          .map((f) => {
+            const items = f.split('://').filter((c) => !!c);
+            return items[items.length - 1];
+          })
+          .join('')}`,
+        metaData: value.operation,
+      });
+    case ContentType.IMAGE:
+      const checksum = compute_checksum_for_bytes(ChecksumType.MD5, value);
+      if (!checksum) {
+        return null;
+      }
+      const imageFilePath = `${getImagesPath()}/${checksum}.png`;
+      const imageFile = File.new_for_path(imageFilePath);
+      imageFile.replace_contents(value, null, false, FileCreateFlags.REPLACE_DESTINATION, null);
+      const [, width, height] = Pixbuf.get_file_info(imageFilePath);
+      return db.save({
+        content: checksum,
+        copyDate: new Date(),
+        isFavorite: false,
+        itemType: 'IMAGE',
+        matchValue: checksum,
+        metaData: JSON.stringify({
+          width,
+          height,
+          size: value.length,
+        }),
+      });
+    case ContentType.TEXT:
+      if (value.toLowerCase().startsWith('http') && isUrl(value)) {
+        const doc = await getDocument(value);
+
+        let metaList, title, description, checksum;
+        if (doc) {
+          metaList = getMetaList(doc);
+          title = getTitle(doc, metaList);
+          description = getDescription(metaList);
+          [checksum] = await getImage(metaList);
+        }
+        return db.save({
+          content: value,
+          copyDate: new Date(),
+          isFavorite: false,
+          itemType: 'LINK',
+          matchValue: value,
+          searchValue: `${title}${description}${value}`,
+          metaData: JSON.stringify({
+            title: title ? encodeURI(title) : undefined,
+            description: description ? encodeURI(description) : undefined,
+            image: checksum ? checksum : undefined,
+          }),
+        });
+      }
+      const highlightResult = hljs.highlightAuto(value.slice(0, 1000), SUPPORTED_LANGUAGES);
+      if (highlightResult.relevance < 10) {
+        return db.save({
+          content: value,
+          copyDate: new Date(),
+          isFavorite: false,
+          itemType: 'TEXT',
+          matchValue: value,
+          searchValue: value,
+        });
+      } else {
+        return db.save({
+          content: value,
+          copyDate: new Date(),
+          isFavorite: false,
+          itemType: 'CODE',
+          matchValue: value,
+          searchValue: value,
+        });
+      }
+    default:
+      return null;
   }
 };
 
-export const createPanoItemFromDb = (dbItem: DBItem): PanoItem | null => {
+export const createPanoItem = async (clip: ClipboardContent): Promise<PanoItem | null> => {
+  let dbItem: DBItem | null = null;
+
+  try {
+    dbItem = await findOrCreateDbItem(clip);
+  } catch (err) {
+    debug(`err: ${err}`);
+    return null;
+  }
+
+  if (dbItem) {
+    return createPanoItemFromDb(dbItem);
+  }
+
+  return null;
+};
+
+export const createPanoItemFromDb = (dbItem: DBItem | null): PanoItem | null => {
+  if (!dbItem) {
+    return null;
+  }
+
   switch (dbItem.itemType) {
     case 'TEXT':
-      return new TextPanoItem(dbItem.id, dbItem.content, dbItem.copyDate);
+      return new TextPanoItem(dbItem);
     case 'CODE':
-      return new CodePanoItem(dbItem.id, dbItem.content, dbItem.copyDate);
+      return new CodePanoItem(dbItem);
     case 'LINK':
-      return new LinkPanoItem(dbItem.id, dbItem.content, dbItem.copyDate);
+      return new LinkPanoItem(dbItem);
     case 'FILE':
-      return new FilePanoItem(
-        dbItem.id,
-        { fileList: JSON.parse(dbItem.content), operation: dbItem.metaData || 'copy' },
-        dbItem.copyDate,
-      );
+      return new FilePanoItem(dbItem);
     case 'IMAGE':
-      const savedImage = File.new_for_path(`${getImagesPath()}/${dbItem.content}.png`);
-
-      if (!savedImage.query_exists(null)) {
-        return null;
-      }
-
-      const [bytes] = savedImage.load_bytes(null);
-
-      const data = bytes.get_data();
-
-      if (!data || data.length === 0) {
-        return null;
-      }
-      return new ImagePanoItem(dbItem.id, data, dbItem.copyDate);
+      return new ImagePanoItem(dbItem);
 
     default:
       return null;

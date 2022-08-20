@@ -1,7 +1,6 @@
 import { ActorAlign, AnimationMode, EVENT_PROPAGATE, KeyEvent, KEY_Escape } from '@imports/clutter10';
 import { BoxLayout } from '@imports/st1';
 import { MonitorBox } from '@pano/components/monitorBox';
-import { PanoItem } from '@pano/components/panoItem';
 import { PanoScrollView } from '@pano/components/panoScrollView';
 import { SearchBox } from '@pano/components/searchBox';
 import { ClipboardContent, clipboardManager } from '@pano/utils/clipboardManager';
@@ -52,19 +51,19 @@ export class PanoWindow extends BoxLayout {
       }
     });
 
-    clipboardManager.connect('changed', this.updateHistory.bind(this));
+    clipboardManager.connect('changed', async (_: any, content: ClipboardContent) => this.updateHistory(content));
   }
 
   private setupMonitorBox() {
     this.monitorBox.connect('hide', () => this.hide());
-    this.searchBox.connect('search-text-changed', (_: any, text: string) => {
-      this.scrollView.onSearch(text);
-    });
   }
 
   private setupSearchBox() {
     this.searchBox.connect('search-focus-out', () => this.scrollView.focus());
     this.searchBox.connect('search-submit', () => this.scrollView.selectFirstItem());
+    this.searchBox.connect('search-text-changed', (_: any, text: string) => {
+      this.scrollView.onSearch(text);
+    });
   }
 
   private setupScrollView() {
@@ -83,28 +82,22 @@ export class PanoWindow extends BoxLayout {
     });
   }
 
-  private updateHistory(_: any, content: ClipboardContent) {
-    createPanoItem(
-      content,
-      (item: PanoItem) => {
-        if (item) {
-          this.scrollView.addItem(item);
-          if (this.searchBox.getText()) {
-            this.scrollView.onSearch(this.searchBox.getText());
-          }
+  private async updateHistory(content: ClipboardContent) {
+    try {
+      const panoItem = await createPanoItem(content);
+
+      if (panoItem !== null) {
+        const existingItem = this.scrollView.getItem(panoItem.dbItem.id);
+
+        this.scrollView.replaceOrAddItem(panoItem, existingItem);
+
+        if (this.searchBox.getText()) {
+          this.scrollView.onSearch(this.searchBox.getText());
         }
-      },
-      (id: number) => {
-        const item = this.scrollView.getItem(id);
-        if (item) {
-          this.scrollView.moveItemToStart(item);
-          if (this.searchBox.getText()) {
-            this.scrollView.onSearch(this.searchBox.getText());
-          }
-          // TODO: update timestamp in db
-        }
-      },
-    );
+      }
+    } catch (err) {
+      debug(`err: ${err}`);
+    }
   }
 
   toggle(): void {

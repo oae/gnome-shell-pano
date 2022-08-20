@@ -12,8 +12,9 @@ import { Point } from '@imports/graphene1';
 import { Cursor } from '@imports/meta10';
 import { Global } from '@imports/shell0';
 import { BoxLayout } from '@imports/st1';
+import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { IPanoItemType } from '@pano/utils/panoItemType';
+import { PanoItemTypes } from '@pano/utils/panoItemType';
 import { PanoItemHeader } from './panoItemHeader';
 @registerGObjectClass
 export class PanoItem extends BoxLayout {
@@ -25,10 +26,10 @@ export class PanoItem extends BoxLayout {
   };
 
   private header: PanoItemHeader;
-  public dbId: number | null;
+  public dbItem: DBItem;
   protected body: BoxLayout;
 
-  constructor(dbId: number | null, itemType: IPanoItemType, date: Date) {
+  constructor(dbItem: DBItem) {
     super({
       name: 'pano-item',
       visible: true,
@@ -38,6 +39,8 @@ export class PanoItem extends BoxLayout {
       vertical: true,
       track_hover: true,
     });
+
+    this.dbItem = dbItem;
 
     this.connect('key-focus-in', () => this.setSelected(true));
     this.connect('key-focus-out', () => this.setSelected(false));
@@ -51,15 +54,13 @@ export class PanoItem extends BoxLayout {
       Global.get().display.set_cursor(Cursor.DEFAULT);
     });
 
-    this.dbId = dbId;
-
-    this.header = new PanoItemHeader(itemType, date);
+    this.header = new PanoItemHeader(PanoItemTypes[dbItem.itemType], dbItem.copyDate);
     this.header.connect('on-remove', () => {
-      log(`removed item with id: ${dbId}`);
+      log(`removed item with id: ${dbItem.id}`);
     });
 
     this.header.connect('on-favorite', () => {
-      log(`favorite item with id: ${dbId}`);
+      log(`favorite item with id: ${dbItem.id}`);
     });
 
     this.body = new BoxLayout({
@@ -73,10 +74,6 @@ export class PanoItem extends BoxLayout {
     this.add_child(this.body);
   }
 
-  private setActivated() {
-    this.emit('activated');
-  }
-
   private setSelected(selected: boolean) {
     if (selected) {
       this.add_style_pseudo_class('selected');
@@ -85,10 +82,9 @@ export class PanoItem extends BoxLayout {
       this.remove_style_pseudo_class('selected');
     }
   }
-
   override vfunc_key_press_event(event: KeyEvent): boolean {
     if (event.keyval === KEY_Return || event.keyval === KEY_ISO_Enter || event.keyval === KEY_KP_Enter) {
-      this.setActivated();
+      this.emit('activated');
       return EVENT_STOP;
     }
     return EVENT_PROPAGATE;
@@ -96,7 +92,7 @@ export class PanoItem extends BoxLayout {
 
   override vfunc_button_release_event(event: ButtonEvent): boolean {
     if (event.button === 1) {
-      this.setActivated();
+      this.emit('activated');
       return EVENT_STOP;
     }
 

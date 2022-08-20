@@ -48,12 +48,14 @@ export const getDocument = async (url: string): Promise<any> => {
     const response = await session.send_and_read_async(message, PRIORITY_DEFAULT, null);
 
     if (response == null) {
+      debug(`no response from ${url}`);
       return null;
     }
 
     const bytes = response.get_data();
 
     if (bytes == null) {
+      debug(`no data from ${url}`);
       return null;
     }
 
@@ -107,11 +109,13 @@ export const getImage = async (metaList: any[]): Promise<[string | null, FilePro
       message.request_headers.append('User-Agent', DEFAULT_USER_AGENT);
       const response = await session.send_and_read_async(message, PRIORITY_DEFAULT, null);
       if (!response) {
-        throw new Error('no response');
+        debug('no response while fetching the image');
+        return [null, null];
       }
       const data = response.get_data();
       if (!data || data.length == 0) {
-        throw new Error('empty response');
+        debug('empty response while fetching the image');
+        return [null, null];
       }
 
       cachedImage.replace_contents(data, null, false, FileCreateFlags.REPLACE_DESTINATION, null);

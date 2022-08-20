@@ -1,34 +1,32 @@
 import { ActorAlign } from '@imports/clutter10';
 import { EllipsizeMode } from '@imports/pango1';
 import { BoxLayout, Icon, Label } from '@imports/st1';
-import {
-  ClipboardContent,
-  clipboardManager,
-  ContentType,
-  FileOperation,
-  FileOperationValue,
-} from '@pano/utils/clipboardManager';
-import { registerGObjectClass } from '@pano/utils/gjs';
-import { PanoItemTypes } from '@pano/utils/panoItemType';
 import { PanoItem } from '@pano/components/panoItem';
-import { db } from '@pano/utils/db';
+import { ClipboardContent, clipboardManager, ContentType, FileOperation } from '@pano/utils/clipboardManager';
+import { DBItem } from '@pano/utils/db';
+import { registerGObjectClass } from '@pano/utils/gjs';
 
 @registerGObjectClass
 export class FilePanoItem extends PanoItem {
-  private clipboardContent: FileOperationValue;
+  private fileList: string[];
+  private operation: string;
 
-  constructor(id: number | null, content: FileOperationValue, date: Date) {
-    super(id, PanoItemTypes.FILE, date);
-    this.clipboardContent = content;
+  constructor(dbItem: DBItem) {
+    super(dbItem);
 
-    this.body.style_class = [this.body.style_class, 'pano-item-body-file'].join(' ');
+    this.fileList = JSON.parse(this.dbItem.content);
+    this.operation = this.dbItem.metaData || 'copy';
+
+    this.body.add_style_class_name('pano-item-body-file');
+
     const container = new BoxLayout({
       style_class: 'copied-files-container',
       vertical: true,
       x_expand: true,
       clip_to_allocation: true,
     });
-    this.clipboardContent.fileList
+
+    this.fileList
       .map((f) => {
         const items = f.split('://').filter((c) => !!c);
         return decodeURIComponent(items[items.length - 1]);
@@ -45,17 +43,16 @@ export class FilePanoItem extends PanoItem {
         });
         bl.add_child(
           new Icon({
-            icon_name:
-              this.clipboardContent.operation === FileOperation.CUT ? 'edit-cut-symbolic' : 'edit-copy-symbolic',
+            icon_name: this.operation === FileOperation.CUT ? 'edit-cut-symbolic' : 'edit-copy-symbolic',
             x_align: ActorAlign.START,
             style_class: 'file-icon',
           }),
         );
 
-        const hasMore = index === 10 && this.clipboardContent.fileList.length > 11;
+        const hasMore = index === 10 && this.fileList.length > 11;
 
         const uriLabel = new Label({
-          text: hasMore ? `...and ${this.clipboardContent.fileList.length - index} more` : uri,
+          text: hasMore ? `...and ${this.fileList.length - index} more` : uri,
           style_class: `pano-item-body-file-name-label ${hasMore ? 'has-more' : ''}`,
           x_align: ActorAlign.FILL,
           x_expand: true,
@@ -64,28 +61,8 @@ export class FilePanoItem extends PanoItem {
         bl.add_child(uriLabel);
         container.add_child(bl);
       });
+
     this.body.add_child(container);
-
-    if (!this.dbId) {
-      const savedItem = db.save({
-        content: JSON.stringify(this.clipboardContent.fileList),
-        copyDate: date,
-        isFavorite: false,
-        itemType: 'FILE',
-        matchValue: `${this.clipboardContent.operation}${this.clipboardContent.fileList.sort().join('')}`,
-        searchValue: `${this.clipboardContent.fileList
-          .map((f) => {
-            const items = f.split('://').filter((c) => !!c);
-            return decodeURIComponent(items[items.length - 1]);
-          })
-          .join('')}`,
-        metaData: this.clipboardContent.operation,
-      });
-      if (savedItem) {
-        this.dbId = savedItem.id;
-      }
-    }
-
     this.connect('activated', this.setClipboardContent.bind(this));
   }
 
@@ -93,7 +70,7 @@ export class FilePanoItem extends PanoItem {
     clipboardManager.setContent(
       new ClipboardContent({
         type: ContentType.FILE,
-        value: this.clipboardContent,
+        value: { fileList: this.fileList, operation: this.operation },
       }),
     );
   }
