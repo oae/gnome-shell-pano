@@ -19,7 +19,7 @@ export class CodePanoItem extends PanoItem {
     });
     label.clutter_text.use_markup = true;
     label.clutter_text.font_name = 'mono';
-    label.clutter_text.set_markup(markupCode(this.dbItem.content));
+    label.clutter_text.set_markup(markupCode(this.dbItem.content.trim()));
     label.clutter_text.ellipsize = EllipsizeMode.END;
     this.body.add_child(label);
     this.connect('activated', this.setClipboardContent.bind(this));
