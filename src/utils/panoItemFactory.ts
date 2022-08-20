@@ -178,7 +178,7 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
           }),
         });
       }
-      const highlightResult = hljs.highlightAuto(value.slice(0, 1000), SUPPORTED_LANGUAGES);
+      const highlightResult = hljs.highlightAuto(value.slice(0, 2000), SUPPORTED_LANGUAGES);
       if (highlightResult.relevance < 10) {
         return db.save({
           content: value,

@@ -1,5 +1,6 @@
 import { ActorAlign, ContentGravity, Stage } from '@imports/clutter10';
 import { File, FilePrototype } from '@imports/gio2';
+import { UriFlags, uri_parse } from '@imports/glib2';
 import { Global } from '@imports/shell0';
 import { BoxLayout, Label, TextureCache, ThemeContext } from '@imports/st1';
 import { PanoItem } from '@pano/components/panoItem';
@@ -18,6 +19,20 @@ export class LinkPanoItem extends PanoItem {
     super(dbItem);
 
     const { title, description, image } = JSON.parse(dbItem.metaData || '{"title": "", "description": ""}');
+    let titleText: string = title;
+    let descriptionText: string = description;
+
+    if (!title) {
+      titleText = uri_parse(dbItem.content, UriFlags.NONE).get_host() || this.dbItem.content;
+    } else {
+      titleText = decodeURI(title);
+    }
+
+    if (!description) {
+      descriptionText = 'No Description';
+    } else {
+      descriptionText = decodeURI(description);
+    }
 
     this.body.add_style_class_name('pano-item-body-link');
 
@@ -30,12 +45,12 @@ export class LinkPanoItem extends PanoItem {
     });
 
     const titleLabel = new Label({
-      text: title ? decodeURI(title) : '',
+      text: titleText,
       style_class: 'link-title-label',
     });
 
     const descriptionLabel = new Label({
-      text: description ? decodeURI(description) : '',
+      text: descriptionText,
       style_class: 'link-description-label',
     });
     descriptionLabel.clutter_text.single_line_mode = true;
