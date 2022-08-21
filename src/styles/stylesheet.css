@@ -31,11 +31,11 @@
 }
 
 .pano-item:selected {
-  box-shadow: 0px -2px 5px 0px rgba(100, 175, 255, 1) !important;
+  box-shadow: 0px 0px 5px 0px rgba(100, 175, 255, 1) !important;
 }
 
 .pano-item:hover {
-  box-shadow: 0px -2px 5px 0px rgba(100, 175, 255, 0.6);
+  box-shadow: 0px 0px 5px 0px rgba(100, 175, 255, 0.6);
 }
 
 .pano-item-header {
@@ -152,9 +152,10 @@
   background-color: rgb(216, 216, 216);
 }
 
-.pano-item-body-image-meta-container {
+.pano-item-body-meta-container {
+  height: 50px;
   padding: 10px;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(0, 0, 0, 0.7);
   border-radius: 0px 0px 10px 10px;
 }
 
@@ -183,19 +184,16 @@
 
 .pano-item-body-link .link-title-label {
   font-size: 13px;
-  color: #000;
   font-weight: bold;
 }
 
 .pano-item-body-link .link-description-label {
   font-size: 12px;
-  color: #000;
 }
 
 .pano-item-body-link .link-label {
   margin-top: 5px;
   font-size: 10px;
-  color: #2c2f44;
 }
 
 .pano-item-remove-button {

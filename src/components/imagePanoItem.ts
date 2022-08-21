@@ -32,7 +32,7 @@ export class ImagePanoItem extends PanoItem {
     this.body.style = `background-image: url(${imageFilePath}); background-size: ${backgroundSize};`;
 
     const metaContainer = new BoxLayout({
-      style_class: 'pano-item-body-image-meta-container',
+      style_class: 'pano-item-body-meta-container',
       vertical: true,
       x_expand: true,
       y_expand: true,

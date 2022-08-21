@@ -1,15 +1,12 @@
-import { ActorAlign, ContentGravity, Stage } from '@imports/clutter10';
-import { File, FilePrototype } from '@imports/gio2';
+import { ActorAlign, AlignAxis, AlignConstraint } from '@imports/clutter10';
+import { File } from '@imports/gio2';
 import { UriFlags, uri_parse } from '@imports/glib2';
-import { Global } from '@imports/shell0';
-import { BoxLayout, Label, TextureCache, ThemeContext } from '@imports/st1';
+import { BoxLayout, Label } from '@imports/st1';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCachePath, getCurrentExtension } from '@pano/utils/shell';
-
-const global = Global.get();
 
 const DEFAULT_LINK_PREVIEW_IMAGE_NAME = 'link-preview.png';
 
@@ -37,11 +34,12 @@ export class LinkPanoItem extends PanoItem {
     this.body.add_style_class_name('pano-item-body-link');
 
     const metaContainer = new BoxLayout({
-      style_class: 'pano-item-body-link-meta-container',
+      style_class: 'pano-item-body-meta-container',
       vertical: true,
       x_expand: true,
+      y_expand: false,
       y_align: ActorAlign.END,
-      x_align: ActorAlign.START,
+      x_align: ActorAlign.FILL,
     });
 
     const titleLabel = new Label({
@@ -60,32 +58,32 @@ export class LinkPanoItem extends PanoItem {
       style_class: 'link-label',
     });
 
-    const scaleFactor = ThemeContext.get_for_stage(global.stage as Stage).scale_factor;
-
-    let imageFile: FilePrototype;
-    if (image) {
-      imageFile = File.new_for_path(`${getCachePath()}/${image}.png`);
-      if (!imageFile.query_exists(null)) {
-        imageFile = File.new_for_uri(`file:///${getCurrentExtension().path}/images/${DEFAULT_LINK_PREVIEW_IMAGE_NAME}`);
-      }
-    } else {
-      imageFile = File.new_for_uri(`file:///${getCurrentExtension().path}/images/${DEFAULT_LINK_PREVIEW_IMAGE_NAME}`);
+    let imageFilePath = `file:///${getCurrentExtension().path}/images/${DEFAULT_LINK_PREVIEW_IMAGE_NAME}`;
+    if (image && File.new_for_uri(imageFilePath).query_exists(null)) {
+      imageFilePath = `file://${getCachePath()}/${image}.png`;
     }
 
-    const imageContent = TextureCache.get_default().load_file_async(
-      imageFile,
-      -1,
-      168,
-      scaleFactor,
-      this.body.get_resource_scale(),
-    );
-    imageContent.content_gravity = ContentGravity.RESIZE_ASPECT;
+    const imageContainer = new BoxLayout({
+      vertical: true,
+      x_expand: true,
+      y_expand: true,
+      y_align: ActorAlign.FILL,
+      x_align: ActorAlign.FILL,
+      style: `background-image: url(${imageFilePath}); background-size: cover; margin-bottom: 15px`,
+    });
 
-    this.body.add_child(imageContent);
     metaContainer.add_child(titleLabel);
-
     metaContainer.add_child(descriptionLabel);
     metaContainer.add_child(linkLabel);
+    metaContainer.add_constraint(
+      new AlignConstraint({
+        source: this,
+        align_axis: AlignAxis.Y_AXIS,
+        factor: 0.001,
+      }),
+    );
+
+    this.body.add_child(imageContainer);
     this.body.add_child(metaContainer);
 
     this.connect('activated', this.setClipboardContent.bind(this));
