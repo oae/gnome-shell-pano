@@ -1,4 +1,4 @@
-import { ActorAlign, AlignAxis, AlignConstraint } from '@imports/clutter10';
+import { ActorAlign } from '@imports/clutter10';
 import { File } from '@imports/gio2';
 import { UriFlags, uri_parse } from '@imports/glib2';
 import { BoxLayout, Label } from '@imports/st1';
@@ -69,19 +69,12 @@ export class LinkPanoItem extends PanoItem {
       y_expand: true,
       y_align: ActorAlign.FILL,
       x_align: ActorAlign.FILL,
-      style: `background-image: url(${imageFilePath}); background-size: cover; margin-bottom: 15px`,
+      style: `background-image: url(${imageFilePath}); background-size: cover; border-radius: 1px 1px 0px 0px;`,
     });
 
     metaContainer.add_child(titleLabel);
     metaContainer.add_child(descriptionLabel);
     metaContainer.add_child(linkLabel);
-    metaContainer.add_constraint(
-      new AlignConstraint({
-        source: this,
-        align_axis: AlignAxis.Y_AXIS,
-        factor: 0.001,
-      }),
-    );
 
     this.body.add_child(imageContainer);
     this.body.add_child(metaContainer);
