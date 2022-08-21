@@ -8,7 +8,8 @@ import { ClipboardContent, clipboardManager } from '@pano/utils/clipboardManager
 import { ClipboardQueryBuilder, db, DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { createPanoItem, createPanoItemFromDb } from '@pano/utils/panoItemFactory';
-import { getCachePath, getImagesPath, getMonitorConstraint, logger } from '@pano/utils/shell';
+import { getCachePath, getImagesPath, logger } from '@pano/utils/shell';
+import { getMonitorConstraint } from '@pano/utils/ui';
 
 const debug = logger('pano-window');
 

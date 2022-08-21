@@ -1,25 +1,31 @@
-import { BaselinePosition, Box, Notebook, Orientation } from '@gi-types/gtk4';
+import { ActionRow, PreferencesGroup } from '@gi-types/adw1';
+import { Settings } from '@gi-types/gio2';
+import { Align, Switch } from '@gi-types/gtk4';
 import { registerGObjectClass } from '@pano/utils/gjs';
+import { getCurrentExtensionSettings } from '@pano/utils/shell';
 
 @registerGObjectClass
-class Preferences extends Box {
-  _init() {
-    super._init({
-      orientation: Orientation.VERTICAL,
-      spacing: 10,
-      baselinePosition: BaselinePosition.BOTTOM,
+class Preferences extends PreferencesGroup {
+  private settings: Settings;
+
+  constructor() {
+    super();
+
+    this.settings = getCurrentExtensionSettings();
+
+    const prefGroup = new PreferencesGroup();
+    this.add(prefGroup);
+
+    const testRow = new ActionRow({ title: 'Test' });
+    prefGroup.add(testRow);
+
+    const testSwitch = new Switch({
+      active: true,
+      valign: Align.CENTER,
     });
 
-    this.createNotebook();
-  }
-
-  createNotebook() {
-    const notebook = new Notebook({
-      hexpand: true,
-      vexpand: true,
-    });
-
-    this.append(notebook);
+    testRow.add_suffix(testSwitch);
+    testRow.activatable_widget = testSwitch;
   }
 }
 

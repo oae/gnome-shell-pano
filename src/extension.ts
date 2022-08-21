@@ -3,7 +3,8 @@ import { PanoWindow } from '@pano/containers/panoWindow';
 import { clipboardManager } from '@pano/utils/clipboardManager';
 import { db } from '@pano/utils/db';
 import { KeyManager } from '@pano/utils/keyManager';
-import { addChrome, logger, removeChrome, setupAppDirs } from '@pano/utils/shell';
+import { logger, setupAppDirs } from '@pano/utils/shell';
+import { addChrome, removeChrome } from '@pano/utils/ui';
 import './styles/stylesheet.css';
 
 const debug = logger('extension');
