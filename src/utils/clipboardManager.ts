@@ -11,9 +11,9 @@ const global = Global.get();
 const debug = logger('clipboard-manager');
 
 const MimeType = {
-  TEXT: 'text/plain',
-  IMAGE: 'image/png',
-  GNOME_FILE: 'x-special/gnome-copied-files',
+  TEXT: ['text/plain', 'text/plain;charset=utf-8', 'UTF8_STRING'],
+  IMAGE: ['image/png'],
+  GNOME_FILE: ['x-special/gnome-copied-files'],
 };
 
 export enum ContentType {
@@ -105,21 +105,30 @@ export class ClipboardManager extends Object {
     if (content.type === ContentType.TEXT) {
       this.clipboard.set_text(ClipboardType.CLIPBOARD, content.value);
     } else if (content.type === ContentType.IMAGE) {
-      this.clipboard.set_content(ClipboardType.CLIPBOARD, MimeType.IMAGE, content.value);
+      this.clipboard.set_content(ClipboardType.CLIPBOARD, MimeType.IMAGE[0], content.value);
     } else if (content.type === ContentType.FILE) {
       this.clipboard.set_content(
         ClipboardType.CLIPBOARD,
-        MimeType.GNOME_FILE,
+        MimeType.GNOME_FILE[0],
         new TextEncoder().encode([content.value.operation, ...content.value.fileList].join('\n')),
       );
     }
   }
 
+  private haveMimeType(clipboardMimeTypes: string[], targetMimeTypes: string[]): boolean {
+    return clipboardMimeTypes.findIndex((m) => targetMimeTypes.indexOf(m) >= 0) >= 0;
+  }
+
+  private getCurrentMimeType(clipboardMimeTypes: string[], targetMimeTypes: string[]): string {
+    return targetMimeTypes[clipboardMimeTypes.findIndex((m) => targetMimeTypes.indexOf(m) >= 0)];
+  }
+
   private async getContent(): Promise<ClipboardContent | null> {
     return new Promise((resolve) => {
       const cbMimeTypes = this.clipboard.get_mimetypes(ClipboardType.CLIPBOARD);
-      if (cbMimeTypes.indexOf(MimeType.GNOME_FILE) >= 0) {
-        this.clipboard.get_content(ClipboardType.CLIPBOARD, MimeType.GNOME_FILE, (_, bytes: Bytes | Uint8Array) => {
+      if (this.haveMimeType(cbMimeTypes, MimeType.GNOME_FILE)) {
+        const currentMimeType = this.getCurrentMimeType(cbMimeTypes, MimeType.GNOME_FILE);
+        this.clipboard.get_content(ClipboardType.CLIPBOARD, currentMimeType, (_, bytes: Bytes | Uint8Array) => {
           const data = bytes instanceof Bytes ? bytes.get_data() : bytes;
           if (data && data.length > 0) {
             const content = new TextDecoder().decode(data);
@@ -138,8 +147,9 @@ export class ClipboardManager extends Object {
           }
           resolve(null);
         });
-      } else if (cbMimeTypes.indexOf(MimeType.IMAGE) >= 0) {
-        this.clipboard.get_content(ClipboardType.CLIPBOARD, MimeType.IMAGE, (_, bytes: Bytes | Uint8Array) => {
+      } else if (this.haveMimeType(cbMimeTypes, MimeType.IMAGE)) {
+        const currentMimeType = this.getCurrentMimeType(cbMimeTypes, MimeType.IMAGE);
+        this.clipboard.get_content(ClipboardType.CLIPBOARD, currentMimeType, (_, bytes: Bytes | Uint8Array) => {
           const data = bytes instanceof Bytes ? bytes.get_data() : bytes;
           if (data && data.length > 0) {
             resolve(
@@ -152,7 +162,7 @@ export class ClipboardManager extends Object {
           }
           resolve(null);
         });
-      } else if (cbMimeTypes.indexOf(MimeType.TEXT) >= 0) {
+      } else if (this.haveMimeType(cbMimeTypes, MimeType.TEXT)) {
         this.clipboard.get_text(ClipboardType.CLIPBOARD, (_: Clipboard, text: string) => {
           if (text) {
             resolve(
