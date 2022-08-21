@@ -8,16 +8,17 @@ import {
   KEY_KP_Delete,
   KEY_KP_Enter,
   KEY_Return,
-} from '@imports/clutter10';
-import { MetaInfo, TYPE_STRING } from '@imports/gobject2';
-import { Point } from '@imports/graphene1';
-import { Cursor } from '@imports/meta10';
-import { Global } from '@imports/shell0';
-import { BoxLayout } from '@imports/st1';
+} from '@gi-types/clutter10';
+import { MetaInfo, TYPE_STRING } from '@gi-types/gobject2';
+import { Point } from '@gi-types/graphene1';
+import { Cursor } from '@gi-types/meta10';
+import { Global } from '@gi-types/shell0';
+import { BoxLayout } from '@gi-types/st1';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { PanoItemTypes } from '@pano/utils/panoItemType';
-import { PanoItemHeader } from './panoItemHeader';
+import { PanoItemHeader } from '@pano/components/panoItemHeader';
+
 @registerGObjectClass
 export class PanoItem extends BoxLayout {
   static metaInfo: MetaInfo = {

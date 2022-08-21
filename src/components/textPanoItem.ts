@@ -1,5 +1,5 @@
-import { EllipsizeMode } from '@imports/pango1';
-import { Label } from '@imports/st1';
+import { EllipsizeMode } from '@gi-types/pango1';
+import { Label } from '@gi-types/st1';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';

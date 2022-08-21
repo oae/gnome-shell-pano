@@ -7,24 +7,11 @@
     "versionedImports": true,
     "noAdvancedVariants": true,
     "withDocs": true,
-    "importPrefix": "./",
+    "importPrefix": "@gi-types/",
     "out": "./@types"
   },
   "libraries": {
-    "Gtk": ["4.0", "3.0"],
-    "Graphene": ["1.0"],
-    "Soup": ["3.0"],
-    "St": ["1.0"],
-    "Shell": ["0.1"],
-    "Gio": ["2.0"],
-    "GObject": ["2.0"],
-    "Gdk": ["4.0", "3.0"],
-    "GdkPixbuf": ["2.0"],
-    "GLib": ["2.0"],
-    "Meta": ["10"],
     "Cogl": ["10"],
-    "Clutter": ["10"],
-    "Pango": ["1.0"],
     "Gda": ["5.0"]
   }
 }

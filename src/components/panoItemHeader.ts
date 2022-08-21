@@ -1,7 +1,7 @@
-import { ActorAlign, EVENT_PROPAGATE } from '@imports/clutter10';
-import { icon_new_for_string } from '@imports/gio2';
-import { MetaInfo } from '@imports/gobject2';
-import { BoxLayout, Button, Icon, Label } from '@imports/st1';
+import { ActorAlign, EVENT_PROPAGATE } from '@gi-types/clutter10';
+import { icon_new_for_string } from '@gi-types/gio2';
+import { MetaInfo } from '@gi-types/gobject2';
+import { BoxLayout, Button, Icon, Label } from '@gi-types/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { IPanoItemType } from '@pano/utils/panoItemType';
 import { getCurrentExtension } from '@pano/utils/shell';

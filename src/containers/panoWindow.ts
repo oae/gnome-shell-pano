@@ -1,6 +1,6 @@
-import { ActorAlign, AnimationMode, EVENT_PROPAGATE, KeyEvent, KEY_Escape } from '@imports/clutter10';
-import { File } from '@imports/gio2';
-import { BoxLayout } from '@imports/st1';
+import { ActorAlign, AnimationMode, EVENT_PROPAGATE, KeyEvent, KEY_Escape } from '@gi-types/clutter10';
+import { File } from '@gi-types/gio2';
+import { BoxLayout } from '@gi-types/st1';
 import { MonitorBox } from '@pano/components/monitorBox';
 import { PanoScrollView } from '@pano/components/panoScrollView';
 import { SearchBox } from '@pano/components/searchBox';

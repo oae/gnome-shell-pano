@@ -26,9 +26,9 @@ import swift from 'highlight.js/lib/languages/swift';
 import typescript from 'highlight.js/lib/languages/typescript';
 import yaml from 'highlight.js/lib/languages/yaml';
 
-import { Pixbuf } from '@imports/gdkpixbuf2';
-import { File, FileCreateFlags } from '@imports/gio2';
-import { ChecksumType, compute_checksum_for_bytes } from '@imports/glib2';
+import { Pixbuf } from '@gi-types/gdkpixbuf2';
+import { File, FileCreateFlags } from '@gi-types/gio2';
+import { ChecksumType, compute_checksum_for_bytes } from '@gi-types/glib2';
 import { CodePanoItem } from '@pano/components/codePanoItem';
 import { FilePanoItem } from '@pano/components/filePanoItem';
 import { ImagePanoItem } from '@pano/components/imagePanoItem';
@@ -37,8 +37,8 @@ import { PanoItem } from '@pano/components/panoItem';
 import { TextPanoItem } from '@pano/components/textPanoItem';
 import { ClipboardContent, ContentType } from '@pano/utils/clipboardManager';
 import { getImagesPath, logger } from '@pano/utils/shell';
-import { ClipboardQueryBuilder, db, DBItem } from './db';
-import { getDescription, getDocument, getImage, getMetaList, getTitle } from './linkParser';
+import { ClipboardQueryBuilder, db, DBItem } from '@pano/utils/db';
+import { getDescription, getDocument, getImage, getMetaList, getTitle } from '@pano/utils/linkParser';
 import { ColorPanoItem } from '@pano/components/colorPanoItem';
 
 hljs.registerLanguage('python', python);

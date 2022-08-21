@@ -1,35 +1,30 @@
-import { logger } from '@pano/utils/shell';
-import { registerClass } from '@imports/gobject2';
-import { BaselinePosition, Box, Notebook, Orientation } from '@imports/gtk4';
+import { BaselinePosition, Box, Notebook, Orientation } from '@gi-types/gtk4';
+import { registerGObjectClass } from '@pano/utils/gjs';
 
-const debug = logger('prefs');
+@registerGObjectClass
+class Preferences extends Box {
+  _init() {
+    super._init({
+      orientation: Orientation.VERTICAL,
+      spacing: 10,
+      baselinePosition: BaselinePosition.BOTTOM,
+    });
 
-const Preferences = registerClass(
-  {},
-  class Preferences extends Box {
-    _init() {
-      super._init({
-        orientation: Orientation.VERTICAL,
-        spacing: 10,
-        baselinePosition: BaselinePosition.BOTTOM,
-      });
+    this.createNotebook();
+  }
 
-      this.createNotebook();
-    }
+  createNotebook() {
+    const notebook = new Notebook({
+      hexpand: true,
+      vexpand: true,
+    });
 
-    createNotebook() {
-      const notebook = new Notebook({
-        hexpand: true,
-        vexpand: true,
-      });
+    this.append(notebook);
+  }
+}
 
-      this.append(notebook);
-    }
-  },
-);
+const init = (): void => log('prefs initialized');
 
-const init = (): void => debug('prefs initialized');
-
-const buildPrefsWidget = (): any => new Preferences();
+const buildPrefsWidget = () => new Preferences();
 
 export default { init, buildPrefsWidget };

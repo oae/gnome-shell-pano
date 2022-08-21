@@ -9,20 +9,21 @@ import visualizer from 'rollup-plugin-visualizer';
 const buildPath = 'dist';
 
 const globals = {
-  '@imports/gio2': 'imports.gi.Gio',
-  '@imports/gdk4': 'imports.gi.Gdk',
-  '@imports/gtk4': 'imports.gi.Gtk',
-  '@imports/gdkpixbuf2': 'imports.gi.GdkPixbuf',
-  '@imports/glib2': 'imports.gi.GLib',
-  '@imports/st1': 'imports.gi.St',
-  '@imports/shell0': 'imports.gi.Shell',
-  '@imports/meta10': 'imports.gi.Meta',
-  '@imports/clutter10': 'imports.gi.Clutter',
-  '@imports/soup3': 'imports.gi.Soup',
-  '@imports/gobject2': 'imports.gi.GObject',
-  '@imports/pango1': 'imports.gi.Pango',
-  '@imports/graphene1': 'imports.gi.Graphene',
+  '@gi-types/gdk4': 'imports.gi.Gdk',
+  '@gi-types/gio2': 'imports.gi.Gio',
+  '@gi-types/gtk4': 'imports.gi.Gtk',
+  '@gi-types/gdkpixbuf2': 'imports.gi.GdkPixbuf',
+  '@gi-types/glib2': 'imports.gi.GLib',
+  '@gi-types/st1': 'imports.gi.St',
+  '@gi-types/shell0': 'imports.gi.Shell',
+  '@gi-types/meta10': 'imports.gi.Meta',
+  '@gi-types/clutter10': 'imports.gi.Clutter',
+  '@gi-types/soup3': 'imports.gi.Soup',
+  '@gi-types/gobject2': 'imports.gi.GObject',
+  '@gi-types/pango1': 'imports.gi.Pango',
+  '@gi-types/graphene1': 'imports.gi.Graphene',
   '@imports/gda5': 'imports.gi.Gda',
+  '@gi-types/adw1': 'imports.gi.Adw',
 };
 
 const external = Object.keys(globals);

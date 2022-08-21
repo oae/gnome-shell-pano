@@ -1,6 +1,6 @@
-import { File, FileCreateFlags, FilePrototype } from '@imports/gio2';
-import { ChecksumType, compute_checksum_for_string, PRIORITY_DEFAULT } from '@imports/glib2';
-import { Message, Session } from '@imports/soup3';
+import { File, FileCreateFlags, FilePrototype } from '@gi-types/gio2';
+import { ChecksumType, compute_checksum_for_string, PRIORITY_DEFAULT } from '@gi-types/glib2';
+import { Message, Session } from '@gi-types/soup3';
 import { getCachePath, logger } from '@pano/utils/shell';
 import { XMLParser } from 'fast-xml-parser';
 

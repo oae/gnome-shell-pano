@@ -64,6 +64,21 @@
     "xml2js": "^0.4.23"
   },
   "dependencies": {
+
+    "@gi-types/adw1": "^1.1.1",
+    "@gi-types/clutter10": "^10.0.1",
+    "@gi-types/gdk4": "^4.0.1",
+    "@gi-types/gdkpixbuf2": "^2.0.2",
+    "@gi-types/gio2": "^2.72.1",
+    "@gi-types/glib2": "^2.72.1",
+    "@gi-types/gobject2": "^2.72.1",
+    "@gi-types/graphene1": "^1.0.1",
+    "@gi-types/gtk4": "^4.6.1",
+    "@gi-types/meta10": "^10.0.1",
+    "@gi-types/pango1": "^1.50.1",
+    "@gi-types/shell0": "^0.1.1",
+    "@gi-types/soup3": "^3.0.1",
+    "@gi-types/st1": "^1.0.1",
     "date-fns": "^2.28.0",
     "fast-xml-parser": "^4.0.7",
     "highlight.js": "^11.5.0",

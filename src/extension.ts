@@ -1,4 +1,4 @@
-import { restart as restartShell } from '@imports/meta10';
+import { restart as restartShell } from '@gi-types/meta10';
 import { PanoWindow } from '@pano/containers/panoWindow';
 import { clipboardManager } from '@pano/utils/clipboardManager';
 import { db } from '@pano/utils/db';

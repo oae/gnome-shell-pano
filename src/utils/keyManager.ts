@@ -1,5 +1,5 @@
-import { external_binding_name_for_action, KeyBindingAction, KeyBindingFlags } from '@imports/meta10';
-import { ActionMode, Global } from '@imports/shell0';
+import { external_binding_name_for_action, KeyBindingAction, KeyBindingFlags } from '@gi-types/meta10';
+import { ActionMode, Global } from '@gi-types/shell0';
 import { logger, wm } from '@pano/utils/shell';
 
 const debug = logger('key-manager');

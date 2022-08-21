@@ -1,7 +1,7 @@
-import { Actor } from '@imports/clutter10';
-import { File, Settings } from '@imports/gio2';
-import { get_user_cache_dir, get_user_data_dir } from '@imports/glib2';
-import { Global } from '@imports/shell0';
+import { Actor } from '@gi-types/clutter10';
+import { File, Settings } from '@gi-types/gio2';
+import { get_user_cache_dir, get_user_data_dir } from '@gi-types/glib2';
+import { Global } from '@gi-types/shell0';
 
 export const logger =
   (prefix: string) =>

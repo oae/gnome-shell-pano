@@ -1,6 +1,6 @@
-import { ActorAlign, Event, KEY_Down, KEY_ISO_Enter, KEY_KP_Enter, KEY_Return, KEY_Right } from '@imports/clutter10';
-import { MetaInfo, TYPE_STRING } from '@imports/gobject2';
-import { BoxLayout, Entry, Icon } from '@imports/st1';
+import { ActorAlign, Event, KEY_Down, KEY_ISO_Enter, KEY_KP_Enter, KEY_Return, KEY_Right } from '@gi-types/clutter10';
+import { MetaInfo, TYPE_STRING } from '@gi-types/gobject2';
+import { BoxLayout, Entry, Icon } from '@gi-types/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
 
 @registerGObjectClass

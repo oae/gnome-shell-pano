@@ -11,11 +11,11 @@ import {
   KEY_Up,
   ScrollDirection,
   ScrollEvent,
-} from '@imports/clutter10';
-import { MetaInfo, TYPE_STRING } from '@imports/gobject2';
-import { Stage } from '@imports/meta10';
-import { Global } from '@imports/shell0';
-import { BoxLayout, PolicyType, ScrollView } from '@imports/st1';
+} from '@gi-types/clutter10';
+import { MetaInfo, TYPE_STRING } from '@gi-types/gobject2';
+import { Stage } from '@gi-types/meta10';
+import { Global } from '@gi-types/shell0';
+import { BoxLayout, PolicyType, ScrollView } from '@gi-types/st1';
 import { PanoItem } from '@pano/components/panoItem';
 import { PanoWindow } from '@pano/containers/panoWindow';
 import { ClipboardQueryBuilder, db } from '@pano/utils/db';

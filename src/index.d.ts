@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { Actor, AnimationMode } from '@imports/clutter10';
+import { Actor, AnimationMode } from '@gi-types/clutter10';
 
 export {};
 
@@ -94,19 +94,19 @@ interface EasingParams {
 // Any number of extra fields for the properties to be animated (e.g. "opacity: 0").
 interface EasingParamsWithProperties extends EasingParams, Partial<Pick<Actor, AnimatableActorFields>> {}
 
-declare module '@imports/clutter10' {
+declare module '@gi-types/clutter10' {
   interface Actor {
     ease(params: EasingParamsWithProperties): void;
   }
 }
 
-declare module '@imports/st1' {
+declare module '@gi-types/st1' {
   interface Adjustment {
     ease(target: any, params: EasingParamsWithProperties): void;
   }
 }
 
-declare module '@imports/gobject2' {
+declare module '@gi-types/gobject2' {
   export interface MetaInfo {
     GTypeName: string;
     GTypeFlags?: TypeFlags;

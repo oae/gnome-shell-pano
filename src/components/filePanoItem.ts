@@ -1,6 +1,6 @@
-import { ActorAlign } from '@imports/clutter10';
-import { EllipsizeMode } from '@imports/pango1';
-import { BoxLayout, Icon, Label } from '@imports/st1';
+import { ActorAlign } from '@gi-types/clutter10';
+import { EllipsizeMode } from '@gi-types/pango1';
+import { BoxLayout, Icon, Label } from '@gi-types/st1';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, clipboardManager, ContentType, FileOperation } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';

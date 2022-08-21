@@ -1,6 +1,6 @@
-import { ActorAlign, AlignAxis, AlignConstraint } from '@imports/clutter10';
-import { File } from '@imports/gio2';
-import { BoxLayout, Label } from '@imports/st1';
+import { ActorAlign, AlignAxis, AlignConstraint } from '@gi-types/clutter10';
+import { File } from '@gi-types/gio2';
+import { BoxLayout, Label } from '@gi-types/st1';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';

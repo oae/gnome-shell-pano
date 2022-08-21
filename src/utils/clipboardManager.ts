@@ -1,8 +1,8 @@
-import { Bytes } from '@imports/glib2';
-import { MetaInfo, Object } from '@imports/gobject2';
-import { Selection, SelectionType } from '@imports/meta10';
-import { Global } from '@imports/shell0';
-import { Clipboard, ClipboardType } from '@imports/st1';
+import { Bytes } from '@gi-types/glib2';
+import { MetaInfo, Object } from '@gi-types/gobject2';
+import { Selection, SelectionType } from '@gi-types/meta10';
+import { Global } from '@gi-types/shell0';
+import { Clipboard, ClipboardType } from '@gi-types/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { logger } from '@pano/utils/shell';
 

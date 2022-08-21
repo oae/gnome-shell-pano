@@ -1,7 +1,7 @@
-import { ActorAlign, EVENT_STOP } from '@imports/clutter10';
-import { MetaInfo } from '@imports/gobject2';
-import { MonitorManager } from '@imports/meta10';
-import { BoxLayout } from '@imports/st1';
+import { ActorAlign, EVENT_STOP } from '@gi-types/clutter10';
+import { MetaInfo } from '@gi-types/gobject2';
+import { MonitorManager } from '@gi-types/meta10';
+import { BoxLayout } from '@gi-types/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { addChrome, getMonitorConstraintForIndex, getMonitors, removeChrome } from '@pano/utils/shell';
 
