@@ -1,4 +1,5 @@
 import { ActorAlign, AnimationMode, EVENT_PROPAGATE, KeyEvent, KEY_Escape } from '@imports/clutter10';
+import { File } from '@imports/gio2';
 import { BoxLayout } from '@imports/st1';
 import { MonitorBox } from '@pano/components/monitorBox';
 import { PanoScrollView } from '@pano/components/panoScrollView';
@@ -7,7 +8,7 @@ import { ClipboardContent, clipboardManager } from '@pano/utils/clipboardManager
 import { ClipboardQueryBuilder, db, DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { createPanoItem, createPanoItemFromDb } from '@pano/utils/panoItemFactory';
-import { getMonitorConstraint, logger } from '@pano/utils/shell';
+import { getCachePath, getImagesPath, getMonitorConstraint, logger } from '@pano/utils/shell';
 
 const debug = logger('pano-window');
 
@@ -47,11 +48,34 @@ export class PanoWindow extends BoxLayout {
     dbItems.forEach((dbItem: DBItem) => {
       const item = createPanoItemFromDb(dbItem);
       if (item) {
+        item.connect('on-remove', (_, dbItemStr: string) => {
+          this.removeItem(dbItemStr);
+        });
+
         this.scrollView.addItem(item);
       }
     });
 
     clipboardManager.connect('changed', async (_: any, content: ClipboardContent) => this.updateHistory(content));
+  }
+
+  private removeItem(dbItemStr: string) {
+    const dbItem: DBItem = JSON.parse(dbItemStr);
+    db.delete(dbItem.id);
+    if (dbItem.itemType === 'LINK') {
+      const { image } = JSON.parse(dbItem.metaData || '{}');
+      if (image && File.new_for_uri(`file://${getCachePath()}/${image}.png`).query_exists(null)) {
+        File.new_for_uri(`file://${getCachePath()}/${image}.png`).delete(null);
+      }
+    } else if (dbItem.itemType === 'IMAGE') {
+      const imageFilePath = `file://${getImagesPath()}/${dbItem.content}.png`;
+      const imageFile = File.new_for_uri(imageFilePath);
+      if (imageFile.query_exists(null)) {
+        imageFile.delete(null);
+      }
+    }
+
+    this.scrollView.removeItem(dbItem.id);
   }
 
   private setupMonitorBox() {
@@ -88,6 +112,10 @@ export class PanoWindow extends BoxLayout {
 
       if (panoItem !== null) {
         const existingItem = this.scrollView.getItem(panoItem.dbItem.id);
+
+        panoItem.connect('on-remove', (_, dbItemStr: string) => {
+          this.removeItem(dbItemStr);
+        });
 
         this.scrollView.replaceOrAddItem(panoItem, existingItem);
 

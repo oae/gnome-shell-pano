@@ -3,11 +3,13 @@ import {
   EVENT_PROPAGATE,
   EVENT_STOP,
   KeyEvent,
+  KEY_Delete,
   KEY_ISO_Enter,
+  KEY_KP_Delete,
   KEY_KP_Enter,
   KEY_Return,
 } from '@imports/clutter10';
-import { MetaInfo } from '@imports/gobject2';
+import { MetaInfo, TYPE_STRING } from '@imports/gobject2';
 import { Point } from '@imports/graphene1';
 import { Cursor } from '@imports/meta10';
 import { Global } from '@imports/shell0';
@@ -22,6 +24,10 @@ export class PanoItem extends BoxLayout {
     GTypeName: 'PanoItem',
     Signals: {
       activated: {},
+      'on-remove': {
+        param_types: [TYPE_STRING],
+        accumulator: 0,
+      },
     },
   };
 
@@ -56,11 +62,8 @@ export class PanoItem extends BoxLayout {
 
     this.header = new PanoItemHeader(PanoItemTypes[dbItem.itemType], dbItem.copyDate);
     this.header.connect('on-remove', () => {
-      log(`removed item with id: ${dbItem.id}`);
-    });
-
-    this.header.connect('on-favorite', () => {
-      log(`favorite item with id: ${dbItem.id}`);
+      this.emit('on-remove', JSON.stringify(this.dbItem));
+      return EVENT_PROPAGATE;
     });
 
     this.body = new BoxLayout({
@@ -85,6 +88,10 @@ export class PanoItem extends BoxLayout {
   override vfunc_key_press_event(event: KeyEvent): boolean {
     if (event.keyval === KEY_Return || event.keyval === KEY_ISO_Enter || event.keyval === KEY_KP_Enter) {
       this.emit('activated');
+      return EVENT_STOP;
+    }
+    if (event.keyval === KEY_Delete || event.keyval === KEY_KP_Delete) {
+      this.emit('on-remove', JSON.stringify(this.dbItem));
       return EVENT_STOP;
     }
     return EVENT_PROPAGATE;

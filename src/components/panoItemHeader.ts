@@ -1,4 +1,4 @@
-import { ActorAlign } from '@imports/clutter10';
+import { ActorAlign, EVENT_PROPAGATE } from '@imports/clutter10';
 import { icon_new_for_string } from '@imports/gio2';
 import { MetaInfo } from '@imports/gobject2';
 import { BoxLayout, Button, Icon, Label } from '@imports/st1';
@@ -13,7 +13,6 @@ export class PanoItemHeader extends BoxLayout {
     GTypeName: 'PanoItemHeader',
     Signals: {
       'on-remove': {},
-      'on-favorite': {},
     },
   };
 
@@ -73,20 +72,6 @@ export class PanoItemHeader extends BoxLayout {
       y_align: ActorAlign.START,
     });
 
-    const favoriteIcon = new Icon({
-      icon_name: 'emblem-favorite-symbolic',
-      icon_size: 12,
-    });
-
-    const favoriteButton = new Button({
-      style_class: 'pano-item-favorite-button',
-      child: favoriteIcon,
-    });
-
-    favoriteButton.connect('clicked', () => {
-      this.emit('on-favorite');
-    });
-
     const removeIcon = new Icon({
       icon_name: 'window-close-symbolic',
       icon_size: 12,
@@ -99,9 +84,9 @@ export class PanoItemHeader extends BoxLayout {
 
     removeButton.connect('clicked', () => {
       this.emit('on-remove');
+      return EVENT_PROPAGATE;
     });
 
-    actionContainer.add_child(favoriteButton);
     actionContainer.add_child(removeButton);
 
     this.add_child(iconContainer);

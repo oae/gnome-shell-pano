@@ -59,7 +59,7 @@ export class LinkPanoItem extends PanoItem {
     });
 
     let imageFilePath = `file:///${getCurrentExtension().path}/images/${DEFAULT_LINK_PREVIEW_IMAGE_NAME}`;
-    if (image && File.new_for_uri(imageFilePath).query_exists(null)) {
+    if (image && File.new_for_uri(`file://${getCachePath()}/${image}.png`).query_exists(null)) {
       imageFilePath = `file://${getCachePath()}/${image}.png`;
     }
 

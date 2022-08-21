@@ -8,7 +8,6 @@
 }
 
 .pano-window .search-entry-icon {
-  icon-size: 13px;
   padding: 0 4px;
   color: inherit;
 }
@@ -99,7 +98,6 @@
 .pano-item-body-color {
   background-color: #a6da95;
 }
-
 
 .pano-item-body-image {
   background-color: #2e2e47;
@@ -206,32 +204,14 @@
 }
 
 .pano-item-remove-button {
-  color: #de4c4a;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: #d20f39;
+  border: 1px solid white;
   border-radius: 99px;
   padding: 5px;
   margin: 5px;
 }
 
-.pano-item-remove-button:hover {
-  background-color: rgba(0, 0, 0, 0.8);
-}
+.pano-item-remove-button:hover,
 .pano-item-remove-button:active {
-  background-color: rgba(0, 0, 0, 0.9);
-}
-
-.pano-item-favorite-button {
-  color: #fdd835;
-  background-color: rgba(0, 0, 0, 0.9);
-  border-radius: 99px;
-  padding: 5px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-
-.pano-item-favorite-button:hover {
-  background-color: rgba(0, 0, 0, 0.8);
-}
-.pano-item-favorite-button:active {
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: #e64553;
 }

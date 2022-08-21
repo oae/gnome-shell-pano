@@ -34,6 +34,7 @@ export class SearchBox extends BoxLayout {
       primary_icon: new Icon({
         style_class: 'search-entry-icon',
         icon_name: 'edit-find-symbolic',
+        icon_size: 13,
       }),
     });
 
