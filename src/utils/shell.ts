@@ -12,11 +12,11 @@ const debug = logger('utils');
 
 const global = Global.get();
 
-export const getAppDataPath = (): string => `${get_user_data_dir()}/pano`;
+export const getAppDataPath = (): string => `${get_user_data_dir()}/${getCurrentExtension().metadata.uuid}`;
 
 export const getImagesPath = (): string => `${getAppDataPath()}/images`;
 
-export const getCachePath = (): string => `${get_user_cache_dir()}/pano`;
+export const getCachePath = (): string => `${get_user_cache_dir()}/${getCurrentExtension().metadata.uuid}`;
 
 export const setupAppDirs = (): void => {
   const appDataPath = File.new_for_path(getImagesPath());
@@ -41,20 +41,6 @@ export const notify = (text: string): void => {
   } else {
     debug(`Notifications are disabled. Logging the content instead. Content: ${text}`);
   }
-};
-
-export const loadInterfaceXML = (iface: string): any => {
-  const uri = `file:///${getCurrentExtension().path}/dbus/${iface}.xml`;
-  const file = File.new_for_uri(uri);
-
-  try {
-    const [, bytes] = file.load_contents(null);
-    return imports.byteArray.toString(bytes);
-  } catch (e) {
-    debug(`Failed to load D-Bus interface ${iface}`);
-  }
-
-  return null;
 };
 
 export const wm = imports.ui.main.wm;

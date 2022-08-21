@@ -40,6 +40,8 @@ export class ClipboardQueryBuilder {
     this.builder.select_add_field('searchValue', 'clipboard', 'searchValue');
     this.builder.select_add_field('metaData', 'clipboard', 'metaData');
 
+    this.builder.select_order_by(this.builder.add_field_id('copyDate', 'clipboard'), true, null);
+
     this.builder.select_add_target('clipboard', null);
   }
 

@@ -116,11 +116,11 @@ export class ClipboardManager extends Object {
   }
 
   private haveMimeType(clipboardMimeTypes: string[], targetMimeTypes: string[]): boolean {
-    return clipboardMimeTypes.findIndex((m) => targetMimeTypes.indexOf(m) >= 0) >= 0;
+    return clipboardMimeTypes.find((m) => targetMimeTypes.indexOf(m) >= 0) !== undefined;
   }
 
-  private getCurrentMimeType(clipboardMimeTypes: string[], targetMimeTypes: string[]): string {
-    return targetMimeTypes[clipboardMimeTypes.findIndex((m) => targetMimeTypes.indexOf(m) >= 0)];
+  private getCurrentMimeType(clipboardMimeTypes: string[], targetMimeTypes: string[]): string | undefined {
+    return clipboardMimeTypes.find((m) => targetMimeTypes.indexOf(m) >= 0);
   }
 
   private async getContent(): Promise<ClipboardContent | null> {
@@ -128,6 +128,10 @@ export class ClipboardManager extends Object {
       const cbMimeTypes = this.clipboard.get_mimetypes(ClipboardType.CLIPBOARD);
       if (this.haveMimeType(cbMimeTypes, MimeType.GNOME_FILE)) {
         const currentMimeType = this.getCurrentMimeType(cbMimeTypes, MimeType.GNOME_FILE);
+        if (!currentMimeType) {
+          resolve(null);
+          return;
+        }
         this.clipboard.get_content(ClipboardType.CLIPBOARD, currentMimeType, (_, bytes: Bytes | Uint8Array) => {
           const data = bytes instanceof Bytes ? bytes.get_data() : bytes;
           if (data && data.length > 0) {
@@ -149,6 +153,10 @@ export class ClipboardManager extends Object {
         });
       } else if (this.haveMimeType(cbMimeTypes, MimeType.IMAGE)) {
         const currentMimeType = this.getCurrentMimeType(cbMimeTypes, MimeType.IMAGE);
+        if (!currentMimeType) {
+          resolve(null);
+          return;
+        }
         this.clipboard.get_content(ClipboardType.CLIPBOARD, currentMimeType, (_, bytes: Bytes | Uint8Array) => {
           const data = bytes instanceof Bytes ? bytes.get_data() : bytes;
           if (data && data.length > 0) {
