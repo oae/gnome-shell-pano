@@ -1,14 +1,14 @@
-import { ContentGravity, Stage } from '@imports/clutter10';
+import { ActorAlign, AlignAxis, AlignConstraint } from '@imports/clutter10';
 import { File } from '@imports/gio2';
-import { Global } from '@imports/shell0';
-import { TextureCache, ThemeContext } from '@imports/st1';
+import { BoxLayout, Label } from '@imports/st1';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { getImagesPath } from '@pano/utils/shell';
+import { getCurrentExtension, getImagesPath } from '@pano/utils/shell';
+import prettyBytes from 'pretty-bytes';
 
-const global = Global.get();
+const NO_IMAGE_FOUND_FILE_NAME = 'no-image-found.png';
 
 @registerGObjectClass
 export class ImagePanoItem extends PanoItem {
@@ -16,23 +16,87 @@ export class ImagePanoItem extends PanoItem {
     super(dbItem);
 
     this.body.add_style_class_name('pano-item-body-image');
-    const scaleFactor = ThemeContext.get_for_stage(global.stage as Stage).scale_factor;
 
-    const actor = TextureCache.get_default().load_file_async(
-      File.new_for_path(`${getImagesPath()}/${this.dbItem.content}.png`),
-      -1,
-      220,
-      scaleFactor,
-      this.body.get_resource_scale(),
+    const { width, height, size }: { width: number; height: number; size: number } = JSON.parse(
+      dbItem.metaData || '{}',
     );
-    if (actor) {
-      actor.content_gravity = ContentGravity.RESIZE_ASPECT;
-      actor.margin_top = 10;
-      actor.margin_bottom = 10;
-      actor.margin_right = 0;
-      actor.margin_left = 0;
-      this.body.add_child(actor);
+
+    let imageFilePath = `file://${getImagesPath()}/${this.dbItem.content}.png`;
+    let backgroundSize = 'contain';
+    const imageFile = File.new_for_uri(imageFilePath);
+    if (!imageFile.query_exists(null)) {
+      imageFilePath = `file://${getCurrentExtension().path}/images/${NO_IMAGE_FOUND_FILE_NAME}`;
+      backgroundSize = 'cover';
     }
+
+    this.body.style = `background-image: url(${imageFilePath}); background-size: ${backgroundSize};`;
+
+    const metaContainer = new BoxLayout({
+      style_class: 'pano-item-body-image-meta-container',
+      vertical: true,
+      x_expand: true,
+      y_expand: true,
+      y_align: ActorAlign.END,
+      x_align: ActorAlign.FILL,
+    });
+
+    const resolutionContainer = new BoxLayout({
+      vertical: false,
+      x_expand: true,
+      y_align: ActorAlign.FILL,
+      x_align: ActorAlign.FILL,
+      style_class: 'pano-item-body-image-resolution-container',
+    });
+
+    const resolutionTitle = new Label({
+      text: 'Resolution',
+      x_align: ActorAlign.START,
+      x_expand: true,
+      style_class: 'pano-item-body-image-meta-title',
+    });
+    const resolutionValue = new Label({
+      text: `${width} x ${height}`,
+      x_align: ActorAlign.END,
+      x_expand: false,
+      style_class: 'pano-item-body-image-meta-value',
+    });
+    resolutionContainer.add_child(resolutionTitle);
+    resolutionContainer.add_child(resolutionValue);
+
+    const sizeContainer = new BoxLayout({
+      vertical: false,
+      x_expand: true,
+      y_align: ActorAlign.FILL,
+      x_align: ActorAlign.FILL,
+      style_class: 'pano-item-body-image-size-container',
+    });
+
+    const sizeLabel = new Label({
+      text: 'Size',
+      x_align: ActorAlign.START,
+      x_expand: true,
+      style_class: 'pano-item-body-image-meta-title',
+    });
+    const sizeValue = new Label({
+      text: prettyBytes(size),
+      x_align: ActorAlign.END,
+      x_expand: false,
+      style_class: 'pano-item-body-image-meta-value',
+    });
+    sizeContainer.add_child(sizeLabel);
+    sizeContainer.add_child(sizeValue);
+
+    metaContainer.add_child(resolutionContainer);
+    metaContainer.add_child(sizeContainer);
+    metaContainer.add_constraint(
+      new AlignConstraint({
+        source: this,
+        align_axis: AlignAxis.Y_AXIS,
+        factor: 0.001,
+      }),
+    );
+
+    this.body.add_child(metaContainer);
 
     this.connect('activated', this.setClipboardContent.bind(this));
   }
