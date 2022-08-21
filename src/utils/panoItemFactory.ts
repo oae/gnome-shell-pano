@@ -1,4 +1,5 @@
 import isUrl from 'is-url';
+import { validateHTMLColorRgb, validateHTMLColorHex, validateHTMLColorName } from 'validate-color/lib/index';
 
 import hljs from 'highlight.js/lib/core';
 import c from 'highlight.js/lib/languages/c';
@@ -38,6 +39,7 @@ import { ClipboardContent, ContentType } from '@pano/utils/clipboardManager';
 import { getImagesPath, logger } from '@pano/utils/shell';
 import { ClipboardQueryBuilder, db, DBItem } from './db';
 import { getDescription, getDocument, getImage, getMetaList, getTitle } from './linkParser';
+import { ColorPanoItem } from '@pano/components/colorPanoItem';
 
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('markdown', markdown);
@@ -102,7 +104,7 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
       queryBuilder.withItemTypes(['IMAGE']).withMatchValue(compute_checksum_for_bytes(ChecksumType.MD5, value));
       break;
     case ContentType.TEXT:
-      queryBuilder.withItemTypes(['LINK', 'TEXT', 'CODE']).withMatchValue(value).build();
+      queryBuilder.withItemTypes(['LINK', 'TEXT', 'CODE', 'COLOR']).withMatchValue(value).build();
       break;
     default:
       return null;
@@ -154,7 +156,7 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
         }),
       });
     case ContentType.TEXT:
-      if (value.toLowerCase().startsWith('http') && isUrl(value)) {
+      if (value.trim().toLowerCase().startsWith('http') && isUrl(value)) {
         const doc = await getDocument(value);
 
         let metaList, title, description, checksum;
@@ -176,6 +178,20 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
             description: description ? encodeURI(description) : undefined,
             image: checksum ? checksum : undefined,
           }),
+        });
+      }
+      if (
+        validateHTMLColorHex(value.trim()) ||
+        validateHTMLColorRgb(value.trim()) ||
+        validateHTMLColorName(value.trim())
+      ) {
+        return db.save({
+          content: value,
+          copyDate: new Date(),
+          isFavorite: false,
+          itemType: 'COLOR',
+          matchValue: value,
+          searchValue: value,
         });
       }
       const highlightResult = hljs.highlightAuto(value.slice(0, 2000), SUPPORTED_LANGUAGES);
@@ -232,6 +248,8 @@ export const createPanoItemFromDb = (dbItem: DBItem | null): PanoItem | null => 
       return new CodePanoItem(dbItem);
     case 'LINK':
       return new LinkPanoItem(dbItem);
+    case 'COLOR':
+      return new ColorPanoItem(dbItem);
     case 'FILE':
       return new FilePanoItem(dbItem);
     case 'IMAGE':

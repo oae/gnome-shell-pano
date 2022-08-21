@@ -63,6 +63,10 @@
   background-color: #232634;
 }
 
+.pano-item-header-color {
+  background-color: #8839ef;
+}
+
 .pano-item-body {
   border-radius: 0px 0px 10px 10px;
   height: 220px;
@@ -91,6 +95,11 @@
   font-size: 13px;
   color: #000;
 }
+
+.pano-item-body-color {
+  background-color: #a6da95;
+}
+
 
 .pano-item-body-image {
   background-color: #2e2e47;
