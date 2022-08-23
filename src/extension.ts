@@ -1,4 +1,3 @@
-import { restart as restartShell } from '@gi-types/meta10';
 import { PanoWindow } from '@pano/containers/panoWindow';
 import { clipboardManager } from '@pano/utils/clipboardManager';
 import { db } from '@pano/utils/db';
@@ -13,14 +12,15 @@ class PanoExtension {
   private keyManager: KeyManager;
 
   constructor() {
+    setupAppDirs();
     db.setup();
     debug('extension is initialized');
     this.keyManager = new KeyManager();
     this.panoWindow = new PanoWindow();
-    setupAppDirs();
   }
 
   enable(): void {
+    setupAppDirs();
     db.start();
     addChrome(this.panoWindow);
     // TODO: read from settings
@@ -28,10 +28,6 @@ class PanoExtension {
     clipboardManager.startTracking();
 
     debug('extension is enabled');
-  }
-
-  private restart(): void {
-    restartShell('Restarting for Pano');
   }
 
   disable(): void {
