@@ -1,6 +1,6 @@
 {
   "name": "Pano",
-  "description": "Clipboard manager",
+  "description": "Next-gen Clipboard manager for Gnome Shell",
   "uuid": "pano@elhan.io",
   "version": 999,
   "settings-schema": "org.gnome.shell.extensions.pano",

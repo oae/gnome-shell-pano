@@ -1,11 +1,24 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="gnome-shell-extensions">
 
   <schema path="/org/gnome/shell/extensions/pano/" id="org.gnome.shell.extensions.pano">
-    <key name="show-notifications" type="b">
-      <default>true</default>
-      <summary>Show Notifications</summary>
-      <description>Controls the visibility of the notifications.</description>
+    <key name="history-length" type="i">
+      <range min="10" max="500" />
+      <default>10</default>
+      <summary>History Length</summary>
+      <description>Controls length of the clipboard history.</description>
+    </key>
+    <key name="shortcut" type="s">
+      <default>
+        <![CDATA['<Shift><Super>v']]>
+      </default>
+      <summary>Global shortcut key</summary>
+      <description>Controls global shortcut.</description>
+    </key>
+    <key name="database-location" type="s">
+      <default>''</default>
+      <summary>Database location</summary>
+      <description>Stores clipboard history.</description>
     </key>
   </schema>
 </schemalist>
