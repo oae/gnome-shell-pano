@@ -1,4 +1,4 @@
-import { EllipsizeMode } from '@gi-types/pango1';
+import { EllipsizeMode, WrapMode } from '@gi-types/pango1';
 import { Label } from '@gi-types/st1';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/clipboardManager';
@@ -15,6 +15,7 @@ export class TextPanoItem extends PanoItem {
       style_class: 'pano-item-body-text-content',
     });
     label.clutter_text.line_wrap = true;
+    label.clutter_text.line_wrap_mode = WrapMode.WORD_CHAR;
     label.clutter_text.ellipsize = EllipsizeMode.END;
     this.body.add_child(label);
     this.connect('activated', this.setClipboardContent.bind(this));
