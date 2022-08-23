@@ -145,7 +145,6 @@ export class PanoWindow extends BoxLayout {
       mode: AnimationMode.EASE_OUT_QUAD,
     });
     this.monitorBox.show();
-    debug('showing pano');
   }
 
   override hide() {
@@ -159,7 +158,6 @@ export class PanoWindow extends BoxLayout {
         this.scrollView.focusFirst(false);
       },
     });
-    debug('hiding pano');
   }
 
   override vfunc_key_press_event(event: KeyEvent): boolean {
