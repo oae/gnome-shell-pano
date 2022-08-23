@@ -1,5 +1,5 @@
 import isUrl from 'is-url';
-import { validateHTMLColorRgb, validateHTMLColorHex, validateHTMLColorName } from 'validate-color/lib/index';
+import { validateHTMLColorHex, validateHTMLColorName, validateHTMLColorRgb } from 'validate-color/lib/index';
 
 import hljs from 'highlight.js/lib/core';
 import c from 'highlight.js/lib/languages/c';
@@ -30,16 +30,16 @@ import { Pixbuf } from '@gi-types/gdkpixbuf2';
 import { File, FileCreateFlags } from '@gi-types/gio2';
 import { ChecksumType, compute_checksum_for_bytes } from '@gi-types/glib2';
 import { CodePanoItem } from '@pano/components/codePanoItem';
+import { ColorPanoItem } from '@pano/components/colorPanoItem';
 import { FilePanoItem } from '@pano/components/filePanoItem';
 import { ImagePanoItem } from '@pano/components/imagePanoItem';
 import { LinkPanoItem } from '@pano/components/linkPanoItem';
 import { PanoItem } from '@pano/components/panoItem';
 import { TextPanoItem } from '@pano/components/textPanoItem';
 import { ClipboardContent, ContentType } from '@pano/utils/clipboardManager';
-import { getImagesPath, logger } from '@pano/utils/shell';
 import { ClipboardQueryBuilder, db, DBItem } from '@pano/utils/db';
-import { getDescription, getDocument, getImage, getMetaList, getTitle } from '@pano/utils/linkParser';
-import { ColorPanoItem } from '@pano/components/colorPanoItem';
+import { getDocument, getImage } from '@pano/utils/linkParser';
+import { getImagesPath, logger } from '@pano/utils/shell';
 
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('markdown', markdown);
@@ -157,15 +157,9 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
       });
     case ContentType.TEXT:
       if (value.trim().toLowerCase().startsWith('http') && isUrl(value)) {
-        const doc = await getDocument(value);
+        const { description, imageUrl, title } = await getDocument(value);
+        const [checksum] = await getImage(imageUrl);
 
-        let metaList, title, description, checksum;
-        if (doc) {
-          metaList = getMetaList(doc);
-          title = getTitle(doc, metaList);
-          description = getDescription(metaList);
-          [checksum] = await getImage(metaList);
-        }
         return db.save({
           content: value,
           copyDate: new Date(),
@@ -174,11 +168,12 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
           matchValue: value,
           searchValue: `${title}${description}${value}`,
           metaData: JSON.stringify({
-            title: title ? encodeURI(title) : undefined,
-            description: description ? encodeURI(description) : undefined,
-            image: checksum ? checksum : undefined,
+            title: title,
+            description: description,
+            image: checksum,
           }),
         });
+        return null;
       }
       if (
         validateHTMLColorHex(value.trim()) ||

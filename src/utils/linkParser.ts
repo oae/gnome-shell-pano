@@ -1,8 +1,8 @@
 import { File, FileCreateFlags, FilePrototype } from '@gi-types/gio2';
-import { ChecksumType, compute_checksum_for_string, PRIORITY_DEFAULT } from '@gi-types/glib2';
+import { ChecksumType, compute_checksum_for_string, PRIORITY_DEFAULT, UriFlags, uri_parse } from '@gi-types/glib2';
 import { Message, Session } from '@gi-types/soup3';
 import { getCachePath, logger } from '@pano/utils/shell';
-import { XMLParser } from 'fast-xml-parser';
+import * as htmlparser2 from 'htmlparser2';
 
 const DEFAULT_USER_AGENT = 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)';
 
@@ -13,35 +13,12 @@ const decoder = new TextDecoder();
 
 const debug = logger('link-parser');
 
-const findKey = (obj: any, key: string): any[] => {
-  let foundItems: any[] = [];
-
-  if (Array.isArray(obj)) {
-    return foundItems;
-  }
-
-  Object.entries(obj).forEach(([k, v]) => {
-    if (k === key) {
-      if (Array.isArray(v)) {
-        foundItems = [...foundItems, ...v];
-      } else {
-        foundItems.push(v);
-      }
-    } else if (v !== null && typeof v === 'object' && !Array.isArray(v)) {
-      foundItems = [...foundItems, ...findKey(v, key)];
-    }
-  });
-
-  return foundItems;
-};
-
-const metaTagContent = (metaList: any[], attrName: string): string => {
-  return metaList.find((item) => item?.name == attrName || item?.property == attrName)?.content;
-};
-
-export const getMetaList = (doc: any) => findKey(doc, 'meta');
-
-export const getDocument = async (url: string): Promise<any> => {
+export const getDocument = async (url: string): Promise<{ title: string; description: string; imageUrl: string }> => {
+  const defaultResult = {
+    title: '',
+    description: '',
+    imageUrl: '',
+  };
   try {
     const message = Message.new('GET', url);
     message.request_headers.append('User-Agent', DEFAULT_USER_AGENT);
@@ -49,53 +26,102 @@ export const getDocument = async (url: string): Promise<any> => {
 
     if (response == null) {
       debug(`no response from ${url}`);
-      return null;
+      return defaultResult;
     }
 
     const bytes = response.get_data();
 
     if (bytes == null) {
       debug(`no data from ${url}`);
-      return null;
+      return defaultResult;
     }
 
     const data = decoder.decode(bytes);
 
-    const parser = new XMLParser({
-      ignoreAttributes: false,
-      unpairedTags: ['hr', 'br', 'link', 'meta'],
-      stopNodes: ['*.pre', '*.script'],
-      attributeNamePrefix: '',
-      processEntities: true,
-      htmlEntities: true,
-    });
-    return parser.parse(data);
+    let titleMatch = false;
+    let titleTag = '';
+    let title = '',
+      description = '',
+      imageUrl = '';
+    const p = new htmlparser2.Parser(
+      {
+        onopentag(name, attribs) {
+          if (name === 'meta') {
+            if (
+              !title &&
+              (attribs['property'] === 'og:title' ||
+                attribs['property'] === 'twitter:title' ||
+                attribs['property'] === 'title' ||
+                attribs['name'] === 'og:title' ||
+                attribs['name'] === 'twitter:title' ||
+                attribs['name'] === 'title')
+            ) {
+              title = attribs['content'];
+            } else if (
+              !description &&
+              (attribs['property'] === 'og:description' ||
+                attribs['property'] === 'twitter:description' ||
+                attribs['property'] === 'description' ||
+                attribs['name'] === 'og:description' ||
+                attribs['name'] === 'twitter:description' ||
+                attribs['name'] === 'description')
+            ) {
+              description = attribs['content'];
+            } else if (
+              !imageUrl &&
+              (attribs['property'] === 'og:image' ||
+                attribs['property'] === 'twitter:image' ||
+                attribs['property'] === 'image' ||
+                attribs['name'] === 'og:image' ||
+                attribs['name'] === 'twitter:image' ||
+                attribs['name'] === 'image')
+            ) {
+              imageUrl = attribs['content'];
+              if (imageUrl.startsWith('/')) {
+                const uri = uri_parse(url, UriFlags.NONE);
+                imageUrl = `${uri.get_scheme()}://${uri.get_host()}${imageUrl}`;
+              }
+            }
+          }
+          if (name === 'title') {
+            titleMatch = true;
+          }
+        },
+        ontext(data) {
+          if (titleMatch && !title) {
+            titleTag += data;
+          }
+        },
+        onclosetag(name) {
+          if (name === 'title') {
+            titleMatch = false;
+          }
+        },
+      },
+      {
+        decodeEntities: true,
+        lowerCaseTags: true,
+        lowerCaseAttributeNames: true,
+      },
+    );
+    p.write(data);
+    p.end();
+
+    title = title || titleTag;
+
+    return {
+      title,
+      description,
+      imageUrl,
+    };
   } catch (err) {
     debug(`failed to parse link ${url}. err: ${err}`);
   }
 
-  return null;
+  return defaultResult;
 };
 
-export const getTitle = (doc: any, metaList: any[]): string => {
-  const title = findKey(doc, 'title')?.[0];
-  let fallbackTitle = '';
-  if (title && typeof title === 'object' && '#text' in title) {
-    fallbackTitle = title['#text'];
-  } else if (typeof title === 'string') {
-    fallbackTitle = title;
-  }
-
-  return metaTagContent(metaList, 'og:title') || metaTagContent(metaList, 'twitter:title') || fallbackTitle;
-};
-
-export const getDescription = (metaList: any[]): string => {
-  return metaTagContent(metaList, 'og:description') || metaTagContent(metaList, 'twitter:description');
-};
-
-export const getImage = async (metaList: any[]): Promise<[string | null, FilePrototype | null]> => {
-  const imageUrl = metaTagContent(metaList, 'og:image') || metaTagContent(metaList, 'twitter:image');
-
+export const getImage = async (imageUrl: string): Promise<[string | null, FilePrototype | null]> => {
   if (imageUrl && imageUrl.startsWith('http')) {
     try {
       const checksum = compute_checksum_for_string(ChecksumType.MD5, imageUrl, imageUrl.length);

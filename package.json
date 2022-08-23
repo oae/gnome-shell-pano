@@ -46,7 +46,6 @@
     "@types/highlight.js": "^10.1.0",
     "@types/is-url": "^1.2.30",
     "@types/prismjs": "^1.26.0",
-    "@types/xml2js": "^0.4.11",
     "@typescript-eslint/eslint-plugin": "^5.33.1",
     "@typescript-eslint/parser": "^5.33.1",
     "cross-env": "^7.0.3",
@@ -60,11 +59,9 @@
     "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-styles": "^4.0.0",
     "rollup-plugin-visualizer": "^5.8.0",
-    "typescript": "^4.7.4",
-    "xml2js": "^0.4.23"
+    "typescript": "^4.7.4"
   },
   "dependencies": {
-
     "@gi-types/adw1": "^1.1.1",
     "@gi-types/clutter10": "^10.0.1",
     "@gi-types/gdk4": "^4.0.1",
@@ -80,8 +77,8 @@
     "@gi-types/soup3": "^3.0.1",
     "@gi-types/st1": "^1.0.1",
     "date-fns": "^2.29.2",
-    "fast-xml-parser": "^4.0.9",
     "highlight.js": "^11.6.0",
+    "htmlparser2": "^8.0.1",
     "is-url": "^1.2.4",
     "pretty-bytes": "^6.0.0",
     "prismjs": "^1.28.0",
