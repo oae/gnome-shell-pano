@@ -28,7 +28,7 @@ const globals = {
 
 const external = Object.keys(globals);
 
-const banner = [
+const prefsBanner = [
   'imports.gi.versions.Gtk = \'4.0\';',
 ].join('\n');
 
@@ -36,6 +36,18 @@ const prefsFooter = [
   'var init = prefs.init;',
   'var buildPrefsWidget = prefs.buildPrefsWidget;',
 ].join('\n')
+
+
+const extensionBanner = `
+try {
+`
+
+const extensionFooter = `
+}
+catch(err) {
+  imports.ui.main.notify('Pano', \`\$\{err\}\`);
+}
+`
 
 export default [
   {
@@ -47,6 +59,8 @@ export default [
       file: `${buildPath}/extension.js`,
       format: 'iife',
       name: 'init',
+      banner: extensionBanner,
+      footer: extensionFooter,
       exports: 'default',
       globals,
       assetFileNames: "[name][extname]",
@@ -84,7 +98,7 @@ export default [
       format: 'iife',
       exports: 'default',
       name: 'prefs',
-      banner,
+      banner: prefsBanner,
       footer: prefsFooter,
       globals,
     },

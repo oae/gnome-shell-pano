@@ -229,7 +229,7 @@ class Preferences extends PreferencesGroup {
       md.get_widget_for_response(ResponseType.OK)?.add_css_class('destructive-action');
       md.connect('response', (_, response) => {
         if (response === ResponseType.OK) {
-          log('ok');
+          //TODO: call dbus
         }
 
         md.destroy();

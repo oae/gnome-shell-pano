@@ -9,7 +9,7 @@ declare global {
     ui: {
       layout: any;
       main: {
-        notify: (arg: string) => void;
+        notify: (text: string, body: string) => void;
         panel: any;
         wm: any;
         layoutManager: {

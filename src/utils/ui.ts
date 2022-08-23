@@ -1,19 +1,9 @@
 import { Actor } from '@gi-types/clutter10';
 import { Global } from '@gi-types/shell0';
-import { getCurrentExtensionSettings, logger } from '@pano/utils/shell';
 
-const debug = logger('shell');
 const global = Global.get();
 
-export const notify = (text: string): void => {
-  const settings = getCurrentExtensionSettings();
-  const showNotifications = settings.get_boolean('show-notifications');
-  if (showNotifications) {
-    imports.ui.main.notify(text);
-  } else {
-    debug(`Notifications are disabled. Logging the content instead. Content: ${text}`);
-  }
-};
+export const notify = (text: string, body: string): void => imports.ui.main.notify(text, body);
 
 export const wm = imports.ui.main.wm;
 
