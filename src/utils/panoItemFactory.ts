@@ -168,9 +168,9 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
           matchValue: value,
           searchValue: `${title}${description}${value}`,
           metaData: JSON.stringify({
-            title: title,
-            description: description,
-            image: checksum,
+            title: title ? encodeURI(title) : '',
+            description: description ? encodeURI(description) : '',
+            image: checksum || '',
           }),
         });
         return null;
