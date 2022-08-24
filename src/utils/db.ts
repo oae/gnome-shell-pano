@@ -1,5 +1,5 @@
 import { Config, Connection, SqlBuilder, SqlOperatorType, SqlStatementType, Statement } from '@imports/gda5';
-import { getAppDataPath, logger } from '@pano/utils/shell';
+import { getAppDataPath, getCurrentExtensionSettings, logger } from '@pano/utils/shell';
 
 const debug = logger('database');
 
@@ -40,7 +40,12 @@ export class ClipboardQueryBuilder {
     this.builder.select_add_field('searchValue', 'clipboard', 'searchValue');
     this.builder.select_add_field('metaData', 'clipboard', 'metaData');
 
-    this.builder.select_order_by(this.builder.add_field_id('copyDate', 'clipboard'), true, null);
+    this.builder.select_order_by(this.builder.add_field_id('copyDate', 'clipboard'), false, null);
+
+    this.builder.select_set_limit(
+      this.builder.add_expr_value(null, getCurrentExtensionSettings().get_int('history-length') as any),
+      this.builder.add_expr_value(null, 0 as any),
+    );
 
     this.builder.select_add_target('clipboard', null);
   }

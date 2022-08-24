@@ -80,6 +80,11 @@ export class PanoScrollView extends ScrollView {
     });
   }
 
+  cleanUp() {
+    this.list.destroy_all_children();
+    this.items = [];
+  }
+
   canGiveFocus(): boolean {
     const visibleItems = this.items.filter((item) => item.is_visible());
     return this.lastFocus && visibleItems.length > 0 && this.lastFocus === visibleItems[0];

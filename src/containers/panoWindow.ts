@@ -1,5 +1,5 @@
 import { ActorAlign, AnimationMode, EVENT_PROPAGATE, KeyEvent, KEY_Escape } from '@gi-types/clutter10';
-import { File } from '@gi-types/gio2';
+import { File, Settings } from '@gi-types/gio2';
 import { BoxLayout } from '@gi-types/st1';
 import { MonitorBox } from '@pano/components/monitorBox';
 import { PanoScrollView } from '@pano/components/panoScrollView';
@@ -8,7 +8,7 @@ import { ClipboardContent, clipboardManager } from '@pano/utils/clipboardManager
 import { ClipboardQueryBuilder, db, DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { createPanoItem, createPanoItemFromDb } from '@pano/utils/panoItemFactory';
-import { getCachePath, getImagesPath, logger } from '@pano/utils/shell';
+import { getCachePath, getCurrentExtensionSettings, getImagesPath, logger } from '@pano/utils/shell';
 import { getMonitorConstraint } from '@pano/utils/ui';
 
 const debug = logger('pano-window');
@@ -18,6 +18,7 @@ export class PanoWindow extends BoxLayout {
   private scrollView: PanoScrollView;
   private searchBox: SearchBox;
   private monitorBox: MonitorBox;
+  private settings: Settings;
 
   constructor() {
     super({
@@ -33,6 +34,7 @@ export class PanoWindow extends BoxLayout {
       can_focus: true,
     });
 
+    this.settings = getCurrentExtensionSettings();
     this.monitorBox = new MonitorBox();
     this.scrollView = new PanoScrollView(this);
     this.searchBox = new SearchBox();
@@ -44,6 +46,16 @@ export class PanoWindow extends BoxLayout {
     this.add_actor(this.searchBox);
     this.add_actor(this.scrollView);
 
+    this.populateItems();
+    this.settings.connect('changed::history-length', () => {
+      this.scrollView.cleanUp();
+      this.populateItems();
+      this.scrollView.focusFirst(false);
+    });
+    clipboardManager.connect('changed', async (_: any, content: ClipboardContent) => this.updateHistory(content));
+  }
+
+  private populateItems() {
     const dbItems = db.query(new ClipboardQueryBuilder().build());
 
     dbItems.forEach((dbItem: DBItem) => {
@@ -56,8 +68,6 @@ export class PanoWindow extends BoxLayout {
         this.scrollView.addItem(item);
       }
     });
-
-    clipboardManager.connect('changed', async (_: any, content: ClipboardContent) => this.updateHistory(content));
   }
 
   private removeItem(dbItemStr: string) {
