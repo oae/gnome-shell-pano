@@ -1,12 +1,4 @@
-import {
-  Config,
-  Connection,
-  SqlBuilder,
-  SqlOperatorType,
-  SqlStatementType,
-  Statement,
-  StatementSqlFlag,
-} from '@imports/gda5';
+import { Config, Connection, SqlBuilder, SqlOperatorType, SqlStatementType, Statement } from '@imports/gda5';
 import { getAppDataPath, logger } from '@pano/utils/shell';
 
 const debug = logger('database');
@@ -299,7 +291,7 @@ class Database {
       return [];
     }
 
-    debug(`${clipboardQuery.statement.to_sql_extended(this.connection, null, StatementSqlFlag.PRETTY)}`);
+    // debug(`${clipboardQuery.statement.to_sql_extended(this.connection, null, StatementSqlFlag.PRETTY)}`);
 
     const dm = this.connection.statement_execute_select(clipboardQuery.statement, null);
 

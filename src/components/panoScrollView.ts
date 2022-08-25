@@ -1,13 +1,26 @@
-import { AnimationMode, EVENT_STOP, ScrollDirection, ScrollEvent } from '@gi-types/clutter10';
+import {
+  AnimationMode,
+  Event,
+  EVENT_PROPAGATE,
+  EVENT_STOP,
+  KeyEvent,
+  keysym_to_unicode,
+  KEY_BackSpace,
+  KEY_Left,
+  KEY_Right,
+  KEY_Up,
+  ScrollDirection,
+  ScrollEvent,
+} from '@gi-types/clutter10';
+import { Settings } from '@gi-types/gio2';
 import { MetaInfo, TYPE_STRING } from '@gi-types/gobject2';
 import { BoxLayout, PolicyType, ScrollView } from '@gi-types/st1';
-import { registerGObjectClass } from '@pano/utils/gjs';
 import { PanoItem } from '@pano/components/panoItem';
-import { getCurrentExtensionSettings } from '@pano/utils/shell';
-import { ClipboardQueryBuilder, db } from '@pano/utils/db';
-import { createPanoItem, createPanoItemFromDb } from '@pano/utils/panoItemFactory';
 import { ClipboardContent, clipboardManager } from '@pano/utils/clipboardManager';
-import { Settings } from '@gi-types/gio2';
+import { ClipboardQueryBuilder, db } from '@pano/utils/db';
+import { registerGObjectClass } from '@pano/utils/gjs';
+import { createPanoItem, createPanoItemFromDb } from '@pano/utils/panoItemFactory';
+import { getCurrentExtensionSettings } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class PanoScrollView extends ScrollView {
@@ -25,7 +38,8 @@ export class PanoScrollView extends ScrollView {
 
   private list: BoxLayout;
   private settings: Settings;
-  private currentFocus: number | null = null;
+  private currentFocus: PanoItem | null = null;
+  private currentFilter: string;
 
   constructor() {
     super({
@@ -39,6 +53,34 @@ export class PanoScrollView extends ScrollView {
 
     this.list = new BoxLayout({ vertical: false, x_expand: true, y_expand: true });
     this.add_actor(this.list);
+
+    this.connect('key-press-event', (_: ScrollView, event: Event) => {
+      if (event.get_state()) {
+        return EVENT_PROPAGATE;
+      }
+
+      if (
+        (event.get_key_symbol() === KEY_Left &&
+          this.getVisibleItems().findIndex((item) => item.dbItem.id === this.currentFocus?.dbItem.id) === 0) ||
+        event.get_key_symbol() === KEY_Up
+      ) {
+        this.emit('scroll-focus-out');
+        return EVENT_STOP;
+      }
+
+      if (event.get_key_symbol() == KEY_BackSpace) {
+        this.emit('scroll-backspace-press');
+        return EVENT_STOP;
+      }
+      const unicode = keysym_to_unicode(event.get_key_symbol());
+      if (unicode === 0) {
+        return EVENT_PROPAGATE;
+      }
+
+      this.emit('scroll-key-press', String.fromCharCode(unicode));
+
+      return EVENT_STOP;
+    });
 
     db.query(new ClipboardQueryBuilder().withLimit(this.settings.get_int('history-length'), 0).build()).forEach(
       (dbItem) => {
@@ -66,6 +108,8 @@ export class PanoScrollView extends ScrollView {
     panoItem.connect('on-remove', () => {
       this.removeItem(panoItem);
       this.fillRemainingItems();
+      this.filter(this.currentFilter);
+      this.focusOnClosest();
     });
 
     this.list.add_child(panoItem);
@@ -81,6 +125,8 @@ export class PanoScrollView extends ScrollView {
     panoItem.connect('on-remove', () => {
       this.removeItem(panoItem);
       this.fillRemainingItems();
+      this.filter(this.currentFilter);
+      this.focusOnClosest();
     });
 
     this.list.insert_child_at_index(panoItem, 0);
@@ -102,6 +148,10 @@ export class PanoScrollView extends ScrollView {
 
   private getItems(): PanoItem[] {
     return this.list.get_children() as PanoItem[];
+  }
+
+  private getVisibleItems(): PanoItem[] {
+    return this.list.get_children().filter((item) => item.is_visible()) as PanoItem[];
   }
 
   private removeExcessiveItems() {
@@ -129,7 +179,36 @@ export class PanoScrollView extends ScrollView {
     });
   }
 
+  private focusNext() {
+    const lastFocus = this.currentFocus;
+    if (!lastFocus) {
+      this.focusOnClosest();
+      return;
+    }
+
+    const index = this.getVisibleItems().findIndex((item) => item.dbItem.id === lastFocus.dbItem.id);
+    if (index + 1 < this.getVisibleItems().length) {
+      this.currentFocus = this.getVisibleItems()[index + 1];
+      this.currentFocus.grab_key_focus();
+    }
+  }
+
+  private focusPrev() {
+    const lastFocus = this.currentFocus;
+    if (!lastFocus) {
+      this.focusOnClosest();
+      return;
+    }
+
+    const index = this.getVisibleItems().findIndex((item) => item.dbItem.id === lastFocus.dbItem.id);
+    if (index - 1 >= 0) {
+      this.currentFocus = this.getVisibleItems()[index - 1];
+      this.currentFocus.grab_key_focus();
+    }
+  }
+
   filter(text: string) {
+    this.currentFilter = text;
     if (!text) {
       this.getItems().forEach((i) => i.show());
       return;
@@ -145,6 +224,88 @@ export class PanoScrollView extends ScrollView {
       .map((dbItem) => dbItem.id);
 
     this.getItems().forEach((item) => (result.indexOf(item.dbItem.id) >= 0 ? item.show() : item.hide()));
+  }
+
+  focusOnClosest() {
+    const lastFocus = this.currentFocus;
+    if (lastFocus !== null) {
+      if (lastFocus.get_parent() === this.list && lastFocus.is_visible()) {
+        lastFocus.grab_key_focus();
+      } else {
+        let nextFocus = this.getVisibleItems().find((item) => item.dbItem.copyDate <= lastFocus.dbItem.copyDate);
+        if (!nextFocus) {
+          nextFocus = this.getVisibleItems()
+            .reverse()
+            .find((item) => item.dbItem.copyDate >= lastFocus.dbItem.copyDate);
+        }
+        if (nextFocus) {
+          this.currentFocus = nextFocus;
+          nextFocus.grab_key_focus();
+        }
+      }
+    } else if (this.getVisibleItems().length > 0) {
+      this.currentFocus = this.getVisibleItems()[0];
+      this.currentFocus.grab_key_focus();
+    }
+  }
+
+  scrollToFirstItem() {
+    if (this.getVisibleItems().length === 0) {
+      return;
+    }
+
+    this.scrollToItem(this.getVisibleItems()[0]);
+  }
+
+  scrollToFocussedItem() {
+    if (!this.currentFocus || !this.currentFocus.is_visible()) {
+      return;
+    }
+
+    this.scrollToItem(this.currentFocus);
+  }
+
+  beforeHide() {
+    this.currentFocus = null;
+    this.scrollToFirstItem();
+    this.emit('scroll-focus-out');
+  }
+
+  private scrollToItem(item: PanoItem) {
+    const box = item.get_allocation_box();
+
+    const adjustment = this.hscroll.adjustment;
+
+    const value = box.x1 + adjustment.step_increment / 2.0 - adjustment.page_size / 2.0;
+
+    if (!Number.isFinite(value)) {
+      return;
+    }
+
+    adjustment.ease(value, {
+      duration: 150,
+      mode: AnimationMode.EASE_OUT_QUAD,
+    });
+  }
+
+  selectFirstItem() {
+    const visibleItems = this.getVisibleItems();
+    if (visibleItems.length > 0) {
+      const item = visibleItems[0];
+      item.emit('activated');
+    }
+  }
+
+  override vfunc_key_press_event(event: KeyEvent): boolean {
+    if (event.keyval === KEY_Right) {
+      this.focusNext();
+      this.scrollToFocussedItem();
+    } else if (event.keyval === KEY_Left) {
+      this.focusPrev();
+      this.scrollToFocussedItem();
+    }
+
+    return EVENT_PROPAGATE;
   }
 
   override vfunc_scroll_event(event: ScrollEvent): boolean {

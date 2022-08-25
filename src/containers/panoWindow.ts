@@ -1,11 +1,9 @@
 import { ActorAlign, AnimationMode, EVENT_PROPAGATE, KeyEvent, KEY_Escape } from '@gi-types/clutter10';
-import { Settings } from '@gi-types/gio2';
 import { BoxLayout } from '@gi-types/st1';
 import { MonitorBox } from '@pano/components/monitorBox';
 import { PanoScrollView } from '@pano/components/panoScrollView';
 import { SearchBox } from '@pano/components/searchBox';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { getCurrentExtensionSettings } from '@pano/utils/shell';
 import { getMonitorConstraint } from '@pano/utils/ui';
 
 @registerGObjectClass
@@ -13,7 +11,6 @@ export class PanoWindow extends BoxLayout {
   private scrollView: PanoScrollView;
   private searchBox: SearchBox;
   private monitorBox: MonitorBox;
-  private settings: Settings;
 
   constructor() {
     super({
@@ -29,7 +26,6 @@ export class PanoWindow extends BoxLayout {
       can_focus: true,
     });
 
-    this.settings = getCurrentExtensionSettings();
     this.monitorBox = new MonitorBox();
     this.scrollView = new PanoScrollView();
     this.searchBox = new SearchBox();
@@ -48,10 +44,11 @@ export class PanoWindow extends BoxLayout {
 
   private setupSearchBox() {
     this.searchBox.connect('search-focus-out', () => {
-      log('search-focus');
+      this.scrollView.focusOnClosest();
+      this.scrollView.scrollToFocussedItem();
     });
     this.searchBox.connect('search-submit', () => {
-      log('search-submit');
+      this.scrollView.selectFirstItem();
     });
     this.searchBox.connect('search-text-changed', (_: any, text: string) => {
       this.scrollView.filter(text);
@@ -90,6 +87,8 @@ export class PanoWindow extends BoxLayout {
       mode: AnimationMode.EASE_OUT_QUAD,
     });
     this.monitorBox.show();
+
+    return EVENT_PROPAGATE;
   }
 
   override hide() {
@@ -99,9 +98,12 @@ export class PanoWindow extends BoxLayout {
       duration: 200,
       mode: AnimationMode.EASE_OUT_QUAD,
       onComplete: () => {
+        this.scrollView.beforeHide();
         super.hide();
       },
     });
+
+    return EVENT_PROPAGATE;
   }
 
   override vfunc_key_press_event(event: KeyEvent): boolean {
