@@ -1,17 +1,12 @@
 import { ActorAlign, AnimationMode, EVENT_PROPAGATE, KeyEvent, KEY_Escape } from '@gi-types/clutter10';
-import { File, Settings } from '@gi-types/gio2';
+import { Settings } from '@gi-types/gio2';
 import { BoxLayout } from '@gi-types/st1';
 import { MonitorBox } from '@pano/components/monitorBox';
 import { PanoScrollView } from '@pano/components/panoScrollView';
 import { SearchBox } from '@pano/components/searchBox';
-import { ClipboardContent, clipboardManager } from '@pano/utils/clipboardManager';
-import { ClipboardQueryBuilder, db, DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { createPanoItem, createPanoItemFromDb } from '@pano/utils/panoItemFactory';
-import { getCachePath, getCurrentExtensionSettings, getImagesPath, logger } from '@pano/utils/shell';
+import { getCurrentExtensionSettings } from '@pano/utils/shell';
 import { getMonitorConstraint } from '@pano/utils/ui';
-
-const debug = logger('pano-window');
 
 @registerGObjectClass
 export class PanoWindow extends BoxLayout {
@@ -36,7 +31,7 @@ export class PanoWindow extends BoxLayout {
 
     this.settings = getCurrentExtensionSettings();
     this.monitorBox = new MonitorBox();
-    this.scrollView = new PanoScrollView(this);
+    this.scrollView = new PanoScrollView();
     this.searchBox = new SearchBox();
 
     this.setupMonitorBox();
@@ -45,48 +40,6 @@ export class PanoWindow extends BoxLayout {
 
     this.add_actor(this.searchBox);
     this.add_actor(this.scrollView);
-
-    this.populateItems();
-    this.settings.connect('changed::history-length', () => {
-      this.scrollView.cleanUp();
-      this.populateItems();
-      this.scrollView.focusFirst(false);
-    });
-    clipboardManager.connect('changed', async (_: any, content: ClipboardContent) => this.updateHistory(content));
-  }
-
-  private populateItems() {
-    const dbItems = db.query(new ClipboardQueryBuilder().build());
-
-    dbItems.forEach((dbItem: DBItem) => {
-      const item = createPanoItemFromDb(dbItem);
-      if (item) {
-        item.connect('on-remove', (_, dbItemStr: string) => {
-          this.removeItem(dbItemStr);
-        });
-
-        this.scrollView.addItem(item);
-      }
-    });
-  }
-
-  private removeItem(dbItemStr: string) {
-    const dbItem: DBItem = JSON.parse(dbItemStr);
-    db.delete(dbItem.id);
-    if (dbItem.itemType === 'LINK') {
-      const { image } = JSON.parse(dbItem.metaData || '{}');
-      if (image && File.new_for_uri(`file://${getCachePath()}/${image}.png`).query_exists(null)) {
-        File.new_for_uri(`file://${getCachePath()}/${image}.png`).delete(null);
-      }
-    } else if (dbItem.itemType === 'IMAGE') {
-      const imageFilePath = `file://${getImagesPath()}/${dbItem.content}.png`;
-      const imageFile = File.new_for_uri(imageFilePath);
-      if (imageFile.query_exists(null)) {
-        imageFile.delete(null);
-      }
-    }
-
-    this.scrollView.removeItem(dbItem.id);
   }
 
   private setupMonitorBox() {
@@ -94,10 +47,14 @@ export class PanoWindow extends BoxLayout {
   }
 
   private setupSearchBox() {
-    this.searchBox.connect('search-focus-out', () => this.scrollView.focus());
-    this.searchBox.connect('search-submit', () => this.scrollView.selectFirstItem());
+    this.searchBox.connect('search-focus-out', () => {
+      log('search-focus');
+    });
+    this.searchBox.connect('search-submit', () => {
+      log('search-submit');
+    });
     this.searchBox.connect('search-text-changed', (_: any, text: string) => {
-      this.scrollView.onSearch(text);
+      log(text);
     });
   }
 
@@ -115,28 +72,6 @@ export class PanoWindow extends BoxLayout {
       this.searchBox.focus();
       this.searchBox.appendText(text);
     });
-  }
-
-  private async updateHistory(content: ClipboardContent) {
-    try {
-      const panoItem = await createPanoItem(content);
-
-      if (panoItem !== null) {
-        const existingItem = this.scrollView.getItem(panoItem.dbItem.id);
-
-        panoItem.connect('on-remove', (_, dbItemStr: string) => {
-          this.removeItem(dbItemStr);
-        });
-
-        this.scrollView.replaceOrAddItem(panoItem, existingItem);
-
-        if (this.searchBox.getText()) {
-          this.scrollView.onSearch(this.searchBox.getText());
-        }
-      }
-    } catch (err) {
-      debug(`err: ${err}`);
-    }
   }
 
   toggle(): void {
@@ -165,7 +100,6 @@ export class PanoWindow extends BoxLayout {
       mode: AnimationMode.EASE_OUT_QUAD,
       onComplete: () => {
         super.hide();
-        this.scrollView.focusFirst(false);
       },
     });
   }

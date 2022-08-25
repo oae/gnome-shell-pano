@@ -106,4 +106,9 @@ export class PanoItem extends BoxLayout {
 
     return EVENT_PROPAGATE;
   }
+
+  override destroy(): void {
+    this.header.destroy();
+    super.destroy();
+  }
 }

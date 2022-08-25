@@ -1,27 +1,13 @@
-import {
-  AnimationMode,
-  Event,
-  EVENT_PROPAGATE,
-  EVENT_STOP,
-  KeyEvent,
-  keysym_to_unicode,
-  KEY_BackSpace,
-  KEY_Left,
-  KEY_Right,
-  KEY_Up,
-  ScrollDirection,
-  ScrollEvent,
-} from '@gi-types/clutter10';
+import { AnimationMode, EVENT_STOP, ScrollDirection, ScrollEvent } from '@gi-types/clutter10';
 import { MetaInfo, TYPE_STRING } from '@gi-types/gobject2';
-import { Stage } from '@gi-types/meta10';
-import { Global } from '@gi-types/shell0';
 import { BoxLayout, PolicyType, ScrollView } from '@gi-types/st1';
-import { PanoItem } from '@pano/components/panoItem';
-import { PanoWindow } from '@pano/containers/panoWindow';
-import { ClipboardQueryBuilder, db } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
-
-const global = Global.get();
+import { PanoItem } from '@pano/components/panoItem';
+import { getCurrentExtensionSettings } from '@pano/utils/shell';
+import { ClipboardQueryBuilder, db } from '@pano/utils/db';
+import { createPanoItem, createPanoItemFromDb } from '@pano/utils/panoItemFactory';
+import { ClipboardContent, clipboardManager } from '@pano/utils/clipboardManager';
+import { Settings } from '@gi-types/gio2';
 
 @registerGObjectClass
 export class PanoScrollView extends ScrollView {
@@ -38,11 +24,9 @@ export class PanoScrollView extends ScrollView {
   };
 
   private list: BoxLayout;
-  private items: PanoItem[];
-  private lastFocus: PanoItem;
-  private parent: PanoWindow;
+  private settings: Settings;
 
-  constructor(parent: PanoWindow) {
+  constructor() {
     super({
       hscrollbar_policy: PolicyType.EXTERNAL,
       vscrollbar_policy: PolicyType.NEVER,
@@ -50,202 +34,87 @@ export class PanoScrollView extends ScrollView {
       x_expand: true,
       y_expand: true,
     });
+    this.settings = getCurrentExtensionSettings();
+
     this.list = new BoxLayout({ vertical: false, x_expand: true, y_expand: true });
     this.add_actor(this.list);
-    this.items = [];
-    this.parent = parent;
 
-    this.connect('key-press-event', (_: ScrollView, event: Event) => {
-      if (event.get_state()) {
-        return EVENT_PROPAGATE;
-      }
-
-      if ((event.get_key_symbol() === KEY_Left && this.canGiveFocus()) || event.get_key_symbol() === KEY_Up) {
-        this.emit('scroll-focus-out');
-        return EVENT_STOP;
-      }
-
-      if (event.get_key_symbol() == KEY_BackSpace) {
-        this.emit('scroll-backspace-press');
-        return EVENT_STOP;
-      }
-      const unicode = keysym_to_unicode(event.get_key_symbol());
-      if (unicode === 0) {
-        return EVENT_PROPAGATE;
-      }
-
-      this.emit('scroll-key-press', String.fromCharCode(unicode));
-
-      return EVENT_STOP;
-    });
-  }
-
-  cleanUp() {
-    this.list.destroy_all_children();
-    this.items = [];
-  }
-
-  canGiveFocus(): boolean {
-    const visibleItems = this.items.filter((item) => item.is_visible());
-    return this.lastFocus && visibleItems.length > 0 && this.lastFocus === visibleItems[0];
-  }
-
-  scrollToItem(item: PanoItem, shouldFocus = true) {
-    if (!item) {
-      return;
-    }
-
-    const box = item.get_allocation_box();
-
-    const adjustment = this.hscroll.adjustment;
-
-    const value = box.x1 + adjustment.step_increment / 2.0 - adjustment.page_size / 2.0;
-
-    if (!Number.isFinite(value)) {
-      return;
-    }
-
-    adjustment.ease(value, {
-      duration: 150,
-      mode: AnimationMode.EASE_OUT_QUAD,
-    });
-
-    const focus = (global.stage as Stage).key_focus;
-    if (shouldFocus && this.parent.is_visible() && focus && this.parent.contains(focus)) {
-      item.grab_key_focus();
-    }
-  }
-
-  getItem(id: number): PanoItem | undefined {
-    return this.items.find((i) => i.dbItem.id === id);
-  }
-
-  addItem(item: PanoItem) {
-    this.list.insert_child_at_index(item, 0);
-    this.items.unshift(item);
-    item.connect('activated', () => {
-      this.moveItemToStart(item);
-      this.parent.hide();
-    });
-  }
-
-  replaceOrAddItem(newItem: PanoItem, oldItem?: PanoItem) {
-    if (oldItem) {
-      const index = this.items.indexOf(oldItem);
-      this.items.splice(index, 1);
-      this.list.remove_child(oldItem);
-    }
-
-    this.addItem(newItem);
-  }
-
-  removeItem(dbId: number) {
-    const item = this.getItem(dbId);
-    if (!item) {
-      return;
-    }
-    const index = this.items.indexOf(item);
-    if (this.lastFocus === item) {
-      this.focusNext();
-    } else {
-      this.focusFirst(true);
-    }
-    item.hide();
-    this.items.splice(index, 1);
-    this.list.remove_child(item);
-  }
-
-  moveItemToStart(item: PanoItem) {
-    this.list.remove_child(item);
-    this.list.insert_child_at_index(item, 0);
-    const index = this.items.indexOf(item);
-    this.items.splice(index, 1);
-    this.items.unshift(item);
-    this.lastFocus = item;
-    this.scrollToItem(this.lastFocus);
-  }
-
-  focus() {
-    const hasItems = this.items.length > 0;
-    if (!hasItems) {
-      return;
-    }
-
-    const visibleItems = this.items.filter((item) => item.is_visible());
-    if (!visibleItems) {
-      return;
-    }
-
-    if (this.lastFocus && this.lastFocus.is_visible()) {
-      this.scrollToItem(this.lastFocus);
-      return;
-    } else {
-      this.focusFirst(true);
-    }
-  }
-
-  onSearch(keyword: string) {
-    if (!keyword) {
-      this.items.forEach((i) => i.show());
-      this.focusFirst(false);
-      return;
-    }
-
-    const result = db
-      .query(new ClipboardQueryBuilder().withContainingSearchValue(keyword).build())
-      .map((dbItem) => dbItem.id);
-
-    this.items.forEach((item) =>
-      item.dbItem.id !== null && result.indexOf(item.dbItem.id) >= 0 ? item.show() : item.hide(),
+    db.query(new ClipboardQueryBuilder().withLimit(this.settings.get_int('history-length'), 0).build()).forEach(
+      (dbItem) => {
+        const panoItem = createPanoItemFromDb(dbItem);
+        if (panoItem) {
+          this.appendItem(panoItem);
+        }
+      },
     );
-    this.focusFirst(false);
+
+    clipboardManager.connect('changed', async (_: any, content: ClipboardContent) => {
+      const panoItem = await createPanoItem(content);
+      if (panoItem) {
+        this.prependItem(panoItem);
+      }
+    });
   }
 
-  selectFirstItem() {
-    const visibleItems = this.items.filter((i) => i.is_visible());
-    if (visibleItems.length > 0) {
-      const item = visibleItems[0];
-      this.moveItemToStart(item);
-      item.emit('activated');
-    }
+  private appendItem(panoItem: PanoItem) {
+    panoItem.connect('on-remove', () => {
+      this.removeItem(panoItem);
+      this.fillRemainingItems();
+    });
+
+    this.list.add_child(panoItem);
   }
 
-  focusFirst(shouldGrabFocus: boolean) {
-    const visibleItems = this.items.filter((i) => i.is_visible());
-    if (visibleItems.length > 0) {
-      this.lastFocus = visibleItems[0];
-      this.scrollToItem(this.lastFocus, shouldGrabFocus);
+  private prependItem(panoItem: PanoItem) {
+    const existingItem = this.getItem(panoItem);
+
+    if (existingItem) {
+      this.removeItem(existingItem);
     }
+
+    if (!existingItem && this.isFull()) {
+      const lastItem = this.getItems()[this.getItems().length - 1];
+      this.removeItem(lastItem);
+    }
+    panoItem.connect('on-remove', () => {
+      this.removeItem(panoItem);
+      this.fillRemainingItems();
+    });
+
+    this.list.insert_child_at_index(panoItem, 0);
   }
 
-  private focusNext() {
-    const focus = (global.stage as Stage).get_key_focus() as PanoItem;
-    const visibleItems = this.items.filter((i) => i.is_visible());
-    const currentIndex = visibleItems.indexOf(focus);
-    if (currentIndex >= 0 && currentIndex < visibleItems.length - 1) {
-      this.lastFocus = visibleItems[currentIndex + 1];
-      this.scrollToItem(this.lastFocus);
-    }
+  private removeItem(item: PanoItem) {
+    item.hide();
+    this.list.remove_child(item);
   }
 
-  private focusPrevious() {
-    const focus = (global.stage as Stage).get_key_focus() as PanoItem;
-    const visibleItems = this.items.filter((i) => i.is_visible());
-    const currentIndex = visibleItems.indexOf(focus);
-    if (currentIndex > 0) {
-      this.lastFocus = visibleItems[currentIndex - 1];
-      this.scrollToItem(this.lastFocus);
-    }
+  private getItem(panoItem: PanoItem): PanoItem | undefined {
+    return this.getItems().find((item) => (item as PanoItem).dbItem.id === panoItem.dbItem.id) as PanoItem;
   }
 
-  override vfunc_key_press_event(event: KeyEvent): boolean {
-    if (event.keyval === KEY_Right) {
-      this.focusNext();
-    } else if (event.keyval === KEY_Left) {
-      this.focusPrevious();
+  private isFull() {
+    return this.settings.get_int('history-length') === this.getItems().length;
+  }
+
+  private getItems(): PanoItem[] {
+    return this.list.get_children() as PanoItem[];
+  }
+
+  private fillRemainingItems() {
+    if (this.isFull()) {
+      return;
     }
 
-    return EVENT_PROPAGATE;
+    const limit = Math.max(this.settings.get_int('history-length') - this.getItems().length, 0);
+    const offset = this.getItems().length;
+
+    db.query(new ClipboardQueryBuilder().withLimit(limit, offset).build()).forEach((dbItem) => {
+      const panoItem = createPanoItemFromDb(dbItem);
+      if (panoItem) {
+        this.appendItem(panoItem);
+      }
+    });
   }
 
   override vfunc_scroll_event(event: ScrollEvent): boolean {
