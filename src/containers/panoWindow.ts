@@ -54,7 +54,7 @@ export class PanoWindow extends BoxLayout {
       log('search-submit');
     });
     this.searchBox.connect('search-text-changed', (_: any, text: string) => {
-      log(text);
+      this.scrollView.filter(text);
     });
   }
 

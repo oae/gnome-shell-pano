@@ -25,6 +25,7 @@ export class PanoScrollView extends ScrollView {
 
   private list: BoxLayout;
   private settings: Settings;
+  private currentFocus: number | null = null;
 
   constructor() {
     super({
@@ -106,7 +107,6 @@ export class PanoScrollView extends ScrollView {
   private removeExcessiveItems() {
     const historyLength = this.settings.get_int('history-length');
     if (historyLength < this.getItems().length) {
-      log('2');
       this.getItems()
         .slice(historyLength)
         .forEach((item) => this.removeItem(item));
@@ -127,6 +127,24 @@ export class PanoScrollView extends ScrollView {
         this.appendItem(panoItem);
       }
     });
+  }
+
+  filter(text: string) {
+    if (!text) {
+      this.getItems().forEach((i) => i.show());
+      return;
+    }
+
+    const result = db
+      .query(
+        new ClipboardQueryBuilder()
+          .withContainingSearchValue(text)
+          .withLimit(this.settings.get_int('history-length'), 0)
+          .build(),
+      )
+      .map((dbItem) => dbItem.id);
+
+    this.getItems().forEach((item) => (result.indexOf(item.dbItem.id) >= 0 ? item.show() : item.hide()));
   }
 
   override vfunc_scroll_event(event: ScrollEvent): boolean {
