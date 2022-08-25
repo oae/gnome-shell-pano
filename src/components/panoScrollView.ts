@@ -48,6 +48,11 @@ export class PanoScrollView extends ScrollView {
       },
     );
 
+    this.settings.connect('changed::history-length', () => {
+      this.removeExcessiveItems();
+      this.fillRemainingItems();
+    });
+
     clipboardManager.connect('changed', async (_: any, content: ClipboardContent) => {
       const panoItem = await createPanoItem(content);
       if (panoItem) {
@@ -72,16 +77,13 @@ export class PanoScrollView extends ScrollView {
       this.removeItem(existingItem);
     }
 
-    if (!existingItem && this.isFull()) {
-      const lastItem = this.getItems()[this.getItems().length - 1];
-      this.removeItem(lastItem);
-    }
     panoItem.connect('on-remove', () => {
       this.removeItem(panoItem);
       this.fillRemainingItems();
     });
 
     this.list.insert_child_at_index(panoItem, 0);
+    this.removeExcessiveItems();
   }
 
   private removeItem(item: PanoItem) {
@@ -99,6 +101,16 @@ export class PanoScrollView extends ScrollView {
 
   private getItems(): PanoItem[] {
     return this.list.get_children() as PanoItem[];
+  }
+
+  private removeExcessiveItems() {
+    const historyLength = this.settings.get_int('history-length');
+    if (historyLength < this.getItems().length) {
+      log('2');
+      this.getItems()
+        .slice(historyLength)
+        .forEach((item) => this.removeItem(item));
+    }
   }
 
   private fillRemainingItems() {
