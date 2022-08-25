@@ -1,0 +1,5 @@
+<node>
+  <interface name="io.elhan.Pano">
+    <method name="clearHistory" />
+  </interface>
+</node>

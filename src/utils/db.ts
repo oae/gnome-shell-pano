@@ -1,5 +1,6 @@
+import { Settings } from '@gi-types/gio2';
 import { Config, Connection, SqlBuilder, SqlOperatorType, SqlStatementType, Statement } from '@imports/gda5';
-import { getAppDataPath, logger } from '@pano/utils/shell';
+import { getCurrentExtensionSettings, getDbPath, logger } from '@pano/utils/shell';
 
 const debug = logger('database');
 
@@ -155,11 +156,13 @@ export class ClipboardQueryBuilder {
 }
 class Database {
   private connection: Connection | null;
+  private settings: Settings;
 
   private init() {
+    this.settings = getCurrentExtensionSettings();
     this.connection = new Connection({
       provider: Config.get_provider('SQLite'),
-      cnc_string: `DB_DIR=${getAppDataPath()};DB_NAME=pano`,
+      cnc_string: `DB_DIR=${getDbPath()};DB_NAME=pano`,
     });
     this.connection.open();
   }

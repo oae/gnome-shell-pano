@@ -37,7 +37,7 @@ import {
   KEY_z,
   ModifierType,
 } from '@gi-types/gdk4';
-import { File, Settings, SettingsBindFlags } from '@gi-types/gio2';
+import { DBus, DBusCallFlags, File, Settings, SettingsBindFlags } from '@gi-types/gio2';
 import {
   accelerator_get_default_mod_mask,
   accelerator_name_with_keycode,
@@ -54,7 +54,7 @@ import {
   SpinButton,
 } from '@gi-types/gtk4';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { getAppDataPath, getCurrentExtensionSettings } from '@pano/utils/shell';
+import { getCurrentExtensionSettings, getDbPath } from '@pano/utils/shell';
 
 @registerGObjectClass
 class Preferences extends PreferencesGroup {
@@ -71,7 +71,7 @@ class Preferences extends PreferencesGroup {
       action: FileChooserAction.SELECT_FOLDER,
       accept_label: 'Select',
     });
-    this.fileChooser.set_current_folder(File.new_for_path(`${this.getDbPath()}`));
+    this.fileChooser.set_current_folder(File.new_for_path(`${getDbPath()}`));
     this.fileChooser.connect('response', (chooser, response) => {
       if (response !== ResponseType.ACCEPT) {
         this.fileChooser.hide();
@@ -112,7 +112,7 @@ class Preferences extends PreferencesGroup {
 
     const dbRow = new ActionRow({
       title: 'Database Location',
-      subtitle: `<b>${this.getDbPath()}/pano.db</b>`,
+      subtitle: `<b>${getDbPath()}/pano.db</b>`,
     });
     prefGroup.add(dbRow);
 
@@ -128,8 +128,8 @@ class Preferences extends PreferencesGroup {
     dbRow.set_activatable_widget(dbLocationButton);
 
     this.settings.connect('changed::database-location', () => {
-      this.fileChooser.set_current_folder(File.new_for_path(`${this.getDbPath()}`));
-      dbRow.set_subtitle(`<b>${this.getDbPath()}/pano.db</b>`);
+      this.fileChooser.set_current_folder(File.new_for_path(`${getDbPath()}`));
+      dbRow.set_subtitle(`<b>${getDbPath()}/pano.db</b>`);
     });
 
     const historyRow = new ActionRow({
@@ -229,7 +229,18 @@ class Preferences extends PreferencesGroup {
       md.get_widget_for_response(ResponseType.OK)?.add_css_class('destructive-action');
       md.connect('response', (_, response) => {
         if (response === ResponseType.OK) {
-          //TODO: call dbus
+          DBus.session.call(
+            'org.gnome.Shell',
+            '/io/elhan/Pano',
+            'io.elhan.Pano',
+            'clearHistory',
+            null,
+            null,
+            DBusCallFlags.NONE,
+            -1,
+            null,
+            null,
+          );
         }
 
         md.destroy();
@@ -237,15 +248,6 @@ class Preferences extends PreferencesGroup {
     });
 
     clearHistoryRow.add_suffix(clearHistoryButton);
-  }
-
-  private getDbPath(): string {
-    const path = this.settings.get_string('database-location');
-    if (!path) {
-      return getAppDataPath();
-    }
-
-    return path;
   }
 
   private keyvalIsForbidden(keyval) {
