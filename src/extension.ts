@@ -58,8 +58,11 @@ class PanoExtension {
     setupAppDirs();
     db.start();
     addChrome(this.panoWindow);
-    // TODO: read from settings
-    this.keyManager.listenFor('<super><shift>v', () => this.panoWindow.toggle());
+    this.keyManager.listenFor(this.settings.get_string('shortcut'), () => this.panoWindow.toggle());
+    this.settings.connect('changed::shortcut', () => {
+      this.keyManager.stopListening();
+      this.keyManager.listenFor(this.settings.get_string('shortcut'), () => this.panoWindow.toggle());
+    });
     clipboardManager.startTracking();
     debug('extension is enabled');
   }

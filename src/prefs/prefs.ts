@@ -54,8 +54,9 @@ import {
   SpinButton,
 } from '@gi-types/gtk4';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { getCurrentExtensionSettings, getDbPath } from '@pano/utils/shell';
+import { getCurrentExtensionSettings, getDbPath, logger } from '@pano/utils/shell';
 
+const debug = logger('prefs');
 @registerGObjectClass
 class Preferences extends PreferencesGroup {
   private settings: Settings;
@@ -292,7 +293,7 @@ class Preferences extends PreferencesGroup {
   }
 }
 
-const init = (): void => log('prefs initialized');
+const init = (): void => debug('prefs initialized');
 
 const buildPrefsWidget = () => new Preferences();
 
