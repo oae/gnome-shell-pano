@@ -204,8 +204,7 @@
 }
 
 .pano-item-remove-button {
-  background-color: #d20f39;
-  border: 1px solid white;
+  background-color: rgba(0, 0, 0, 0.3);
   border-radius: 99px;
   padding: 5px;
   margin: 5px;
@@ -213,5 +212,5 @@
 
 .pano-item-remove-button:hover,
 .pano-item-remove-button:active {
-  background-color: #e64553;
+  background-color: #d20f39;
 }
