@@ -61,6 +61,8 @@ export class PanoItem extends BoxLayout {
       Global.get().display.set_cursor(Cursor.DEFAULT);
     });
 
+    this.connect('activated', () => this.get_parent()?.get_parent()?.get_parent()?.hide());
+
     this.header = new PanoItemHeader(PanoItemTypes[dbItem.itemType], dbItem.copyDate);
     this.header.connect('on-remove', () => {
       this.emit('on-remove', JSON.stringify(this.dbItem));
@@ -105,5 +107,10 @@ export class PanoItem extends BoxLayout {
     }
 
     return EVENT_PROPAGATE;
+  }
+
+  override destroy(): void {
+    this.header.destroy();
+    super.destroy();
   }
 }

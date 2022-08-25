@@ -39,7 +39,7 @@ import { TextPanoItem } from '@pano/components/textPanoItem';
 import { ClipboardContent, ContentType } from '@pano/utils/clipboardManager';
 import { ClipboardQueryBuilder, db, DBItem } from '@pano/utils/db';
 import { getDocument, getImage } from '@pano/utils/linkParser';
-import { getImagesPath, logger } from '@pano/utils/shell';
+import { getCachePath, getImagesPath, logger } from '@pano/utils/shell';
 
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('markdown', markdown);
@@ -236,21 +236,47 @@ export const createPanoItemFromDb = (dbItem: DBItem | null): PanoItem | null => 
     return null;
   }
 
+  let panoItem: PanoItem;
+
   switch (dbItem.itemType) {
     case 'TEXT':
-      return new TextPanoItem(dbItem);
+      panoItem = new TextPanoItem(dbItem);
+      break;
     case 'CODE':
-      return new CodePanoItem(dbItem);
+      panoItem = new CodePanoItem(dbItem);
+      break;
     case 'LINK':
-      return new LinkPanoItem(dbItem);
+      panoItem = new LinkPanoItem(dbItem);
+      break;
     case 'COLOR':
-      return new ColorPanoItem(dbItem);
+      panoItem = new ColorPanoItem(dbItem);
+      break;
     case 'FILE':
-      return new FilePanoItem(dbItem);
+      panoItem = new FilePanoItem(dbItem);
+      break;
     case 'IMAGE':
-      return new ImagePanoItem(dbItem);
+      panoItem = new ImagePanoItem(dbItem);
+      break;
 
     default:
       return null;
   }
+
+  panoItem.connect('on-remove', (_, dbItemStr: string) => {
+    const dbItem: DBItem = JSON.parse(dbItemStr);
+    db.delete(dbItem.id);
+    if (dbItem.itemType === 'LINK') {
+      const { image } = JSON.parse(dbItem.metaData || '{}');
+      if (image && File.new_for_uri(`file://${getCachePath()}/${image}.png`).query_exists(null)) {
+        File.new_for_uri(`file://${getCachePath()}/${image}.png`).delete(null);
+      }
+    } else if (dbItem.itemType === 'IMAGE') {
+      const imageFilePath = `file://${getImagesPath()}/${dbItem.content}.png`;
+      const imageFile = File.new_for_uri(imageFilePath);
+      if (imageFile.query_exists(null)) {
+        imageFile.delete(null);
+      }
+    }
+  });
+  return panoItem;
 };

@@ -1,4 +1,4 @@
-import { ActorAlign } from '@gi-types/clutter10';
+import { ActorAlign, AlignAxis, AlignConstraint } from '@gi-types/clutter10';
 import { BoxLayout, Label } from '@gi-types/st1';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/clipboardManager';
@@ -28,6 +28,14 @@ export class ColorPanoItem extends PanoItem {
         y_expand: true,
         text: this.dbItem.content,
         style: 'font-size: 16px; border-radius: 999px; background-color: black; color: white; padding: 10px',
+      }),
+    );
+
+    colorContainer.add_constraint(
+      new AlignConstraint({
+        source: this,
+        align_axis: AlignAxis.Y_AXIS,
+        factor: 0.005,
       }),
     );
 

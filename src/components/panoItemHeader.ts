@@ -94,8 +94,8 @@ export class PanoItemHeader extends BoxLayout {
     this.add_child(actionContainer);
   }
 
-  override vfunc_destroy(): void {
+  override destroy(): void {
     clearInterval(this.dateUpdateIntervalId);
-    super.vfunc_destroy();
+    super.destroy();
   }
 }
