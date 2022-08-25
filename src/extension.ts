@@ -1,9 +1,17 @@
-import { DBus, DBusExportedObject } from '@gi-types/gio2';
+import { DBus, DBusExportedObject, Settings } from '@gi-types/gio2';
 import { PanoWindow } from '@pano/containers/panoWindow';
 import { clipboardManager } from '@pano/utils/clipboardManager';
 import { db } from '@pano/utils/db';
 import { KeyManager } from '@pano/utils/keyManager';
-import { deleteAppDirs, loadInterfaceXML, logger, setupAppDirs } from '@pano/utils/shell';
+import {
+  deleteAppDirs,
+  getCurrentExtensionSettings,
+  getDbPath,
+  loadInterfaceXML,
+  logger,
+  moveDbFile,
+  setupAppDirs,
+} from '@pano/utils/shell';
 import { addChrome, removeChrome } from '@pano/utils/ui';
 import './styles/stylesheet.css';
 
@@ -13,6 +21,8 @@ class PanoExtension {
   private keyManager: KeyManager;
   private dbus: DBusExportedObject;
   private isEnabled = false;
+  private settings: Settings;
+  private lastDBpath: string;
 
   constructor() {
     setupAppDirs();
@@ -23,6 +33,24 @@ class PanoExtension {
     const iface = loadInterfaceXML('io.elhan.Pano');
     this.dbus = DBusExportedObject.wrapJSObject(iface, this);
     this.dbus.export(DBus.session, '/io/elhan/Pano');
+    this.settings = getCurrentExtensionSettings();
+    this.lastDBpath = getDbPath();
+    this.settings.connect('changed::database-location', () => {
+      const newDBpath = this.settings.get_string('database-location');
+
+      if (this.isEnabled) {
+        this.disable();
+        moveDbFile(this.lastDBpath, newDBpath);
+        db.setup();
+        this.rerender();
+        this.enable();
+      } else {
+        moveDbFile(this.lastDBpath, newDBpath);
+        db.setup();
+        this.rerender();
+      }
+      this.lastDBpath = newDBpath;
+    });
   }
 
   enable(): void {
@@ -55,14 +83,18 @@ class PanoExtension {
     }
   }
 
-  private reInitialize() {
+  private rerender() {
     this.panoWindow.remove_all_children();
     this.panoWindow.destroy();
+    this.panoWindow = new PanoWindow();
+  }
+
+  private reInitialize() {
     db.shutdown();
     deleteAppDirs();
     setupAppDirs();
     db.setup();
-    this.panoWindow = new PanoWindow();
+    this.rerender();
   }
 }
 

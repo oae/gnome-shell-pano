@@ -1,4 +1,4 @@
-import { File, Settings } from '@gi-types/gio2';
+import { File, FileCopyFlags, Settings } from '@gi-types/gio2';
 import { get_user_cache_dir, get_user_data_dir } from '@gi-types/glib2';
 
 export const logger =
@@ -24,6 +24,22 @@ export const setupAppDirs = (): void => {
   const dbPath = File.new_for_path(`${getDbPath()}`);
   if (!dbPath.query_exists(null)) {
     dbPath.make_directory_with_parents(null);
+  }
+};
+
+export const moveDbFile = (from: string, to: string) => {
+  if (from === to) {
+    return;
+  }
+
+  const oldDb = File.new_for_path(`${from}/pano.db`);
+  const newDb = File.new_for_path(`${to}/pano.db`);
+  if (oldDb.query_exists(null) && !newDb.query_exists(null)) {
+    const newDBParent = File.new_for_path(to);
+    if (!newDBParent.query_exists(null)) {
+      newDBParent.make_directory_with_parents(null);
+    }
+    oldDb.move(newDb, FileCopyFlags.ALL_METADATA, null, null);
   }
 };
 
