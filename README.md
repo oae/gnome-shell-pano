@@ -10,17 +10,29 @@
 
 ## Installation
 
-You can install it from [**here**](https://extensions.gnome.org)
+- You need `libgda` for this extension to work.
+
+  - Fedora
+
+    ```bash
+    sudo dnf install libgda libgda-sqlite
+    ```
+
+  - Arch Linux
+
+    ```bash
+    sudo pacman -S libgda
+    ```
+
+  - Ubuntu
+
+    ```bash
+    sudo apt install gir1.2-gda-5.0
+    ```
+
+- You can install the extension from [**here**](https://extensions.gnome.org)
 
 ## Development
-
-### Requirements
-
-- Fedora
-
-  ```bash
-  dnf install libgda-devel libgda libgda-sqlite gobject-introspection gobject-introspection-devel
-  ```
 
 ### Build
 
