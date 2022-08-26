@@ -3,7 +3,7 @@ import { MetaInfo } from '@gi-types/gobject2';
 import { MonitorManager } from '@gi-types/meta10';
 import { BoxLayout } from '@gi-types/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { addChrome, getMonitorConstraintForIndex, getMonitors, removeChrome } from '@pano/utils/ui';
+import { addTopChrome, getMonitorConstraintForIndex, getMonitors, removeChrome } from '@pano/utils/ui';
 
 const monitorManager = MonitorManager.get();
 
@@ -34,7 +34,7 @@ export class MonitorBox extends BoxLayout {
     this.monitorChangedEventId = monitorManager.connect('monitors-changed', this.updateMonitorBox.bind(this));
     this.updateMonitorBox();
 
-    addChrome(this);
+    addTopChrome(this);
   }
 
   private updateMonitorBox(): void {

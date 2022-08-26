@@ -34,5 +34,5 @@ export const getMonitorConstraintForIndex = (index: number) =>
     index,
   });
 
-export const addChrome = (actor: Actor, options?: any) => imports.ui.main.layoutManager.addChrome(actor, options);
+export const addTopChrome = (actor: Actor, options?: any) => imports.ui.main.layoutManager.addTopChrome(actor, options);
 export const removeChrome = (actor: Actor) => imports.ui.main.layoutManager.removeChrome(actor);

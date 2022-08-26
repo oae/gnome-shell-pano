@@ -12,7 +12,7 @@ import {
   moveDbFile,
   setupAppDirs,
 } from '@pano/utils/shell';
-import { addChrome, removeChrome } from '@pano/utils/ui';
+import { addTopChrome, removeChrome } from '@pano/utils/ui';
 import './styles/stylesheet.css';
 
 const debug = logger('extension');
@@ -57,7 +57,7 @@ class PanoExtension {
     this.isEnabled = true;
     setupAppDirs();
     db.start();
-    addChrome(this.panoWindow);
+    addTopChrome(this.panoWindow);
     this.keyManager.listenFor(this.settings.get_string('shortcut'), () => this.panoWindow.toggle());
     this.settings.connect('changed::shortcut', () => {
       this.keyManager.stopListening();

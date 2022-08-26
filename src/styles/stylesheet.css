@@ -74,6 +74,7 @@
 
 .pano-item-body-code {
   background-color: #303446;
+  color: white;
 }
 
 .pano-item-body-code-content {
@@ -178,11 +179,13 @@
 
 .pano-item-body-image-meta-title {
   font-size: 12px;
+  color: white;
 }
 
 .pano-item-body-image-meta-value {
   font-size: 13px;
   font-weight: bold;
+  color: white;
 }
 
 .pano-item-body-link-meta-container {
@@ -192,19 +195,23 @@
 .pano-item-body-link .link-title-label {
   font-size: 13px;
   font-weight: bold;
+  color: white;
 }
 
 .pano-item-body-link .link-description-label {
   font-size: 12px;
+  color: white;
 }
 
 .pano-item-body-link .link-label {
   margin-top: 5px;
   font-size: 10px;
+  color: white;
 }
 
 .pano-item-remove-button {
   background-color: rgba(0, 0, 0, 0.3);
+  color: white;
   border-radius: 99px;
   padding: 5px;
   margin: 5px;
