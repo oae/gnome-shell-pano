@@ -1,9 +1,9 @@
-import typescript from '@rollup/plugin-typescript';
-import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import styles from 'rollup-plugin-styles';
-import copy from 'rollup-plugin-copy';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import typescript from '@rollup/plugin-typescript';
 import cleanup from 'rollup-plugin-cleanup';
+import copy from 'rollup-plugin-copy';
+import styles from 'rollup-plugin-styles';
 import visualizer from 'rollup-plugin-visualizer';
 
 const buildPath = 'dist';
@@ -28,32 +28,28 @@ const globals = {
 
 const external = Object.keys(globals);
 
-const prefsBanner = [
-  'imports.gi.versions.Gtk = \'4.0\';',
-].join('\n');
+const prefsBanner = ["imports.gi.versions.Gtk = '4.0';"].join('\n');
 
-const prefsFooter = [
-  'var init = prefs.init;',
-  'var buildPrefsWidget = prefs.buildPrefsWidget;',
-].join('\n')
-
+const prefsFooter = ['var init = prefs.init;', 'var buildPrefsWidget = prefs.buildPrefsWidget;'].join('\n');
 
 const extensionBanner = `
 try {
-`
+`;
 
 const extensionFooter = `
 }
 catch(err) {
+  log(\`[pano] [init] \$\{err\}\`);
   imports.ui.main.notify('Pano', \`\$\{err\}\`);
+  throw err;
 }
-`
+`;
 
 export default [
   {
     input: 'src/extension.ts',
     treeshake: {
-      moduleSideEffects: 'no-external'
+      moduleSideEffects: 'no-external',
     },
     output: {
       file: `${buildPath}/extension.js`,
@@ -63,7 +59,7 @@ export default [
       footer: extensionFooter,
       exports: 'default',
       globals,
-      assetFileNames: "[name][extname]",
+      assetFileNames: '[name][extname]',
     },
     external,
     plugins: [
@@ -75,7 +71,7 @@ export default [
         tsconfig: './tsconfig.json',
       }),
       styles({
-        mode: ["extract", `stylesheet.css`],
+        mode: ['extract', `stylesheet.css`],
       }),
       copy({
         targets: [
@@ -87,7 +83,7 @@ export default [
         ],
       }),
       cleanup({
-        comments: 'none'
+        comments: 'none',
       }),
       visualizer(),
     ],
@@ -104,7 +100,7 @@ export default [
       globals,
     },
     treeshake: {
-      moduleSideEffects: 'no-external'
+      moduleSideEffects: 'no-external',
     },
     external,
     plugins: [
@@ -116,7 +112,7 @@ export default [
         tsconfig: './tsconfig.json',
       }),
       cleanup({
-        comments: 'none'
+        comments: 'none',
       }),
     ],
   },
