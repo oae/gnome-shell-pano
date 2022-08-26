@@ -8,6 +8,10 @@
 
 ![ss](https://i.imgur.com/lksT9iR.png)
 
+## Supported Shell Versions
+
+- Gnome Shell 42
+
 ## Installation
 
 - You need `libgda` for this extension to work.
