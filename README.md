@@ -6,7 +6,7 @@
 [![latest](https://img.shields.io/github/v/release/oae/gnome-shell-pano)](https://github.com/oae/gnome-shell-pano/releases/latest)
 [![compare](https://img.shields.io/github/commits-since/oae/gnome-shell-pano/latest/master)](https://github.com/oae/gnome-shell-pano/compare)
 
-![ss](https://i.imgur.com/KPp3NeK.png)
+![ss](https://i.imgur.com/lksT9iR.png)
 
 ## Installation
 
