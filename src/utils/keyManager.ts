@@ -59,8 +59,6 @@ export class KeyManager {
 
     if (grabber) {
       grabber.callback();
-    } else {
-      debug(`No listeners [action=${action}]`);
     }
   }
 }
