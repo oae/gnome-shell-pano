@@ -74,6 +74,7 @@ export class PanoItem extends BoxLayout {
       clip_to_allocation: true,
       vertical: true,
       x_expand: true,
+      y_expand: true,
     });
 
     this.add_child(this.header);
