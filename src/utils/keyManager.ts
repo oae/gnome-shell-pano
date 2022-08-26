@@ -11,12 +11,10 @@ const debug = logger('key-manager');
 export class KeyManager {
   private grabbers: any;
 
+  private acceleratorActivatedId: number | null = null;
+
   constructor() {
     this.grabbers = {};
-
-    Global.get().display.connect('accelerator-activated', (_, action) => {
-      this.onAccelerator(action);
-    });
   }
 
   stopListening(): void {
@@ -25,9 +23,16 @@ export class KeyManager {
       Global.get().display.ungrab_accelerator(grabber.action);
       wm.allowKeybinding(grabber.name, ActionMode.NONE);
     });
+    if (this.acceleratorActivatedId !== null) {
+      Global.get().display.disconnect(this.acceleratorActivatedId);
+      this.acceleratorActivatedId = null;
+    }
   }
 
   listenFor(accelerator: string, callback: () => any): void {
+    this.acceleratorActivatedId = Global.get().display.connect('accelerator-activated', (_, action) => {
+      this.onAccelerator(action);
+    });
     debug(`Trying to listen for hot key [accelerator=${accelerator}]`);
     const action = Global.get().display.grab_accelerator(accelerator, KeyBindingFlags.NONE);
 
