@@ -105,12 +105,7 @@ export class PanoScrollView extends ScrollView {
   }
 
   private appendItem(panoItem: PanoItem) {
-    panoItem.connect('on-remove', () => {
-      this.removeItem(panoItem);
-      this.fillRemainingItems();
-      this.filter(this.currentFilter);
-      this.focusOnClosest();
-    });
+    this.connectOnRemove(panoItem);
 
     this.list.add_child(panoItem);
   }
@@ -122,15 +117,23 @@ export class PanoScrollView extends ScrollView {
       this.removeItem(existingItem);
     }
 
+    this.connectOnRemove(panoItem);
+
+    this.list.insert_child_at_index(panoItem, 0);
+    this.removeExcessiveItems();
+  }
+
+  private connectOnRemove(panoItem: PanoItem) {
     panoItem.connect('on-remove', () => {
       this.removeItem(panoItem);
       this.fillRemainingItems();
       this.filter(this.currentFilter);
-      this.focusOnClosest();
+      if (this.getVisibleItems().length === 0) {
+        this.emit('scroll-focus-out');
+      } else {
+        this.focusOnClosest();
+      }
     });
-
-    this.list.insert_child_at_index(panoItem, 0);
-    this.removeExcessiveItems();
   }
 
   private removeItem(item: PanoItem) {
