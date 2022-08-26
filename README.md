@@ -30,7 +30,7 @@
     sudo apt install gir1.2-gda-5.0
     ```
 
-- You can install the extension from [**here**](https://extensions.gnome.org)
+- You can install the extension from [**here**](https://extensions.gnome.org/extension/5278/pano/)
 
 ## Development
 
