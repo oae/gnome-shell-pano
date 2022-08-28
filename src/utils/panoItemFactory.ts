@@ -25,6 +25,8 @@ import sql from 'highlight.js/lib/languages/sql';
 import swift from 'highlight.js/lib/languages/swift';
 import typescript from 'highlight.js/lib/languages/typescript';
 import yaml from 'highlight.js/lib/languages/yaml';
+import bash from 'highlight.js/lib/languages/bash';
+import shell from 'highlight.js/lib/languages/shell';
 
 import { Pixbuf } from '@gi-types/gdkpixbuf2';
 import { File, FileCreateFlags } from '@gi-types/gio2';
@@ -64,6 +66,8 @@ hljs.registerLanguage('perl', perl);
 hljs.registerLanguage('julia', julia);
 hljs.registerLanguage('haskell', haskell);
 hljs.registerLanguage('sql', sql);
+hljs.registerLanguage('bash', bash);
+hljs.registerLanguage('shell', shell);
 
 const SUPPORTED_LANGUAGES = [
   'python',
@@ -89,6 +93,8 @@ const SUPPORTED_LANGUAGES = [
   'perl',
   'julia',
   'haskell',
+  'bash',
+  'shell',
 ];
 
 const debug = logger('pano-item-factory');
