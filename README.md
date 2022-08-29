@@ -34,6 +34,12 @@
     sudo apt install gir1.2-gda-5.0
     ```
 
+  - openSUSE
+
+    ```bash
+    sudo zypper install libgda-6_0-sqlite typelib-1_0-Gda-6_0
+    ```
+
 - You can install the extension from EGO
 
   [<img height="100" src="https://github.com/andyholmes/gnome-shell-extensions-badge/raw/master/get-it-on-ego.png">](https://extensions.gnome.org/extension/5278/pano/)
