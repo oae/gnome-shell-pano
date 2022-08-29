@@ -46,11 +46,22 @@ export class ClipboardQueryBuilder {
     this.builder.select_add_target('clipboard', null);
   }
 
+  /**
+   * This is hack for libgda6 <> libgda5 compatibility.
+   *
+   * @param value any
+   * @returns expr id
+   */
+  private add_expr_value(value: any): number {
+    if (this.builder.add_expr_value.length === 1) {
+      return this.builder.add_expr_value(value);
+    }
+
+    return this.builder.add_expr_value(null, value);
+  }
+
   withLimit(limit: number, offset: number) {
-    this.builder.select_set_limit(
-      this.builder.add_expr_value(null, limit as any),
-      this.builder.add_expr_value(null, offset as any),
-    );
+    this.builder.select_set_limit(this.add_expr_value(limit), this.add_expr_value(offset));
 
     return this;
   }
@@ -61,7 +72,7 @@ export class ClipboardQueryBuilder {
         this.builder.add_cond(
           SqlOperatorType.EQ,
           this.builder.add_field_id('id', 'clipboard'),
-          this.builder.add_expr_value(null, id as any),
+          this.add_expr_value(id),
           0,
         ),
       );
@@ -76,7 +87,7 @@ export class ClipboardQueryBuilder {
         this.builder.add_cond(
           SqlOperatorType.EQ,
           this.builder.add_field_id('itemType', 'clipboard'),
-          this.builder.add_expr_value(null, itemType as any),
+          this.add_expr_value(itemType),
           0,
         ),
       );
@@ -92,7 +103,7 @@ export class ClipboardQueryBuilder {
         this.builder.add_cond(
           SqlOperatorType.EQ,
           this.builder.add_field_id('content', 'clipboard'),
-          this.builder.add_expr_value(null, content as any),
+          this.add_expr_value(content),
           0,
         ),
       );
@@ -107,7 +118,7 @@ export class ClipboardQueryBuilder {
         this.builder.add_cond(
           SqlOperatorType.EQ,
           this.builder.add_field_id('matchValue', 'clipboard'),
-          this.builder.add_expr_value(null, matchValue as any),
+          this.add_expr_value(matchValue),
           0,
         ),
       );
@@ -122,7 +133,7 @@ export class ClipboardQueryBuilder {
         this.builder.add_cond(
           SqlOperatorType.LIKE,
           this.builder.add_field_id('content', 'clipboard'),
-          this.builder.add_expr_value(null, `%${content}%` as any),
+          this.add_expr_value(`%${content}%`),
           0,
         ),
       );
@@ -137,7 +148,7 @@ export class ClipboardQueryBuilder {
         this.builder.add_cond(
           SqlOperatorType.LIKE,
           this.builder.add_field_id('searchValue', 'clipboard'),
-          this.builder.add_expr_value(null, `%${searchValue}%` as any),
+          this.add_expr_value(`%${searchValue}%`),
           0,
         ),
       );
