@@ -76,13 +76,13 @@ class PanoExtension {
     db.shutdown();
   }
 
-  clearHistory() {
+  async clearHistory() {
     if (this.isEnabled) {
       this.disable();
-      this.reInitialize();
+      await this.reInitialize();
       this.enable();
     } else {
-      this.reInitialize();
+      await this.reInitialize();
     }
   }
 
@@ -92,9 +92,9 @@ class PanoExtension {
     this.panoWindow = new PanoWindow();
   }
 
-  private reInitialize() {
+  private async reInitialize() {
     db.shutdown();
-    deleteAppDirs();
+    await deleteAppDirs();
     setupAppDirs();
     db.setup();
     this.rerender();

@@ -1,4 +1,4 @@
-import { File, FileCopyFlags, Settings } from '@gi-types/gio2';
+import { AsyncResult, File, FileCopyFlags, Settings, Subprocess, SubprocessFlags } from '@gi-types/gio2';
 import { get_user_cache_dir, get_user_data_dir } from '@gi-types/glib2';
 
 export const logger =
@@ -7,6 +7,28 @@ export const logger =
     log(`[pano] [${prefix}] ${content}`);
 
 const debug = logger('shell-utils');
+
+export const execute = async (command: string): Promise<string> => {
+  const process = new Subprocess({
+    argv: ['bash', '-c', command],
+    flags: SubprocessFlags.STDOUT_PIPE,
+  });
+
+  process.init(null);
+
+  return new Promise((resolve, reject) => {
+    process.communicate_utf8_async(null, null, (_, result: AsyncResult) => {
+      const [, stdout, stderr] = process.communicate_utf8_finish(result);
+      if (stderr) {
+        reject(stderr);
+      } else if (stdout) {
+        resolve(stdout.trim());
+      } else {
+        resolve('');
+      }
+    });
+  });
+};
 
 export const getAppDataPath = (): string => `${get_user_data_dir()}/${getCurrentExtension().metadata.uuid}`;
 
@@ -45,18 +67,18 @@ export const moveDbFile = (from: string, to: string) => {
   }
 };
 
-export const deleteAppDirs = (): void => {
+export const deleteAppDirs = async (): Promise<void> => {
   const appDataPath = File.new_for_path(getAppDataPath());
   if (appDataPath.query_exists(null)) {
-    appDataPath.trash(null);
+    await execute(`rm -rf ${getAppDataPath()}`);
   }
   const cachePath = File.new_for_path(getCachePath());
   if (cachePath.query_exists(null)) {
-    cachePath.trash(null);
+    await execute(`rm -rf ${getCachePath()}`);
   }
   const dbPath = File.new_for_path(`${getDbPath()}/pano.db`);
   if (dbPath.query_exists(null)) {
-    dbPath.trash(null);
+    dbPath.delete(null);
   }
 };
 
