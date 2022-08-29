@@ -80,6 +80,7 @@
 .pano-item-body-code-content {
   margin: 12px;
   font-size: 13px;
+  font-family: monospace;
 }
 
 .pano-item-body-link {

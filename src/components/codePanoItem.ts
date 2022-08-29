@@ -18,7 +18,6 @@ export class CodePanoItem extends PanoItem {
       clip_to_allocation: true,
     });
     label.clutter_text.use_markup = true;
-    label.clutter_text.font_name = 'mono';
     label.clutter_text.set_markup(markupCode(this.dbItem.content.trim()));
     label.clutter_text.ellipsize = EllipsizeMode.END;
     this.body.add_child(label);
