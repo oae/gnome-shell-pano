@@ -7,6 +7,7 @@ import {
   deleteAppDirs,
   getCurrentExtensionSettings,
   getDbPath,
+  initTranslations,
   loadInterfaceXML,
   logger,
   moveDbFile,
@@ -102,5 +103,6 @@ class PanoExtension {
 }
 
 export default function (): PanoExtension {
+  initTranslations();
   return new PanoExtension();
 }

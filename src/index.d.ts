@@ -28,6 +28,7 @@ declare global {
     };
     misc: {
       extensionUtils: {
+        initTranslations: (domain: string) => void;
         getCurrentExtension: () => any;
         getSettings: () => any;
       };
@@ -39,6 +40,7 @@ declare global {
       fromGBytes: (input: any) => Uint8Array;
       toString: (x: Uint8Array) => string;
     };
+    gettext: any;
   };
   export interface Monitor {
     width: number;
@@ -48,7 +50,6 @@ declare global {
   }
 
   export const log: (arg: any) => void;
-  export const _: (arg: string) => string;
 }
 
 type AnimatableActorFields =

@@ -1,0 +1,59 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#: src/prefs/prefs.ts:156
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr ""
+
+#: src/prefs/prefs.ts:223
+msgid "Are you sure you want to clear history?"
+msgstr ""
+
+#: src/prefs/prefs.ts:71
+msgid "Choose pano database location"
+msgstr ""
+
+#: src/prefs/prefs.ts:217
+msgid "Clear"
+msgstr ""
+
+#: src/prefs/prefs.ts:210
+msgid "Clear History"
+msgstr ""
+
+#: src/prefs/prefs.ts:211
+msgid "Clears the clipboard database and cache"
+msgstr ""
+
+#: src/prefs/prefs.ts:115
+msgid "Database Location"
+msgstr ""
+
+#: src/prefs/prefs.ts:90
+msgid "Failed to select directory"
+msgstr ""
+
+#: src/prefs/prefs.ts:155
+msgid "Global Shortcut"
+msgstr ""
+
+#: src/prefs/prefs.ts:137
+msgid "History Length"
+msgstr ""
+
+#: src/prefs/prefs.ts:172
+msgid "New shortcut"
+msgstr ""
+
+#: src/prefs/prefs.ts:161
+msgid "Select a shortcut"
+msgstr ""
+
+#: src/components/searchBox.ts:32
+msgid "Type to search"
+msgstr ""
+
+#: src/prefs/prefs.ts:138
+msgid "You can limit your clipboard history length between 10 - 500"
+msgstr ""

@@ -54,7 +54,7 @@ import {
   SpinButton,
 } from '@gi-types/gtk4';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { getCurrentExtensionSettings, getDbPath, logger } from '@pano/utils/shell';
+import { getCurrentExtensionSettings, getDbPath, initTranslations, logger, _ } from '@pano/utils/shell';
 
 const debug = logger('prefs');
 @registerGObjectClass
@@ -68,7 +68,7 @@ class Preferences extends PreferencesGroup {
     this.settings = getCurrentExtensionSettings();
     this.fileChooser = new FileChooserNative({
       modal: true,
-      title: 'Choose pano database location',
+      title: _('Choose pano database location'),
       action: FileChooserAction.SELECT_FOLDER,
       accept_label: 'Select',
     });
@@ -87,7 +87,7 @@ class Preferences extends PreferencesGroup {
         }
       } else {
         const md = new MessageDialog({
-          text: 'Failed to select directory',
+          text: _('Failed to select directory'),
           transient_for: this.get_root() as Window,
           destroy_with_parent: true,
           modal: true,
@@ -112,7 +112,7 @@ class Preferences extends PreferencesGroup {
     this.add(prefGroup);
 
     const dbRow = new ActionRow({
-      title: 'Database Location',
+      title: _('Database Location'),
       subtitle: `<b>${getDbPath()}/pano.db</b>`,
     });
     prefGroup.add(dbRow);
@@ -134,8 +134,8 @@ class Preferences extends PreferencesGroup {
     });
 
     const historyRow = new ActionRow({
-      title: 'History Length',
-      subtitle: 'You can limit your clipboard history length between 10 - 500',
+      title: _('History Length'),
+      subtitle: _('You can limit your clipboard history length between 10 - 500'),
     });
     prefGroup.add(historyRow);
 
@@ -152,13 +152,13 @@ class Preferences extends PreferencesGroup {
     historyRow.set_activatable_widget(historyEntry);
 
     const shortcutRow = new ActionRow({
-      title: 'Global Shortcut',
-      subtitle: 'Allows you to toggle visibility of the clipboard manager',
+      title: _('Global Shortcut'),
+      subtitle: _('Allows you to toggle visibility of the clipboard manager'),
     });
     prefGroup.add(shortcutRow);
 
     const shortcutLabel = new ShortcutLabel({
-      disabled_text: 'Select a shortcut',
+      disabled_text: _('Select a shortcut'),
       accelerator: this.settings.get_string('shortcut'),
       margin_bottom: 10,
       margin_top: 10,
@@ -169,7 +169,7 @@ class Preferences extends PreferencesGroup {
     shortcutRow.connect('activated', () => {
       const ctl = new EventControllerKey();
       const content = new StatusPage({
-        title: 'New shortcut',
+        title: _('New shortcut'),
         icon_name: 'preferences-desktop-keyboard-shortcuts-symbolic',
       });
       const editor = new Window({
@@ -207,20 +207,20 @@ class Preferences extends PreferencesGroup {
     shortcutRow.set_activatable_widget(shortcutLabel);
 
     const clearHistoryRow = new ActionRow({
-      title: 'Clear History',
-      subtitle: 'Clears the clipboard database and cache',
+      title: _('Clear History'),
+      subtitle: _('Clears the clipboard database and cache'),
     });
     prefGroup.add(clearHistoryRow);
 
     const clearHistoryButton = new Button({
       css_classes: ['destructive-action'],
-      label: 'Clear',
+      label: _('Clear'),
       margin_top: 10,
       margin_bottom: 10,
     });
     clearHistoryButton.connect('clicked', () => {
       const md = new MessageDialog({
-        text: 'Are you sure you want to clear history?',
+        text: _('Are you sure you want to clear history?'),
         transient_for: this.get_root() as Window,
         destroy_with_parent: true,
         modal: true,
@@ -293,7 +293,10 @@ class Preferences extends PreferencesGroup {
   }
 }
 
-const init = (): void => debug('prefs initialized');
+const init = (): void => {
+  debug('prefs initialized');
+  initTranslations();
+};
 
 const buildPrefsWidget = () => new Preferences();
 
