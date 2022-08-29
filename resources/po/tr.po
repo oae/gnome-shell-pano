@@ -1,0 +1,60 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: fill-pot-po/2.1.9\n"
+
+#: src/components/searchBox.ts:32
+msgid "Type to search"
+msgstr "Aramak için yazın"
+
+#: src/prefs/prefs.ts:71
+msgid "Choose pano database location"
+msgstr "Pano veritabanı konumunu seçin"
+
+#: src/prefs/prefs.ts:90
+msgid "Failed to select directory"
+msgstr "Dizin seçilemedi"
+
+#: src/prefs/prefs.ts:115
+msgid "Database Location"
+msgstr "Veritabanı Konumu"
+
+#: src/prefs/prefs.ts:137
+msgid "History Length"
+msgstr "Geçmiş Uzunluğu"
+
+#: src/prefs/prefs.ts:138
+msgid "You can limit your clipboard history length between 10 - 500"
+msgstr "Pano geçmişi uzunluğunu 10 - 500 arasında sınırlayabilirsin"
+
+#: src/prefs/prefs.ts:155
+msgid "Global Shortcut"
+msgstr "Genel Kısayol"
+
+#: src/prefs/prefs.ts:156
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "Pano yöneticisinin görünürlüğünü değiştirmenizi sağlar"
+
+#: src/prefs/prefs.ts:161
+msgid "Select a shortcut"
+msgstr "Bir kısayol seçin"
+
+#: src/prefs/prefs.ts:172
+msgid "New shortcut"
+msgstr "Yeni kısayol"
+
+#: src/prefs/prefs.ts:210
+msgid "Clear History"
+msgstr "Geçmişi Temizle"
+
+#: src/prefs/prefs.ts:211
+msgid "Clears the clipboard database and cache"
+msgstr "Pano veritabanını ve önbelleği temizler"
+
+#: src/prefs/prefs.ts:217
+msgid "Clear"
+msgstr "Temizle"
+
+#: src/prefs/prefs.ts:223
+msgid "Are you sure you want to clear history?"
+msgstr "Geçmişi temizlemek istediğine emin misiniz?"

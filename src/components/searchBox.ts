@@ -2,6 +2,7 @@ import { ActorAlign, Event, KEY_Down, KEY_ISO_Enter, KEY_KP_Enter, KEY_Return, K
 import { MetaInfo, TYPE_STRING } from '@gi-types/gobject2';
 import { BoxLayout, Entry, Icon } from '@gi-types/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
+import { _ } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class SearchBox extends BoxLayout {
@@ -28,7 +29,7 @@ export class SearchBox extends BoxLayout {
 
     this.search = new Entry({
       can_focus: true,
-      hint_text: 'Type to search',
+      hint_text: _('Type to search'),
       track_hover: true,
       width: 300,
       primary_icon: new Icon({

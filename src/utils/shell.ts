@@ -108,3 +108,7 @@ export const loadInterfaceXML = (iface: string): any => {
 
   return null;
 };
+
+export const initTranslations = () => imports.misc.extensionUtils.initTranslations(getCurrentExtension().metadata.uuid);
+export const _ = imports.gettext.domain(getCurrentExtension().metadata.uuid).gettext;
+export const ngettext = imports.gettext.domain(getCurrentExtension().metadata.uuid).ngettext;
