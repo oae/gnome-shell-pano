@@ -80,6 +80,7 @@
 .pano-item-body-code-content {
   margin: 12px;
   font-size: 13px;
+  tab-size: 2;
   font-family: monospace;
 }
 
@@ -97,6 +98,7 @@
   font-size: 18px;
   font-family: sans-serif;
   color: #000;
+  tab-size: 2;
 }
 
 .pano-item-body-color {
