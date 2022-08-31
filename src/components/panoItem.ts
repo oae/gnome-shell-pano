@@ -1,4 +1,6 @@
 import {
+  ActorAlign,
+  AnimationMode,
   ButtonEvent,
   EVENT_PROPAGATE,
   EVENT_STOP,
@@ -14,10 +16,10 @@ import { Point } from '@gi-types/graphene1';
 import { Cursor } from '@gi-types/meta10';
 import { Global } from '@gi-types/shell0';
 import { BoxLayout } from '@gi-types/st1';
+import { PanoItemHeader } from '@pano/components/panoItemHeader';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { PanoItemTypes } from '@pano/utils/panoItemType';
-import { PanoItemHeader } from '@pano/components/panoItemHeader';
 
 @registerGObjectClass
 export class PanoItem extends BoxLayout {
@@ -35,6 +37,7 @@ export class PanoItem extends BoxLayout {
   private header: PanoItemHeader;
   public dbItem: DBItem;
   protected body: BoxLayout;
+  private indicatorBox: BoxLayout;
 
   constructor(dbItem: DBItem) {
     super({
@@ -45,6 +48,16 @@ export class PanoItem extends BoxLayout {
       style_class: 'pano-item',
       vertical: true,
       track_hover: true,
+    });
+
+    this.indicatorBox = new BoxLayout({
+      visible: true,
+      x_align: ActorAlign.CENTER,
+      y_align: ActorAlign.END,
+      height: 0,
+      width: 0,
+      translation_y: 5,
+      style: 'background: #1e66f5; border-radius: 999px; box-shadow: 0px 0px 2px 1px #1e66f5;',
     });
 
     this.dbItem = dbItem;
@@ -79,14 +92,37 @@ export class PanoItem extends BoxLayout {
 
     this.add_child(this.header);
     this.add_child(this.body);
+    this.add_child(this.indicatorBox);
   }
 
   private setSelected(selected: boolean) {
     if (selected) {
       this.add_style_pseudo_class('selected');
+      this.indicatorBox.ease({
+        height: 5,
+        width: 290,
+        duration: 150,
+        mode: AnimationMode.EASE_OUT_QUAD,
+      });
+      this.ease({
+        translation_y: -5,
+        duration: 150,
+        mode: AnimationMode.EASE_OUT_QUAD,
+      });
       this.grab_key_focus();
     } else {
       this.remove_style_pseudo_class('selected');
+      this.indicatorBox.ease({
+        height: 0,
+        width: 0,
+        duration: 150,
+        mode: AnimationMode.EASE_OUT_QUAD,
+      });
+      this.ease({
+        translation_y: 0,
+        duration: 150,
+        mode: AnimationMode.EASE_OUT_QUAD,
+      });
     }
   }
   override vfunc_key_press_event(event: KeyEvent): boolean {
@@ -112,6 +148,7 @@ export class PanoItem extends BoxLayout {
 
   override destroy(): void {
     this.header.destroy();
+    this.indicatorBox.destroy();
     super.destroy();
   }
 }
