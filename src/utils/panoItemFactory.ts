@@ -198,8 +198,7 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
       }
       const highlightResult = hljs.highlightAuto(value.slice(0, 2000), SUPPORTED_LANGUAGES);
       if (highlightResult.relevance < 10) {
-
-        if ((/^\p{Extended_Pictographic}*$/u).test(value)) {
+        if (/^\p{Extended_Pictographic}*$/u.test(value)) {
           return db.save({
             content: value,
             copyDate: new Date(),
