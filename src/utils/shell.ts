@@ -1,5 +1,14 @@
-import { AsyncResult, File, FileCopyFlags, Settings, Subprocess, SubprocessFlags } from '@gi-types/gio2';
-import { get_user_cache_dir, get_user_data_dir } from '@gi-types/glib2';
+import {
+  File,
+  FileCopyFlags,
+  FileEnumerator,
+  FileInfo,
+  FilePrototype,
+  FileQueryInfoFlags,
+  FileType,
+  Settings,
+} from '@gi-types/gio2';
+import { get_user_cache_dir, get_user_data_dir, PRIORITY_DEFAULT } from '@gi-types/glib2';
 
 export const logger =
   (prefix: string) =>
@@ -8,26 +17,86 @@ export const logger =
 
 const debug = logger('shell-utils');
 
-export const execute = async (command: string): Promise<string> => {
-  const process = new Subprocess({
-    argv: ['bash', '-c', command],
-    flags: SubprocessFlags.STDOUT_PIPE,
-  });
-
-  process.init(null);
-
+const deleteFile = (file: FilePrototype) => {
   return new Promise((resolve, reject) => {
-    process.communicate_utf8_async(null, null, (_, result: AsyncResult) => {
-      const [, stdout, stderr] = process.communicate_utf8_finish(result);
-      if (stderr) {
-        reject(stderr);
-      } else if (stdout) {
-        resolve(stdout.trim());
-      } else {
-        resolve('');
+    file.delete_async(PRIORITY_DEFAULT, null, (_file, res) => {
+      try {
+        resolve(file.delete_finish(res));
+      } catch (e) {
+        reject(e);
       }
     });
   });
+};
+
+const deleteDirectory = async (file: FilePrototype) => {
+  try {
+    const iter: FileEnumerator | undefined = await new Promise((resolve, reject) => {
+      file.enumerate_children_async(
+        'standard::type',
+        FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
+        PRIORITY_DEFAULT,
+        null,
+        (file, res) => {
+          try {
+            resolve(file?.enumerate_children_finish(res));
+          } catch (e) {
+            reject(e);
+          }
+        },
+      );
+    });
+
+    if (!iter) {
+      return;
+    }
+
+    const branches: any[] = [];
+
+    while (true) {
+      const infos: FileInfo[] = await new Promise((resolve, reject) => {
+        iter.next_files_async(10, PRIORITY_DEFAULT, null, (it, res) => {
+          try {
+            resolve(it ? it.next_files_finish(res) : []);
+          } catch (e) {
+            reject(e);
+          }
+        });
+      });
+
+      if (infos.length === 0) {
+        break;
+      }
+
+      for (const info of infos) {
+        const child = iter.get_child(info);
+        const type = info.get_file_type();
+
+        let branch;
+
+        switch (type) {
+          case FileType.REGULAR:
+          case FileType.SYMBOLIC_LINK:
+            branch = deleteFile(child);
+            break;
+
+          case FileType.DIRECTORY:
+            branch = deleteDirectory(child);
+            break;
+
+          default:
+            continue;
+        }
+
+        branches.push(branch);
+      }
+    }
+
+    await Promise.all(branches);
+  } catch (e) {
+  } finally {
+    return deleteFile(file);
+  }
 };
 
 export const getAppDataPath = (): string => `${get_user_data_dir()}/${getCurrentExtension().metadata.uuid}`;
@@ -70,11 +139,11 @@ export const moveDbFile = (from: string, to: string) => {
 export const deleteAppDirs = async (): Promise<void> => {
   const appDataPath = File.new_for_path(getAppDataPath());
   if (appDataPath.query_exists(null)) {
-    await execute(`rm -rf ${getAppDataPath()}`);
+    await deleteDirectory(appDataPath);
   }
   const cachePath = File.new_for_path(getCachePath());
   if (cachePath.query_exists(null)) {
-    await execute(`rm -rf ${getCachePath()}`);
+    await deleteDirectory(cachePath);
   }
   const dbPath = File.new_for_path(`${getDbPath()}/pano.db`);
   if (dbPath.query_exists(null)) {
