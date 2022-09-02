@@ -1,0 +1,60 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: fill-pot-po/2.1.9\n"
+
+#: src/components/searchBox.ts:32
+msgid "Type to search"
+msgstr "اكتب نصًا للبحث عنه"
+
+#: src/prefs/prefs.ts:71
+msgid "Choose pano database location"
+msgstr "اختر موقع قاعدة بيانات پانو"
+
+#: src/prefs/prefs.ts:90
+msgid "Failed to select directory"
+msgstr "فشل اختيار المجلد"
+
+#: src/prefs/prefs.ts:115
+msgid "Database Location"
+msgstr "موقع قاعدة البيانات"
+
+#: src/prefs/prefs.ts:137
+msgid "History Length"
+msgstr "طول السجل التاريخي"
+
+#: src/prefs/prefs.ts:138
+msgid "You can limit your clipboard history length between 10 - 500"
+msgstr "يمكنك حصر طول السجل التاريخي للحافظة بين 10 - 500"
+
+#: src/prefs/prefs.ts:155
+msgid "Global Shortcut"
+msgstr "اختصار لوحة المفاتيح"
+
+#: src/prefs/prefs.ts:156
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "يمكنّك من قلب مرئية مدير الحافظة"
+
+#: src/prefs/prefs.ts:161
+msgid "Select a shortcut"
+msgstr "اختر اختصار لوحة المفاتيح"
+
+#: src/prefs/prefs.ts:172
+msgid "New shortcut"
+msgstr "اختصار جديد"
+
+#: src/prefs/prefs.ts:210
+msgid "Clear History"
+msgstr "امحُ السجل التاريخي"
+
+#: src/prefs/prefs.ts:211
+msgid "Clears the clipboard database and cache"
+msgstr "يمحو قاعدة بيانات الحافظة وذاكرتها المؤقتة"
+
+#: src/prefs/prefs.ts:217
+msgid "Clear"
+msgstr "امحُ"
+
+#: src/prefs/prefs.ts:223
+msgid "Are you sure you want to clear history?"
+msgstr "أمتأكد من رغبتك بمحوِ السجل التاريخي؟"
