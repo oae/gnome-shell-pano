@@ -225,6 +225,23 @@ class Preferences extends PreferencesGroup {
     pasteOnSelectRow.add_suffix(pasteOnSelectSwitch);
     pasteOnSelectRow.set_activatable_widget(pasteOnSelectSwitch);
 
+    const playAudioOnCopyRow = new ActionRow({
+      title: _('Play an Audio on Copy'),
+      subtitle: _('Allow Pano to play an audio when copying new content'),
+    });
+    prefGroup.add(playAudioOnCopyRow);
+
+    const playAudioOnCopySwitch = new Switch({
+      active: this.settings.get_boolean('play-audio-on-copy'),
+      valign: Align.CENTER,
+      halign: Align.CENTER,
+    });
+
+    this.settings.bind('play-audio-on-copy', playAudioOnCopySwitch, 'active', SettingsBindFlags.DEFAULT);
+
+    playAudioOnCopyRow.add_suffix(playAudioOnCopySwitch);
+    playAudioOnCopyRow.set_activatable_widget(playAudioOnCopySwitch);
+
     const clearHistoryRow = new ActionRow({
       title: _('Clear History'),
       subtitle: _('Clears the clipboard database and cache'),
