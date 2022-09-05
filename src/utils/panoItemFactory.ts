@@ -39,7 +39,7 @@ import { TextPanoItem } from '@pano/components/textPanoItem';
 import { ClipboardContent, ContentType } from '@pano/utils/clipboardManager';
 import { ClipboardQueryBuilder, db, DBItem } from '@pano/utils/db';
 import { getDocument, getImage } from '@pano/utils/linkParser';
-import { getCachePath, getImagesPath, logger } from '@pano/utils/shell';
+import { getCachePath, getCurrentExtensionSettings, getImagesPath, logger, playAudio } from '@pano/utils/shell';
 
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('markdown', markdown);
@@ -126,6 +126,11 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
       copyDate: new Date(),
     });
   }
+
+  if (getCurrentExtensionSettings().get_boolean('play-audio-on-copy')) {
+    playAudio();
+  }
+
   switch (type) {
     case ContentType.FILE:
       return db.save({

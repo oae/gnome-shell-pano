@@ -52,17 +52,25 @@ msgid "Allow Pano to paste content on select"
 msgstr ""
 
 #: src/prefs/prefs.ts:229
+msgid "Play an Audio on Copy"
+msgstr ""
+
+#: src/prefs/prefs.ts:230
+msgid "Allow Pano to play an audio when copying new content"
+msgstr ""
+
+#: src/prefs/prefs.ts:246
 msgid "Clear History"
 msgstr "Escafar l’istoric"
 
-#: src/prefs/prefs.ts:230
+#: src/prefs/prefs.ts:247
 msgid "Clears the clipboard database and cache"
 msgstr "Escafa la basa de donadas del quichapapièrs e lo cache"
 
-#: src/prefs/prefs.ts:236
+#: src/prefs/prefs.ts:253
 msgid "Clear"
 msgstr "Escafar"
 
-#: src/prefs/prefs.ts:242
+#: src/prefs/prefs.ts:259
 msgid "Are you sure you want to clear history?"
 msgstr "Volètz vertadièrament escafar l’istoric ?"

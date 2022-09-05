@@ -6,11 +6,15 @@ msgstr ""
 msgid "Allow Pano to paste content on select"
 msgstr ""
 
+#: src/prefs/prefs.ts:230
+msgid "Allow Pano to play an audio when copying new content"
+msgstr ""
+
 #: src/prefs/prefs.ts:158
 msgid "Allows you to toggle visibility of the clipboard manager"
 msgstr ""
 
-#: src/prefs/prefs.ts:242
+#: src/prefs/prefs.ts:259
 msgid "Are you sure you want to clear history?"
 msgstr ""
 
@@ -18,15 +22,15 @@ msgstr ""
 msgid "Choose pano database location"
 msgstr ""
 
-#: src/prefs/prefs.ts:236
+#: src/prefs/prefs.ts:253
 msgid "Clear"
 msgstr ""
 
-#: src/prefs/prefs.ts:229
+#: src/prefs/prefs.ts:246
 msgid "Clear History"
 msgstr ""
 
-#: src/prefs/prefs.ts:230
+#: src/prefs/prefs.ts:247
 msgid "Clears the clipboard database and cache"
 msgstr ""
 
@@ -52,6 +56,10 @@ msgstr ""
 
 #: src/prefs/prefs.ts:212
 msgid "Paste on Select"
+msgstr ""
+
+#: src/prefs/prefs.ts:229
+msgid "Play an Audio on Copy"
 msgstr ""
 
 #: src/prefs/prefs.ts:163

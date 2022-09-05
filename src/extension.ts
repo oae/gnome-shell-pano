@@ -11,6 +11,7 @@ import {
   loadInterfaceXML,
   logger,
   moveDbFile,
+  removeSoundContext,
   setupAppDirs,
 } from '@pano/utils/shell';
 import { addTopChrome, removeChrome, removeVirtualKeyboard } from '@pano/utils/ui';
@@ -70,6 +71,7 @@ class PanoExtension {
 
   disable(): void {
     removeVirtualKeyboard();
+    removeSoundContext();
     this.isEnabled = false;
     this.keyManager.stopListening();
     clipboardManager.stopTracking();
