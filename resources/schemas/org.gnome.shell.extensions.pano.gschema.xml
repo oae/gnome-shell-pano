@@ -20,5 +20,10 @@
       <summary>Database location</summary>
       <description>Stores clipboard history.</description>
     </key>
+    <key name="paste-on-select" type="b">
+      <default>false</default>
+      <summary>Paste item on select</summary>
+      <description>Allow Pano to paste content on select.</description>
+    </key>
   </schema>
 </schemalist>

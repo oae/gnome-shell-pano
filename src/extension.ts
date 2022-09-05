@@ -13,7 +13,7 @@ import {
   moveDbFile,
   setupAppDirs,
 } from '@pano/utils/shell';
-import { addTopChrome, removeChrome } from '@pano/utils/ui';
+import { addTopChrome, removeChrome, removeVirtualKeyboard } from '@pano/utils/ui';
 import './styles/stylesheet.css';
 
 const debug = logger('extension');
@@ -69,6 +69,7 @@ class PanoExtension {
   }
 
   disable(): void {
+    removeVirtualKeyboard();
     this.isEnabled = false;
     this.keyManager.stopListening();
     clipboardManager.stopTracking();

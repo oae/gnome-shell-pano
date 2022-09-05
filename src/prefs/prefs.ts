@@ -43,6 +43,7 @@ import {
   accelerator_name_with_keycode,
   accelerator_valid,
   Adjustment,
+  Align,
   Button,
   ButtonsType,
   EventControllerKey,
@@ -52,6 +53,7 @@ import {
   ResponseType,
   ShortcutLabel,
   SpinButton,
+  Switch,
 } from '@gi-types/gtk4';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtensionSettings, getDbPath, initTranslations, logger, _ } from '@pano/utils/shell';
@@ -118,9 +120,9 @@ class Preferences extends PreferencesGroup {
     prefGroup.add(dbRow);
 
     const dbLocationButton = new Button({
-      margin_top: 10,
-      margin_bottom: 10,
       icon_name: 'document-open-symbolic',
+      valign: Align.CENTER,
+      halign: Align.CENTER,
     });
     dbLocationButton.connect('clicked', () => {
       this.fileChooser.show();
@@ -142,8 +144,8 @@ class Preferences extends PreferencesGroup {
     const historyEntry = new SpinButton({
       adjustment: new Adjustment({ step_increment: 10, lower: 10, upper: 500 }),
       value: this.settings.get_int('history-length'),
-      margin_bottom: 10,
-      margin_top: 10,
+      valign: Align.CENTER,
+      halign: Align.CENTER,
     });
 
     this.settings.bind('history-length', historyEntry, 'value', SettingsBindFlags.DEFAULT);
@@ -160,8 +162,8 @@ class Preferences extends PreferencesGroup {
     const shortcutLabel = new ShortcutLabel({
       disabled_text: _('Select a shortcut'),
       accelerator: this.settings.get_string('shortcut'),
-      margin_bottom: 10,
-      margin_top: 10,
+      valign: Align.CENTER,
+      halign: Align.CENTER,
     });
 
     this.settings.bind('shortcut', shortcutLabel, 'accelerator', SettingsBindFlags.DEFAULT);
@@ -206,6 +208,23 @@ class Preferences extends PreferencesGroup {
     shortcutRow.add_suffix(shortcutLabel);
     shortcutRow.set_activatable_widget(shortcutLabel);
 
+    const pasteOnSelectRow = new ActionRow({
+      title: _('Paste on Select'),
+      subtitle: _('Allow Pano to paste content on select'),
+    });
+    prefGroup.add(pasteOnSelectRow);
+
+    const pasteOnSelectSwitch = new Switch({
+      active: this.settings.get_boolean('paste-on-select'),
+      valign: Align.CENTER,
+      halign: Align.CENTER,
+    });
+
+    this.settings.bind('paste-on-select', pasteOnSelectSwitch, 'active', SettingsBindFlags.DEFAULT);
+
+    pasteOnSelectRow.add_suffix(pasteOnSelectSwitch);
+    pasteOnSelectRow.set_activatable_widget(pasteOnSelectSwitch);
+
     const clearHistoryRow = new ActionRow({
       title: _('Clear History'),
       subtitle: _('Clears the clipboard database and cache'),
@@ -215,8 +234,8 @@ class Preferences extends PreferencesGroup {
     const clearHistoryButton = new Button({
       css_classes: ['destructive-action'],
       label: _('Clear'),
-      margin_top: 10,
-      margin_bottom: 10,
+      valign: Align.CENTER,
+      halign: Align.CENTER,
     });
     clearHistoryButton.connect('clicked', () => {
       const md = new MessageDialog({
