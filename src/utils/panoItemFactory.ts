@@ -28,7 +28,7 @@ import yaml from 'highlight.js/lib/languages/yaml';
 
 import { Pixbuf } from '@gi-types/gdkpixbuf2';
 import { File, FileCreateFlags } from '@gi-types/gio2';
-import { ChecksumType, compute_checksum_for_bytes } from '@gi-types/glib2';
+import { ChecksumType, compute_checksum_for_bytes, UriFlags, uri_parse } from '@gi-types/glib2';
 import { CodePanoItem } from '@pano/components/codePanoItem';
 import { ColorPanoItem } from '@pano/components/colorPanoItem';
 import { FilePanoItem } from '@pano/components/filePanoItem';
@@ -93,6 +93,14 @@ const SUPPORTED_LANGUAGES = [
 
 const debug = logger('pano-item-factory');
 
+const isValidUrl = (text: string) => {
+  try {
+    return isUrl(text) && uri_parse(text, UriFlags.NONE) !== null;
+  } catch (err) {
+    return false;
+  }
+};
+
 const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null> => {
   const { value, type } = clip.content;
   const queryBuilder = new ClipboardQueryBuilder();
@@ -156,7 +164,7 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
         }),
       });
     case ContentType.TEXT:
-      if (value.trim().toLowerCase().startsWith('http') && isUrl(value)) {
+      if (value.trim().toLowerCase().startsWith('http') && isValidUrl(value)) {
         const { description, imageUrl, title } = await getDocument(value);
         const [checksum] = await getImage(imageUrl);
 
