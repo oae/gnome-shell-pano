@@ -1,4 +1,4 @@
-import { Actor } from '@gi-types/clutter10';
+import { Actor, get_default_backend, InputDeviceType, VirtualInputDevice } from '@gi-types/clutter10';
 import { Global } from '@gi-types/shell0';
 
 const global = Global.get();
@@ -36,3 +36,22 @@ export const getMonitorConstraintForIndex = (index: number) =>
 
 export const addTopChrome = (actor: Actor, options?: any) => imports.ui.main.layoutManager.addTopChrome(actor, options);
 export const removeChrome = (actor: Actor) => imports.ui.main.layoutManager.removeChrome(actor);
+
+let virtualKeyboard: null | VirtualInputDevice = null;
+
+export const getVirtualKeyboard = () => {
+  if (virtualKeyboard) {
+    return virtualKeyboard;
+  }
+
+  virtualKeyboard = get_default_backend().get_default_seat().create_virtual_device(InputDeviceType.KEYBOARD_DEVICE);
+
+  return virtualKeyboard;
+};
+
+export const removeVirtualKeyboard = () => {
+  if (virtualKeyboard) {
+    virtualKeyboard.run_dispose();
+    virtualKeyboard = null;
+  }
+};

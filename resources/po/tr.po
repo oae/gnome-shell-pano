@@ -7,54 +7,62 @@ msgstr ""
 msgid "Type to search"
 msgstr "Aramak için yazın"
 
-#: src/prefs/prefs.ts:71
+#: src/prefs/prefs.ts:73
 msgid "Choose pano database location"
 msgstr "Pano veritabanı konumunu seçin"
 
-#: src/prefs/prefs.ts:90
+#: src/prefs/prefs.ts:92
 msgid "Failed to select directory"
 msgstr "Dizin seçilemedi"
 
-#: src/prefs/prefs.ts:115
+#: src/prefs/prefs.ts:117
 msgid "Database Location"
 msgstr "Veritabanı Konumu"
 
-#: src/prefs/prefs.ts:137
+#: src/prefs/prefs.ts:139
 msgid "History Length"
 msgstr "Geçmiş Uzunluğu"
 
-#: src/prefs/prefs.ts:138
+#: src/prefs/prefs.ts:140
 msgid "You can limit your clipboard history length between 10 - 500"
 msgstr "Pano geçmişi uzunluğunu 10 - 500 arasında sınırlayabilirsin"
 
-#: src/prefs/prefs.ts:155
+#: src/prefs/prefs.ts:157
 msgid "Global Shortcut"
 msgstr "Genel Kısayol"
 
-#: src/prefs/prefs.ts:156
+#: src/prefs/prefs.ts:158
 msgid "Allows you to toggle visibility of the clipboard manager"
 msgstr "Pano yöneticisinin görünürlüğünü değiştirmenizi sağlar"
 
-#: src/prefs/prefs.ts:161
+#: src/prefs/prefs.ts:163
 msgid "Select a shortcut"
 msgstr "Bir kısayol seçin"
 
-#: src/prefs/prefs.ts:172
+#: src/prefs/prefs.ts:174
 msgid "New shortcut"
 msgstr "Yeni kısayol"
 
-#: src/prefs/prefs.ts:210
+#: src/prefs/prefs.ts:212
+msgid "Paste on Select"
+msgstr "Seçileni yapıştır"
+
+#: src/prefs/prefs.ts:213
+msgid "Allow Pano to paste content on select"
+msgstr "Pano'nun içeriği yapıştırmasına izin verir"
+
+#: src/prefs/prefs.ts:229
 msgid "Clear History"
 msgstr "Geçmişi Temizle"
 
-#: src/prefs/prefs.ts:211
+#: src/prefs/prefs.ts:230
 msgid "Clears the clipboard database and cache"
 msgstr "Pano veritabanını ve önbelleği temizler"
 
-#: src/prefs/prefs.ts:217
+#: src/prefs/prefs.ts:236
 msgid "Clear"
 msgstr "Temizle"
 
-#: src/prefs/prefs.ts:223
+#: src/prefs/prefs.ts:242
 msgid "Are you sure you want to clear history?"
 msgstr "Geçmişi temizlemek istediğine emin misiniz?"

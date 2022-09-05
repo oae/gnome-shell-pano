@@ -7,54 +7,62 @@ msgstr ""
 msgid "Type to search"
 msgstr "Type to search"
 
-#: src/prefs/prefs.ts:71
+#: src/prefs/prefs.ts:73
 msgid "Choose pano database location"
 msgstr "Choose pano database location"
 
-#: src/prefs/prefs.ts:90
+#: src/prefs/prefs.ts:92
 msgid "Failed to select directory"
 msgstr "Failed to select directory"
 
-#: src/prefs/prefs.ts:115
+#: src/prefs/prefs.ts:117
 msgid "Database Location"
 msgstr "Database Location"
 
-#: src/prefs/prefs.ts:137
+#: src/prefs/prefs.ts:139
 msgid "History Length"
 msgstr "History Length"
 
-#: src/prefs/prefs.ts:138
+#: src/prefs/prefs.ts:140
 msgid "You can limit your clipboard history length between 10 - 500"
 msgstr "You can limit your clipboard history length between 10 - 500"
 
-#: src/prefs/prefs.ts:155
+#: src/prefs/prefs.ts:157
 msgid "Global Shortcut"
 msgstr "Global Shortcut"
 
-#: src/prefs/prefs.ts:156
+#: src/prefs/prefs.ts:158
 msgid "Allows you to toggle visibility of the clipboard manager"
 msgstr "Allows you to toggle visibility of the clipboard manager"
 
-#: src/prefs/prefs.ts:161
+#: src/prefs/prefs.ts:163
 msgid "Select a shortcut"
 msgstr "Select a shortcut"
 
-#: src/prefs/prefs.ts:172
+#: src/prefs/prefs.ts:174
 msgid "New shortcut"
 msgstr "New shortcut"
 
-#: src/prefs/prefs.ts:210
+#: src/prefs/prefs.ts:212
+msgid "Paste on Select"
+msgstr "Paste on Select"
+
+#: src/prefs/prefs.ts:213
+msgid "Allow Pano to paste content on select"
+msgstr "Allow Pano to paste content on select"
+
+#: src/prefs/prefs.ts:229
 msgid "Clear History"
 msgstr "Clear History"
 
-#: src/prefs/prefs.ts:211
+#: src/prefs/prefs.ts:230
 msgid "Clears the clipboard database and cache"
 msgstr "Clears the clipboard database and cache"
 
-#: src/prefs/prefs.ts:217
+#: src/prefs/prefs.ts:236
 msgid "Clear"
 msgstr "Clear"
 
-#: src/prefs/prefs.ts:223
+#: src/prefs/prefs.ts:242
 msgid "Are you sure you want to clear history?"
 msgstr "Are you sure you want to clear history?"
