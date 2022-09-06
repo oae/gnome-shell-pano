@@ -87,7 +87,7 @@ export class PanoItem extends BoxLayout {
 
       if (getCurrentExtensionSettings().get_boolean('paste-on-select')) {
         // See https://github.com/SUPERCILEX/gnome-clipboard-history/blob/master/extension.js#L606
-        this.timeoutId = timeout_add(PRIORITY_DEFAULT, 200, () => {
+        this.timeoutId = timeout_add(PRIORITY_DEFAULT, 250, () => {
           getVirtualKeyboard().notify_keyval(get_current_event_time(), KEY_Control_L, KeyState.PRESSED);
           getVirtualKeyboard().notify_keyval(get_current_event_time(), KEY_v, KeyState.PRESSED);
           getVirtualKeyboard().notify_keyval(get_current_event_time(), KEY_Control_L, KeyState.RELEASED);
