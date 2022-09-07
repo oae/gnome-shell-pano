@@ -31,7 +31,7 @@ const external = Object.keys(globals);
 
 const prefsBanner = ["imports.gi.versions.Gtk = '4.0';"].join('\n');
 
-const prefsFooter = ['var init = prefs.init;', 'var buildPrefsWidget = prefs.buildPrefsWidget;'].join('\n');
+const prefsFooter = ['var init = prefs.init;', 'var fillPreferencesWindow = prefs.fillPreferencesWindow;'].join('\n');
 
 const extensionBanner = `
 try {
