@@ -55,7 +55,7 @@ msgstr ""
 msgid "Window class name"
 msgstr ""
 
-#: src/prefs/general/generalGroup.ts:14
+#: src/prefs/general/generalGroup.ts:15
 msgid "General Options"
 msgstr ""
 
@@ -102,3 +102,11 @@ msgstr "Seleccionar un acorchi"
 #: src/prefs/general/shortcutRow.ts:75
 msgid "New shortcut"
 msgstr "Acorchi novèl"
+
+#: src/prefs/general/watchExclusions.ts:13
+msgid "Watch Exclusions"
+msgstr ""
+
+#: src/prefs/general/watchExclusions.ts:14
+msgid "When enabled, Pano will not track clipboard from excluded apps"
+msgstr ""

@@ -30,6 +30,13 @@
       <summary>Play audio on copy</summary>
       <description>Plays an audio when copying a new content.</description>
     </key>
+    <key name="watch-exclusion-list" type="b">
+      <default>true</default>
+      <summary>Watch exclusion list</summary>
+      <description>
+        When enabled, Pano will not track clipboard from excluded apps
+      </description>
+    </key>
     <key name="exclusion-list" type="as">
       <default>['Bitwarden', '1Password', 'KeePassXC']</default>
       <summary>Exclusion list</summary>

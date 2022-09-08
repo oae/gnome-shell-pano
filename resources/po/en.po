@@ -55,7 +55,7 @@ msgstr "Pano will stop tracking if any window from the list is focussed"
 msgid "Window class name"
 msgstr "Window class name"
 
-#: src/prefs/general/generalGroup.ts:14
+#: src/prefs/general/generalGroup.ts:15
 msgid "General Options"
 msgstr "General Options"
 
@@ -102,3 +102,11 @@ msgstr "Select a shortcut"
 #: src/prefs/general/shortcutRow.ts:75
 msgid "New shortcut"
 msgstr "New shortcut"
+
+#: src/prefs/general/watchExclusions.ts:13
+msgid "Watch Exclusions"
+msgstr "Watch Exclusions"
+
+#: src/prefs/general/watchExclusions.ts:14
+msgid "When enabled, Pano will not track clipboard from excluded apps"
+msgstr "When enabled, Pano will not track clipboard from excluded apps"

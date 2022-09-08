@@ -54,7 +54,7 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: src/prefs/general/generalGroup.ts:14
+#: src/prefs/general/generalGroup.ts:15
 msgid "General Options"
 msgstr ""
 
@@ -92,6 +92,14 @@ msgstr ""
 
 #: src/components/searchBox.ts:32
 msgid "Type to search"
+msgstr ""
+
+#: src/prefs/general/watchExclusions.ts:13
+msgid "Watch Exclusions"
+msgstr ""
+
+#: src/prefs/general/watchExclusions.ts:14
+msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr ""
 
 #: src/prefs/general/exclusionGroup.ts:53
