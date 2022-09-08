@@ -81,6 +81,7 @@ export default [
           { src: './resources/metadata.json', dest: `${buildPath}` },
           { src: './resources/schemas', dest: `${buildPath}` },
           { src: './resources/dbus', dest: `${buildPath}` },
+          { src: './resources/models', dest: `${buildPath}` },
         ],
       }),
       cleanup({

@@ -1,31 +1,6 @@
 import isUrl from 'is-url';
 import { validateHTMLColorHex, validateHTMLColorName, validateHTMLColorRgb } from 'validate-color/lib/index';
 
-import hljs from 'highlight.js/lib/core';
-import c from 'highlight.js/lib/languages/c';
-import cpp from 'highlight.js/lib/languages/cpp';
-import csharp from 'highlight.js/lib/languages/csharp';
-import dart from 'highlight.js/lib/languages/dart';
-import go from 'highlight.js/lib/languages/go';
-import groovy from 'highlight.js/lib/languages/groovy';
-import haskell from 'highlight.js/lib/languages/haskell';
-import java from 'highlight.js/lib/languages/java';
-import javascript from 'highlight.js/lib/languages/javascript';
-import julia from 'highlight.js/lib/languages/julia';
-import kotlin from 'highlight.js/lib/languages/kotlin';
-import lua from 'highlight.js/lib/languages/lua';
-import markdown from 'highlight.js/lib/languages/markdown';
-import perl from 'highlight.js/lib/languages/perl';
-import php from 'highlight.js/lib/languages/php';
-import python from 'highlight.js/lib/languages/python';
-import ruby from 'highlight.js/lib/languages/ruby';
-import rust from 'highlight.js/lib/languages/rust';
-import scala from 'highlight.js/lib/languages/scala';
-import sql from 'highlight.js/lib/languages/sql';
-import swift from 'highlight.js/lib/languages/swift';
-import typescript from 'highlight.js/lib/languages/typescript';
-import yaml from 'highlight.js/lib/languages/yaml';
-
 import { Pixbuf } from '@gi-types/gdkpixbuf2';
 import { File, FileCreateFlags } from '@gi-types/gio2';
 import { ChecksumType, compute_checksum_for_bytes, UriFlags, uri_parse } from '@gi-types/glib2';
@@ -40,56 +15,7 @@ import { ClipboardContent, ContentType } from '@pano/utils/clipboardManager';
 import { ClipboardQueryBuilder, db, DBItem } from '@pano/utils/db';
 import { getDocument, getImage } from '@pano/utils/linkParser';
 import { getCachePath, getCurrentExtensionSettings, getImagesPath, logger, playAudio } from '@pano/utils/shell';
-
-hljs.registerLanguage('python', python);
-hljs.registerLanguage('markdown', markdown);
-hljs.registerLanguage('yaml', yaml);
-hljs.registerLanguage('java', java);
-hljs.registerLanguage('javascript', javascript);
-hljs.registerLanguage('csharp', csharp);
-hljs.registerLanguage('cpp', cpp);
-hljs.registerLanguage('c', c);
-hljs.registerLanguage('php', php);
-hljs.registerLanguage('typescript', typescript);
-hljs.registerLanguage('swift', swift);
-hljs.registerLanguage('kotlin', kotlin);
-hljs.registerLanguage('go', go);
-hljs.registerLanguage('rust', rust);
-hljs.registerLanguage('ruby', ruby);
-hljs.registerLanguage('scala', scala);
-hljs.registerLanguage('dart', dart);
-hljs.registerLanguage('lua', lua);
-hljs.registerLanguage('groovy', groovy);
-hljs.registerLanguage('perl', perl);
-hljs.registerLanguage('julia', julia);
-hljs.registerLanguage('haskell', haskell);
-hljs.registerLanguage('sql', sql);
-
-const SUPPORTED_LANGUAGES = [
-  'python',
-  'markdown',
-  'yaml',
-  'java',
-  'javascript',
-  'csharp',
-  'cpp',
-  'c',
-  'php',
-  'typescript',
-  'swift',
-  'kotlin',
-  'go',
-  'rust',
-  'ruby',
-  'scala',
-  'dart',
-  'sql',
-  'lua',
-  'groovy',
-  'perl',
-  'julia',
-  'haskell',
-];
+// import { GuessLang } from './guesslang';
 
 const debug = logger('pano-item-factory');
 
@@ -100,6 +26,19 @@ const isValidUrl = (text: string) => {
     return false;
   }
 };
+
+// const detectLanguage = async (text: string) => {
+//   try {
+//     const guessLang = new GuessLang();
+//     const result = await guessLang.runModel(text);
+//     if (result.length > 0) {
+//       return result[0];
+//     }
+//   } catch (err) {
+//     debug(`err: ${err}`);
+//   }
+//   return null;
+// };
 
 const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null> => {
   const { value, type } = clip.content;
@@ -202,8 +141,8 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
           searchValue: value,
         });
       }
-      const highlightResult = hljs.highlightAuto(value.slice(0, 2000), SUPPORTED_LANGUAGES);
-      if (highlightResult.relevance < 10) {
+      const isCode = false;
+      if (!isCode) {
         return db.save({
           content: value,
           copyDate: new Date(),

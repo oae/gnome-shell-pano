@@ -50,6 +50,8 @@ declare global {
   }
 
   export const log: (arg: any) => void;
+  export const TextDecoder: any;
+  export const TextEncoder: any;
 }
 
 type AnimatableActorFields =
