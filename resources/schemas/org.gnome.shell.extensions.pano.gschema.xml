@@ -21,12 +21,12 @@
       <description>Stores clipboard history.</description>
     </key>
     <key name="paste-on-select" type="b">
-      <default>false</default>
+      <default>true</default>
       <summary>Paste item on select</summary>
       <description>Allow Pano to paste content on select.</description>
     </key>
     <key name="play-audio-on-copy" type="b">
-      <default>false</default>
+      <default>true</default>
       <summary>Play audio on copy</summary>
       <description>Plays an audio when copying a new content.</description>
     </key>
