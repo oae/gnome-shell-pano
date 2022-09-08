@@ -55,7 +55,7 @@ msgstr "Listedeki herhangi bir pencereye odaklanılırsa Pano izlemeyi durduraca
 msgid "Window class name"
 msgstr "Pencere sınıfı adı"
 
-#: src/prefs/general/generalGroup.ts:14
+#: src/prefs/general/generalGroup.ts:15
 msgid "General Options"
 msgstr "Genel seçenekler"
 
@@ -102,3 +102,11 @@ msgstr "Bir kısayol seçin"
 #: src/prefs/general/shortcutRow.ts:75
 msgid "New shortcut"
 msgstr "Yeni kısayol"
+
+#: src/prefs/general/watchExclusions.ts:13
+msgid "Watch Exclusions"
+msgstr "İstisnaları İzle"
+
+#: src/prefs/general/watchExclusions.ts:14
+msgid "When enabled, Pano will not track clipboard from excluded apps"
+msgstr "Etkinleştirildiğinde Pano, hariç tutulanlardaki içerikleri izlemeyecektir"
