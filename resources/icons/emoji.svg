@@ -3,7 +3,7 @@
    id="emoji"
    viewBox="0 0 72 72"
    version="1.1"
-   sodipodi:docname="smiley.svg"
+   sodipodi:docname="emoji.svg"
    inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -22,14 +22,14 @@
      inkscape:deskcolor="#505050"
      showgrid="false"
      inkscape:zoom="10.819444"
-     inkscape:cx="17.607189"
-     inkscape:cy="36.046213"
+     inkscape:cx="39.373557"
+     inkscape:cy="36.138641"
      inkscape:window-width="1900"
      inkscape:window-height="1002"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="emoji" />
+     inkscape:current-layer="line" />
   <g
      id="color">
     <circle
@@ -51,14 +51,14 @@
     <circle
        cx="36"
        cy="36"
-       r="23"
        fill="none"
        stroke="#000000"
        stroke-linecap="round"
        stroke-linejoin="round"
        stroke-width="2"
        id="circle60"
-       style="fill:#1a1a1a;fill-opacity:0;stroke:#ffffff;stroke-opacity:1" />
+       style="fill:#1a1a1a;fill-opacity:0;stroke:#ffffff;stroke-opacity:1;stroke-width:4;stroke-dasharray:none"
+       r="23" />
     <path
        fill="none"
        stroke="#000000"
@@ -67,14 +67,14 @@
        stroke-width="2"
        d="M45.8149,44.9293 c-2.8995,1.6362-6.2482,2.5699-9.8149,2.5699s-6.9153-0.9336-9.8149-2.5699"
        id="path62"
-       style="stroke:#ffffff;stroke-opacity:1" />
+       style="stroke:#ffffff;stroke-opacity:1;stroke-width:4;stroke-dasharray:none" />
     <path
-       d="M30,31c0,1.6568-1.3448,3-3,3c-1.6553,0-3-1.3433-3-3c0-1.6552,1.3447-3,3-3C28.6552,28,30,29.3448,30,31"
+       d="m 28.910742,31.407072 c 0,1.905938 -1.547021,3.451119 -3.451119,3.451119 -1.904212,0 -3.451119,-1.545296 -3.451119,-3.451119 0,-1.904097 1.546907,-3.451119 3.451119,-3.451119 1.904098,0 3.451119,1.547022 3.451119,3.451119"
        id="path64"
-       style="fill:#ffffff" />
+       style="fill:#ffffff;stroke-width:1.15037" />
     <path
-       d="M48,31c0,1.6568-1.3447,3-3,3s-3-1.3433-3-3c0-1.6552,1.3447-3,3-3S48,29.3448,48,31"
+       d="m 49.617458,31.407072 c 0,1.905938 -1.546907,3.451119 -3.451119,3.451119 -1.904213,0 -3.45112,-1.545296 -3.45112,-3.451119 0,-1.904097 1.546907,-3.451119 3.45112,-3.451119 1.904212,0 3.451119,1.547022 3.451119,3.451119"
        id="path66"
-       style="fill:#ffffff" />
+       style="fill:#ffffff;stroke-width:1.15037;stroke-dasharray:none" />
   </g>
 </svg>
