@@ -1,7 +1,7 @@
 import { PreferencesWindow } from '@gi-types/adw1';
-import { initTranslations, logger } from '@pano/utils/shell';
 import { DangerZonePage } from '@pano/prefs/dangerZone';
 import { GeneralPage } from '@pano/prefs/general';
+import { initTranslations, logger } from '@pano/utils/shell';
 
 const debug = logger('prefs');
 const init = (): void => {

@@ -30,5 +30,12 @@
       <summary>Play audio on copy</summary>
       <description>Plays an audio when copying a new content.</description>
     </key>
+    <key name="exclusion-list" type="as">
+      <default>['Bitwarden', '1Password', 'KeePassXC']</default>
+      <summary>Exclusion list</summary>
+      <description>
+        Excludes clipboard tracking for windows that has class name listed in here.
+      </description>
+    </key>
   </schema>
 </schemalist>

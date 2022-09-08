@@ -1,12 +1,15 @@
 import { ActionRow, ExpanderRow, PreferencesGroup } from '@gi-types/adw1';
+import { Settings } from '@gi-types/gio2';
+import { Variant } from '@gi-types/glib2';
 import { Align, Button, Entry } from '@gi-types/gtk4';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { _ } from '@pano/utils/shell';
+import { getCurrentExtensionSettings, _ } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class ExclusionGroup extends PreferencesGroup {
   private exclusionRow: ExpanderRow;
   private exclusionButton: Button;
+  private settings: Settings;
 
   constructor() {
     super({
@@ -14,8 +17,11 @@ export class ExclusionGroup extends PreferencesGroup {
       margin_top: 20,
     });
 
+    this.settings = getCurrentExtensionSettings();
+
     this.exclusionRow = new ExpanderRow({
       title: _('Excluded Apps'),
+      subtitle: _('Pano will stop tracking if any window from the list is focussed'),
     });
 
     this.exclusionButton = new Button({
@@ -33,6 +39,11 @@ export class ExclusionGroup extends PreferencesGroup {
 
     this.set_header_suffix(this.exclusionButton);
     this.add(this.exclusionRow);
+    const savedWindowClasses = this.settings.get_value('exclusion-list').deep_unpack() as string[];
+    savedWindowClasses.forEach((w) => this.exclusionRow.add_row(this.createExcludedApp(w)));
+    if (savedWindowClasses.length > 0) {
+      this.exclusionRow.set_expanded(true);
+    }
   }
 
   private createEntryRow(): ActionRow {
@@ -59,9 +70,20 @@ export class ExclusionGroup extends PreferencesGroup {
     okButton.connect('clicked', () => {
       if (entry.get_text().trim()) {
         this.exclusionRow.remove(entryRow);
-        this.exclusionRow.add_row(this.createExcludedApp(entry.get_text()));
+        this.exclusionRow.add_row(this.createExcludedApp(entry.get_text().trim()));
         this.exclusionButton.set_sensitive(true);
+        this.settings.set_value(
+          'exclusion-list',
+          new Variant('as', [
+            ...(this.settings.get_value('exclusion-list').deep_unpack() as string[]),
+            entry.get_text().trim(),
+          ]),
+        );
       }
+    });
+
+    entry.connect('activate', () => {
+      okButton.emit('clicked');
     });
 
     const cancelButton = new Button({
@@ -96,6 +118,13 @@ export class ExclusionGroup extends PreferencesGroup {
     });
     removeButton.connect('clicked', () => {
       this.exclusionRow.remove(excludedRow);
+      this.settings.set_value(
+        'exclusion-list',
+        new Variant(
+          'as',
+          (this.settings.get_value('exclusion-list').deep_unpack() as string[]).filter((w) => w !== appClassName),
+        ),
+      );
     });
 
     excludedRow.add_suffix(removeButton);

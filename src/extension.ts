@@ -1,4 +1,6 @@
 import { DBus, DBusExportedObject, Settings } from '@gi-types/gio2';
+import { PRIORITY_DEFAULT, Source, SOURCE_REMOVE, timeout_add } from '@gi-types/glib2';
+import { Global } from '@gi-types/shell0';
 import { PanoWindow } from '@pano/containers/panoWindow';
 import { clipboardManager } from '@pano/utils/clipboardManager';
 import { db } from '@pano/utils/db';
@@ -25,6 +27,8 @@ class PanoExtension {
   private isEnabled = false;
   private settings: Settings;
   private lastDBpath: string;
+  private windowTrackerId: number | null;
+  private timeoutId: number | null;
 
   constructor() {
     setupAppDirs();
@@ -66,10 +70,33 @@ class PanoExtension {
       this.keyManager.listenFor(this.settings.get_string('shortcut'), () => this.panoWindow.toggle());
     });
     clipboardManager.startTracking();
+    this.windowTrackerId = Global.get().display.connect('notify::focus-window', () => {
+      const wmClass = Global.get().display.focus_window?.get_wm_class();
+      if (wmClass && (this.settings.get_value('exclusion-list').deep_unpack() as string[]).indexOf(wmClass) >= 0) {
+        clipboardManager.stopTracking();
+      } else if (clipboardManager.isTracking === false) {
+        this.timeoutId = timeout_add(PRIORITY_DEFAULT, 300, () => {
+          clipboardManager.startTracking();
+          if (this.timeoutId) {
+            Source.remove(this.timeoutId);
+          }
+          this.timeoutId = null;
+          return SOURCE_REMOVE;
+        });
+      }
+    });
     debug('extension is enabled');
   }
 
   disable(): void {
+    if (this.windowTrackerId) {
+      Global.get().display.disconnect(this.windowTrackerId);
+    }
+    if (this.timeoutId) {
+      Source.remove(this.timeoutId);
+    }
+    this.windowTrackerId = null;
+    this.timeoutId = null;
     removeVirtualKeyboard();
     removeSoundContext();
     this.isEnabled = false;

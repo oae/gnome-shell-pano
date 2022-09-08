@@ -1,6 +1,6 @@
 import { Bytes } from '@gi-types/glib2';
 import { MetaInfo, Object } from '@gi-types/gobject2';
-import { Selection, SelectionType } from '@gi-types/meta10';
+import { Selection, SelectionSource, SelectionType } from '@gi-types/meta10';
 import { Global } from '@gi-types/shell0';
 import { Clipboard, ClipboardType } from '@gi-types/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
@@ -14,6 +14,7 @@ const MimeType = {
   TEXT: ['text/plain', 'text/plain;charset=utf-8', 'UTF8_STRING'],
   IMAGE: ['image/png'],
   GNOME_FILE: ['x-special/gnome-copied-files'],
+  SENSITIVE: ['x-kde-passwordManagerHint'],
 };
 
 export enum ContentType {
@@ -74,6 +75,7 @@ export class ClipboardManager extends Object {
   private clipboard: Clipboard;
   private selection: Selection;
   private selectionChangedId: number;
+  public isTracking: boolean;
 
   constructor() {
     super();
@@ -82,23 +84,28 @@ export class ClipboardManager extends Object {
     this.selection = global.get_display().get_selection();
   }
   startTracking() {
-    this.selectionChangedId = this.selection.connect('owner-changed', async (_, selectionType: SelectionType) => {
-      if (selectionType === SelectionType.SELECTION_CLIPBOARD) {
-        try {
-          const result = await this.getContent();
-          if (!result) {
-            return;
+    this.isTracking = true;
+    this.selectionChangedId = this.selection.connect(
+      'owner-changed',
+      async (_selection: Selection, selectionType: SelectionType, _selectionSource: SelectionSource) => {
+        if (selectionType === SelectionType.SELECTION_CLIPBOARD) {
+          try {
+            const result = await this.getContent();
+            if (!result) {
+              return;
+            }
+            this.emit('changed', result);
+          } catch (err) {
+            debug(`error: ${err}`);
           }
-          this.emit('changed', result);
-        } catch (err) {
-          debug(`error: ${err}`);
         }
-      }
-    });
+      },
+    );
   }
 
   stopTracking() {
     this.selection.disconnect(this.selectionChangedId);
+    this.isTracking = false;
   }
 
   setContent({ content }: ClipboardContent): void {
@@ -126,7 +133,10 @@ export class ClipboardManager extends Object {
   private async getContent(): Promise<ClipboardContent | null> {
     return new Promise((resolve) => {
       const cbMimeTypes = this.clipboard.get_mimetypes(ClipboardType.CLIPBOARD);
-      if (this.haveMimeType(cbMimeTypes, MimeType.GNOME_FILE)) {
+      if (this.haveMimeType(cbMimeTypes, MimeType.SENSITIVE)) {
+        resolve(null);
+        return;
+      } else if (this.haveMimeType(cbMimeTypes, MimeType.GNOME_FILE)) {
         const currentMimeType = this.getCurrentMimeType(cbMimeTypes, MimeType.GNOME_FILE);
         if (!currentMimeType) {
           resolve(null);

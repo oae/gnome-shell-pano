@@ -25,7 +25,7 @@ msgstr "Geçmişi temizlemek istediğine emin misiniz?"
 
 #: src/prefs/dangerZone/index.ts:10
 msgid "Danger Zone"
-msgstr ""
+msgstr "Tehlikeli bölge"
 
 #: src/prefs/general/dbLocation.ts:22
 msgid "Database Location"
@@ -39,21 +39,25 @@ msgstr "Pano veritabanı konumunu seçin"
 msgid "Failed to select directory"
 msgstr "Dizin seçilemedi"
 
-#: src/prefs/general/exclusionGroup.ts:13
+#: src/prefs/general/exclusionGroup.ts:16
 msgid "Manage Exclusions"
-msgstr ""
+msgstr "Hariç Tutulanları Yönet"
 
-#: src/prefs/general/exclusionGroup.ts:18
+#: src/prefs/general/exclusionGroup.ts:23
 msgid "Excluded Apps"
-msgstr ""
+msgstr "Hariç Tutulan Uygulamalar"
 
-#: src/prefs/general/exclusionGroup.ts:42
+#: src/prefs/general/exclusionGroup.ts:24
+msgid "Pano will stop tracking if any window from the list is focussed"
+msgstr "Listedeki herhangi bir pencereye odaklanılırsa Pano izlemeyi durduracak"
+
+#: src/prefs/general/exclusionGroup.ts:53
 msgid "Window class name"
-msgstr ""
+msgstr "Pencere sınıfı adı"
 
 #: src/prefs/general/generalGroup.ts:14
 msgid "General Options"
-msgstr ""
+msgstr "Genel seçenekler"
 
 #: src/prefs/general/historyLength.ts:13
 msgid "History Length"
@@ -65,7 +69,7 @@ msgstr "Pano geçmişi uzunluğunu 10 - 500 arasında sınırlayabilirsin"
 
 #: src/prefs/general/index.ts:11
 msgid "General"
-msgstr ""
+msgstr "Genel"
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"
