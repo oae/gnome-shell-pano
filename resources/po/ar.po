@@ -39,15 +39,19 @@ msgstr "اختر موقع قاعدة بيانات پانو"
 msgid "Failed to select directory"
 msgstr "فشل اختيار المجلد"
 
-#: src/prefs/general/exclusionGroup.ts:13
+#: src/prefs/general/exclusionGroup.ts:16
 msgid "Manage Exclusions"
 msgstr ""
 
-#: src/prefs/general/exclusionGroup.ts:18
+#: src/prefs/general/exclusionGroup.ts:23
 msgid "Excluded Apps"
 msgstr ""
 
-#: src/prefs/general/exclusionGroup.ts:42
+#: src/prefs/general/exclusionGroup.ts:24
+msgid "Pano will stop tracking if any window from the list is focussed"
+msgstr ""
+
+#: src/prefs/general/exclusionGroup.ts:53
 msgid "Window class name"
 msgstr ""
 
