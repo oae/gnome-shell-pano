@@ -75,7 +75,7 @@ msgstr ""
 msgid "Window class name"
 msgstr ""
 
-#: src/prefs/general/generalGroup.ts:17
+#: src/prefs/general/generalGroup.ts:18
 msgid "General Options"
 msgstr ""
 
@@ -107,6 +107,14 @@ msgstr "Novi prečac"
 
 #: src/prefs/general/index.ts:11
 msgid "General"
+msgstr ""
+
+#: src/prefs/general/offlineMode.ts:13
+msgid "Offline Mode"
+msgstr ""
+
+#: src/prefs/general/offlineMode.ts:14
+msgid "When enabled, Pano will not try to connect to internet"
 msgstr ""
 
 #: src/prefs/general/pasteOnSelect.ts:13

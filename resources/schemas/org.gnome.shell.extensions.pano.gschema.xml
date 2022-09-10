@@ -47,6 +47,11 @@
       <summary>Shows indicator</summary>
       <description>Shows an indicator on top panel.</description>
     </key>
+    <key name="offline-mode" type="b">
+      <default>false</default>
+      <summary>Offline mode</summary>
+      <description>When enabled, Pano will not try to connect to internet.</description>
+    </key>
     <key name="watch-exclusion-list" type="b">
       <default>true</default>
       <summary>Watch exclusion list</summary>
