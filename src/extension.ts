@@ -64,18 +64,18 @@ class PanoExtension {
     setupAppDirs();
     db.start();
     addTopChrome(this.panoWindow);
-    this.keyManager.listenFor(this.settings.get_string('shortcut'), () => this.panoWindow.toggle());
-    this.settings.connect('changed::shortcut', () => {
-      this.keyManager.stopListening();
-      this.keyManager.listenFor(this.settings.get_string('shortcut'), () => this.panoWindow.toggle());
+    this.keyManager.listenFor('shortcut', () => this.panoWindow.toggle());
+    this.keyManager.listenFor('incognito-shortcut', () => {
+      this.settings.set_boolean('is-in-incognito', !this.settings.get_boolean('is-in-incognito'));
     });
+
     clipboardManager.startTracking();
     this.windowTrackerId = Global.get().display.connect('notify::focus-window', () => {
       const wmClass = Global.get().display.focus_window?.get_wm_class();
       if (
         wmClass &&
         this.settings.get_boolean('watch-exclusion-list') &&
-        (this.settings.get_value('exclusion-list').deep_unpack() as string[]).indexOf(wmClass) >= 0
+        this.settings.get_strv('exclusion-list').indexOf(wmClass) >= 0
       ) {
         clipboardManager.stopTracking();
       } else if (clipboardManager.isTracking === false) {
@@ -104,7 +104,8 @@ class PanoExtension {
     removeVirtualKeyboard();
     removeSoundContext();
     this.isEnabled = false;
-    this.keyManager.stopListening();
+    this.keyManager.stopListening('shortcut');
+    this.keyManager.stopListening('incognito-shortcut');
     clipboardManager.stopTracking();
     removeChrome(this.panoWindow);
     debug('extension is disabled');

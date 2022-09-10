@@ -39,23 +39,23 @@ msgstr "Choose pano database location"
 msgid "Failed to select directory"
 msgstr "Failed to select directory"
 
-#: src/prefs/general/exclusionGroup.ts:16
+#: src/prefs/general/exclusionGroup.ts:15
 msgid "Manage Exclusions"
 msgstr "Manage Exclusions"
 
-#: src/prefs/general/exclusionGroup.ts:23
+#: src/prefs/general/exclusionGroup.ts:22
 msgid "Excluded Apps"
 msgstr "Excluded Apps"
 
-#: src/prefs/general/exclusionGroup.ts:24
+#: src/prefs/general/exclusionGroup.ts:23
 msgid "Pano will stop tracking if any window from the list is focussed"
 msgstr "Pano will stop tracking if any window from the list is focussed"
 
-#: src/prefs/general/exclusionGroup.ts:53
+#: src/prefs/general/exclusionGroup.ts:52
 msgid "Window class name"
 msgstr "Window class name"
 
-#: src/prefs/general/generalGroup.ts:15
+#: src/prefs/general/generalGroup.ts:16
 msgid "General Options"
 msgstr "General Options"
 
@@ -66,6 +66,24 @@ msgstr "History Length"
 #: src/prefs/general/historyLength.ts:14
 msgid "You can limit your clipboard history length between 10 - 500"
 msgstr "You can limit your clipboard history length between 10 - 500"
+
+#: src/prefs/general/incognitoShortcutRow.ts:57
+msgid "Incognito Mode Shortcut"
+msgstr "Incognito Mode Shortcut"
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr "Allows you to toggle incognito mode"
+
+#: src/prefs/general/incognitoShortcutRow.ts:64
+#: src/prefs/general/shortcutRow.ts:64
+msgid "Select a shortcut"
+msgstr "Select a shortcut"
+
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "New shortcut"
 
 #: src/prefs/general/index.ts:11
 msgid "General"
@@ -94,14 +112,6 @@ msgstr "Global Shortcut"
 #: src/prefs/general/shortcutRow.ts:58
 msgid "Allows you to toggle visibility of the clipboard manager"
 msgstr "Allows you to toggle visibility of the clipboard manager"
-
-#: src/prefs/general/shortcutRow.ts:64
-msgid "Select a shortcut"
-msgstr "Select a shortcut"
-
-#: src/prefs/general/shortcutRow.ts:75
-msgid "New shortcut"
-msgstr "New shortcut"
 
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"

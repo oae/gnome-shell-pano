@@ -39,23 +39,23 @@ msgstr "Choisissez l'emplacement de la base de données pano"
 msgid "Failed to select directory"
 msgstr "La sélection du répertoire a échouée"
 
-#: src/prefs/general/exclusionGroup.ts:16
+#: src/prefs/general/exclusionGroup.ts:15
 msgid "Manage Exclusions"
 msgstr ""
 
-#: src/prefs/general/exclusionGroup.ts:23
+#: src/prefs/general/exclusionGroup.ts:22
 msgid "Excluded Apps"
 msgstr ""
 
-#: src/prefs/general/exclusionGroup.ts:24
+#: src/prefs/general/exclusionGroup.ts:23
 msgid "Pano will stop tracking if any window from the list is focussed"
 msgstr ""
 
-#: src/prefs/general/exclusionGroup.ts:53
+#: src/prefs/general/exclusionGroup.ts:52
 msgid "Window class name"
 msgstr ""
 
-#: src/prefs/general/generalGroup.ts:15
+#: src/prefs/general/generalGroup.ts:16
 msgid "General Options"
 msgstr ""
 
@@ -68,6 +68,24 @@ msgid "You can limit your clipboard history length between 10 - 500"
 msgstr ""
 "Vous pouvez limiter la taille de l'historique du presse-papiers entre 10 et "
 "500"
+
+#: src/prefs/general/incognitoShortcutRow.ts:57
+msgid "Incognito Mode Shortcut"
+msgstr ""
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr ""
+
+#: src/prefs/general/incognitoShortcutRow.ts:64
+#: src/prefs/general/shortcutRow.ts:64
+msgid "Select a shortcut"
+msgstr "Sélectionnez un raccourci"
+
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "Nouveau raccourci"
 
 #: src/prefs/general/index.ts:11
 msgid "General"
@@ -96,14 +114,6 @@ msgstr "Raccourcis globaux"
 #: src/prefs/general/shortcutRow.ts:58
 msgid "Allows you to toggle visibility of the clipboard manager"
 msgstr "Permet de basculer la visibilité du gestionnaire de presse-papiers"
-
-#: src/prefs/general/shortcutRow.ts:64
-msgid "Select a shortcut"
-msgstr "Sélectionnez un raccourci"
-
-#: src/prefs/general/shortcutRow.ts:75
-msgid "New shortcut"
-msgstr "Nouveau raccourci"
 
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"

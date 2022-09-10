@@ -50,25 +50,25 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtensionSettings, _ } from '@pano/utils/shell';
 
 @registerGObjectClass
-export class ShortcutRow extends ActionRow {
+export class IncognitoShortcutRow extends ActionRow {
   private settings: Settings;
   constructor() {
     super({
-      title: _('Global Shortcut'),
-      subtitle: _('Allows you to toggle visibility of the clipboard manager'),
+      title: _('Incognito Mode Shortcut'),
+      subtitle: _('Allows you to toggle incognito mode'),
     });
 
     this.settings = getCurrentExtensionSettings();
 
     const shortcutLabel = new ShortcutLabel({
       disabled_text: _('Select a shortcut'),
-      accelerator: this.settings.get_strv('shortcut')[0],
+      accelerator: this.settings.get_strv('incognito-shortcut')[0],
       valign: Align.CENTER,
       halign: Align.CENTER,
     });
 
-    this.settings.connect('changed::shortcut', () => {
-      shortcutLabel.set_accelerator(this.settings.get_strv('shortcut')[0]);
+    this.settings.connect('changed::incognito-shortcut', () => {
+      shortcutLabel.set_accelerator(this.settings.get_strv('incognito-shortcut')[0]);
     });
 
     this.connect('activated', () => {
@@ -100,7 +100,7 @@ export class ShortcutRow extends ActionRow {
           return EVENT_STOP;
         }
 
-        this.settings.set_strv('shortcut', [accelerator_name_with_keycode(null, keyval, keycode, mask)]);
+        this.settings.set_strv('incognito-shortcut', [accelerator_name_with_keycode(null, keyval, keycode, mask)]);
         editor.destroy();
 
         return EVENT_STOP;
