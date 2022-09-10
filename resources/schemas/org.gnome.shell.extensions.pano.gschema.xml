@@ -8,12 +8,24 @@
       <summary>History Length</summary>
       <description>Controls length of the clipboard history.</description>
     </key>
-    <key name="shortcut" type="s">
+    <key name="shortcut" type="as">
       <default>
-        <![CDATA['<Shift><Super>v']]>
+        <![CDATA[['<Shift><Super>v']]]>
       </default>
       <summary>Global shortcut key</summary>
       <description>Controls global shortcut.</description>
+    </key>
+    <key name="incognito-shortcut" type="as">
+      <default>
+        <![CDATA[['<Ctrl><Shift><Super>v']]]>
+      </default>
+      <summary>Global shortcut key</summary>
+      <description>Controls global shortcut.</description>
+    </key>
+    <key name="is-in-incognito" type="b">
+      <default>false</default>
+      <summary>Controls the incognito status</summary>
+      <description>Pano will not track clipboard if true.</description>
     </key>
     <key name="database-location" type="s">
       <default>''</default>

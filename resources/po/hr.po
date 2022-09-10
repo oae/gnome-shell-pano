@@ -39,23 +39,23 @@ msgstr "Odaberi lokaciju baze podataka panoa"
 msgid "Failed to select directory"
 msgstr "Neuspjeli odabir direktorija"
 
-#: src/prefs/general/exclusionGroup.ts:16
+#: src/prefs/general/exclusionGroup.ts:15
 msgid "Manage Exclusions"
 msgstr ""
 
-#: src/prefs/general/exclusionGroup.ts:23
+#: src/prefs/general/exclusionGroup.ts:22
 msgid "Excluded Apps"
 msgstr ""
 
-#: src/prefs/general/exclusionGroup.ts:24
+#: src/prefs/general/exclusionGroup.ts:23
 msgid "Pano will stop tracking if any window from the list is focussed"
 msgstr ""
 
-#: src/prefs/general/exclusionGroup.ts:53
+#: src/prefs/general/exclusionGroup.ts:52
 msgid "Window class name"
 msgstr ""
 
-#: src/prefs/general/generalGroup.ts:15
+#: src/prefs/general/generalGroup.ts:16
 msgid "General Options"
 msgstr ""
 
@@ -66,6 +66,24 @@ msgstr "Duljina povijesti"
 #: src/prefs/general/historyLength.ts:14
 msgid "You can limit your clipboard history length between 10 - 500"
 msgstr "Možete ograničiti svoju duljinu povijesti međuspremnika između 10 - 500"
+
+#: src/prefs/general/incognitoShortcutRow.ts:57
+msgid "Incognito Mode Shortcut"
+msgstr ""
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr ""
+
+#: src/prefs/general/incognitoShortcutRow.ts:64
+#: src/prefs/general/shortcutRow.ts:64
+msgid "Select a shortcut"
+msgstr "Odaberi prečac"
+
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "Novi prečac"
 
 #: src/prefs/general/index.ts:11
 msgid "General"
@@ -94,14 +112,6 @@ msgstr "Globalni prečaci"
 #: src/prefs/general/shortcutRow.ts:58
 msgid "Allows you to toggle visibility of the clipboard manager"
 msgstr "Omogućuje vam promjenu vidljivosti upravitelja međuspremnika"
-
-#: src/prefs/general/shortcutRow.ts:64
-msgid "Select a shortcut"
-msgstr "Odaberi prečac"
-
-#: src/prefs/general/shortcutRow.ts:75
-msgid "New shortcut"
-msgstr "Novi prečac"
 
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"

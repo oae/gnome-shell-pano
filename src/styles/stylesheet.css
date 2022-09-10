@@ -3,6 +3,13 @@
   height: 380px;
 }
 
+.pano-window.incognito {
+  background-color: rgba(17, 0, 29, 0.9);
+  background-image: url('./images/incognito-mode.svg');
+  background-size: 45px;
+  background-position: 10px 10px;
+}
+
 .pano-window .search-entry-container {
   padding: 10px;
   padding-bottom: 5px;

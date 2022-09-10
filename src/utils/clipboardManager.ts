@@ -1,10 +1,11 @@
+import { Settings } from '@gi-types/gio2';
 import { Bytes } from '@gi-types/glib2';
 import { MetaInfo, Object } from '@gi-types/gobject2';
 import { Selection, SelectionSource, SelectionType } from '@gi-types/meta10';
 import { Global } from '@gi-types/shell0';
 import { Clipboard, ClipboardType } from '@gi-types/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { logger } from '@pano/utils/shell';
+import { getCurrentExtensionSettings, logger } from '@pano/utils/shell';
 
 const global = Global.get();
 
@@ -76,10 +77,11 @@ export class ClipboardManager extends Object {
   private selection: Selection;
   private selectionChangedId: number;
   public isTracking: boolean;
+  private settings: Settings;
 
   constructor() {
     super();
-
+    this.settings = getCurrentExtensionSettings();
     this.clipboard = Clipboard.get_default();
     this.selection = global.get_display().get_selection();
   }
@@ -88,6 +90,9 @@ export class ClipboardManager extends Object {
     this.selectionChangedId = this.selection.connect(
       'owner-changed',
       async (_selection: Selection, selectionType: SelectionType, _selectionSource: SelectionSource) => {
+        if (this.settings.get_boolean('is-in-incognito')) {
+          return;
+        }
         if (selectionType === SelectionType.SELECTION_CLIPBOARD) {
           try {
             const result = await this.getContent();
