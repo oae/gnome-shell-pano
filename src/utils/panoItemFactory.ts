@@ -287,19 +287,24 @@ export const createPanoItemFromDb = (dbItem: DBItem | null): PanoItem | null => 
 
   panoItem.connect('on-remove', (_, dbItemStr: string) => {
     const dbItem: DBItem = JSON.parse(dbItemStr);
-    db.delete(dbItem.id);
-    if (dbItem.itemType === 'LINK') {
-      const { image } = JSON.parse(dbItem.metaData || '{}');
-      if (image && File.new_for_uri(`file://${getCachePath()}/${image}.png`).query_exists(null)) {
-        File.new_for_uri(`file://${getCachePath()}/${image}.png`).delete(null);
-      }
-    } else if (dbItem.itemType === 'IMAGE') {
-      const imageFilePath = `file://${getImagesPath()}/${dbItem.content}.png`;
-      const imageFile = File.new_for_uri(imageFilePath);
-      if (imageFile.query_exists(null)) {
-        imageFile.delete(null);
-      }
-    }
+    removeItemResources(dbItem);
   });
+
   return panoItem;
+};
+
+export const removeItemResources = (dbItem: DBItem) => {
+  db.delete(dbItem.id);
+  if (dbItem.itemType === 'LINK') {
+    const { image } = JSON.parse(dbItem.metaData || '{}');
+    if (image && File.new_for_uri(`file://${getCachePath()}/${image}.png`).query_exists(null)) {
+      File.new_for_uri(`file://${getCachePath()}/${image}.png`).delete(null);
+    }
+  } else if (dbItem.itemType === 'IMAGE') {
+    const imageFilePath = `file://${getImagesPath()}/${dbItem.content}.png`;
+    const imageFile = File.new_for_uri(imageFilePath);
+    if (imageFile.query_exists(null)) {
+      imageFile.delete(null);
+    }
+  }
 };
