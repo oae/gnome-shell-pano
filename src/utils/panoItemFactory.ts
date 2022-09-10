@@ -170,8 +170,18 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
       });
     case ContentType.TEXT:
       if (value.trim().toLowerCase().startsWith('http') && isValidUrl(value)) {
-        const { description, imageUrl, title } = await getDocument(value);
-        const [checksum] = await getImage(imageUrl);
+        const offlineMode = getCurrentExtensionSettings().get_boolean('offline-mode');
+        let description = '',
+          imageUrl = '',
+          title = '',
+          checksum = null;
+        if (!offlineMode) {
+          const document = await getDocument(value);
+          description = document.description;
+          title = document.title;
+          imageUrl = document.imageUrl;
+          checksum = await getImage(imageUrl)[0];
+        }
 
         return db.save({
           content: value,

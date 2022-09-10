@@ -75,7 +75,7 @@ msgstr "Pano will stop tracking if any window from the list is focussed"
 msgid "Window class name"
 msgstr "Window class name"
 
-#: src/prefs/general/generalGroup.ts:17
+#: src/prefs/general/generalGroup.ts:18
 msgid "General Options"
 msgstr "General Options"
 
@@ -108,6 +108,14 @@ msgstr "New shortcut"
 #: src/prefs/general/index.ts:11
 msgid "General"
 msgstr "General"
+
+#: src/prefs/general/offlineMode.ts:13
+msgid "Offline Mode"
+msgstr "Offline Mode"
+
+#: src/prefs/general/offlineMode.ts:14
+msgid "When enabled, Pano will not try to connect to internet"
+msgstr "When enabled, Pano will not try to connect to internet"
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"
