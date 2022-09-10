@@ -3,25 +3,41 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: fill-pot-po/2.1.9\n"
 
-#: src/components/searchBox.ts:32
-msgid "Type to search"
-msgstr "Type to search"
+#: src/components/indicator/clearHistoryDialog.ts:21
+msgid "Cancel"
+msgstr "Cancel"
 
-#: src/prefs/dangerZone/clearHistory.ts:11
-msgid "Clear History"
-msgstr "Clear History"
-
-#: src/prefs/dangerZone/clearHistory.ts:12
-msgid "Clears the clipboard database and cache"
-msgstr "Clears the clipboard database and cache"
-
+#: src/components/indicator/clearHistoryDialog.ts:28
 #: src/prefs/dangerZone/clearHistory.ts:17
 msgid "Clear"
 msgstr "Clear"
 
+#: src/components/indicator/clearHistoryDialog.ts:33
+#: src/components/indicator/settingsMenu.ts:60
+#: src/prefs/dangerZone/clearHistory.ts:11
+msgid "Clear History"
+msgstr "Clear History"
+
+#: src/components/indicator/clearHistoryDialog.ts:34
 #: src/prefs/dangerZone/clearHistory.ts:23
 msgid "Are you sure you want to clear history?"
 msgstr "Are you sure you want to clear history?"
+
+#: src/components/indicator/settingsMenu.ts:44
+msgid "Incognito Mode"
+msgstr "Incognito Mode"
+
+#: src/components/indicator/settingsMenu.ts:67
+msgid "Settings"
+msgstr "Settings"
+
+#: src/components/searchBox.ts:32
+msgid "Type to search"
+msgstr "Type to search"
+
+#: src/prefs/dangerZone/clearHistory.ts:12
+msgid "Clears the clipboard database and cache"
+msgstr "Clears the clipboard database and cache"
 
 #: src/prefs/dangerZone/index.ts:10
 msgid "Danger Zone"
@@ -55,7 +71,7 @@ msgstr "Pano will stop tracking if any window from the list is focussed"
 msgid "Window class name"
 msgstr "Window class name"
 
-#: src/prefs/general/generalGroup.ts:16
+#: src/prefs/general/generalGroup.ts:17
 msgid "General Options"
 msgstr "General Options"
 
@@ -112,6 +128,14 @@ msgstr "Global Shortcut"
 #: src/prefs/general/shortcutRow.ts:58
 msgid "Allows you to toggle visibility of the clipboard manager"
 msgstr "Allows you to toggle visibility of the clipboard manager"
+
+#: src/prefs/general/showIndicator.ts:13
+msgid "Show Indicator"
+msgstr "Show Indicator"
+
+#: src/prefs/general/showIndicator.ts:14
+msgid "Shows an indicator on top panel"
+msgstr "Shows an indicator on top panel"
 
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"

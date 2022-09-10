@@ -3,25 +3,41 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: fill-pot-po/2.1.9\n"
 
-#: src/components/searchBox.ts:32
-msgid "Type to search"
-msgstr "Aramak için yazın"
+#: src/components/indicator/clearHistoryDialog.ts:21
+msgid "Cancel"
+msgstr "İptal"
 
-#: src/prefs/dangerZone/clearHistory.ts:11
-msgid "Clear History"
-msgstr "Geçmişi Temizle"
-
-#: src/prefs/dangerZone/clearHistory.ts:12
-msgid "Clears the clipboard database and cache"
-msgstr "Pano veritabanını ve önbelleği temizler"
-
+#: src/components/indicator/clearHistoryDialog.ts:28
 #: src/prefs/dangerZone/clearHistory.ts:17
 msgid "Clear"
 msgstr "Temizle"
 
+#: src/components/indicator/clearHistoryDialog.ts:33
+#: src/components/indicator/settingsMenu.ts:60
+#: src/prefs/dangerZone/clearHistory.ts:11
+msgid "Clear History"
+msgstr "Geçmişi Temizle"
+
+#: src/components/indicator/clearHistoryDialog.ts:34
 #: src/prefs/dangerZone/clearHistory.ts:23
 msgid "Are you sure you want to clear history?"
 msgstr "Geçmişi temizlemek istediğine emin misiniz?"
+
+#: src/components/indicator/settingsMenu.ts:44
+msgid "Incognito Mode"
+msgstr "Gizli Mod"
+
+#: src/components/indicator/settingsMenu.ts:67
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: src/components/searchBox.ts:32
+msgid "Type to search"
+msgstr "Aramak için yazın"
+
+#: src/prefs/dangerZone/clearHistory.ts:12
+msgid "Clears the clipboard database and cache"
+msgstr "Pano veritabanını ve önbelleği temizler"
 
 #: src/prefs/dangerZone/index.ts:10
 msgid "Danger Zone"
@@ -55,7 +71,7 @@ msgstr "Listedeki herhangi bir pencereye odaklanılırsa Pano izlemeyi durduraca
 msgid "Window class name"
 msgstr "Pencere sınıfı adı"
 
-#: src/prefs/general/generalGroup.ts:16
+#: src/prefs/general/generalGroup.ts:17
 msgid "General Options"
 msgstr "Genel seçenekler"
 
@@ -112,6 +128,14 @@ msgstr "Genel Kısayol"
 #: src/prefs/general/shortcutRow.ts:58
 msgid "Allows you to toggle visibility of the clipboard manager"
 msgstr "Pano yöneticisinin görünürlüğünü değiştirmenizi sağlar"
+
+#: src/prefs/general/showIndicator.ts:13
+msgid "Show Indicator"
+msgstr "Gösterge ekle"
+
+#: src/prefs/general/showIndicator.ts:14
+msgid "Shows an indicator on top panel"
+msgstr "Üst panelde bir gösterge ekler"
 
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"

@@ -42,6 +42,11 @@
       <summary>Play audio on copy</summary>
       <description>Plays an audio when copying a new content.</description>
     </key>
+    <key name="show-indicator" type="b">
+      <default>true</default>
+      <summary>Shows indicator</summary>
+      <description>Shows an indicator on top panel.</description>
+    </key>
     <key name="watch-exclusion-list" type="b">
       <default>true</default>
       <summary>Watch exclusion list</summary>

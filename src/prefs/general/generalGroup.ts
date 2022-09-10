@@ -7,7 +7,8 @@ import { ShortcutRow } from '@pano/prefs/general/shortcutRow';
 import { WatchExclusionsRow } from '@pano/prefs/general/watchExclusions';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { _ } from '@pano/utils/shell';
-import { IncognitoShortcutRow } from './incognitoShortcutRow';
+import { IncognitoShortcutRow } from '@pano/prefs/general/incognitoShortcutRow';
+import { ShowIndicatorRow } from '@pano/prefs/general/showIndicator';
 
 @registerGObjectClass
 export class GeneralGroup extends PreferencesGroup {
@@ -22,6 +23,7 @@ export class GeneralGroup extends PreferencesGroup {
     this.add(new IncognitoShortcutRow());
     this.add(new PasteOnSelectRow());
     this.add(new PlayAudioOnCopyRow());
+    this.add(new ShowIndicatorRow());
     this.add(new WatchExclusionsRow());
   }
 }

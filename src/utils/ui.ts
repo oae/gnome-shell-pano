@@ -1,5 +1,6 @@
 import { Actor, get_default_backend, InputDeviceType, VirtualInputDevice } from '@gi-types/clutter10';
 import { Global } from '@gi-types/shell0';
+import { getCurrentExtension } from '@pano/utils/shell';
 
 const global = Global.get();
 
@@ -55,3 +56,9 @@ export const removeVirtualKeyboard = () => {
     virtualKeyboard = null;
   }
 };
+
+export const addToStatusArea = (button: any) => {
+  imports.ui.main.panel.addToStatusArea(getCurrentExtension().metadata.uuid, button, 1, 'right');
+};
+
+export const openExtensionPrefs = () => imports.misc.extensionUtils.openPrefs();
