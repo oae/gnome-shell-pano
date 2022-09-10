@@ -35,8 +35,7 @@ export class SettingsMenu extends PopupMenuButton {
       gicon: icon_new_for_string(
         `${getCurrentExtension().path}/icons/indicator${isInIncognito ? '-incognito' : ''}.svg`,
       ),
-      style: 'padding: 0px; margin: 0px;',
-      style_class: 'system-status-icon',
+      style_class: 'system-status-icon indicator-icon',
     });
 
     this.add_child(icon);

@@ -23,5 +23,25 @@
         "cmd": "#yarn run build:ts && yarn run shell:restart"
       }
     ]
-  }
+  },
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#832460",
+    "activityBar.background": "#832460",
+    "activityBar.foreground": "#e7e7e7",
+    "activityBar.inactiveForeground": "#e7e7e799",
+    "activityBarBadge.background": "#121907",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "commandCenter.border": "#e7e7e799",
+    "sash.hoverBorder": "#832460",
+    "statusBar.background": "#5b1943",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#832460",
+    "statusBarItem.remoteBackground": "#5b1943",
+    "statusBarItem.remoteForeground": "#e7e7e7",
+    "titleBar.activeBackground": "#5b1943",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveBackground": "#5b194399",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  },
+  "peacock.color": "#5b1943"
 }

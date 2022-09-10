@@ -21,13 +21,14 @@
 }
 
 .pano-item {
-  border-radius: 10px;
+  border-radius: 11px;
   margin-top: 10px;
   margin-bottom: 10px;
   margin-left: 10px;
   margin-right: 10px;
   height: 300px;
   width: 300px;
+  border: 4px solid transparent;
 }
 
 .pano-item:visible:first-child {
@@ -38,28 +39,28 @@
 }
 
 .pano-item:selected {
-  box-shadow: none !important;
+  border: 4px solid #3584e4 !important;
 }
 
 .pano-item:hover {
-  box-shadow: 0px 0px 5px 2px #89b4fa;
+  border: 4px solid rgba(53, 132, 228, 0.7);
 }
 
 .pano-item-header {
-  border-radius: 10px 10px 0px 0px;
+  border-radius: 6px 6px 0px 0px;
   height: 80px;
 }
 
 .pano-item-header-link {
-  background-color: #4361ee;
+  background-color: #209fb5;
 }
 
 .pano-item-header-text {
-  background-color: #179299;
+  background-color: #0A3D64;
 }
 
 .pano-item-header-file {
-  background-color: #1e66f5;
+  background-color: #4c4f69;
 }
 
 .pano-item-header-image {
@@ -75,7 +76,7 @@
 }
 
 .pano-item-body {
-  border-radius: 0px 0px 10px 10px;
+  border-radius: 0px 0px 6px 6px;
   height: 220px;
 }
 
@@ -95,6 +96,11 @@
   background-color: #afbcf7;
 }
 
+.pano-item-body-link .image-container {
+  background-size: cover;
+  border-radius: 1px 1px 0px 0px;
+}
+
 .pano-item-body-text {
   background-color: #e5c890;
 }
@@ -107,6 +113,18 @@
 
 .pano-item-body-color {
   background-color: #a6da95;
+}
+
+.pano-item-body-color .color-container {
+  border-radius: 0px 0px 6px 6px;
+}
+
+.pano-item-body-color .color-label {
+  font-size: 16px;
+  border-radius: 999px;
+  background-color: black;
+  color: white;
+  padding: 10px;
 }
 
 .pano-item-body-image {
@@ -172,7 +190,7 @@
   height: 50px;
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.7);
-  border-radius: 0px 0px 10px 10px;
+  border-radius: 0px 0px 6px 6px;
 }
 
 .pano-item-body-image-resolution-container {
@@ -228,4 +246,9 @@
 .pano-item-remove-button:hover,
 .pano-item-remove-button:active {
   background-color: #d20f39;
+}
+
+.indicator-icon {
+  padding: 0px;
+  margin: 0px;
 }

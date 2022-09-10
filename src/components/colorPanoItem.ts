@@ -17,7 +17,8 @@ export class ColorPanoItem extends PanoItem {
       y_expand: true,
       y_align: ActorAlign.FILL,
       x_align: ActorAlign.FILL,
-      style: `border-radius: 0px 0px 10px 10px; background-color: ${this.dbItem.content};`,
+      style_class: 'color-container',
+      style: `background-color: ${this.dbItem.content};`,
     });
 
     colorContainer.add_child(
@@ -27,7 +28,7 @@ export class ColorPanoItem extends PanoItem {
         x_expand: true,
         y_expand: true,
         text: this.dbItem.content,
-        style: 'font-size: 16px; border-radius: 999px; background-color: black; color: white; padding: 10px',
+        style_class: 'color-label',
       }),
     );
 
