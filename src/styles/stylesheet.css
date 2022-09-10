@@ -56,7 +56,7 @@
 }
 
 .pano-item-header-text {
-  background-color: #0A3D64;
+  background-color: #0a3d64;
 }
 
 .pano-item-header-file {
@@ -251,4 +251,8 @@
 .indicator-icon {
   padding: 0px;
   margin: 0px;
+}
+
+.pano-monitor-box {
+  background-color: transparent !important;
 }

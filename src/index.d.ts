@@ -8,6 +8,7 @@ declare global {
     lang: any;
     ui: {
       layout: any;
+      lightbox: any;
       main: {
         notify: (text: string, body: string) => void;
         panel: any;
