@@ -69,7 +69,8 @@ export class LinkPanoItem extends PanoItem {
       y_expand: true,
       y_align: ActorAlign.FILL,
       x_align: ActorAlign.FILL,
-      style: `background-image: url(${imageFilePath}); background-size: cover; border-radius: 1px 1px 0px 0px;`,
+      style_class: 'image-container',
+      style: `background-image: url(${imageFilePath});`,
     });
 
     metaContainer.add_child(titleLabel);

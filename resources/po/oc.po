@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "Escafar"
 
 #: src/components/indicator/clearHistoryDialog.ts:33
-#: src/components/indicator/settingsMenu.ts:68
+#: src/components/indicator/settingsMenu.ts:67
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr "Escafar l’istoric"
@@ -23,15 +23,15 @@ msgstr "Escafar l’istoric"
 msgid "Are you sure you want to clear history?"
 msgstr "Volètz vertadièrament escafar l’istoric ?"
 
-#: src/components/indicator/settingsMenu.ts:44
+#: src/components/indicator/settingsMenu.ts:43
 msgid "Toggle Pano"
 msgstr ""
 
-#: src/components/indicator/settingsMenu.ts:52
+#: src/components/indicator/settingsMenu.ts:51
 msgid "Incognito Mode"
 msgstr ""
 
-#: src/components/indicator/settingsMenu.ts:75
+#: src/components/indicator/settingsMenu.ts:74
 msgid "Settings"
 msgstr ""
 

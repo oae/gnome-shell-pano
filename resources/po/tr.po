@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "Temizle"
 
 #: src/components/indicator/clearHistoryDialog.ts:33
-#: src/components/indicator/settingsMenu.ts:68
+#: src/components/indicator/settingsMenu.ts:67
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr "Geçmişi Temizle"
@@ -23,15 +23,15 @@ msgstr "Geçmişi Temizle"
 msgid "Are you sure you want to clear history?"
 msgstr "Geçmişi temizlemek istediğine emin misiniz?"
 
-#: src/components/indicator/settingsMenu.ts:44
+#: src/components/indicator/settingsMenu.ts:43
 msgid "Toggle Pano"
 msgstr "Pano'yu Aç"
 
-#: src/components/indicator/settingsMenu.ts:52
+#: src/components/indicator/settingsMenu.ts:51
 msgid "Incognito Mode"
 msgstr "Gizli Mod"
 
-#: src/components/indicator/settingsMenu.ts:75
+#: src/components/indicator/settingsMenu.ts:74
 msgid "Settings"
 msgstr "Ayarlar"
 
