@@ -25,7 +25,7 @@ export class SettingsMenu extends PopupMenuButton {
   private settings: Settings;
   private incognitoChangeId: number;
 
-  constructor(onClear: () => Promise<void>) {
+  constructor(onClear: () => Promise<void>, onToggle: () => void) {
     super(0.5, 'Pano Indicator', false);
 
     this.settings = getCurrentExtensionSettings();
@@ -40,6 +40,14 @@ export class SettingsMenu extends PopupMenuButton {
     });
 
     this.add_child(icon);
+
+    const togglePanoItem = new PopupMenuItem(_('Toggle Pano'));
+    togglePanoItem.connect('activate', () => {
+      this.menu.close(false);
+      onToggle();
+    });
+    this.menu.addMenuItem(togglePanoItem);
+    this.menu.addMenuItem(new PopupSeparatorMenuItem());
 
     const switchMenuItem = new PopupSwitchMenuItem(_('Incognito Mode'), this.settings.get_boolean('is-in-incognito'));
 

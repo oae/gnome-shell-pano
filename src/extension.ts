@@ -70,7 +70,7 @@ class PanoExtension {
 
   createIndicator() {
     if (this.settings.get_boolean('show-indicator')) {
-      this.settingsMenu = new SettingsMenu(this.clearHistory.bind(this));
+      this.settingsMenu = new SettingsMenu(this.clearHistory.bind(this), () => this.panoWindow.toggle());
       addToStatusArea(this.settingsMenu);
     }
   }
