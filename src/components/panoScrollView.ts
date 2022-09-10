@@ -97,6 +97,11 @@ export class PanoScrollView extends ScrollView {
       },
     );
 
+    const firstItem = this.list.get_first_child() as PanoItem;
+    if (firstItem) {
+      firstItem.emit('activated');
+    }
+
     this.settings.connect('changed::history-length', () => {
       this.removeExcessiveItems();
     });
@@ -246,6 +251,14 @@ export class PanoScrollView extends ScrollView {
           return true;
         }
       }
+    } else if (this.currentFilter && this.getVisibleItems().length > 0) {
+      this.currentFocus = this.getVisibleItems()[0];
+      this.currentFocus.grab_key_focus();
+      return true;
+    } else if (!this.currentFilter && this.getVisibleItems().length > 1) {
+      this.currentFocus = this.getVisibleItems()[1];
+      this.currentFocus.grab_key_focus();
+      return true;
     } else if (this.getVisibleItems().length > 0) {
       this.currentFocus = this.getVisibleItems()[0];
       this.currentFocus.grab_key_focus();
