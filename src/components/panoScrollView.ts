@@ -125,6 +125,9 @@ export class PanoScrollView extends ScrollView {
 
   private connectOnRemove(panoItem: PanoItem) {
     panoItem.connect('on-remove', () => {
+      if (this.currentFocus === panoItem) {
+        this.focusNext() || this.focusPrev();
+      }
       this.removeItem(panoItem);
       this.fillRemainingItems();
       this.filter(this.currentFilter);
@@ -185,29 +188,33 @@ export class PanoScrollView extends ScrollView {
   private focusNext() {
     const lastFocus = this.currentFocus;
     if (!lastFocus) {
-      this.focusOnClosest();
-      return;
+      return this.focusOnClosest();
     }
 
     const index = this.getVisibleItems().findIndex((item) => item.dbItem.id === lastFocus.dbItem.id);
     if (index + 1 < this.getVisibleItems().length) {
       this.currentFocus = this.getVisibleItems()[index + 1];
       this.currentFocus.grab_key_focus();
+      return true;
     }
+
+    return false;
   }
 
   private focusPrev() {
     const lastFocus = this.currentFocus;
     if (!lastFocus) {
-      this.focusOnClosest();
-      return;
+      return this.focusOnClosest();
     }
 
     const index = this.getVisibleItems().findIndex((item) => item.dbItem.id === lastFocus.dbItem.id);
     if (index - 1 >= 0) {
       this.currentFocus = this.getVisibleItems()[index - 1];
       this.currentFocus.grab_key_focus();
+      return true;
     }
+
+    return false;
   }
 
   filter(text: string) {
@@ -234,6 +241,7 @@ export class PanoScrollView extends ScrollView {
     if (lastFocus !== null) {
       if (lastFocus.get_parent() === this.list && lastFocus.is_visible()) {
         lastFocus.grab_key_focus();
+        return true;
       } else {
         let nextFocus = this.getVisibleItems().find((item) => item.dbItem.copyDate <= lastFocus.dbItem.copyDate);
         if (!nextFocus) {
@@ -244,12 +252,16 @@ export class PanoScrollView extends ScrollView {
         if (nextFocus) {
           this.currentFocus = nextFocus;
           nextFocus.grab_key_focus();
+          return true;
         }
       }
     } else if (this.getVisibleItems().length > 0) {
       this.currentFocus = this.getVisibleItems()[0];
       this.currentFocus.grab_key_focus();
+      return true;
     }
+
+    return false;
   }
 
   scrollToFirstItem() {
