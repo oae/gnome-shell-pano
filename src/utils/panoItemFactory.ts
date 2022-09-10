@@ -174,13 +174,13 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
         let description = '',
           imageUrl = '',
           title = '',
-          checksum = null;
+          checksum = '';
         if (!offlineMode) {
           const document = await getDocument(value);
           description = document.description;
           title = document.title;
           imageUrl = document.imageUrl;
-          checksum = await getImage(imageUrl)[0];
+          checksum = (await getImage(imageUrl))[0] || '';
         }
 
         return db.save({
