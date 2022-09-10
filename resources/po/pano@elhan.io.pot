@@ -18,18 +18,26 @@ msgstr ""
 msgid "Allows you to toggle visibility of the clipboard manager"
 msgstr ""
 
+#: src/components/indicator/clearHistoryDialog.ts:34
 #: src/prefs/dangerZone/clearHistory.ts:23
 msgid "Are you sure you want to clear history?"
+msgstr ""
+
+#: src/components/indicator/clearHistoryDialog.ts:21
+msgid "Cancel"
 msgstr ""
 
 #: src/prefs/general/dbLocation.ts:30
 msgid "Choose pano database location"
 msgstr ""
 
+#: src/components/indicator/clearHistoryDialog.ts:28
 #: src/prefs/dangerZone/clearHistory.ts:17
 msgid "Clear"
 msgstr ""
 
+#: src/components/indicator/clearHistoryDialog.ts:33
+#: src/components/indicator/settingsMenu.ts:60
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr ""
@@ -58,7 +66,7 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: src/prefs/general/generalGroup.ts:16
+#: src/prefs/general/generalGroup.ts:17
 msgid "General Options"
 msgstr ""
 
@@ -68,6 +76,10 @@ msgstr ""
 
 #: src/prefs/general/historyLength.ts:13
 msgid "History Length"
+msgstr ""
+
+#: src/components/indicator/settingsMenu.ts:44
+msgid "Incognito Mode"
 msgstr ""
 
 #: src/prefs/general/incognitoShortcutRow.ts:57
@@ -98,6 +110,18 @@ msgstr ""
 #: src/prefs/general/incognitoShortcutRow.ts:64
 #: src/prefs/general/shortcutRow.ts:64
 msgid "Select a shortcut"
+msgstr ""
+
+#: src/components/indicator/settingsMenu.ts:67
+msgid "Settings"
+msgstr ""
+
+#: src/prefs/general/showIndicator.ts:13
+msgid "Show Indicator"
+msgstr ""
+
+#: src/prefs/general/showIndicator.ts:14
+msgid "Shows an indicator on top panel"
 msgstr ""
 
 #: src/components/searchBox.ts:32

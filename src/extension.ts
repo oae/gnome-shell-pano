@@ -16,7 +16,8 @@ import {
   removeSoundContext,
   setupAppDirs,
 } from '@pano/utils/shell';
-import { addTopChrome, removeChrome, removeVirtualKeyboard } from '@pano/utils/ui';
+import { addTopChrome, addToStatusArea, removeChrome, removeVirtualKeyboard } from '@pano/utils/ui';
+import { SettingsMenu } from '@pano/components/indicator/settingsMenu';
 import './styles/stylesheet.css';
 
 const debug = logger('extension');
@@ -29,6 +30,7 @@ class PanoExtension {
   private lastDBpath: string;
   private windowTrackerId: number | null;
   private timeoutId: number | null;
+  private settingsMenu: SettingsMenu | null;
 
   constructor() {
     setupAppDirs();
@@ -57,11 +59,31 @@ class PanoExtension {
       }
       this.lastDBpath = newDBpath;
     });
+    this.settings.connect('changed::show-indicator', () => {
+      if (this.settings.get_boolean('show-indicator') && this.isEnabled) {
+        this.createIndicator();
+      } else {
+        this.removeIndicator();
+      }
+    });
+  }
+
+  createIndicator() {
+    if (this.settings.get_boolean('show-indicator')) {
+      this.settingsMenu = new SettingsMenu(this.clearHistory.bind(this));
+      addToStatusArea(this.settingsMenu);
+    }
+  }
+
+  removeIndicator() {
+    this.settingsMenu?.destroy();
+    this.settingsMenu = null;
   }
 
   enable(): void {
     this.isEnabled = true;
     setupAppDirs();
+    this.createIndicator();
     db.start();
     addTopChrome(this.panoWindow);
     this.keyManager.listenFor('shortcut', () => this.panoWindow.toggle());
@@ -103,6 +125,7 @@ class PanoExtension {
     if (this.timeoutId) {
       Source.remove(this.timeoutId);
     }
+    this.removeIndicator();
     this.windowTrackerId = null;
     this.timeoutId = null;
     removeVirtualKeyboard();

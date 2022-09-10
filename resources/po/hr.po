@@ -3,25 +3,41 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: fill-pot-po/2.1.9\n"
 
-#: src/components/searchBox.ts:32
-msgid "Type to search"
-msgstr "Upišite za pretragu"
+#: src/components/indicator/clearHistoryDialog.ts:21
+msgid "Cancel"
+msgstr ""
 
-#: src/prefs/dangerZone/clearHistory.ts:11
-msgid "Clear History"
-msgstr "Ukloni povijest"
-
-#: src/prefs/dangerZone/clearHistory.ts:12
-msgid "Clears the clipboard database and cache"
-msgstr "Briše bazu podataka međuspremnika i predmemoriju"
-
+#: src/components/indicator/clearHistoryDialog.ts:28
 #: src/prefs/dangerZone/clearHistory.ts:17
 msgid "Clear"
 msgstr "Ukloni"
 
+#: src/components/indicator/clearHistoryDialog.ts:33
+#: src/components/indicator/settingsMenu.ts:60
+#: src/prefs/dangerZone/clearHistory.ts:11
+msgid "Clear History"
+msgstr "Ukloni povijest"
+
+#: src/components/indicator/clearHistoryDialog.ts:34
 #: src/prefs/dangerZone/clearHistory.ts:23
 msgid "Are you sure you want to clear history?"
 msgstr "Sigurno želite ukloniti povijest?"
+
+#: src/components/indicator/settingsMenu.ts:44
+msgid "Incognito Mode"
+msgstr ""
+
+#: src/components/indicator/settingsMenu.ts:67
+msgid "Settings"
+msgstr ""
+
+#: src/components/searchBox.ts:32
+msgid "Type to search"
+msgstr "Upišite za pretragu"
+
+#: src/prefs/dangerZone/clearHistory.ts:12
+msgid "Clears the clipboard database and cache"
+msgstr "Briše bazu podataka međuspremnika i predmemoriju"
 
 #: src/prefs/dangerZone/index.ts:10
 msgid "Danger Zone"
@@ -55,7 +71,7 @@ msgstr ""
 msgid "Window class name"
 msgstr ""
 
-#: src/prefs/general/generalGroup.ts:16
+#: src/prefs/general/generalGroup.ts:17
 msgid "General Options"
 msgstr ""
 
@@ -112,6 +128,14 @@ msgstr "Globalni prečaci"
 #: src/prefs/general/shortcutRow.ts:58
 msgid "Allows you to toggle visibility of the clipboard manager"
 msgstr "Omogućuje vam promjenu vidljivosti upravitelja međuspremnika"
+
+#: src/prefs/general/showIndicator.ts:13
+msgid "Show Indicator"
+msgstr ""
+
+#: src/prefs/general/showIndicator.ts:14
+msgid "Shows an indicator on top panel"
+msgstr ""
 
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"

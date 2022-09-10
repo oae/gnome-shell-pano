@@ -3,25 +3,41 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: fill-pot-po/2.1.9\n"
 
-#: src/components/searchBox.ts:32
-msgid "Type to search"
-msgstr "Tapez pour rechercher"
+#: src/components/indicator/clearHistoryDialog.ts:21
+msgid "Cancel"
+msgstr ""
 
-#: src/prefs/dangerZone/clearHistory.ts:11
-msgid "Clear History"
-msgstr "Vider l'historique"
-
-#: src/prefs/dangerZone/clearHistory.ts:12
-msgid "Clears the clipboard database and cache"
-msgstr "Vider la base de données du presse-papiers et le cache"
-
+#: src/components/indicator/clearHistoryDialog.ts:28
 #: src/prefs/dangerZone/clearHistory.ts:17
 msgid "Clear"
 msgstr "Vider"
 
+#: src/components/indicator/clearHistoryDialog.ts:33
+#: src/components/indicator/settingsMenu.ts:60
+#: src/prefs/dangerZone/clearHistory.ts:11
+msgid "Clear History"
+msgstr "Vider l'historique"
+
+#: src/components/indicator/clearHistoryDialog.ts:34
 #: src/prefs/dangerZone/clearHistory.ts:23
 msgid "Are you sure you want to clear history?"
 msgstr "Êtes-vous sûr de vouloir vider l'historique ?"
+
+#: src/components/indicator/settingsMenu.ts:44
+msgid "Incognito Mode"
+msgstr ""
+
+#: src/components/indicator/settingsMenu.ts:67
+msgid "Settings"
+msgstr ""
+
+#: src/components/searchBox.ts:32
+msgid "Type to search"
+msgstr "Tapez pour rechercher"
+
+#: src/prefs/dangerZone/clearHistory.ts:12
+msgid "Clears the clipboard database and cache"
+msgstr "Vider la base de données du presse-papiers et le cache"
 
 #: src/prefs/dangerZone/index.ts:10
 msgid "Danger Zone"
@@ -55,7 +71,7 @@ msgstr ""
 msgid "Window class name"
 msgstr ""
 
-#: src/prefs/general/generalGroup.ts:16
+#: src/prefs/general/generalGroup.ts:17
 msgid "General Options"
 msgstr ""
 
@@ -114,6 +130,14 @@ msgstr "Raccourcis globaux"
 #: src/prefs/general/shortcutRow.ts:58
 msgid "Allows you to toggle visibility of the clipboard manager"
 msgstr "Permet de basculer la visibilité du gestionnaire de presse-papiers"
+
+#: src/prefs/general/showIndicator.ts:13
+msgid "Show Indicator"
+msgstr ""
+
+#: src/prefs/general/showIndicator.ts:14
+msgid "Shows an indicator on top panel"
+msgstr ""
 
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"
