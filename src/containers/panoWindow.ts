@@ -102,13 +102,13 @@ export class PanoWindow extends BoxLayout {
       duration: 250,
       mode: AnimationMode.EASE_OUT_QUAD,
     });
-    this.monitorBox.show();
+    this.monitorBox.open();
 
     return EVENT_PROPAGATE;
   }
 
   override hide() {
-    this.monitorBox.hide();
+    this.monitorBox.close();
     this.ease({
       opacity: 0,
       duration: 200,
