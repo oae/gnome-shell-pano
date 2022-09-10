@@ -71,7 +71,11 @@ class PanoExtension {
 
     clipboardManager.startTracking();
     this.windowTrackerId = Global.get().display.connect('notify::focus-window', () => {
-      const wmClass = Global.get().display.focus_window?.get_wm_class();
+      const focussedWindow = Global.get().display.focus_window;
+      if (focussedWindow && this.panoWindow.is_visible()) {
+        this.panoWindow.hide();
+      }
+      const wmClass = focussedWindow?.get_wm_class();
       if (
         wmClass &&
         this.settings.get_boolean('watch-exclusion-list') &&
