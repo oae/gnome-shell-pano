@@ -83,7 +83,7 @@ msgstr "Listedeki herhangi bir pencereye odaklanılırsa Pano izlemeyi durduraca
 msgid "Window class name"
 msgstr "Pencere sınıfı adı"
 
-#: src/prefs/general/generalGroup.ts:18
+#: src/prefs/general/generalGroup.ts:19
 msgid "General Options"
 msgstr "Genel seçenekler"
 
@@ -156,6 +156,14 @@ msgstr "Gösterge ekle"
 #: src/prefs/general/showIndicator.ts:14
 msgid "Shows an indicator on top panel"
 msgstr "Üst panelde bir gösterge ekler"
+
+#: src/prefs/general/syncPrimary.ts:13
+msgid "Sync Primary"
+msgstr "Birincil Geçmiş Senkronizasyonu"
+
+#: src/prefs/general/syncPrimary.ts:14
+msgid "Sync primary selection with clipboard selection"
+msgstr "Birincil geçmiş ile ana geçmişi senkronize et"
 
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"

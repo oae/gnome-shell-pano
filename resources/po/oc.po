@@ -83,7 +83,7 @@ msgstr ""
 msgid "Window class name"
 msgstr ""
 
-#: src/prefs/general/generalGroup.ts:18
+#: src/prefs/general/generalGroup.ts:19
 msgid "General Options"
 msgstr ""
 
@@ -155,6 +155,14 @@ msgstr ""
 
 #: src/prefs/general/showIndicator.ts:14
 msgid "Shows an indicator on top panel"
+msgstr ""
+
+#: src/prefs/general/syncPrimary.ts:13
+msgid "Sync Primary"
+msgstr ""
+
+#: src/prefs/general/syncPrimary.ts:14
+msgid "Sync primary selection with clipboard selection"
 msgstr ""
 
 #: src/prefs/general/watchExclusions.ts:13

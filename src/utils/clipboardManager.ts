@@ -5,7 +5,7 @@ import { Selection, SelectionSource, SelectionType } from '@gi-types/meta10';
 import { Global } from '@gi-types/shell0';
 import { Clipboard, ClipboardType } from '@gi-types/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { getCurrentExtensionSettings, logger } from '@pano/utils/shell';
+import { debounce, getCurrentExtensionSettings, logger } from '@pano/utils/shell';
 
 const global = Global.get();
 
@@ -87,6 +87,13 @@ export class ClipboardManager extends Object {
   }
   startTracking() {
     this.isTracking = true;
+    const primaryTracker = debounce(async () => {
+      const result = await this.getContent(ClipboardType.PRIMARY);
+      if (!result) {
+        return;
+      }
+      this.emit('changed', result);
+    }, 500);
     this.selectionChangedId = this.selection.connect(
       'owner-changed',
       async (_selection: Selection, selectionType: SelectionType, _selectionSource: SelectionSource) => {
@@ -95,11 +102,19 @@ export class ClipboardManager extends Object {
         }
         if (selectionType === SelectionType.SELECTION_CLIPBOARD) {
           try {
-            const result = await this.getContent();
+            const result = await this.getContent(ClipboardType.CLIPBOARD);
             if (!result) {
               return;
             }
             this.emit('changed', result);
+          } catch (err) {
+            debug(`error: ${err}`);
+          }
+        } else if (selectionType === SelectionType.SELECTION_PRIMARY) {
+          try {
+            if (this.settings.get_boolean('sync-primary')) {
+              primaryTracker();
+            }
           } catch (err) {
             debug(`error: ${err}`);
           }
@@ -114,11 +129,25 @@ export class ClipboardManager extends Object {
   }
 
   setContent({ content }: ClipboardContent): void {
+    const syncPrimary = this.settings.get_boolean('sync-primary');
     if (content.type === ContentType.TEXT) {
+      if (syncPrimary) {
+        this.clipboard.set_text(ClipboardType.PRIMARY, content.value);
+      }
       this.clipboard.set_text(ClipboardType.CLIPBOARD, content.value);
     } else if (content.type === ContentType.IMAGE) {
+      if (syncPrimary) {
+        this.clipboard.set_content(ClipboardType.PRIMARY, MimeType.IMAGE[0], content.value);
+      }
       this.clipboard.set_content(ClipboardType.CLIPBOARD, MimeType.IMAGE[0], content.value);
     } else if (content.type === ContentType.FILE) {
+      if (syncPrimary) {
+        this.clipboard.set_content(
+          ClipboardType.PRIMARY,
+          MimeType.GNOME_FILE[0],
+          new TextEncoder().encode([content.value.operation, ...content.value.fileList].join('\n')),
+        );
+      }
       this.clipboard.set_content(
         ClipboardType.CLIPBOARD,
         MimeType.GNOME_FILE[0],
@@ -135,9 +164,9 @@ export class ClipboardManager extends Object {
     return clipboardMimeTypes.find((m) => targetMimeTypes.indexOf(m) >= 0);
   }
 
-  private async getContent(): Promise<ClipboardContent | null> {
+  private async getContent(clipboardType: ClipboardType): Promise<ClipboardContent | null> {
     return new Promise((resolve) => {
-      const cbMimeTypes = this.clipboard.get_mimetypes(ClipboardType.CLIPBOARD);
+      const cbMimeTypes = this.clipboard.get_mimetypes(clipboardType);
       if (this.haveMimeType(cbMimeTypes, MimeType.SENSITIVE)) {
         resolve(null);
         return;
@@ -147,7 +176,7 @@ export class ClipboardManager extends Object {
           resolve(null);
           return;
         }
-        this.clipboard.get_content(ClipboardType.CLIPBOARD, currentMimeType, (_, bytes: Bytes | Uint8Array) => {
+        this.clipboard.get_content(clipboardType, currentMimeType, (_, bytes: Bytes | Uint8Array) => {
           const data = bytes instanceof Bytes ? bytes.get_data() : bytes;
           if (data && data.length > 0) {
             const content = new TextDecoder().decode(data);
@@ -172,7 +201,7 @@ export class ClipboardManager extends Object {
           resolve(null);
           return;
         }
-        this.clipboard.get_content(ClipboardType.CLIPBOARD, currentMimeType, (_, bytes: Bytes | Uint8Array) => {
+        this.clipboard.get_content(clipboardType, currentMimeType, (_, bytes: Bytes | Uint8Array) => {
           const data = bytes instanceof Bytes ? bytes.get_data() : bytes;
           if (data && data.length > 0) {
             resolve(
@@ -186,8 +215,8 @@ export class ClipboardManager extends Object {
           resolve(null);
         });
       } else if (this.haveMimeType(cbMimeTypes, MimeType.TEXT)) {
-        this.clipboard.get_text(ClipboardType.CLIPBOARD, (_: Clipboard, text: string) => {
-          if (text) {
+        this.clipboard.get_text(clipboardType, (_: Clipboard, text: string) => {
+          if (text && text.trim()) {
             resolve(
               new ClipboardContent({
                 type: ContentType.TEXT,

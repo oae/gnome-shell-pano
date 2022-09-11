@@ -83,7 +83,7 @@ msgstr "Pano sẽ ngừng lưu dữ liệu khay nhớ tạm trong cửa sổ c�
 msgid "Window class name"
 msgstr "Tên của cửa sổ"
 
-#: src/prefs/general/generalGroup.ts:18
+#: src/prefs/general/generalGroup.ts:19
 msgid "General Options"
 msgstr "Tùy Chọn Chung"
 
@@ -156,6 +156,14 @@ msgstr "Hiện Thị Chỉ Báo"
 #: src/prefs/general/showIndicator.ts:14
 msgid "Shows an indicator on top panel"
 msgstr "Hiển Thị Chỉ Báo ở panel trên"
+
+#: src/prefs/general/syncPrimary.ts:13
+msgid "Sync Primary"
+msgstr ""
+
+#: src/prefs/general/syncPrimary.ts:14
+msgid "Sync primary selection with clipboard selection"
+msgstr ""
 
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"

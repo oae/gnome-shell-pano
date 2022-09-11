@@ -83,7 +83,7 @@ msgstr "Pano will stop tracking if any window from the list is focussed"
 msgid "Window class name"
 msgstr "Window class name"
 
-#: src/prefs/general/generalGroup.ts:18
+#: src/prefs/general/generalGroup.ts:19
 msgid "General Options"
 msgstr "General Options"
 
@@ -156,6 +156,14 @@ msgstr "Show Indicator"
 #: src/prefs/general/showIndicator.ts:14
 msgid "Shows an indicator on top panel"
 msgstr "Shows an indicator on top panel"
+
+#: src/prefs/general/syncPrimary.ts:13
+msgid "Sync Primary"
+msgstr "Sync Primary"
+
+#: src/prefs/general/syncPrimary.ts:14
+msgid "Sync primary selection with clipboard selection"
+msgstr "Sync primary selection with clipboard selection"
 
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"

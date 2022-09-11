@@ -8,7 +8,14 @@ import {
   FileType,
   Settings,
 } from '@gi-types/gio2';
-import { get_user_cache_dir, get_user_data_dir, PRIORITY_DEFAULT } from '@gi-types/glib2';
+import {
+  get_user_cache_dir,
+  get_user_data_dir,
+  PRIORITY_DEFAULT,
+  Source,
+  SOURCE_REMOVE,
+  timeout_add,
+} from '@gi-types/glib2';
 import { ATTR_EVENT_ID, Context } from '@imports/gsound1';
 
 export const logger =
@@ -208,3 +215,18 @@ export const removeSoundContext = () => {
 export const initTranslations = () => imports.misc.extensionUtils.initTranslations(getCurrentExtension().metadata.uuid);
 export const _ = imports.gettext.domain(getCurrentExtension().metadata.uuid).gettext;
 export const ngettext = imports.gettext.domain(getCurrentExtension().metadata.uuid).ngettext;
+
+export function debounce(func, wait) {
+  let sourceId;
+  return function (...args) {
+    const debouncedFunc = function (this: unknown) {
+      sourceId = null;
+      func.apply(this, args);
+
+      return SOURCE_REMOVE;
+    };
+
+    if (sourceId) Source.remove(sourceId);
+    sourceId = timeout_add(PRIORITY_DEFAULT, wait, debouncedFunc);
+  };
+}
