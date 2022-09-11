@@ -1,0 +1,166 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: fill-pot-po/2.1.9\n"
+
+#: src/components/indicator/clearHistoryDialog.ts:21
+msgid "Cancel"
+msgstr "Hủy"
+
+#: src/components/indicator/clearHistoryDialog.ts:28
+#: src/prefs/dangerZone/clearHistory.ts:17
+msgid "Clear"
+msgstr "Xóa"
+
+#: src/components/indicator/clearHistoryDialog.ts:33
+#: src/components/indicator/settingsMenu.ts:67
+#: src/prefs/dangerZone/clearHistory.ts:11
+msgid "Clear History"
+msgstr "Xóa Lịch Sử"
+
+#: src/components/indicator/clearHistoryDialog.ts:34
+#: src/prefs/dangerZone/clearHistory.ts:23
+msgid "Are you sure you want to clear history?"
+msgstr "Bạn chắc bạn có muốn xóa lịch sử không?"
+
+#: src/components/indicator/settingsMenu.ts:43
+msgid "Toggle Pano"
+msgstr "Bật/Tắt Pano"
+
+#: src/components/indicator/settingsMenu.ts:51
+msgid "Incognito Mode"
+msgstr "Chế Độ Ẩn Danh"
+
+#: src/components/indicator/settingsMenu.ts:74
+msgid "Settings"
+msgstr "Cài Đặt"
+
+#: src/components/searchBox.ts:32
+msgid "Type to search"
+msgstr "Gõ để tìm kiếm"
+
+#: src/prefs/dangerZone/clearHistory.ts:12
+msgid "Clears the clipboard database and cache"
+msgstr "Xóa dữ liệu khay nhớ tạm và dữ liệu tạm thời"
+
+#: src/prefs/dangerZone/index.ts:11
+msgid "Danger Zone"
+msgstr "Khu Vực Nguy Hiểm"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr "Chế Độ Tạm Thời"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr "Khi đuợc bật, Pano sẽ xóa lịch sử khi đăng thoát/khởi động lại/tắt máy."
+
+#: src/prefs/general/dbLocation.ts:22
+msgid "Database Location"
+msgstr "Vị Trí Dữ Liệu"
+
+#: src/prefs/general/dbLocation.ts:30
+msgid "Choose pano database location"
+msgstr "Chọn nơi để chứa dữ liệu của Pano"
+
+#: src/prefs/general/dbLocation.ts:52
+msgid "Failed to select directory"
+msgstr "Không thể chọn thư mục"
+
+#: src/prefs/general/exclusionGroup.ts:15
+msgid "Manage Exclusions"
+msgstr "Quản Lý Ngoại Lệ"
+
+#: src/prefs/general/exclusionGroup.ts:22
+msgid "Excluded Apps"
+msgstr "Ứng Dụng Ngoại Lệ"
+
+#: src/prefs/general/exclusionGroup.ts:23
+msgid "Pano will stop tracking if any window from the list is focussed"
+msgstr "Pano sẽ ngừng lưu dữ liệu khay nhớ tạm trong cửa sổ của ứng dụng ngoại lệ"
+
+#: src/prefs/general/exclusionGroup.ts:52
+msgid "Window class name"
+msgstr "Tên của cửa sổ"
+
+#: src/prefs/general/generalGroup.ts:18
+msgid "General Options"
+msgstr "Tùy Chọn Chung"
+
+#: src/prefs/general/historyLength.ts:13
+msgid "History Length"
+msgstr "Độ Dài Lịch Sử"
+
+#: src/prefs/general/historyLength.ts:14
+msgid "You can limit your clipboard history length between 10 - 500"
+msgstr "Bạn có thể giới hạn độ dài lịch sử khau nhớ tạm từ 10 - 500"
+
+#: src/prefs/general/incognitoShortcutRow.ts:57
+msgid "Incognito Mode Shortcut"
+msgstr "Phím Tắt Chế Độ Ẩn Danh"
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr "Cho phép bạn bật/tắt chế độ ẩn danh"
+
+#: src/prefs/general/incognitoShortcutRow.ts:64
+#: src/prefs/general/shortcutRow.ts:64
+msgid "Select a shortcut"
+msgstr "Chọn phím tắt"
+
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "Phím tắt mới"
+
+#: src/prefs/general/index.ts:11
+msgid "General"
+msgstr "Chung"
+
+#: src/prefs/general/offlineMode.ts:13
+msgid "Offline Mode"
+msgstr "Chế Độ Offline"
+
+#: src/prefs/general/offlineMode.ts:14
+msgid "When enabled, Pano will not try to connect to internet"
+msgstr "Khi đuợc bật, Pano sẽ không kết nối tới Internet"
+
+#: src/prefs/general/pasteOnSelect.ts:13
+msgid "Paste on Select"
+msgstr "Dán khi đuợc Chọn"
+
+#: src/prefs/general/pasteOnSelect.ts:14
+msgid "Allow Pano to paste content on select"
+msgstr "Cho phép Pano dán nội dung đuợc chọn tức thì"
+
+#: src/prefs/general/playAudioOnCopy.ts:13
+msgid "Play an Audio on Copy"
+msgstr "Chơi Âm Thanh Khi Sao Chép"
+
+#: src/prefs/general/playAudioOnCopy.ts:14
+msgid "Allow Pano to play an audio when copying new content"
+msgstr "Cho phép Pano chơi âm thanh báo khi chép dữ liệu mới"
+
+#: src/prefs/general/shortcutRow.ts:57
+msgid "Global Shortcut"
+msgstr "Phím Tắt Toàn Cầu"
+
+#: src/prefs/general/shortcutRow.ts:58
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "Cho phép bạn hiển thị/ẩn trình quản lý khay nhớ tạm"
+
+#: src/prefs/general/showIndicator.ts:13
+msgid "Show Indicator"
+msgstr "Hiện Thị Chỉ Báo"
+
+#: src/prefs/general/showIndicator.ts:14
+msgid "Shows an indicator on top panel"
+msgstr "Hiển Thị Chỉ Báo ở panel trên"
+
+#: src/prefs/general/watchExclusions.ts:13
+msgid "Watch Exclusions"
+msgstr "Theo Dõi Ứng Dụng Ngoại Lệ"
+
+#: src/prefs/general/watchExclusions.ts:14
+msgid "When enabled, Pano will not track clipboard from excluded apps"
+msgstr "Khi đuợc bât, Pano sẽ không lưu dữ liệu đuợc sao chép vào bộ nhớ tạm trong những ứng dụng ngoại lệ"
