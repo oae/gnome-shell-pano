@@ -43,9 +43,17 @@ msgstr "Type to search"
 msgid "Clears the clipboard database and cache"
 msgstr "Clears the clipboard database and cache"
 
-#: src/prefs/dangerZone/index.ts:10
+#: src/prefs/dangerZone/index.ts:11
 msgid "Danger Zone"
 msgstr "Danger Zone"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr "Session Only Mode"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr "When enabled, Pano will clear all history on logout/restart/shutdown."
 
 #: src/prefs/general/dbLocation.ts:22
 msgid "Database Location"

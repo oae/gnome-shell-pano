@@ -1,8 +1,9 @@
-import { DBus, DBusExportedObject, Settings } from '@gi-types/gio2';
+import { DBus, DBusExportedObject, DBusSignalFlags, Settings } from '@gi-types/gio2';
 import { PRIORITY_DEFAULT, Source, SOURCE_REMOVE, timeout_add } from '@gi-types/glib2';
 import { Global } from '@gi-types/shell0';
+import { SettingsMenu } from '@pano/components/indicator/settingsMenu';
 import { PanoWindow } from '@pano/containers/panoWindow';
-import { clipboardManager } from '@pano/utils/clipboardManager';
+import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { db } from '@pano/utils/db';
 import { KeyManager } from '@pano/utils/keyManager';
 import {
@@ -17,7 +18,6 @@ import {
   setupAppDirs,
 } from '@pano/utils/shell';
 import { addTopChrome, addToStatusArea, removeChrome, removeVirtualKeyboard } from '@pano/utils/ui';
-import { SettingsMenu } from '@pano/components/indicator/settingsMenu';
 import './styles/stylesheet.css';
 
 const debug = logger('extension');
@@ -31,6 +31,10 @@ class PanoExtension {
   private windowTrackerId: number | null;
   private timeoutId: number | null;
   private settingsMenu: SettingsMenu | null;
+  private shutdownSignalId: number | null;
+  private logoutSignalId: number | null;
+  private rebootSignalId: number | null;
+  private systemdSignalId: number | null;
 
   constructor() {
     setupAppDirs();
@@ -68,6 +72,23 @@ class PanoExtension {
     });
   }
 
+  async clearSessionHistory() {
+    if (this.settings.get_boolean('session-only-mode')) {
+      debug('clearing session history');
+      db.shutdown();
+      clipboardManager.stopTracking();
+      await deleteAppDirs();
+      debug('deleted session cache and db');
+      clipboardManager.setContent(
+        new ClipboardContent({
+          type: ContentType.TEXT,
+          value: '',
+        }),
+      );
+      debug('cleared last clipboard content');
+    }
+  }
+
   createIndicator() {
     if (this.settings.get_boolean('show-indicator')) {
       this.settingsMenu = new SettingsMenu(this.clearHistory.bind(this), () => this.panoWindow.toggle());
@@ -85,6 +106,44 @@ class PanoExtension {
     setupAppDirs();
     this.createIndicator();
     db.start();
+    this.logoutSignalId = DBus.session.signal_subscribe(
+      null,
+      'org.gnome.SessionManager.EndSessionDialog',
+      'ConfirmedLogout',
+      '/org/gnome/SessionManager/EndSessionDialog',
+      null,
+      DBusSignalFlags.NONE,
+      this.clearSessionHistory.bind(this),
+    );
+
+    this.rebootSignalId = DBus.session.signal_subscribe(
+      null,
+      'org.gnome.SessionManager.EndSessionDialog',
+      'ConfirmedReboot',
+      '/org/gnome/SessionManager/EndSessionDialog',
+      null,
+      DBusSignalFlags.NONE,
+      this.clearSessionHistory.bind(this),
+    );
+
+    this.shutdownSignalId = DBus.session.signal_subscribe(
+      null,
+      'org.gnome.SessionManager.EndSessionDialog',
+      'ConfirmedShutdown',
+      '/org/gnome/SessionManager/EndSessionDialog',
+      null,
+      DBusSignalFlags.NONE,
+      this.clearSessionHistory.bind(this),
+    );
+    this.systemdSignalId = DBus.system.signal_subscribe(
+      null,
+      'org.freedesktop.login1.Manager',
+      'PrepareForShutdown',
+      '/org/freedesktop/login1',
+      null,
+      DBusSignalFlags.NONE,
+      this.clearSessionHistory.bind(this),
+    );
     addTopChrome(this.panoWindow);
     this.keyManager.listenFor('shortcut', () => this.panoWindow.toggle());
     this.keyManager.listenFor('incognito-shortcut', () => {
@@ -137,6 +196,22 @@ class PanoExtension {
     removeChrome(this.panoWindow);
     debug('extension is disabled');
     db.shutdown();
+    if (this.logoutSignalId) {
+      DBus.session.signal_unsubscribe(this.logoutSignalId);
+      this.logoutSignalId = null;
+    }
+    if (this.shutdownSignalId) {
+      DBus.session.signal_unsubscribe(this.shutdownSignalId);
+      this.shutdownSignalId = null;
+    }
+    if (this.rebootSignalId) {
+      DBus.session.signal_unsubscribe(this.rebootSignalId);
+      this.rebootSignalId = null;
+    }
+    if (this.systemdSignalId) {
+      DBus.system.signal_unsubscribe(this.systemdSignalId);
+      this.systemdSignalId = null;
+    }
   }
 
   async clearHistory() {
