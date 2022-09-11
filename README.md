@@ -18,7 +18,7 @@
 
 ## Installation
 
-- You need `libgda` for this extension to work.
+- You need `libgda` and `gsound` for this extension to work.
 
   - Fedora
 
@@ -32,16 +32,16 @@
     sudo pacman -S libgda
     ```
 
-  - Ubuntu
+  - Ubuntu/Debian
 
     ```bash
-    sudo apt install gir1.2-gda-5.0
+    sudo apt install gir1.2-gda-5.0 gir1.2-gsound-1.0
     ```
 
   - openSUSE
 
     ```bash
-    sudo zypper install libgda-6_0-sqlite typelib-1_0-Gda-6_0
+    sudo zypper install libgda-6_0-sqlite typelib-1_0-Gda-6_0 typelib-1_0-GSound-1_0
     ```
 
 - You can install the extension from EGO
