@@ -93,9 +93,7 @@ msgstr "Taille de l´historique"
 
 #: src/prefs/general/historyLength.ts:14
 msgid "You can limit your clipboard history length between 10 - 500"
-msgstr ""
-"Vous pouvez limiter la taille de l'historique du presse-papiers entre 10 et "
-"500"
+msgstr "Vous pouvez limiter la taille de l'historique du presse-papiers entre 10 et 500"
 
 #: src/prefs/general/incognitoShortcutRow.ts:57
 msgid "Incognito Mode Shortcut"

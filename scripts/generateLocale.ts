@@ -1,9 +1,9 @@
 import * as fillPotPo from 'fill-pot-po';
+import * as fs from 'fs';
 import { GettextExtractor, JsExtractors } from 'gettext-extractor';
 import * as gettextParser from 'gettext-parser';
-import * as fs from 'fs';
-import * as path from 'path';
 import * as glob from 'glob';
+import * as path from 'path';
 
 const extractStrings = () => {
   const extractor = new GettextExtractor();
@@ -38,6 +38,7 @@ const mergeStrings = () => {
     writeFiles: true,
     destDir: `${path.resolve(__dirname)}/../resources/po/`,
     logResults: true,
+    wrapLength: 1000,
   });
 };
 
