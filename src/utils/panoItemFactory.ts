@@ -25,6 +25,8 @@ import sql from 'highlight.js/lib/languages/sql';
 import swift from 'highlight.js/lib/languages/swift';
 import typescript from 'highlight.js/lib/languages/typescript';
 import yaml from 'highlight.js/lib/languages/yaml';
+import bash from 'highlight.js/lib/languages/bash';
+import shell from 'highlight.js/lib/languages/shell';
 
 import { Pixbuf } from '@gi-types/gdkpixbuf2';
 import { File, FileCreateFlags } from '@gi-types/gio2';
@@ -40,6 +42,7 @@ import { ClipboardContent, ContentType } from '@pano/utils/clipboardManager';
 import { ClipboardQueryBuilder, db, DBItem } from '@pano/utils/db';
 import { getDocument, getImage } from '@pano/utils/linkParser';
 import { getCachePath, getCurrentExtensionSettings, getImagesPath, logger, playAudio } from '@pano/utils/shell';
+import { EmojiPanoItem } from '@pano/components/emojiPanoItem';
 
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('markdown', markdown);
@@ -64,6 +67,8 @@ hljs.registerLanguage('perl', perl);
 hljs.registerLanguage('julia', julia);
 hljs.registerLanguage('haskell', haskell);
 hljs.registerLanguage('sql', sql);
+hljs.registerLanguage('bash', bash);
+hljs.registerLanguage('shell', shell);
 
 const SUPPORTED_LANGUAGES = [
   'python',
@@ -89,6 +94,8 @@ const SUPPORTED_LANGUAGES = [
   'perl',
   'julia',
   'haskell',
+  'bash',
+  'shell',
 ];
 
 const debug = logger('pano-item-factory');
@@ -112,7 +119,7 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
       queryBuilder.withItemTypes(['IMAGE']).withMatchValue(compute_checksum_for_bytes(ChecksumType.MD5, value));
       break;
     case ContentType.TEXT:
-      queryBuilder.withItemTypes(['LINK', 'TEXT', 'CODE', 'COLOR']).withMatchValue(value).build();
+      queryBuilder.withItemTypes(['LINK', 'TEXT', 'CODE', 'COLOR', 'EMOJI']).withMatchValue(value).build();
       break;
     default:
       return null;
@@ -214,14 +221,25 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
       }
       const highlightResult = hljs.highlightAuto(value.slice(0, 2000), SUPPORTED_LANGUAGES);
       if (highlightResult.relevance < 10) {
-        return db.save({
-          content: value,
-          copyDate: new Date(),
-          isFavorite: false,
-          itemType: 'TEXT',
-          matchValue: value,
-          searchValue: value,
-        });
+        if (/^\p{Extended_Pictographic}*$/u.test(value)) {
+          return db.save({
+            content: value,
+            copyDate: new Date(),
+            isFavorite: false,
+            itemType: 'EMOJI',
+            matchValue: value,
+            searchValue: value,
+          });
+        } else {
+          return db.save({
+            content: value,
+            copyDate: new Date(),
+            isFavorite: false,
+            itemType: 'TEXT',
+            matchValue: value,
+            searchValue: value,
+          });
+        }
       } else {
         return db.save({
           content: value,
@@ -279,6 +297,9 @@ export const createPanoItemFromDb = (dbItem: DBItem | null): PanoItem | null => 
       break;
     case 'IMAGE':
       panoItem = new ImagePanoItem(dbItem);
+      break;
+    case 'EMOJI':
+      panoItem = new EmojiPanoItem(dbItem);
       break;
 
     default:

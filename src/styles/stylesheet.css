@@ -59,6 +59,10 @@
   background-color: #0a3d64;
 }
 
+.pano-item-header-emoji {
+  background-color: #44a33f;
+}
+
 .pano-item-header-file {
   background-color: #4c4f69;
 }
@@ -88,6 +92,7 @@
 .pano-item-body-code-content {
   margin: 12px;
   font-size: 13px;
+  tab-size: 2;
   font-family: monospace;
 }
 
@@ -107,8 +112,24 @@
 
 .pano-item-body-text-content {
   margin: 12px;
-  font-size: 13px;
+  font-size: 18px;
+  font-family: sans-serif;
   color: #000;
+  tab-size: 2;
+}
+
+.pano-item-body-emoji {
+  background-color: #e5c890;
+}
+
+.pano-item-body-emoji-content {
+  text-align: center;
+  margin: 12px;
+  margin-top: 36px;
+  font-size: 48px;
+  font-family: sans-serif;
+  color: #000;
+  tab-size: 2;
 }
 
 .pano-item-body-color {
@@ -136,7 +157,7 @@
 }
 
 .pano-item-body-file-name-label {
-  font-size: 13px;
+  font-size: 16px;
   color: #000;
   font-family: sans;
 }
