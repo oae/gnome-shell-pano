@@ -46,7 +46,7 @@ msgstr ""
 msgid "Clears the clipboard database and cache"
 msgstr ""
 
-#: src/prefs/dangerZone/index.ts:10
+#: src/prefs/dangerZone/index.ts:11
 msgid "Danger Zone"
 msgstr ""
 
@@ -116,6 +116,10 @@ msgstr ""
 msgid "Select a shortcut"
 msgstr ""
 
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr ""
+
 #: src/components/indicator/settingsMenu.ts:74
 msgid "Settings"
 msgstr ""
@@ -138,6 +142,10 @@ msgstr ""
 
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"
+msgstr ""
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
 msgstr ""
 
 #: src/prefs/general/watchExclusions.ts:14

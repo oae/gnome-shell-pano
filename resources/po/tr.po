@@ -43,9 +43,19 @@ msgstr "Aramak için yazın"
 msgid "Clears the clipboard database and cache"
 msgstr "Pano veritabanını ve önbelleği temizler"
 
-#: src/prefs/dangerZone/index.ts:10
+#: src/prefs/dangerZone/index.ts:11
 msgid "Danger Zone"
 msgstr "Tehlikeli bölge"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr "Şu anki Oturum Modu"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr ""
+"Etkinleştirildiğinde, Pano oturum kapatma/yeniden başlatma/kapatma sırasında "
+"tüm geçmişi temizleyecektir."
 
 #: src/prefs/general/dbLocation.ts:22
 msgid "Database Location"

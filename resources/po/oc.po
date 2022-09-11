@@ -43,8 +43,16 @@ msgstr "Picatz per recercar"
 msgid "Clears the clipboard database and cache"
 msgstr "Escafa la basa de donadas del quichapapièrs e lo cache"
 
-#: src/prefs/dangerZone/index.ts:10
+#: src/prefs/dangerZone/index.ts:11
 msgid "Danger Zone"
+msgstr ""
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr ""
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
 msgstr ""
 
 #: src/prefs/general/dbLocation.ts:22

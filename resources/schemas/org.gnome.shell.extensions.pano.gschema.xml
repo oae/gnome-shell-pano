@@ -52,6 +52,11 @@
       <summary>Offline mode</summary>
       <description>When enabled, Pano will not try to connect to internet.</description>
     </key>
+    <key name="session-only-mode" type="b">
+      <default>false</default>
+      <summary>Session only mode</summary>
+      <description>When enabled, Pano will clear all history on logout/restart/shutdown.</description>
+    </key>
     <key name="watch-exclusion-list" type="b">
       <default>true</default>
       <summary>Watch exclusion list</summary>
