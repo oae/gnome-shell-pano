@@ -1,18 +1,7 @@
-#
-# Irénée THIRION <irenee.thirion@e.email>, 2022.
-#
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
-"X-Generator: Gtranslator 42.0\n"
-"MIME-Version: 1.0\n"
-"Project-Id-Version: unnamed project\n"
-"Last-Translator: Irénée THIRION <irenee.thirion@e.email>\n"
-"Language-Team: French <gnomefr@traduc.org>\n"
-"Language: fr\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
-"PO-Revision-Date: 2022-09-11 21:32+0200\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: fill-pot-po/2.1.9\n"
 
 #: src/components/indicator/clearHistoryDialog.ts:21
 msgid "Cancel"
@@ -64,9 +53,7 @@ msgstr "Mode session unique"
 
 #: src/prefs/dangerZone/sessionOnlyMode.ts:14
 msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
-msgstr ""
-"Lorsque ce mode est activé, Pano va automatiquement vider l’historique lors "
-"de la déconnexion / redémarrage / extinction"
+msgstr "Lorsque ce mode est activé, Pano va automatiquement vider l’historique lors de la déconnexion / redémarrage / extinction"
 
 #: src/prefs/general/dbLocation.ts:22
 msgid "Database Location"
@@ -90,9 +77,7 @@ msgstr "Applications exclues"
 
 #: src/prefs/general/exclusionGroup.ts:23
 msgid "Pano will stop tracking if any window from the list is focussed"
-msgstr ""
-"Pano arrêtera le suivi si une fenêtre d’une application de la liste est "
-"focalisée"
+msgstr "Pano arrêtera le suivi si une fenêtre d’une application de la liste est focalisée"
 
 #: src/prefs/general/exclusionGroup.ts:52
 msgid "Window class name"
@@ -108,9 +93,7 @@ msgstr "Taille de l’historique"
 
 #: src/prefs/general/historyLength.ts:14
 msgid "You can limit your clipboard history length between 10 - 500"
-msgstr ""
-"Vous pouvez limiter la taille de l’historique du presse-papiers entre 10 et "
-"500"
+msgstr "Vous pouvez limiter la taille de l’historique du presse-papiers entre 10 et 500"
 
 #: src/prefs/general/incognitoShortcutRow.ts:57
 msgid "Incognito Mode Shortcut"
@@ -140,8 +123,7 @@ msgstr "Mode hors-ligne"
 
 #: src/prefs/general/offlineMode.ts:14
 msgid "When enabled, Pano will not try to connect to internet"
-msgstr ""
-"Lorsque ce mode est activé, Pano n’essaiera pas de se connecter à internet"
+msgstr "Lorsque ce mode est activé, Pano n’essaiera pas de se connecter à internet"
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"
@@ -189,6 +171,4 @@ msgstr "Voir les exclusions"
 
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
-msgstr ""
-"Lorsque cette option est activée, Pano ne suivra pas le presse-papiers "
-"depuis les applications exclues"
+msgstr "Lorsque cette option est activée, Pano ne suivra pas le presse-papiers depuis les applications exclues"
