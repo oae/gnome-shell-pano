@@ -1,0 +1,168 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: fill-pot-po/2.1.9\n"
+
+#: src/components/indicator/clearHistoryDialog.ts:21
+msgid "Cancel"
+msgstr "İptal"
+
+#: src/components/indicator/clearHistoryDialog.ts:28
+#: src/prefs/dangerZone/clearHistory.ts:17
+msgid "Clear"
+msgstr "Temizle"
+
+#: src/components/indicator/clearHistoryDialog.ts:33
+#: src/components/indicator/settingsMenu.ts:67
+#: src/prefs/dangerZone/clearHistory.ts:11
+msgid "Clear History"
+msgstr "Geçmişi Temizle"
+
+#: src/components/indicator/clearHistoryDialog.ts:34
+#: src/prefs/dangerZone/clearHistory.ts:23
+msgid "Are you sure you want to clear history?"
+msgstr "Geçmişi temizlemek istediğine emin misiniz?"
+
+#: src/components/indicator/settingsMenu.ts:43
+msgid "Toggle Pano"
+msgstr "Pano'yu Aç"
+
+#: src/components/indicator/settingsMenu.ts:51
+msgid "Incognito Mode"
+msgstr "Gizli Mod"
+
+#: src/components/indicator/settingsMenu.ts:74
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: src/components/searchBox.ts:32
+msgid "Type to search"
+msgstr "Aramak için yazın"
+
+#: src/prefs/dangerZone/clearHistory.ts:12
+msgid "Clears the clipboard database and cache"
+msgstr "Pano veritabanını ve önbelleği temizler"
+
+#: src/prefs/dangerZone/index.ts:11
+msgid "Danger Zone"
+msgstr "Tehlikeli bölge"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr "Şu anki Oturum Modu"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr ""
+"Etkinleştirildiğinde, Pano oturum kapatma/yeniden başlatma/kapatma sırasında "
+"tüm geçmişi temizleyecektir."
+
+#: src/prefs/general/dbLocation.ts:22
+msgid "Database Location"
+msgstr "Veritabanı Konumu"
+
+#: src/prefs/general/dbLocation.ts:30
+msgid "Choose pano database location"
+msgstr "Pano veritabanı konumunu seçin"
+
+#: src/prefs/general/dbLocation.ts:52
+msgid "Failed to select directory"
+msgstr "Dizin seçilemedi"
+
+#: src/prefs/general/exclusionGroup.ts:15
+msgid "Manage Exclusions"
+msgstr "Hariç Tutulanları Yönet"
+
+#: src/prefs/general/exclusionGroup.ts:22
+msgid "Excluded Apps"
+msgstr "Hariç Tutulan Uygulamalar"
+
+#: src/prefs/general/exclusionGroup.ts:23
+msgid "Pano will stop tracking if any window from the list is focussed"
+msgstr "Listedeki herhangi bir pencereye odaklanılırsa Pano izlemeyi durduracak"
+
+#: src/prefs/general/exclusionGroup.ts:52
+msgid "Window class name"
+msgstr "Pencere sınıfı adı"
+
+#: src/prefs/general/generalGroup.ts:18
+msgid "General Options"
+msgstr "Genel seçenekler"
+
+#: src/prefs/general/historyLength.ts:13
+msgid "History Length"
+msgstr "Geçmiş Uzunluğu"
+
+#: src/prefs/general/historyLength.ts:14
+msgid "You can limit your clipboard history length between 10 - 500"
+msgstr "Pano geçmişi uzunluğunu 10 - 500 arasında sınırlayabilirsin"
+
+#: src/prefs/general/incognitoShortcutRow.ts:57
+msgid "Incognito Mode Shortcut"
+msgstr "Gizli Mod Kısayolu"
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr "Gizli modu açıp kapatmanızı sağlar"
+
+#: src/prefs/general/incognitoShortcutRow.ts:64
+#: src/prefs/general/shortcutRow.ts:64
+msgid "Select a shortcut"
+msgstr "Bir kısayol seçin"
+
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "Yeni kısayol"
+
+#: src/prefs/general/index.ts:11
+msgid "General"
+msgstr "Genel"
+
+#: src/prefs/general/offlineMode.ts:13
+msgid "Offline Mode"
+msgstr "Çevrimdışı mod"
+
+#: src/prefs/general/offlineMode.ts:14
+msgid "When enabled, Pano will not try to connect to internet"
+msgstr "Etkinleştirildiğinde, Pano internete bağlanmaya çalışmaz"
+
+#: src/prefs/general/pasteOnSelect.ts:13
+msgid "Paste on Select"
+msgstr "Seçileni yapıştır"
+
+#: src/prefs/general/pasteOnSelect.ts:14
+msgid "Allow Pano to paste content on select"
+msgstr "Pano'nun içeriği yapıştırmasına izin verir"
+
+#: src/prefs/general/playAudioOnCopy.ts:13
+msgid "Play an Audio on Copy"
+msgstr "Kopyalarken Ses Çal"
+
+#: src/prefs/general/playAudioOnCopy.ts:14
+msgid "Allow Pano to play an audio when copying new content"
+msgstr "Pano'nun yeni bir içerik kopyalarken ses çalmasına izin verir"
+
+#: src/prefs/general/shortcutRow.ts:57
+msgid "Global Shortcut"
+msgstr "Genel Kısayol"
+
+#: src/prefs/general/shortcutRow.ts:58
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "Pano yöneticisinin görünürlüğünü değiştirmenizi sağlar"
+
+#: src/prefs/general/showIndicator.ts:13
+msgid "Show Indicator"
+msgstr "Gösterge ekle"
+
+#: src/prefs/general/showIndicator.ts:14
+msgid "Shows an indicator on top panel"
+msgstr "Üst panelde bir gösterge ekler"
+
+#: src/prefs/general/watchExclusions.ts:13
+msgid "Watch Exclusions"
+msgstr "İstisnaları İzle"
+
+#: src/prefs/general/watchExclusions.ts:14
+msgid "When enabled, Pano will not track clipboard from excluded apps"
+msgstr "Etkinleştirildiğinde Pano, hariç tutulanlardaki içerikleri izlemeyecektir"

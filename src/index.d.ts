@@ -8,6 +8,7 @@ declare global {
     lang: any;
     ui: {
       layout: any;
+      lightbox: any;
       main: {
         notify: (text: string, body: string) => void;
         panel: any;
@@ -19,16 +20,22 @@ declare global {
           removeChrome(param: any): any;
           addTopChrome(param: any, options?: any): any;
         };
+        uiGroup: any;
+        extensionManager: any;
       };
       panelMenu: any;
       popupMenu: any;
+      modalDialog: any;
+      dialog: any;
       switcherPopup: {
         SwitcherPopup: any;
       };
     };
     misc: {
       extensionUtils: {
+        initTranslations: (domain: string) => void;
         getCurrentExtension: () => any;
+        openPrefs: () => void;
         getSettings: () => any;
       };
       config: any;
@@ -39,6 +46,7 @@ declare global {
       fromGBytes: (input: any) => Uint8Array;
       toString: (x: Uint8Array) => string;
     };
+    gettext: any;
   };
   export interface Monitor {
     width: number;
@@ -48,7 +56,6 @@ declare global {
   }
 
   export const log: (arg: any) => void;
-  export const _: (arg: string) => string;
 }
 
 type AnimatableActorFields =

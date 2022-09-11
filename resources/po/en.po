@@ -1,0 +1,166 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: fill-pot-po/2.1.9\n"
+
+#: src/components/indicator/clearHistoryDialog.ts:21
+msgid "Cancel"
+msgstr "Cancel"
+
+#: src/components/indicator/clearHistoryDialog.ts:28
+#: src/prefs/dangerZone/clearHistory.ts:17
+msgid "Clear"
+msgstr "Clear"
+
+#: src/components/indicator/clearHistoryDialog.ts:33
+#: src/components/indicator/settingsMenu.ts:67
+#: src/prefs/dangerZone/clearHistory.ts:11
+msgid "Clear History"
+msgstr "Clear History"
+
+#: src/components/indicator/clearHistoryDialog.ts:34
+#: src/prefs/dangerZone/clearHistory.ts:23
+msgid "Are you sure you want to clear history?"
+msgstr "Are you sure you want to clear history?"
+
+#: src/components/indicator/settingsMenu.ts:43
+msgid "Toggle Pano"
+msgstr "Toggle Pano"
+
+#: src/components/indicator/settingsMenu.ts:51
+msgid "Incognito Mode"
+msgstr "Incognito Mode"
+
+#: src/components/indicator/settingsMenu.ts:74
+msgid "Settings"
+msgstr "Settings"
+
+#: src/components/searchBox.ts:32
+msgid "Type to search"
+msgstr "Type to search"
+
+#: src/prefs/dangerZone/clearHistory.ts:12
+msgid "Clears the clipboard database and cache"
+msgstr "Clears the clipboard database and cache"
+
+#: src/prefs/dangerZone/index.ts:11
+msgid "Danger Zone"
+msgstr "Danger Zone"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr "Session Only Mode"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr "When enabled, Pano will clear all history on logout/restart/shutdown."
+
+#: src/prefs/general/dbLocation.ts:22
+msgid "Database Location"
+msgstr "Database Location"
+
+#: src/prefs/general/dbLocation.ts:30
+msgid "Choose pano database location"
+msgstr "Choose pano database location"
+
+#: src/prefs/general/dbLocation.ts:52
+msgid "Failed to select directory"
+msgstr "Failed to select directory"
+
+#: src/prefs/general/exclusionGroup.ts:15
+msgid "Manage Exclusions"
+msgstr "Manage Exclusions"
+
+#: src/prefs/general/exclusionGroup.ts:22
+msgid "Excluded Apps"
+msgstr "Excluded Apps"
+
+#: src/prefs/general/exclusionGroup.ts:23
+msgid "Pano will stop tracking if any window from the list is focussed"
+msgstr "Pano will stop tracking if any window from the list is focussed"
+
+#: src/prefs/general/exclusionGroup.ts:52
+msgid "Window class name"
+msgstr "Window class name"
+
+#: src/prefs/general/generalGroup.ts:18
+msgid "General Options"
+msgstr "General Options"
+
+#: src/prefs/general/historyLength.ts:13
+msgid "History Length"
+msgstr "History Length"
+
+#: src/prefs/general/historyLength.ts:14
+msgid "You can limit your clipboard history length between 10 - 500"
+msgstr "You can limit your clipboard history length between 10 - 500"
+
+#: src/prefs/general/incognitoShortcutRow.ts:57
+msgid "Incognito Mode Shortcut"
+msgstr "Incognito Mode Shortcut"
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr "Allows you to toggle incognito mode"
+
+#: src/prefs/general/incognitoShortcutRow.ts:64
+#: src/prefs/general/shortcutRow.ts:64
+msgid "Select a shortcut"
+msgstr "Select a shortcut"
+
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "New shortcut"
+
+#: src/prefs/general/index.ts:11
+msgid "General"
+msgstr "General"
+
+#: src/prefs/general/offlineMode.ts:13
+msgid "Offline Mode"
+msgstr "Offline Mode"
+
+#: src/prefs/general/offlineMode.ts:14
+msgid "When enabled, Pano will not try to connect to internet"
+msgstr "When enabled, Pano will not try to connect to internet"
+
+#: src/prefs/general/pasteOnSelect.ts:13
+msgid "Paste on Select"
+msgstr "Paste on Select"
+
+#: src/prefs/general/pasteOnSelect.ts:14
+msgid "Allow Pano to paste content on select"
+msgstr "Allow Pano to paste content on select"
+
+#: src/prefs/general/playAudioOnCopy.ts:13
+msgid "Play an Audio on Copy"
+msgstr "Play an Audio on Copy"
+
+#: src/prefs/general/playAudioOnCopy.ts:14
+msgid "Allow Pano to play an audio when copying new content"
+msgstr "Allow Pano to play an audio when copying new content"
+
+#: src/prefs/general/shortcutRow.ts:57
+msgid "Global Shortcut"
+msgstr "Global Shortcut"
+
+#: src/prefs/general/shortcutRow.ts:58
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "Allows you to toggle visibility of the clipboard manager"
+
+#: src/prefs/general/showIndicator.ts:13
+msgid "Show Indicator"
+msgstr "Show Indicator"
+
+#: src/prefs/general/showIndicator.ts:14
+msgid "Shows an indicator on top panel"
+msgstr "Shows an indicator on top panel"
+
+#: src/prefs/general/watchExclusions.ts:13
+msgid "Watch Exclusions"
+msgstr "Watch Exclusions"
+
+#: src/prefs/general/watchExclusions.ts:14
+msgid "When enabled, Pano will not track clipboard from excluded apps"
+msgstr "When enabled, Pano will not track clipboard from excluded apps"

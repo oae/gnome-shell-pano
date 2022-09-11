@@ -1,5 +1,15 @@
-import { File, FileCopyFlags, Settings } from '@gi-types/gio2';
-import { get_user_cache_dir, get_user_data_dir } from '@gi-types/glib2';
+import {
+  File,
+  FileCopyFlags,
+  FileEnumerator,
+  FileInfo,
+  FilePrototype,
+  FileQueryInfoFlags,
+  FileType,
+  Settings,
+} from '@gi-types/gio2';
+import { get_user_cache_dir, get_user_data_dir, PRIORITY_DEFAULT } from '@gi-types/glib2';
+import { ATTR_EVENT_ID, Context } from '@imports/gsound1';
 
 export const logger =
   (prefix: string) =>
@@ -7,6 +17,88 @@ export const logger =
     log(`[pano] [${prefix}] ${content}`);
 
 const debug = logger('shell-utils');
+
+const deleteFile = (file: FilePrototype) => {
+  return new Promise((resolve, reject) => {
+    file.delete_async(PRIORITY_DEFAULT, null, (_file, res) => {
+      try {
+        resolve(file.delete_finish(res));
+      } catch (e) {
+        reject(e);
+      }
+    });
+  });
+};
+
+const deleteDirectory = async (file: FilePrototype) => {
+  try {
+    const iter: FileEnumerator | undefined = await new Promise((resolve, reject) => {
+      file.enumerate_children_async(
+        'standard::type',
+        FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
+        PRIORITY_DEFAULT,
+        null,
+        (file, res) => {
+          try {
+            resolve(file?.enumerate_children_finish(res));
+          } catch (e) {
+            reject(e);
+          }
+        },
+      );
+    });
+
+    if (!iter) {
+      return;
+    }
+
+    const branches: any[] = [];
+
+    while (true) {
+      const infos: FileInfo[] = await new Promise((resolve, reject) => {
+        iter.next_files_async(10, PRIORITY_DEFAULT, null, (it, res) => {
+          try {
+            resolve(it ? it.next_files_finish(res) : []);
+          } catch (e) {
+            reject(e);
+          }
+        });
+      });
+
+      if (infos.length === 0) {
+        break;
+      }
+
+      for (const info of infos) {
+        const child = iter.get_child(info);
+        const type = info.get_file_type();
+
+        let branch;
+
+        switch (type) {
+          case FileType.REGULAR:
+          case FileType.SYMBOLIC_LINK:
+            branch = deleteFile(child);
+            break;
+
+          case FileType.DIRECTORY:
+            branch = deleteDirectory(child);
+            break;
+
+          default:
+            continue;
+        }
+
+        branches.push(branch);
+      }
+    }
+
+    await Promise.all(branches);
+  } catch (e) {
+  } finally {
+    return deleteFile(file);
+  }
+};
 
 export const getAppDataPath = (): string => `${get_user_data_dir()}/${getCurrentExtension().metadata.uuid}`;
 
@@ -45,18 +137,18 @@ export const moveDbFile = (from: string, to: string) => {
   }
 };
 
-export const deleteAppDirs = (): void => {
+export const deleteAppDirs = async (): Promise<void> => {
   const appDataPath = File.new_for_path(getAppDataPath());
   if (appDataPath.query_exists(null)) {
-    appDataPath.trash(null);
+    await deleteDirectory(appDataPath);
   }
   const cachePath = File.new_for_path(getCachePath());
   if (cachePath.query_exists(null)) {
-    cachePath.trash(null);
+    await deleteDirectory(cachePath);
   }
   const dbPath = File.new_for_path(`${getDbPath()}/pano.db`);
   if (dbPath.query_exists(null)) {
-    dbPath.trash(null);
+    dbPath.delete(null);
   }
 };
 
@@ -86,3 +178,33 @@ export const loadInterfaceXML = (iface: string): any => {
 
   return null;
 };
+
+let soundContext: null | Context = null;
+
+export const playAudio = () => {
+  try {
+    if (!soundContext) {
+      soundContext = new Context();
+      soundContext.init(null);
+    }
+    soundContext.play_simple(
+      {
+        [ATTR_EVENT_ID]: 'message',
+      },
+      null,
+    );
+  } catch (err) {
+    debug(`failed to play audio: ${err}`);
+  }
+};
+
+export const removeSoundContext = () => {
+  if (soundContext) {
+    soundContext.run_dispose();
+    soundContext = null;
+  }
+};
+
+export const initTranslations = () => imports.misc.extensionUtils.initTranslations(getCurrentExtension().metadata.uuid);
+export const _ = imports.gettext.domain(getCurrentExtension().metadata.uuid).gettext;
+export const ngettext = imports.gettext.domain(getCurrentExtension().metadata.uuid).ngettext;
