@@ -1,9 +1,11 @@
 import { ActorAlign, AnimationMode, EVENT_PROPAGATE, KeyEvent, KEY_Escape } from '@gi-types/clutter10';
+import { Settings } from '@gi-types/gio2';
 import { BoxLayout } from '@gi-types/st1';
 import { MonitorBox } from '@pano/components/monitorBox';
 import { PanoScrollView } from '@pano/components/panoScrollView';
 import { SearchBox } from '@pano/components/searchBox';
 import { registerGObjectClass } from '@pano/utils/gjs';
+import { getCurrentExtensionSettings } from '@pano/utils/shell';
 import { getMonitorConstraint } from '@pano/utils/ui';
 
 @registerGObjectClass
@@ -11,6 +13,7 @@ export class PanoWindow extends BoxLayout {
   private scrollView: PanoScrollView;
   private searchBox: SearchBox;
   private monitorBox: MonitorBox;
+  private settings: Settings;
 
   constructor() {
     super({
@@ -26,6 +29,7 @@ export class PanoWindow extends BoxLayout {
       can_focus: true,
     });
 
+    this.settings = getCurrentExtensionSettings();
     this.monitorBox = new MonitorBox();
     this.scrollView = new PanoScrollView();
     this.searchBox = new SearchBox();
@@ -36,6 +40,18 @@ export class PanoWindow extends BoxLayout {
 
     this.add_actor(this.searchBox);
     this.add_actor(this.scrollView);
+
+    this.settings.connect('changed::is-in-incognito', () => {
+      if (this.settings.get_boolean('is-in-incognito')) {
+        this.add_style_class_name('incognito');
+      } else {
+        this.remove_style_class_name('incognito');
+      }
+    });
+
+    if (this.settings.get_boolean('is-in-incognito')) {
+      this.add_style_class_name('incognito');
+    }
   }
 
   private setupMonitorBox() {
@@ -86,13 +102,13 @@ export class PanoWindow extends BoxLayout {
       duration: 250,
       mode: AnimationMode.EASE_OUT_QUAD,
     });
-    this.monitorBox.show();
+    this.monitorBox.open();
 
     return EVENT_PROPAGATE;
   }
 
   override hide() {
-    this.monitorBox.hide();
+    this.monitorBox.close();
     this.ease({
       opacity: 0,
       duration: 200,

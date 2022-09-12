@@ -1,69 +1,174 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: Quentin PAGÈS\n"
-"Language-Team: \n"
-"Language: oc\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: fill-pot-po/2.1.9\n"
 
-#: src/prefs/prefs.ts:156
-msgid "Allows you to toggle visibility of the clipboard manager"
-msgstr "Vos permet d’alternar la visibilitat del gestionari de copiar pegar"
+#: src/components/indicator/clearHistoryDialog.ts:21
+msgid "Cancel"
+msgstr ""
 
-#: src/prefs/prefs.ts:223
-msgid "Are you sure you want to clear history?"
-msgstr "Volètz vertadièrament escafar l’istoric ?"
-
-#: src/prefs/prefs.ts:71
-msgid "Choose pano database location"
-msgstr "Causir l'emplaçament de la basa de donadas de pano"
-
-#: src/prefs/prefs.ts:217
+#: src/components/indicator/clearHistoryDialog.ts:28
+#: src/prefs/dangerZone/clearHistory.ts:17
 msgid "Clear"
 msgstr "Escafar"
 
-#: src/prefs/prefs.ts:210
+#: src/components/indicator/clearHistoryDialog.ts:33
+#: src/components/indicator/settingsMenu.ts:67
+#: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr "Escafar l’istoric"
 
-#: src/prefs/prefs.ts:211
-msgid "Clears the clipboard database and cache"
-msgstr "Escafa la basa de donadas del quichapapièrs e lo cache"
+#: src/components/indicator/clearHistoryDialog.ts:34
+#: src/prefs/dangerZone/clearHistory.ts:23
+msgid "Are you sure you want to clear history?"
+msgstr "Volètz vertadièrament escafar l’istoric ?"
 
-#: src/prefs/prefs.ts:115
-msgid "Database Location"
-msgstr "Emplaçament de la basa de donadas"
+#: src/components/indicator/settingsMenu.ts:43
+msgid "Toggle Pano"
+msgstr ""
 
-#: src/prefs/prefs.ts:90
-msgid "Failed to select directory"
-msgstr "Seleccion del repertòri pas reüssida"
+#: src/components/indicator/settingsMenu.ts:51
+msgid "Incognito Mode"
+msgstr ""
 
-#: src/prefs/prefs.ts:155
-msgid "Global Shortcut"
-msgstr "Acorchis general"
-
-#: src/prefs/prefs.ts:137
-msgid "History Length"
-msgstr "Talha de l’istoric"
-
-#: src/prefs/prefs.ts:172
-msgid "New shortcut"
-msgstr "Acorchi novèl"
-
-#: src/prefs/prefs.ts:161
-msgid "Select a shortcut"
-msgstr "Seleccionar un acorchi"
+#: src/components/indicator/settingsMenu.ts:74
+msgid "Settings"
+msgstr ""
 
 #: src/components/searchBox.ts:32
 msgid "Type to search"
 msgstr "Picatz per recercar"
 
-#: src/prefs/prefs.ts:138
+#: src/prefs/dangerZone/clearHistory.ts:12
+msgid "Clears the clipboard database and cache"
+msgstr "Escafa la basa de donadas del quichapapièrs e lo cache"
+
+#: src/prefs/dangerZone/index.ts:11
+msgid "Danger Zone"
+msgstr ""
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr ""
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr ""
+
+#: src/prefs/general/dbLocation.ts:22
+msgid "Database Location"
+msgstr "Emplaçament de la basa de donadas"
+
+#: src/prefs/general/dbLocation.ts:30
+msgid "Choose pano database location"
+msgstr "Causir l'emplaçament de la basa de donadas de pano"
+
+#: src/prefs/general/dbLocation.ts:52
+msgid "Failed to select directory"
+msgstr "Seleccion del repertòri pas reüssida"
+
+#: src/prefs/general/exclusionGroup.ts:15
+msgid "Manage Exclusions"
+msgstr ""
+
+#: src/prefs/general/exclusionGroup.ts:22
+msgid "Excluded Apps"
+msgstr ""
+
+#: src/prefs/general/exclusionGroup.ts:23
+msgid "Pano will stop tracking if any window from the list is focussed"
+msgstr ""
+
+#: src/prefs/general/exclusionGroup.ts:52
+msgid "Window class name"
+msgstr ""
+
+#: src/prefs/general/generalGroup.ts:19
+msgid "General Options"
+msgstr ""
+
+#: src/prefs/general/historyLength.ts:13
+msgid "History Length"
+msgstr "Talha de l’istoric"
+
+#: src/prefs/general/historyLength.ts:14
 msgid "You can limit your clipboard history length between 10 - 500"
 msgstr "Podètz limitar la talha de l’istoric de copiar pegar entre 10 - 500 entradas"
+
+#: src/prefs/general/incognitoShortcutRow.ts:57
+msgid "Incognito Mode Shortcut"
+msgstr ""
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr ""
+
+#: src/prefs/general/incognitoShortcutRow.ts:64
+#: src/prefs/general/shortcutRow.ts:64
+msgid "Select a shortcut"
+msgstr "Seleccionar un acorchi"
+
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "Acorchi novèl"
+
+#: src/prefs/general/index.ts:11
+msgid "General"
+msgstr ""
+
+#: src/prefs/general/linkPreviews.ts:13
+msgid "Link Previews"
+msgstr ""
+
+#: src/prefs/general/linkPreviews.ts:14
+msgid "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr ""
+
+#: src/prefs/general/pasteOnSelect.ts:13
+msgid "Paste on Select"
+msgstr ""
+
+#: src/prefs/general/pasteOnSelect.ts:14
+msgid "Allow Pano to paste content on select"
+msgstr ""
+
+#: src/prefs/general/playAudioOnCopy.ts:13
+msgid "Play an Audio on Copy"
+msgstr ""
+
+#: src/prefs/general/playAudioOnCopy.ts:14
+msgid "Allow Pano to play an audio when copying new content"
+msgstr ""
+
+#: src/prefs/general/shortcutRow.ts:57
+msgid "Global Shortcut"
+msgstr "Acorchis general"
+
+#: src/prefs/general/shortcutRow.ts:58
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "Vos permet d’alternar la visibilitat del gestionari de copiar pegar"
+
+#: src/prefs/general/showIndicator.ts:13
+msgid "Show Indicator"
+msgstr ""
+
+#: src/prefs/general/showIndicator.ts:14
+msgid "Shows an indicator on top panel"
+msgstr ""
+
+#: src/prefs/general/syncPrimary.ts:13
+msgid "Sync Primary"
+msgstr ""
+
+#: src/prefs/general/syncPrimary.ts:14
+msgid "Sync primary selection with clipboard selection"
+msgstr ""
+
+#: src/prefs/general/watchExclusions.ts:13
+msgid "Watch Exclusions"
+msgstr ""
+
+#: src/prefs/general/watchExclusions.ts:14
+msgid "When enabled, Pano will not track clipboard from excluded apps"
+msgstr ""

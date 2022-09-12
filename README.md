@@ -6,7 +6,11 @@
 [![latest](https://img.shields.io/github/v/release/oae/gnome-shell-pano)](https://github.com/oae/gnome-shell-pano/releases/latest)
 [![compare](https://img.shields.io/github/commits-since/oae/gnome-shell-pano/latest/master)](https://github.com/oae/gnome-shell-pano/compare)
 
-![ss](https://i.imgur.com/lksT9iR.png)
+![ss](https://i.imgur.com/lyKgmLk.png)
+
+|           General Options            |             Danger Zone              |
+| :----------------------------------: | :----------------------------------: |
+| ![](https://i.imgur.com/JnWy3CK.png) | ![](https://i.imgur.com/ck5xMrC.png) |
 
 ## Supported Shell Versions
 
@@ -14,7 +18,7 @@
 
 ## Installation
 
-- You need `libgda` for this extension to work.
+- You need `libgda` and `gsound` for this extension to work.
 
   - Fedora
 
@@ -28,16 +32,16 @@
     sudo pacman -S libgda
     ```
 
-  - Ubuntu
+  - Ubuntu/Debian
 
     ```bash
-    sudo apt install gir1.2-gda-5.0
+    sudo apt install gir1.2-gda-5.0 gir1.2-gsound-1.0
     ```
 
   - openSUSE
 
     ```bash
-    sudo zypper install libgda-6_0-sqlite typelib-1_0-Gda-6_0
+    sudo zypper install libgda-6_0-sqlite typelib-1_0-Gda-6_0 typelib-1_0-GSound-1_0
     ```
 
 - You can install the extension from EGO
@@ -49,6 +53,7 @@
 ### Navigation
 
 - `<super>` `<shift>` `v` can be use to toggle visibility of the Pano. This can be changed in Pano extension settings.
+- `<ctrl>` `<super>` `<shift>` `v` can be use to toggle incognito mode.
 - `left` and `right` arrow keys can be used for navigating between items. Pressing `left` key on the first item will focus search box. Also pressing `right` key will go to first/last focused item on the list.
 - `up` and `down` keys can also be use to focus on search box and items
 - Typing anywhere on Pano will focus on search box and filter the results.
@@ -59,7 +64,7 @@
 ### Build
 
 - This extension is written in Typescript and uses rollup to compile it into javascript.
-- To start development, you need nodejs installed on your system;
+- To start development, install `nodejs` and `gobject-introspection` on your system.
 
   - Clone the project
 

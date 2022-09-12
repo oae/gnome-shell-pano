@@ -23,6 +23,7 @@ const globals = {
   '@gi-types/pango1': 'imports.gi.Pango',
   '@gi-types/graphene1': 'imports.gi.Graphene',
   '@imports/gda5': 'imports.gi.Gda',
+  '@imports/gsound1': 'imports.gi.GSound',
   '@gi-types/adw1': 'imports.gi.Adw',
 };
 
@@ -30,7 +31,7 @@ const external = Object.keys(globals);
 
 const prefsBanner = ["imports.gi.versions.Gtk = '4.0';"].join('\n');
 
-const prefsFooter = ['var init = prefs.init;', 'var buildPrefsWidget = prefs.buildPrefsWidget;'].join('\n');
+const prefsFooter = ['var init = prefs.init;', 'var fillPreferencesWindow = prefs.fillPreferencesWindow;'].join('\n');
 
 const extensionBanner = `
 try {

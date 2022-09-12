@@ -28,7 +28,7 @@ import yaml from 'highlight.js/lib/languages/yaml';
 
 import { Pixbuf } from '@gi-types/gdkpixbuf2';
 import { File, FileCreateFlags } from '@gi-types/gio2';
-import { ChecksumType, compute_checksum_for_bytes } from '@gi-types/glib2';
+import { ChecksumType, compute_checksum_for_bytes, UriFlags, uri_parse } from '@gi-types/glib2';
 import { CodePanoItem } from '@pano/components/codePanoItem';
 import { ColorPanoItem } from '@pano/components/colorPanoItem';
 import { FilePanoItem } from '@pano/components/filePanoItem';
@@ -39,7 +39,7 @@ import { TextPanoItem } from '@pano/components/textPanoItem';
 import { ClipboardContent, ContentType } from '@pano/utils/clipboardManager';
 import { ClipboardQueryBuilder, db, DBItem } from '@pano/utils/db';
 import { getDocument, getImage } from '@pano/utils/linkParser';
-import { getCachePath, getImagesPath, logger } from '@pano/utils/shell';
+import { getCachePath, getCurrentExtensionSettings, getImagesPath, logger, playAudio } from '@pano/utils/shell';
 
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('markdown', markdown);
@@ -93,6 +93,14 @@ const SUPPORTED_LANGUAGES = [
 
 const debug = logger('pano-item-factory');
 
+const isValidUrl = (text: string) => {
+  try {
+    return isUrl(text) && uri_parse(text, UriFlags.NONE) !== null;
+  } catch (err) {
+    return false;
+  }
+};
+
 const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null> => {
   const { value, type } = clip.content;
   const queryBuilder = new ClipboardQueryBuilder();
@@ -118,6 +126,11 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
       copyDate: new Date(),
     });
   }
+
+  if (getCurrentExtensionSettings().get_boolean('play-audio-on-copy')) {
+    playAudio();
+  }
+
   switch (type) {
     case ContentType.FILE:
       return db.save({
@@ -156,9 +169,19 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
         }),
       });
     case ContentType.TEXT:
-      if (value.trim().toLowerCase().startsWith('http') && isUrl(value)) {
-        const { description, imageUrl, title } = await getDocument(value);
-        const [checksum] = await getImage(imageUrl);
+      if (value.trim().toLowerCase().startsWith('http') && isValidUrl(value)) {
+        const linkPreviews = getCurrentExtensionSettings().get_boolean('link-previews');
+        let description = '',
+          imageUrl = '',
+          title = '',
+          checksum = '';
+        if (linkPreviews) {
+          const document = await getDocument(value);
+          description = document.description;
+          title = document.title;
+          imageUrl = document.imageUrl;
+          checksum = (await getImage(imageUrl))[0] || '';
+        }
 
         return db.save({
           content: value,
@@ -264,19 +287,24 @@ export const createPanoItemFromDb = (dbItem: DBItem | null): PanoItem | null => 
 
   panoItem.connect('on-remove', (_, dbItemStr: string) => {
     const dbItem: DBItem = JSON.parse(dbItemStr);
-    db.delete(dbItem.id);
-    if (dbItem.itemType === 'LINK') {
-      const { image } = JSON.parse(dbItem.metaData || '{}');
-      if (image && File.new_for_uri(`file://${getCachePath()}/${image}.png`).query_exists(null)) {
-        File.new_for_uri(`file://${getCachePath()}/${image}.png`).delete(null);
-      }
-    } else if (dbItem.itemType === 'IMAGE') {
-      const imageFilePath = `file://${getImagesPath()}/${dbItem.content}.png`;
-      const imageFile = File.new_for_uri(imageFilePath);
-      if (imageFile.query_exists(null)) {
-        imageFile.delete(null);
-      }
-    }
+    removeItemResources(dbItem);
   });
+
   return panoItem;
+};
+
+export const removeItemResources = (dbItem: DBItem) => {
+  db.delete(dbItem.id);
+  if (dbItem.itemType === 'LINK') {
+    const { image } = JSON.parse(dbItem.metaData || '{}');
+    if (image && File.new_for_uri(`file://${getCachePath()}/${image}.png`).query_exists(null)) {
+      File.new_for_uri(`file://${getCachePath()}/${image}.png`).delete(null);
+    }
+  } else if (dbItem.itemType === 'IMAGE') {
+    const imageFilePath = `file://${getImagesPath()}/${dbItem.content}.png`;
+    const imageFile = File.new_for_uri(imageFilePath);
+    if (imageFile.query_exists(null)) {
+      imageFile.delete(null);
+    }
+  }
 };

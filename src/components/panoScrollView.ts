@@ -19,7 +19,7 @@ import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, clipboardManager } from '@pano/utils/clipboardManager';
 import { ClipboardQueryBuilder, db } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { createPanoItem, createPanoItemFromDb } from '@pano/utils/panoItemFactory';
+import { createPanoItem, createPanoItemFromDb, removeItemResources } from '@pano/utils/panoItemFactory';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
 
 @registerGObjectClass
@@ -82,6 +82,12 @@ export class PanoScrollView extends ScrollView {
       return EVENT_STOP;
     });
 
+    db.query(new ClipboardQueryBuilder().withLimit(-1, this.settings.get_int('history-length')).build()).forEach(
+      (dbItem) => {
+        removeItemResources(dbItem);
+      },
+    );
+
     db.query(new ClipboardQueryBuilder().withLimit(this.settings.get_int('history-length'), 0).build()).forEach(
       (dbItem) => {
         const panoItem = createPanoItemFromDb(dbItem);
@@ -91,9 +97,13 @@ export class PanoScrollView extends ScrollView {
       },
     );
 
+    const firstItem = this.list.get_first_child() as PanoItem;
+    if (firstItem) {
+      firstItem.emit('activated');
+    }
+
     this.settings.connect('changed::history-length', () => {
       this.removeExcessiveItems();
-      this.fillRemainingItems();
     });
 
     clipboardManager.connect('changed', async (_: any, content: ClipboardContent) => {
@@ -125,8 +135,10 @@ export class PanoScrollView extends ScrollView {
 
   private connectOnRemove(panoItem: PanoItem) {
     panoItem.connect('on-remove', () => {
+      if (this.currentFocus === panoItem) {
+        this.focusNext() || this.focusPrev();
+      }
       this.removeItem(panoItem);
-      this.fillRemainingItems();
       this.filter(this.currentFilter);
       if (this.getVisibleItems().length === 0) {
         this.emit('scroll-focus-out');
@@ -145,10 +157,6 @@ export class PanoScrollView extends ScrollView {
     return this.getItems().find((item) => (item as PanoItem).dbItem.id === panoItem.dbItem.id) as PanoItem;
   }
 
-  private isFull() {
-    return this.settings.get_int('history-length') === this.getItems().length;
-  }
-
   private getItems(): PanoItem[] {
     return this.list.get_children() as PanoItem[];
   }
@@ -162,52 +170,47 @@ export class PanoScrollView extends ScrollView {
     if (historyLength < this.getItems().length) {
       this.getItems()
         .slice(historyLength)
-        .forEach((item) => this.removeItem(item));
+        .forEach((item) => {
+          this.removeItem(item);
+        });
     }
-  }
-
-  private fillRemainingItems() {
-    if (this.isFull()) {
-      return;
-    }
-
-    const limit = Math.max(this.settings.get_int('history-length') - this.getItems().length, 0);
-    const offset = this.getItems().length;
-
-    db.query(new ClipboardQueryBuilder().withLimit(limit, offset).build()).forEach((dbItem) => {
-      const panoItem = createPanoItemFromDb(dbItem);
-      if (panoItem) {
-        this.appendItem(panoItem);
-      }
-    });
+    db.query(new ClipboardQueryBuilder().withLimit(-1, this.settings.get_int('history-length')).build()).forEach(
+      (dbItem) => {
+        removeItemResources(dbItem);
+      },
+    );
   }
 
   private focusNext() {
     const lastFocus = this.currentFocus;
     if (!lastFocus) {
-      this.focusOnClosest();
-      return;
+      return this.focusOnClosest();
     }
 
     const index = this.getVisibleItems().findIndex((item) => item.dbItem.id === lastFocus.dbItem.id);
     if (index + 1 < this.getVisibleItems().length) {
       this.currentFocus = this.getVisibleItems()[index + 1];
       this.currentFocus.grab_key_focus();
+      return true;
     }
+
+    return false;
   }
 
   private focusPrev() {
     const lastFocus = this.currentFocus;
     if (!lastFocus) {
-      this.focusOnClosest();
-      return;
+      return this.focusOnClosest();
     }
 
     const index = this.getVisibleItems().findIndex((item) => item.dbItem.id === lastFocus.dbItem.id);
     if (index - 1 >= 0) {
       this.currentFocus = this.getVisibleItems()[index - 1];
       this.currentFocus.grab_key_focus();
+      return true;
     }
+
+    return false;
   }
 
   filter(text: string) {
@@ -234,6 +237,7 @@ export class PanoScrollView extends ScrollView {
     if (lastFocus !== null) {
       if (lastFocus.get_parent() === this.list && lastFocus.is_visible()) {
         lastFocus.grab_key_focus();
+        return true;
       } else {
         let nextFocus = this.getVisibleItems().find((item) => item.dbItem.copyDate <= lastFocus.dbItem.copyDate);
         if (!nextFocus) {
@@ -244,12 +248,24 @@ export class PanoScrollView extends ScrollView {
         if (nextFocus) {
           this.currentFocus = nextFocus;
           nextFocus.grab_key_focus();
+          return true;
         }
       }
+    } else if (this.currentFilter && this.getVisibleItems().length > 0) {
+      this.currentFocus = this.getVisibleItems()[0];
+      this.currentFocus.grab_key_focus();
+      return true;
+    } else if (!this.currentFilter && this.getVisibleItems().length > 1) {
+      this.currentFocus = this.getVisibleItems()[1];
+      this.currentFocus.grab_key_focus();
+      return true;
     } else if (this.getVisibleItems().length > 0) {
       this.currentFocus = this.getVisibleItems()[0];
       this.currentFocus.grab_key_focus();
+      return true;
     }
+
+    return false;
   }
 
   scrollToFirstItem() {

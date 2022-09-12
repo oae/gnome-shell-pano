@@ -8,7 +8,15 @@ import {
   FileType,
   Settings,
 } from '@gi-types/gio2';
-import { get_user_cache_dir, get_user_data_dir, PRIORITY_DEFAULT } from '@gi-types/glib2';
+import {
+  get_user_cache_dir,
+  get_user_data_dir,
+  PRIORITY_DEFAULT,
+  Source,
+  SOURCE_REMOVE,
+  timeout_add,
+} from '@gi-types/glib2';
+import { ATTR_EVENT_ID, Context } from '@imports/gsound1';
 
 export const logger =
   (prefix: string) =>
@@ -178,6 +186,54 @@ export const loadInterfaceXML = (iface: string): any => {
   return null;
 };
 
+let soundContext: null | Context = null;
+
+export const playAudio = () => {
+  try {
+    if (!soundContext) {
+      soundContext = new Context();
+      soundContext.init(null);
+    }
+    soundContext.play_simple(
+      {
+        [ATTR_EVENT_ID]: 'message',
+      },
+      null,
+    );
+  } catch (err) {
+    debug(`failed to play audio: ${err}`);
+  }
+};
+
+export const removeSoundContext = () => {
+  if (soundContext) {
+    soundContext.run_dispose();
+    soundContext = null;
+  }
+};
+
 export const initTranslations = () => imports.misc.extensionUtils.initTranslations(getCurrentExtension().metadata.uuid);
 export const _ = imports.gettext.domain(getCurrentExtension().metadata.uuid).gettext;
 export const ngettext = imports.gettext.domain(getCurrentExtension().metadata.uuid).ngettext;
+
+export let debounceIds: number[] = [];
+
+export function debounce(func, wait) {
+  let sourceId;
+  return function (...args) {
+    const debouncedFunc = function (this: unknown) {
+      debounceIds = debounceIds.filter((id) => id !== sourceId);
+      sourceId = null;
+      func.apply(this, args);
+
+      return SOURCE_REMOVE;
+    };
+
+    if (sourceId) {
+      Source.remove(sourceId);
+      debounceIds = debounceIds.filter((id) => id !== sourceId);
+    }
+    sourceId = timeout_add(PRIORITY_DEFAULT, wait, debouncedFunc);
+    debounceIds.push(sourceId);
+  };
+}

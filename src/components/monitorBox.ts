@@ -1,12 +1,10 @@
-import { ActorAlign, EVENT_STOP } from '@gi-types/clutter10';
+import { Actor, BindConstraint, BindCoordinate, BinLayout, EVENT_STOP } from '@gi-types/clutter10';
 import { MetaInfo } from '@gi-types/gobject2';
-import { MonitorManager } from '@gi-types/meta10';
-import { BoxLayout } from '@gi-types/st1';
+import { Global } from '@gi-types/shell0';
+import { Bin, BoxLayout, Widget } from '@gi-types/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { addTopChrome, getMonitorConstraintForIndex, getMonitors, removeChrome } from '@pano/utils/ui';
 
-const monitorManager = MonitorManager.get();
-
+const { Lightbox } = imports.ui.lightbox;
 @registerGObjectClass
 export class MonitorBox extends BoxLayout {
   static metaInfo: MetaInfo = {
@@ -15,15 +13,16 @@ export class MonitorBox extends BoxLayout {
       hide: {},
     },
   };
-  private monitorChangedEventId: number;
+
+  private _lightbox: any;
 
   constructor() {
     super({
       name: 'PanoMonitorBox',
       visible: false,
-      vertical: true,
       reactive: true,
-      opacity: 0,
+      x: 0,
+      y: 0,
     });
 
     this.connect('button-press-event', () => {
@@ -31,31 +30,44 @@ export class MonitorBox extends BoxLayout {
       return EVENT_STOP;
     });
 
-    this.monitorChangedEventId = monitorManager.connect('monitors-changed', this.updateMonitorBox.bind(this));
-    this.updateMonitorBox();
+    const constraint = new BindConstraint({
+      source: Global.get().stage,
+      coordinate: BindCoordinate.ALL,
+    });
+    this.add_constraint(constraint);
 
-    addTopChrome(this);
+    const backgroundStack = new Widget({
+      layout_manager: new BinLayout(),
+      x_expand: true,
+      y_expand: true,
+    });
+    const _backgroundBin = new Bin({ child: backgroundStack });
+    const _monitorConstraint = new imports.ui.layout.MonitorConstraint();
+    _backgroundBin.add_constraint(_monitorConstraint);
+    this.add_actor(_backgroundBin);
+    this._lightbox = new Lightbox(this, {
+      inhibitEvents: true,
+      radialEffect: false,
+    });
+    this._lightbox.highlight(_backgroundBin);
+    this._lightbox.set({ style_class: 'pano-monitor-box' });
+
+    const _eventBlocker = new Actor({ reactive: true });
+    backgroundStack.add_actor(_eventBlocker);
+    imports.ui.main.uiGroup.add_actor(this);
   }
 
-  private updateMonitorBox(): void {
-    this.remove_all_children();
-    getMonitors().forEach((_, index) => {
-      const box = new BoxLayout({
-        constraints: getMonitorConstraintForIndex(index),
-        x_align: ActorAlign.FILL,
-        y_align: ActorAlign.FILL,
-        visible: true,
-        vertical: true,
-        reactive: true,
-        opacity: 0,
-      });
-      this.add_child(box);
-    });
+  open() {
+    this._lightbox.lightOn();
+    this.show();
+  }
+
+  close() {
+    this._lightbox.lightOff();
+    this.hide();
   }
 
   override destroy(): void {
-    monitorManager.disconnect(this.monitorChangedEventId);
-    removeChrome(this);
     super.destroy();
   }
 }

@@ -8,6 +8,7 @@ declare global {
     lang: any;
     ui: {
       layout: any;
+      lightbox: any;
       main: {
         notify: (text: string, body: string) => void;
         panel: any;
@@ -19,9 +20,13 @@ declare global {
           removeChrome(param: any): any;
           addTopChrome(param: any, options?: any): any;
         };
+        uiGroup: any;
+        extensionManager: any;
       };
       panelMenu: any;
       popupMenu: any;
+      modalDialog: any;
+      dialog: any;
       switcherPopup: {
         SwitcherPopup: any;
       };
@@ -30,6 +35,7 @@ declare global {
       extensionUtils: {
         initTranslations: (domain: string) => void;
         getCurrentExtension: () => any;
+        openPrefs: () => void;
         getSettings: () => any;
       };
       config: any;
