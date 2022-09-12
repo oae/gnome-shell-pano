@@ -64,7 +64,7 @@
 ### Build
 
 - This extension is written in Typescript and uses rollup to compile it into javascript.
-- To start development, you need nodejs installed on your system;
+- To start development, install `nodejs` and `gobject-introspection` on your system.
 
   - Clone the project
 
