@@ -1,3 +1,11 @@
+import {
+  BUTTON_MIDDLE,
+  BUTTON_PRIMARY,
+  BUTTON_SECONDARY,
+  Event,
+  EventType,
+  EVENT_PROPAGATE,
+} from '@gi-types/clutter10';
 import { icon_new_for_string, Settings } from '@gi-types/gio2';
 import { MetaInfo, TYPE_BOOLEAN } from '@gi-types/gobject2';
 import { Icon } from '@gi-types/st1';
@@ -24,10 +32,12 @@ export class SettingsMenu extends PopupMenuButton {
 
   private settings: Settings;
   private incognitoChangeId: number;
+  private onToggle: () => void;
 
   constructor(onClear: () => Promise<void>, onToggle: () => void) {
     super(0.5, 'Pano Indicator', false);
 
+    this.onToggle = onToggle;
     this.settings = getCurrentExtensionSettings();
     const isInIncognito = this.settings.get_boolean('is-in-incognito');
 
@@ -39,14 +49,6 @@ export class SettingsMenu extends PopupMenuButton {
     });
 
     this.add_child(icon);
-
-    const togglePanoItem = new PopupMenuItem(_('Toggle Pano'));
-    togglePanoItem.connect('activate', () => {
-      this.menu.close(false);
-      onToggle();
-    });
-    this.menu.addMenuItem(togglePanoItem);
-    this.menu.addMenuItem(new PopupSeparatorMenuItem());
 
     const switchMenuItem = new PopupSwitchMenuItem(_('Incognito Mode'), this.settings.get_boolean('is-in-incognito'));
 
@@ -76,6 +78,20 @@ export class SettingsMenu extends PopupMenuButton {
       openExtensionPrefs();
     });
     this.menu.addMenuItem(settingsItem);
+  }
+
+  vfunc_event(event: Event) {
+    if (!this.menu || event.type() !== EventType.BUTTON_PRESS) {
+      return EVENT_PROPAGATE;
+    }
+
+    if (event.get_button() === BUTTON_PRIMARY || event.get_button() === BUTTON_MIDDLE) {
+      this.onToggle();
+    } else if (event.get_button() === BUTTON_SECONDARY) {
+      this.menu.toggle();
+    }
+
+    return EVENT_PROPAGATE;
   }
   destroy() {
     this.settings.disconnect(this.incognitoChangeId);
