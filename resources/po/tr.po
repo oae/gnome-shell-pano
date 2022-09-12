@@ -117,13 +117,13 @@ msgstr "Yeni kısayol"
 msgid "General"
 msgstr "Genel"
 
-#: src/prefs/general/offlineMode.ts:13
-msgid "Offline Mode"
-msgstr "Çevrimdışı mod"
+#: src/prefs/general/linkPreviews.ts:13
+msgid "Link Previews"
+msgstr "Bağlantı Önizlemeleri"
 
-#: src/prefs/general/offlineMode.ts:14
-msgid "When enabled, Pano will not try to connect to internet"
-msgstr "Etkinleştirildiğinde, Pano internete bağlanmaya çalışmaz"
+#: src/prefs/general/linkPreviews.ts:14
+msgid "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr "Bağlantı önizlemeleri oluşturmak için Pano'nun bağlantıları ziyaret etmesine izin verin"
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"

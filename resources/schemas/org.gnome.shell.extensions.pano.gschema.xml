@@ -8,7 +8,7 @@
       <summary>History Length</summary>
       <description>Controls length of the clipboard history.</description>
     </key>
-    <key name="shortcut" type="as">
+    <key name="global-shortcut" type="as">
       <default>
         <![CDATA[['<Shift><Super>v']]]>
       </default>
@@ -47,10 +47,10 @@
       <summary>Shows indicator</summary>
       <description>Shows an indicator on top panel.</description>
     </key>
-    <key name="offline-mode" type="b">
-      <default>false</default>
-      <summary>Offline mode</summary>
-      <description>When enabled, Pano will not try to connect to internet.</description>
+    <key name="link-previews" type="b">
+      <default>true</default>
+      <summary>Link Previews</summary>
+      <description>Allow Pano to visit links on your clipboard to generate link previews.</description>
     </key>
     <key name="session-only-mode" type="b">
       <default>false</default>

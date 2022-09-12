@@ -62,13 +62,13 @@ export class ShortcutRow extends ActionRow {
 
     const shortcutLabel = new ShortcutLabel({
       disabled_text: _('Select a shortcut'),
-      accelerator: this.settings.get_strv('shortcut')[0],
+      accelerator: this.settings.get_strv('global-shortcut')[0],
       valign: Align.CENTER,
       halign: Align.CENTER,
     });
 
     this.settings.connect('changed::shortcut', () => {
-      shortcutLabel.set_accelerator(this.settings.get_strv('shortcut')[0]);
+      shortcutLabel.set_accelerator(this.settings.get_strv('global-shortcut')[0]);
     });
 
     this.connect('activated', () => {
@@ -100,7 +100,7 @@ export class ShortcutRow extends ActionRow {
           return EVENT_STOP;
         }
 
-        this.settings.set_strv('shortcut', [accelerator_name_with_keycode(null, keyval, keycode, mask)]);
+        this.settings.set_strv('global-shortcut', [accelerator_name_with_keycode(null, keyval, keycode, mask)]);
         editor.destroy();
 
         return EVENT_STOP;

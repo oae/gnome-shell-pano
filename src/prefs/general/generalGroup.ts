@@ -9,7 +9,7 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 import { _ } from '@pano/utils/shell';
 import { IncognitoShortcutRow } from '@pano/prefs/general/incognitoShortcutRow';
 import { ShowIndicatorRow } from '@pano/prefs/general/showIndicator';
-import { OfflineModeRow } from '@pano/prefs/general/offlineMode';
+import { LinkPreviewsRow } from '@pano/prefs/general/linkPreviews';
 import { SyncPrimaryRow } from './syncPrimary';
 
 @registerGObjectClass
@@ -27,7 +27,7 @@ export class GeneralGroup extends PreferencesGroup {
     this.add(new PasteOnSelectRow());
     this.add(new PlayAudioOnCopyRow());
     this.add(new ShowIndicatorRow());
-    this.add(new OfflineModeRow());
+    this.add(new LinkPreviewsRow());
     this.add(new WatchExclusionsRow());
   }
 }

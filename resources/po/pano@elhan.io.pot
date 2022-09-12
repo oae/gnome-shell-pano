@@ -10,6 +10,10 @@ msgstr ""
 msgid "Allow Pano to play an audio when copying new content"
 msgstr ""
 
+#: src/prefs/general/linkPreviews.ts:14
+msgid "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr ""
+
 #: src/prefs/general/incognitoShortcutRow.ts:58
 msgid "Allows you to toggle incognito mode"
 msgstr ""
@@ -86,6 +90,10 @@ msgstr ""
 msgid "Incognito Mode Shortcut"
 msgstr ""
 
+#: src/prefs/general/linkPreviews.ts:13
+msgid "Link Previews"
+msgstr ""
+
 #: src/prefs/general/exclusionGroup.ts:15
 msgid "Manage Exclusions"
 msgstr ""
@@ -93,10 +101,6 @@ msgstr ""
 #: src/prefs/general/incognitoShortcutRow.ts:77
 #: src/prefs/general/shortcutRow.ts:77
 msgid "New shortcut"
-msgstr ""
-
-#: src/prefs/general/offlineMode.ts:13
-msgid "Offline Mode"
 msgstr ""
 
 #: src/prefs/general/exclusionGroup.ts:23
@@ -158,10 +162,6 @@ msgstr ""
 
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
-msgstr ""
-
-#: src/prefs/general/offlineMode.ts:14
-msgid "When enabled, Pano will not try to connect to internet"
 msgstr ""
 
 #: src/prefs/general/exclusionGroup.ts:52

@@ -170,12 +170,12 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
       });
     case ContentType.TEXT:
       if (value.trim().toLowerCase().startsWith('http') && isValidUrl(value)) {
-        const offlineMode = getCurrentExtensionSettings().get_boolean('offline-mode');
+        const linkPreviews = getCurrentExtensionSettings().get_boolean('link-previews');
         let description = '',
           imageUrl = '',
           title = '',
           checksum = '';
-        if (!offlineMode) {
+        if (linkPreviews) {
           const document = await getDocument(value);
           description = document.description;
           title = document.title;

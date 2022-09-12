@@ -145,7 +145,7 @@ class PanoExtension {
       this.clearSessionHistory.bind(this),
     );
     addTopChrome(this.panoWindow);
-    this.keyManager.listenFor('shortcut', () => this.panoWindow.toggle());
+    this.keyManager.listenFor('global-shortcut', () => this.panoWindow.toggle());
     this.keyManager.listenFor('incognito-shortcut', () => {
       this.settings.set_boolean('is-in-incognito', !this.settings.get_boolean('is-in-incognito'));
     });
@@ -190,7 +190,7 @@ class PanoExtension {
     removeVirtualKeyboard();
     removeSoundContext();
     this.isEnabled = false;
-    this.keyManager.stopListening('shortcut');
+    this.keyManager.stopListening('global-shortcut');
     this.keyManager.stopListening('incognito-shortcut');
     clipboardManager.stopTracking();
     removeChrome(this.panoWindow);
