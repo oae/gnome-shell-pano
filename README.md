@@ -10,7 +10,7 @@
 
 |           General Options            |             Danger Zone              |
 | :----------------------------------: | :----------------------------------: |
-| ![](https://i.imgur.com/ge3IgBw.png) | ![](https://i.imgur.com/rlevNsj.png) |
+| ![](https://i.imgur.com/JnWy3CK.png) | ![](https://i.imgur.com/ck5xMrC.png) |
 
 ## Supported Shell Versions
 
