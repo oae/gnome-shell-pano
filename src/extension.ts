@@ -7,6 +7,7 @@ import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/cli
 import { db } from '@pano/utils/db';
 import { KeyManager } from '@pano/utils/keyManager';
 import {
+  debounceIds,
   deleteAppDirs,
   getCurrentExtensionSettings,
   getDbPath,
@@ -184,6 +185,9 @@ class PanoExtension {
     if (this.timeoutId) {
       Source.remove(this.timeoutId);
     }
+    debounceIds.forEach((debounceId) => {
+      Source.remove(debounceId);
+    });
     this.removeIndicator();
     this.windowTrackerId = null;
     this.timeoutId = null;

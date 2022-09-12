@@ -216,17 +216,24 @@ export const initTranslations = () => imports.misc.extensionUtils.initTranslatio
 export const _ = imports.gettext.domain(getCurrentExtension().metadata.uuid).gettext;
 export const ngettext = imports.gettext.domain(getCurrentExtension().metadata.uuid).ngettext;
 
+export let debounceIds: number[] = [];
+
 export function debounce(func, wait) {
   let sourceId;
   return function (...args) {
     const debouncedFunc = function (this: unknown) {
+      debounceIds = debounceIds.filter((id) => id !== sourceId);
       sourceId = null;
       func.apply(this, args);
 
       return SOURCE_REMOVE;
     };
 
-    if (sourceId) Source.remove(sourceId);
+    if (sourceId) {
+      Source.remove(sourceId);
+      debounceIds = debounceIds.filter((id) => id !== sourceId);
+    }
     sourceId = timeout_add(PRIORITY_DEFAULT, wait, debouncedFunc);
+    debounceIds.push(sourceId);
   };
 }
