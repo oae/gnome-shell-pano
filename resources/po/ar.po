@@ -5,7 +5,7 @@ msgstr ""
 
 #: src/components/indicator/clearHistoryDialog.ts:21
 msgid "Cancel"
-msgstr ""
+msgstr "ألغِ"
 
 #: src/components/indicator/clearHistoryDialog.ts:28
 #: src/prefs/dangerZone/clearHistory.ts:17
@@ -25,15 +25,15 @@ msgstr "أمتأكد من رغبتك بمحوِ السجل التاريخي؟"
 
 #: src/components/indicator/settingsMenu.ts:43
 msgid "Toggle Pano"
-msgstr ""
+msgstr "اقلب مرئية پانو"
 
 #: src/components/indicator/settingsMenu.ts:51
 msgid "Incognito Mode"
-msgstr ""
+msgstr "نمط التخفي"
 
 #: src/components/indicator/settingsMenu.ts:74
 msgid "Settings"
-msgstr ""
+msgstr "الإعدادات"
 
 #: src/components/searchBox.ts:32
 msgid "Type to search"
@@ -45,15 +45,15 @@ msgstr "يمحو قاعدة بيانات الحافظة وذاكرتها الم�
 
 #: src/prefs/dangerZone/index.ts:11
 msgid "Danger Zone"
-msgstr ""
+msgstr "نطاق الخطر"
 
 #: src/prefs/dangerZone/sessionOnlyMode.ts:13
 msgid "Session Only Mode"
-msgstr ""
+msgstr "نمط الجلسة المنعزلة"
 
 #: src/prefs/dangerZone/sessionOnlyMode.ts:14
 msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
-msgstr ""
+msgstr "تمكين هذا الخيار يجعل پانو يمحو التاريخ عند الخروج من الجلسة أو إعادة التشغيل"
 
 #: src/prefs/general/dbLocation.ts:22
 msgid "Database Location"
@@ -69,23 +69,23 @@ msgstr "فشل اختيار المجلد"
 
 #: src/prefs/general/exclusionGroup.ts:15
 msgid "Manage Exclusions"
-msgstr ""
+msgstr "إدارة الاستثناءات"
 
 #: src/prefs/general/exclusionGroup.ts:22
 msgid "Excluded Apps"
-msgstr ""
+msgstr "التطبيقات المستثناة"
 
 #: src/prefs/general/exclusionGroup.ts:23
 msgid "Pano will stop tracking if any window from the list is focussed"
-msgstr ""
+msgstr "سيمتنع پانو عن التتبع إذا فعلت نافذة من هذه القائمة"
 
 #: src/prefs/general/exclusionGroup.ts:52
 msgid "Window class name"
-msgstr ""
+msgstr "اسم طراز النافذة"
 
 #: src/prefs/general/generalGroup.ts:19
 msgid "General Options"
-msgstr ""
+msgstr "خيارات عامة"
 
 #: src/prefs/general/historyLength.ts:13
 msgid "History Length"
@@ -97,11 +97,11 @@ msgstr "يمكنك حصر طول السجل التاريخي للحافظة بي
 
 #: src/prefs/general/incognitoShortcutRow.ts:57
 msgid "Incognito Mode Shortcut"
-msgstr ""
+msgstr "اختصار نمط التخفي"
 
 #: src/prefs/general/incognitoShortcutRow.ts:58
 msgid "Allows you to toggle incognito mode"
-msgstr ""
+msgstr "يمكنك من قلب فعالية نمط التخفي"
 
 #: src/prefs/general/incognitoShortcutRow.ts:64
 #: src/prefs/general/shortcutRow.ts:64
@@ -115,31 +115,31 @@ msgstr "اختصار جديد"
 
 #: src/prefs/general/index.ts:11
 msgid "General"
-msgstr ""
+msgstr "عامة"
 
 #: src/prefs/general/linkPreviews.ts:13
 msgid "Link Previews"
-msgstr ""
+msgstr "معاينة الروابط"
 
 #: src/prefs/general/linkPreviews.ts:14
 msgid "Allow Pano to visit links on your clipboard to generate link previews"
-msgstr ""
+msgstr "يمكّن پانو من فتح الروابط التي في الحافظة لإنشاء معاينات الروابط"
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"
-msgstr ""
+msgstr "ألصق عند الاختيار"
 
 #: src/prefs/general/pasteOnSelect.ts:14
 msgid "Allow Pano to paste content on select"
-msgstr ""
+msgstr "يمكّن پانو من إلصاق المحتوى عند اختياره"
 
 #: src/prefs/general/playAudioOnCopy.ts:13
 msgid "Play an Audio on Copy"
-msgstr ""
+msgstr "شغل صوتًا عند النسخ"
 
 #: src/prefs/general/playAudioOnCopy.ts:14
 msgid "Allow Pano to play an audio when copying new content"
-msgstr ""
+msgstr "يمكّن پانو من تشغيل مقطع صوتي عند نسخ محتوى جديد"
 
 #: src/prefs/general/shortcutRow.ts:57
 msgid "Global Shortcut"
@@ -151,24 +151,24 @@ msgstr "يمكنّك من قلب مرئية مدير الحافظة"
 
 #: src/prefs/general/showIndicator.ts:13
 msgid "Show Indicator"
-msgstr ""
+msgstr "أظهر أيقونة القائمة"
 
 #: src/prefs/general/showIndicator.ts:14
 msgid "Shows an indicator on top panel"
-msgstr ""
+msgstr "أظهر أيقونة القائمة في الشريط العلوي"
 
 #: src/prefs/general/syncPrimary.ts:13
 msgid "Sync Primary"
-msgstr ""
+msgstr "زامن التحديد الرئيسي"
 
 #: src/prefs/general/syncPrimary.ts:14
 msgid "Sync primary selection with clipboard selection"
-msgstr ""
+msgstr "زامن التحديد الرئيسي مع تحديد الحافظة"
 
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"
-msgstr ""
+msgstr "راقب الاستثناءات"
 
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
-msgstr ""
+msgstr "عند التمكين لن يتعقب پانو حافظة التطبيقات المستثناة"
