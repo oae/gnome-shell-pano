@@ -41,7 +41,7 @@ msgid "Clear"
 msgstr ""
 
 #: src/components/indicator/clearHistoryDialog.ts:33
-#: src/components/indicator/settingsMenu.ts:67
+#: src/components/indicator/settingsMenu.ts:69
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr ""
@@ -82,7 +82,7 @@ msgstr ""
 msgid "History Length"
 msgstr ""
 
-#: src/components/indicator/settingsMenu.ts:51
+#: src/components/indicator/settingsMenu.ts:53
 msgid "Incognito Mode"
 msgstr ""
 
@@ -124,7 +124,7 @@ msgstr ""
 msgid "Session Only Mode"
 msgstr ""
 
-#: src/components/indicator/settingsMenu.ts:74
+#: src/components/indicator/settingsMenu.ts:76
 msgid "Settings"
 msgstr ""
 
@@ -142,10 +142,6 @@ msgstr ""
 
 #: src/prefs/general/syncPrimary.ts:14
 msgid "Sync primary selection with clipboard selection"
-msgstr ""
-
-#: src/components/indicator/settingsMenu.ts:43
-msgid "Toggle Pano"
 msgstr ""
 
 #: src/components/searchBox.ts:32

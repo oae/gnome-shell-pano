@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "امحُ"
 
 #: src/components/indicator/clearHistoryDialog.ts:33
-#: src/components/indicator/settingsMenu.ts:67
+#: src/components/indicator/settingsMenu.ts:69
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr "امحُ السجل التاريخي"
@@ -23,15 +23,11 @@ msgstr "امحُ السجل التاريخي"
 msgid "Are you sure you want to clear history?"
 msgstr "أمتأكد من رغبتك بمحوِ السجل التاريخي؟"
 
-#: src/components/indicator/settingsMenu.ts:43
-msgid "Toggle Pano"
-msgstr ""
-
-#: src/components/indicator/settingsMenu.ts:51
+#: src/components/indicator/settingsMenu.ts:53
 msgid "Incognito Mode"
 msgstr ""
 
-#: src/components/indicator/settingsMenu.ts:74
+#: src/components/indicator/settingsMenu.ts:76
 msgid "Settings"
 msgstr ""
 
