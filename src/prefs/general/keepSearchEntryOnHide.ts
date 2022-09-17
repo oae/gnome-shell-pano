@@ -16,15 +16,15 @@ export class KeepSearchEntryRow extends ActionRow {
 
     this.settings = getCurrentExtensionSettings();
 
-    const pasteOnSelectSwitch = new Switch({
+    const keepSearchEntrySwitch = new Switch({
       active: this.settings.get_boolean('keep-search-entry'),
       valign: Align.CENTER,
       halign: Align.CENTER,
     });
 
-    this.settings.bind('keep-search-entry', pasteOnSelectSwitch, 'active', SettingsBindFlags.DEFAULT);
+    this.settings.bind('keep-search-entry', keepSearchEntrySwitch, 'active', SettingsBindFlags.DEFAULT);
 
-    this.add_suffix(pasteOnSelectSwitch);
-    this.set_activatable_widget(pasteOnSelectSwitch);
+    this.add_suffix(keepSearchEntrySwitch);
+    this.set_activatable_widget(keepSearchEntrySwitch);
   }
 }
