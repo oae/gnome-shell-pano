@@ -115,11 +115,11 @@ msgstr "عام"
 
 #: src/prefs/general/keepSearchEntryOnHide.ts:13
 msgid "Keep Search Entry"
-msgstr ""
+msgstr "احتفظ بإدخال البحث"
 
 #: src/prefs/general/keepSearchEntryOnHide.ts:14
 msgid "Keep search entry when Pano hides"
-msgstr ""
+msgstr "احتفظ بإدخال البحث عن إخفاء بانو"
 
 #: src/prefs/general/linkPreviews.ts:13
 msgid "Link Previews"
