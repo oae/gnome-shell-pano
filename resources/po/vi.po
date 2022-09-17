@@ -79,7 +79,7 @@ msgstr "Pano sẽ ngừng lưu dữ liệu khay nhớ tạm trong cửa sổ c�
 msgid "Window class name"
 msgstr "Tên của cửa sổ"
 
-#: src/prefs/general/generalGroup.ts:19
+#: src/prefs/general/generalGroup.ts:20
 msgid "General Options"
 msgstr "Tùy Chọn Chung"
 
@@ -112,6 +112,14 @@ msgstr "Phím tắt mới"
 #: src/prefs/general/index.ts:11
 msgid "General"
 msgstr "Chung"
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:13
+msgid "Keep Search Entry"
+msgstr ""
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:14
+msgid "Keep search entry when Pano hides"
+msgstr ""
 
 #: src/prefs/general/linkPreviews.ts:13
 msgid "Link Previews"

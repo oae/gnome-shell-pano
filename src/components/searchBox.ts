@@ -84,6 +84,10 @@ export class SearchBox extends BoxLayout {
     this.search.clutter_text.set_selection(0, this.search.text.length);
   }
 
+  clear() {
+    this.search.text = '';
+  }
+
   getText(): string {
     return this.search.text;
   }
