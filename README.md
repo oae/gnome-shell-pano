@@ -15,6 +15,7 @@
 ## Supported Shell Versions
 
 - Gnome Shell 42
+- Gnome Shell 43
 
 ## Installation
 
