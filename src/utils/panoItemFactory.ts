@@ -120,15 +120,15 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
 
   const result = db.query(queryBuilder.build());
 
+  if (getCurrentExtensionSettings().get_boolean('play-audio-on-copy')) {
+    playAudio();
+  }
+
   if (result.length > 0) {
     return db.update({
       ...result[0],
       copyDate: new Date(),
     });
-  }
-
-  if (getCurrentExtensionSettings().get_boolean('play-audio-on-copy')) {
-    playAudio();
   }
 
   switch (type) {
