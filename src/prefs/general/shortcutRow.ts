@@ -67,7 +67,7 @@ export class ShortcutRow extends ActionRow {
       halign: Align.CENTER,
     });
 
-    this.settings.connect('changed::shortcut', () => {
+    this.settings.connect('changed::global-shortcut', () => {
       shortcutLabel.set_accelerator(this.settings.get_strv('global-shortcut')[0]);
     });
 
