@@ -49,7 +49,7 @@ msgstr "وضع الجلسة المنعزلة"
 
 #: src/prefs/dangerZone/sessionOnlyMode.ts:14
 msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
-msgstr "تمكين هذا الخيار يجعل پانو يمحو التاريخ عند الخروج من الجلسة أو إعادة التشغيل"
+msgstr "تمكين هذا الخيار يجعل بانو يمحو التاريخ عند الخروج من الجلسة أو إعادة التشغيل"
 
 #: src/prefs/general/dbLocation.ts:22
 msgid "Database Location"
@@ -73,7 +73,7 @@ msgstr "التطبيقات المستثناة"
 
 #: src/prefs/general/exclusionGroup.ts:23
 msgid "Pano will stop tracking if any window from the list is focussed"
-msgstr "سيمتنع پانو عن التتبع إذا فعلت نافذة من هذه القائمة"
+msgstr "سيمتنع بانو عن التتبع إذا فُعلت نافذة من هذه القائمة"
 
 #: src/prefs/general/exclusionGroup.ts:52
 msgid "Window class name"
@@ -93,7 +93,7 @@ msgstr "يمكنك حصر طول السجل للحافظة بين 10 - 500"
 
 #: src/prefs/general/incognitoShortcutRow.ts:57
 msgid "Incognito Mode Shortcut"
-msgstr "إختصار الوضع المخفي"
+msgstr "اختصار الوضع المخفي"
 
 #: src/prefs/general/incognitoShortcutRow.ts:58
 msgid "Allows you to toggle incognito mode"
@@ -102,12 +102,12 @@ msgstr "يمكنك من تفعيل وإيقاف الوضع المخفي"
 #: src/prefs/general/incognitoShortcutRow.ts:64
 #: src/prefs/general/shortcutRow.ts:64
 msgid "Select a shortcut"
-msgstr "اختر إختصار لوحة المفاتيح"
+msgstr "اختر اختصار لوحة المفاتيح"
 
 #: src/prefs/general/incognitoShortcutRow.ts:77
 #: src/prefs/general/shortcutRow.ts:77
 msgid "New shortcut"
-msgstr "إختصار جديد"
+msgstr "اختصار جديد"
 
 #: src/prefs/general/index.ts:11
 msgid "General"
@@ -147,11 +147,11 @@ msgstr "يسمح لبانو بتشغيل مقطع صوتي عند نسخ محت�
 
 #: src/prefs/general/shortcutRow.ts:57
 msgid "Global Shortcut"
-msgstr "إختصار لوحة المفاتيح"
+msgstr "اختصار لوحة المفاتيح"
 
 #: src/prefs/general/shortcutRow.ts:58
 msgid "Allows you to toggle visibility of the clipboard manager"
-msgstr "يمكنّك من إظهار و إخفاء مدير الحافظة"
+msgstr "يمكنّك من إظهار وإخفاء مدير الحافظة"
 
 #: src/prefs/general/showIndicator.ts:13
 msgid "Show Indicator"
