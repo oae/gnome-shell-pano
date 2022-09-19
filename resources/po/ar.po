@@ -45,11 +45,11 @@ msgstr "منطقة الخطر"
 
 #: src/prefs/dangerZone/sessionOnlyMode.ts:13
 msgid "Session Only Mode"
-msgstr "وضع الجلسة فقط"
+msgstr "وضع الجلسة المنعزلة"
 
 #: src/prefs/dangerZone/sessionOnlyMode.ts:14
 msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
-msgstr "عند التفعيل, بانو سوف يزيل السجل عند تسجيل الخروج/إعادة التشغيل/وقف الجهاز"
+msgstr "تمكين هذا الخيار يجعل بانو يمحو التاريخ عند الخروج من الجلسة أو إعادة التشغيل"
 
 #: src/prefs/general/dbLocation.ts:22
 msgid "Database Location"
@@ -65,19 +65,19 @@ msgstr "فشل اختيار المجلد"
 
 #: src/prefs/general/exclusionGroup.ts:15
 msgid "Manage Exclusions"
-msgstr "إدارة الإستثناءات"
+msgstr "إدارة الاستثناءات"
 
 #: src/prefs/general/exclusionGroup.ts:22
 msgid "Excluded Apps"
-msgstr "التطبيقات المستثنية"
+msgstr "التطبيقات المستثناة"
 
 #: src/prefs/general/exclusionGroup.ts:23
 msgid "Pano will stop tracking if any window from the list is focussed"
-msgstr "بانو سيتوقف عن متابعة الحافظة عن استخدام أي تطبيق من القائمة"
+msgstr "سيمتنع بانو عن التتبع إذا فُعلت نافذة من هذه القائمة"
 
 #: src/prefs/general/exclusionGroup.ts:52
 msgid "Window class name"
-msgstr "اسم فئة النافذة"
+msgstr "اسم طراز النافذة"
 
 #: src/prefs/general/generalGroup.ts:20
 msgid "General Options"
@@ -93,21 +93,21 @@ msgstr "يمكنك حصر طول السجل للحافظة بين 10 - 500"
 
 #: src/prefs/general/incognitoShortcutRow.ts:57
 msgid "Incognito Mode Shortcut"
-msgstr "إختصار الوضع المخفي"
+msgstr "اختصار الوضع المخفي"
 
 #: src/prefs/general/incognitoShortcutRow.ts:58
 msgid "Allows you to toggle incognito mode"
-msgstr "يمكنك من تفعيل الوضع المخفي"
+msgstr "يمكنك من تفعيل وإيقاف الوضع المخفي"
 
 #: src/prefs/general/incognitoShortcutRow.ts:64
 #: src/prefs/general/shortcutRow.ts:64
 msgid "Select a shortcut"
-msgstr "اختر إختصار لوحة المفاتيح"
+msgstr "اختر اختصار لوحة المفاتيح"
 
 #: src/prefs/general/incognitoShortcutRow.ts:77
 #: src/prefs/general/shortcutRow.ts:77
 msgid "New shortcut"
-msgstr "إختصار جديد"
+msgstr "اختصار جديد"
 
 #: src/prefs/general/index.ts:11
 msgid "General"
@@ -115,27 +115,27 @@ msgstr "عام"
 
 #: src/prefs/general/keepSearchEntryOnHide.ts:13
 msgid "Keep Search Entry"
-msgstr "احتفظ بإدخال البحث"
+msgstr "احتفظ بمدخلة البحث"
 
 #: src/prefs/general/keepSearchEntryOnHide.ts:14
 msgid "Keep search entry when Pano hides"
-msgstr "احتفظ بإدخال البحث عن إخفاء بانو"
+msgstr "احتفظ بمدخلة البحث عند إخفاء بانو"
 
 #: src/prefs/general/linkPreviews.ts:13
 msgid "Link Previews"
-msgstr "عرض مسبق للروابط"
+msgstr "معاينة الروابط"
 
 #: src/prefs/general/linkPreviews.ts:14
 msgid "Allow Pano to visit links on your clipboard to generate link previews"
-msgstr "يسمح لبانو بزيارة الروابط في الحافطة لانشاء عرض مسبق"
+msgstr "يسمح لبانو بزيارة الروابط في الحافطة لإنشاء المعاينات"
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"
-msgstr "اللصق عند التحديد"
+msgstr "اللصق عند الاختيار"
 
 #: src/prefs/general/pasteOnSelect.ts:14
 msgid "Allow Pano to paste content on select"
-msgstr "يسمح لبانو بلصق المحتوى عن التحديد"
+msgstr "يسمح لبانو بلصق المحتوى عند الاختيار"
 
 #: src/prefs/general/playAudioOnCopy.ts:13
 msgid "Play an Audio on Copy"
@@ -143,36 +143,36 @@ msgstr "تشغيل مقطع صوتي عند النسخ"
 
 #: src/prefs/general/playAudioOnCopy.ts:14
 msgid "Allow Pano to play an audio when copying new content"
-msgstr "يسمح لبانو بتشغيل مقطع صوتي عن نسخ محتوى جديد"
+msgstr "يسمح لبانو بتشغيل مقطع صوتي عند نسخ محتوى جديد"
 
 #: src/prefs/general/shortcutRow.ts:57
 msgid "Global Shortcut"
-msgstr "إختصار لوحة المفاتيح"
+msgstr "اختصار لوحة المفاتيح"
 
 #: src/prefs/general/shortcutRow.ts:58
 msgid "Allows you to toggle visibility of the clipboard manager"
-msgstr "يمكنّك من إظهار و إخفاء مدير الحافظة"
+msgstr "يمكنّك من إظهار وإخفاء مدير الحافظة"
 
 #: src/prefs/general/showIndicator.ts:13
 msgid "Show Indicator"
-msgstr "إظهار مؤشر"
+msgstr "أظهر أيقونة القائمة"
 
 #: src/prefs/general/showIndicator.ts:14
 msgid "Shows an indicator on top panel"
-msgstr "يظهر مؤشر في الشريط العلوي"
+msgstr "أظهر أيقونة القائمة في الشريط العلوي"
 
 #: src/prefs/general/syncPrimary.ts:13
 msgid "Sync Primary"
-msgstr "مزامنة الرئيسي"
+msgstr "مزامنة التحديد الرئيسي"
 
 #: src/prefs/general/syncPrimary.ts:14
 msgid "Sync primary selection with clipboard selection"
-msgstr "مزامنة التحديد الرئيسي مع اختيار الحافظة"
+msgstr "مزامنة التحديد الرئيسي مع تحديد الحافظة"
 
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"
-msgstr "مشاهدة الإستثناءات"
+msgstr "راقب الاستثناءات"
 
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
-msgstr "عند التفعيل, بانو لن يتابع حافظة التطبيقات المستثنية"
+msgstr "عند التمكين لن يتعقب بانو حافظة التطبيقات المستثناة"
