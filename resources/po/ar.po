@@ -5,51 +5,47 @@ msgstr ""
 
 #: src/components/indicator/clearHistoryDialog.ts:21
 msgid "Cancel"
-msgstr "ألغِ"
+msgstr "إلغاء"
 
 #: src/components/indicator/clearHistoryDialog.ts:28
 #: src/prefs/dangerZone/clearHistory.ts:17
 msgid "Clear"
-msgstr "امحُ"
+msgstr "إزالة"
 
 #: src/components/indicator/clearHistoryDialog.ts:33
-#: src/components/indicator/settingsMenu.ts:67
+#: src/components/indicator/settingsMenu.ts:69
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
-msgstr "امحُ السجل التاريخي"
+msgstr "إزالة السجل"
 
 #: src/components/indicator/clearHistoryDialog.ts:34
 #: src/prefs/dangerZone/clearHistory.ts:23
 msgid "Are you sure you want to clear history?"
-msgstr "أمتأكد من رغبتك بمحوِ السجل التاريخي؟"
+msgstr "هل أنت متأكد من رغبتك بإزالة السجل؟"
 
-#: src/components/indicator/settingsMenu.ts:43
-msgid "Toggle Pano"
-msgstr "اقلب مرئية پانو"
-
-#: src/components/indicator/settingsMenu.ts:51
+#: src/components/indicator/settingsMenu.ts:53
 msgid "Incognito Mode"
-msgstr "نمط التخفي"
+msgstr "الوضع المخفي"
 
-#: src/components/indicator/settingsMenu.ts:74
+#: src/components/indicator/settingsMenu.ts:76
 msgid "Settings"
 msgstr "الإعدادات"
 
 #: src/components/searchBox.ts:32
 msgid "Type to search"
-msgstr "اكتب نصًا للبحث عنه"
+msgstr "اكتب للبحث"
 
 #: src/prefs/dangerZone/clearHistory.ts:12
 msgid "Clears the clipboard database and cache"
-msgstr "يمحو قاعدة بيانات الحافظة وذاكرتها المؤقتة"
+msgstr "يزيل قاعدة بيانات الحافظة وذاكرتها المؤقتة"
 
 #: src/prefs/dangerZone/index.ts:11
 msgid "Danger Zone"
-msgstr "نطاق الخطر"
+msgstr "منطقة الخطر"
 
 #: src/prefs/dangerZone/sessionOnlyMode.ts:13
 msgid "Session Only Mode"
-msgstr "نمط الجلسة المنعزلة"
+msgstr "وضع الجلسة المنعزلة"
 
 #: src/prefs/dangerZone/sessionOnlyMode.ts:14
 msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
@@ -61,7 +57,7 @@ msgstr "موقع قاعدة البيانات"
 
 #: src/prefs/general/dbLocation.ts:30
 msgid "Choose pano database location"
-msgstr "اختر موقع قاعدة بيانات پانو"
+msgstr "اختر موقع قاعدة بيانات بانو"
 
 #: src/prefs/general/dbLocation.ts:52
 msgid "Failed to select directory"
@@ -83,39 +79,47 @@ msgstr "سيمتنع پانو عن التتبع إذا فعلت نافذة من 
 msgid "Window class name"
 msgstr "اسم طراز النافذة"
 
-#: src/prefs/general/generalGroup.ts:19
+#: src/prefs/general/generalGroup.ts:20
 msgid "General Options"
 msgstr "خيارات عامة"
 
 #: src/prefs/general/historyLength.ts:13
 msgid "History Length"
-msgstr "طول السجل التاريخي"
+msgstr "طول السجل"
 
 #: src/prefs/general/historyLength.ts:14
 msgid "You can limit your clipboard history length between 10 - 500"
-msgstr "يمكنك حصر طول السجل التاريخي للحافظة بين 10 - 500"
+msgstr "يمكنك حصر طول السجل للحافظة بين 10 - 500"
 
 #: src/prefs/general/incognitoShortcutRow.ts:57
 msgid "Incognito Mode Shortcut"
-msgstr "اختصار نمط التخفي"
+msgstr "إختصار الوضع المخفي"
 
 #: src/prefs/general/incognitoShortcutRow.ts:58
 msgid "Allows you to toggle incognito mode"
-msgstr "يمكنك من قلب فعالية نمط التخفي"
+msgstr "يمكنك من تفعيل وإيقاف الوضع المخفي"
 
 #: src/prefs/general/incognitoShortcutRow.ts:64
 #: src/prefs/general/shortcutRow.ts:64
 msgid "Select a shortcut"
-msgstr "اختر اختصار لوحة المفاتيح"
+msgstr "اختر إختصار لوحة المفاتيح"
 
 #: src/prefs/general/incognitoShortcutRow.ts:77
 #: src/prefs/general/shortcutRow.ts:77
 msgid "New shortcut"
-msgstr "اختصار جديد"
+msgstr "إختصار جديد"
 
 #: src/prefs/general/index.ts:11
 msgid "General"
-msgstr "عامة"
+msgstr "عام"
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:13
+msgid "Keep Search Entry"
+msgstr "احتفظ بمدخلة البحث"
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:14
+msgid "Keep search entry when Pano hides"
+msgstr "احتفظ بمدخلة البحث عند إخفاء بانو"
 
 #: src/prefs/general/linkPreviews.ts:13
 msgid "Link Previews"
@@ -123,31 +127,31 @@ msgstr "معاينة الروابط"
 
 #: src/prefs/general/linkPreviews.ts:14
 msgid "Allow Pano to visit links on your clipboard to generate link previews"
-msgstr "يمكّن پانو من فتح الروابط التي في الحافظة لإنشاء معاينات الروابط"
+msgstr "يسمح لبانو بزيارة الروابط في الحافطة لإنشاء المعاينات"
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"
-msgstr "ألصق عند الاختيار"
+msgstr "اللصق عند الاختيار"
 
 #: src/prefs/general/pasteOnSelect.ts:14
 msgid "Allow Pano to paste content on select"
-msgstr "يمكّن پانو من إلصاق المحتوى عند اختياره"
+msgstr "يسمح لبانو بلصق المحتوى عند الاختيار"
 
 #: src/prefs/general/playAudioOnCopy.ts:13
 msgid "Play an Audio on Copy"
-msgstr "شغل صوتًا عند النسخ"
+msgstr "تشغيل مقطع صوتي عند النسخ"
 
 #: src/prefs/general/playAudioOnCopy.ts:14
 msgid "Allow Pano to play an audio when copying new content"
-msgstr "يمكّن پانو من تشغيل مقطع صوتي عند نسخ محتوى جديد"
+msgstr "يسمح لبانو بتشغيل مقطع صوتي عند نسخ محتوى جديد"
 
 #: src/prefs/general/shortcutRow.ts:57
 msgid "Global Shortcut"
-msgstr "اختصار لوحة المفاتيح"
+msgstr "إختصار لوحة المفاتيح"
 
 #: src/prefs/general/shortcutRow.ts:58
 msgid "Allows you to toggle visibility of the clipboard manager"
-msgstr "يمكنّك من قلب مرئية مدير الحافظة"
+msgstr "يمكنّك من إظهار و إخفاء مدير الحافظة"
 
 #: src/prefs/general/showIndicator.ts:13
 msgid "Show Indicator"
@@ -159,11 +163,11 @@ msgstr "أظهر أيقونة القائمة في الشريط العلوي"
 
 #: src/prefs/general/syncPrimary.ts:13
 msgid "Sync Primary"
-msgstr "زامن التحديد الرئيسي"
+msgstr "مزامنة التحديد الرئيسي"
 
 #: src/prefs/general/syncPrimary.ts:14
 msgid "Sync primary selection with clipboard selection"
-msgstr "زامن التحديد الرئيسي مع تحديد الحافظة"
+msgstr "مزامنة التحديد الرئيسي مع تحديد الحافظة"
 
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"
@@ -171,4 +175,4 @@ msgstr "راقب الاستثناءات"
 
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
-msgstr "عند التمكين لن يتعقب پانو حافظة التطبيقات المستثناة"
+msgstr "عند التمكين لن يتعقب بانو حافظة التطبيقات المستثناة"

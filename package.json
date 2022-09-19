@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "author": "Alperen Elhan <alperen@elhan.io>",
   "private": true,
-  "license": "MIT",
+  "license": "GPL-2.0-or-later",
   "scripts": {
     "build": "yarn run lock:types && yarn run build:types && yarn run build:ts && yarn run gen:locale && yarn run build:extension",
     "clean": "yarn run clean:ts && yarn run build:types",

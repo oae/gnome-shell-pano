@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "Escafar"
 
 #: src/components/indicator/clearHistoryDialog.ts:33
-#: src/components/indicator/settingsMenu.ts:67
+#: src/components/indicator/settingsMenu.ts:69
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr "Escafar l’istoric"
@@ -23,15 +23,11 @@ msgstr "Escafar l’istoric"
 msgid "Are you sure you want to clear history?"
 msgstr "Volètz vertadièrament escafar l’istoric ?"
 
-#: src/components/indicator/settingsMenu.ts:43
-msgid "Toggle Pano"
-msgstr ""
-
-#: src/components/indicator/settingsMenu.ts:51
+#: src/components/indicator/settingsMenu.ts:53
 msgid "Incognito Mode"
 msgstr ""
 
-#: src/components/indicator/settingsMenu.ts:74
+#: src/components/indicator/settingsMenu.ts:76
 msgid "Settings"
 msgstr ""
 
@@ -83,7 +79,7 @@ msgstr ""
 msgid "Window class name"
 msgstr ""
 
-#: src/prefs/general/generalGroup.ts:19
+#: src/prefs/general/generalGroup.ts:20
 msgid "General Options"
 msgstr ""
 
@@ -115,6 +111,14 @@ msgstr "Acorchi novèl"
 
 #: src/prefs/general/index.ts:11
 msgid "General"
+msgstr ""
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:13
+msgid "Keep Search Entry"
+msgstr ""
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:14
+msgid "Keep search entry when Pano hides"
 msgstr ""
 
 #: src/prefs/general/linkPreviews.ts:13

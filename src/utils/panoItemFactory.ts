@@ -120,15 +120,15 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
 
   const result = db.query(queryBuilder.build());
 
+  if (getCurrentExtensionSettings().get_boolean('play-audio-on-copy')) {
+    playAudio();
+  }
+
   if (result.length > 0) {
     return db.update({
       ...result[0],
       copyDate: new Date(),
     });
-  }
-
-  if (getCurrentExtensionSettings().get_boolean('play-audio-on-copy')) {
-    playAudio();
   }
 
   switch (type) {
@@ -175,17 +175,10 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
           imageUrl = '',
           title = '',
           checksum = '';
-        if (linkPreviews) {
-          const document = await getDocument(value);
-          description = document.description;
-          title = document.title;
-          imageUrl = document.imageUrl;
-          checksum = (await getImage(imageUrl))[0] || '';
-        }
-
-        return db.save({
+        const copyDate = new Date();
+        let linkDbItem = db.save({
           content: value,
-          copyDate: new Date(),
+          copyDate,
           isFavorite: false,
           itemType: 'LINK',
           matchValue: value,
@@ -196,7 +189,30 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
             image: checksum || '',
           }),
         });
-        return null;
+
+        if (linkPreviews && linkDbItem) {
+          const document = await getDocument(value);
+          description = document.description;
+          title = document.title;
+          imageUrl = document.imageUrl;
+          checksum = (await getImage(imageUrl))[0] || '';
+          linkDbItem = db.update({
+            id: linkDbItem.id,
+            content: value,
+            copyDate: copyDate,
+            isFavorite: false,
+            itemType: 'LINK',
+            matchValue: value,
+            searchValue: `${title}${description}${value}`,
+            metaData: JSON.stringify({
+              title: title ? encodeURI(title) : '',
+              description: description ? encodeURI(description) : '',
+              image: checksum || '',
+            }),
+          });
+        }
+
+        return linkDbItem;
       }
       if (
         validateHTMLColorHex(value.trim()) ||

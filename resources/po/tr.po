@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "Temizle"
 
 #: src/components/indicator/clearHistoryDialog.ts:33
-#: src/components/indicator/settingsMenu.ts:67
+#: src/components/indicator/settingsMenu.ts:69
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr "Geçmişi Temizle"
@@ -23,15 +23,11 @@ msgstr "Geçmişi Temizle"
 msgid "Are you sure you want to clear history?"
 msgstr "Geçmişi temizlemek istediğine emin misiniz?"
 
-#: src/components/indicator/settingsMenu.ts:43
-msgid "Toggle Pano"
-msgstr "Pano'yu Aç"
-
-#: src/components/indicator/settingsMenu.ts:51
+#: src/components/indicator/settingsMenu.ts:53
 msgid "Incognito Mode"
 msgstr "Gizli Mod"
 
-#: src/components/indicator/settingsMenu.ts:74
+#: src/components/indicator/settingsMenu.ts:76
 msgid "Settings"
 msgstr "Ayarlar"
 
@@ -83,7 +79,7 @@ msgstr "Listedeki herhangi bir pencereye odaklanılırsa Pano izlemeyi durduraca
 msgid "Window class name"
 msgstr "Pencere sınıfı adı"
 
-#: src/prefs/general/generalGroup.ts:19
+#: src/prefs/general/generalGroup.ts:20
 msgid "General Options"
 msgstr "Genel seçenekler"
 
@@ -116,6 +112,14 @@ msgstr "Yeni kısayol"
 #: src/prefs/general/index.ts:11
 msgid "General"
 msgstr "Genel"
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:13
+msgid "Keep Search Entry"
+msgstr ""
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:14
+msgid "Keep search entry when Pano hides"
+msgstr ""
 
 #: src/prefs/general/linkPreviews.ts:13
 msgid "Link Previews"
