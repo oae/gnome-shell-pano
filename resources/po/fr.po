@@ -1,50 +1,11 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: Irénée Thirion <irenee.thirion@e.email>\n"
-"Language-Team: \n"
-"Language: fr\n"
-"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.1.1\n"
-
-#: src/prefs/general/pasteOnSelect.ts:14
-msgid "Allow Pano to paste content on select"
-msgstr "Autoriser Pano à coller du contenu sur la sélection"
-
-#: src/prefs/general/playAudioOnCopy.ts:14
-msgid "Allow Pano to play an audio when copying new content"
-msgstr "Autoriser Pano à jouer un son lors de la copie de nouveau contenu"
-
-#: src/prefs/general/linkPreviews.ts:14
-msgid "Allow Pano to visit links on your clipboard to generate link previews"
-msgstr ""
-"Permettre à Pano de visiter les liens de votre presse-papiers pour générer "
-"un aperçu des sites web"
-
-#: src/prefs/general/incognitoShortcutRow.ts:58
-msgid "Allows you to toggle incognito mode"
-msgstr "Permet de basculer vers le mode incognito"
-
-#: src/prefs/general/shortcutRow.ts:58
-msgid "Allows you to toggle visibility of the clipboard manager"
-msgstr "Permet de basculer la visibilité du gestionnaire de presse-papiers"
-
-#: src/components/indicator/clearHistoryDialog.ts:34
-#: src/prefs/dangerZone/clearHistory.ts:23
-msgid "Are you sure you want to clear history?"
-msgstr "Êtes-vous sûr de vouloir vider l’historique ?"
+"X-Generator: fill-pot-po/2.1.9\n"
 
 #: src/components/indicator/clearHistoryDialog.ts:21
 msgid "Cancel"
 msgstr "Annuler"
-
-#: src/prefs/general/dbLocation.ts:30
-msgid "Choose pano database location"
-msgstr "Choisissez l’emplacement de la base de données Pano"
 
 #: src/components/indicator/clearHistoryDialog.ts:28
 #: src/prefs/dangerZone/clearHistory.ts:17
@@ -57,6 +18,23 @@ msgstr "Vider"
 msgid "Clear History"
 msgstr "Vider l’historique"
 
+#: src/components/indicator/clearHistoryDialog.ts:34
+#: src/prefs/dangerZone/clearHistory.ts:23
+msgid "Are you sure you want to clear history?"
+msgstr "Êtes-vous sûr de vouloir vider l’historique ?"
+
+#: src/components/indicator/settingsMenu.ts:53
+msgid "Incognito Mode"
+msgstr "Mode incognito"
+
+#: src/components/indicator/settingsMenu.ts:76
+msgid "Settings"
+msgstr "Paramètres"
+
+#: src/components/searchBox.ts:32
+msgid "Type to search"
+msgstr "Tapez pour rechercher"
+
 #: src/prefs/dangerZone/clearHistory.ts:12
 msgid "Clears the clipboard database and cache"
 msgstr "Vider la base de données du presse-papiers et le cache"
@@ -65,41 +43,75 @@ msgstr "Vider la base de données du presse-papiers et le cache"
 msgid "Danger Zone"
 msgstr "Zone à risque"
 
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr "Mode session unique"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr "Lorsque ce mode est activé, Pano va automatiquement vider l’historique lors de la déconnexion / redémarrage / extinction"
+
 #: src/prefs/general/dbLocation.ts:22
 msgid "Database Location"
 msgstr "Emplacement de la base de données"
 
-#: src/prefs/general/exclusionGroup.ts:22
-msgid "Excluded Apps"
-msgstr "Applications exclues"
+#: src/prefs/general/dbLocation.ts:30
+msgid "Choose pano database location"
+msgstr "Choisissez l’emplacement de la base de données Pano"
 
 #: src/prefs/general/dbLocation.ts:52
 msgid "Failed to select directory"
 msgstr "La sélection du répertoire a échouée"
 
-#: src/prefs/general/index.ts:11
-msgid "General"
-msgstr "Général"
+#: src/prefs/general/exclusionGroup.ts:15
+msgid "Manage Exclusions"
+msgstr "Gérer les exclusions"
+
+#: src/prefs/general/exclusionGroup.ts:22
+msgid "Excluded Apps"
+msgstr "Applications exclues"
+
+#: src/prefs/general/exclusionGroup.ts:23
+msgid "Pano will stop tracking if any window from the list is focussed"
+msgstr "Pano arrêtera le suivi si une fenêtre d’une application de la liste est focalisée"
+
+#: src/prefs/general/exclusionGroup.ts:52
+msgid "Window class name"
+msgstr "Nom de la classe de la fenêtre"
 
 #: src/prefs/general/generalGroup.ts:20
 msgid "General Options"
 msgstr "Options générales"
 
-#: src/prefs/general/shortcutRow.ts:57
-msgid "Global Shortcut"
-msgstr "Raccourcis globaux"
-
 #: src/prefs/general/historyLength.ts:13
 msgid "History Length"
 msgstr "Taille de l’historique"
 
-#: src/components/indicator/settingsMenu.ts:53
-msgid "Incognito Mode"
-msgstr "Mode incognito"
+#: src/prefs/general/historyLength.ts:14
+msgid "You can limit your clipboard history length between 10 - 500"
+msgstr "Vous pouvez limiter la taille de l’historique du presse-papiers entre 10 et 500"
 
 #: src/prefs/general/incognitoShortcutRow.ts:57
 msgid "Incognito Mode Shortcut"
 msgstr "Raccourci clavier du mode incognito"
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr "Permet de basculer vers le mode incognito"
+
+#: src/prefs/general/incognitoShortcutRow.ts:64
+#: src/prefs/general/shortcutRow.ts:64
+msgid "Select a shortcut"
+msgstr "Sélectionnez un raccourci"
+
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "Nouveau raccourci"
+
+#: src/prefs/general/index.ts:11
+msgid "General"
+msgstr "Général"
 
 #: src/prefs/general/keepSearchEntryOnHide.ts:13
 msgid "Keep Search Entry"
@@ -113,41 +125,33 @@ msgstr "Conserver l’entrée de recherche lorsque Pano est masqué"
 msgid "Link Previews"
 msgstr "Prévisualisation des liens"
 
-#: src/prefs/general/exclusionGroup.ts:15
-msgid "Manage Exclusions"
-msgstr "Gérer les exclusions"
-
-#: src/prefs/general/incognitoShortcutRow.ts:77
-#: src/prefs/general/shortcutRow.ts:77
-msgid "New shortcut"
-msgstr "Nouveau raccourci"
-
-#: src/prefs/general/exclusionGroup.ts:23
-msgid "Pano will stop tracking if any window from the list is focussed"
-msgstr ""
-"Pano arrêtera le suivi si une fenêtre d’une application de la liste est "
-"focalisée"
+#: src/prefs/general/linkPreviews.ts:14
+msgid "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr "Permettre à Pano de visiter les liens de votre presse-papiers pour générer un aperçu des sites web"
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"
 msgstr "Coller sur la sélection"
 
+#: src/prefs/general/pasteOnSelect.ts:14
+msgid "Allow Pano to paste content on select"
+msgstr "Autoriser Pano à coller du contenu sur la sélection"
+
 #: src/prefs/general/playAudioOnCopy.ts:13
 msgid "Play an Audio on Copy"
 msgstr "Jouer un son lors de la copie"
 
-#: src/prefs/general/incognitoShortcutRow.ts:64
-#: src/prefs/general/shortcutRow.ts:64
-msgid "Select a shortcut"
-msgstr "Sélectionnez un raccourci"
+#: src/prefs/general/playAudioOnCopy.ts:14
+msgid "Allow Pano to play an audio when copying new content"
+msgstr "Autoriser Pano à jouer un son lors de la copie de nouveau contenu"
 
-#: src/prefs/dangerZone/sessionOnlyMode.ts:13
-msgid "Session Only Mode"
-msgstr "Mode session unique"
+#: src/prefs/general/shortcutRow.ts:57
+msgid "Global Shortcut"
+msgstr "Raccourcis globaux"
 
-#: src/components/indicator/settingsMenu.ts:76
-msgid "Settings"
-msgstr "Paramètres"
+#: src/prefs/general/shortcutRow.ts:58
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "Permet de basculer la visibilité du gestionnaire de presse-papiers"
 
 #: src/prefs/general/showIndicator.ts:13
 msgid "Show Indicator"
@@ -163,35 +167,12 @@ msgstr "Synchroniser la sélection primaire"
 
 #: src/prefs/general/syncPrimary.ts:14
 msgid "Sync primary selection with clipboard selection"
-msgstr ""
-"Synchroniser la sélection primaire avec la sélection du presse-papiers"
-
-#: src/components/searchBox.ts:32
-msgid "Type to search"
-msgstr "Tapez pour rechercher"
+msgstr "Synchroniser la sélection primaire avec la sélection du presse-papiers"
 
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"
 msgstr "Voir les exclusions"
 
-#: src/prefs/dangerZone/sessionOnlyMode.ts:14
-msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
-msgstr ""
-"Lorsque ce mode est activé, Pano va automatiquement vider l’historique lors "
-"de la déconnexion / redémarrage / extinction"
-
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
-msgstr ""
-"Lorsque cette option est activée, Pano ne suivra pas le presse-papiers "
-"depuis les applications exclues"
-
-#: src/prefs/general/exclusionGroup.ts:52
-msgid "Window class name"
-msgstr "Nom de la classe de la fenêtre"
-
-#: src/prefs/general/historyLength.ts:14
-msgid "You can limit your clipboard history length between 10 - 500"
-msgstr ""
-"Vous pouvez limiter la taille de l’historique du presse-papiers entre 10 et "
-"500"
+msgstr "Lorsque cette option est activée, Pano ne suivra pas le presse-papiers depuis les applications exclues"
