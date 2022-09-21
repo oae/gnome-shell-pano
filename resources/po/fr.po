@@ -115,19 +115,19 @@ msgstr "Général"
 
 #: src/prefs/general/keepSearchEntryOnHide.ts:13
 msgid "Keep Search Entry"
-msgstr ""
+msgstr "Conserver l’entrée de recherche"
 
 #: src/prefs/general/keepSearchEntryOnHide.ts:14
 msgid "Keep search entry when Pano hides"
-msgstr ""
+msgstr "Conserver l’entrée de recherche lorsque Pano est masqué"
 
 #: src/prefs/general/linkPreviews.ts:13
 msgid "Link Previews"
-msgstr ""
+msgstr "Prévisualisation des liens"
 
 #: src/prefs/general/linkPreviews.ts:14
 msgid "Allow Pano to visit links on your clipboard to generate link previews"
-msgstr ""
+msgstr "Permettre à Pano de visiter les liens de votre presse-papiers pour générer un aperçu des sites web"
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"
@@ -163,11 +163,11 @@ msgstr "Affiche un indicateur sur le panneau supérieur"
 
 #: src/prefs/general/syncPrimary.ts:13
 msgid "Sync Primary"
-msgstr ""
+msgstr "Synchroniser la sélection primaire"
 
 #: src/prefs/general/syncPrimary.ts:14
 msgid "Sync primary selection with clipboard selection"
-msgstr ""
+msgstr "Synchroniser la sélection primaire avec la sélection du presse-papiers"
 
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"
