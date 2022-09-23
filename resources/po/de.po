@@ -5,113 +5,113 @@ msgstr ""
 
 #: src/components/indicator/clearHistoryDialog.ts:21
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "Abbrechen"
 
 #: src/components/indicator/clearHistoryDialog.ts:28
 #: src/prefs/dangerZone/clearHistory.ts:17
 msgid "Clear"
-msgstr "Clear"
+msgstr "Leeren"
 
 #: src/components/indicator/clearHistoryDialog.ts:33
 #: src/components/indicator/settingsMenu.ts:69
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
-msgstr "Clear History"
+msgstr "Historie leeren"
 
 #: src/components/indicator/clearHistoryDialog.ts:34
 #: src/prefs/dangerZone/clearHistory.ts:23
 msgid "Are you sure you want to clear history?"
-msgstr "Are you sure you want to clear history?"
+msgstr "Sind Sie sicher das Sie die Historie entfernen möchten?"
 
 #: src/components/indicator/settingsMenu.ts:53
 msgid "Incognito Mode"
-msgstr "Incognito Mode"
+msgstr "Inkognito-Modus"
 
 #: src/components/indicator/settingsMenu.ts:76
 msgid "Settings"
-msgstr "Settings"
+msgstr "Einstellungen"
 
 #: src/components/searchBox.ts:32
 msgid "Type to search"
-msgstr "Type to search"
+msgstr "Tippen um zu Suchen"
 
 #: src/prefs/dangerZone/clearHistory.ts:12
 msgid "Clears the clipboard database and cache"
-msgstr "Clears the clipboard database and cache"
+msgstr "Leert die Zwischenablage-Datenbank und den Cache"
 
 #: src/prefs/dangerZone/index.ts:11
 msgid "Danger Zone"
-msgstr "Danger Zone"
+msgstr "Gefahrenbereich"
 
 #: src/prefs/dangerZone/sessionOnlyMode.ts:13
 msgid "Session Only Mode"
-msgstr "Session Only Mode"
+msgstr "Einzelsession-Modus"
 
 #: src/prefs/dangerZone/sessionOnlyMode.ts:14
 msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
-msgstr "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr "Wenn aktiviert, wird Pano die Historie leeren beim Ausloggen/Neustarten/Herunterfahren."
 
 #: src/prefs/general/dbLocation.ts:22
 msgid "Database Location"
-msgstr "Database Location"
+msgstr "Datenbankablage"
 
 #: src/prefs/general/dbLocation.ts:30
 msgid "Choose pano database location"
-msgstr "Choose pano database location"
+msgstr "Pano Datenbankablage wählen"
 
 #: src/prefs/general/dbLocation.ts:52
 msgid "Failed to select directory"
-msgstr "Failed to select directory"
+msgstr "Ordnerauswahl fehlgeschlagen"
 
 #: src/prefs/general/exclusionGroup.ts:15
 msgid "Manage Exclusions"
-msgstr "Manage Exclusions"
+msgstr "Ausschlüsse verwalten"
 
 #: src/prefs/general/exclusionGroup.ts:22
 msgid "Excluded Apps"
-msgstr "Excluded Apps"
+msgstr "Ausgeschlossene Apps"
 
 #: src/prefs/general/exclusionGroup.ts:23
 msgid "Pano will stop tracking if any window from the list is focussed"
-msgstr "Pano will stop tracking if any window from the list is focussed"
+msgstr "Pano wird nichts tracken wenn ein Fenster aus der Liste im Fokus ist"
 
 #: src/prefs/general/exclusionGroup.ts:52
 msgid "Window class name"
-msgstr "Window class name"
+msgstr "Fenster Klassename"
 
 #: src/prefs/general/generalGroup.ts:20
 msgid "General Options"
-msgstr "General Options"
+msgstr "Allgemeine Optionen"
 
 #: src/prefs/general/historyLength.ts:13
 msgid "History Length"
-msgstr "History Length"
+msgstr "Länge der Historie"
 
 #: src/prefs/general/historyLength.ts:14
 msgid "You can limit your clipboard history length between 10 - 500"
-msgstr "You can limit your clipboard history length between 10 - 500"
+msgstr "Sie können Ihre Zwischenablage limitieren auf ein Länge zwischen 10 - 500"
 
 #: src/prefs/general/incognitoShortcutRow.ts:57
 msgid "Incognito Mode Shortcut"
-msgstr "Incognito Mode Shortcut"
+msgstr "Inkognito-Modus Tastaturkürzel"
 
 #: src/prefs/general/incognitoShortcutRow.ts:58
 msgid "Allows you to toggle incognito mode"
-msgstr "Allows you to toggle incognito mode"
+msgstr "Umschalter des Inkognito-Modus"
 
 #: src/prefs/general/incognitoShortcutRow.ts:64
 #: src/prefs/general/shortcutRow.ts:64
 msgid "Select a shortcut"
-msgstr "Select a shortcut"
+msgstr "Kürzel auswählen"
 
 #: src/prefs/general/incognitoShortcutRow.ts:77
 #: src/prefs/general/shortcutRow.ts:77
 msgid "New shortcut"
-msgstr "New shortcut"
+msgstr "Neues Kürzel"
 
 #: src/prefs/general/index.ts:11
 msgid "General"
-msgstr "General"
+msgstr "Allgemein"
 
 #: src/prefs/general/keepSearchEntryOnHide.ts:13
 msgid "Keep Search Entry"
@@ -123,56 +123,56 @@ msgstr ""
 
 #: src/prefs/general/linkPreviews.ts:13
 msgid "Link Previews"
-msgstr "Link Previews"
+msgstr "Linkvorschauen"
 
 #: src/prefs/general/linkPreviews.ts:14
 msgid "Allow Pano to visit links on your clipboard to generate link previews"
-msgstr "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr "Pano darf Links besuchen um Vorschauen zu erstellen"
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"
-msgstr "Paste on Select"
+msgstr "Einfügen bei Auswahl"
 
 #: src/prefs/general/pasteOnSelect.ts:14
 msgid "Allow Pano to paste content on select"
-msgstr "Allow Pano to paste content on select"
+msgstr "Pano darf Inhalte bei Auswahl einfügen"
 
 #: src/prefs/general/playAudioOnCopy.ts:13
 msgid "Play an Audio on Copy"
-msgstr "Play an Audio on Copy"
+msgstr "Audio abspielen beim Kopieren"
 
 #: src/prefs/general/playAudioOnCopy.ts:14
 msgid "Allow Pano to play an audio when copying new content"
-msgstr "Allow Pano to play an audio when copying new content"
+msgstr "Pano darf Audio abzuspielen wenn Inhalte kopiert werden"
 
 #: src/prefs/general/shortcutRow.ts:57
 msgid "Global Shortcut"
-msgstr "Global Shortcut"
+msgstr "Globales Tastaturkürzel"
 
 #: src/prefs/general/shortcutRow.ts:58
 msgid "Allows you to toggle visibility of the clipboard manager"
-msgstr "Allows you to toggle visibility of the clipboard manager"
+msgstr "Umschalter zur Anzeige der Zwischenablage-Verwaltung"
 
 #: src/prefs/general/showIndicator.ts:13
 msgid "Show Indicator"
-msgstr "Show Indicator"
+msgstr "Indikator anzeigen"
 
 #: src/prefs/general/showIndicator.ts:14
 msgid "Shows an indicator on top panel"
-msgstr "Shows an indicator on top panel"
+msgstr "Indikator wird im oberen Panel angezeigt"
 
 #: src/prefs/general/syncPrimary.ts:13
 msgid "Sync Primary"
-msgstr "Sync Primary"
+msgstr "Primär synchronisieren"
 
 #: src/prefs/general/syncPrimary.ts:14
 msgid "Sync primary selection with clipboard selection"
-msgstr "Sync primary selection with clipboard selection"
+msgstr "Primäre Auswahl mit der Auswahl der Zwischenablage synchronisieren"
 
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"
-msgstr "Watch Exclusions"
+msgstr "Ausschlüsse überwachen"
 
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
-msgstr "When enabled, Pano will not track clipboard from excluded apps"
+msgstr "Wenn aktiviert, wird Pano die ausgeschlossenen Apps nicht tracken"

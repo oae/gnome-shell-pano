@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "Temizle"
 
 #: src/components/indicator/clearHistoryDialog.ts:33
-#: src/components/indicator/settingsMenu.ts:67
+#: src/components/indicator/settingsMenu.ts:69
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr "Geçmişi Temizle"
@@ -23,15 +23,11 @@ msgstr "Geçmişi Temizle"
 msgid "Are you sure you want to clear history?"
 msgstr "Geçmişi temizlemek istediğine emin misiniz?"
 
-#: src/components/indicator/settingsMenu.ts:43
-msgid "Toggle Pano"
-msgstr "Pano'yu Aç"
-
-#: src/components/indicator/settingsMenu.ts:51
+#: src/components/indicator/settingsMenu.ts:53
 msgid "Incognito Mode"
 msgstr "Gizli Mod"
 
-#: src/components/indicator/settingsMenu.ts:74
+#: src/components/indicator/settingsMenu.ts:76
 msgid "Settings"
 msgstr "Ayarlar"
 
@@ -53,9 +49,7 @@ msgstr "Şu anki Oturum Modu"
 
 #: src/prefs/dangerZone/sessionOnlyMode.ts:14
 msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
-msgstr ""
-"Etkinleştirildiğinde, Pano oturum kapatma/yeniden başlatma/kapatma sırasında "
-"tüm geçmişi temizleyecektir."
+msgstr "Etkinleştirildiğinde, Pano oturum kapatma/yeniden başlatma/kapatma sırasında tüm geçmişi temizleyecektir."
 
 #: src/prefs/general/dbLocation.ts:22
 msgid "Database Location"
@@ -85,7 +79,7 @@ msgstr "Listedeki herhangi bir pencereye odaklanılırsa Pano izlemeyi durduraca
 msgid "Window class name"
 msgstr "Pencere sınıfı adı"
 
-#: src/prefs/general/generalGroup.ts:18
+#: src/prefs/general/generalGroup.ts:20
 msgid "General Options"
 msgstr "Genel seçenekler"
 
@@ -119,13 +113,21 @@ msgstr "Yeni kısayol"
 msgid "General"
 msgstr "Genel"
 
-#: src/prefs/general/offlineMode.ts:13
-msgid "Offline Mode"
-msgstr "Çevrimdışı mod"
+#: src/prefs/general/keepSearchEntryOnHide.ts:13
+msgid "Keep Search Entry"
+msgstr ""
 
-#: src/prefs/general/offlineMode.ts:14
-msgid "When enabled, Pano will not try to connect to internet"
-msgstr "Etkinleştirildiğinde, Pano internete bağlanmaya çalışmaz"
+#: src/prefs/general/keepSearchEntryOnHide.ts:14
+msgid "Keep search entry when Pano hides"
+msgstr ""
+
+#: src/prefs/general/linkPreviews.ts:13
+msgid "Link Previews"
+msgstr "Bağlantı Önizlemeleri"
+
+#: src/prefs/general/linkPreviews.ts:14
+msgid "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr "Bağlantı önizlemeleri oluşturmak için Pano'nun bağlantıları ziyaret etmesine izin verin"
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"
@@ -158,6 +160,14 @@ msgstr "Gösterge ekle"
 #: src/prefs/general/showIndicator.ts:14
 msgid "Shows an indicator on top panel"
 msgstr "Üst panelde bir gösterge ekler"
+
+#: src/prefs/general/syncPrimary.ts:13
+msgid "Sync Primary"
+msgstr "Birincil Geçmiş Senkronizasyonu"
+
+#: src/prefs/general/syncPrimary.ts:14
+msgid "Sync primary selection with clipboard selection"
+msgstr "Birincil geçmiş ile ana geçmişi senkronize et"
 
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"

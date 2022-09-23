@@ -7,6 +7,7 @@ import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/cli
 import { db } from '@pano/utils/db';
 import { KeyManager } from '@pano/utils/keyManager';
 import {
+  debounceIds,
   deleteAppDirs,
   getCurrentExtensionSettings,
   getDbPath,
@@ -145,7 +146,7 @@ class PanoExtension {
       this.clearSessionHistory.bind(this),
     );
     addTopChrome(this.panoWindow);
-    this.keyManager.listenFor('shortcut', () => this.panoWindow.toggle());
+    this.keyManager.listenFor('global-shortcut', () => this.panoWindow.toggle());
     this.keyManager.listenFor('incognito-shortcut', () => {
       this.settings.set_boolean('is-in-incognito', !this.settings.get_boolean('is-in-incognito'));
     });
@@ -184,13 +185,16 @@ class PanoExtension {
     if (this.timeoutId) {
       Source.remove(this.timeoutId);
     }
+    debounceIds.forEach((debounceId) => {
+      Source.remove(debounceId);
+    });
     this.removeIndicator();
     this.windowTrackerId = null;
     this.timeoutId = null;
     removeVirtualKeyboard();
     removeSoundContext();
     this.isEnabled = false;
-    this.keyManager.stopListening('shortcut');
+    this.keyManager.stopListening('global-shortcut');
     this.keyManager.stopListening('incognito-shortcut');
     clipboardManager.stopTracking();
     removeChrome(this.panoWindow);

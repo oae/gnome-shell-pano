@@ -10,15 +10,16 @@
 
 |           General Options            |             Danger Zone              |
 | :----------------------------------: | :----------------------------------: |
-| ![](https://i.imgur.com/ge3IgBw.png) | ![](https://i.imgur.com/rlevNsj.png) |
+| ![](https://i.imgur.com/fThclbH.png) | ![](https://i.imgur.com/MpMyFcc.png) |
 
 ## Supported Shell Versions
 
 - Gnome Shell 42
+- Gnome Shell 43
 
 ## Installation
 
-- You need `libgda` for this extension to work.
+- You need `libgda` and `gsound` for this extension to work.
 
   - Fedora
 
@@ -32,16 +33,16 @@
     sudo pacman -S libgda
     ```
 
-  - Ubuntu
+  - Ubuntu/Debian
 
     ```bash
-    sudo apt install gir1.2-gda-5.0
+    sudo apt install gir1.2-gda-5.0 gir1.2-gsound-1.0
     ```
 
   - openSUSE
 
     ```bash
-    sudo zypper install libgda-6_0-sqlite typelib-1_0-Gda-6_0
+    sudo zypper install libgda-6_0-sqlite typelib-1_0-Gda-6_0 typelib-1_0-GSound-1_0
     ```
 
 - You can install the extension from EGO
@@ -64,7 +65,7 @@
 ### Build
 
 - This extension is written in Typescript and uses rollup to compile it into javascript.
-- To start development, you need nodejs installed on your system;
+- To start development, install `nodejs` and `gobject-introspection` on your system.
 
   - Clone the project
 

@@ -8,7 +8,7 @@
       <summary>History Length</summary>
       <description>Controls length of the clipboard history.</description>
     </key>
-    <key name="shortcut" type="as">
+    <key name="global-shortcut" type="as">
       <default>
         <![CDATA[['<Shift><Super>v']]]>
       </default>
@@ -42,20 +42,30 @@
       <summary>Play audio on copy</summary>
       <description>Plays an audio when copying a new content.</description>
     </key>
+    <key name="keep-search-entry" type="b">
+      <default>true</default>
+      <summary>Keep search entry</summary>
+      <description>Keep search entry when Pano hides.</description>
+    </key>
     <key name="show-indicator" type="b">
       <default>true</default>
       <summary>Shows indicator</summary>
       <description>Shows an indicator on top panel.</description>
     </key>
-    <key name="offline-mode" type="b">
-      <default>false</default>
-      <summary>Offline mode</summary>
-      <description>When enabled, Pano will not try to connect to internet.</description>
+    <key name="link-previews" type="b">
+      <default>true</default>
+      <summary>Link Previews</summary>
+      <description>Allow Pano to visit links on your clipboard to generate link previews.</description>
     </key>
     <key name="session-only-mode" type="b">
       <default>false</default>
       <summary>Session only mode</summary>
       <description>When enabled, Pano will clear all history on logout/restart/shutdown.</description>
+    </key>
+    <key name="sync-primary" type="b">
+      <default>false</default>
+      <summary>Sync primary</summary>
+      <description>Sync primary selection with clipboard selection.</description>
     </key>
     <key name="watch-exclusion-list" type="b">
       <default>true</default>
@@ -65,7 +75,7 @@
       </description>
     </key>
     <key name="exclusion-list" type="as">
-      <default>['Bitwarden', '1Password', 'KeePassXC']</default>
+      <default>['Bitwarden', '1Password', 'KeePassXC', 'secrets', 'org.gnome.World.Secrets']</default>
       <summary>Exclusion list</summary>
       <description>
         Excludes clipboard tracking for windows that has class name listed in here.

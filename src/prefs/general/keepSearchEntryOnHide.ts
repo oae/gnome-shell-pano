@@ -5,26 +5,26 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtensionSettings, _ } from '@pano/utils/shell';
 
 @registerGObjectClass
-export class OfflineModeRow extends ActionRow {
+export class KeepSearchEntryRow extends ActionRow {
   private settings: Settings;
 
   constructor() {
     super({
-      title: _('Offline Mode'),
-      subtitle: _('When enabled, Pano will not try to connect to internet'),
+      title: _('Keep Search Entry'),
+      subtitle: _('Keep search entry when Pano hides'),
     });
 
     this.settings = getCurrentExtensionSettings();
 
-    const offlineModeSwitch = new Switch({
-      active: this.settings.get_boolean('offline-mode'),
+    const keepSearchEntrySwitch = new Switch({
+      active: this.settings.get_boolean('keep-search-entry'),
       valign: Align.CENTER,
       halign: Align.CENTER,
     });
 
-    this.settings.bind('offline-mode', offlineModeSwitch, 'active', SettingsBindFlags.DEFAULT);
+    this.settings.bind('keep-search-entry', keepSearchEntrySwitch, 'active', SettingsBindFlags.DEFAULT);
 
-    this.add_suffix(offlineModeSwitch);
-    this.set_activatable_widget(offlineModeSwitch);
+    this.add_suffix(keepSearchEntrySwitch);
+    this.set_activatable_widget(keepSearchEntrySwitch);
   }
 }
