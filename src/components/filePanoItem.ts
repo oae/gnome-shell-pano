@@ -58,7 +58,7 @@ export class FilePanoItem extends PanoItem {
           x_align: ActorAlign.FILL,
           x_expand: true,
         });
-        uriLabel.clutter_text.ellipsize = EllipsizeMode.START;
+        uriLabel.clutter_text.ellipsize = EllipsizeMode.MIDDLE;
         bl.add_child(uriLabel);
         container.add_child(bl);
       });
