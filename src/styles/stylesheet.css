@@ -112,24 +112,25 @@
 
 .pano-item-body-text-content {
   margin: 12px;
-  font-size: 18px;
+  font-size: 14px;
   font-family: sans-serif;
   color: #000;
   tab-size: 2;
 }
 
 .pano-item-body-emoji {
-  background-color: #e5c890;
+  background-color: #a6da95;
+}
+
+.pano-item-body-emoji .emoji-container {
+  border-radius: 0px 0px 6px 6px;
 }
 
 .pano-item-body-emoji-content {
-  text-align: center;
-  margin: 12px;
-  margin-top: 36px;
-  font-size: 48px;
+  font-size: 64px;
   font-family: sans-serif;
-  color: #000;
   tab-size: 2;
+  text-shadow: 0 0 5px #000;
 }
 
 .pano-item-body-color {
@@ -157,7 +158,7 @@
 }
 
 .pano-item-body-file-name-label {
-  font-size: 16px;
+  font-size: 13px;
   color: #000;
   font-family: sans;
 }
