@@ -176,7 +176,7 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
         }),
       });
     case ContentType.TEXT:
-      if (value.trim().toLowerCase().startsWith('http') && isValidUrl(value)) {
+      if (value.toLowerCase().startsWith('http') && isValidUrl(value)) {
         const linkPreviews = getCurrentExtensionSettings().get_boolean('link-previews');
         let description = '',
           imageUrl = '',
@@ -221,11 +221,7 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
 
         return linkDbItem;
       }
-      if (
-        validateHTMLColorHex(value.trim()) ||
-        validateHTMLColorRgb(value.trim()) ||
-        validateHTMLColorName(value.trim())
-      ) {
+      if (validateHTMLColorHex(value) || validateHTMLColorRgb(value) || validateHTMLColorName(value)) {
         return db.save({
           content: value,
           copyDate: new Date(),

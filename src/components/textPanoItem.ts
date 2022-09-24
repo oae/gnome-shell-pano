@@ -11,7 +11,7 @@ export class TextPanoItem extends PanoItem {
 
     this.body.add_style_class_name('pano-item-body-text');
     const label = new Label({
-      text: this.dbItem.content.trim(),
+      text: this.dbItem.content,
       style_class: 'pano-item-body-text-content',
     });
     label.clutter_text.line_wrap = true;
