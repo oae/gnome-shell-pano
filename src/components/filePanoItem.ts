@@ -45,7 +45,7 @@ export class FilePanoItem extends PanoItem {
           new Icon({
             icon_name: this.operation === FileOperation.CUT ? 'edit-cut-symbolic' : 'edit-copy-symbolic',
             x_align: ActorAlign.START,
-            icon_size: 13,
+            icon_size: 14,
             style_class: 'file-icon',
           }),
         );
