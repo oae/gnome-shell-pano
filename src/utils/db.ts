@@ -1,5 +1,5 @@
 import { Settings } from '@gi-types/gio2';
-import { Config, Connection, SqlBuilder, SqlOperatorType, SqlStatementType, Statement } from '@imports/gda5';
+import { Config, Connection, SqlBuilder, SqlOperatorType, SqlStatementType, Statement } from '@imports/gda6';
 import { getCurrentExtensionSettings, getDbPath, logger } from '@pano/utils/shell';
 
 const debug = logger('database');

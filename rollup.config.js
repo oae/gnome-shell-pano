@@ -22,7 +22,7 @@ const globals = {
   '@gi-types/gobject2': 'imports.gi.GObject',
   '@gi-types/pango1': 'imports.gi.Pango',
   '@gi-types/graphene1': 'imports.gi.Graphene',
-  '@imports/gda5': 'imports.gi.Gda',
+  '@imports/gda6': 'imports.gi.Gda',
   '@imports/gsound1': 'imports.gi.GSound',
   '@gi-types/adw1': 'imports.gi.Adw',
 };

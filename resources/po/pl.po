@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "Wyczyść"
 
 #: src/components/indicator/clearHistoryDialog.ts:33
-#: src/components/indicator/settingsMenu.ts:67
+#: src/components/indicator/settingsMenu.ts:69
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr "Wyczyść Historię"
@@ -23,15 +23,11 @@ msgstr "Wyczyść Historię"
 msgid "Are you sure you want to clear history?"
 msgstr "Czy jesteś pewny, że chcesz wyczyścić historię?"
 
-#: src/components/indicator/settingsMenu.ts:43
-msgid "Toggle Pano"
-msgstr "Przełącz Pano"
-
-#: src/components/indicator/settingsMenu.ts:51
+#: src/components/indicator/settingsMenu.ts:53
 msgid "Incognito Mode"
 msgstr "Tryb Incognito"
 
-#: src/components/indicator/settingsMenu.ts:74
+#: src/components/indicator/settingsMenu.ts:76
 msgid "Settings"
 msgstr "Ustawienia"
 
@@ -83,7 +79,7 @@ msgstr "Pano przestanie śledzić jeśli któreś z tych programów jest używan
 msgid "Window class name"
 msgstr "Nazwa programu"
 
-#: src/prefs/general/generalGroup.ts:19
+#: src/prefs/general/generalGroup.ts:20
 msgid "General Options"
 msgstr "Ogólne Opcje"
 
@@ -117,13 +113,21 @@ msgstr "Nowy skrót klawiszowy"
 msgid "General"
 msgstr "Ogólne opcje"
 
-#: src/prefs/general/offlineMode.ts:13
-msgid "Offline Mode"
-msgstr "Tryb Offline"
+#: src/prefs/general/keepSearchEntryOnHide.ts:13
+msgid "Keep Search Entry"
+msgstr ""
 
-#: src/prefs/general/offlineMode.ts:14
-msgid "When enabled, Pano will not try to connect to internet"
-msgstr "Gdy włączony, Pano nie będzie próbował połączyć się z internetem"
+#: src/prefs/general/keepSearchEntryOnHide.ts:14
+msgid "Keep search entry when Pano hides"
+msgstr ""
+
+#: src/prefs/general/linkPreviews.ts:13
+msgid "Link Previews"
+msgstr ""
+
+#: src/prefs/general/linkPreviews.ts:14
+msgid "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr ""
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"
