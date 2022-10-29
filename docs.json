@@ -11,7 +11,7 @@
     "out": "./@types"
   },
   "libraries": {
-    "Cogl": ["10"],
+    "Cogl": ["2.0"],
     "Gda": ["5.0"],
     "GSound": ["1.0"]
   }
