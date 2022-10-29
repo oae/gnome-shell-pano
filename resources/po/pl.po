@@ -57,7 +57,7 @@ msgstr "Gdy włączony, Pano wyczyści całą historię podczas wylogowania/rest
 
 #: src/prefs/general/dbLocation.ts:22
 msgid "Database Location"
-msgstr "Localizacja Bazy Danych"
+msgstr "Lokalizacja Bazy Danych"
 
 #: src/prefs/general/dbLocation.ts:30
 msgid "Choose pano database location"
