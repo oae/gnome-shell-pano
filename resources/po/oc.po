@@ -5,7 +5,7 @@ msgstr ""
 
 #: src/components/indicator/clearHistoryDialog.ts:21
 msgid "Cancel"
-msgstr ""
+msgstr "Anullar"
 
 #: src/components/indicator/clearHistoryDialog.ts:28
 #: src/prefs/dangerZone/clearHistory.ts:17
@@ -25,11 +25,11 @@ msgstr "Volètz vertadièrament escafar l’istoric ?"
 
 #: src/components/indicator/settingsMenu.ts:53
 msgid "Incognito Mode"
-msgstr ""
+msgstr "Mòde incognito"
 
 #: src/components/indicator/settingsMenu.ts:76
 msgid "Settings"
-msgstr ""
+msgstr "Paramètres"
 
 #: src/components/searchBox.ts:32
 msgid "Type to search"
@@ -41,11 +41,11 @@ msgstr "Escafa la basa de donadas del quichapapièrs e lo cache"
 
 #: src/prefs/dangerZone/index.ts:11
 msgid "Danger Zone"
-msgstr ""
+msgstr "Zòna perilhosa"
 
 #: src/prefs/dangerZone/sessionOnlyMode.ts:13
 msgid "Session Only Mode"
-msgstr ""
+msgstr "Mòde session solament"
 
 #: src/prefs/dangerZone/sessionOnlyMode.ts:14
 msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
@@ -65,11 +65,11 @@ msgstr "Seleccion del repertòri pas reüssida"
 
 #: src/prefs/general/exclusionGroup.ts:15
 msgid "Manage Exclusions"
-msgstr ""
+msgstr "Gestion de las exclusions"
 
 #: src/prefs/general/exclusionGroup.ts:22
 msgid "Excluded Apps"
-msgstr ""
+msgstr "Aplicacions exclusas"
 
 #: src/prefs/general/exclusionGroup.ts:23
 msgid "Pano will stop tracking if any window from the list is focussed"
@@ -77,11 +77,11 @@ msgstr ""
 
 #: src/prefs/general/exclusionGroup.ts:52
 msgid "Window class name"
-msgstr ""
+msgstr "Nom de classa de la fenèstra"
 
 #: src/prefs/general/generalGroup.ts:20
 msgid "General Options"
-msgstr ""
+msgstr "Opcions generalas"
 
 #: src/prefs/general/historyLength.ts:13
 msgid "History Length"
@@ -93,11 +93,11 @@ msgstr "Podètz limitar la talha de l’istoric de copiar pegar entre 10 - 500 e
 
 #: src/prefs/general/incognitoShortcutRow.ts:57
 msgid "Incognito Mode Shortcut"
-msgstr ""
+msgstr "Acorchi mòde incognito"
 
 #: src/prefs/general/incognitoShortcutRow.ts:58
 msgid "Allows you to toggle incognito mode"
-msgstr ""
+msgstr "Vos permet d’alternar lo mòde incognito"
 
 #: src/prefs/general/incognitoShortcutRow.ts:64
 #: src/prefs/general/shortcutRow.ts:64
@@ -111,39 +111,39 @@ msgstr "Acorchi novèl"
 
 #: src/prefs/general/index.ts:11
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: src/prefs/general/keepSearchEntryOnHide.ts:13
 msgid "Keep Search Entry"
-msgstr ""
+msgstr "Gardar la zòna de recèrca"
 
 #: src/prefs/general/keepSearchEntryOnHide.ts:14
 msgid "Keep search entry when Pano hides"
-msgstr ""
+msgstr "Gardar l’entrada de recèrca quand Pano es rescondut"
 
 #: src/prefs/general/linkPreviews.ts:13
 msgid "Link Previews"
-msgstr ""
+msgstr "Apercebuts de ligam"
 
 #: src/prefs/general/linkPreviews.ts:14
 msgid "Allow Pano to visit links on your clipboard to generate link previews"
-msgstr ""
+msgstr "Permetre a Pano de visitar los ligams del quichapapièrs per generar los apercebuts de ligam"
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"
-msgstr ""
+msgstr "Pegar en seleccionant"
 
 #: src/prefs/general/pasteOnSelect.ts:14
 msgid "Allow Pano to paste content on select"
-msgstr ""
+msgstr "Permet a Pano de pegar lo contengut en seleccionant"
 
 #: src/prefs/general/playAudioOnCopy.ts:13
 msgid "Play an Audio on Copy"
-msgstr ""
+msgstr "Jogar un son en copiant"
 
 #: src/prefs/general/playAudioOnCopy.ts:14
 msgid "Allow Pano to play an audio when copying new content"
-msgstr ""
+msgstr "Permet a Pano de jogar un son quand un contengut novèl es copiat"
 
 #: src/prefs/general/shortcutRow.ts:57
 msgid "Global Shortcut"
@@ -155,11 +155,11 @@ msgstr "Vos permet d’alternar la visibilitat del gestionari de copiar pegar"
 
 #: src/prefs/general/showIndicator.ts:13
 msgid "Show Indicator"
-msgstr ""
+msgstr "Afichar l'indicator"
 
 #: src/prefs/general/showIndicator.ts:14
 msgid "Shows an indicator on top panel"
-msgstr ""
+msgstr "Aficha un indicator al panèl superior"
 
 #: src/prefs/general/syncPrimary.ts:13
 msgid "Sync Primary"
@@ -171,8 +171,8 @@ msgstr ""
 
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"
-msgstr ""
+msgstr "Veire las exlusions"
 
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
-msgstr ""
+msgstr "Quand es activat, Pano traçarà pas quichapapièrs de las aplicacions exclusas"
