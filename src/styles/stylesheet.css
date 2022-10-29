@@ -1,6 +1,7 @@
 .pano-window {
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(36, 36, 36, 0.9);
   height: 380px;
+  border-top: 1px solid rgba(69, 69, 69, 1);
 }
 
 .pano-window.incognito {
