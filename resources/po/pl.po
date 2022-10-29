@@ -83,7 +83,7 @@ msgstr "Pano przestanie śledzić jeśli któreś z tych programów jest używan
 msgid "Window class name"
 msgstr "Nazwa programu"
 
-#: src/prefs/general/generalGroup.ts:18
+#: src/prefs/general/generalGroup.ts:19
 msgid "General Options"
 msgstr "Ogólne Opcje"
 
@@ -156,6 +156,14 @@ msgstr "Pokaż Wskaźnik"
 #: src/prefs/general/showIndicator.ts:14
 msgid "Shows an indicator on top panel"
 msgstr "Pokazuje wskaźnik na górnym pasku"
+
+#: src/prefs/general/syncPrimary.ts:13
+msgid "Sync Primary"
+msgstr ""
+
+#: src/prefs/general/syncPrimary.ts:14
+msgid "Sync primary selection with clipboard selection"
+msgstr ""
 
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"
