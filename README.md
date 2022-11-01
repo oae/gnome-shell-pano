@@ -27,8 +27,8 @@
     sudo dnf install libgda libgda-sqlite
     ```
 
-  - Arch Linux
-
+  - Arch Linux (For gnome-43 you need libgda6)
+    
     ```bash
     sudo pacman -S libgda
     ```
