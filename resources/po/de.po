@@ -3,38 +3,9 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: fill-pot-po/2.1.9\n"
 
-#: src/prefs/general/pasteOnSelect.ts:14
-msgid "Allow Pano to paste content on select"
-msgstr "Pano darf Inhalte bei Auswahl einfügen"
-
-#: src/prefs/general/playAudioOnCopy.ts:14
-msgid "Allow Pano to play an audio when copying new content"
-msgstr "Pano darf Audio abzuspielen wenn Inhalte kopiert werden"
-
-#: src/prefs/general/linkPreviews.ts:14
-msgid "Allow Pano to visit links on your clipboard to generate link previews"
-msgstr "Pano darf Links besuchen um Vorschauen zu erstellen"
-
-#: src/prefs/general/incognitoShortcutRow.ts:58
-msgid "Allows you to toggle incognito mode"
-msgstr "Umschalter des Inkognito-Modus"
-
-#: src/prefs/general/shortcutRow.ts:58
-msgid "Allows you to toggle visibility of the clipboard manager"
-msgstr "Umschalter zur Anzeige der Zwischenablage-Verwaltung"
-
-#: src/components/indicator/clearHistoryDialog.ts:34
-#: src/prefs/dangerZone/clearHistory.ts:23
-msgid "Are you sure you want to clear history?"
-msgstr "Sind Sie sicher das Sie die Historie entfernen möchten?"
-
 #: src/components/indicator/clearHistoryDialog.ts:21
 msgid "Cancel"
 msgstr "Abbrechen"
-
-#: src/prefs/general/dbLocation.ts:30
-msgid "Choose pano database location"
-msgstr "Pano Datenbankablage wählen"
 
 #: src/components/indicator/clearHistoryDialog.ts:28
 #: src/prefs/dangerZone/clearHistory.ts:17
@@ -47,6 +18,23 @@ msgstr "Leeren"
 msgid "Clear History"
 msgstr "Historie leeren"
 
+#: src/components/indicator/clearHistoryDialog.ts:34
+#: src/prefs/dangerZone/clearHistory.ts:23
+msgid "Are you sure you want to clear history?"
+msgstr "Sind Sie sicher das Sie die Historie entfernen möchten?"
+
+#: src/components/indicator/settingsMenu.ts:53
+msgid "Incognito Mode"
+msgstr "Inkognito-Modus"
+
+#: src/components/indicator/settingsMenu.ts:76
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: src/components/searchBox.ts:32
+msgid "Type to search"
+msgstr "Tippen um zu Suchen"
+
 #: src/prefs/dangerZone/clearHistory.ts:12
 msgid "Clears the clipboard database and cache"
 msgstr "Leert die Zwischenablage-Datenbank und den Cache"
@@ -55,79 +43,115 @@ msgstr "Leert die Zwischenablage-Datenbank und den Cache"
 msgid "Danger Zone"
 msgstr "Gefahrenbereich"
 
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr "Einzelsession-Modus"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr "Wenn aktiviert, wird Pano die Historie leeren beim Ausloggen/Neustarten/Herunterfahren."
+
 #: src/prefs/general/dbLocation.ts:22
 msgid "Database Location"
 msgstr "Datenbankablage"
 
-#: src/prefs/general/exclusionGroup.ts:22
-msgid "Excluded Apps"
-msgstr "Ausgeschlossene Apps"
+#: src/prefs/general/dbLocation.ts:30
+msgid "Choose pano database location"
+msgstr "Pano Datenbankablage wählen"
 
 #: src/prefs/general/dbLocation.ts:52
 msgid "Failed to select directory"
 msgstr "Ordnerauswahl fehlgeschlagen"
 
-#: src/prefs/general/index.ts:11
-msgid "General"
-msgstr "Allgemein"
-
-#: src/prefs/general/generalGroup.ts:19
-msgid "General Options"
-msgstr "Allgemeine Optionen"
-
-#: src/prefs/general/shortcutRow.ts:57
-msgid "Global Shortcut"
-msgstr "Globales Tastaturkürzel"
-
-#: src/prefs/general/historyLength.ts:13
-msgid "History Length"
-msgstr "Länge der Historie"
-
-#: src/components/indicator/settingsMenu.ts:53
-msgid "Incognito Mode"
-msgstr "Inkognito-Modus"
-
-#: src/prefs/general/incognitoShortcutRow.ts:57
-msgid "Incognito Mode Shortcut"
-msgstr "Inkognito-Modus Tastaturkürzel"
-
-#: src/prefs/general/linkPreviews.ts:13
-msgid "Link Previews"
-msgstr "Linkvorschauen"
-
 #: src/prefs/general/exclusionGroup.ts:15
 msgid "Manage Exclusions"
 msgstr "Ausschlüsse verwalten"
 
-#: src/prefs/general/incognitoShortcutRow.ts:77
-#: src/prefs/general/shortcutRow.ts:77
-msgid "New shortcut"
-msgstr "Neues Kürzel"
+#: src/prefs/general/exclusionGroup.ts:22
+msgid "Excluded Apps"
+msgstr "Ausgeschlossene Apps"
 
 #: src/prefs/general/exclusionGroup.ts:23
 msgid "Pano will stop tracking if any window from the list is focussed"
 msgstr "Pano wird nichts tracken wenn ein Fenster aus der Liste im Fokus ist"
 
-#: src/prefs/general/pasteOnSelect.ts:13
-msgid "Paste on Select"
-msgstr "Einfügen bei Auswahl"
+#: src/prefs/general/exclusionGroup.ts:52
+msgid "Window class name"
+msgstr "Fenster Klassename"
 
-#: src/prefs/general/playAudioOnCopy.ts:13
-msgid "Play an Audio on Copy"
-msgstr "Audio abspielen beim Kopieren"
+#: src/prefs/general/generalGroup.ts:20
+msgid "General Options"
+msgstr "Allgemeine Optionen"
+
+#: src/prefs/general/historyLength.ts:13
+msgid "History Length"
+msgstr "Länge der Historie"
+
+#: src/prefs/general/historyLength.ts:14
+msgid "You can limit your clipboard history length between 10 - 500"
+msgstr "Sie können Ihre Zwischenablage limitieren auf ein Länge zwischen 10 - 500"
+
+#: src/prefs/general/incognitoShortcutRow.ts:57
+msgid "Incognito Mode Shortcut"
+msgstr "Inkognito-Modus Tastaturkürzel"
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr "Umschalter des Inkognito-Modus"
 
 #: src/prefs/general/incognitoShortcutRow.ts:64
 #: src/prefs/general/shortcutRow.ts:64
 msgid "Select a shortcut"
 msgstr "Kürzel auswählen"
 
-#: src/prefs/dangerZone/sessionOnlyMode.ts:13
-msgid "Session Only Mode"
-msgstr "Einzelsession-Modus"
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "Neues Kürzel"
 
-#: src/components/indicator/settingsMenu.ts:76
-msgid "Settings"
-msgstr "Einstellungen"
+#: src/prefs/general/index.ts:11
+msgid "General"
+msgstr "Allgemein"
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:13
+msgid "Keep Search Entry"
+msgstr ""
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:14
+msgid "Keep search entry when Pano hides"
+msgstr ""
+
+#: src/prefs/general/linkPreviews.ts:13
+msgid "Link Previews"
+msgstr "Linkvorschauen"
+
+#: src/prefs/general/linkPreviews.ts:14
+msgid "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr "Pano darf Links besuchen um Vorschauen zu erstellen"
+
+#: src/prefs/general/pasteOnSelect.ts:13
+msgid "Paste on Select"
+msgstr "Einfügen bei Auswahl"
+
+#: src/prefs/general/pasteOnSelect.ts:14
+msgid "Allow Pano to paste content on select"
+msgstr "Pano darf Inhalte bei Auswahl einfügen"
+
+#: src/prefs/general/playAudioOnCopy.ts:13
+msgid "Play an Audio on Copy"
+msgstr "Audio abspielen beim Kopieren"
+
+#: src/prefs/general/playAudioOnCopy.ts:14
+msgid "Allow Pano to play an audio when copying new content"
+msgstr "Pano darf Audio abzuspielen wenn Inhalte kopiert werden"
+
+#: src/prefs/general/shortcutRow.ts:57
+msgid "Global Shortcut"
+msgstr "Globales Tastaturkürzel"
+
+#: src/prefs/general/shortcutRow.ts:58
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "Umschalter zur Anzeige der Zwischenablage-Verwaltung"
 
 #: src/prefs/general/showIndicator.ts:13
 msgid "Show Indicator"
@@ -145,26 +169,10 @@ msgstr "Primär synchronisieren"
 msgid "Sync primary selection with clipboard selection"
 msgstr "Primäre Auswahl mit der Auswahl der Zwischenablage synchronisieren"
 
-#: src/components/searchBox.ts:32
-msgid "Type to search"
-msgstr "Tippen um zu Suchen"
-
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"
 msgstr "Ausschlüsse überwachen"
 
-#: src/prefs/dangerZone/sessionOnlyMode.ts:14
-msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
-msgstr "Wenn aktiviert, wird Pano die Historie leeren beim Ausloggen/Neustarten/Herunterfahren."
-
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "Wenn aktiviert, wird Pano die ausgeschlossenen Apps nicht tracken"
-
-#: src/prefs/general/exclusionGroup.ts:52
-msgid "Window class name"
-msgstr "Fenster Klassename"
-
-#: src/prefs/general/historyLength.ts:14
-msgid "You can limit your clipboard history length between 10 - 500"
-msgstr "Sie können Ihre Zwischenablage limitieren auf ein Länge zwischen 10 - 500"

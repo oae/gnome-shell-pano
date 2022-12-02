@@ -92,7 +92,8 @@ export class PanoScrollView extends ScrollView {
       (dbItem) => {
         const panoItem = createPanoItemFromDb(dbItem);
         if (panoItem) {
-          this.appendItem(panoItem);
+          this.connectOnRemove(panoItem);
+          this.list.add_child(panoItem);
         }
       },
     );
@@ -110,14 +111,9 @@ export class PanoScrollView extends ScrollView {
       const panoItem = await createPanoItem(content);
       if (panoItem) {
         this.prependItem(panoItem);
+        this.filter(this.currentFilter);
       }
     });
-  }
-
-  private appendItem(panoItem: PanoItem) {
-    this.connectOnRemove(panoItem);
-
-    this.list.add_child(panoItem);
   }
 
   private prependItem(panoItem: PanoItem) {

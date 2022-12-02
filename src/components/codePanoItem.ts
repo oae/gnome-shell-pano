@@ -18,7 +18,7 @@ export class CodePanoItem extends PanoItem {
       clip_to_allocation: true,
     });
     label.clutter_text.use_markup = true;
-    label.clutter_text.set_markup(markupCode(this.dbItem.content.trim()));
+    label.clutter_text.set_markup(markupCode(this.dbItem.content));
     label.clutter_text.ellipsize = EllipsizeMode.END;
     this.body.add_child(label);
     this.connect('activated', this.setClipboardContent.bind(this));

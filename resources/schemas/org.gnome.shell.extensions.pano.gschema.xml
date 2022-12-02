@@ -42,6 +42,11 @@
       <summary>Play audio on copy</summary>
       <description>Plays an audio when copying a new content.</description>
     </key>
+    <key name="keep-search-entry" type="b">
+      <default>true</default>
+      <summary>Keep search entry</summary>
+      <description>Keep search entry when Pano hides.</description>
+    </key>
     <key name="show-indicator" type="b">
       <default>true</default>
       <summary>Shows indicator</summary>

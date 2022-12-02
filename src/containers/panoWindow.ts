@@ -95,7 +95,11 @@ export class PanoWindow extends BoxLayout {
     this.clear_constraints();
     this.add_constraint(getMonitorConstraint());
     super.show();
-    this.searchBox.selectAll();
+    if (this.settings.get_boolean('keep-search-entry')) {
+      this.searchBox.selectAll();
+    } else {
+      this.searchBox.clear();
+    }
     this.searchBox.focus();
     this.ease({
       opacity: 255,
@@ -114,6 +118,9 @@ export class PanoWindow extends BoxLayout {
       duration: 200,
       mode: AnimationMode.EASE_OUT_QUAD,
       onComplete: () => {
+        if (!this.settings.get_boolean('keep-search-entry')) {
+          this.searchBox.clear();
+        }
         this.scrollView.beforeHide();
         super.hide();
       },

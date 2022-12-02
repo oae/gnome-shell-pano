@@ -1,6 +1,7 @@
 .pano-window {
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(36, 36, 36, 0.9);
   height: 380px;
+  border-top: 1px solid rgba(69, 69, 69, 1);
 }
 
 .pano-window.incognito {
@@ -59,6 +60,10 @@
   background-color: #0a3d64;
 }
 
+.pano-item-header-emoji {
+  background-color: #d18f7b;
+}
+
 .pano-item-header-file {
   background-color: #4c4f69;
 }
@@ -88,6 +93,7 @@
 .pano-item-body-code-content {
   margin: 12px;
   font-size: 13px;
+  tab-size: 2;
   font-family: monospace;
 }
 
@@ -107,8 +113,25 @@
 
 .pano-item-body-text-content {
   margin: 12px;
-  font-size: 13px;
+  font-size: 14px;
+  font-family: sans-serif;
   color: #000;
+  tab-size: 2;
+}
+
+.pano-item-body-emoji {
+  background-color: #edd6d0;
+}
+
+.pano-item-body-emoji .emoji-container {
+  border-radius: 0px 0px 6px 6px;
+}
+
+.pano-item-body-emoji-content {
+  font-size: 64px;
+  font-family: sans-serif;
+  tab-size: 2;
+  text-shadow: 0 0 5px #000;
 }
 
 .pano-item-body-color {
