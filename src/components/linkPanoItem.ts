@@ -8,7 +8,7 @@ import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCachePath, getCurrentExtension } from '@pano/utils/shell';
 
-const DEFAULT_LINK_PREVIEW_IMAGE_NAME = 'link-preview.png';
+const DEFAULT_LINK_PREVIEW_IMAGE_NAME = 'link-preview.svg';
 
 @registerGObjectClass
 export class LinkPanoItem extends PanoItem {

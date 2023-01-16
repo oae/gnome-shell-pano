@@ -5,8 +5,8 @@
 }
 
 .pano-window.incognito {
-  background-color: rgba(17, 0, 29, 0.9);
-  background-image: url('./images/incognito-mode.svg');
+  background-color: rgba(53, 132, 228, 0.9);
+  background-image: url('./images/incognito-symbolic.svg');
   background-size: 45px;
   background-position: 10px 10px;
 }

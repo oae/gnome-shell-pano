@@ -60,7 +60,7 @@ export class SettingsMenu extends PopupMenuButton {
       const isInIncognito = this.settings.get_boolean('is-in-incognito');
       switchMenuItem.setToggleState(isInIncognito);
       icon.set_gicon(
-        icon_new_for_string(`${getCurrentExtension().path}/icons/indicator${isInIncognito ? '-incognito' : ''}.svg`),
+        icon_new_for_string(`${getCurrentExtension().path}/icons/indicator${isInIncognito ? '-incognito' : ''}-symbolic.svg`),
       );
     });
 
