@@ -9,7 +9,7 @@ export class DangerZonePage extends PreferencesPage {
   constructor() {
     super({
       title: _('Danger Zone'),
-      icon_name: 'app-remove-symbolic',
+      icon_name: 'user-trash-symbolic',
     });
 
     const dangerZoneGroup = new PreferencesGroup();
