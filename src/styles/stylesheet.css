@@ -53,31 +53,31 @@
 }
 
 .pano-item-header-link {
-  background-color: #209fb5;
+  background-color: #62a0ea;
 }
 
 .pano-item-header-text {
-  background-color: #0a3d64;
+  background-color: #b5835a;
 }
 
 .pano-item-header-emoji {
-  background-color: #d18f7b;
+  background-color: #ff7800;
 }
 
 .pano-item-header-file {
-  background-color: #4c4f69;
+  background-color: #3584e4;
 }
 
 .pano-item-header-image {
-  background-color: #e64553;
+  background-color: #ed333b;
 }
 
 .pano-item-header-code {
-  background-color: #232634;
+  background-color: #3d3846;
 }
 
 .pano-item-header-color {
-  background-color: #8839ef;
+  background-color: #9141ac;
 }
 
 .pano-item-body {
@@ -86,7 +86,7 @@
 }
 
 .pano-item-body-code {
-  background-color: #303446;
+  background-color: #241f31;
   color: white;
 }
 
@@ -99,7 +99,7 @@
 
 .pano-item-body-link {
   padding: 0px;
-  background-color: #afbcf7;
+  background-color: #1c71d8;
 }
 
 .pano-item-body-link .image-container {
@@ -108,7 +108,7 @@
 }
 
 .pano-item-body-text {
-  background-color: #e5c890;
+  background-color: #986a44;
 }
 
 .pano-item-body-text-content {
@@ -120,7 +120,7 @@
 }
 
 .pano-item-body-emoji {
-  background-color: #edd6d0;
+  background-color: #e66100;
 }
 
 .pano-item-body-emoji .emoji-container {
@@ -135,7 +135,7 @@
 }
 
 .pano-item-body-color {
-  background-color: #a6da95;
+  background-color: #613583;
 }
 
 .pano-item-body-color .color-container {
@@ -151,17 +151,17 @@
 }
 
 .pano-item-body-image {
-  background-color: #2e2e47;
+  background-color: #c01c28;
 }
 
 .pano-item-body-file {
-  background-color: #fafafa;
+  background-color: #1a5fb4;
 }
 
 .pano-item-body-file-name-label {
   font-size: 13px;
   color: #000;
-  font-family: sans;
+  font-family: cantarell;
 }
 
 .pano-item-body-file-name-label.has-more {
@@ -184,7 +184,7 @@
 
 .pano-item-date {
   font-size: 12px;
-  color: #f7f7f7;
+  color: #f6f5f4;
 }
 
 .pano-item-body-file .file-icon {
@@ -202,7 +202,7 @@
 }
 
 .copied-file-name.even {
-  background-color: #fafafa;
+  background-color: #f6f5f4;
 }
 
 .copied-file-name.odd {
@@ -268,7 +268,7 @@
 
 .pano-item-remove-button:hover,
 .pano-item-remove-button:active {
-  background-color: #d20f39;
+  background-color: #e01b24;
 }
 
 .indicator-icon {
