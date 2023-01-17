@@ -1,13 +1,13 @@
 .pano-window {
-  background-color: rgba(36, 36, 36, 0.9);
+  background-color: rgba(35, 35, 35, 0.9);
   height: 380px;
   border-top: 1px solid rgba(69, 69, 69, 1);
 }
 
 .pano-window.incognito {
-  background-color: rgba(53, 132, 228, 0.9);
+  background-color: rgba(36, 31, 49, 0.9);
   background-image: url('./images/incognito-symbolic.svg');
-  background-size: 45px;
+  background-size: 48px;
   background-position: 10px 10px;
 }
 
@@ -87,7 +87,7 @@
 
 .pano-item-body-code {
   background-color: #303446;
-  color: white;
+  color: #f2f2f2;
 }
 
 .pano-item-body-code-content {
@@ -146,7 +146,7 @@
   font-size: 16px;
   border-radius: 999px;
   background-color: black;
-  color: white;
+  color: #f2f2f2;
   padding: 10px;
 }
 
@@ -174,7 +174,7 @@
 
 .pano-item-title {
   font-size: 24px;
-  color: white;
+  color: #f2f2f2;
 }
 
 .pano-icon-container {
@@ -228,13 +228,13 @@
 
 .pano-item-body-image-meta-title {
   font-size: 12px;
-  color: white;
+  color: #f2f2f2;
 }
 
 .pano-item-body-image-meta-value {
   font-size: 13px;
   font-weight: bold;
-  color: white;
+  color: #f2f2f2;
 }
 
 .pano-item-body-link-meta-container {
@@ -244,23 +244,23 @@
 .pano-item-body-link .link-title-label {
   font-size: 13px;
   font-weight: bold;
-  color: white;
+  color: #f2f2f2;
 }
 
 .pano-item-body-link .link-description-label {
   font-size: 12px;
-  color: white;
+  color: #f2f2f2;
 }
 
 .pano-item-body-link .link-label {
   margin-top: 5px;
   font-size: 10px;
-  color: white;
+  color: #f2f2f2;
 }
 
 .pano-item-remove-button {
   background-color: rgba(0, 0, 0, 0.3);
-  color: white;
+  color: #f2f2f2;
   border-radius: 99px;
   padding: 5px;
   margin: 5px;
