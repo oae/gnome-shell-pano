@@ -1,0 +1,178 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: attranslate\n"
+
+#: src/prefs/general/pasteOnSelect.ts:14
+msgid "Allow Pano to paste content on select"
+msgstr "Разреши на Pano да поставя съдържание в изберете"
+
+#: src/prefs/general/playAudioOnCopy.ts:14
+msgid "Allow Pano to play an audio when copying new content"
+msgstr "Позволяване на Pano да възпроизвежда аудио при копиране на ново съдържание"
+
+#: src/prefs/general/linkPreviews.ts:14
+msgid "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr "Позволете на Pano да посещава връзки в клипборда, за да генерира визуализации на връзки"
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr "Позволява ви да превключвате режим \"инкогнито\""
+
+#: src/prefs/general/shortcutRow.ts:58
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "Позволява ви да превключвате видимостта на мениджъра на клипборда"
+
+#: src/components/indicator/clearHistoryDialog.ts:34
+#: src/prefs/dangerZone/clearHistory.ts:23
+msgid "Are you sure you want to clear history?"
+msgstr "Сигурни ли сте, че искате да изчистите историята?"
+
+#: src/components/indicator/clearHistoryDialog.ts:21
+msgid "Cancel"
+msgstr "Отмени"
+
+#: src/prefs/general/dbLocation.ts:30
+msgid "Choose pano database location"
+msgstr "Изберете местоположение на базата данни на Пано"
+
+#: src/components/indicator/clearHistoryDialog.ts:28
+#: src/prefs/dangerZone/clearHistory.ts:17
+msgid "Clear"
+msgstr "Ясен"
+
+#: src/components/indicator/clearHistoryDialog.ts:33
+#: src/components/indicator/settingsMenu.ts:69
+#: src/prefs/dangerZone/clearHistory.ts:11
+msgid "Clear History"
+msgstr "Изчистване на хронологията"
+
+#: src/prefs/dangerZone/clearHistory.ts:12
+msgid "Clears the clipboard database and cache"
+msgstr "Изчиства базата данни и кеша на клипборда"
+
+#: src/prefs/dangerZone/index.ts:11
+msgid "Danger Zone"
+msgstr "Опасна зона"
+
+#: src/prefs/general/dbLocation.ts:22
+msgid "Database Location"
+msgstr "Местоположение на базата данни"
+
+#: src/prefs/general/exclusionGroup.ts:22
+msgid "Excluded Apps"
+msgstr "Изключени приложения"
+
+#: src/prefs/general/dbLocation.ts:52
+msgid "Failed to select directory"
+msgstr "Неуспешно избиране на директория"
+
+#: src/prefs/general/index.ts:11
+msgid "General"
+msgstr "Основни"
+
+#: src/prefs/general/generalGroup.ts:20
+msgid "General Options"
+msgstr "Общи опции"
+
+#: src/prefs/general/shortcutRow.ts:57
+msgid "Global Shortcut"
+msgstr "Глобален пряк път"
+
+#: src/prefs/general/historyLength.ts:13
+msgid "History Length"
+msgstr "История Дължина"
+
+#: src/components/indicator/settingsMenu.ts:53
+msgid "Incognito Mode"
+msgstr "Режим \"инкогнито\""
+
+#: src/prefs/general/incognitoShortcutRow.ts:57
+msgid "Incognito Mode Shortcut"
+msgstr "Пряк път в режим \"инкогнито\""
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:13
+msgid "Keep Search Entry"
+msgstr "Запази записа за търсене"
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:14
+msgid "Keep search entry when Pano hides"
+msgstr "Запазване на записа за търсене, когато Пано се скрие"
+
+#: src/prefs/general/linkPreviews.ts:13
+msgid "Link Previews"
+msgstr "Визуализации на връзки"
+
+#: src/prefs/general/exclusionGroup.ts:15
+msgid "Manage Exclusions"
+msgstr "Управление на изключенията"
+
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "Нов пряк път"
+
+#: src/prefs/general/exclusionGroup.ts:23
+msgid "Pano will stop tracking if any window from the list is focussed"
+msgstr "Pano ще спре проследяването, ако някой прозорец от списъка е фокусиран"
+
+#: src/prefs/general/pasteOnSelect.ts:13
+msgid "Paste on Select"
+msgstr "Постави в Избор"
+
+#: src/prefs/general/playAudioOnCopy.ts:13
+msgid "Play an Audio on Copy"
+msgstr "Възпроизвеждане на аудио на копие"
+
+#: src/prefs/general/incognitoShortcutRow.ts:64
+#: src/prefs/general/shortcutRow.ts:64
+msgid "Select a shortcut"
+msgstr "Избор на пряк път"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr "Режим само за сесия"
+
+#: src/components/indicator/settingsMenu.ts:76
+msgid "Settings"
+msgstr "Настройки"
+
+#: src/prefs/general/showIndicator.ts:13
+msgid "Show Indicator"
+msgstr "Покажи индикатора"
+
+#: src/prefs/general/showIndicator.ts:14
+msgid "Shows an indicator on top panel"
+msgstr "Показва индикатор на горния панел"
+
+#: src/prefs/general/syncPrimary.ts:13
+msgid "Sync Primary"
+msgstr "Първично синхронизиране"
+
+#: src/prefs/general/syncPrimary.ts:14
+msgid "Sync primary selection with clipboard selection"
+msgstr "Синхронизиране на първичната селекция с избора на клипборд"
+
+#: src/components/searchBox.ts:32
+msgid "Type to search"
+msgstr "Въведете за търсене"
+
+#: src/prefs/general/watchExclusions.ts:13
+msgid "Watch Exclusions"
+msgstr "Гледайте изключенията"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr "Когато е активиран, Pano ще изчисти цялата история при излизане / рестартиране / изключване."
+
+#: src/prefs/general/watchExclusions.ts:14
+msgid "When enabled, Pano will not track clipboard from excluded apps"
+msgstr "Когато е активиран, Pano няма да проследява клипборда от изключени приложения"
+
+#: src/prefs/general/exclusionGroup.ts:52
+msgid "Window class name"
+msgstr "Име на класа на прозореца"
+
+#: src/prefs/general/historyLength.ts:14
+msgid "You can limit your clipboard history length between 10 - 500"
+msgstr "Можете да ограничите дължината на историята на клипборда между 10 и 500"

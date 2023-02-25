@@ -1,0 +1,180 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: attranslate\n"
+
+#: src/prefs/general/pasteOnSelect.ts:14
+msgid "Allow Pano to paste content on select"
+msgstr "Salli Panon liittää sisältöä valittuun"
+
+#: src/prefs/general/playAudioOnCopy.ts:14
+msgid "Allow Pano to play an audio when copying new content"
+msgstr "Anna Panon toistaa ääntä, kun kopioit uutta sisältöä"
+
+#: src/prefs/general/linkPreviews.ts:14
+msgid "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr "Salli Panon käydä leikepöydälläsi olevissa linkeissä linkkien esikatselujen luomiseksi"
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr "Voit vaihtaa incognito-tilaa"
+
+#: src/prefs/general/shortcutRow.ts:58
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "Voit vaihtaa leikepöydän hallinnan näkyvyyttä"
+
+#: src/components/indicator/clearHistoryDialog.ts:34
+#: src/prefs/dangerZone/clearHistory.ts:23
+msgid "Are you sure you want to clear history?"
+msgstr "Oletko varma, että haluat tyhjentää historian?"
+
+#: src/components/indicator/clearHistoryDialog.ts:21
+msgid "Cancel"
+msgstr "Perua"
+
+#: src/prefs/general/dbLocation.ts:30
+msgid "Choose pano database location"
+msgstr "Valitse pano-tietokannan sijainti"
+
+#: src/components/indicator/clearHistoryDialog.ts:28
+#: src/prefs/dangerZone/clearHistory.ts:17
+msgid "Clear"
+msgstr "Selvä"
+
+#: src/components/indicator/clearHistoryDialog.ts:33
+#: src/components/indicator/settingsMenu.ts:69
+#: src/prefs/dangerZone/clearHistory.ts:11
+msgid "Clear History"
+msgstr "Tyhjennä historia"
+
+#: src/prefs/dangerZone/clearHistory.ts:12
+msgid "Clears the clipboard database and cache"
+msgstr "Tyhjentää leikepöydän tietokannan ja välimuistin"
+
+#: src/prefs/dangerZone/index.ts:11
+msgid "Danger Zone"
+msgstr "Vaaravyöhyke"
+
+#: src/prefs/general/dbLocation.ts:22
+msgid "Database Location"
+msgstr "Tietokannan sijainti"
+
+#: src/prefs/general/exclusionGroup.ts:22
+msgid "Excluded Apps"
+msgstr "Poissuljetut sovellukset"
+
+#: src/prefs/general/dbLocation.ts:52
+msgid "Failed to select directory"
+msgstr "Hakemiston valitseminen epäonnistui"
+
+#: src/prefs/general/index.ts:11
+msgid "General"
+msgstr "Yleiset"
+
+#: src/prefs/general/generalGroup.ts:20
+msgid "General Options"
+msgstr "Yleiset vaihtoehdot"
+
+#: src/prefs/general/shortcutRow.ts:57
+msgid "Global Shortcut"
+msgstr "Maailmanlaajuinen pikakuvake"
+
+#: src/prefs/general/historyLength.ts:13
+msgid "History Length"
+msgstr "Historian pituus"
+
+#: src/components/indicator/settingsMenu.ts:53
+msgid "Incognito Mode"
+msgstr "Incognito-tila"
+
+#: src/prefs/general/incognitoShortcutRow.ts:57
+msgid "Incognito Mode Shortcut"
+msgstr "Incognito-tilan pikakuvake"
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:13
+msgid "Keep Search Entry"
+msgstr "Säilytä hakumerkintä"
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:14
+msgid "Keep search entry when Pano hides"
+msgstr "Säilytä hakumerkintä, kun Pano piiloutuu"
+
+#: src/prefs/general/linkPreviews.ts:13
+msgid "Link Previews"
+msgstr "Linkkien esikatselut"
+
+#: src/prefs/general/exclusionGroup.ts:15
+msgid "Manage Exclusions"
+msgstr "Poikkeusten hallinta"
+
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "Uusi pikakuvake"
+
+#: src/prefs/general/exclusionGroup.ts:23
+msgid "Pano will stop tracking if any window from the list is focussed"
+msgstr "Pano lopettaa seurannan, jos jokin luettelon ikkuna on kohdistettu"
+
+#: src/prefs/general/pasteOnSelect.ts:13
+msgid "Paste on Select"
+msgstr "Liitä Valitse"
+
+#: src/prefs/general/playAudioOnCopy.ts:13
+msgid "Play an Audio on Copy"
+msgstr "Toista ääni kopioitaessa"
+
+#: src/prefs/general/incognitoShortcutRow.ts:64
+#: src/prefs/general/shortcutRow.ts:64
+msgid "Select a shortcut"
+msgstr "Valitse pikakuvake"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr "Vain istunto -tila"
+
+#: src/components/indicator/settingsMenu.ts:76
+msgid "Settings"
+msgstr "Asetukset"
+
+#: src/prefs/general/showIndicator.ts:13
+msgid "Show Indicator"
+msgstr "Näytä ilmaisin"
+
+#: src/prefs/general/showIndicator.ts:14
+msgid "Shows an indicator on top panel"
+msgstr "Näyttää ilmaisimen yläpaneelissa"
+
+#: src/prefs/general/syncPrimary.ts:13
+msgid "Sync Primary"
+msgstr "Synkronoi ensisijainen"
+
+#: src/prefs/general/syncPrimary.ts:14
+msgid "Sync primary selection with clipboard selection"
+msgstr "Synkronoi ensisijainen valinta leikepöydän valinnan kanssa"
+
+#: src/components/searchBox.ts:32
+msgid "Type to search"
+msgstr "Kirjoita etsiäksesi"
+
+#: src/prefs/general/watchExclusions.ts:13
+msgid "Watch Exclusions"
+msgstr "Katso poissulkemiset"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr ""
+"Kun tämä on käytössä, Pano tyhjentää kaiken historian "
+"uloskirjautumisen/uudelleenkäynnistyksen/sammutuksen yhteydessä."
+
+#: src/prefs/general/watchExclusions.ts:14
+msgid "When enabled, Pano will not track clipboard from excluded apps"
+msgstr "Kun tämä on käytössä, Pano ei seuraa leikepöytää poissuljetuista sovelluksista"
+
+#: src/prefs/general/exclusionGroup.ts:52
+msgid "Window class name"
+msgstr "Ikkunaluokan nimi"
+
+#: src/prefs/general/historyLength.ts:14
+msgid "You can limit your clipboard history length between 10 - 500"
+msgstr "Voit rajoittaa leikepöydän historian pituutta välillä 10-500"
