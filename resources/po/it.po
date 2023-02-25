@@ -1,40 +1,11 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"X-Generator: attranslate\n"
-
-#: src/prefs/general/pasteOnSelect.ts:14
-msgid "Allow Pano to paste content on select"
-msgstr "Consenti a Pano di incollare il contenuto su seleziona"
-
-#: src/prefs/general/playAudioOnCopy.ts:14
-msgid "Allow Pano to play an audio when copying new content"
-msgstr "Consenti a Pano di riprodurre un audio durante la copia di nuovi contenuti"
-
-#: src/prefs/general/linkPreviews.ts:14
-msgid "Allow Pano to visit links on your clipboard to generate link previews"
-msgstr "Consenti a Pano di visitare i collegamenti negli Appunti per generare anteprime dei collegamenti"
-
-#: src/prefs/general/incognitoShortcutRow.ts:58
-msgid "Allows you to toggle incognito mode"
-msgstr "Consente di attivare o disattivare la modalità di navigazione in incognito"
-
-#: src/prefs/general/shortcutRow.ts:58
-msgid "Allows you to toggle visibility of the clipboard manager"
-msgstr "Consente di attivare o disattivare la visibilità del gestore degli appunti"
-
-#: src/components/indicator/clearHistoryDialog.ts:34
-#: src/prefs/dangerZone/clearHistory.ts:23
-msgid "Are you sure you want to clear history?"
-msgstr "Sei sicuro di voler cancellare la cronologia?"
+"X-Generator: fill-pot-po/2.1.9\n"
 
 #: src/components/indicator/clearHistoryDialog.ts:21
 msgid "Cancel"
 msgstr "Annulla"
-
-#: src/prefs/general/dbLocation.ts:30
-msgid "Choose pano database location"
-msgstr "Scegliere il percorso del database pano"
 
 #: src/components/indicator/clearHistoryDialog.ts:28
 #: src/prefs/dangerZone/clearHistory.ts:17
@@ -47,6 +18,23 @@ msgstr "Chiaro"
 msgid "Clear History"
 msgstr "Cancella cronologia"
 
+#: src/components/indicator/clearHistoryDialog.ts:34
+#: src/prefs/dangerZone/clearHistory.ts:23
+msgid "Are you sure you want to clear history?"
+msgstr "Sei sicuro di voler cancellare la cronologia?"
+
+#: src/components/indicator/settingsMenu.ts:53
+msgid "Incognito Mode"
+msgstr "Modalità di navigazione in incognito"
+
+#: src/components/indicator/settingsMenu.ts:76
+msgid "Settings"
+msgstr "Impostazioni"
+
+#: src/components/searchBox.ts:32
+msgid "Type to search"
+msgstr "Tipo di ricerca"
+
 #: src/prefs/dangerZone/clearHistory.ts:12
 msgid "Clears the clipboard database and cache"
 msgstr "Cancella il database degli Appunti e la cache"
@@ -55,41 +43,75 @@ msgstr "Cancella il database degli Appunti e la cache"
 msgid "Danger Zone"
 msgstr "Zona di pericolo"
 
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr "Modalità solo sessione"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr "Quando abilitato, Pano cancellerà tutta la cronologia su logout / riavvio / spegnimento."
+
 #: src/prefs/general/dbLocation.ts:22
 msgid "Database Location"
 msgstr "Posizione del database"
 
-#: src/prefs/general/exclusionGroup.ts:22
-msgid "Excluded Apps"
-msgstr "App escluse"
+#: src/prefs/general/dbLocation.ts:30
+msgid "Choose pano database location"
+msgstr "Scegliere il percorso del database pano"
 
 #: src/prefs/general/dbLocation.ts:52
 msgid "Failed to select directory"
 msgstr "Impossibile selezionare la directory"
 
-#: src/prefs/general/index.ts:11
-msgid "General"
-msgstr "Generale"
+#: src/prefs/general/exclusionGroup.ts:15
+msgid "Manage Exclusions"
+msgstr "Gestione delle esclusioni"
+
+#: src/prefs/general/exclusionGroup.ts:22
+msgid "Excluded Apps"
+msgstr "App escluse"
+
+#: src/prefs/general/exclusionGroup.ts:23
+msgid "Pano will stop tracking if any window from the list is focussed"
+msgstr "Pano interromperà il monitoraggio se una finestra dell'elenco è focalizzata"
+
+#: src/prefs/general/exclusionGroup.ts:52
+msgid "Window class name"
+msgstr "Nome della classe finestra"
 
 #: src/prefs/general/generalGroup.ts:20
 msgid "General Options"
 msgstr "Opzioni generali"
 
-#: src/prefs/general/shortcutRow.ts:57
-msgid "Global Shortcut"
-msgstr "Scorciatoia globale"
-
 #: src/prefs/general/historyLength.ts:13
 msgid "History Length"
 msgstr "Lunghezza della storia"
 
-#: src/components/indicator/settingsMenu.ts:53
-msgid "Incognito Mode"
-msgstr "Modalità di navigazione in incognito"
+#: src/prefs/general/historyLength.ts:14
+msgid "You can limit your clipboard history length between 10 - 500"
+msgstr "È possibile limitare la lunghezza della cronologia degli appunti tra 10 e 500"
 
 #: src/prefs/general/incognitoShortcutRow.ts:57
 msgid "Incognito Mode Shortcut"
 msgstr "Scorciatoia per la modalità di navigazione in incognito"
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr "Consente di attivare o disattivare la modalità di navigazione in incognito"
+
+#: src/prefs/general/incognitoShortcutRow.ts:64
+#: src/prefs/general/shortcutRow.ts:64
+msgid "Select a shortcut"
+msgstr "Selezionare un collegamento"
+
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "Nuova scorciatoia"
+
+#: src/prefs/general/index.ts:11
+msgid "General"
+msgstr "Generale"
 
 #: src/prefs/general/keepSearchEntryOnHide.ts:13
 msgid "Keep Search Entry"
@@ -103,39 +125,33 @@ msgstr "Mantieni la voce di ricerca quando Pano si nasconde"
 msgid "Link Previews"
 msgstr "Anteprime dei collegamenti"
 
-#: src/prefs/general/exclusionGroup.ts:15
-msgid "Manage Exclusions"
-msgstr "Gestione delle esclusioni"
-
-#: src/prefs/general/incognitoShortcutRow.ts:77
-#: src/prefs/general/shortcutRow.ts:77
-msgid "New shortcut"
-msgstr "Nuova scorciatoia"
-
-#: src/prefs/general/exclusionGroup.ts:23
-msgid "Pano will stop tracking if any window from the list is focussed"
-msgstr "Pano interromperà il monitoraggio se una finestra dell'elenco è focalizzata"
+#: src/prefs/general/linkPreviews.ts:14
+msgid "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr "Consenti a Pano di visitare i collegamenti negli Appunti per generare anteprime dei collegamenti"
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"
 msgstr "Incolla su Seleziona"
 
+#: src/prefs/general/pasteOnSelect.ts:14
+msgid "Allow Pano to paste content on select"
+msgstr "Consenti a Pano di incollare il contenuto su seleziona"
+
 #: src/prefs/general/playAudioOnCopy.ts:13
 msgid "Play an Audio on Copy"
 msgstr "Riproduci un audio su Copia"
 
-#: src/prefs/general/incognitoShortcutRow.ts:64
-#: src/prefs/general/shortcutRow.ts:64
-msgid "Select a shortcut"
-msgstr "Selezionare un collegamento"
+#: src/prefs/general/playAudioOnCopy.ts:14
+msgid "Allow Pano to play an audio when copying new content"
+msgstr "Consenti a Pano di riprodurre un audio durante la copia di nuovi contenuti"
 
-#: src/prefs/dangerZone/sessionOnlyMode.ts:13
-msgid "Session Only Mode"
-msgstr "Modalità solo sessione"
+#: src/prefs/general/shortcutRow.ts:57
+msgid "Global Shortcut"
+msgstr "Scorciatoia globale"
 
-#: src/components/indicator/settingsMenu.ts:76
-msgid "Settings"
-msgstr "Impostazioni"
+#: src/prefs/general/shortcutRow.ts:58
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "Consente di attivare o disattivare la visibilità del gestore degli appunti"
 
 #: src/prefs/general/showIndicator.ts:13
 msgid "Show Indicator"
@@ -153,26 +169,10 @@ msgstr "Sincronizza principale"
 msgid "Sync primary selection with clipboard selection"
 msgstr "Sincronizzare la selezione principale con la selezione degli Appunti"
 
-#: src/components/searchBox.ts:32
-msgid "Type to search"
-msgstr "Tipo di ricerca"
-
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"
 msgstr "Guarda le esclusioni"
 
-#: src/prefs/dangerZone/sessionOnlyMode.ts:14
-msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
-msgstr "Quando abilitato, Pano cancellerà tutta la cronologia su logout / riavvio / spegnimento."
-
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "Se abilitato, Pano non tiene traccia degli appunti dalle app escluse"
-
-#: src/prefs/general/exclusionGroup.ts:52
-msgid "Window class name"
-msgstr "Nome della classe finestra"
-
-#: src/prefs/general/historyLength.ts:14
-msgid "You can limit your clipboard history length between 10 - 500"
-msgstr "È possibile limitare la lunghezza della cronologia degli appunti tra 10 e 500"

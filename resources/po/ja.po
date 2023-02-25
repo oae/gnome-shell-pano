@@ -1,40 +1,11 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"X-Generator: attranslate\n"
-
-#: src/prefs/general/pasteOnSelect.ts:14
-msgid "Allow Pano to paste content on select"
-msgstr "Pano が選択項目にコンテンツを貼り付けることを許可する"
-
-#: src/prefs/general/playAudioOnCopy.ts:14
-msgid "Allow Pano to play an audio when copying new content"
-msgstr "新しいコンテンツをコピーするときにPanoがオーディオを再生できるようにする"
-
-#: src/prefs/general/linkPreviews.ts:14
-msgid "Allow Pano to visit links on your clipboard to generate link previews"
-msgstr "Pano がクリップボード上のリンクにアクセスしてリンク プレビューを生成できるようにする"
-
-#: src/prefs/general/incognitoShortcutRow.ts:58
-msgid "Allows you to toggle incognito mode"
-msgstr "シークレットモードを切り替えることができます"
-
-#: src/prefs/general/shortcutRow.ts:58
-msgid "Allows you to toggle visibility of the clipboard manager"
-msgstr "クリップボードマネージャーの表示を切り替えることができます"
-
-#: src/components/indicator/clearHistoryDialog.ts:34
-#: src/prefs/dangerZone/clearHistory.ts:23
-msgid "Are you sure you want to clear history?"
-msgstr "履歴をクリアしてもよろしいですか?"
+"X-Generator: fill-pot-po/2.1.9\n"
 
 #: src/components/indicator/clearHistoryDialog.ts:21
 msgid "Cancel"
 msgstr "キャンセル"
-
-#: src/prefs/general/dbLocation.ts:30
-msgid "Choose pano database location"
-msgstr "pano データベースの場所を選択する"
 
 #: src/components/indicator/clearHistoryDialog.ts:28
 #: src/prefs/dangerZone/clearHistory.ts:17
@@ -47,6 +18,23 @@ msgstr "クリア"
 msgid "Clear History"
 msgstr "履歴をクリア"
 
+#: src/components/indicator/clearHistoryDialog.ts:34
+#: src/prefs/dangerZone/clearHistory.ts:23
+msgid "Are you sure you want to clear history?"
+msgstr "履歴をクリアしてもよろしいですか?"
+
+#: src/components/indicator/settingsMenu.ts:53
+msgid "Incognito Mode"
+msgstr "シークレットモード"
+
+#: src/components/indicator/settingsMenu.ts:76
+msgid "Settings"
+msgstr "設定"
+
+#: src/components/searchBox.ts:32
+msgid "Type to search"
+msgstr "検索するタイプ"
+
 #: src/prefs/dangerZone/clearHistory.ts:12
 msgid "Clears the clipboard database and cache"
 msgstr "クリップボードのデータベースとキャッシュをクリアします。"
@@ -55,41 +43,75 @@ msgstr "クリップボードのデータベースとキャッシュをクリア
 msgid "Danger Zone"
 msgstr "危険地帯"
 
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr "セッションのみモード"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr "有効にすると、Panoはログアウト/再起動/シャットダウン時にすべての履歴をクリアします。"
+
 #: src/prefs/general/dbLocation.ts:22
 msgid "Database Location"
 msgstr "データベースの場所"
 
-#: src/prefs/general/exclusionGroup.ts:22
-msgid "Excluded Apps"
-msgstr "除外されたアプリ"
+#: src/prefs/general/dbLocation.ts:30
+msgid "Choose pano database location"
+msgstr "pano データベースの場所を選択する"
 
 #: src/prefs/general/dbLocation.ts:52
 msgid "Failed to select directory"
 msgstr "ディレクトリの選択に失敗しました"
 
-#: src/prefs/general/index.ts:11
-msgid "General"
-msgstr "全般"
+#: src/prefs/general/exclusionGroup.ts:15
+msgid "Manage Exclusions"
+msgstr "除外の管理"
+
+#: src/prefs/general/exclusionGroup.ts:22
+msgid "Excluded Apps"
+msgstr "除外されたアプリ"
+
+#: src/prefs/general/exclusionGroup.ts:23
+msgid "Pano will stop tracking if any window from the list is focussed"
+msgstr "Pano は、リストのいずれかのウィンドウがフォーカスされている場合、追跡を停止します"
+
+#: src/prefs/general/exclusionGroup.ts:52
+msgid "Window class name"
+msgstr "ウィンドウ クラス名"
 
 #: src/prefs/general/generalGroup.ts:20
 msgid "General Options"
 msgstr "全般オプション"
 
-#: src/prefs/general/shortcutRow.ts:57
-msgid "Global Shortcut"
-msgstr "グローバルショートカット"
-
 #: src/prefs/general/historyLength.ts:13
 msgid "History Length"
 msgstr "履歴の長さ"
 
-#: src/components/indicator/settingsMenu.ts:53
-msgid "Incognito Mode"
-msgstr "シークレットモード"
+#: src/prefs/general/historyLength.ts:14
+msgid "You can limit your clipboard history length between 10 - 500"
+msgstr "クリップボードの履歴の長さを 10 から 500 の間で制限できます。"
 
 #: src/prefs/general/incognitoShortcutRow.ts:57
 msgid "Incognito Mode Shortcut"
 msgstr "シークレットモードのショートカット"
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr "シークレットモードを切り替えることができます"
+
+#: src/prefs/general/incognitoShortcutRow.ts:64
+#: src/prefs/general/shortcutRow.ts:64
+msgid "Select a shortcut"
+msgstr "ショートカットを選択する"
+
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "新しいショートカット"
+
+#: src/prefs/general/index.ts:11
+msgid "General"
+msgstr "全般"
 
 #: src/prefs/general/keepSearchEntryOnHide.ts:13
 msgid "Keep Search Entry"
@@ -103,39 +125,33 @@ msgstr "Pano が非表示になったときに検索エントリを保持する"
 msgid "Link Previews"
 msgstr "リンクプレビュー"
 
-#: src/prefs/general/exclusionGroup.ts:15
-msgid "Manage Exclusions"
-msgstr "除外の管理"
-
-#: src/prefs/general/incognitoShortcutRow.ts:77
-#: src/prefs/general/shortcutRow.ts:77
-msgid "New shortcut"
-msgstr "新しいショートカット"
-
-#: src/prefs/general/exclusionGroup.ts:23
-msgid "Pano will stop tracking if any window from the list is focussed"
-msgstr "Pano は、リストのいずれかのウィンドウがフォーカスされている場合、追跡を停止します"
+#: src/prefs/general/linkPreviews.ts:14
+msgid "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr "Pano がクリップボード上のリンクにアクセスしてリンク プレビューを生成できるようにする"
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"
 msgstr "選択時に貼り付け"
 
+#: src/prefs/general/pasteOnSelect.ts:14
+msgid "Allow Pano to paste content on select"
+msgstr "Pano が選択項目にコンテンツを貼り付けることを許可する"
+
 #: src/prefs/general/playAudioOnCopy.ts:13
 msgid "Play an Audio on Copy"
 msgstr "コピー時にオーディオを再生する"
 
-#: src/prefs/general/incognitoShortcutRow.ts:64
-#: src/prefs/general/shortcutRow.ts:64
-msgid "Select a shortcut"
-msgstr "ショートカットを選択する"
+#: src/prefs/general/playAudioOnCopy.ts:14
+msgid "Allow Pano to play an audio when copying new content"
+msgstr "新しいコンテンツをコピーするときにPanoがオーディオを再生できるようにする"
 
-#: src/prefs/dangerZone/sessionOnlyMode.ts:13
-msgid "Session Only Mode"
-msgstr "セッションのみモード"
+#: src/prefs/general/shortcutRow.ts:57
+msgid "Global Shortcut"
+msgstr "グローバルショートカット"
 
-#: src/components/indicator/settingsMenu.ts:76
-msgid "Settings"
-msgstr "設定"
+#: src/prefs/general/shortcutRow.ts:58
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "クリップボードマネージャーの表示を切り替えることができます"
 
 #: src/prefs/general/showIndicator.ts:13
 msgid "Show Indicator"
@@ -153,26 +169,10 @@ msgstr "プライマリの同期"
 msgid "Sync primary selection with clipboard selection"
 msgstr "プライマリ選択とクリップボード選択の同期"
 
-#: src/components/searchBox.ts:32
-msgid "Type to search"
-msgstr "検索するタイプ"
-
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"
 msgstr "除外を見る"
 
-#: src/prefs/dangerZone/sessionOnlyMode.ts:14
-msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
-msgstr "有効にすると、Panoはログアウト/再起動/シャットダウン時にすべての履歴をクリアします。"
-
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "有効にすると、Panoは除外されたアプリからクリップボードを追跡しません"
-
-#: src/prefs/general/exclusionGroup.ts:52
-msgid "Window class name"
-msgstr "ウィンドウ クラス名"
-
-#: src/prefs/general/historyLength.ts:14
-msgid "You can limit your clipboard history length between 10 - 500"
-msgstr "クリップボードの履歴の長さを 10 から 500 の間で制限できます。"

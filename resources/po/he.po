@@ -1,40 +1,11 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"X-Generator: attranslate\n"
-
-#: src/prefs/general/pasteOnSelect.ts:14
-msgid "Allow Pano to paste content on select"
-msgstr "אפשר לפאנו להדביק תוכן בבחירה"
-
-#: src/prefs/general/playAudioOnCopy.ts:14
-msgid "Allow Pano to play an audio when copying new content"
-msgstr "אפשר ל-Pano להשמיע שמע בעת העתקת תוכן חדש"
-
-#: src/prefs/general/linkPreviews.ts:14
-msgid "Allow Pano to visit links on your clipboard to generate link previews"
-msgstr "אפשר לפאנו לבקר בקישורים בלוח כדי ליצור תצוגות מקדימות של קישורים"
-
-#: src/prefs/general/incognitoShortcutRow.ts:58
-msgid "Allows you to toggle incognito mode"
-msgstr "מאפשר לך לעבור למצב גלישה בסתר"
-
-#: src/prefs/general/shortcutRow.ts:58
-msgid "Allows you to toggle visibility of the clipboard manager"
-msgstr "מאפשר לך להחליף את הנראות של מנהל הלוח"
-
-#: src/components/indicator/clearHistoryDialog.ts:34
-#: src/prefs/dangerZone/clearHistory.ts:23
-msgid "Are you sure you want to clear history?"
-msgstr "האם אתה בטוח שברצונך לנקות את ההיסטוריה?"
+"X-Generator: fill-pot-po/2.1.9\n"
 
 #: src/components/indicator/clearHistoryDialog.ts:21
 msgid "Cancel"
 msgstr "ביטל"
-
-#: src/prefs/general/dbLocation.ts:30
-msgid "Choose pano database location"
-msgstr "בחר מיקום מסד נתונים של Pano"
 
 #: src/components/indicator/clearHistoryDialog.ts:28
 #: src/prefs/dangerZone/clearHistory.ts:17
@@ -47,6 +18,23 @@ msgstr "צלול"
 msgid "Clear History"
 msgstr "נקה היסטוריה"
 
+#: src/components/indicator/clearHistoryDialog.ts:34
+#: src/prefs/dangerZone/clearHistory.ts:23
+msgid "Are you sure you want to clear history?"
+msgstr "האם אתה בטוח שברצונך לנקות את ההיסטוריה?"
+
+#: src/components/indicator/settingsMenu.ts:53
+msgid "Incognito Mode"
+msgstr "מצב גלישה בסתר"
+
+#: src/components/indicator/settingsMenu.ts:76
+msgid "Settings"
+msgstr "הגדרות"
+
+#: src/components/searchBox.ts:32
+msgid "Type to search"
+msgstr "הקלד כדי לחפש"
+
 #: src/prefs/dangerZone/clearHistory.ts:12
 msgid "Clears the clipboard database and cache"
 msgstr "מנקה את מסד הנתונים והמטמון של הלוח"
@@ -55,41 +43,75 @@ msgstr "מנקה את מסד הנתונים והמטמון של הלוח"
 msgid "Danger Zone"
 msgstr "אזור הסכנה"
 
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr "מצב הפעלה בלבד"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr "כאשר אפשרות זו מופעלת, Pano תנקה את כל ההיסטוריה בעת התנתקות/הפעלה מחדש/כיבוי."
+
 #: src/prefs/general/dbLocation.ts:22
 msgid "Database Location"
 msgstr "מיקום מסד הנתונים"
 
-#: src/prefs/general/exclusionGroup.ts:22
-msgid "Excluded Apps"
-msgstr "יישומים שאינם נכללים"
+#: src/prefs/general/dbLocation.ts:30
+msgid "Choose pano database location"
+msgstr "בחר מיקום מסד נתונים של Pano"
 
 #: src/prefs/general/dbLocation.ts:52
 msgid "Failed to select directory"
 msgstr "בחירת הספריה נכשלה"
 
-#: src/prefs/general/index.ts:11
-msgid "General"
-msgstr "כללי"
+#: src/prefs/general/exclusionGroup.ts:15
+msgid "Manage Exclusions"
+msgstr "ניהול אי-הכללות"
+
+#: src/prefs/general/exclusionGroup.ts:22
+msgid "Excluded Apps"
+msgstr "יישומים שאינם נכללים"
+
+#: src/prefs/general/exclusionGroup.ts:23
+msgid "Pano will stop tracking if any window from the list is focussed"
+msgstr "Pano תפסיק את המעקב אם חלון כלשהו מהרשימה ממוקד"
+
+#: src/prefs/general/exclusionGroup.ts:52
+msgid "Window class name"
+msgstr "שם כיתת חלון"
 
 #: src/prefs/general/generalGroup.ts:20
 msgid "General Options"
 msgstr "אפשרויות כלליות"
 
-#: src/prefs/general/shortcutRow.ts:57
-msgid "Global Shortcut"
-msgstr "קיצור דרך כללי"
-
 #: src/prefs/general/historyLength.ts:13
 msgid "History Length"
 msgstr "אורך ההיסטוריה"
 
-#: src/components/indicator/settingsMenu.ts:53
-msgid "Incognito Mode"
-msgstr "מצב גלישה בסתר"
+#: src/prefs/general/historyLength.ts:14
+msgid "You can limit your clipboard history length between 10 - 500"
+msgstr "אתה יכול להגביל את אורך היסטוריית הלוח שלך בין 10 - 500"
 
 #: src/prefs/general/incognitoShortcutRow.ts:57
 msgid "Incognito Mode Shortcut"
 msgstr "קיצור דרך למצב גלישה בסתר"
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr "מאפשר לך לעבור למצב גלישה בסתר"
+
+#: src/prefs/general/incognitoShortcutRow.ts:64
+#: src/prefs/general/shortcutRow.ts:64
+msgid "Select a shortcut"
+msgstr "בחירת קיצור דרך"
+
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "קיצור דרך חדש"
+
+#: src/prefs/general/index.ts:11
+msgid "General"
+msgstr "כללי"
 
 #: src/prefs/general/keepSearchEntryOnHide.ts:13
 msgid "Keep Search Entry"
@@ -103,39 +125,33 @@ msgstr "שמירת ערך החיפוש כאשר פאנו מסתתר"
 msgid "Link Previews"
 msgstr "תצוגות מקדימות של קישורים"
 
-#: src/prefs/general/exclusionGroup.ts:15
-msgid "Manage Exclusions"
-msgstr "ניהול אי-הכללות"
-
-#: src/prefs/general/incognitoShortcutRow.ts:77
-#: src/prefs/general/shortcutRow.ts:77
-msgid "New shortcut"
-msgstr "קיצור דרך חדש"
-
-#: src/prefs/general/exclusionGroup.ts:23
-msgid "Pano will stop tracking if any window from the list is focussed"
-msgstr "Pano תפסיק את המעקב אם חלון כלשהו מהרשימה ממוקד"
+#: src/prefs/general/linkPreviews.ts:14
+msgid "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr "אפשר לפאנו לבקר בקישורים בלוח כדי ליצור תצוגות מקדימות של קישורים"
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"
 msgstr "הדבקה בבחירה"
 
+#: src/prefs/general/pasteOnSelect.ts:14
+msgid "Allow Pano to paste content on select"
+msgstr "אפשר לפאנו להדביק תוכן בבחירה"
+
 #: src/prefs/general/playAudioOnCopy.ts:13
 msgid "Play an Audio on Copy"
 msgstr "הפעלת שמע בהעתקה"
 
-#: src/prefs/general/incognitoShortcutRow.ts:64
-#: src/prefs/general/shortcutRow.ts:64
-msgid "Select a shortcut"
-msgstr "בחירת קיצור דרך"
+#: src/prefs/general/playAudioOnCopy.ts:14
+msgid "Allow Pano to play an audio when copying new content"
+msgstr "אפשר ל-Pano להשמיע שמע בעת העתקת תוכן חדש"
 
-#: src/prefs/dangerZone/sessionOnlyMode.ts:13
-msgid "Session Only Mode"
-msgstr "מצב הפעלה בלבד"
+#: src/prefs/general/shortcutRow.ts:57
+msgid "Global Shortcut"
+msgstr "קיצור דרך כללי"
 
-#: src/components/indicator/settingsMenu.ts:76
-msgid "Settings"
-msgstr "הגדרות"
+#: src/prefs/general/shortcutRow.ts:58
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "מאפשר לך להחליף את הנראות של מנהל הלוח"
 
 #: src/prefs/general/showIndicator.ts:13
 msgid "Show Indicator"
@@ -153,26 +169,10 @@ msgstr "סינכרון ראשי"
 msgid "Sync primary selection with clipboard selection"
 msgstr "סינכרון בחירה ראשית עם בחירת הלוח"
 
-#: src/components/searchBox.ts:32
-msgid "Type to search"
-msgstr "הקלד כדי לחפש"
-
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"
 msgstr "צפה בהחרגות"
 
-#: src/prefs/dangerZone/sessionOnlyMode.ts:14
-msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
-msgstr "כאשר אפשרות זו מופעלת, Pano תנקה את כל ההיסטוריה בעת התנתקות/הפעלה מחדש/כיבוי."
-
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "כאשר אפשרות זו מופעלת, Pano לא תעקוב אחר הלוח מאפליקציות שאינן נכללות"
-
-#: src/prefs/general/exclusionGroup.ts:52
-msgid "Window class name"
-msgstr "שם כיתת חלון"
-
-#: src/prefs/general/historyLength.ts:14
-msgid "You can limit your clipboard history length between 10 - 500"
-msgstr "אתה יכול להגביל את אורך היסטוריית הלוח שלך בין 10 - 500"

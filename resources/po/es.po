@@ -1,40 +1,11 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"X-Generator: attranslate\n"
-
-#: src/prefs/general/pasteOnSelect.ts:14
-msgid "Allow Pano to paste content on select"
-msgstr "Permitir que Pano pegue contenido en select"
-
-#: src/prefs/general/playAudioOnCopy.ts:14
-msgid "Allow Pano to play an audio when copying new content"
-msgstr "Permitir que Pano reproduzca un audio al copiar contenido nuevo"
-
-#: src/prefs/general/linkPreviews.ts:14
-msgid "Allow Pano to visit links on your clipboard to generate link previews"
-msgstr "Permitir que Pano visite enlaces en su portapapeles para generar vistas previas de enlaces"
-
-#: src/prefs/general/incognitoShortcutRow.ts:58
-msgid "Allows you to toggle incognito mode"
-msgstr "Le permite alternar el modo de incógnito"
-
-#: src/prefs/general/shortcutRow.ts:58
-msgid "Allows you to toggle visibility of the clipboard manager"
-msgstr "Le permite alternar la visibilidad del administrador del portapapeles"
-
-#: src/components/indicator/clearHistoryDialog.ts:34
-#: src/prefs/dangerZone/clearHistory.ts:23
-msgid "Are you sure you want to clear history?"
-msgstr "¿Estás seguro de que quieres borrar el historial?"
+"X-Generator: fill-pot-po/2.1.9\n"
 
 #: src/components/indicator/clearHistoryDialog.ts:21
 msgid "Cancel"
 msgstr "Cancelar"
-
-#: src/prefs/general/dbLocation.ts:30
-msgid "Choose pano database location"
-msgstr "Elegir la ubicación de la base de datos de pano"
 
 #: src/components/indicator/clearHistoryDialog.ts:28
 #: src/prefs/dangerZone/clearHistory.ts:17
@@ -47,6 +18,23 @@ msgstr "Claro"
 msgid "Clear History"
 msgstr "Borrar historial"
 
+#: src/components/indicator/clearHistoryDialog.ts:34
+#: src/prefs/dangerZone/clearHistory.ts:23
+msgid "Are you sure you want to clear history?"
+msgstr "¿Estás seguro de que quieres borrar el historial?"
+
+#: src/components/indicator/settingsMenu.ts:53
+msgid "Incognito Mode"
+msgstr "Modo incógnito"
+
+#: src/components/indicator/settingsMenu.ts:76
+msgid "Settings"
+msgstr "Configuración"
+
+#: src/components/searchBox.ts:32
+msgid "Type to search"
+msgstr "Tipo para buscar"
+
 #: src/prefs/dangerZone/clearHistory.ts:12
 msgid "Clears the clipboard database and cache"
 msgstr "Borra la base de datos y la memoria caché del portapapeles"
@@ -55,41 +43,75 @@ msgstr "Borra la base de datos y la memoria caché del portapapeles"
 msgid "Danger Zone"
 msgstr "Zona de peligro"
 
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr "Modo de solo sesión"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr "Cuando está habilitado, Pano borrará todo el historial al cerrar sesión / reiniciar / apagar."
+
 #: src/prefs/general/dbLocation.ts:22
 msgid "Database Location"
 msgstr "Ubicación de la base de datos"
 
-#: src/prefs/general/exclusionGroup.ts:22
-msgid "Excluded Apps"
-msgstr "Aplicaciones excluidas"
+#: src/prefs/general/dbLocation.ts:30
+msgid "Choose pano database location"
+msgstr "Elegir la ubicación de la base de datos de pano"
 
 #: src/prefs/general/dbLocation.ts:52
 msgid "Failed to select directory"
 msgstr "Error al seleccionar el directorio"
 
-#: src/prefs/general/index.ts:11
-msgid "General"
-msgstr "General"
+#: src/prefs/general/exclusionGroup.ts:15
+msgid "Manage Exclusions"
+msgstr "Administrar exclusiones"
+
+#: src/prefs/general/exclusionGroup.ts:22
+msgid "Excluded Apps"
+msgstr "Aplicaciones excluidas"
+
+#: src/prefs/general/exclusionGroup.ts:23
+msgid "Pano will stop tracking if any window from the list is focussed"
+msgstr "Pano dejará de rastrear si alguna ventana de la lista está enfocada"
+
+#: src/prefs/general/exclusionGroup.ts:52
+msgid "Window class name"
+msgstr "Nombre de clase de ventana"
 
 #: src/prefs/general/generalGroup.ts:20
 msgid "General Options"
 msgstr "Opciones generales"
 
-#: src/prefs/general/shortcutRow.ts:57
-msgid "Global Shortcut"
-msgstr "Acceso directo global"
-
 #: src/prefs/general/historyLength.ts:13
 msgid "History Length"
 msgstr "Longitud del historial"
 
-#: src/components/indicator/settingsMenu.ts:53
-msgid "Incognito Mode"
-msgstr "Modo incógnito"
+#: src/prefs/general/historyLength.ts:14
+msgid "You can limit your clipboard history length between 10 - 500"
+msgstr "Puede limitar la longitud del historial del portapapeles entre 10 y 500"
 
 #: src/prefs/general/incognitoShortcutRow.ts:57
 msgid "Incognito Mode Shortcut"
 msgstr "Acceso directo al modo incógnito"
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr "Le permite alternar el modo de incógnito"
+
+#: src/prefs/general/incognitoShortcutRow.ts:64
+#: src/prefs/general/shortcutRow.ts:64
+msgid "Select a shortcut"
+msgstr "Seleccionar un acceso directo"
+
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "Nuevo acceso directo"
+
+#: src/prefs/general/index.ts:11
+msgid "General"
+msgstr "General"
 
 #: src/prefs/general/keepSearchEntryOnHide.ts:13
 msgid "Keep Search Entry"
@@ -103,39 +125,33 @@ msgstr "Mantener la entrada de búsqueda cuando Pano se esconde"
 msgid "Link Previews"
 msgstr "Vistas previas de enlaces"
 
-#: src/prefs/general/exclusionGroup.ts:15
-msgid "Manage Exclusions"
-msgstr "Administrar exclusiones"
-
-#: src/prefs/general/incognitoShortcutRow.ts:77
-#: src/prefs/general/shortcutRow.ts:77
-msgid "New shortcut"
-msgstr "Nuevo acceso directo"
-
-#: src/prefs/general/exclusionGroup.ts:23
-msgid "Pano will stop tracking if any window from the list is focussed"
-msgstr "Pano dejará de rastrear si alguna ventana de la lista está enfocada"
+#: src/prefs/general/linkPreviews.ts:14
+msgid "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr "Permitir que Pano visite enlaces en su portapapeles para generar vistas previas de enlaces"
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"
 msgstr "Pegar en Seleccionar"
 
+#: src/prefs/general/pasteOnSelect.ts:14
+msgid "Allow Pano to paste content on select"
+msgstr "Permitir que Pano pegue contenido en select"
+
 #: src/prefs/general/playAudioOnCopy.ts:13
 msgid "Play an Audio on Copy"
 msgstr "Reproducir un audio en copia"
 
-#: src/prefs/general/incognitoShortcutRow.ts:64
-#: src/prefs/general/shortcutRow.ts:64
-msgid "Select a shortcut"
-msgstr "Seleccionar un acceso directo"
+#: src/prefs/general/playAudioOnCopy.ts:14
+msgid "Allow Pano to play an audio when copying new content"
+msgstr "Permitir que Pano reproduzca un audio al copiar contenido nuevo"
 
-#: src/prefs/dangerZone/sessionOnlyMode.ts:13
-msgid "Session Only Mode"
-msgstr "Modo de solo sesión"
+#: src/prefs/general/shortcutRow.ts:57
+msgid "Global Shortcut"
+msgstr "Acceso directo global"
 
-#: src/components/indicator/settingsMenu.ts:76
-msgid "Settings"
-msgstr "Configuración"
+#: src/prefs/general/shortcutRow.ts:58
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "Le permite alternar la visibilidad del administrador del portapapeles"
 
 #: src/prefs/general/showIndicator.ts:13
 msgid "Show Indicator"
@@ -153,26 +169,10 @@ msgstr "Sincronizar primario"
 msgid "Sync primary selection with clipboard selection"
 msgstr "Sincronizar selección principal con selección del portapapeles"
 
-#: src/components/searchBox.ts:32
-msgid "Type to search"
-msgstr "Tipo para buscar"
-
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"
 msgstr "Ver exclusiones"
 
-#: src/prefs/dangerZone/sessionOnlyMode.ts:14
-msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
-msgstr "Cuando está habilitado, Pano borrará todo el historial al cerrar sesión / reiniciar / apagar."
-
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "Cuando está habilitado, Pano no rastreará el portapapeles de las aplicaciones excluidas"
-
-#: src/prefs/general/exclusionGroup.ts:52
-msgid "Window class name"
-msgstr "Nombre de clase de ventana"
-
-#: src/prefs/general/historyLength.ts:14
-msgid "You can limit your clipboard history length between 10 - 500"
-msgstr "Puede limitar la longitud del historial del portapapeles entre 10 y 500"

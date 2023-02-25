@@ -1,40 +1,11 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"X-Generator: attranslate\n"
-
-#: src/prefs/general/pasteOnSelect.ts:14
-msgid "Allow Pano to paste content on select"
-msgstr "Tillad Pano at indsætte indhold på vælg"
-
-#: src/prefs/general/playAudioOnCopy.ts:14
-msgid "Allow Pano to play an audio when copying new content"
-msgstr "Tillad Pano at afspille en lyd, når du kopierer nyt indhold"
-
-#: src/prefs/general/linkPreviews.ts:14
-msgid "Allow Pano to visit links on your clipboard to generate link previews"
-msgstr "Tillad Pano at besøge links på dit udklipsholder for at generere linkeksempler"
-
-#: src/prefs/general/incognitoShortcutRow.ts:58
-msgid "Allows you to toggle incognito mode"
-msgstr "Giver dig mulighed for at skifte inkognitotilstand"
-
-#: src/prefs/general/shortcutRow.ts:58
-msgid "Allows you to toggle visibility of the clipboard manager"
-msgstr "Giver dig mulighed for at skifte synlighed af udklipsholderen"
-
-#: src/components/indicator/clearHistoryDialog.ts:34
-#: src/prefs/dangerZone/clearHistory.ts:23
-msgid "Are you sure you want to clear history?"
-msgstr "Er du sikker på, at du vil rydde historien?"
+"X-Generator: fill-pot-po/2.1.9\n"
 
 #: src/components/indicator/clearHistoryDialog.ts:21
 msgid "Cancel"
 msgstr "Aflyse"
-
-#: src/prefs/general/dbLocation.ts:30
-msgid "Choose pano database location"
-msgstr "Vælg pano-databaseplacering"
 
 #: src/components/indicator/clearHistoryDialog.ts:28
 #: src/prefs/dangerZone/clearHistory.ts:17
@@ -47,6 +18,23 @@ msgstr "Tydelig"
 msgid "Clear History"
 msgstr "Klar historie"
 
+#: src/components/indicator/clearHistoryDialog.ts:34
+#: src/prefs/dangerZone/clearHistory.ts:23
+msgid "Are you sure you want to clear history?"
+msgstr "Er du sikker på, at du vil rydde historien?"
+
+#: src/components/indicator/settingsMenu.ts:53
+msgid "Incognito Mode"
+msgstr "Inkognitotilstand"
+
+#: src/components/indicator/settingsMenu.ts:76
+msgid "Settings"
+msgstr "Indstillinger"
+
+#: src/components/searchBox.ts:32
+msgid "Type to search"
+msgstr "Skriv for at søge"
+
 #: src/prefs/dangerZone/clearHistory.ts:12
 msgid "Clears the clipboard database and cache"
 msgstr "Rydder udklipsholderens database og cache"
@@ -55,41 +43,75 @@ msgstr "Rydder udklipsholderens database og cache"
 msgid "Danger Zone"
 msgstr "Farezone"
 
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr "Kun sessionstilstand"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr "Når den er aktiveret, rydder Pano al historik ved logout / genstart / nedlukning."
+
 #: src/prefs/general/dbLocation.ts:22
 msgid "Database Location"
 msgstr "Database placering"
 
-#: src/prefs/general/exclusionGroup.ts:22
-msgid "Excluded Apps"
-msgstr "Ekskluderede apps"
+#: src/prefs/general/dbLocation.ts:30
+msgid "Choose pano database location"
+msgstr "Vælg pano-databaseplacering"
 
 #: src/prefs/general/dbLocation.ts:52
 msgid "Failed to select directory"
 msgstr "Kunne ikke vælge mappe"
 
-#: src/prefs/general/index.ts:11
-msgid "General"
-msgstr "Generel"
+#: src/prefs/general/exclusionGroup.ts:15
+msgid "Manage Exclusions"
+msgstr "Administrer undtagelser"
+
+#: src/prefs/general/exclusionGroup.ts:22
+msgid "Excluded Apps"
+msgstr "Ekskluderede apps"
+
+#: src/prefs/general/exclusionGroup.ts:23
+msgid "Pano will stop tracking if any window from the list is focussed"
+msgstr "Pano stopper sporingen, hvis et vindue fra listen er fokuseret"
+
+#: src/prefs/general/exclusionGroup.ts:52
+msgid "Window class name"
+msgstr "Navn på vinduesklasse"
 
 #: src/prefs/general/generalGroup.ts:20
 msgid "General Options"
 msgstr "Generelle indstillinger"
 
-#: src/prefs/general/shortcutRow.ts:57
-msgid "Global Shortcut"
-msgstr "Global genvej"
-
 #: src/prefs/general/historyLength.ts:13
 msgid "History Length"
 msgstr "Historiens længde"
 
-#: src/components/indicator/settingsMenu.ts:53
-msgid "Incognito Mode"
-msgstr "Inkognitotilstand"
+#: src/prefs/general/historyLength.ts:14
+msgid "You can limit your clipboard history length between 10 - 500"
+msgstr "Du kan begrænse længden af din udklipsholderhistorik mellem 10 - 500"
 
 #: src/prefs/general/incognitoShortcutRow.ts:57
 msgid "Incognito Mode Shortcut"
 msgstr "Genvej i inkognitotilstand"
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr "Giver dig mulighed for at skifte inkognitotilstand"
+
+#: src/prefs/general/incognitoShortcutRow.ts:64
+#: src/prefs/general/shortcutRow.ts:64
+msgid "Select a shortcut"
+msgstr "Vælg en genvej"
+
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "Ny genvej"
+
+#: src/prefs/general/index.ts:11
+msgid "General"
+msgstr "Generel"
 
 #: src/prefs/general/keepSearchEntryOnHide.ts:13
 msgid "Keep Search Entry"
@@ -103,39 +125,33 @@ msgstr "Hold søgeindgangen, når Pano skjuler"
 msgid "Link Previews"
 msgstr "Forhåndsvisninger af links"
 
-#: src/prefs/general/exclusionGroup.ts:15
-msgid "Manage Exclusions"
-msgstr "Administrer undtagelser"
-
-#: src/prefs/general/incognitoShortcutRow.ts:77
-#: src/prefs/general/shortcutRow.ts:77
-msgid "New shortcut"
-msgstr "Ny genvej"
-
-#: src/prefs/general/exclusionGroup.ts:23
-msgid "Pano will stop tracking if any window from the list is focussed"
-msgstr "Pano stopper sporingen, hvis et vindue fra listen er fokuseret"
+#: src/prefs/general/linkPreviews.ts:14
+msgid "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr "Tillad Pano at besøge links på dit udklipsholder for at generere linkeksempler"
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"
 msgstr "Indsæt på Vælg"
 
+#: src/prefs/general/pasteOnSelect.ts:14
+msgid "Allow Pano to paste content on select"
+msgstr "Tillad Pano at indsætte indhold på vælg"
+
 #: src/prefs/general/playAudioOnCopy.ts:13
 msgid "Play an Audio on Copy"
 msgstr "Afspil en lyd på kopi"
 
-#: src/prefs/general/incognitoShortcutRow.ts:64
-#: src/prefs/general/shortcutRow.ts:64
-msgid "Select a shortcut"
-msgstr "Vælg en genvej"
+#: src/prefs/general/playAudioOnCopy.ts:14
+msgid "Allow Pano to play an audio when copying new content"
+msgstr "Tillad Pano at afspille en lyd, når du kopierer nyt indhold"
 
-#: src/prefs/dangerZone/sessionOnlyMode.ts:13
-msgid "Session Only Mode"
-msgstr "Kun sessionstilstand"
+#: src/prefs/general/shortcutRow.ts:57
+msgid "Global Shortcut"
+msgstr "Global genvej"
 
-#: src/components/indicator/settingsMenu.ts:76
-msgid "Settings"
-msgstr "Indstillinger"
+#: src/prefs/general/shortcutRow.ts:58
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "Giver dig mulighed for at skifte synlighed af udklipsholderen"
 
 #: src/prefs/general/showIndicator.ts:13
 msgid "Show Indicator"
@@ -153,26 +169,10 @@ msgstr "Synkroniser primært"
 msgid "Sync primary selection with clipboard selection"
 msgstr "Synkronisere primær markering med markering af udklipsholder"
 
-#: src/components/searchBox.ts:32
-msgid "Type to search"
-msgstr "Skriv for at søge"
-
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"
 msgstr "Se undtagelser"
 
-#: src/prefs/dangerZone/sessionOnlyMode.ts:14
-msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
-msgstr "Når den er aktiveret, rydder Pano al historik ved logout / genstart / nedlukning."
-
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "Når den er aktiveret, sporer Pano ikke udklipsholder fra ekskluderede apps"
-
-#: src/prefs/general/exclusionGroup.ts:52
-msgid "Window class name"
-msgstr "Navn på vinduesklasse"
-
-#: src/prefs/general/historyLength.ts:14
-msgid "You can limit your clipboard history length between 10 - 500"
-msgstr "Du kan begrænse længden af din udklipsholderhistorik mellem 10 - 500"

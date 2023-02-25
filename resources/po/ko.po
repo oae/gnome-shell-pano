@@ -1,40 +1,11 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"X-Generator: attranslate\n"
-
-#: src/prefs/general/pasteOnSelect.ts:14
-msgid "Allow Pano to paste content on select"
-msgstr "Pano가 선택 항목에 콘텐츠를 붙여넣도록 허용"
-
-#: src/prefs/general/playAudioOnCopy.ts:14
-msgid "Allow Pano to play an audio when copying new content"
-msgstr "Pano가 새 콘텐츠를 복사할 때 오디오를 재생하도록 허용"
-
-#: src/prefs/general/linkPreviews.ts:14
-msgid "Allow Pano to visit links on your clipboard to generate link previews"
-msgstr "Pano가 클립보드의 링크를 방문하여 링크 미리 보기를 생성하도록 허용"
-
-#: src/prefs/general/incognitoShortcutRow.ts:58
-msgid "Allows you to toggle incognito mode"
-msgstr "시크릿 모드를 전환 할 수 있습니다."
-
-#: src/prefs/general/shortcutRow.ts:58
-msgid "Allows you to toggle visibility of the clipboard manager"
-msgstr "클립 보드 관리자의 가시성을 전환 할 수 있습니다."
-
-#: src/components/indicator/clearHistoryDialog.ts:34
-#: src/prefs/dangerZone/clearHistory.ts:23
-msgid "Are you sure you want to clear history?"
-msgstr "기록을 지우고 싶습니까?"
+"X-Generator: fill-pot-po/2.1.9\n"
 
 #: src/components/indicator/clearHistoryDialog.ts:21
 msgid "Cancel"
 msgstr "취소"
-
-#: src/prefs/general/dbLocation.ts:30
-msgid "Choose pano database location"
-msgstr "파노라마 데이터베이스 위치 선택"
 
 #: src/components/indicator/clearHistoryDialog.ts:28
 #: src/prefs/dangerZone/clearHistory.ts:17
@@ -47,6 +18,23 @@ msgstr "맑다"
 msgid "Clear History"
 msgstr "기록 지우기"
 
+#: src/components/indicator/clearHistoryDialog.ts:34
+#: src/prefs/dangerZone/clearHistory.ts:23
+msgid "Are you sure you want to clear history?"
+msgstr "기록을 지우고 싶습니까?"
+
+#: src/components/indicator/settingsMenu.ts:53
+msgid "Incognito Mode"
+msgstr "시크릿 모드"
+
+#: src/components/indicator/settingsMenu.ts:76
+msgid "Settings"
+msgstr "설정"
+
+#: src/components/searchBox.ts:32
+msgid "Type to search"
+msgstr "검색할 유형"
+
 #: src/prefs/dangerZone/clearHistory.ts:12
 msgid "Clears the clipboard database and cache"
 msgstr "클립보드 데이터베이스 및 캐시를 지웁니다."
@@ -55,41 +43,75 @@ msgstr "클립보드 데이터베이스 및 캐시를 지웁니다."
 msgid "Danger Zone"
 msgstr "위험 구역"
 
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr "세션 전용 모드"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr "활성화되면 Pano는 로그아웃/재시작/종료 시 모든 기록을 지웁니다."
+
 #: src/prefs/general/dbLocation.ts:22
 msgid "Database Location"
 msgstr "데이터베이스 위치"
 
-#: src/prefs/general/exclusionGroup.ts:22
-msgid "Excluded Apps"
-msgstr "제외된 앱"
+#: src/prefs/general/dbLocation.ts:30
+msgid "Choose pano database location"
+msgstr "파노라마 데이터베이스 위치 선택"
 
 #: src/prefs/general/dbLocation.ts:52
 msgid "Failed to select directory"
 msgstr "디렉터리를 선택하지 못했습니다."
 
-#: src/prefs/general/index.ts:11
-msgid "General"
-msgstr "일반"
+#: src/prefs/general/exclusionGroup.ts:15
+msgid "Manage Exclusions"
+msgstr "제외 관리"
+
+#: src/prefs/general/exclusionGroup.ts:22
+msgid "Excluded Apps"
+msgstr "제외된 앱"
+
+#: src/prefs/general/exclusionGroup.ts:23
+msgid "Pano will stop tracking if any window from the list is focussed"
+msgstr "Pano는 목록의 창에 포커스가 있는 경우 추적을 중지합니다."
+
+#: src/prefs/general/exclusionGroup.ts:52
+msgid "Window class name"
+msgstr "창 클래스 이름"
 
 #: src/prefs/general/generalGroup.ts:20
 msgid "General Options"
 msgstr "일반 옵션"
 
-#: src/prefs/general/shortcutRow.ts:57
-msgid "Global Shortcut"
-msgstr "전역 단축키"
-
 #: src/prefs/general/historyLength.ts:13
 msgid "History Length"
 msgstr "역사 길이"
 
-#: src/components/indicator/settingsMenu.ts:53
-msgid "Incognito Mode"
-msgstr "시크릿 모드"
+#: src/prefs/general/historyLength.ts:14
+msgid "You can limit your clipboard history length between 10 - 500"
+msgstr "클립 보드 기록 길이를 10-500 사이로 제한 할 수 있습니다."
 
 #: src/prefs/general/incognitoShortcutRow.ts:57
 msgid "Incognito Mode Shortcut"
 msgstr "시크릿 모드 단축키"
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr "시크릿 모드를 전환 할 수 있습니다."
+
+#: src/prefs/general/incognitoShortcutRow.ts:64
+#: src/prefs/general/shortcutRow.ts:64
+msgid "Select a shortcut"
+msgstr "단축어 선택"
+
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "새 단축키"
+
+#: src/prefs/general/index.ts:11
+msgid "General"
+msgstr "일반"
 
 #: src/prefs/general/keepSearchEntryOnHide.ts:13
 msgid "Keep Search Entry"
@@ -103,39 +125,33 @@ msgstr "Pano가 숨길 때 검색 항목 유지"
 msgid "Link Previews"
 msgstr "링크 미리보기"
 
-#: src/prefs/general/exclusionGroup.ts:15
-msgid "Manage Exclusions"
-msgstr "제외 관리"
-
-#: src/prefs/general/incognitoShortcutRow.ts:77
-#: src/prefs/general/shortcutRow.ts:77
-msgid "New shortcut"
-msgstr "새 단축키"
-
-#: src/prefs/general/exclusionGroup.ts:23
-msgid "Pano will stop tracking if any window from the list is focussed"
-msgstr "Pano는 목록의 창에 포커스가 있는 경우 추적을 중지합니다."
+#: src/prefs/general/linkPreviews.ts:14
+msgid "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr "Pano가 클립보드의 링크를 방문하여 링크 미리 보기를 생성하도록 허용"
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"
 msgstr "선택 시 붙여넣기"
 
+#: src/prefs/general/pasteOnSelect.ts:14
+msgid "Allow Pano to paste content on select"
+msgstr "Pano가 선택 항목에 콘텐츠를 붙여넣도록 허용"
+
 #: src/prefs/general/playAudioOnCopy.ts:13
 msgid "Play an Audio on Copy"
 msgstr "복사 시 오디오 재생"
 
-#: src/prefs/general/incognitoShortcutRow.ts:64
-#: src/prefs/general/shortcutRow.ts:64
-msgid "Select a shortcut"
-msgstr "단축어 선택"
+#: src/prefs/general/playAudioOnCopy.ts:14
+msgid "Allow Pano to play an audio when copying new content"
+msgstr "Pano가 새 콘텐츠를 복사할 때 오디오를 재생하도록 허용"
 
-#: src/prefs/dangerZone/sessionOnlyMode.ts:13
-msgid "Session Only Mode"
-msgstr "세션 전용 모드"
+#: src/prefs/general/shortcutRow.ts:57
+msgid "Global Shortcut"
+msgstr "전역 단축키"
 
-#: src/components/indicator/settingsMenu.ts:76
-msgid "Settings"
-msgstr "설정"
+#: src/prefs/general/shortcutRow.ts:58
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "클립 보드 관리자의 가시성을 전환 할 수 있습니다."
 
 #: src/prefs/general/showIndicator.ts:13
 msgid "Show Indicator"
@@ -153,26 +169,10 @@ msgstr "기본 동기화"
 msgid "Sync primary selection with clipboard selection"
 msgstr "기본 선택 항목을 클립보드 선택과 동기화"
 
-#: src/components/searchBox.ts:32
-msgid "Type to search"
-msgstr "검색할 유형"
-
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"
 msgstr "제외 항목 보기"
 
-#: src/prefs/dangerZone/sessionOnlyMode.ts:14
-msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
-msgstr "활성화되면 Pano는 로그아웃/재시작/종료 시 모든 기록을 지웁니다."
-
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "활성화되면 Pano는 제외 된 앱의 클립 보드를 추적하지 않습니다."
-
-#: src/prefs/general/exclusionGroup.ts:52
-msgid "Window class name"
-msgstr "창 클래스 이름"
-
-#: src/prefs/general/historyLength.ts:14
-msgid "You can limit your clipboard history length between 10 - 500"
-msgstr "클립 보드 기록 길이를 10-500 사이로 제한 할 수 있습니다."

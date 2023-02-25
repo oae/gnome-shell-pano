@@ -1,42 +1,11 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"X-Generator: attranslate\n"
-
-#: src/prefs/general/pasteOnSelect.ts:14
-msgid "Allow Pano to paste content on select"
-msgstr "Дозволити Пано вставляти вміст на вибраний"
-
-#: src/prefs/general/playAudioOnCopy.ts:14
-msgid "Allow Pano to play an audio when copying new content"
-msgstr "Дозволити Пано відтворювати аудіо під час копіювання нового вмісту"
-
-#: src/prefs/general/linkPreviews.ts:14
-msgid "Allow Pano to visit links on your clipboard to generate link previews"
-msgstr ""
-"Дозвольте Пано відвідувати посилання у вашому буфері обміну для створення попереднього перегляду "
-"посилань"
-
-#: src/prefs/general/incognitoShortcutRow.ts:58
-msgid "Allows you to toggle incognito mode"
-msgstr "Дозволяє перемикати режим інкогніто"
-
-#: src/prefs/general/shortcutRow.ts:58
-msgid "Allows you to toggle visibility of the clipboard manager"
-msgstr "Дозволяє переключити видимість менеджера буфера обміну"
-
-#: src/components/indicator/clearHistoryDialog.ts:34
-#: src/prefs/dangerZone/clearHistory.ts:23
-msgid "Are you sure you want to clear history?"
-msgstr "Ви впевнені, що хочете очистити історію?"
+"X-Generator: fill-pot-po/2.1.9\n"
 
 #: src/components/indicator/clearHistoryDialog.ts:21
 msgid "Cancel"
 msgstr "Скасувати"
-
-#: src/prefs/general/dbLocation.ts:30
-msgid "Choose pano database location"
-msgstr "Вибір розташування бази даних pano"
 
 #: src/components/indicator/clearHistoryDialog.ts:28
 #: src/prefs/dangerZone/clearHistory.ts:17
@@ -49,6 +18,23 @@ msgstr "Ясний"
 msgid "Clear History"
 msgstr "Очистити історію"
 
+#: src/components/indicator/clearHistoryDialog.ts:34
+#: src/prefs/dangerZone/clearHistory.ts:23
+msgid "Are you sure you want to clear history?"
+msgstr "Ви впевнені, що хочете очистити історію?"
+
+#: src/components/indicator/settingsMenu.ts:53
+msgid "Incognito Mode"
+msgstr "Режим анонімного перегляду"
+
+#: src/components/indicator/settingsMenu.ts:76
+msgid "Settings"
+msgstr "Параметри"
+
+#: src/components/searchBox.ts:32
+msgid "Type to search"
+msgstr "Введіть текст для пошуку"
+
 #: src/prefs/dangerZone/clearHistory.ts:12
 msgid "Clears the clipboard database and cache"
 msgstr "Очищає базу даних і кеш буфера обміну"
@@ -57,41 +43,75 @@ msgstr "Очищає базу даних і кеш буфера обміну"
 msgid "Danger Zone"
 msgstr "Небезпечна зона"
 
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr "Режим лише сеансу"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr "Якщо його ввімкнено, Pano очистить всю історію виходу з системи/перезапуску/завершення роботи."
+
 #: src/prefs/general/dbLocation.ts:22
 msgid "Database Location"
 msgstr "Розташування бази даних"
 
-#: src/prefs/general/exclusionGroup.ts:22
-msgid "Excluded Apps"
-msgstr "Виключені програми"
+#: src/prefs/general/dbLocation.ts:30
+msgid "Choose pano database location"
+msgstr "Вибір розташування бази даних pano"
 
 #: src/prefs/general/dbLocation.ts:52
 msgid "Failed to select directory"
 msgstr "Не вдалося вибрати каталог"
 
-#: src/prefs/general/index.ts:11
-msgid "General"
-msgstr "Загальне"
+#: src/prefs/general/exclusionGroup.ts:15
+msgid "Manage Exclusions"
+msgstr "Керування виключеннями"
+
+#: src/prefs/general/exclusionGroup.ts:22
+msgid "Excluded Apps"
+msgstr "Виключені програми"
+
+#: src/prefs/general/exclusionGroup.ts:23
+msgid "Pano will stop tracking if any window from the list is focussed"
+msgstr "Пано припинить відстеження, якщо фокусовано будь-яке вікно зі списку"
+
+#: src/prefs/general/exclusionGroup.ts:52
+msgid "Window class name"
+msgstr "Ім'я класу вікна"
 
 #: src/prefs/general/generalGroup.ts:20
 msgid "General Options"
 msgstr "Загальні параметри"
 
-#: src/prefs/general/shortcutRow.ts:57
-msgid "Global Shortcut"
-msgstr "Глобальний ярлик"
-
 #: src/prefs/general/historyLength.ts:13
 msgid "History Length"
 msgstr "Тривалість історії"
 
-#: src/components/indicator/settingsMenu.ts:53
-msgid "Incognito Mode"
-msgstr "Режим анонімного перегляду"
+#: src/prefs/general/historyLength.ts:14
+msgid "You can limit your clipboard history length between 10 - 500"
+msgstr "Ви можете обмежити довжину історії буфера обміну від 10 до 500"
 
 #: src/prefs/general/incognitoShortcutRow.ts:57
 msgid "Incognito Mode Shortcut"
 msgstr "Комбінація клавіш режиму інкогніто"
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr "Дозволяє перемикати режим інкогніто"
+
+#: src/prefs/general/incognitoShortcutRow.ts:64
+#: src/prefs/general/shortcutRow.ts:64
+msgid "Select a shortcut"
+msgstr "Вибір ярлика"
+
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "Новий ярлик"
+
+#: src/prefs/general/index.ts:11
+msgid "General"
+msgstr "Загальне"
 
 #: src/prefs/general/keepSearchEntryOnHide.ts:13
 msgid "Keep Search Entry"
@@ -105,39 +125,33 @@ msgstr "Зберігайте запис пошуку, коли Пано прих
 msgid "Link Previews"
 msgstr "Попередній перегляд посилань"
 
-#: src/prefs/general/exclusionGroup.ts:15
-msgid "Manage Exclusions"
-msgstr "Керування виключеннями"
-
-#: src/prefs/general/incognitoShortcutRow.ts:77
-#: src/prefs/general/shortcutRow.ts:77
-msgid "New shortcut"
-msgstr "Новий ярлик"
-
-#: src/prefs/general/exclusionGroup.ts:23
-msgid "Pano will stop tracking if any window from the list is focussed"
-msgstr "Пано припинить відстеження, якщо фокусовано будь-яке вікно зі списку"
+#: src/prefs/general/linkPreviews.ts:14
+msgid "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr "Дозвольте Пано відвідувати посилання у вашому буфері обміну для створення попереднього перегляду посилань"
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"
 msgstr "Вставити на \"Вибрати\""
 
+#: src/prefs/general/pasteOnSelect.ts:14
+msgid "Allow Pano to paste content on select"
+msgstr "Дозволити Пано вставляти вміст на вибраний"
+
 #: src/prefs/general/playAudioOnCopy.ts:13
 msgid "Play an Audio on Copy"
 msgstr "Відтворення аудіо на копії"
 
-#: src/prefs/general/incognitoShortcutRow.ts:64
-#: src/prefs/general/shortcutRow.ts:64
-msgid "Select a shortcut"
-msgstr "Вибір ярлика"
+#: src/prefs/general/playAudioOnCopy.ts:14
+msgid "Allow Pano to play an audio when copying new content"
+msgstr "Дозволити Пано відтворювати аудіо під час копіювання нового вмісту"
 
-#: src/prefs/dangerZone/sessionOnlyMode.ts:13
-msgid "Session Only Mode"
-msgstr "Режим лише сеансу"
+#: src/prefs/general/shortcutRow.ts:57
+msgid "Global Shortcut"
+msgstr "Глобальний ярлик"
 
-#: src/components/indicator/settingsMenu.ts:76
-msgid "Settings"
-msgstr "Параметри"
+#: src/prefs/general/shortcutRow.ts:58
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "Дозволяє переключити видимість менеджера буфера обміну"
 
 #: src/prefs/general/showIndicator.ts:13
 msgid "Show Indicator"
@@ -155,26 +169,10 @@ msgstr "Первинна синхронізація"
 msgid "Sync primary selection with clipboard selection"
 msgstr "Синхронізація основного виділення з виділенням буфера обміну"
 
-#: src/components/searchBox.ts:32
-msgid "Type to search"
-msgstr "Введіть текст для пошуку"
-
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"
 msgstr "Дивитися виключення"
 
-#: src/prefs/dangerZone/sessionOnlyMode.ts:14
-msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
-msgstr "Якщо його ввімкнено, Pano очистить всю історію виходу з системи/перезапуску/завершення роботи."
-
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "Якщо ввімкнено, Pano не відстежуватиме буфер обміну з виключених програм"
-
-#: src/prefs/general/exclusionGroup.ts:52
-msgid "Window class name"
-msgstr "Ім'я класу вікна"
-
-#: src/prefs/general/historyLength.ts:14
-msgid "You can limit your clipboard history length between 10 - 500"
-msgstr "Ви можете обмежити довжину історії буфера обміну від 10 до 500"

@@ -1,40 +1,11 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"X-Generator: attranslate\n"
-
-#: src/prefs/general/pasteOnSelect.ts:14
-msgid "Allow Pano to paste content on select"
-msgstr "Povolit funkci Pano vložit obsah při výběru"
-
-#: src/prefs/general/playAudioOnCopy.ts:14
-msgid "Allow Pano to play an audio when copying new content"
-msgstr "Povolit funkci Pano přehrávání zvuku při kopírování nového obsahu"
-
-#: src/prefs/general/linkPreviews.ts:14
-msgid "Allow Pano to visit links on your clipboard to generate link previews"
-msgstr "Umožněte společnosti Pano navštěvovat odkazy ve schránce a generovat náhledy odkazů"
-
-#: src/prefs/general/incognitoShortcutRow.ts:58
-msgid "Allows you to toggle incognito mode"
-msgstr "Umožňuje přepínat anonymní režim"
-
-#: src/prefs/general/shortcutRow.ts:58
-msgid "Allows you to toggle visibility of the clipboard manager"
-msgstr "Umožňuje přepínat viditelnost správce schránky"
-
-#: src/components/indicator/clearHistoryDialog.ts:34
-#: src/prefs/dangerZone/clearHistory.ts:23
-msgid "Are you sure you want to clear history?"
-msgstr "Opravdu chcete vymazat historii?"
+"X-Generator: fill-pot-po/2.1.9\n"
 
 #: src/components/indicator/clearHistoryDialog.ts:21
 msgid "Cancel"
 msgstr "Zrušit"
-
-#: src/prefs/general/dbLocation.ts:30
-msgid "Choose pano database location"
-msgstr "Zvolte umístění databáze pano"
 
 #: src/components/indicator/clearHistoryDialog.ts:28
 #: src/prefs/dangerZone/clearHistory.ts:17
@@ -47,6 +18,23 @@ msgstr "Jasný"
 msgid "Clear History"
 msgstr "Vymazat historii"
 
+#: src/components/indicator/clearHistoryDialog.ts:34
+#: src/prefs/dangerZone/clearHistory.ts:23
+msgid "Are you sure you want to clear history?"
+msgstr "Opravdu chcete vymazat historii?"
+
+#: src/components/indicator/settingsMenu.ts:53
+msgid "Incognito Mode"
+msgstr "Anonymní režim"
+
+#: src/components/indicator/settingsMenu.ts:76
+msgid "Settings"
+msgstr "Nastavení"
+
+#: src/components/searchBox.ts:32
+msgid "Type to search"
+msgstr "Zadejte hledaný text"
+
 #: src/prefs/dangerZone/clearHistory.ts:12
 msgid "Clears the clipboard database and cache"
 msgstr "Vymaže databázi schránky a mezipaměť"
@@ -55,41 +43,75 @@ msgstr "Vymaže databázi schránky a mezipaměť"
 msgid "Danger Zone"
 msgstr "Nebezpečný prostor"
 
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr "Režim Pouze relace"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr "Pokud je tato možnost povolena, funkce Pano vymaže veškerou historii při odhlášení/restartu/vypnutí."
+
 #: src/prefs/general/dbLocation.ts:22
 msgid "Database Location"
 msgstr "Umístění databáze"
 
-#: src/prefs/general/exclusionGroup.ts:22
-msgid "Excluded Apps"
-msgstr "Vyloučené aplikace"
+#: src/prefs/general/dbLocation.ts:30
+msgid "Choose pano database location"
+msgstr "Zvolte umístění databáze pano"
 
 #: src/prefs/general/dbLocation.ts:52
 msgid "Failed to select directory"
 msgstr "Nepodařilo se vybrat adresář"
 
-#: src/prefs/general/index.ts:11
-msgid "General"
-msgstr "Obecné"
+#: src/prefs/general/exclusionGroup.ts:15
+msgid "Manage Exclusions"
+msgstr "Správa vyloučení"
+
+#: src/prefs/general/exclusionGroup.ts:22
+msgid "Excluded Apps"
+msgstr "Vyloučené aplikace"
+
+#: src/prefs/general/exclusionGroup.ts:23
+msgid "Pano will stop tracking if any window from the list is focussed"
+msgstr "Pano přestane sledovat, pokud je některé okno ze seznamu fokusováno"
+
+#: src/prefs/general/exclusionGroup.ts:52
+msgid "Window class name"
+msgstr "Název třídy okna"
 
 #: src/prefs/general/generalGroup.ts:20
 msgid "General Options"
 msgstr "Obecné možnosti"
 
-#: src/prefs/general/shortcutRow.ts:57
-msgid "Global Shortcut"
-msgstr "Globální zkratka"
-
 #: src/prefs/general/historyLength.ts:13
 msgid "History Length"
 msgstr "Délka historie"
 
-#: src/components/indicator/settingsMenu.ts:53
-msgid "Incognito Mode"
-msgstr "Anonymní režim"
+#: src/prefs/general/historyLength.ts:14
+msgid "You can limit your clipboard history length between 10 - 500"
+msgstr "Délku historie schránky můžete omezit mezi 10 - 500"
 
 #: src/prefs/general/incognitoShortcutRow.ts:57
 msgid "Incognito Mode Shortcut"
 msgstr "Zkratka anonymního režimu"
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr "Umožňuje přepínat anonymní režim"
+
+#: src/prefs/general/incognitoShortcutRow.ts:64
+#: src/prefs/general/shortcutRow.ts:64
+msgid "Select a shortcut"
+msgstr "Vyberte zkratku"
+
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "Nová zkratka"
+
+#: src/prefs/general/index.ts:11
+msgid "General"
+msgstr "Obecné"
 
 #: src/prefs/general/keepSearchEntryOnHide.ts:13
 msgid "Keep Search Entry"
@@ -103,39 +125,33 @@ msgstr "Zachovat položku hledání, když se funkce Pano skryje"
 msgid "Link Previews"
 msgstr "Náhledy odkazů"
 
-#: src/prefs/general/exclusionGroup.ts:15
-msgid "Manage Exclusions"
-msgstr "Správa vyloučení"
-
-#: src/prefs/general/incognitoShortcutRow.ts:77
-#: src/prefs/general/shortcutRow.ts:77
-msgid "New shortcut"
-msgstr "Nová zkratka"
-
-#: src/prefs/general/exclusionGroup.ts:23
-msgid "Pano will stop tracking if any window from the list is focussed"
-msgstr "Pano přestane sledovat, pokud je některé okno ze seznamu fokusováno"
+#: src/prefs/general/linkPreviews.ts:14
+msgid "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr "Umožněte společnosti Pano navštěvovat odkazy ve schránce a generovat náhledy odkazů"
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"
 msgstr "Vložit na Vybrat"
 
+#: src/prefs/general/pasteOnSelect.ts:14
+msgid "Allow Pano to paste content on select"
+msgstr "Povolit funkci Pano vložit obsah při výběru"
+
 #: src/prefs/general/playAudioOnCopy.ts:13
 msgid "Play an Audio on Copy"
 msgstr "Přehrání zvuku při kopírování"
 
-#: src/prefs/general/incognitoShortcutRow.ts:64
-#: src/prefs/general/shortcutRow.ts:64
-msgid "Select a shortcut"
-msgstr "Vyberte zkratku"
+#: src/prefs/general/playAudioOnCopy.ts:14
+msgid "Allow Pano to play an audio when copying new content"
+msgstr "Povolit funkci Pano přehrávání zvuku při kopírování nového obsahu"
 
-#: src/prefs/dangerZone/sessionOnlyMode.ts:13
-msgid "Session Only Mode"
-msgstr "Režim Pouze relace"
+#: src/prefs/general/shortcutRow.ts:57
+msgid "Global Shortcut"
+msgstr "Globální zkratka"
 
-#: src/components/indicator/settingsMenu.ts:76
-msgid "Settings"
-msgstr "Nastavení"
+#: src/prefs/general/shortcutRow.ts:58
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "Umožňuje přepínat viditelnost správce schránky"
 
 #: src/prefs/general/showIndicator.ts:13
 msgid "Show Indicator"
@@ -153,26 +169,10 @@ msgstr "Primární synchronizace"
 msgid "Sync primary selection with clipboard selection"
 msgstr "Synchronizace primárního výběru s výběrem schránky"
 
-#: src/components/searchBox.ts:32
-msgid "Type to search"
-msgstr "Zadejte hledaný text"
-
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"
 msgstr "Podívejte se na vyloučení"
 
-#: src/prefs/dangerZone/sessionOnlyMode.ts:14
-msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
-msgstr "Pokud je tato možnost povolena, funkce Pano vymaže veškerou historii při odhlášení/restartu/vypnutí."
-
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "Pokud je funkce Pano povolena, nebude sledovat schránku z vyloučených aplikací"
-
-#: src/prefs/general/exclusionGroup.ts:52
-msgid "Window class name"
-msgstr "Název třídy okna"
-
-#: src/prefs/general/historyLength.ts:14
-msgid "You can limit your clipboard history length between 10 - 500"
-msgstr "Délku historie schránky můžete omezit mezi 10 - 500"

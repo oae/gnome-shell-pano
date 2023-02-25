@@ -1,42 +1,11 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"X-Generator: attranslate\n"
-
-#: src/prefs/general/pasteOnSelect.ts:14
-msgid "Allow Pano to paste content on select"
-msgstr "Να επιτρέπεται στο Pano η επικόλληση περιεχομένου σε επιλεγμένα"
-
-#: src/prefs/general/playAudioOnCopy.ts:14
-msgid "Allow Pano to play an audio when copying new content"
-msgstr "Να επιτρέπεται στο Pano η αναπαραγωγή ήχου κατά την αντιγραφή νέου περιεχομένου"
-
-#: src/prefs/general/linkPreviews.ts:14
-msgid "Allow Pano to visit links on your clipboard to generate link previews"
-msgstr ""
-"Επιτρέψτε στο Pano να επισκέπτεται συνδέσμους στο πρόχειρό σας για να δημιουργεί προεπισκοπήσεις "
-"συνδέσμων"
-
-#: src/prefs/general/incognitoShortcutRow.ts:58
-msgid "Allows you to toggle incognito mode"
-msgstr "Σας επιτρέπει να κάνετε εναλλαγή της κατάστασης ανώνυμης περιήγησης"
-
-#: src/prefs/general/shortcutRow.ts:58
-msgid "Allows you to toggle visibility of the clipboard manager"
-msgstr "Σας επιτρέπει να εναλλάσσετε την ορατότητα του διαχειριστή προχείρου"
-
-#: src/components/indicator/clearHistoryDialog.ts:34
-#: src/prefs/dangerZone/clearHistory.ts:23
-msgid "Are you sure you want to clear history?"
-msgstr "Είστε σίγουροι ότι θέλετε να καθαρίσετε την ιστορία;"
+"X-Generator: fill-pot-po/2.1.9\n"
 
 #: src/components/indicator/clearHistoryDialog.ts:21
 msgid "Cancel"
 msgstr "Ακυρώνω"
-
-#: src/prefs/general/dbLocation.ts:30
-msgid "Choose pano database location"
-msgstr "Επιλέξτε θέση βάσης δεδομένων pano"
 
 #: src/components/indicator/clearHistoryDialog.ts:28
 #: src/prefs/dangerZone/clearHistory.ts:17
@@ -49,6 +18,23 @@ msgstr "Σαφής"
 msgid "Clear History"
 msgstr "Εκκαθάριση ιστορικού"
 
+#: src/components/indicator/clearHistoryDialog.ts:34
+#: src/prefs/dangerZone/clearHistory.ts:23
+msgid "Are you sure you want to clear history?"
+msgstr "Είστε σίγουροι ότι θέλετε να καθαρίσετε την ιστορία;"
+
+#: src/components/indicator/settingsMenu.ts:53
+msgid "Incognito Mode"
+msgstr "Ανώνυμης"
+
+#: src/components/indicator/settingsMenu.ts:76
+msgid "Settings"
+msgstr "Ρυθμίσεις"
+
+#: src/components/searchBox.ts:32
+msgid "Type to search"
+msgstr "Πληκτρολογήστε για αναζήτηση"
+
 #: src/prefs/dangerZone/clearHistory.ts:12
 msgid "Clears the clipboard database and cache"
 msgstr "Διαγράφει τη βάση δεδομένων και τη μνήμη cache του προχείρου"
@@ -57,41 +43,75 @@ msgstr "Διαγράφει τη βάση δεδομένων και τη μνήμ
 msgid "Danger Zone"
 msgstr "Επικίνδυνη Ζώνη"
 
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr "Λειτουργία μόνο περιόδου λειτουργίας"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr "Όταν ενεργοποιηθεί, το Pano θα διαγράψει όλο το ιστορικό αποσύνδεσης / επανεκκίνησης / τερματισμού λειτουργίας."
+
 #: src/prefs/general/dbLocation.ts:22
 msgid "Database Location"
 msgstr "Τοποθεσία βάσης δεδομένων"
 
-#: src/prefs/general/exclusionGroup.ts:22
-msgid "Excluded Apps"
-msgstr "Εξαιρούμενες εφαρμογές"
+#: src/prefs/general/dbLocation.ts:30
+msgid "Choose pano database location"
+msgstr "Επιλέξτε θέση βάσης δεδομένων pano"
 
 #: src/prefs/general/dbLocation.ts:52
 msgid "Failed to select directory"
 msgstr "Αποτυχία επιλογής καταλόγου"
 
-#: src/prefs/general/index.ts:11
-msgid "General"
-msgstr "Γενικά"
+#: src/prefs/general/exclusionGroup.ts:15
+msgid "Manage Exclusions"
+msgstr "Διαχείριση εξαιρέσεων"
+
+#: src/prefs/general/exclusionGroup.ts:22
+msgid "Excluded Apps"
+msgstr "Εξαιρούμενες εφαρμογές"
+
+#: src/prefs/general/exclusionGroup.ts:23
+msgid "Pano will stop tracking if any window from the list is focussed"
+msgstr "Το Pano θα σταματήσει να παρακολουθεί εάν κάποιο παράθυρο από τη λίστα είναι εστιασμένο"
+
+#: src/prefs/general/exclusionGroup.ts:52
+msgid "Window class name"
+msgstr "Όνομα κλάσης παραθύρου"
 
 #: src/prefs/general/generalGroup.ts:20
 msgid "General Options"
 msgstr "Γενικές επιλογές"
 
-#: src/prefs/general/shortcutRow.ts:57
-msgid "Global Shortcut"
-msgstr "Καθολική συντόμευση"
-
 #: src/prefs/general/historyLength.ts:13
 msgid "History Length"
 msgstr "Διάρκεια Ιστορίας"
 
-#: src/components/indicator/settingsMenu.ts:53
-msgid "Incognito Mode"
-msgstr "Ανώνυμης"
+#: src/prefs/general/historyLength.ts:14
+msgid "You can limit your clipboard history length between 10 - 500"
+msgstr "Μπορείτε να περιορίσετε το μήκος του ιστορικού του προχείρου μεταξύ 10 - 500"
 
 #: src/prefs/general/incognitoShortcutRow.ts:57
 msgid "Incognito Mode Shortcut"
 msgstr "Συντόμευση κατάστασης ανώνυμης περιήγησης"
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr "Σας επιτρέπει να κάνετε εναλλαγή της κατάστασης ανώνυμης περιήγησης"
+
+#: src/prefs/general/incognitoShortcutRow.ts:64
+#: src/prefs/general/shortcutRow.ts:64
+msgid "Select a shortcut"
+msgstr "Επιλέξτε μια συντόμευση"
+
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "Νέα συντόμευση"
+
+#: src/prefs/general/index.ts:11
+msgid "General"
+msgstr "Γενικά"
 
 #: src/prefs/general/keepSearchEntryOnHide.ts:13
 msgid "Keep Search Entry"
@@ -105,39 +125,33 @@ msgstr "Διατήρηση καταχώρησης αναζήτησης όταν 
 msgid "Link Previews"
 msgstr "Προεπισκοπήσεις συνδέσμων"
 
-#: src/prefs/general/exclusionGroup.ts:15
-msgid "Manage Exclusions"
-msgstr "Διαχείριση εξαιρέσεων"
-
-#: src/prefs/general/incognitoShortcutRow.ts:77
-#: src/prefs/general/shortcutRow.ts:77
-msgid "New shortcut"
-msgstr "Νέα συντόμευση"
-
-#: src/prefs/general/exclusionGroup.ts:23
-msgid "Pano will stop tracking if any window from the list is focussed"
-msgstr "Το Pano θα σταματήσει να παρακολουθεί εάν κάποιο παράθυρο από τη λίστα είναι εστιασμένο"
+#: src/prefs/general/linkPreviews.ts:14
+msgid "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr "Επιτρέψτε στο Pano να επισκέπτεται συνδέσμους στο πρόχειρό σας για να δημιουργεί προεπισκοπήσεις συνδέσμων"
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"
 msgstr "Επικόλληση στην Επιλογή"
 
+#: src/prefs/general/pasteOnSelect.ts:14
+msgid "Allow Pano to paste content on select"
+msgstr "Να επιτρέπεται στο Pano η επικόλληση περιεχομένου σε επιλεγμένα"
+
 #: src/prefs/general/playAudioOnCopy.ts:13
 msgid "Play an Audio on Copy"
 msgstr "Αναπαραγωγή ήχου σε αντιγραφή"
 
-#: src/prefs/general/incognitoShortcutRow.ts:64
-#: src/prefs/general/shortcutRow.ts:64
-msgid "Select a shortcut"
-msgstr "Επιλέξτε μια συντόμευση"
+#: src/prefs/general/playAudioOnCopy.ts:14
+msgid "Allow Pano to play an audio when copying new content"
+msgstr "Να επιτρέπεται στο Pano η αναπαραγωγή ήχου κατά την αντιγραφή νέου περιεχομένου"
 
-#: src/prefs/dangerZone/sessionOnlyMode.ts:13
-msgid "Session Only Mode"
-msgstr "Λειτουργία μόνο περιόδου λειτουργίας"
+#: src/prefs/general/shortcutRow.ts:57
+msgid "Global Shortcut"
+msgstr "Καθολική συντόμευση"
 
-#: src/components/indicator/settingsMenu.ts:76
-msgid "Settings"
-msgstr "Ρυθμίσεις"
+#: src/prefs/general/shortcutRow.ts:58
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "Σας επιτρέπει να εναλλάσσετε την ορατότητα του διαχειριστή προχείρου"
 
 #: src/prefs/general/showIndicator.ts:13
 msgid "Show Indicator"
@@ -155,28 +169,10 @@ msgstr "Συγχρονισμός κύριας"
 msgid "Sync primary selection with clipboard selection"
 msgstr "Συγχρονισμός κύριας επιλογής με επιλογή προχείρου"
 
-#: src/components/searchBox.ts:32
-msgid "Type to search"
-msgstr "Πληκτρολογήστε για αναζήτηση"
-
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"
 msgstr "Εξαιρέσεις παρακολούθησης"
 
-#: src/prefs/dangerZone/sessionOnlyMode.ts:14
-msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
-msgstr ""
-"Όταν ενεργοποιηθεί, το Pano θα διαγράψει όλο το ιστορικό αποσύνδεσης / επανεκκίνησης / τερματισμού "
-"λειτουργίας."
-
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "Όταν είναι ενεργοποιημένη, η Pano δεν θα παρακολουθεί το πρόχειρο από τις εξαιρούμενες εφαρμογές"
-
-#: src/prefs/general/exclusionGroup.ts:52
-msgid "Window class name"
-msgstr "Όνομα κλάσης παραθύρου"
-
-#: src/prefs/general/historyLength.ts:14
-msgid "You can limit your clipboard history length between 10 - 500"
-msgstr "Μπορείτε να περιορίσετε το μήκος του ιστορικού του προχείρου μεταξύ 10 - 500"
