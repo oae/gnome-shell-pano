@@ -1,45 +1,16 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"X-Generator: attranslate\n"
-
-#: src/prefs/general/pasteOnSelect.ts:14
-msgid "Allow Pano to paste content on select"
-msgstr "Разрешить Pano вставлять содержимое при выборе"
-
-#: src/prefs/general/playAudioOnCopy.ts:14
-msgid "Allow Pano to play an audio when copying new content"
-msgstr "Разрешить Pano воспроизводить аудио при копировании нового содержимого"
-
-#: src/prefs/general/linkPreviews.ts:14
-msgid "Allow Pano to visit links on your clipboard to generate link previews"
-msgstr "Разрешить Pano посещать ссылки в буфере обмена для создания предварительного просмотра ссылок"
-
-#: src/prefs/general/incognitoShortcutRow.ts:58
-msgid "Allows you to toggle incognito mode"
-msgstr "Позволяет переключать режим инкогнито"
-
-#: src/prefs/general/shortcutRow.ts:58
-msgid "Allows you to toggle visibility of the clipboard manager"
-msgstr "Позволяет переключать видимость менеджера буфера обмена"
-
-#: src/components/indicator/clearHistoryDialog.ts:34
-#: src/prefs/dangerZone/clearHistory.ts:23
-msgid "Are you sure you want to clear history?"
-msgstr "Вы уверены, что хотите очистить историю?"
+"X-Generator: fill-pot-po/2.1.9\n"
 
 #: src/components/indicator/clearHistoryDialog.ts:21
 msgid "Cancel"
 msgstr "Отмена"
 
-#: src/prefs/general/dbLocation.ts:30
-msgid "Choose pano database location"
-msgstr "Выберите расположение базы данных pano"
-
 #: src/components/indicator/clearHistoryDialog.ts:28
 #: src/prefs/dangerZone/clearHistory.ts:17
 msgid "Clear"
-msgstr "Ясный"
+msgstr "Очистить"
 
 #: src/components/indicator/clearHistoryDialog.ts:33
 #: src/components/indicator/settingsMenu.ts:69
@@ -47,132 +18,161 @@ msgstr "Ясный"
 msgid "Clear History"
 msgstr "Очистить историю"
 
-#: src/prefs/dangerZone/clearHistory.ts:12
-msgid "Clears the clipboard database and cache"
-msgstr "Очищает базу данных буфера обмена и кэш"
-
-#: src/prefs/dangerZone/index.ts:11
-msgid "Danger Zone"
-msgstr "Опасная зона"
-
-#: src/prefs/general/dbLocation.ts:22
-msgid "Database Location"
-msgstr "Расположение базы данных"
-
-#: src/prefs/general/exclusionGroup.ts:22
-msgid "Excluded Apps"
-msgstr "Исключенные приложения"
-
-#: src/prefs/general/dbLocation.ts:52
-msgid "Failed to select directory"
-msgstr "Не удалось выбрать каталог"
-
-#: src/prefs/general/index.ts:11
-msgid "General"
-msgstr "Общее"
-
-#: src/prefs/general/generalGroup.ts:20
-msgid "General Options"
-msgstr "Общие параметры"
-
-#: src/prefs/general/shortcutRow.ts:57
-msgid "Global Shortcut"
-msgstr "Глобальный ярлык"
-
-#: src/prefs/general/historyLength.ts:13
-msgid "History Length"
-msgstr "Продолжительность истории"
+#: src/components/indicator/clearHistoryDialog.ts:34
+#: src/prefs/dangerZone/clearHistory.ts:23
+msgid "Are you sure you want to clear history?"
+msgstr "Вы уверены что хотите очистить историю?"
 
 #: src/components/indicator/settingsMenu.ts:53
 msgid "Incognito Mode"
 msgstr "Режим инкогнито"
 
-#: src/prefs/general/incognitoShortcutRow.ts:57
-msgid "Incognito Mode Shortcut"
-msgstr "Ярлык режима инкогнито"
-
-#: src/prefs/general/keepSearchEntryOnHide.ts:13
-msgid "Keep Search Entry"
-msgstr "Сохранить запись поиска"
-
-#: src/prefs/general/keepSearchEntryOnHide.ts:14
-msgid "Keep search entry when Pano hides"
-msgstr "Сохраняйте запись поиска, когда Pano скрывается"
-
-#: src/prefs/general/linkPreviews.ts:13
-msgid "Link Previews"
-msgstr "Предварительный просмотр ссылок"
-
-#: src/prefs/general/exclusionGroup.ts:15
-msgid "Manage Exclusions"
-msgstr "Управление исключениями"
-
-#: src/prefs/general/incognitoShortcutRow.ts:77
-#: src/prefs/general/shortcutRow.ts:77
-msgid "New shortcut"
-msgstr "Новый ярлык"
-
-#: src/prefs/general/exclusionGroup.ts:23
-msgid "Pano will stop tracking if any window from the list is focussed"
-msgstr "Pano перестанет отслеживать, если какое-либо окно из списка сфокусировано"
-
-#: src/prefs/general/pasteOnSelect.ts:13
-msgid "Paste on Select"
-msgstr "Вставить на Select"
-
-#: src/prefs/general/playAudioOnCopy.ts:13
-msgid "Play an Audio on Copy"
-msgstr "Воспроизведение аудио при копировании"
-
-#: src/prefs/general/incognitoShortcutRow.ts:64
-#: src/prefs/general/shortcutRow.ts:64
-msgid "Select a shortcut"
-msgstr "Выберите ярлык"
-
-#: src/prefs/dangerZone/sessionOnlyMode.ts:13
-msgid "Session Only Mode"
-msgstr "Режим только сеанса"
-
 #: src/components/indicator/settingsMenu.ts:76
 msgid "Settings"
-msgstr "Параметры"
-
-#: src/prefs/general/showIndicator.ts:13
-msgid "Show Indicator"
-msgstr "Показать индикатор"
-
-#: src/prefs/general/showIndicator.ts:14
-msgid "Shows an indicator on top panel"
-msgstr "Отображает индикатор на верхней панели"
-
-#: src/prefs/general/syncPrimary.ts:13
-msgid "Sync Primary"
-msgstr "Синхронизация основной"
-
-#: src/prefs/general/syncPrimary.ts:14
-msgid "Sync primary selection with clipboard selection"
-msgstr "Синхронизация основного выделения с выбором буфера обмена"
+msgstr "Настройки"
 
 #: src/components/searchBox.ts:32
 msgid "Type to search"
 msgstr "Введите для поиска"
 
-#: src/prefs/general/watchExclusions.ts:13
-msgid "Watch Exclusions"
-msgstr "Исключения для просмотра"
+#: src/prefs/dangerZone/clearHistory.ts:12
+msgid "Clears the clipboard database and cache"
+msgstr "Очистить базу данных буфера обмена и кэш"
+
+#: src/prefs/dangerZone/index.ts:11
+msgid "Danger Zone"
+msgstr "Зона опасности"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr "Режим только сеанса"
 
 #: src/prefs/dangerZone/sessionOnlyMode.ts:14
 msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
-msgstr "При включении Pano очистит всю историю при выходе из системы/перезагрузке/завершении работы."
+msgstr "Когда включено, Pano будет очищать всю историю при выходе/перезапуске/выключении."
 
-#: src/prefs/general/watchExclusions.ts:14
-msgid "When enabled, Pano will not track clipboard from excluded apps"
-msgstr "Если этот параметр включен, Pano не будет отслеживать буфер обмена из исключенных приложений"
+#: src/prefs/general/dbLocation.ts:22
+msgid "Database Location"
+msgstr "Расположение базы данных"
+
+#: src/prefs/general/dbLocation.ts:30
+msgid "Choose pano database location"
+msgstr "Выбрать расположение базы данных pano"
+
+#: src/prefs/general/dbLocation.ts:52
+msgid "Failed to select directory"
+msgstr "Не удалось выбрать каталог"
+
+#: src/prefs/general/exclusionGroup.ts:15
+msgid "Manage Exclusions"
+msgstr "Управление исключениями"
+
+#: src/prefs/general/exclusionGroup.ts:22
+msgid "Excluded Apps"
+msgstr "Исключенные приложения"
+
+#: src/prefs/general/exclusionGroup.ts:23
+msgid "Pano will stop tracking if any window from the list is focussed"
+msgstr "Pano остановит отслеживание если какое-либо окно из списка находится в фокусе"
 
 #: src/prefs/general/exclusionGroup.ts:52
 msgid "Window class name"
 msgstr "Имя класса окна"
 
+#: src/prefs/general/generalGroup.ts:20
+msgid "General Options"
+msgstr "Общие настройки"
+
+#: src/prefs/general/historyLength.ts:13
+msgid "History Length"
+msgstr "Длина истории"
+
 #: src/prefs/general/historyLength.ts:14
 msgid "You can limit your clipboard history length between 10 - 500"
-msgstr "Вы можете ограничить длину истории буфера обмена от 10 до 500"
+msgstr "Вы можете ограничить длину истории буфера обмена между 10 - 500"
+
+#: src/prefs/general/incognitoShortcutRow.ts:57
+msgid "Incognito Mode Shortcut"
+msgstr "Комбинация клавиш режима инкогнито"
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr "Позволяет переключать режим инкогнито"
+
+#: src/prefs/general/incognitoShortcutRow.ts:64
+#: src/prefs/general/shortcutRow.ts:64
+msgid "Select a shortcut"
+msgstr "Выберите комбинацию клавиш"
+
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "Новая комбинация клавиш"
+
+#: src/prefs/general/index.ts:11
+msgid "General"
+msgstr "Общее"
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:13
+msgid "Keep Search Entry"
+msgstr "Сохранять поле поиска"
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:14
+msgid "Keep search entry when Pano hides"
+msgstr "Сохранять поле поиска когда Pano скрывается"
+
+#: src/prefs/general/linkPreviews.ts:13
+msgid "Link Previews"
+msgstr "Предпросмотр ссылок"
+
+#: src/prefs/general/linkPreviews.ts:14
+msgid "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr "Разрешить Pano посещать ссылки в буфере обмена для создания предпросмотра ссылок"
+
+#: src/prefs/general/pasteOnSelect.ts:13
+msgid "Paste on Select"
+msgstr "Вставлять при выборе"
+
+#: src/prefs/general/pasteOnSelect.ts:14
+msgid "Allow Pano to paste content on select"
+msgstr "Разрешить Pano вставлять содержимое при выборе"
+
+#: src/prefs/general/playAudioOnCopy.ts:13
+msgid "Play an Audio on Copy"
+msgstr "Воспроизводить звук при копировании"
+
+#: src/prefs/general/playAudioOnCopy.ts:14
+msgid "Allow Pano to play an audio when copying new content"
+msgstr "Разрешить Pano воспроизводить звук при копировании нового содержимого"
+
+#: src/prefs/general/shortcutRow.ts:57
+msgid "Global Shortcut"
+msgstr "Глобальная комбинация клавиш"
+
+#: src/prefs/general/shortcutRow.ts:58
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "Позволяет переключать видимость менеджера буфера обмена"
+
+#: src/prefs/general/showIndicator.ts:13
+msgid "Show Indicator"
+msgstr "Показывать индикатор"
+
+#: src/prefs/general/showIndicator.ts:14
+msgid "Shows an indicator on top panel"
+msgstr "Показывать индикатор на верхней панели"
+
+#: src/prefs/general/syncPrimary.ts:13
+msgid "Sync Primary"
+msgstr "Синхронизировать основной"
+
+#: src/prefs/general/syncPrimary.ts:14
+msgid "Sync primary selection with clipboard selection"
+msgstr "Синхронизировать основной выбор с выбором буфера обмена"
+
+#: src/prefs/general/watchExclusions.ts:13
+msgid "Watch Exclusions"
+msgstr "Отслеживать исключения"
+
+#: src/prefs/general/watchExclusions.ts:14
+msgid "When enabled, Pano will not track clipboard from excluded apps"
+msgstr "Когда включено, Pano не будет отслеживать буфер обмена из исключенных приложений"
