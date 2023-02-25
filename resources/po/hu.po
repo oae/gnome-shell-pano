@@ -1,0 +1,180 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: attranslate\n"
+
+#: src/prefs/general/pasteOnSelect.ts:14
+msgid "Allow Pano to paste content on select"
+msgstr "Engedélyezze a Pano számára, hogy tartalmat illesszen be a kiválasztáskor"
+
+#: src/prefs/general/playAudioOnCopy.ts:14
+msgid "Allow Pano to play an audio when copying new content"
+msgstr "Hang lejátszásának engedélyezése a Pano számára új tartalom másolásakor"
+
+#: src/prefs/general/linkPreviews.ts:14
+msgid "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr ""
+"Engedélyezze a Pano számára, hogy meglátogassa a vágólapon lévő linkeket a hivatkozások "
+"előnézetének létrehozásához"
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr "Lehetővé teszi az inkognitómód váltását"
+
+#: src/prefs/general/shortcutRow.ts:58
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "Lehetővé teszi a vágólapkezelő láthatóságának váltását"
+
+#: src/components/indicator/clearHistoryDialog.ts:34
+#: src/prefs/dangerZone/clearHistory.ts:23
+msgid "Are you sure you want to clear history?"
+msgstr "Biztos benne, hogy törölni szeretné a történelmet?"
+
+#: src/components/indicator/clearHistoryDialog.ts:21
+msgid "Cancel"
+msgstr "Érvénytelenít"
+
+#: src/prefs/general/dbLocation.ts:30
+msgid "Choose pano database location"
+msgstr "Válassza ki a pano adatbázis helyét"
+
+#: src/components/indicator/clearHistoryDialog.ts:28
+#: src/prefs/dangerZone/clearHistory.ts:17
+msgid "Clear"
+msgstr "Világos"
+
+#: src/components/indicator/clearHistoryDialog.ts:33
+#: src/components/indicator/settingsMenu.ts:69
+#: src/prefs/dangerZone/clearHistory.ts:11
+msgid "Clear History"
+msgstr "Előzmények törlése"
+
+#: src/prefs/dangerZone/clearHistory.ts:12
+msgid "Clears the clipboard database and cache"
+msgstr "Törli a vágólap adatbázisát és gyorsítótárát"
+
+#: src/prefs/dangerZone/index.ts:11
+msgid "Danger Zone"
+msgstr "Veszélyzóna"
+
+#: src/prefs/general/dbLocation.ts:22
+msgid "Database Location"
+msgstr "Adatbázis helye"
+
+#: src/prefs/general/exclusionGroup.ts:22
+msgid "Excluded Apps"
+msgstr "Kizárt alkalmazások"
+
+#: src/prefs/general/dbLocation.ts:52
+msgid "Failed to select directory"
+msgstr "Nem sikerült kiválasztani a könyvtárat"
+
+#: src/prefs/general/index.ts:11
+msgid "General"
+msgstr "Általános"
+
+#: src/prefs/general/generalGroup.ts:20
+msgid "General Options"
+msgstr "Általános beállítások"
+
+#: src/prefs/general/shortcutRow.ts:57
+msgid "Global Shortcut"
+msgstr "Globális parancsikon"
+
+#: src/prefs/general/historyLength.ts:13
+msgid "History Length"
+msgstr "Történelem hossza"
+
+#: src/components/indicator/settingsMenu.ts:53
+msgid "Incognito Mode"
+msgstr "Inkognitómód"
+
+#: src/prefs/general/incognitoShortcutRow.ts:57
+msgid "Incognito Mode Shortcut"
+msgstr "Inkognitómódú parancsikon"
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:13
+msgid "Keep Search Entry"
+msgstr "Keresési bejegyzés megtartása"
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:14
+msgid "Keep search entry when Pano hides"
+msgstr "Tartsa meg a keresési bejegyzést, amikor Pano elrejti"
+
+#: src/prefs/general/linkPreviews.ts:13
+msgid "Link Previews"
+msgstr "Linkek előnézete"
+
+#: src/prefs/general/exclusionGroup.ts:15
+msgid "Manage Exclusions"
+msgstr "Kizárások kezelése"
+
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "Új billentyűparancs"
+
+#: src/prefs/general/exclusionGroup.ts:23
+msgid "Pano will stop tracking if any window from the list is focussed"
+msgstr "A Pano leállítja a követést, ha a lista bármely ablaka fókuszban van"
+
+#: src/prefs/general/pasteOnSelect.ts:13
+msgid "Paste on Select"
+msgstr "Illessze be a Kiválasztás gombra"
+
+#: src/prefs/general/playAudioOnCopy.ts:13
+msgid "Play an Audio on Copy"
+msgstr "Hang lejátszása másoláskor"
+
+#: src/prefs/general/incognitoShortcutRow.ts:64
+#: src/prefs/general/shortcutRow.ts:64
+msgid "Select a shortcut"
+msgstr "Parancsikon kiválasztása"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr "Csak munkamenet mód"
+
+#: src/components/indicator/settingsMenu.ts:76
+msgid "Settings"
+msgstr "Beállítások"
+
+#: src/prefs/general/showIndicator.ts:13
+msgid "Show Indicator"
+msgstr "Jelző megjelenítése"
+
+#: src/prefs/general/showIndicator.ts:14
+msgid "Shows an indicator on top panel"
+msgstr "Jelző megjelenítése a felső panelen"
+
+#: src/prefs/general/syncPrimary.ts:13
+msgid "Sync Primary"
+msgstr "Elsődleges szinkronizálása"
+
+#: src/prefs/general/syncPrimary.ts:14
+msgid "Sync primary selection with clipboard selection"
+msgstr "Elsődleges kijelölés szinkronizálása a vágólap-kijelöléssel"
+
+#: src/components/searchBox.ts:32
+msgid "Type to search"
+msgstr "Gépelés a kereséshez"
+
+#: src/prefs/general/watchExclusions.ts:13
+msgid "Watch Exclusions"
+msgstr "Megtekintési kizárások"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr "Ha engedélyezve van, a Pano törli az összes előzményt kijelentkezéskor/újraindításkor/leállításkor."
+
+#: src/prefs/general/watchExclusions.ts:14
+msgid "When enabled, Pano will not track clipboard from excluded apps"
+msgstr "Ha engedélyezve van, a Pano nem követi nyomon a kizárt alkalmazások vágólapját"
+
+#: src/prefs/general/exclusionGroup.ts:52
+msgid "Window class name"
+msgstr "Ablakosztály neve"
+
+#: src/prefs/general/historyLength.ts:14
+msgid "You can limit your clipboard history length between 10 - 500"
+msgstr "A vágólap előzményeinek hosszát 10 és 500 között korlátozhatja"

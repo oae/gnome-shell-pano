@@ -1,0 +1,178 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: attranslate\n"
+
+#: src/prefs/general/pasteOnSelect.ts:14
+msgid "Allow Pano to paste content on select"
+msgstr "Luba Panol sisu kleepida valikusse"
+
+#: src/prefs/general/playAudioOnCopy.ts:14
+msgid "Allow Pano to play an audio when copying new content"
+msgstr "Luba Panol uue sisu kopeerimisel heli esitada"
+
+#: src/prefs/general/linkPreviews.ts:14
+msgid "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr "Luba Panol külastada lõikelaual olevaid linke, et luua linkide eelvaateid"
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr "Võimaldab teil inkognito režiimi sisse lülitada"
+
+#: src/prefs/general/shortcutRow.ts:58
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "Võimaldab lõikelauahalduri nähtavust sisse lülitada"
+
+#: src/components/indicator/clearHistoryDialog.ts:34
+#: src/prefs/dangerZone/clearHistory.ts:23
+msgid "Are you sure you want to clear history?"
+msgstr "Kas olete kindel, et soovite ajalugu kustutada?"
+
+#: src/components/indicator/clearHistoryDialog.ts:21
+msgid "Cancel"
+msgstr "Tühistama"
+
+#: src/prefs/general/dbLocation.ts:30
+msgid "Choose pano database location"
+msgstr "Pano andmebaasi asukoha valimine"
+
+#: src/components/indicator/clearHistoryDialog.ts:28
+#: src/prefs/dangerZone/clearHistory.ts:17
+msgid "Clear"
+msgstr "Selge"
+
+#: src/components/indicator/clearHistoryDialog.ts:33
+#: src/components/indicator/settingsMenu.ts:69
+#: src/prefs/dangerZone/clearHistory.ts:11
+msgid "Clear History"
+msgstr "Selge ajalugu"
+
+#: src/prefs/dangerZone/clearHistory.ts:12
+msgid "Clears the clipboard database and cache"
+msgstr "Tühjendab lõikelaua andmebaasi ja vahemälu"
+
+#: src/prefs/dangerZone/index.ts:11
+msgid "Danger Zone"
+msgstr "Ohuala"
+
+#: src/prefs/general/dbLocation.ts:22
+msgid "Database Location"
+msgstr "Andmebaasi asukoht"
+
+#: src/prefs/general/exclusionGroup.ts:22
+msgid "Excluded Apps"
+msgstr "Välistatud rakendused"
+
+#: src/prefs/general/dbLocation.ts:52
+msgid "Failed to select directory"
+msgstr "Kataloogi valimine nurjus"
+
+#: src/prefs/general/index.ts:11
+msgid "General"
+msgstr "Üldine"
+
+#: src/prefs/general/generalGroup.ts:20
+msgid "General Options"
+msgstr "Üldised valikud"
+
+#: src/prefs/general/shortcutRow.ts:57
+msgid "Global Shortcut"
+msgstr "Globaalne otsetee"
+
+#: src/prefs/general/historyLength.ts:13
+msgid "History Length"
+msgstr "Ajalugu Pikkus"
+
+#: src/components/indicator/settingsMenu.ts:53
+msgid "Incognito Mode"
+msgstr "Inkognito režiim"
+
+#: src/prefs/general/incognitoShortcutRow.ts:57
+msgid "Incognito Mode Shortcut"
+msgstr "Inkognito režiimi otsetee"
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:13
+msgid "Keep Search Entry"
+msgstr "Säilita otsingukirje"
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:14
+msgid "Keep search entry when Pano hides"
+msgstr "Säilita otsingukirje, kui Pano peidab"
+
+#: src/prefs/general/linkPreviews.ts:13
+msgid "Link Previews"
+msgstr "Eelvaadete linkimine"
+
+#: src/prefs/general/exclusionGroup.ts:15
+msgid "Manage Exclusions"
+msgstr "Välistamiste haldamine"
+
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "Uus otsetee"
+
+#: src/prefs/general/exclusionGroup.ts:23
+msgid "Pano will stop tracking if any window from the list is focussed"
+msgstr "Pano lõpetab jälgimise, kui mõni loendi aken on fokusseeritud"
+
+#: src/prefs/general/pasteOnSelect.ts:13
+msgid "Paste on Select"
+msgstr "Kleebi nupule Vali"
+
+#: src/prefs/general/playAudioOnCopy.ts:13
+msgid "Play an Audio on Copy"
+msgstr "Heli esitamine kopeerimisel"
+
+#: src/prefs/general/incognitoShortcutRow.ts:64
+#: src/prefs/general/shortcutRow.ts:64
+msgid "Select a shortcut"
+msgstr "Otsetee valimine"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr "Ainult seansi režiim"
+
+#: src/components/indicator/settingsMenu.ts:76
+msgid "Settings"
+msgstr "Seaded"
+
+#: src/prefs/general/showIndicator.ts:13
+msgid "Show Indicator"
+msgstr "Näita indikaatorit"
+
+#: src/prefs/general/showIndicator.ts:14
+msgid "Shows an indicator on top panel"
+msgstr "Kuvab näidiku ülemisel paneelil"
+
+#: src/prefs/general/syncPrimary.ts:13
+msgid "Sync Primary"
+msgstr "Sünkrooni esmane"
+
+#: src/prefs/general/syncPrimary.ts:14
+msgid "Sync primary selection with clipboard selection"
+msgstr "Esmase valiku sünkroonimine lõikelaua valikuga"
+
+#: src/components/searchBox.ts:32
+msgid "Type to search"
+msgstr "Sisestage otsimiseks"
+
+#: src/prefs/general/watchExclusions.ts:13
+msgid "Watch Exclusions"
+msgstr "Vaadake välistusi"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr "Kui see on lubatud, kustutab Pano kogu ajaloo väljalogimisel/taaskäivitamisel/seiskamisel."
+
+#: src/prefs/general/watchExclusions.ts:14
+msgid "When enabled, Pano will not track clipboard from excluded apps"
+msgstr "Kui see on lubatud, ei jälgi Pano lõikelauda välistatud rakendustest"
+
+#: src/prefs/general/exclusionGroup.ts:52
+msgid "Window class name"
+msgstr "Aknaklassi nimi"
+
+#: src/prefs/general/historyLength.ts:14
+msgid "You can limit your clipboard history length between 10 - 500"
+msgstr "Saate piirata lõikelaua ajaloo pikkust vahemikus 10–500"

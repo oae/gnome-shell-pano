@@ -1,0 +1,178 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: attranslate\n"
+
+#: src/prefs/general/pasteOnSelect.ts:14
+msgid "Allow Pano to paste content on select"
+msgstr "Tillåt Pano att klistra in innehåll vid markering"
+
+#: src/prefs/general/playAudioOnCopy.ts:14
+msgid "Allow Pano to play an audio when copying new content"
+msgstr "Tillåt Pano att spela upp ett ljud när du kopierar nytt innehåll"
+
+#: src/prefs/general/linkPreviews.ts:14
+msgid "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr "Tillåt Pano att besöka länkar på Urklipp för att generera länkförhandsgranskningar"
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr "Låter dig växla inkognitoläge"
+
+#: src/prefs/general/shortcutRow.ts:58
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "Låter dig växla synlighet för urklippshanteraren"
+
+#: src/components/indicator/clearHistoryDialog.ts:34
+#: src/prefs/dangerZone/clearHistory.ts:23
+msgid "Are you sure you want to clear history?"
+msgstr "Är du säker på att du vill rensa historiken?"
+
+#: src/components/indicator/clearHistoryDialog.ts:21
+msgid "Cancel"
+msgstr "Annullera"
+
+#: src/prefs/general/dbLocation.ts:30
+msgid "Choose pano database location"
+msgstr "Välj plats för pano-databas"
+
+#: src/components/indicator/clearHistoryDialog.ts:28
+#: src/prefs/dangerZone/clearHistory.ts:17
+msgid "Clear"
+msgstr "Klar"
+
+#: src/components/indicator/clearHistoryDialog.ts:33
+#: src/components/indicator/settingsMenu.ts:69
+#: src/prefs/dangerZone/clearHistory.ts:11
+msgid "Clear History"
+msgstr "Rensa historik"
+
+#: src/prefs/dangerZone/clearHistory.ts:12
+msgid "Clears the clipboard database and cache"
+msgstr "Rensar urklippsdatabasen och cacheminnet"
+
+#: src/prefs/dangerZone/index.ts:11
+msgid "Danger Zone"
+msgstr "Riskområde"
+
+#: src/prefs/general/dbLocation.ts:22
+msgid "Database Location"
+msgstr "Databasens plats"
+
+#: src/prefs/general/exclusionGroup.ts:22
+msgid "Excluded Apps"
+msgstr "Undantagna appar"
+
+#: src/prefs/general/dbLocation.ts:52
+msgid "Failed to select directory"
+msgstr "Det gick inte att välja katalog"
+
+#: src/prefs/general/index.ts:11
+msgid "General"
+msgstr "Allmänt"
+
+#: src/prefs/general/generalGroup.ts:20
+msgid "General Options"
+msgstr "Allmänna alternativ"
+
+#: src/prefs/general/shortcutRow.ts:57
+msgid "Global Shortcut"
+msgstr "Global genväg"
+
+#: src/prefs/general/historyLength.ts:13
+msgid "History Length"
+msgstr "Historik Längd"
+
+#: src/components/indicator/settingsMenu.ts:53
+msgid "Incognito Mode"
+msgstr "Inkognitoläge"
+
+#: src/prefs/general/incognitoShortcutRow.ts:57
+msgid "Incognito Mode Shortcut"
+msgstr "Genväg för inkognitoläge"
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:13
+msgid "Keep Search Entry"
+msgstr "Behåll sökposten"
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:14
+msgid "Keep search entry when Pano hides"
+msgstr "Behåll sökposten när Pano gömmer sig"
+
+#: src/prefs/general/linkPreviews.ts:13
+msgid "Link Previews"
+msgstr "Förhandsgranskningar av länkar"
+
+#: src/prefs/general/exclusionGroup.ts:15
+msgid "Manage Exclusions"
+msgstr "Hantera undantag"
+
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "Ny genväg"
+
+#: src/prefs/general/exclusionGroup.ts:23
+msgid "Pano will stop tracking if any window from the list is focussed"
+msgstr "Pano slutar spåra om något fönster från listan är fokuserat"
+
+#: src/prefs/general/pasteOnSelect.ts:13
+msgid "Paste on Select"
+msgstr "Klistra in på Välj"
+
+#: src/prefs/general/playAudioOnCopy.ts:13
+msgid "Play an Audio on Copy"
+msgstr "Spela upp ett ljud på kopia"
+
+#: src/prefs/general/incognitoShortcutRow.ts:64
+#: src/prefs/general/shortcutRow.ts:64
+msgid "Select a shortcut"
+msgstr "Välj en genväg"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr "Endast sessionsläge"
+
+#: src/components/indicator/settingsMenu.ts:76
+msgid "Settings"
+msgstr "Inställningar"
+
+#: src/prefs/general/showIndicator.ts:13
+msgid "Show Indicator"
+msgstr "Visa indikator"
+
+#: src/prefs/general/showIndicator.ts:14
+msgid "Shows an indicator on top panel"
+msgstr "Visar en indikator på den övre panelen"
+
+#: src/prefs/general/syncPrimary.ts:13
+msgid "Sync Primary"
+msgstr "Synkronisera primärt"
+
+#: src/prefs/general/syncPrimary.ts:14
+msgid "Sync primary selection with clipboard selection"
+msgstr "Synkronisera primärmarkering med urklippsmarkering"
+
+#: src/components/searchBox.ts:32
+msgid "Type to search"
+msgstr "Skriv för att söka"
+
+#: src/prefs/general/watchExclusions.ts:13
+msgid "Watch Exclusions"
+msgstr "Titta på undantag"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr "När den är aktiverad rensar Pano all historik vid utloggning/omstart/avstängning."
+
+#: src/prefs/general/watchExclusions.ts:14
+msgid "When enabled, Pano will not track clipboard from excluded apps"
+msgstr "När det är aktiverat spårar Pano inte Urklipp från uteslutna appar"
+
+#: src/prefs/general/exclusionGroup.ts:52
+msgid "Window class name"
+msgstr "Namn på fönsterklass"
+
+#: src/prefs/general/historyLength.ts:14
+msgid "You can limit your clipboard history length between 10 - 500"
+msgstr "Du kan begränsa längden på urklippshistoriken mellan 10 och 500"
