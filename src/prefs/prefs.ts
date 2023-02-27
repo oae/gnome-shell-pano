@@ -2,6 +2,7 @@ import { PreferencesWindow } from '@gi-types/adw1';
 import { DangerZonePage } from '@pano/prefs/dangerZone';
 import { GeneralPage } from '@pano/prefs/general';
 import { initTranslations, logger } from '@pano/utils/shell';
+import { CustomizationPage } from './customization';
 
 const debug = logger('prefs');
 const init = (): void => {
@@ -11,6 +12,7 @@ const init = (): void => {
 
 const fillPreferencesWindow = (window: PreferencesWindow) => {
   window.add(new GeneralPage());
+  window.add(new CustomizationPage());
   window.add(new DangerZonePage());
   window.search_enabled = true;
 };

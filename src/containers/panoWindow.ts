@@ -30,6 +30,10 @@ export class PanoWindow extends BoxLayout {
     });
 
     this.settings = getCurrentExtensionSettings();
+    this.set_height(this.settings.get_int('window-height'));
+    this.settings.connect('changed::window-height', () => {
+      this.set_height(this.settings.get_int('window-height'));
+    });
     this.monitorBox = new MonitorBox();
     this.scrollView = new PanoScrollView();
     this.searchBox = new SearchBox();

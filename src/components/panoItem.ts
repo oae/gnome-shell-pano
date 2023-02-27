@@ -13,6 +13,7 @@ import {
   KEY_Return,
   KEY_v,
 } from '@gi-types/clutter10';
+import { Settings } from '@gi-types/gio2';
 import { PRIORITY_DEFAULT, Source, SOURCE_REMOVE, timeout_add } from '@gi-types/glib2';
 import { MetaInfo, TYPE_STRING } from '@gi-types/gobject2';
 import { Point } from '@gi-types/graphene1';
@@ -43,6 +44,7 @@ export class PanoItem extends BoxLayout {
   private timeoutId: number | undefined;
   protected body: BoxLayout;
   public dbItem: DBItem;
+  private settings: Settings;
 
   constructor(dbItem: DBItem) {
     super({
@@ -56,6 +58,8 @@ export class PanoItem extends BoxLayout {
     });
 
     this.dbItem = dbItem;
+
+    this.settings = getCurrentExtensionSettings();
 
     this.connect('key-focus-in', () => this.setSelected(true));
     this.connect('key-focus-out', () => this.setSelected(false));
@@ -72,9 +76,10 @@ export class PanoItem extends BoxLayout {
     this.connect('activated', () => {
       this.get_parent()?.get_parent()?.get_parent()?.hide();
 
-      if (getCurrentExtensionSettings().get_boolean('paste-on-select')) {
+      if (this.settings.get_boolean('paste-on-select')) {
         // See https://github.com/SUPERCILEX/gnome-clipboard-history/blob/master/extension.js#L606
         this.timeoutId = timeout_add(PRIORITY_DEFAULT, 250, () => {
+          getVirtualKeyboard().notify_keyval(get_current_event_time(), KEY_Control_L, KeyState.RELEASED);
           getVirtualKeyboard().notify_keyval(get_current_event_time(), KEY_Control_L, KeyState.PRESSED);
           getVirtualKeyboard().notify_keyval(get_current_event_time(), KEY_v, KeyState.PRESSED);
           getVirtualKeyboard().notify_keyval(get_current_event_time(), KEY_Control_L, KeyState.RELEASED);
@@ -104,6 +109,15 @@ export class PanoItem extends BoxLayout {
 
     this.add_child(this.header);
     this.add_child(this.body);
+
+    this.set_height(this.settings.get_int('window-height') - 80);
+    this.set_width(this.settings.get_int('window-height') - 80);
+    this.body.set_height(this.settings.get_int('window-height') - 80 - 57);
+    this.settings.connect('changed::window-height', () => {
+      this.set_height(this.settings.get_int('window-height') - 80);
+      this.set_width(this.settings.get_int('window-height') - 80);
+      this.body.set_height(this.settings.get_int('window-height') - 80 - 57);
+    });
   }
 
   private setSelected(selected: boolean) {
