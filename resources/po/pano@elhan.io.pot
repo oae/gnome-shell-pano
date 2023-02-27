@@ -50,6 +50,10 @@ msgstr ""
 msgid "Clears the clipboard database and cache"
 msgstr ""
 
+#: src/prefs/customization/index.ts:10
+msgid "Customization"
+msgstr ""
+
 #: src/prefs/dangerZone/index.ts:11
 msgid "Danger Zone"
 msgstr ""
@@ -170,6 +174,14 @@ msgstr ""
 
 #: src/prefs/general/exclusionGroup.ts:52
 msgid "Window class name"
+msgstr ""
+
+#: src/prefs/customization/windowHeight.ts:13
+msgid "Window Height"
+msgstr ""
+
+#: src/prefs/customization/windowHeight.ts:14
+msgid "You can change the window height"
 msgstr ""
 
 #: src/prefs/general/historyLength.ts:14

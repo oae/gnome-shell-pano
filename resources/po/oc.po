@@ -35,6 +35,18 @@ msgstr "Paramètres"
 msgid "Type to search"
 msgstr "Picatz per recercar"
 
+#: src/prefs/customization/index.ts:10
+msgid "Customization"
+msgstr ""
+
+#: src/prefs/customization/windowHeight.ts:13
+msgid "Window Height"
+msgstr ""
+
+#: src/prefs/customization/windowHeight.ts:14
+msgid "You can change the window height"
+msgstr ""
+
 #: src/prefs/dangerZone/clearHistory.ts:12
 msgid "Clears the clipboard database and cache"
 msgstr "Escafa la basa de donadas del quichapapièrs e lo cache"
