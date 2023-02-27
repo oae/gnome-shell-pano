@@ -23,13 +23,14 @@ export class PanoItemHeader extends BoxLayout {
       style_class: `pano-item-header pano-item-header-${itemType.classSuffix}`,
       vertical: false,
       x_expand: true,
+      y_expand: false,
+      x_align: ActorAlign.FILL,
+      y_align: ActorAlign.START,
     });
 
     const titleContainer = new BoxLayout({
       style_class: 'pano-item-title-container',
       vertical: true,
-      x_align: ActorAlign.FILL,
-      y_align: ActorAlign.FILL,
       x_expand: true,
     });
     const iconContainer = new BoxLayout({

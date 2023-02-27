@@ -81,5 +81,11 @@
         Excludes clipboard tracking for windows that has class name listed in here.
       </description>
     </key>
+    <key name="window-height" type="i">
+      <range min="200" max="1000" />
+      <default>380</default>
+      <summary>Window Height</summary>
+      <description>Controls height of the clipboard window.</description>
+    </key>
   </schema>
 </schemalist>
