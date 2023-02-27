@@ -1,8 +1,22 @@
-import { ActorAlign, Event, KEY_Down, KEY_ISO_Enter, KEY_KP_Enter, KEY_Return, KEY_Right } from '@gi-types/clutter10';
+import {
+  ActorAlign,
+  Event,
+  KEY_BackSpace,
+  KEY_Down,
+  KEY_ISO_Enter,
+  KEY_ISO_Left_Tab,
+  KEY_KP_Enter,
+  KEY_KP_Tab,
+  KEY_Return,
+  KEY_Right,
+  KEY_Tab,
+} from '@gi-types/clutter10';
+import { icon_new_for_string } from '@gi-types/gio2';
 import { MetaInfo, TYPE_STRING } from '@gi-types/gobject2';
 import { BoxLayout, Entry, Icon } from '@gi-types/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { _ } from '@pano/utils/shell';
+import { PanoItemTypes } from '@pano/utils/panoItemType';
+import { getCurrentExtension, _ } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class SearchBox extends BoxLayout {
@@ -10,7 +24,7 @@ export class SearchBox extends BoxLayout {
     GTypeName: 'SearchBox',
     Signals: {
       'search-text-changed': {
-        param_types: [TYPE_STRING],
+        param_types: [TYPE_STRING, TYPE_STRING],
         accumulator: 0,
       },
       'search-focus-out': {},
@@ -19,6 +33,7 @@ export class SearchBox extends BoxLayout {
   };
 
   private search: Entry;
+  private currentIndex: number | null = null;
 
   constructor() {
     super({
@@ -29,7 +44,7 @@ export class SearchBox extends BoxLayout {
 
     this.search = new Entry({
       can_focus: true,
-      hint_text: _('Type to search'),
+      hint_text: _('Type to search, Tab to cycle'),
       track_hover: true,
       width: 300,
       primary_icon: new Icon({
@@ -40,7 +55,7 @@ export class SearchBox extends BoxLayout {
     });
 
     this.search.clutter_text.connect('text-changed', () => {
-      this.emit('search-text-changed', this.search.text);
+      this.emitSearchTextChange();
     });
 
     this.search.clutter_text.connect('key-press-event', (_: Entry, event: Event) => {
@@ -64,8 +79,69 @@ export class SearchBox extends BoxLayout {
       ) {
         this.emit('search-submit');
       }
+
+      if (
+        event.get_key_symbol() === KEY_Tab ||
+        event.get_key_symbol() === KEY_ISO_Left_Tab ||
+        event.get_key_symbol() === KEY_KP_Tab
+      ) {
+        // increment or decrement the current index based on the shift modifier
+        if (event.has_shift_modifier()) {
+          this.currentIndex =
+            this.currentIndex === null ? Object.keys(PanoItemTypes).length - 1 : this.currentIndex - 1;
+        } else {
+          this.currentIndex = this.currentIndex === null ? 0 : this.currentIndex + 1;
+        }
+        // if the index is out of bounds, set it to the other end
+        if (this.currentIndex < 0 || this.currentIndex >= Object.keys(PanoItemTypes).length) {
+          this.currentIndex = null;
+        }
+
+        if (null == this.currentIndex) {
+          this.search.set_primary_icon(
+            new Icon({
+              style_class: 'search-entry-icon',
+              icon_name: 'edit-find-symbolic',
+              icon_size: 13,
+            }),
+          );
+        } else {
+          this.search.set_primary_icon(
+            new Icon({
+              gicon: icon_new_for_string(
+                `${getCurrentExtension().path}/icons/${
+                  PanoItemTypes[Object.keys(PanoItemTypes)[this.currentIndex]].icon
+                }`,
+              ),
+              style_class: 'search-entry-icon',
+              icon_size: 13,
+            }),
+          );
+        }
+
+        this.emitSearchTextChange();
+      }
+      if (event.get_key_symbol() === KEY_BackSpace && this.search.text.length === 0) {
+        this.search.set_primary_icon(
+          new Icon({
+            style_class: 'search-entry-icon',
+            icon_name: 'edit-find-symbolic',
+            icon_size: 13,
+          }),
+        );
+        this.currentIndex = null;
+        this.emitSearchTextChange();
+      }
     });
     this.add_child(this.search);
+  }
+
+  private emitSearchTextChange() {
+    let itemType: string | null = null;
+    if (this.currentIndex !== null) {
+      itemType = Object.keys(PanoItemTypes)[this.currentIndex];
+    }
+    this.emit('search-text-changed', this.search.text, itemType || '');
   }
 
   focus() {

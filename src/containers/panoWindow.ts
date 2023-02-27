@@ -70,8 +70,8 @@ export class PanoWindow extends BoxLayout {
     this.searchBox.connect('search-submit', () => {
       this.scrollView.selectFirstItem();
     });
-    this.searchBox.connect('search-text-changed', (_: any, text: string) => {
-      this.scrollView.filter(text);
+    this.searchBox.connect('search-text-changed', (_: any, text: string, itemType: string) => {
+      this.scrollView.filter(text, itemType);
     });
   }
 
