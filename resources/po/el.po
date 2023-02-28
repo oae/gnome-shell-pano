@@ -31,9 +31,9 @@ msgstr "Ανώνυμης"
 msgid "Settings"
 msgstr "Ρυθμίσεις"
 
-#: src/components/searchBox.ts:32
-msgid "Type to search"
-msgstr "Πληκτρολογήστε για αναζήτηση"
+#: src/components/searchBox.ts:47
+msgid "Type to search, Tab to cycle"
+msgstr ""
 
 #: src/prefs/customization/index.ts:10
 msgid "Customization"

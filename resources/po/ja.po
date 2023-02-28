@@ -31,9 +31,9 @@ msgstr "シークレットモード"
 msgid "Settings"
 msgstr "設定"
 
-#: src/components/searchBox.ts:32
-msgid "Type to search"
-msgstr "検索するタイプ"
+#: src/components/searchBox.ts:47
+msgid "Type to search, Tab to cycle"
+msgstr ""
 
 #: src/prefs/customization/index.ts:10
 msgid "Customization"

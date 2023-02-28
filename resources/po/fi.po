@@ -31,9 +31,9 @@ msgstr "Incognito-tila"
 msgid "Settings"
 msgstr "Asetukset"
 
-#: src/components/searchBox.ts:32
-msgid "Type to search"
-msgstr "Kirjoita etsiäksesi"
+#: src/components/searchBox.ts:47
+msgid "Type to search, Tab to cycle"
+msgstr ""
 
 #: src/prefs/customization/index.ts:10
 msgid "Customization"

@@ -31,9 +31,9 @@ msgstr "시크릿 모드"
 msgid "Settings"
 msgstr "설정"
 
-#: src/components/searchBox.ts:32
-msgid "Type to search"
-msgstr "검색할 유형"
+#: src/components/searchBox.ts:47
+msgid "Type to search, Tab to cycle"
+msgstr ""
 
 #: src/prefs/customization/index.ts:10
 msgid "Customization"

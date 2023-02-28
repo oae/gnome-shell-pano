@@ -31,9 +31,9 @@ msgstr "隐身模式"
 msgid "Settings"
 msgstr "设置"
 
-#: src/components/searchBox.ts:32
-msgid "Type to search"
-msgstr "键入要搜索"
+#: src/components/searchBox.ts:47
+msgid "Type to search, Tab to cycle"
+msgstr ""
 
 #: src/prefs/customization/index.ts:10
 msgid "Customization"

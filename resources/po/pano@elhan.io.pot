@@ -156,8 +156,8 @@ msgstr ""
 msgid "Sync primary selection with clipboard selection"
 msgstr ""
 
-#: src/components/searchBox.ts:32
-msgid "Type to search"
+#: src/components/searchBox.ts:47
+msgid "Type to search, Tab to cycle"
 msgstr ""
 
 #: src/prefs/general/watchExclusions.ts:13

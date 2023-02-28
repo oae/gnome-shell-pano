@@ -31,9 +31,9 @@ msgstr "Režim inkognito"
 msgid "Settings"
 msgstr "Nastavenia"
 
-#: src/components/searchBox.ts:32
-msgid "Type to search"
-msgstr "Zadanie do vyhľadávania"
+#: src/components/searchBox.ts:47
+msgid "Type to search, Tab to cycle"
+msgstr ""
 
 #: src/prefs/customization/index.ts:10
 msgid "Customization"
