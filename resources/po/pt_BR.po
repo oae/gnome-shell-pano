@@ -31,7 +31,7 @@ msgstr "Modo anônimo"
 msgid "Settings"
 msgstr "Configurações"
 
-#: src/components/searchBox.ts:47
+#: src/components/searchBox.ts:50
 msgid "Type to search, Tab to cycle"
 msgstr ""
 

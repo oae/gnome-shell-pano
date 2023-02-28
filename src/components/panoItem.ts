@@ -11,7 +11,10 @@ import {
   KEY_KP_Delete,
   KEY_KP_Enter,
   KEY_Return,
+  KEY_s,
+  KEY_S,
   KEY_v,
+  ModifierType,
 } from '@gi-types/clutter10';
 import { Settings } from '@gi-types/gio2';
 import { PRIORITY_DEFAULT, Source, SOURCE_REMOVE, timeout_add } from '@gi-types/glib2';
@@ -34,6 +37,10 @@ export class PanoItem extends BoxLayout {
     Signals: {
       activated: {},
       'on-remove': {
+        param_types: [TYPE_STRING],
+        accumulator: 0,
+      },
+      'on-favorite': {
         param_types: [TYPE_STRING],
         accumulator: 0,
       },
@@ -94,8 +101,20 @@ export class PanoItem extends BoxLayout {
     });
 
     this.header = new PanoItemHeader(PanoItemTypes[dbItem.itemType], dbItem.copyDate);
+    this.header.setFavorite(this.dbItem.isFavorite);
     this.header.connect('on-remove', () => {
       this.emit('on-remove', JSON.stringify(this.dbItem));
+      return EVENT_PROPAGATE;
+    });
+
+    this.header.connect('on-favorite', () => {
+      this.dbItem = { ...this.dbItem, isFavorite: !this.dbItem.isFavorite };
+      this.emit('on-favorite', JSON.stringify(this.dbItem));
+      return EVENT_PROPAGATE;
+    });
+
+    this.connect('on-favorite', () => {
+      this.header.setFavorite(this.dbItem.isFavorite);
       return EVENT_PROPAGATE;
     });
 
@@ -135,6 +154,11 @@ export class PanoItem extends BoxLayout {
     }
     if (event.keyval === KEY_Delete || event.keyval === KEY_KP_Delete) {
       this.emit('on-remove', JSON.stringify(this.dbItem));
+      return EVENT_STOP;
+    }
+    if ((event.keyval === KEY_S || event.keyval === KEY_s) && event.modifier_state === ModifierType.CONTROL_MASK) {
+      this.dbItem = { ...this.dbItem, isFavorite: !this.dbItem.isFavorite };
+      this.emit('on-favorite', JSON.stringify(this.dbItem));
       return EVENT_STOP;
     }
     return EVENT_PROPAGATE;

@@ -31,7 +31,7 @@ msgstr "Incognito-tila"
 msgid "Settings"
 msgstr "Asetukset"
 
-#: src/components/searchBox.ts:47
+#: src/components/searchBox.ts:50
 msgid "Type to search, Tab to cycle"
 msgstr ""
 

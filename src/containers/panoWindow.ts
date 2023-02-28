@@ -70,12 +70,18 @@ export class PanoWindow extends BoxLayout {
     this.searchBox.connect('search-submit', () => {
       this.scrollView.selectFirstItem();
     });
-    this.searchBox.connect('search-text-changed', (_: any, text: string, itemType: string) => {
-      this.scrollView.filter(text, itemType);
+    this.searchBox.connect('search-text-changed', (_: any, text: string, itemType: string, showFavorites: boolean) => {
+      this.scrollView.filter(text, itemType, showFavorites);
     });
   }
 
   private setupScrollView() {
+    this.scrollView.connect('scroll-update-list', () => {
+      this.searchBox.focus();
+      this.searchBox.emitSearchTextChange();
+      this.scrollView.focusOnClosest();
+      this.scrollView.scrollToFocussedItem();
+    });
     this.scrollView.connect('scroll-focus-out', () => {
       this.searchBox.focus();
     });
@@ -83,6 +89,18 @@ export class PanoWindow extends BoxLayout {
     this.scrollView.connect('scroll-backspace-press', () => {
       this.searchBox.removeChar();
       this.searchBox.focus();
+    });
+
+    this.scrollView.connect('scroll-alt-press', () => {
+      this.searchBox.focus();
+      this.searchBox.toggleFavorites();
+      this.scrollView.focusAndScrollToFirst();
+    });
+
+    this.scrollView.connect('scroll-tab-press', (_: any, hasShift: boolean) => {
+      this.searchBox.focus();
+      this.searchBox.toggleItemType(hasShift);
+      this.scrollView.focusAndScrollToFirst();
     });
 
     this.scrollView.connect('scroll-key-press', (_: any, text: string) => {

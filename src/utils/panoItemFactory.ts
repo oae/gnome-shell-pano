@@ -323,6 +323,14 @@ export const createPanoItemFromDb = (dbItem: DBItem | null): PanoItem | null => 
     removeItemResources(dbItem);
   });
 
+  panoItem.connect('on-favorite', (_, dbItemStr: string) => {
+    const dbItem: DBItem = JSON.parse(dbItemStr);
+    db.update({
+      ...dbItem,
+      copyDate: new Date(dbItem.copyDate),
+    });
+  });
+
   return panoItem;
 };
 

@@ -159,6 +159,21 @@ export class ClipboardQueryBuilder {
     return this;
   }
 
+  withFavorites(showFavorites: boolean) {
+    if (showFavorites !== null && showFavorites !== undefined) {
+      this.conditions.push(
+        this.builder.add_cond(
+          SqlOperatorType.EQ,
+          this.builder.add_field_id('isFavorite', 'clipboard'),
+          add_expr_value(this.builder, +showFavorites),
+          0,
+        ),
+      );
+    }
+
+    return this;
+  }
+
   build(): ClipboardQuery {
     if (this.conditions.length > 0) {
       this.builder.set_where(this.builder.add_cond_v(SqlOperatorType.AND, this.conditions));

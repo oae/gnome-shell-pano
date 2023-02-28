@@ -20,6 +20,15 @@
   color: inherit;
 }
 
+.pano-window .search-entry-fav-icon {
+  padding: 0 4px;
+  color: inherit;
+}
+
+.pano-window .search-entry-fav-icon.active {
+  color: #fffc4d;
+}
+
 .pano-item {
   border-radius: 11px;
   margin-top: 6px;
@@ -254,12 +263,29 @@
   background-color: rgba(0, 0, 0, 0.3);
   color: white;
   border-radius: 99px;
-  padding: 5px;
+  padding: 6px;
+  margin: 5px;
+  margin-right: 0px;
 }
 
 .pano-item-remove-button:hover,
 .pano-item-remove-button:active {
   background-color: #d20f39;
+}
+
+.pano-item-favorite-button {
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  border-radius: 99px;
+  padding: 6px;
+  margin: 5px;
+  margin-right: 0px;
+}
+
+.pano-item-favorite-button:hover,
+.pano-item-favorite-button:active {
+  background-color: #fffc4d;
+  color: black;
 }
 
 .indicator-icon {
