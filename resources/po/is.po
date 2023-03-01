@@ -91,7 +91,7 @@ msgstr "Pano mun hætta að fylgjast með ef einhver gluggi af listanum er fóku
 msgid "Window class name"
 msgstr "Heiti gluggaflokks"
 
-#: src/prefs/general/generalGroup.ts:20
+#: src/prefs/general/generalGroup.ts:21
 msgid "General Options"
 msgstr "Almennir valkostir"
 
@@ -157,6 +157,14 @@ msgstr "Spilaðu hljóð á afriti"
 msgid "Allow Pano to play an audio when copying new content"
 msgstr "Leyfa Pano að spila hljóð þegar þú afritar nýtt efni"
 
+#: src/prefs/general/sendNotificationOnCopy.ts:13
+msgid "Send Notification on Copy"
+msgstr ""
+
+#: src/prefs/general/sendNotificationOnCopy.ts:14
+msgid "Allow Pano to send notification when copying new content"
+msgstr ""
+
 #: src/prefs/general/shortcutRow.ts:57
 msgid "Global Shortcut"
 msgstr "Altæk flýtileið"
@@ -188,3 +196,43 @@ msgstr "Úrútilokanir"
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "Þegar þetta er virkt mun Pano ekki fylgjast með klippispjaldi úr forritum sem eru útilokuð"
+
+#: src/utils/panoItemFactory.ts:365
+msgid "Image Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:366
+msgid "Width: %spx, Height: %spx, Size: %s"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:370
+msgid "Text Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:372
+msgid "Code Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:374
+msgid "Emoji Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:380
+msgid "Link Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:396
+msgid "Color Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:402
+msgid "File %s"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:403
+msgid "There are %s file(s)"
+msgstr ""
+
+#: src/utils/ui.ts:14
+msgid "Pano"
+msgstr ""

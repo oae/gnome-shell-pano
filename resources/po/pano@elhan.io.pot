@@ -10,6 +10,10 @@ msgstr ""
 msgid "Allow Pano to play an audio when copying new content"
 msgstr ""
 
+#: src/prefs/general/sendNotificationOnCopy.ts:14
+msgid "Allow Pano to send notification when copying new content"
+msgstr ""
+
 #: src/prefs/general/linkPreviews.ts:14
 msgid "Allow Pano to visit links on your clipboard to generate link previews"
 msgstr ""
@@ -50,6 +54,14 @@ msgstr ""
 msgid "Clears the clipboard database and cache"
 msgstr ""
 
+#: src/utils/panoItemFactory.ts:372
+msgid "Code Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:396
+msgid "Color Copied"
+msgstr ""
+
 #: src/prefs/customization/index.ts:10
 msgid "Customization"
 msgstr ""
@@ -62,6 +74,10 @@ msgstr ""
 msgid "Database Location"
 msgstr ""
 
+#: src/utils/panoItemFactory.ts:374
+msgid "Emoji Copied"
+msgstr ""
+
 #: src/prefs/general/exclusionGroup.ts:22
 msgid "Excluded Apps"
 msgstr ""
@@ -70,11 +86,15 @@ msgstr ""
 msgid "Failed to select directory"
 msgstr ""
 
+#: src/utils/panoItemFactory.ts:402
+msgid "File %s"
+msgstr ""
+
 #: src/prefs/general/index.ts:11
 msgid "General"
 msgstr ""
 
-#: src/prefs/general/generalGroup.ts:20
+#: src/prefs/general/generalGroup.ts:21
 msgid "General Options"
 msgstr ""
 
@@ -84,6 +104,10 @@ msgstr ""
 
 #: src/prefs/general/historyLength.ts:13
 msgid "History Length"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:365
+msgid "Image Copied"
 msgstr ""
 
 #: src/components/indicator/settingsMenu.ts:53
@@ -102,6 +126,10 @@ msgstr ""
 msgid "Keep search entry when Pano hides"
 msgstr ""
 
+#: src/utils/panoItemFactory.ts:380
+msgid "Link Copied"
+msgstr ""
+
 #: src/prefs/general/linkPreviews.ts:13
 msgid "Link Previews"
 msgstr ""
@@ -113,6 +141,10 @@ msgstr ""
 #: src/prefs/general/incognitoShortcutRow.ts:77
 #: src/prefs/general/shortcutRow.ts:77
 msgid "New shortcut"
+msgstr ""
+
+#: src/utils/ui.ts:14
+msgid "Pano"
 msgstr ""
 
 #: src/prefs/general/exclusionGroup.ts:23
@@ -130,6 +162,10 @@ msgstr ""
 #: src/prefs/general/incognitoShortcutRow.ts:64
 #: src/prefs/general/shortcutRow.ts:64
 msgid "Select a shortcut"
+msgstr ""
+
+#: src/prefs/general/sendNotificationOnCopy.ts:13
+msgid "Send Notification on Copy"
 msgstr ""
 
 #: src/prefs/dangerZone/sessionOnlyMode.ts:13
@@ -156,6 +192,14 @@ msgstr ""
 msgid "Sync primary selection with clipboard selection"
 msgstr ""
 
+#: src/utils/panoItemFactory.ts:370
+msgid "Text Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:403
+msgid "There are %s file(s)"
+msgstr ""
+
 #: src/components/searchBox.ts:50
 msgid "Type to search, Tab to cycle"
 msgstr ""
@@ -170,6 +214,10 @@ msgstr ""
 
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:366
+msgid "Width: %spx, Height: %spx, Size: %s"
 msgstr ""
 
 #: src/prefs/general/exclusionGroup.ts:52

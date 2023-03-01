@@ -91,7 +91,7 @@ msgstr "A Pano leállítja a követést, ha a lista bármely ablaka fókuszban v
 msgid "Window class name"
 msgstr "Ablakosztály neve"
 
-#: src/prefs/general/generalGroup.ts:20
+#: src/prefs/general/generalGroup.ts:21
 msgid "General Options"
 msgstr "Általános beállítások"
 
@@ -157,6 +157,14 @@ msgstr "Hang lejátszása másoláskor"
 msgid "Allow Pano to play an audio when copying new content"
 msgstr "Hang lejátszásának engedélyezése a Pano számára új tartalom másolásakor"
 
+#: src/prefs/general/sendNotificationOnCopy.ts:13
+msgid "Send Notification on Copy"
+msgstr ""
+
+#: src/prefs/general/sendNotificationOnCopy.ts:14
+msgid "Allow Pano to send notification when copying new content"
+msgstr ""
+
 #: src/prefs/general/shortcutRow.ts:57
 msgid "Global Shortcut"
 msgstr "Globális parancsikon"
@@ -188,3 +196,43 @@ msgstr "Megtekintési kizárások"
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "Ha engedélyezve van, a Pano nem követi nyomon a kizárt alkalmazások vágólapját"
+
+#: src/utils/panoItemFactory.ts:365
+msgid "Image Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:366
+msgid "Width: %spx, Height: %spx, Size: %s"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:370
+msgid "Text Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:372
+msgid "Code Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:374
+msgid "Emoji Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:380
+msgid "Link Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:396
+msgid "Color Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:402
+msgid "File %s"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:403
+msgid "There are %s file(s)"
+msgstr ""
+
+#: src/utils/ui.ts:14
+msgid "Pano"
+msgstr ""

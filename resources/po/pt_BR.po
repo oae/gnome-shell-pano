@@ -91,7 +91,7 @@ msgstr "Pano irá parar de rastrear se alguma das janelas da lista estiver em fo
 msgid "Window class name"
 msgstr "Nome da classe da janela"
 
-#: src/prefs/general/generalGroup.ts:20
+#: src/prefs/general/generalGroup.ts:21
 msgid "General Options"
 msgstr "Opções gerais"
 
@@ -157,6 +157,14 @@ msgstr "Reproduzir um áudio ao copiar"
 msgid "Allow Pano to play an audio when copying new content"
 msgstr "Permita que o Pano reproduza um áudio ao copiar um novo conteúdo"
 
+#: src/prefs/general/sendNotificationOnCopy.ts:13
+msgid "Send Notification on Copy"
+msgstr ""
+
+#: src/prefs/general/sendNotificationOnCopy.ts:14
+msgid "Allow Pano to send notification when copying new content"
+msgstr ""
+
 #: src/prefs/general/shortcutRow.ts:57
 msgid "Global Shortcut"
 msgstr "Atalho Global"
@@ -188,3 +196,43 @@ msgstr "Observar exclusões"
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "Quando habilitado, o Pano não irá rastrear a área de transferência para os aplicativos excluídos"
+
+#: src/utils/panoItemFactory.ts:365
+msgid "Image Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:366
+msgid "Width: %spx, Height: %spx, Size: %s"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:370
+msgid "Text Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:372
+msgid "Code Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:374
+msgid "Emoji Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:380
+msgid "Link Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:396
+msgid "Color Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:402
+msgid "File %s"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:403
+msgid "There are %s file(s)"
+msgstr ""
+
+#: src/utils/ui.ts:14
+msgid "Pano"
+msgstr ""

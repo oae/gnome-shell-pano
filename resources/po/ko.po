@@ -91,7 +91,7 @@ msgstr "Pano는 목록의 창에 포커스가 있는 경우 추적을 중지합�
 msgid "Window class name"
 msgstr "창 클래스 이름"
 
-#: src/prefs/general/generalGroup.ts:20
+#: src/prefs/general/generalGroup.ts:21
 msgid "General Options"
 msgstr "일반 옵션"
 
@@ -157,6 +157,14 @@ msgstr "복사 시 오디오 재생"
 msgid "Allow Pano to play an audio when copying new content"
 msgstr "Pano가 새 콘텐츠를 복사할 때 오디오를 재생하도록 허용"
 
+#: src/prefs/general/sendNotificationOnCopy.ts:13
+msgid "Send Notification on Copy"
+msgstr ""
+
+#: src/prefs/general/sendNotificationOnCopy.ts:14
+msgid "Allow Pano to send notification when copying new content"
+msgstr ""
+
 #: src/prefs/general/shortcutRow.ts:57
 msgid "Global Shortcut"
 msgstr "전역 단축키"
@@ -188,3 +196,43 @@ msgstr "제외 항목 보기"
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "활성화되면 Pano는 제외 된 앱의 클립 보드를 추적하지 않습니다."
+
+#: src/utils/panoItemFactory.ts:365
+msgid "Image Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:366
+msgid "Width: %spx, Height: %spx, Size: %s"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:370
+msgid "Text Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:372
+msgid "Code Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:374
+msgid "Emoji Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:380
+msgid "Link Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:396
+msgid "Color Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:402
+msgid "File %s"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:403
+msgid "There are %s file(s)"
+msgstr ""
+
+#: src/utils/ui.ts:14
+msgid "Pano"
+msgstr ""

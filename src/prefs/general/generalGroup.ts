@@ -12,6 +12,7 @@ import { ShowIndicatorRow } from '@pano/prefs/general/showIndicator';
 import { LinkPreviewsRow } from '@pano/prefs/general/linkPreviews';
 import { SyncPrimaryRow } from './syncPrimary';
 import { KeepSearchEntryRow } from './keepSearchEntryOnHide';
+import { SendNotificationOnCopyRow } from './sendNotificationOnCopy';
 
 @registerGObjectClass
 export class GeneralGroup extends PreferencesGroup {
@@ -26,6 +27,7 @@ export class GeneralGroup extends PreferencesGroup {
     this.add(new IncognitoShortcutRow());
     this.add(new SyncPrimaryRow());
     this.add(new PasteOnSelectRow());
+    this.add(new SendNotificationOnCopyRow());
     this.add(new PlayAudioOnCopyRow());
     this.add(new KeepSearchEntryRow());
     this.add(new ShowIndicatorRow());

@@ -91,7 +91,7 @@ msgstr "如果列表中的任何窗口被聚焦，Pano 将停止跟踪"
 msgid "Window class name"
 msgstr "窗口类名"
 
-#: src/prefs/general/generalGroup.ts:20
+#: src/prefs/general/generalGroup.ts:21
 msgid "General Options"
 msgstr "常规选项"
 
@@ -157,6 +157,14 @@ msgstr "在复制时播放音频"
 msgid "Allow Pano to play an audio when copying new content"
 msgstr "允许 Pano 在复制新内容时播放音频"
 
+#: src/prefs/general/sendNotificationOnCopy.ts:13
+msgid "Send Notification on Copy"
+msgstr ""
+
+#: src/prefs/general/sendNotificationOnCopy.ts:14
+msgid "Allow Pano to send notification when copying new content"
+msgstr ""
+
 #: src/prefs/general/shortcutRow.ts:57
 msgid "Global Shortcut"
 msgstr "全局快捷方式"
@@ -188,3 +196,43 @@ msgstr "观看排除对象"
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "启用后，Pano 将不会跟踪已排除应用程序中的剪贴板"
+
+#: src/utils/panoItemFactory.ts:365
+msgid "Image Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:366
+msgid "Width: %spx, Height: %spx, Size: %s"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:370
+msgid "Text Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:372
+msgid "Code Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:374
+msgid "Emoji Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:380
+msgid "Link Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:396
+msgid "Color Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:402
+msgid "File %s"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:403
+msgid "There are %s file(s)"
+msgstr ""
+
+#: src/utils/ui.ts:14
+msgid "Pano"
+msgstr ""

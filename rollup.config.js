@@ -24,6 +24,7 @@ const globals = {
   '@gi-types/graphene1': 'imports.gi.Graphene',
   '@imports/gda6': 'imports.gi.Gda',
   '@imports/gsound1': 'imports.gi.GSound',
+  '@imports/cogl2': 'imports.gi.Cogl',
   '@gi-types/adw1': 'imports.gi.Adw',
 };
 
