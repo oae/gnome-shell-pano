@@ -108,22 +108,14 @@ export class PanoScrollView extends ScrollView {
       return EVENT_STOP;
     });
 
-    db.query(new ClipboardQueryBuilder().withLimit(-1, this.settings.get_int('history-length')).build()).forEach(
-      (dbItem) => {
-        removeItemResources(dbItem);
-      },
-    );
-
-    db.query(new ClipboardQueryBuilder().withLimit(this.settings.get_int('history-length'), 0).build()).forEach(
-      (dbItem) => {
-        const panoItem = createPanoItemFromDb(dbItem);
-        if (panoItem) {
-          this.connectOnRemove(panoItem);
-          this.connectOnFavorite(panoItem);
-          this.list.add_child(panoItem);
-        }
-      },
-    );
+    db.query(new ClipboardQueryBuilder().build()).forEach((dbItem) => {
+      const panoItem = createPanoItemFromDb(dbItem);
+      if (panoItem) {
+        this.connectOnRemove(panoItem);
+        this.connectOnFavorite(panoItem);
+        this.list.add_child(panoItem);
+      }
+    });
 
     const firstItem = this.list.get_first_child() as PanoItem;
     if (firstItem) {
@@ -197,18 +189,17 @@ export class PanoScrollView extends ScrollView {
 
   private removeExcessiveItems() {
     const historyLength = this.settings.get_int('history-length');
-    if (historyLength < this.getItems().length) {
-      this.getItems()
-        .slice(historyLength)
-        .forEach((item) => {
-          this.removeItem(item);
-        });
+    const items = this.getItems().filter((i) => i.dbItem.isFavorite === false);
+    if (historyLength < items.length) {
+      items.slice(historyLength).forEach((item) => {
+        this.removeItem(item);
+      });
     }
-    db.query(new ClipboardQueryBuilder().withLimit(-1, this.settings.get_int('history-length')).build()).forEach(
-      (dbItem) => {
-        removeItemResources(dbItem);
-      },
-    );
+    db.query(
+      new ClipboardQueryBuilder().withFavorites(false).withLimit(-1, this.settings.get_int('history-length')).build(),
+    ).forEach((dbItem) => {
+      removeItemResources(dbItem);
+    });
   }
 
   private focusNext() {
@@ -252,7 +243,7 @@ export class PanoScrollView extends ScrollView {
       return;
     }
 
-    const builder = new ClipboardQueryBuilder().withLimit(this.settings.get_int('history-length'), 0);
+    const builder = new ClipboardQueryBuilder();
 
     if (showFavorites) {
       builder.withFavorites(showFavorites);

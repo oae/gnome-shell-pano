@@ -159,13 +159,13 @@ export class ClipboardQueryBuilder {
     return this;
   }
 
-  withFavorites(showFavorites: boolean) {
-    if (showFavorites !== null && showFavorites !== undefined) {
+  withFavorites(include: boolean) {
+    if (include !== null && include !== undefined) {
       this.conditions.push(
         this.builder.add_cond(
           SqlOperatorType.EQ,
           this.builder.add_field_id('isFavorite', 'clipboard'),
-          add_expr_value(this.builder, +showFavorites),
+          add_expr_value(this.builder, +include),
           0,
         ),
       );
