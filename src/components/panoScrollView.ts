@@ -68,6 +68,15 @@ export class PanoScrollView extends ScrollView {
     this.add_actor(this.list);
 
     this.connect('key-press-event', (_: ScrollView, event: Event) => {
+      if (
+        event.get_key_symbol() === KEY_Tab ||
+        event.get_key_symbol() === KEY_ISO_Left_Tab ||
+        event.get_key_symbol() === KEY_KP_Tab
+      ) {
+        this.emit('scroll-tab-press', event.has_shift_modifier());
+        return EVENT_STOP;
+      }
+
       if (event.get_state()) {
         return EVENT_PROPAGATE;
       }
@@ -83,15 +92,6 @@ export class PanoScrollView extends ScrollView {
       if (event.get_key_symbol() === KEY_Alt_L || event.get_key_symbol() === KEY_Alt_R) {
         this.emit('scroll-alt-press');
         return EVENT_PROPAGATE;
-      }
-
-      if (
-        event.get_key_symbol() === KEY_Tab ||
-        event.get_key_symbol() === KEY_ISO_Left_Tab ||
-        event.get_key_symbol() === KEY_KP_Tab
-      ) {
-        this.emit('scroll-tab-press', event.has_shift_modifier());
-        return EVENT_STOP;
       }
 
       if (event.get_key_symbol() == KEY_BackSpace) {
