@@ -31,6 +31,10 @@ msgstr "Inkognitoläge"
 msgid "Settings"
 msgstr "Inställningar"
 
+#: src/components/linkPanoItem.ts:29
+msgid "No Description"
+msgstr ""
+
 #: src/components/searchBox.ts:50
 msgid "Type to search, Tab to cycle"
 msgstr ""
@@ -197,39 +201,39 @@ msgstr "Titta på undantag"
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "När det är aktiverat spårar Pano inte Urklipp från uteslutna appar"
 
-#: src/utils/panoItemFactory.ts:365
+#: src/utils/panoItemFactory.ts:366
 msgid "Image Copied"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:366
+#: src/utils/panoItemFactory.ts:367
 msgid "Width: %spx, Height: %spx, Size: %s"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:370
+#: src/utils/panoItemFactory.ts:371
 msgid "Text Copied"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:372
+#: src/utils/panoItemFactory.ts:373
 msgid "Code Copied"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:374
+#: src/utils/panoItemFactory.ts:375
 msgid "Emoji Copied"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:380
+#: src/utils/panoItemFactory.ts:382
 msgid "Link Copied"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:396
+#: src/utils/panoItemFactory.ts:401
 msgid "Color Copied"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:402
+#: src/utils/panoItemFactory.ts:407
 msgid "File %s"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:403
+#: src/utils/panoItemFactory.ts:408
 msgid "There are %s file(s)"
 msgstr ""
 

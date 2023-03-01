@@ -54,11 +54,11 @@ msgstr ""
 msgid "Clears the clipboard database and cache"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:372
+#: src/utils/panoItemFactory.ts:373
 msgid "Code Copied"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:396
+#: src/utils/panoItemFactory.ts:401
 msgid "Color Copied"
 msgstr ""
 
@@ -74,7 +74,7 @@ msgstr ""
 msgid "Database Location"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:374
+#: src/utils/panoItemFactory.ts:375
 msgid "Emoji Copied"
 msgstr ""
 
@@ -86,7 +86,7 @@ msgstr ""
 msgid "Failed to select directory"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:402
+#: src/utils/panoItemFactory.ts:407
 msgid "File %s"
 msgstr ""
 
@@ -106,7 +106,7 @@ msgstr ""
 msgid "History Length"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:365
+#: src/utils/panoItemFactory.ts:366
 msgid "Image Copied"
 msgstr ""
 
@@ -126,7 +126,7 @@ msgstr ""
 msgid "Keep search entry when Pano hides"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:380
+#: src/utils/panoItemFactory.ts:382
 msgid "Link Copied"
 msgstr ""
 
@@ -141,6 +141,10 @@ msgstr ""
 #: src/prefs/general/incognitoShortcutRow.ts:77
 #: src/prefs/general/shortcutRow.ts:77
 msgid "New shortcut"
+msgstr ""
+
+#: src/components/linkPanoItem.ts:29
+msgid "No Description"
 msgstr ""
 
 #: src/utils/ui.ts:14
@@ -192,11 +196,11 @@ msgstr ""
 msgid "Sync primary selection with clipboard selection"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:370
+#: src/utils/panoItemFactory.ts:371
 msgid "Text Copied"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:403
+#: src/utils/panoItemFactory.ts:408
 msgid "There are %s file(s)"
 msgstr ""
 
@@ -216,7 +220,7 @@ msgstr ""
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:366
+#: src/utils/panoItemFactory.ts:367
 msgid "Width: %spx, Height: %spx, Size: %s"
 msgstr ""
 

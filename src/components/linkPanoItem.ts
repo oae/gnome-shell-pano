@@ -6,7 +6,7 @@ import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { getCachePath, getCurrentExtension } from '@pano/utils/shell';
+import { getCachePath, getCurrentExtension, _ } from '@pano/utils/shell';
 
 const DEFAULT_LINK_PREVIEW_IMAGE_NAME = 'link-preview.png';
 
@@ -26,7 +26,7 @@ export class LinkPanoItem extends PanoItem {
     }
 
     if (!description) {
-      descriptionText = 'No Description';
+      descriptionText = _('No Description');
     } else {
       descriptionText = decodeURI(description);
     }

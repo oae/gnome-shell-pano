@@ -356,51 +356,57 @@ export const removeItemResources = (dbItem: DBItem) => {
   }
 };
 
-const sendNotification = (dbItem: DBItem) => {
-  if (dbItem.itemType === 'IMAGE') {
-    const { width, height, size }: { width: number; height: number; size: number } = JSON.parse(
-      dbItem.metaData || '{}',
-    );
-    notify(
-      _('Image Copied'),
-      _('Width: %spx, Height: %spx, Size: %s').format(width, height, prettyBytes(size)),
-      Pixbuf.new_from_file(`${getImagesPath()}/${dbItem.content}.png`),
-    );
-  } else if (dbItem.itemType === 'TEXT') {
-    notify(_('Text Copied'), dbItem.content);
-  } else if (dbItem.itemType === 'CODE') {
-    notify(_('Code Copied'), dbItem.content);
-  } else if (dbItem.itemType === 'EMOJI') {
-    notify(_('Emoji Copied'), dbItem.content);
-  } else if (dbItem.itemType === 'LINK') {
-    const { title, description, image }: { title: string; description: string; image: string } = JSON.parse(
-      dbItem.metaData || '{}',
-    );
-    const pixbuf = image ? Pixbuf.new_from_file(`${getCachePath()}/${image}.png`) : undefined;
-    notify(decodeURI(title || _('Link Copied')), decodeURI(description || dbItem.content), pixbuf);
-  } else if (dbItem.itemType === 'COLOR') {
-    // Create pixbuf from color
-    const pixbuf = Pixbuf.new(Colorspace.RGB, true, 8, 1, 1);
-    let color: string | null = null;
-    // check if content has alpha
-    if (dbItem.content.includes('rgba')) {
-      color = converter(dbItem.content);
-    } else if (validateHTMLColorRgb(dbItem.content)) {
-      color = `${converter(dbItem.content)}ff`;
-    } else if (validateHTMLColorHex(dbItem.content)) {
-      color = `${dbItem.content}ff`;
-    }
+const sendNotification = async (dbItem: DBItem) => {
+  return new Promise(() => {
+    if (dbItem.itemType === 'IMAGE') {
+      const { width, height, size }: { width: number; height: number; size: number } = JSON.parse(
+        dbItem.metaData || '{}',
+      );
+      notify(
+        _('Image Copied'),
+        _('Width: %spx, Height: %spx, Size: %s').format(width, height, prettyBytes(size)),
+        Pixbuf.new_from_file(`${getImagesPath()}/${dbItem.content}.png`),
+      );
+    } else if (dbItem.itemType === 'TEXT') {
+      notify(_('Text Copied'), dbItem.content);
+    } else if (dbItem.itemType === 'CODE') {
+      notify(_('Code Copied'), dbItem.content);
+    } else if (dbItem.itemType === 'EMOJI') {
+      notify(_('Emoji Copied'), dbItem.content);
+    } else if (dbItem.itemType === 'LINK') {
+      const { title, description, image }: { title: string; description: string; image: string } = JSON.parse(
+        dbItem.metaData || '{}',
+      );
+      const pixbuf = image ? Pixbuf.new_from_file(`${getCachePath()}/${image}.png`) : undefined;
+      notify(
+        decodeURI(`${_('Link Copied')}${title ? ` - ${title}` : ''}`),
+        `${dbItem.content}${description ? `\n\n${decodeURI(description)}` : ''}`,
+        pixbuf,
+      );
+    } else if (dbItem.itemType === 'COLOR') {
+      // Create pixbuf from color
+      const pixbuf = Pixbuf.new(Colorspace.RGB, true, 8, 1, 1);
+      let color: string | null = null;
+      // check if content has alpha
+      if (dbItem.content.includes('rgba')) {
+        color = converter(dbItem.content);
+      } else if (validateHTMLColorRgb(dbItem.content)) {
+        color = `${converter(dbItem.content)}ff`;
+      } else if (validateHTMLColorHex(dbItem.content)) {
+        color = `${dbItem.content}ff`;
+      }
 
-    if (color) {
-      pixbuf.fill(parseInt(color.replace('#', '0x'), 16));
-      notify(_('Color Copied'), dbItem.content, pixbuf);
+      if (color) {
+        pixbuf.fill(parseInt(color.replace('#', '0x'), 16));
+        notify(_('Color Copied'), dbItem.content, pixbuf);
+      }
+    } else if (dbItem.itemType === 'FILE') {
+      const operation = dbItem.metaData;
+      const fileListSize = JSON.parse(dbItem.content).length;
+      notify(
+        _('File %s').format(operation === FileOperation.CUT ? 'cut' : 'copied'),
+        _('There are %s file(s)').format(fileListSize),
+      );
     }
-  } else if (dbItem.itemType === 'FILE') {
-    const operation = dbItem.metaData;
-    const fileListSize = JSON.parse(dbItem.content).length;
-    notify(
-      _('File %s').format(operation === FileOperation.CUT ? 'cut' : 'copied'),
-      _('There are %s file(s)').format(fileListSize),
-    );
-  }
+  });
 };
