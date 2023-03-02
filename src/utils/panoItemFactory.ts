@@ -45,6 +45,7 @@ import typescript from 'highlight.js/lib/languages/typescript';
 import yaml from 'highlight.js/lib/languages/yaml';
 import prettyBytes from 'pretty-bytes';
 import { notify } from './ui';
+import { PixelFormat } from '@imports/cogl2';
 
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('markdown', markdown);
@@ -382,6 +383,7 @@ const sendNotification = async (dbItem: DBItem) => {
         decodeURI(`${_('Link Copied')}${title ? ` - ${title}` : ''}`),
         `${dbItem.content}${description ? `\n\n${decodeURI(description)}` : ''}`,
         pixbuf,
+        PixelFormat.RGB_888,
       );
     } else if (dbItem.itemType === 'COLOR') {
       // Create pixbuf from color

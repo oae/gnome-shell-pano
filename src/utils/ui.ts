@@ -9,8 +9,7 @@ import { getCurrentExtension, _ } from '@pano/utils/shell';
 
 const global = Global.get();
 
-// export const notify = (text: string, body: string): void => imports.ui.main.notify(text, body);
-export const notify = (text: string, body: string, iconOrPixbuf?: Pixbuf | Icon): void => {
+export const notify = (text: string, body: string, iconOrPixbuf?: Pixbuf | Icon, pixelFormat?: PixelFormat): void => {
   const source = new imports.ui.messageTray.Source(_('Pano'), 'edit-copy-symbolic');
   imports.ui.main.messageTray.add(source);
   let notification;
@@ -19,7 +18,7 @@ export const notify = (text: string, body: string, iconOrPixbuf?: Pixbuf | Icon)
       const content = ImageContent.new_with_preferred_size(iconOrPixbuf.width, iconOrPixbuf.height) as ImageContent;
       content.set_bytes(
         iconOrPixbuf.read_pixel_bytes(),
-        PixelFormat.RGBA_8888,
+        pixelFormat || PixelFormat.RGBA_8888,
         iconOrPixbuf.width,
         iconOrPixbuf.height,
         iconOrPixbuf.rowstride,
