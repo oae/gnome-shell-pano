@@ -57,10 +57,12 @@ export class SearchBox extends BoxLayout {
     });
 
     this.search.connect('primary-icon-clicked', () => {
+      this.focus();
       this.toggleItemType(false);
     });
 
     this.search.connect('secondary-icon-clicked', () => {
+      this.focus();
       this.toggleFavorites();
     });
 
