@@ -228,6 +228,18 @@ class PanoExtension {
     }
   }
 
+  show() {
+    this.panoWindow?.show();
+  }
+
+  hide() {
+    this.panoWindow?.hide();
+  }
+
+  toggle() {
+    this.panoWindow?.toggle();
+  }
+
   private rerender() {
     this.panoWindow.remove_all_children();
     this.panoWindow.destroy();
