@@ -282,7 +282,11 @@
   margin-right: 0px;
 }
 
-.pano-item-favorite-button:hover,
+.pano-item-favorite-button:hover {
+  background-color: #9b9928;
+  color: black;
+}
+
 .pano-item-favorite-button:active {
   background-color: #fffc4d;
   color: black;
