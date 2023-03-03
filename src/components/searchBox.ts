@@ -13,8 +13,10 @@ import {
   KEY_Right,
   KEY_Tab,
 } from '@gi-types/clutter10';
-import { icon_new_for_string } from '@gi-types/gio2';
+import { IconPrototype, icon_new_for_string } from '@gi-types/gio2';
 import { MetaInfo, TYPE_BOOLEAN, TYPE_STRING } from '@gi-types/gobject2';
+import { Cursor } from '@gi-types/meta10';
+import { Global } from '@gi-types/shell0';
 import { BoxLayout, Entry, Icon } from '@gi-types/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { PanoItemTypes } from '@pano/utils/panoItemType';
@@ -50,16 +52,8 @@ export class SearchBox extends BoxLayout {
       hint_text: _('Type to search, Tab to cycle'),
       track_hover: true,
       width: 300,
-      primary_icon: new Icon({
-        style_class: 'search-entry-icon',
-        icon_name: 'edit-find-symbolic',
-        icon_size: 13,
-      }),
-      secondary_icon: new Icon({
-        style_class: 'search-entry-fav-icon',
-        icon_name: 'starred-symbolic',
-        icon_size: 13,
-      }),
+      primary_icon: this.createSearchEntryIcon('edit-find-symbolic', 'search-entry-icon'),
+      secondary_icon: this.createSearchEntryIcon('starred-symbolic', 'search-entry-fav-icon'),
     });
 
     this.search.connect('primary-icon-clicked', () => {
@@ -104,13 +98,7 @@ export class SearchBox extends BoxLayout {
         this.toggleItemType(event.has_shift_modifier());
       }
       if (event.get_key_symbol() === KEY_BackSpace && this.search.text.length === 0) {
-        this.search.set_primary_icon(
-          new Icon({
-            style_class: 'search-entry-icon',
-            icon_name: 'edit-find-symbolic',
-            icon_size: 13,
-          }),
-        );
+        this.search.set_primary_icon(this.createSearchEntryIcon('edit-find-symbolic', 'search-entry-icon'));
         this.currentIndex = null;
         this.emitSearchTextChange();
       }
@@ -135,26 +123,45 @@ export class SearchBox extends BoxLayout {
     }
 
     if (null == this.currentIndex) {
-      this.search.set_primary_icon(
-        new Icon({
-          style_class: 'search-entry-icon',
-          icon_name: 'edit-find-symbolic',
-          icon_size: 13,
-        }),
-      );
+      this.search.set_primary_icon(this.createSearchEntryIcon('edit-find-symbolic', 'search-entry-icon'));
     } else {
       this.search.set_primary_icon(
-        new Icon({
-          gicon: icon_new_for_string(
+        this.createSearchEntryIcon(
+          icon_new_for_string(
             `${getCurrentExtension().path}/icons/${PanoItemTypes[Object.keys(PanoItemTypes)[this.currentIndex]].icon}`,
           ),
-          style_class: 'search-entry-icon',
-          icon_size: 13,
-        }),
+          'search-entry-icon',
+        ),
       );
     }
 
     this.emitSearchTextChange();
+  }
+
+  private createSearchEntryIcon(iconNameOrProto: string | IconPrototype, styleClass: string) {
+    const icon = new Icon({
+      style_class: styleClass,
+      icon_size: 13,
+      track_hover: true,
+    });
+
+    if (typeof iconNameOrProto === 'string') {
+      icon.set_icon_name(iconNameOrProto);
+    } else {
+      icon.set_gicon(iconNameOrProto);
+    }
+
+    icon.connect('enter-event', () => {
+      Global.get().display.set_cursor(Cursor.POINTING_HAND);
+    });
+    icon.connect('motion-event', () => {
+      Global.get().display.set_cursor(Cursor.POINTING_HAND);
+    });
+    icon.connect('leave-event', () => {
+      Global.get().display.set_cursor(Cursor.DEFAULT);
+    });
+
+    return icon;
   }
 
   toggleFavorites() {

@@ -35,7 +35,7 @@ msgstr "הגדרות"
 msgid "No Description"
 msgstr ""
 
-#: src/components/searchBox.ts:50
+#: src/components/searchBox.ts:52
 msgid "Type to search, Tab to cycle"
 msgstr ""
 
@@ -201,42 +201,42 @@ msgstr "צפה בהחרגות"
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "כאשר אפשרות זו מופעלת, Pano לא תעקוב אחר הלוח מאפליקציות שאינן נכללות"
 
-#: src/utils/panoItemFactory.ts:366
+#: src/utils/panoItemFactory.ts:367
 msgid "Image Copied"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:367
+#: src/utils/panoItemFactory.ts:368
 msgid "Width: %spx, Height: %spx, Size: %s"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:371
+#: src/utils/panoItemFactory.ts:372
 msgid "Text Copied"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:373
+#: src/utils/panoItemFactory.ts:374
 msgid "Code Copied"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:375
+#: src/utils/panoItemFactory.ts:376
 msgid "Emoji Copied"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:382
+#: src/utils/panoItemFactory.ts:383
 msgid "Link Copied"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:401
+#: src/utils/panoItemFactory.ts:403
 msgid "Color Copied"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:407
+#: src/utils/panoItemFactory.ts:409
 msgid "File %s"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:408
+#: src/utils/panoItemFactory.ts:410
 msgid "There are %s file(s)"
 msgstr ""
 
-#: src/utils/ui.ts:14
+#: src/utils/ui.ts:13
 msgid "Pano"
 msgstr ""
