@@ -28,7 +28,7 @@
   </thead>
   <tbody>
     <tr>
-      <td width="33%"><img alt="General Options" src="https://i.imgur.com/y597BDi.png" /></td>
+      <td width="33%"><img alt="General Options" src="https://i.imgur.com/Mc6yXsA.png" /></td>
       <td width="33%"><img alt="Customization" src="https://i.imgur.com/aZjfT7e.png" /></td>
       <td width="33%"><img alt="Danger Zone" src="https://i.imgur.com/RlM1AgI.png" /></td>
     </tr>

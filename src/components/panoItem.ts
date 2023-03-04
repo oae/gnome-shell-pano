@@ -90,6 +90,10 @@ export class PanoItem extends BoxLayout {
     this.connect('activated', () => {
       this.get_parent()?.get_parent()?.get_parent()?.hide();
 
+      if (this.dbItem.itemType === 'LINK' && this.settings.get_boolean('open-links-in-browser')) {
+        return;
+      }
+
       if (this.settings.get_boolean('paste-on-select')) {
         // See https://github.com/SUPERCILEX/gnome-clipboard-history/blob/master/extension.js#L606
         this.timeoutId = timeout_add(PRIORITY_DEFAULT, 250, () => {

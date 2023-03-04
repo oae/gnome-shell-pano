@@ -62,6 +62,11 @@
       <summary>Link Previews</summary>
       <description>Allow Pano to visit links on your clipboard to generate link previews.</description>
     </key>
+    <key name="open-links-in-browser" type="b">
+      <default>true</default>
+      <summary>Open Links in Browser</summary>
+      <description>Allow Pano to open links on your default browser.</description>
+    </key>
     <key name="session-only-mode" type="b">
       <default>false</default>
       <summary>Session only mode</summary>

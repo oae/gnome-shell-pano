@@ -35,7 +35,7 @@ msgstr "Indstillinger"
 msgid "No Description"
 msgstr ""
 
-#: src/components/searchBox.ts:52
+#: src/components/searchBox.ts:56
 msgid "Type to search, Tab to cycle"
 msgstr ""
 
@@ -366,7 +366,7 @@ msgstr "Pano stopper sporingen, hvis et vindue fra listen er fokuseret"
 msgid "Window class name"
 msgstr "Navn på vinduesklasse"
 
-#: src/prefs/general/generalGroup.ts:21
+#: src/prefs/general/generalGroup.ts:22
 msgid "General Options"
 msgstr "Generelle indstillinger"
 
@@ -415,6 +415,14 @@ msgstr "Forhåndsvisninger af links"
 #: src/prefs/general/linkPreviews.ts:14
 msgid "Allow Pano to visit links on your clipboard to generate link previews"
 msgstr "Tillad Pano at besøge links på dit udklipsholder for at generere linkeksempler"
+
+#: src/prefs/general/openLinksInBrowser.ts:13
+msgid "Open Links in Browser"
+msgstr ""
+
+#: src/prefs/general/openLinksInBrowser.ts:14
+msgid "Allow Pano to open links on your default browser"
+msgstr ""
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"

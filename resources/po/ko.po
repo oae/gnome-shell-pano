@@ -35,7 +35,7 @@ msgstr "설정"
 msgid "No Description"
 msgstr ""
 
-#: src/components/searchBox.ts:52
+#: src/components/searchBox.ts:56
 msgid "Type to search, Tab to cycle"
 msgstr ""
 
@@ -366,7 +366,7 @@ msgstr "Pano는 목록의 창에 포커스가 있는 경우 추적을 중지합�
 msgid "Window class name"
 msgstr "창 클래스 이름"
 
-#: src/prefs/general/generalGroup.ts:21
+#: src/prefs/general/generalGroup.ts:22
 msgid "General Options"
 msgstr "일반 옵션"
 
@@ -415,6 +415,14 @@ msgstr "링크 미리보기"
 #: src/prefs/general/linkPreviews.ts:14
 msgid "Allow Pano to visit links on your clipboard to generate link previews"
 msgstr "Pano가 클립보드의 링크를 방문하여 링크 미리 보기를 생성하도록 허용"
+
+#: src/prefs/general/openLinksInBrowser.ts:13
+msgid "Open Links in Browser"
+msgstr ""
+
+#: src/prefs/general/openLinksInBrowser.ts:14
+msgid "Allow Pano to open links on your default browser"
+msgstr ""
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"

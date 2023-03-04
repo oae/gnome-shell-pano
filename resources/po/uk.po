@@ -35,7 +35,7 @@ msgstr "Параметри"
 msgid "No Description"
 msgstr ""
 
-#: src/components/searchBox.ts:52
+#: src/components/searchBox.ts:56
 msgid "Type to search, Tab to cycle"
 msgstr ""
 
@@ -366,7 +366,7 @@ msgstr "Пано припинить відстеження, якщо фокус�
 msgid "Window class name"
 msgstr "Ім'я класу вікна"
 
-#: src/prefs/general/generalGroup.ts:21
+#: src/prefs/general/generalGroup.ts:22
 msgid "General Options"
 msgstr "Загальні параметри"
 
@@ -415,6 +415,14 @@ msgstr "Попередній перегляд посилань"
 #: src/prefs/general/linkPreviews.ts:14
 msgid "Allow Pano to visit links on your clipboard to generate link previews"
 msgstr "Дозвольте Пано відвідувати посилання у вашому буфері обміну для створення попереднього перегляду посилань"
+
+#: src/prefs/general/openLinksInBrowser.ts:13
+msgid "Open Links in Browser"
+msgstr ""
+
+#: src/prefs/general/openLinksInBrowser.ts:14
+msgid "Allow Pano to open links on your default browser"
+msgstr ""
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"

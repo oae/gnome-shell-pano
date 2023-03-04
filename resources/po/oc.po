@@ -35,7 +35,7 @@ msgstr "Paramètres"
 msgid "No Description"
 msgstr ""
 
-#: src/components/searchBox.ts:52
+#: src/components/searchBox.ts:56
 msgid "Type to search, Tab to cycle"
 msgstr ""
 
@@ -366,7 +366,7 @@ msgstr ""
 msgid "Window class name"
 msgstr "Nom de classa de la fenèstra"
 
-#: src/prefs/general/generalGroup.ts:21
+#: src/prefs/general/generalGroup.ts:22
 msgid "General Options"
 msgstr "Opcions generalas"
 
@@ -415,6 +415,14 @@ msgstr "Apercebuts de ligam"
 #: src/prefs/general/linkPreviews.ts:14
 msgid "Allow Pano to visit links on your clipboard to generate link previews"
 msgstr "Permetre a Pano de visitar los ligams del quichapapièrs per generar los apercebuts de ligam"
+
+#: src/prefs/general/openLinksInBrowser.ts:13
+msgid "Open Links in Browser"
+msgstr ""
+
+#: src/prefs/general/openLinksInBrowser.ts:14
+msgid "Allow Pano to open links on your default browser"
+msgstr ""
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"

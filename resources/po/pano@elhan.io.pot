@@ -2,6 +2,10 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
+#: src/prefs/general/openLinksInBrowser.ts:14
+msgid "Allow Pano to open links on your default browser"
+msgstr ""
+
 #: src/prefs/general/pasteOnSelect.ts:14
 msgid "Allow Pano to paste content on select"
 msgstr ""
@@ -172,7 +176,7 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: src/prefs/general/generalGroup.ts:21
+#: src/prefs/general/generalGroup.ts:22
 msgid "General Options"
 msgstr ""
 
@@ -305,6 +309,10 @@ msgstr ""
 msgid "No Description"
 msgstr ""
 
+#: src/prefs/general/openLinksInBrowser.ts:13
+msgid "Open Links in Browser"
+msgstr ""
+
 #: src/utils/ui.ts:13
 msgid "Pano"
 msgstr ""
@@ -366,7 +374,7 @@ msgstr ""
 msgid "There are %s file(s)"
 msgstr ""
 
-#: src/components/searchBox.ts:52
+#: src/components/searchBox.ts:56
 msgid "Type to search, Tab to cycle"
 msgstr ""
 

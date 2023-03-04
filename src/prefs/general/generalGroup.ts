@@ -13,6 +13,7 @@ import { LinkPreviewsRow } from '@pano/prefs/general/linkPreviews';
 import { SyncPrimaryRow } from './syncPrimary';
 import { KeepSearchEntryRow } from './keepSearchEntryOnHide';
 import { SendNotificationOnCopyRow } from './sendNotificationOnCopy';
+import { OpenLinksInBrowserRow } from './openLinksInBrowser';
 
 @registerGObjectClass
 export class GeneralGroup extends PreferencesGroup {
@@ -32,6 +33,7 @@ export class GeneralGroup extends PreferencesGroup {
     this.add(new KeepSearchEntryRow());
     this.add(new ShowIndicatorRow());
     this.add(new LinkPreviewsRow());
+    this.add(new OpenLinksInBrowserRow());
     this.add(new WatchExclusionsRow());
   }
 }

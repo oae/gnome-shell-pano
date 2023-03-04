@@ -35,7 +35,7 @@ msgstr "الإعدادات"
 msgid "No Description"
 msgstr ""
 
-#: src/components/searchBox.ts:52
+#: src/components/searchBox.ts:56
 msgid "Type to search, Tab to cycle"
 msgstr ""
 
@@ -366,7 +366,7 @@ msgstr "سيمتنع بانو عن التتبع إذا فُعلت نافذة م�
 msgid "Window class name"
 msgstr "اسم طراز النافذة"
 
-#: src/prefs/general/generalGroup.ts:21
+#: src/prefs/general/generalGroup.ts:22
 msgid "General Options"
 msgstr "خيارات عامة"
 
@@ -415,6 +415,14 @@ msgstr "معاينة الروابط"
 #: src/prefs/general/linkPreviews.ts:14
 msgid "Allow Pano to visit links on your clipboard to generate link previews"
 msgstr "يسمح لبانو بزيارة الروابط في الحافطة لإنشاء المعاينات"
+
+#: src/prefs/general/openLinksInBrowser.ts:13
+msgid "Open Links in Browser"
+msgstr ""
+
+#: src/prefs/general/openLinksInBrowser.ts:14
+msgid "Allow Pano to open links on your default browser"
+msgstr ""
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"

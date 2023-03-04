@@ -6,7 +6,7 @@ import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { getCachePath, getCurrentExtension, _ } from '@pano/utils/shell';
+import { getCachePath, getCurrentExtension, openUrlInBrowser as openLinkInBrowser, _ } from '@pano/utils/shell';
 
 const DEFAULT_LINK_PREVIEW_IMAGE_NAME = 'link-preview.png';
 
@@ -129,5 +129,8 @@ export class LinkPanoItem extends PanoItem {
         value: this.dbItem.content,
       }),
     );
+    if (this.settings.get_boolean('open-links-in-browser')) {
+      openLinkInBrowser(this.dbItem.content);
+    }
   }
 }

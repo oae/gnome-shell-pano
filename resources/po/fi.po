@@ -35,7 +35,7 @@ msgstr "Asetukset"
 msgid "No Description"
 msgstr ""
 
-#: src/components/searchBox.ts:52
+#: src/components/searchBox.ts:56
 msgid "Type to search, Tab to cycle"
 msgstr ""
 
@@ -366,7 +366,7 @@ msgstr "Pano lopettaa seurannan, jos jokin luettelon ikkuna on kohdistettu"
 msgid "Window class name"
 msgstr "Ikkunaluokan nimi"
 
-#: src/prefs/general/generalGroup.ts:21
+#: src/prefs/general/generalGroup.ts:22
 msgid "General Options"
 msgstr "Yleiset vaihtoehdot"
 
@@ -415,6 +415,14 @@ msgstr "Linkkien esikatselut"
 #: src/prefs/general/linkPreviews.ts:14
 msgid "Allow Pano to visit links on your clipboard to generate link previews"
 msgstr "Salli Panon käydä leikepöydälläsi olevissa linkeissä linkkien esikatselujen luomiseksi"
+
+#: src/prefs/general/openLinksInBrowser.ts:13
+msgid "Open Links in Browser"
+msgstr ""
+
+#: src/prefs/general/openLinksInBrowser.ts:14
+msgid "Allow Pano to open links on your default browser"
+msgstr ""
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"
