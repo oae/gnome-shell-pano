@@ -98,12 +98,12 @@
       <description>Controls height of the clipboard window.</description>
     </key>
     <key name="window-background-color" type="s">
-      <default>'rgba(36, 36, 36, 0.9)'</default>
+      <default>'rgba(35, 35, 35, 0.9)'</default>
       <summary>window-background-color</summary>
       <description>window-background-color</description>
     </key>
     <key name="incognito-window-background-color" type="s">
-      <default>'rgba(17, 0, 29, 0.9)'</default>
+      <default>'rgba(36, 31, 49, 0.9)'</default>
       <summary>incognito-window-background-color</summary>
       <description>incognito-window-background-color</description>
     </key>
@@ -129,7 +129,7 @@
 
   <schema path="/org/gnome/shell/extensions/pano/link-item/" id="org.gnome.shell.extensions.pano.link-item">
     <key name="header-bg-color" type="s">
-      <default>'rgb(32, 159, 181)'</default>
+      <default>'rgb(98, 160, 234)'</default>
       <summary>header-bg-color</summary>
       <description>header-bg-color</description>
     </key>
@@ -139,12 +139,12 @@
       <description>header-color</description>
     </key>
     <key name="body-bg-color" type="s">
-      <default>'rgb(175, 188, 247)'</default>
+      <default>'rgb(28, 113, 216)'</default>
       <summary>body-bg-color</summary>
       <description>body-bg-color</description>
     </key>
     <key name="metadata-bg-color" type="s">
-      <default>'rgb(48, 52, 70)'</default>
+      <default>'rgb(61, 56, 70)'</default>
       <summary>metadata-bg-color</summary>
       <description>metadata-bg-color</description>
     </key>
@@ -197,7 +197,7 @@
 
   <schema path="/org/gnome/shell/extensions/pano/text-item/" id="org.gnome.shell.extensions.pano.text-item">
     <key name="header-bg-color" type="s">
-      <default>'rgb(10, 61, 100)'</default>
+      <default>'rgb(26, 95, 180)'</default>
       <summary>header-bg-color</summary>
       <description>header-bg-color</description>
     </key>
@@ -207,7 +207,7 @@
       <description>header-color</description>
     </key>
     <key name="body-bg-color" type="s">
-      <default>'rgb(229, 200, 144)'</default>
+      <default>'rgb(181, 131, 90)'</default>
       <summary>body-bg-color</summary>
       <description>body-bg-color</description>
     </key>
@@ -236,7 +236,7 @@
 
   <schema path="/org/gnome/shell/extensions/pano/emoji-item/" id="org.gnome.shell.extensions.pano.emoji-item">
     <key name="header-bg-color" type="s">
-      <default>'rgb(209, 143, 123)'</default>
+      <default>'rgb(255, 163, 72)'</default>
       <summary>header-bg-color</summary>
       <description>header-bg-color</description>
     </key>
@@ -246,7 +246,7 @@
       <description>header-color</description>
     </key>
     <key name="body-bg-color" type="s">
-      <default>'rgb(237, 214, 208)'</default>
+      <default>'rgb(255, 190, 111)'</default>
       <summary>body-bg-color</summary>
       <description>body-bg-color</description>
     </key>
@@ -260,7 +260,7 @@
 
   <schema path="/org/gnome/shell/extensions/pano/file-item/" id="org.gnome.shell.extensions.pano.file-item">
     <key name="header-bg-color" type="s">
-      <default>'rgb(76, 79, 105)'</default>
+      <default>'rgb(61, 56, 70)'</default>
       <summary>header-bg-color</summary>
       <description>header-bg-color</description>
     </key>
@@ -293,7 +293,7 @@
 
   <schema path="/org/gnome/shell/extensions/pano/image-item/" id="org.gnome.shell.extensions.pano.image-item">
     <key name="header-bg-color" type="s">
-      <default>'rgb(230, 71, 84)'</default>
+      <default>'rgb(237, 51, 59)'</default>
       <summary>header-bg-color</summary>
       <description>header-bg-color</description>
     </key>
@@ -303,7 +303,7 @@
       <description>header-color</description>
     </key>
     <key name="body-bg-color" type="s">
-      <default>'rgb(46, 46, 71)'</default>
+      <default>'rgb(61, 56, 70)'</default>
       <summary>body-bg-color</summary>
       <description>body-bg-color</description>
     </key>
@@ -331,7 +331,7 @@
 
   <schema path="/org/gnome/shell/extensions/pano/code-item/" id="org.gnome.shell.extensions.pano.code-item">
     <key name="header-bg-color" type="s">
-      <default>'rgb(35, 38, 52)'</default>
+      <default>'rgb(36, 31, 49)'</default>
       <summary>header-bg-color</summary>
       <description>header-bg-color</description>
     </key>
@@ -341,7 +341,7 @@
       <description>header-color</description>
     </key>
     <key name="body-bg-color" type="s">
-      <default>'rgb(48, 52, 70)'</default>
+      <default>'rgb(61, 56, 70)'</default>
       <summary>body-bg-color</summary>
       <description>body-bg-color</description>
     </key>
@@ -365,7 +365,7 @@
 
   <schema path="/org/gnome/shell/extensions/pano/color-item/" id="org.gnome.shell.extensions.pano.color-item">
     <key name="header-bg-color" type="s">
-      <default>'rgb(136, 57, 239)'</default>
+      <default>'rgb(145, 65, 172)'</default>
       <summary>header-bg-color</summary>
       <description>header-bg-color</description>
     </key>

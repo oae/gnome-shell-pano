@@ -4,7 +4,7 @@
 
 .pano-window.incognito {
   background-image: url('./images/incognito-mode.svg');
-  background-size: 45px;
+  background-size: 48px;
   background-position: 10px 10px;
 }
 
@@ -24,7 +24,7 @@
 }
 
 .pano-window .search-entry-fav-icon.active {
-  color: #fffc4d;
+  color: #f6d32d;
 }
 
 .pano-item {
@@ -129,12 +129,12 @@
 }
 
 .pano-item-body-image-resolution-container {
-  border-bottom: 1px solid rgba(229, 229, 229, 0.2);
+  border-bottom: 1px solid rgba(76, 76, 76);
   padding-bottom: 5px;
 }
 
 .pano-item-body-image-size-container {
-  border-top: 1px solid rgba(229, 229, 229, 0.2);
+  border-top: 1px solid rgb(76, 76, 76);
   padding-top: 5px;
 }
 
@@ -161,7 +161,7 @@
 
 .pano-item-remove-button:hover,
 .pano-item-remove-button:active {
-  background-color: #d20f39;
+  background-color: #e01b24;
 }
 
 .pano-item-favorite-button {
@@ -174,12 +174,12 @@
 }
 
 .pano-item-favorite-button:hover {
-  background-color: #9b9928;
+  background-color: rgba(246, 211, 45, 0.3);
   color: black;
 }
 
 .pano-item-favorite-button:active {
-  background-color: #fffc4d;
+  background-color: #f6d32d;
   color: black;
 }
 

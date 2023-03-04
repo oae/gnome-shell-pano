@@ -44,7 +44,7 @@ export class SettingsMenu extends PopupMenuButton {
     const icon = new Icon({
       gicon: icon_new_for_string(
         `${getCurrentExtension().path}/icons/hicolor/scalable/actions/indicator${
-          isInIncognito ? '-incognito' : ''
+          isInIncognito ? '-incognito-symbolic' : '-symbolic'
         }.svg`,
       ),
       style_class: 'system-status-icon indicator-icon',
@@ -64,7 +64,7 @@ export class SettingsMenu extends PopupMenuButton {
       icon.set_gicon(
         icon_new_for_string(
           `${getCurrentExtension().path}/icons/hicolor/scalable/actions/indicator${
-            isInIncognito ? '-incognito' : ''
+            isInIncognito ? '-incognito-symbolic' : '-symbolic'
           }.svg`,
         ),
       );

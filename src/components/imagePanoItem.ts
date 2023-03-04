@@ -8,7 +8,7 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtension, getImagesPath } from '@pano/utils/shell';
 import prettyBytes from 'pretty-bytes';
 
-const NO_IMAGE_FOUND_FILE_NAME = 'no-image-found.png';
+const NO_IMAGE_FOUND_FILE_NAME = 'no-image-found.svg';
 
 @registerGObjectClass
 export class ImagePanoItem extends PanoItem {
