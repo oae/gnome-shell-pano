@@ -1,4 +1,4 @@
-# Pano - Next-gen Clipboard Manager
+# <img width="32px" src="./io.elhan.Pano.svg" alt="Pano" /> Pano - Next-gen Clipboard Manager
 
 [![ts](https://badgen.net/badge/icon/typescript?icon=typescript&label)](#)
 [![opensource](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](#)
@@ -87,7 +87,7 @@
     sudo dnf install libgda libgda-sqlite
     ```
 
-  - Arch Linux (For gnome-43 you need libgda6)
+  - Arch Linux (For gnome-43 or later, you need libgda6)
 
     ```bash
     sudo pacman -S libgda
