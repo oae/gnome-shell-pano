@@ -92,5 +92,302 @@
       <summary>Window Height</summary>
       <description>Controls height of the clipboard window.</description>
     </key>
+    <key name="window-background-color" type="s">
+      <default>'rgba(36, 36, 36, 0.9)'</default>
+      <summary>window-background-color</summary>
+      <description>window-background-color</description>
+    </key>
+    <key name="incognito-window-background-color" type="s">
+      <default>'rgba(17, 0, 29, 0.9)'</default>
+      <summary>incognito-window-background-color</summary>
+      <description>incognito-window-background-color</description>
+    </key>
+    <key name="active-item-border-color" type="s">
+      <default>'rgb(53, 132, 228)'</default>
+      <summary>active-item-border-color</summary>
+      <description>active-item-border-color</description>
+    </key>
+    <key name="hovered-item-border-color" type="s">
+      <default>'rgba(53, 132, 228, 0.7)'</default>
+      <summary>hovered-item-border-color</summary>
+      <description>hovered-item-border-color</description>
+    </key>
+
+    <child name="link-item" schema="org.gnome.shell.extensions.pano.link-item" />
+    <child name="text-item" schema="org.gnome.shell.extensions.pano.text-item" />
+    <child name="emoji-item" schema="org.gnome.shell.extensions.pano.emoji-item" />
+    <child name="file-item" schema="org.gnome.shell.extensions.pano.file-item" />
+    <child name="image-item" schema="org.gnome.shell.extensions.pano.image-item" />
+    <child name="code-item" schema="org.gnome.shell.extensions.pano.code-item" />
+    <child name="color-item" schema="org.gnome.shell.extensions.pano.color-item" />
+  </schema>
+
+  <schema path="/org/gnome/shell/extensions/pano/link-item/" id="org.gnome.shell.extensions.pano.link-item">
+    <key name="header-bg-color" type="s">
+      <default>'rgb(32, 159, 181)'</default>
+      <summary>header-bg-color</summary>
+      <description>header-bg-color</description>
+    </key>
+    <key name="header-color" type="s">
+      <default>'rgb(255, 255, 255)'</default>
+      <summary>header-color</summary>
+      <description>header-color</description>
+    </key>
+    <key name="body-bg-color" type="s">
+      <default>'rgb(175, 188, 247)'</default>
+      <summary>body-bg-color</summary>
+      <description>body-bg-color</description>
+    </key>
+    <key name="metadata-bg-color" type="s">
+      <default>'rgb(48, 52, 70)'</default>
+      <summary>metadata-bg-color</summary>
+      <description>metadata-bg-color</description>
+    </key>
+    <key name="metadata-title-color" type="s">
+      <default>'rgb(255, 255, 255)'</default>
+      <summary>metadata-title-color</summary>
+      <description>metadata-title-color</description>
+    </key>
+    <key name="metadata-title-font-family" type="s">
+      <default>'Cantarell Regular'</default>
+      <summary>metadata-title-font-family</summary>
+      <description>metadata-title-font-family</description>
+    </key>
+    <key name="metadata-title-font-size" type="i">
+      <default>13</default>
+      <summary>metadata-title-font-size</summary>
+      <description>metadata-title-font-size</description>
+    </key>
+    <key name="metadata-description-color" type="s">
+      <default>'rgb(255, 255, 255)'</default>
+      <summary>metadata-description-color</summary>
+      <description>metadata-description-color</description>
+    </key>
+    <key name="metadata-description-font-family" type="s">
+      <default>'Cantarell Regular'</default>
+      <summary>metadata-description-font-family</summary>
+      <description>metadata-description-font-family</description>
+    </key>
+    <key name="metadata-description-font-size" type="i">
+      <default>12</default>
+      <summary>metadata-description-font-size</summary>
+      <description>metadata-description-font-size</description>
+    </key>
+    <key name="metadata-link-color" type="s">
+      <default>'rgb(255, 255, 255)'</default>
+      <summary>metadata-link-color</summary>
+      <description>metadata-link-color</description>
+    </key>
+    <key name="metadata-link-font-family" type="s">
+      <default>'Cantarell Regular'</default>
+      <summary>metadata-link-font-family</summary>
+      <description>metadata-link-font-family</description>
+    </key>
+    <key name="metadata-link-font-size" type="i">
+      <default>10</default>
+      <summary>metadata-link-font-size</summary>
+      <description>metadata-link-font-size</description>
+    </key>
+  </schema>
+
+  <schema path="/org/gnome/shell/extensions/pano/text-item/" id="org.gnome.shell.extensions.pano.text-item">
+    <key name="header-bg-color" type="s">
+      <default>'rgb(10, 61, 100)'</default>
+      <summary>header-bg-color</summary>
+      <description>header-bg-color</description>
+    </key>
+    <key name="header-color" type="s">
+      <default>'rgb(255, 255, 255)'</default>
+      <summary>header-color</summary>
+      <description>header-color</description>
+    </key>
+    <key name="body-bg-color" type="s">
+      <default>'rgb(229, 200, 144)'</default>
+      <summary>body-bg-color</summary>
+      <description>body-bg-color</description>
+    </key>
+    <key name="body-color" type="s">
+      <default>'rgb(0, 0, 0)'</default>
+      <summary>body-color</summary>
+      <description>body-color</description>
+    </key>
+    <key name="body-font-family" type="s">
+      <default>'Cantarell Regular'</default>
+      <summary>body-font-family</summary>
+      <description>body-font-family</description>
+    </key>
+    <key name="body-font-size" type="i">
+      <default>14</default>
+      <summary>body-font-size</summary>
+      <description>body-font-size</description>
+    </key>
+    <key name="char-length" type="i">
+      <range min="50" max="5000" />
+      <default>600</default>
+      <summary>char-length</summary>
+      <description>char-length</description>
+    </key>
+  </schema>
+
+  <schema path="/org/gnome/shell/extensions/pano/emoji-item/" id="org.gnome.shell.extensions.pano.emoji-item">
+    <key name="header-bg-color" type="s">
+      <default>'rgb(209, 143, 123)'</default>
+      <summary>header-bg-color</summary>
+      <description>header-bg-color</description>
+    </key>
+    <key name="header-color" type="s">
+      <default>'rgb(255, 255, 255)'</default>
+      <summary>header-color</summary>
+      <description>header-color</description>
+    </key>
+    <key name="body-bg-color" type="s">
+      <default>'rgb(237, 214, 208)'</default>
+      <summary>body-bg-color</summary>
+      <description>body-bg-color</description>
+    </key>
+    <key name="emoji-size" type="i">
+      <range min="10" max="300" />
+      <default>64</default>
+      <summary>emoji-size</summary>
+      <description>emoji-size</description>
+    </key>
+  </schema>
+
+  <schema path="/org/gnome/shell/extensions/pano/file-item/" id="org.gnome.shell.extensions.pano.file-item">
+    <key name="header-bg-color" type="s">
+      <default>'rgb(76, 79, 105)'</default>
+      <summary>header-bg-color</summary>
+      <description>header-bg-color</description>
+    </key>
+    <key name="header-color" type="s">
+      <default>'rgb(255, 255, 255)'</default>
+      <summary>header-color</summary>
+      <description>header-color</description>
+    </key>
+    <key name="body-bg-color" type="s">
+      <default>'rgb(250, 250, 250)'</default>
+      <summary>body-bg-color</summary>
+      <description>body-bg-color</description>
+    </key>
+    <key name="body-color" type="s">
+      <default>'rgb(0, 0, 0)'</default>
+      <summary>body-color</summary>
+      <description>body-color</description>
+    </key>
+    <key name="body-font-family" type="s">
+      <default>'Cantarell Regular'</default>
+      <summary>body-font-family</summary>
+      <description>body-font-family</description>
+    </key>
+    <key name="body-font-size" type="i">
+      <default>13</default>
+      <summary>body-font-size</summary>
+      <description>body-font-size</description>
+    </key>
+  </schema>
+
+  <schema path="/org/gnome/shell/extensions/pano/image-item/" id="org.gnome.shell.extensions.pano.image-item">
+    <key name="header-bg-color" type="s">
+      <default>'rgb(230, 71, 84)'</default>
+      <summary>header-bg-color</summary>
+      <description>header-bg-color</description>
+    </key>
+    <key name="header-color" type="s">
+      <default>'rgb(255, 255, 255)'</default>
+      <summary>header-color</summary>
+      <description>header-color</description>
+    </key>
+    <key name="body-bg-color" type="s">
+      <default>'rgb(46, 46, 71)'</default>
+      <summary>body-bg-color</summary>
+      <description>body-bg-color</description>
+    </key>
+    <key name="metadata-bg-color" type="s">
+      <default>'rgba(0, 0, 0, 0.7)'</default>
+      <summary>metadata-bg-color</summary>
+      <description>metadata-bg-color</description>
+    </key>
+    <key name="metadata-color" type="s">
+      <default>'rgb(255, 255, 255)'</default>
+      <summary>metadata-color</summary>
+      <description>metadata-color</description>
+    </key>
+    <key name="metadata-font-family" type="s">
+      <default>'Cantarell Regular'</default>
+      <summary>metadata-font-family</summary>
+      <description>metadata-font-family</description>
+    </key>
+    <key name="metadata-font-size" type="i">
+      <default>12</default>
+      <summary>metadata-font-size</summary>
+      <description>metadata-font-size</description>
+    </key>
+  </schema>
+
+  <schema path="/org/gnome/shell/extensions/pano/code-item/" id="org.gnome.shell.extensions.pano.code-item">
+    <key name="header-bg-color" type="s">
+      <default>'rgb(35, 38, 52)'</default>
+      <summary>header-bg-color</summary>
+      <description>header-bg-color</description>
+    </key>
+    <key name="header-color" type="s">
+      <default>'rgb(255, 255, 255)'</default>
+      <summary>header-color</summary>
+      <description>header-color</description>
+    </key>
+    <key name="body-bg-color" type="s">
+      <default>'rgb(48, 52, 70)'</default>
+      <summary>body-bg-color</summary>
+      <description>body-bg-color</description>
+    </key>
+    <key name="body-font-family" type="s">
+      <default>'monospace'</default>
+      <summary>body-font-family</summary>
+      <description>body-font-family</description>
+    </key>
+    <key name="body-font-size" type="i">
+      <default>13</default>
+      <summary>body-font-size</summary>
+      <description>body-font-size</description>
+    </key>
+    <key name="char-length" type="i">
+      <range min="50" max="5000" />
+      <default>600</default>
+      <summary>char-length</summary>
+      <description>char-length</description>
+    </key>
+  </schema>
+
+  <schema path="/org/gnome/shell/extensions/pano/color-item/" id="org.gnome.shell.extensions.pano.color-item">
+    <key name="header-bg-color" type="s">
+      <default>'rgb(136, 57, 239)'</default>
+      <summary>header-bg-color</summary>
+      <description>header-bg-color</description>
+    </key>
+    <key name="header-color" type="s">
+      <default>'rgb(255, 255, 255)'</default>
+      <summary>header-color</summary>
+      <description>header-color</description>
+    </key>
+    <key name="metadata-bg-color" type="s">
+      <default>'rgb(0, 0, 0)'</default>
+      <summary>metadata-bg-color</summary>
+      <description>metadata-bg-color</description>
+    </key>
+    <key name="metadata-color" type="s">
+      <default>'rgb(255, 255, 255)'</default>
+      <summary>metadata-color</summary>
+      <description>metadata-color</description>
+    </key>
+    <key name="metadata-font-family" type="s">
+      <default>'Cantarell Regular'</default>
+      <summary>metadata-font-family</summary>
+      <description>metadata-font-family</description>
+    </key>
+    <key name="metadata-font-size" type="i">
+      <default>16</default>
+      <summary>metadata-font-size</summary>
+      <description>metadata-font-size</description>
+    </key>
   </schema>
 </schemalist>

@@ -43,7 +43,9 @@ export class SettingsMenu extends PopupMenuButton {
 
     const icon = new Icon({
       gicon: icon_new_for_string(
-        `${getCurrentExtension().path}/icons/indicator${isInIncognito ? '-incognito' : ''}.svg`,
+        `${getCurrentExtension().path}/icons/hicolor/scalable/actions/indicator${
+          isInIncognito ? '-incognito' : ''
+        }.svg`,
       ),
       style_class: 'system-status-icon indicator-icon',
     });
@@ -60,7 +62,11 @@ export class SettingsMenu extends PopupMenuButton {
       const isInIncognito = this.settings.get_boolean('is-in-incognito');
       switchMenuItem.setToggleState(isInIncognito);
       icon.set_gicon(
-        icon_new_for_string(`${getCurrentExtension().path}/icons/indicator${isInIncognito ? '-incognito' : ''}.svg`),
+        icon_new_for_string(
+          `${getCurrentExtension().path}/icons/hicolor/scalable/actions/indicator${
+            isInIncognito ? '-incognito' : ''
+          }.svg`,
+        ),
       );
     });
 

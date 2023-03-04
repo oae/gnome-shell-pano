@@ -47,11 +47,12 @@ export class PanoItem extends BoxLayout {
     },
   };
 
-  private header: PanoItemHeader;
+  protected header: PanoItemHeader;
   private timeoutId: number | undefined;
   protected body: BoxLayout;
   public dbItem: DBItem;
-  private settings: Settings;
+  protected settings: Settings;
+  private selected: boolean;
 
   constructor(dbItem: DBItem) {
     super({
@@ -72,12 +73,18 @@ export class PanoItem extends BoxLayout {
     this.connect('key-focus-out', () => this.setSelected(false));
     this.connect('enter-event', () => {
       Global.get().display.set_cursor(Cursor.POINTING_HAND);
+      if (!this.selected) {
+        this.set_style(`border: 4px solid ${this.settings.get_string('hovered-item-border-color')}`);
+      }
     });
     this.connect('motion-event', () => {
       Global.get().display.set_cursor(Cursor.POINTING_HAND);
     });
     this.connect('leave-event', () => {
       Global.get().display.set_cursor(Cursor.DEFAULT);
+      if (!this.selected) {
+        this.set_style('');
+      }
     });
 
     this.connect('activated', () => {
@@ -141,11 +148,13 @@ export class PanoItem extends BoxLayout {
 
   private setSelected(selected: boolean) {
     if (selected) {
-      this.add_style_pseudo_class('selected');
+      const activeItemBorderColor = this.settings.get_string('active-item-border-color');
+      this.set_style(`border: 4px solid ${activeItemBorderColor} !important;`);
       this.grab_key_focus();
     } else {
-      this.remove_style_pseudo_class('selected');
+      this.set_style('');
     }
+    this.selected = selected;
   }
   override vfunc_key_press_event(event: KeyEvent): boolean {
     if (event.keyval === KEY_Return || event.keyval === KEY_ISO_Enter || event.keyval === KEY_KP_Enter) {

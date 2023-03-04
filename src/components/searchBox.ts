@@ -130,7 +130,9 @@ export class SearchBox extends BoxLayout {
       this.search.set_primary_icon(
         this.createSearchEntryIcon(
           icon_new_for_string(
-            `${getCurrentExtension().path}/icons/${PanoItemTypes[Object.keys(PanoItemTypes)[this.currentIndex]].icon}`,
+            `${getCurrentExtension().path}/icons/hicolor/scalable/actions/${
+              PanoItemTypes[Object.keys(PanoItemTypes)[this.currentIndex]].iconPath
+            }`,
           ),
           'search-entry-icon',
         ),

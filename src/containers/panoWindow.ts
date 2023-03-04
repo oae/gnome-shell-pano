@@ -34,6 +34,25 @@ export class PanoWindow extends BoxLayout {
     this.settings.connect('changed::window-height', () => {
       this.set_height(this.settings.get_int('window-height'));
     });
+
+    this.settings.connect('changed::window-background-color', () => {
+      if (this.settings.get_boolean('is-in-incognito')) {
+        this.set_style(
+          `background-color: ${this.settings.get_string('incognito-window-background-color')} !important;`,
+        );
+      } else {
+        this.set_style(`background-color: ${this.settings.get_string('window-background-color')}`);
+      }
+    });
+    this.settings.connect('changed::incognito-window-background-color', () => {
+      if (this.settings.get_boolean('is-in-incognito')) {
+        this.set_style(
+          `background-color: ${this.settings.get_string('incognito-window-background-color')} !important;`,
+        );
+      } else {
+        this.set_style(`background-color: ${this.settings.get_string('window-background-color')}`);
+      }
+    });
     this.monitorBox = new MonitorBox();
     this.scrollView = new PanoScrollView();
     this.searchBox = new SearchBox();
@@ -48,13 +67,20 @@ export class PanoWindow extends BoxLayout {
     this.settings.connect('changed::is-in-incognito', () => {
       if (this.settings.get_boolean('is-in-incognito')) {
         this.add_style_class_name('incognito');
+        this.set_style(
+          `background-color: ${this.settings.get_string('incognito-window-background-color')} !important;`,
+        );
       } else {
         this.remove_style_class_name('incognito');
+        this.set_style(`background-color: ${this.settings.get_string('window-background-color')}`);
       }
     });
 
     if (this.settings.get_boolean('is-in-incognito')) {
       this.add_style_class_name('incognito');
+      this.set_style(`background-color: ${this.settings.get_string('incognito-window-background-color')} !important;`);
+    } else {
+      this.set_style(`background-color: ${this.settings.get_string('window-background-color')}`);
     }
   }
 

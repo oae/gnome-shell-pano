@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "清楚"
 
 #: src/components/indicator/clearHistoryDialog.ts:33
-#: src/components/indicator/settingsMenu.ts:69
+#: src/components/indicator/settingsMenu.ts:75
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr "清除历史记录"
@@ -23,15 +23,15 @@ msgstr "清除历史记录"
 msgid "Are you sure you want to clear history?"
 msgstr "您确定要清除历史记录吗？"
 
-#: src/components/indicator/settingsMenu.ts:53
+#: src/components/indicator/settingsMenu.ts:55
 msgid "Incognito Mode"
 msgstr "隐身模式"
 
-#: src/components/indicator/settingsMenu.ts:76
+#: src/components/indicator/settingsMenu.ts:82
 msgid "Settings"
 msgstr "设置"
 
-#: src/components/linkPanoItem.ts:29
+#: src/components/linkPanoItem.ts:37
 msgid "No Description"
 msgstr ""
 
@@ -39,16 +39,287 @@ msgstr ""
 msgid "Type to search, Tab to cycle"
 msgstr ""
 
-#: src/prefs/customization/index.ts:10
-msgid "Customization"
+#: src/prefs/customization/codeItemStyle.ts:13
+msgid "Change the style of the code item"
 msgstr ""
 
-#: src/prefs/customization/windowHeight.ts:13
+#: src/prefs/customization/codeItemStyle.ts:13
+msgid "Code Item Style"
+msgstr ""
+
+#: src/prefs/customization/codeItemStyle.ts:20
+#: src/prefs/customization/colorItemStyle.ts:20
+#: src/prefs/customization/emojiItemStyle.ts:20
+#: src/prefs/customization/fileItemStyle.ts:20
+#: src/prefs/customization/imageItemStyle.ts:20
+#: src/prefs/customization/linkItemStyle.ts:20
+#: src/prefs/customization/textItemStyle.ts:20
+msgid "Header Background Color"
+msgstr ""
+
+#: src/prefs/customization/codeItemStyle.ts:21
+#: src/prefs/customization/colorItemStyle.ts:21
+#: src/prefs/customization/emojiItemStyle.ts:21
+#: src/prefs/customization/fileItemStyle.ts:21
+#: src/prefs/customization/imageItemStyle.ts:21
+#: src/prefs/customization/linkItemStyle.ts:21
+#: src/prefs/customization/textItemStyle.ts:21
+msgid "You can change the background color of the header"
+msgstr ""
+
+#: src/prefs/customization/codeItemStyle.ts:30
+#: src/prefs/customization/colorItemStyle.ts:30
+#: src/prefs/customization/emojiItemStyle.ts:30
+#: src/prefs/customization/fileItemStyle.ts:30
+#: src/prefs/customization/imageItemStyle.ts:30
+#: src/prefs/customization/linkItemStyle.ts:30
+#: src/prefs/customization/textItemStyle.ts:30
+msgid "Header Text Color"
+msgstr ""
+
+#: src/prefs/customization/codeItemStyle.ts:31
+#: src/prefs/customization/colorItemStyle.ts:31
+#: src/prefs/customization/emojiItemStyle.ts:31
+#: src/prefs/customization/fileItemStyle.ts:31
+#: src/prefs/customization/imageItemStyle.ts:31
+#: src/prefs/customization/linkItemStyle.ts:31
+#: src/prefs/customization/textItemStyle.ts:31
+msgid "You can change the text color of the header"
+msgstr ""
+
+#: src/prefs/customization/codeItemStyle.ts:40
+#: src/prefs/customization/emojiItemStyle.ts:40
+#: src/prefs/customization/fileItemStyle.ts:40
+#: src/prefs/customization/imageItemStyle.ts:40
+#: src/prefs/customization/linkItemStyle.ts:40
+#: src/prefs/customization/textItemStyle.ts:40
+msgid "Body Background Color"
+msgstr ""
+
+#: src/prefs/customization/codeItemStyle.ts:41
+#: src/prefs/customization/emojiItemStyle.ts:41
+#: src/prefs/customization/fileItemStyle.ts:41
+#: src/prefs/customization/imageItemStyle.ts:41
+#: src/prefs/customization/linkItemStyle.ts:41
+#: src/prefs/customization/textItemStyle.ts:41
+msgid "You can change the background color of the body"
+msgstr ""
+
+#: src/prefs/customization/codeItemStyle.ts:48
+#: src/prefs/customization/colorItemStyle.ts:59
+#: src/prefs/customization/fileItemStyle.ts:53
+#: src/prefs/customization/textItemStyle.ts:53
+msgid "Body Font"
+msgstr ""
+
+#: src/prefs/customization/codeItemStyle.ts:48
+#: src/prefs/customization/fileItemStyle.ts:53
+#: src/prefs/customization/textItemStyle.ts:53
+msgid "You can change the font of the body"
+msgstr ""
+
+#: src/prefs/customization/codeItemStyle.ts:53
+#: src/prefs/customization/textItemStyle.ts:58
+msgid "Character Length"
+msgstr ""
+
+#: src/prefs/customization/codeItemStyle.ts:54
+#: src/prefs/customization/textItemStyle.ts:59
+msgid "You can change the character length of the visible text in the body"
+msgstr ""
+
+#: src/prefs/customization/colorItemStyle.ts:13
+msgid "Change the style of the color item"
+msgstr ""
+
+#: src/prefs/customization/colorItemStyle.ts:13
+msgid "Color Item Style"
+msgstr ""
+
+#: src/prefs/customization/colorItemStyle.ts:40
+#: src/prefs/customization/imageItemStyle.ts:50
+#: src/prefs/customization/linkItemStyle.ts:50
+msgid "Metadata Background Color"
+msgstr ""
+
+#: src/prefs/customization/colorItemStyle.ts:41
+#: src/prefs/customization/imageItemStyle.ts:51
+#: src/prefs/customization/linkItemStyle.ts:51
+msgid "You can change the background color of the metadata"
+msgstr ""
+
+#: src/prefs/customization/colorItemStyle.ts:50
+#: src/prefs/customization/imageItemStyle.ts:60
+msgid "Metadata Text Color"
+msgstr ""
+
+#: src/prefs/customization/colorItemStyle.ts:51
+#: src/prefs/customization/imageItemStyle.ts:61
+msgid "You can change the text color of the metadata"
+msgstr ""
+
+#: src/prefs/customization/colorItemStyle.ts:59
+#: src/prefs/customization/imageItemStyle.ts:69
+msgid "You can change the font of the metadata"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:12
+msgid "Common"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:19
 msgid "Window Height"
 msgstr ""
 
-#: src/prefs/customization/windowHeight.ts:14
+#: src/prefs/customization/commonStyleGroup.ts:20
 msgid "You can change the window height"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:30
+msgid "Window Background Color"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:31
+msgid "You can change the window background color"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:38
+msgid "Incognito Window Background Color"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:39
+msgid "You can change the incognito window background color"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:46
+#: src/prefs/customization/commonStyleGroup.ts:54
+msgid "Hovered Item Border Color"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:47
+msgid "You can change the active item border color"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:55
+msgid "You can change the hovered item border color"
+msgstr ""
+
+#: src/prefs/customization/emojiItemStyle.ts:13
+msgid "Change the style of the emoji item"
+msgstr ""
+
+#: src/prefs/customization/emojiItemStyle.ts:13
+msgid "Emoji Item Style"
+msgstr ""
+
+#: src/prefs/customization/emojiItemStyle.ts:49
+msgid "Emoji Size"
+msgstr ""
+
+#: src/prefs/customization/emojiItemStyle.ts:49
+msgid "You can change the emoji size"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:13
+msgid "Change the style of the file item"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:13
+msgid "File Item Style"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:49
+#: src/prefs/customization/textItemStyle.ts:49
+msgid "Body Text Color"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:49
+#: src/prefs/customization/textItemStyle.ts:49
+msgid "You can change the text color of the body"
+msgstr ""
+
+#: src/prefs/customization/imageItemStyle.ts:13
+msgid "Change the style of the image item"
+msgstr ""
+
+#: src/prefs/customization/imageItemStyle.ts:13
+msgid "Image Item Style"
+msgstr ""
+
+#: src/prefs/customization/imageItemStyle.ts:69
+msgid "Metadata Font"
+msgstr ""
+
+#: src/prefs/customization/index.ts:11
+msgid "Customization"
+msgstr ""
+
+#: src/prefs/customization/itemStyleGroup.ts:16
+msgid "Item Style"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:13
+msgid "Change the style of the link item"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:13
+msgid "Link Item Style"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:60
+msgid "Metadata Title Color"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:61
+msgid "You can change the title color of the metadata"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:70
+msgid "Metadata Title Font"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:71
+msgid "You can change the font of the metadata title"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:80
+msgid "Metadata Description Color"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:81
+msgid "You can change the description color of the metadata"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:90
+msgid "Metadata Description Font"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:91
+msgid "You can change the font of the metadata description"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:100
+msgid "Metadata Link Color"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:101
+msgid "You can change the link color of the metadata"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:110
+msgid "Metadata Link Font"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:111
+msgid "You can change the font of the metadata link"
+msgstr ""
+
+#: src/prefs/customization/textItemStyle.ts:13
+msgid "Change the style of the text item"
+msgstr ""
+
+#: src/prefs/customization/textItemStyle.ts:13
+msgid "Text Item Style"
 msgstr ""
 
 #: src/prefs/dangerZone/clearHistory.ts:12

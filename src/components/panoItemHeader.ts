@@ -41,8 +41,7 @@ export class PanoItemHeader extends BoxLayout {
 
     iconContainer.add_child(
       new Icon({
-        gicon: icon_new_for_string(`${getCurrentExtension().path}/icons/${itemType.icon}`),
-        style_class: 'pano-icon',
+        gicon: icon_new_for_string(`${getCurrentExtension().path}/icons/hicolor/scalable/actions/${itemType.iconPath}`),
       }),
     );
 

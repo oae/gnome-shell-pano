@@ -1,3 +1,4 @@
+import { Settings } from '@gi-types/gio2';
 import { EllipsizeMode, WrapMode } from '@gi-types/pango1';
 import { Label } from '@gi-types/st1';
 import { PanoItem } from '@pano/components/panoItem';
@@ -6,19 +7,46 @@ import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 @registerGObjectClass
 export class TextPanoItem extends PanoItem {
+  private textItemSettings: Settings;
+  private label: Label;
+
   constructor(dbItem: DBItem) {
     super(dbItem);
 
-    this.body.add_style_class_name('pano-item-body-text');
-    const label = new Label({
-      text: this.dbItem.content,
+    this.textItemSettings = this.settings.get_child('text-item');
+
+    this.label = new Label({
       style_class: 'pano-item-body-text-content',
     });
-    label.clutter_text.line_wrap = true;
-    label.clutter_text.line_wrap_mode = WrapMode.WORD_CHAR;
-    label.clutter_text.ellipsize = EllipsizeMode.END;
-    this.body.add_child(label);
+    this.label.clutter_text.line_wrap = true;
+    this.label.clutter_text.line_wrap_mode = WrapMode.WORD_CHAR;
+    this.label.clutter_text.ellipsize = EllipsizeMode.END;
+
+    this.body.add_child(this.label);
+
     this.connect('activated', this.setClipboardContent.bind(this));
+    this.setStyle();
+    this.textItemSettings.connect('changed', this.setStyle.bind(this));
+  }
+
+  private setStyle() {
+    const headerBgColor = this.textItemSettings.get_string('header-bg-color');
+    const headerColor = this.textItemSettings.get_string('header-color');
+    const bodyBgColor = this.textItemSettings.get_string('body-bg-color');
+    const bodyColor = this.textItemSettings.get_string('body-color');
+    const bodyFontFamily = this.textItemSettings.get_string('body-font-family');
+    const bodyFontSize = this.textItemSettings.get_int('body-font-size');
+    const characterLength = this.textItemSettings.get_int('char-length');
+
+    // Set header styles
+    this.header.set_style(`background-color: ${headerBgColor}; color: ${headerColor};`);
+
+    // Set body styles
+    this.body.set_style(`background-color: ${bodyBgColor}`);
+
+    // set label styles
+    this.label.set_text(this.dbItem.content.slice(0, characterLength));
+    this.label.set_style(`color: ${bodyColor}; font-family: ${bodyFontFamily}; font-size: ${bodyFontSize}px;`);
   }
 
   private setClipboardContent(): void {
