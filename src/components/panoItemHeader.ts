@@ -1,11 +1,18 @@
 import { ActorAlign, EVENT_PROPAGATE } from '@gi-types/clutter10';
 import { icon_new_for_string } from '@gi-types/gio2';
+import { get_language_names_with_category } from '@gi-types/glib2';
 import { MetaInfo } from '@gi-types/gobject2';
 import { BoxLayout, Button, Icon, Label } from '@gi-types/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { IPanoItemType } from '@pano/utils/panoItemType';
 import { getCurrentExtension } from '@pano/utils/shell';
 import { formatDistanceToNow } from 'date-fns';
+import * as dateLocale from 'date-fns/locale';
+
+const langs = get_language_names_with_category('LC_MESSAGES').map(
+  (l) => l.replaceAll('_', '').replaceAll('-', '').split('.')[0],
+);
+const localeKey = Object.keys(dateLocale).find((key) => langs.includes(key));
 
 @registerGObjectClass
 export class PanoItemHeader extends BoxLayout {
@@ -54,14 +61,16 @@ export class PanoItemHeader extends BoxLayout {
     );
 
     const dateLabel = new Label({
-      text: formatDistanceToNow(date, { addSuffix: true }),
+      text: formatDistanceToNow(date, { addSuffix: true, locale: localeKey ? dateLocale[localeKey] : undefined }),
       style_class: 'pano-item-date',
       x_expand: true,
       y_expand: true,
     });
 
     this.dateUpdateIntervalId = setInterval(() => {
-      dateLabel.set_text(formatDistanceToNow(date, { addSuffix: true }));
+      dateLabel.set_text(
+        formatDistanceToNow(date, { addSuffix: true, locale: localeKey ? dateLocale[localeKey] : undefined }),
+      );
     }, 60000);
 
     titleContainer.add_child(dateLabel);
