@@ -125,6 +125,7 @@
 - `<ctrl>` `<super>` `<shift>` `v` can be use to toggle incognito mode.
 - `left` and `right` arrow keys can be used for navigating between items. Pressing `left` key on the first item will focus search box. Also pressing `right` key will go to first/last focused item on the list.
 - `up` and `down` keys can also be use to focus on search box and items
+- `enter` key or clicking to an item will copy it. You can hold `shift` key for the apps like terminal to paste into it
 - Typing anywhere on Pano will focus on search box and filter the results.
 - `delete` key will remove the focused item from the list.
 - `tab` key will cycle through item types (like `image`, `link` etc..) `shift` `tab` will reverse the direction
