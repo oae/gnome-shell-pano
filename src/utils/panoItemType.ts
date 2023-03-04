@@ -1,11 +1,13 @@
+import { _ } from './shell';
+
 export const PanoItemTypes = {
-  LINK: { classSuffix: 'link', title: 'Link', iconPath: 'link-symbolic.svg', iconName: 'link-symbolic' },
-  TEXT: { classSuffix: 'text', title: 'Text', iconPath: 'text-symbolic.svg', iconName: 'text-symbolic' },
-  EMOJI: { classSuffix: 'emoji', title: 'Emoji', iconPath: 'emoji-symbolic.svg', iconName: 'emoji-symbolic' },
-  FILE: { classSuffix: 'file', title: 'File', iconPath: 'file-symbolic.svg', iconName: 'file-symbolic' },
-  IMAGE: { classSuffix: 'image', title: 'Image', iconPath: 'image-symbolic.svg', iconName: 'image-symbolic' },
-  CODE: { classSuffix: 'code', title: 'Code', iconPath: 'code-symbolic.svg', iconName: 'code-symbolic' },
-  COLOR: { classSuffix: 'color', title: 'Color', iconPath: 'color-symbolic.svg', iconName: 'color-symbolic' },
+  LINK: { classSuffix: 'link', title: _('Link'), iconPath: 'link-symbolic.svg', iconName: 'link-symbolic' },
+  TEXT: { classSuffix: 'text', title: _('Text'), iconPath: 'text-symbolic.svg', iconName: 'text-symbolic' },
+  EMOJI: { classSuffix: 'emoji', title: _('Emoji'), iconPath: 'emoji-symbolic.svg', iconName: 'emoji-symbolic' },
+  FILE: { classSuffix: 'file', title: _('File'), iconPath: 'file-symbolic.svg', iconName: 'file-symbolic' },
+  IMAGE: { classSuffix: 'image', title: _('Image'), iconPath: 'image-symbolic.svg', iconName: 'image-symbolic' },
+  CODE: { classSuffix: 'code', title: _('Code'), iconPath: 'code-symbolic.svg', iconName: 'code-symbolic' },
+  COLOR: { classSuffix: 'color', title: _('Color'), iconPath: 'color-symbolic.svg', iconName: 'color-symbolic' },
 };
 
 export interface IPanoItemType {

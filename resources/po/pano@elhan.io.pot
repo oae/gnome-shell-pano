@@ -112,12 +112,20 @@ msgstr ""
 msgid "Clears the clipboard database and cache"
 msgstr ""
 
+#: src/utils/panoItemType.ts:9
+msgid "Code"
+msgstr ""
+
 #: src/utils/panoItemFactory.ts:374
 msgid "Code Copied"
 msgstr ""
 
 #: src/prefs/customization/codeItemStyle.ts:13
 msgid "Code Item Style"
+msgstr ""
+
+#: src/utils/panoItemType.ts:10
+msgid "Color"
 msgstr ""
 
 #: src/utils/panoItemFactory.ts:403
@@ -144,6 +152,10 @@ msgstr ""
 msgid "Database Location"
 msgstr ""
 
+#: src/utils/panoItemType.ts:6
+msgid "Emoji"
+msgstr ""
+
 #: src/utils/panoItemFactory.ts:376
 msgid "Emoji Copied"
 msgstr ""
@@ -162,6 +174,10 @@ msgstr ""
 
 #: src/prefs/general/dbLocation.ts:52
 msgid "Failed to select directory"
+msgstr ""
+
+#: src/utils/panoItemType.ts:7
+msgid "File"
 msgstr ""
 
 #: src/utils/panoItemFactory.ts:409
@@ -213,6 +229,10 @@ msgstr ""
 msgid "Hovered Item Border Color"
 msgstr ""
 
+#: src/utils/panoItemType.ts:8
+msgid "Image"
+msgstr ""
+
 #: src/utils/panoItemFactory.ts:367
 msgid "Image Copied"
 msgstr ""
@@ -243,6 +263,10 @@ msgstr ""
 
 #: src/prefs/general/keepSearchEntryOnHide.ts:14
 msgid "Keep search entry when Pano hides"
+msgstr ""
+
+#: src/utils/panoItemType.ts:4
+msgid "Link"
 msgstr ""
 
 #: src/utils/panoItemFactory.ts:383
@@ -360,6 +384,10 @@ msgstr ""
 
 #: src/prefs/general/syncPrimary.ts:14
 msgid "Sync primary selection with clipboard selection"
+msgstr ""
+
+#: src/utils/panoItemType.ts:5
+msgid "Text"
 msgstr ""
 
 #: src/utils/panoItemFactory.ts:372

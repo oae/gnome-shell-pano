@@ -516,6 +516,34 @@ msgstr ""
 msgid "There are %s file(s)"
 msgstr ""
 
+#: src/utils/panoItemType.ts:4
+msgid "Link"
+msgstr ""
+
+#: src/utils/panoItemType.ts:5
+msgid "Text"
+msgstr ""
+
+#: src/utils/panoItemType.ts:6
+msgid "Emoji"
+msgstr ""
+
+#: src/utils/panoItemType.ts:7
+msgid "File"
+msgstr ""
+
+#: src/utils/panoItemType.ts:8
+msgid "Image"
+msgstr ""
+
+#: src/utils/panoItemType.ts:9
+msgid "Code"
+msgstr ""
+
+#: src/utils/panoItemType.ts:10
+msgid "Color"
+msgstr ""
+
 #: src/utils/ui.ts:13
 msgid "Pano"
 msgstr ""
