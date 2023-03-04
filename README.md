@@ -13,7 +13,7 @@
 - ⌨️ Keyboard-driven navigation. See [Navigation](#navigation)
 - 🧠 Content aware previews and notifications (Image, Link, Text, Code, Color, Emoji, File). See [Notifications](#content-aware-notifications)
 - 🎨 Highly customizable UI with slick design. See [Customization](#settings)
-- ⭐ Favorite any items and access them easily. See [Favorites and Navigation](#favorites-and-navigation)
+- ⭐ Favorite any items and access them easily. See [Favorites](#favorites)
 - ⚙️ And many more options for different needs. See [Settings](#settings)
 
 ## Settings
@@ -35,9 +35,9 @@
   </tbody>
 </table>
 
-## Favorites and Navigation
+## Favorites
 
-[Favorites and Navigation](https://user-images.githubusercontent.com/1043714/222840128-7eec9fa1-5e60-4e79-95ee-f376081805d2.webm)
+[Favorites](https://user-images.githubusercontent.com/1043714/222840128-7eec9fa1-5e60-4e79-95ee-f376081805d2.webm)
 
 ## Content Aware Notifications
 
