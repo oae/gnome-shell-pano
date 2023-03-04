@@ -131,6 +131,7 @@
 - `backspace` key on empty search box will remove item type filter
 - `ctrl` `s` key will favorite/unfavorite the item
 - `alt` key will switch between favorites/all items
+- `ctrl` `1`..`9` keys will copy the item with the corresponding index
 
 ## Cli
 

@@ -14,7 +14,7 @@ import {
   KEY_Tab,
 } from '@gi-types/clutter10';
 import { IconPrototype, icon_new_for_string } from '@gi-types/gio2';
-import { MetaInfo, TYPE_BOOLEAN, TYPE_STRING } from '@gi-types/gobject2';
+import { MetaInfo, TYPE_BOOLEAN, TYPE_INT, TYPE_STRING } from '@gi-types/gobject2';
 import { Cursor } from '@gi-types/meta10';
 import { Global } from '@gi-types/shell0';
 import { BoxLayout, Entry, Icon } from '@gi-types/st1';
@@ -29,6 +29,10 @@ export class SearchBox extends BoxLayout {
     Signals: {
       'search-text-changed': {
         param_types: [TYPE_STRING, TYPE_STRING, TYPE_BOOLEAN],
+        accumulator: 0,
+      },
+      'search-item-select-shortcut': {
+        param_types: [TYPE_INT],
         accumulator: 0,
       },
       'search-focus-out': {},
@@ -90,6 +94,10 @@ export class SearchBox extends BoxLayout {
         event.get_key_symbol() === KEY_KP_Enter
       ) {
         this.emit('search-submit');
+      }
+
+      if (event.has_control_modifier() && event.get_key_symbol() >= 49 && event.get_key_symbol() <= 57) {
+        this.emit('search-item-select-shortcut', event.get_key_symbol() - 49);
       }
 
       if (

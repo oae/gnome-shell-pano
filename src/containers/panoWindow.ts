@@ -99,6 +99,9 @@ export class PanoWindow extends BoxLayout {
     this.searchBox.connect('search-text-changed', (_: any, text: string, itemType: string, showFavorites: boolean) => {
       this.scrollView.filter(text, itemType, showFavorites);
     });
+    this.searchBox.connect('search-item-select-shortcut', (_: any, index: number) => {
+      this.scrollView.selectItemByIndex(index);
+    });
   }
 
   private setupScrollView() {

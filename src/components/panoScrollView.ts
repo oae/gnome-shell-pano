@@ -76,6 +76,10 @@ export class PanoScrollView extends ScrollView {
         this.emit('scroll-tab-press', event.has_shift_modifier());
         return EVENT_STOP;
       }
+      if (event.has_control_modifier() && event.get_key_symbol() >= 49 && event.get_key_symbol() <= 57) {
+        this.selectItemByIndex(event.get_key_symbol() - 49);
+        return EVENT_STOP;
+      }
 
       if (event.get_state()) {
         return EVENT_PROPAGATE;
@@ -353,6 +357,14 @@ export class PanoScrollView extends ScrollView {
     const visibleItems = this.getVisibleItems();
     if (visibleItems.length > 0) {
       const item = visibleItems[0];
+      item.emit('activated');
+    }
+  }
+
+  selectItemByIndex(index: number) {
+    const visibleItems = this.getVisibleItems();
+    if (visibleItems.length > index) {
+      const item = visibleItems[index];
       item.emit('activated');
     }
   }
