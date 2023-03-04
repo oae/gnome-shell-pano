@@ -8,6 +8,14 @@
 
 ![ss](https://i.imgur.com/mu7NWNG.png)
 
+## Features
+
+- ⌨️ Keyboard-driven navigation. See [Navigation](#navigation)
+- 🧠 Content aware previews and notifications (Image, Link, Text, Code, Color, Emoji, File). See [Notifications](#content-aware-notifications)
+- 🎨 Highly customizable UI with slick design. See [Customization](#settings)
+- ⭐ Favorite any items and access them easily. See [Favorites and Navigation](#favorites-and-navigation)
+- ⚙️ And many more options for different needs. See [Settings](#settings)
+
 ## Settings
 
 <table width="100%">
