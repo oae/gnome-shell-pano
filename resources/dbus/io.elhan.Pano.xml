@@ -1,5 +1,8 @@
 <node>
   <interface name="io.elhan.Pano">
     <method name="clearHistory" />
+    <method name="show" />
+    <method name="hide" />
+    <method name="toggle" />
   </interface>
 </node>

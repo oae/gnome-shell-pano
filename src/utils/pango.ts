@@ -88,9 +88,9 @@ const stringify = (o, language) => {
   return `<${env.tag} fgcolor="${getColor(env.classes.join(' '))}" ${attributes}>${env.content}</${env.tag}>`;
 };
 
-export const markupCode = (text: string): string => {
+export const markupCode = (text: string, charLength: number): string => {
   const result =
-    INVISIBLE_SPACE + stringify(util.encode(tokenize(text.slice(0, 600), languages.javascript)), 'javascript');
+    INVISIBLE_SPACE + stringify(util.encode(tokenize(text.slice(0, charLength), languages.javascript)), 'javascript');
 
   return result;
 };

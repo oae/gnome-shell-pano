@@ -2604,6 +2604,18 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
+hex-color-converter@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/hex-color-converter/-/hex-color-converter-0.2.1.tgz#db599ede9c05288fe1d8a893f9d32cca8901c5d3"
+  integrity sha512-qPFCmsTMzinuM38zf285o/MbZr1Cu4qq9/t0IQ/xn1SH247J8auSmqJsjx5WL4uUgNuhRkjKxW5oHUlyEDsezg==
+  dependencies:
+    hex-color-opacity "^0.3.0"
+
+hex-color-opacity@^0.3.0:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/hex-color-opacity/-/hex-color-opacity-0.3.2.tgz#37db36ea44019836a4582e5b0197e636de4108cb"
+  integrity sha512-gx4bDXXtz+n6EqHxlvf8QPGpUWh3p1eGH8sQOTWoejMUgw+TJG1fyAivjIHBVYz2piyWJ0rzMDkhYYqKOI1ZHg==
+
 highlight.js@*:
   version "11.5.1"
   resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-11.5.1.tgz#027c24e4509e2f4dcd00b4a6dda542ce0a1f7aea"

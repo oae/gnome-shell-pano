@@ -11,7 +11,10 @@ import {
   KEY_KP_Delete,
   KEY_KP_Enter,
   KEY_Return,
+  KEY_s,
+  KEY_S,
   KEY_v,
+  ModifierType,
 } from '@gi-types/clutter10';
 import { Settings } from '@gi-types/gio2';
 import { PRIORITY_DEFAULT, Source, SOURCE_REMOVE, timeout_add } from '@gi-types/glib2';
@@ -37,14 +40,19 @@ export class PanoItem extends BoxLayout {
         param_types: [TYPE_STRING],
         accumulator: 0,
       },
+      'on-favorite': {
+        param_types: [TYPE_STRING],
+        accumulator: 0,
+      },
     },
   };
 
-  private header: PanoItemHeader;
+  protected header: PanoItemHeader;
   private timeoutId: number | undefined;
   protected body: BoxLayout;
   public dbItem: DBItem;
-  private settings: Settings;
+  protected settings: Settings;
+  private selected: boolean;
 
   constructor(dbItem: DBItem) {
     super({
@@ -65,16 +73,26 @@ export class PanoItem extends BoxLayout {
     this.connect('key-focus-out', () => this.setSelected(false));
     this.connect('enter-event', () => {
       Global.get().display.set_cursor(Cursor.POINTING_HAND);
+      if (!this.selected) {
+        this.set_style(`border: 4px solid ${this.settings.get_string('hovered-item-border-color')}`);
+      }
     });
     this.connect('motion-event', () => {
       Global.get().display.set_cursor(Cursor.POINTING_HAND);
     });
     this.connect('leave-event', () => {
       Global.get().display.set_cursor(Cursor.DEFAULT);
+      if (!this.selected) {
+        this.set_style('');
+      }
     });
 
     this.connect('activated', () => {
       this.get_parent()?.get_parent()?.get_parent()?.hide();
+
+      if (this.dbItem.itemType === 'LINK' && this.settings.get_boolean('open-links-in-browser')) {
+        return;
+      }
 
       if (this.settings.get_boolean('paste-on-select')) {
         // See https://github.com/SUPERCILEX/gnome-clipboard-history/blob/master/extension.js#L606
@@ -94,8 +112,20 @@ export class PanoItem extends BoxLayout {
     });
 
     this.header = new PanoItemHeader(PanoItemTypes[dbItem.itemType], dbItem.copyDate);
+    this.header.setFavorite(this.dbItem.isFavorite);
     this.header.connect('on-remove', () => {
       this.emit('on-remove', JSON.stringify(this.dbItem));
+      return EVENT_PROPAGATE;
+    });
+
+    this.header.connect('on-favorite', () => {
+      this.dbItem = { ...this.dbItem, isFavorite: !this.dbItem.isFavorite };
+      this.emit('on-favorite', JSON.stringify(this.dbItem));
+      return EVENT_PROPAGATE;
+    });
+
+    this.connect('on-favorite', () => {
+      this.header.setFavorite(this.dbItem.isFavorite);
       return EVENT_PROPAGATE;
     });
 
@@ -122,11 +152,13 @@ export class PanoItem extends BoxLayout {
 
   private setSelected(selected: boolean) {
     if (selected) {
-      this.add_style_pseudo_class('selected');
+      const activeItemBorderColor = this.settings.get_string('active-item-border-color');
+      this.set_style(`border: 4px solid ${activeItemBorderColor} !important;`);
       this.grab_key_focus();
     } else {
-      this.remove_style_pseudo_class('selected');
+      this.set_style('');
     }
+    this.selected = selected;
   }
   override vfunc_key_press_event(event: KeyEvent): boolean {
     if (event.keyval === KEY_Return || event.keyval === KEY_ISO_Enter || event.keyval === KEY_KP_Enter) {
@@ -135,6 +167,11 @@ export class PanoItem extends BoxLayout {
     }
     if (event.keyval === KEY_Delete || event.keyval === KEY_KP_Delete) {
       this.emit('on-remove', JSON.stringify(this.dbItem));
+      return EVENT_STOP;
+    }
+    if ((event.keyval === KEY_S || event.keyval === KEY_s) && event.modifier_state === ModifierType.CONTROL_MASK) {
+      this.dbItem = { ...this.dbItem, isFavorite: !this.dbItem.isFavorite };
+      this.emit('on-favorite', JSON.stringify(this.dbItem));
       return EVENT_STOP;
     }
     return EVENT_PROPAGATE;

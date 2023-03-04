@@ -1,7 +1,8 @@
-import { PreferencesGroup, PreferencesPage } from '@gi-types/adw1';
+import { PreferencesPage } from '@gi-types/adw1';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { _ } from '@pano/utils/shell';
-import { WindowHeightRow } from './windowHeight';
+import { CommonStyleGroup } from './commonStyleGroup';
+import { ItemStyleGroup } from './itemStyleGroup';
 
 @registerGObjectClass
 export class CustomizationPage extends PreferencesPage {
@@ -11,9 +12,7 @@ export class CustomizationPage extends PreferencesPage {
       icon_name: 'emblem-photos-symbolic',
     });
 
-    const customizationGroup = new PreferencesGroup();
-    customizationGroup.add(new WindowHeightRow());
-
-    this.add(customizationGroup);
+    this.add(new CommonStyleGroup());
+    this.add(new ItemStyleGroup());
   }
 }

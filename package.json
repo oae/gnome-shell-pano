@@ -85,6 +85,7 @@
     "@gi-types/soup3": "^3.0.1",
     "@gi-types/st1": "^1.0.1",
     "date-fns": "^2.29.2",
+    "hex-color-converter": "^0.2.1",
     "highlight.js": "^11.6.0",
     "htmlparser2": "^8.0.1",
     "is-url": "^1.2.4",

@@ -1,4 +1,5 @@
 import { ActorAlign } from '@gi-types/clutter10';
+import { Settings } from '@gi-types/gio2';
 import { EllipsizeMode } from '@gi-types/pango1';
 import { BoxLayout, Icon, Label } from '@gi-types/st1';
 import { PanoItem } from '@pano/components/panoItem';
@@ -10,6 +11,7 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 export class FilePanoItem extends PanoItem {
   private fileList: string[];
   private operation: string;
+  private fileItemSettings: Settings;
 
   constructor(dbItem: DBItem) {
     super(dbItem);
@@ -19,11 +21,14 @@ export class FilePanoItem extends PanoItem {
 
     this.body.add_style_class_name('pano-item-body-file');
 
+    this.fileItemSettings = this.settings.get_child('file-item');
+
     const container = new BoxLayout({
       style_class: 'copied-files-container',
       vertical: true,
       x_expand: true,
-      clip_to_allocation: true,
+      y_expand: false,
+      y_align: ActorAlign.FILL,
     });
 
     this.fileList
@@ -31,11 +36,10 @@ export class FilePanoItem extends PanoItem {
         const items = f.split('://').filter((c) => !!c);
         return decodeURIComponent(items[items.length - 1]);
       })
-      .slice(0, 11)
-      .forEach((uri, index) => {
+      .forEach((uri) => {
         const bl = new BoxLayout({
           vertical: false,
-          style_class: `copied-file-name ${index % 2 === 0 ? 'even' : 'odd'}`,
+          style_class: 'copied-file-name',
           x_expand: true,
           x_align: ActorAlign.FILL,
           clip_to_allocation: true,
@@ -49,12 +53,9 @@ export class FilePanoItem extends PanoItem {
             style_class: 'file-icon',
           }),
         );
-
-        const hasMore = index === 10 && this.fileList.length > 11;
-
         const uriLabel = new Label({
-          text: hasMore ? `...and ${this.fileList.length - index} more` : uri,
-          style_class: `pano-item-body-file-name-label ${hasMore ? 'has-more' : ''}`,
+          text: uri,
+          style_class: 'pano-item-body-file-name-label',
           x_align: ActorAlign.FILL,
           x_expand: true,
         });
@@ -64,7 +65,24 @@ export class FilePanoItem extends PanoItem {
       });
 
     this.body.add_child(container);
+
     this.connect('activated', this.setClipboardContent.bind(this));
+    this.setStyle();
+    this.fileItemSettings.connect('changed', this.setStyle.bind(this));
+  }
+
+  private setStyle() {
+    const headerBgColor = this.fileItemSettings.get_string('header-bg-color');
+    const headerColor = this.fileItemSettings.get_string('header-color');
+    const bodyBgColor = this.fileItemSettings.get_string('body-bg-color');
+    const bodyColor = this.fileItemSettings.get_string('body-color');
+    const bodyFontFamily = this.fileItemSettings.get_string('body-font-family');
+    const bodyFontSize = this.fileItemSettings.get_int('body-font-size');
+
+    this.header.set_style(`background-color: ${headerBgColor}; color: ${headerColor};`);
+    this.body.set_style(
+      `background-color: ${bodyBgColor}; color: ${bodyColor}; font-family: ${bodyFontFamily}; font-size: ${bodyFontSize}px;`,
+    );
   }
 
   private setClipboardContent(): void {

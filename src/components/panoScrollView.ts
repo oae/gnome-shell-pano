@@ -5,15 +5,20 @@ import {
   EVENT_STOP,
   KeyEvent,
   keysym_to_unicode,
+  KEY_Alt_L,
+  KEY_Alt_R,
   KEY_BackSpace,
+  KEY_ISO_Left_Tab,
+  KEY_KP_Tab,
   KEY_Left,
   KEY_Right,
+  KEY_Tab,
   KEY_Up,
   ScrollDirection,
   ScrollEvent,
 } from '@gi-types/clutter10';
 import { Settings } from '@gi-types/gio2';
-import { MetaInfo, TYPE_STRING } from '@gi-types/gobject2';
+import { MetaInfo, TYPE_BOOLEAN, TYPE_STRING } from '@gi-types/gobject2';
 import { BoxLayout, PolicyType, ScrollView } from '@gi-types/st1';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, clipboardManager } from '@pano/utils/clipboardManager';
@@ -28,6 +33,12 @@ export class PanoScrollView extends ScrollView {
     GTypeName: 'PanoScrollView',
     Signals: {
       'scroll-focus-out': {},
+      'scroll-update-list': {},
+      'scroll-alt-press': {},
+      'scroll-tab-press': {
+        param_types: [TYPE_BOOLEAN],
+        accumulator: 0,
+      },
       'scroll-backspace-press': {},
       'scroll-key-press': {
         param_types: [TYPE_STRING],
@@ -40,6 +51,8 @@ export class PanoScrollView extends ScrollView {
   private settings: Settings;
   private currentFocus: PanoItem | null = null;
   private currentFilter: string;
+  private currentItemTypeFilter: string;
+  private showFavorites: boolean;
 
   constructor() {
     super({
@@ -55,6 +68,19 @@ export class PanoScrollView extends ScrollView {
     this.add_actor(this.list);
 
     this.connect('key-press-event', (_: ScrollView, event: Event) => {
+      if (
+        event.get_key_symbol() === KEY_Tab ||
+        event.get_key_symbol() === KEY_ISO_Left_Tab ||
+        event.get_key_symbol() === KEY_KP_Tab
+      ) {
+        this.emit('scroll-tab-press', event.has_shift_modifier());
+        return EVENT_STOP;
+      }
+      if (event.has_control_modifier() && event.get_key_symbol() >= 49 && event.get_key_symbol() <= 57) {
+        this.selectItemByIndex(event.get_key_symbol() - 49);
+        return EVENT_STOP;
+      }
+
       if (event.get_state()) {
         return EVENT_PROPAGATE;
       }
@@ -66,6 +92,10 @@ export class PanoScrollView extends ScrollView {
       ) {
         this.emit('scroll-focus-out');
         return EVENT_STOP;
+      }
+      if (event.get_key_symbol() === KEY_Alt_L || event.get_key_symbol() === KEY_Alt_R) {
+        this.emit('scroll-alt-press');
+        return EVENT_PROPAGATE;
       }
 
       if (event.get_key_symbol() == KEY_BackSpace) {
@@ -82,21 +112,14 @@ export class PanoScrollView extends ScrollView {
       return EVENT_STOP;
     });
 
-    db.query(new ClipboardQueryBuilder().withLimit(-1, this.settings.get_int('history-length')).build()).forEach(
-      (dbItem) => {
-        removeItemResources(dbItem);
-      },
-    );
-
-    db.query(new ClipboardQueryBuilder().withLimit(this.settings.get_int('history-length'), 0).build()).forEach(
-      (dbItem) => {
-        const panoItem = createPanoItemFromDb(dbItem);
-        if (panoItem) {
-          this.connectOnRemove(panoItem);
-          this.list.add_child(panoItem);
-        }
-      },
-    );
+    db.query(new ClipboardQueryBuilder().build()).forEach((dbItem) => {
+      const panoItem = createPanoItemFromDb(dbItem);
+      if (panoItem) {
+        this.connectOnRemove(panoItem);
+        this.connectOnFavorite(panoItem);
+        this.list.add_child(panoItem);
+      }
+    });
 
     const firstItem = this.list.get_first_child() as PanoItem;
     if (firstItem) {
@@ -111,7 +134,7 @@ export class PanoScrollView extends ScrollView {
       const panoItem = await createPanoItem(content);
       if (panoItem) {
         this.prependItem(panoItem);
-        this.filter(this.currentFilter);
+        this.filter(this.currentFilter, this.currentItemTypeFilter, this.showFavorites);
       }
     });
   }
@@ -124,9 +147,16 @@ export class PanoScrollView extends ScrollView {
     }
 
     this.connectOnRemove(panoItem);
+    this.connectOnFavorite(panoItem);
 
     this.list.insert_child_at_index(panoItem, 0);
     this.removeExcessiveItems();
+  }
+
+  private connectOnFavorite(panoItem: PanoItem) {
+    panoItem.connect('on-favorite', () => {
+      this.emit('scroll-update-list');
+    });
   }
 
   private connectOnRemove(panoItem: PanoItem) {
@@ -135,7 +165,7 @@ export class PanoScrollView extends ScrollView {
         this.focusNext() || this.focusPrev();
       }
       this.removeItem(panoItem);
-      this.filter(this.currentFilter);
+      this.filter(this.currentFilter, this.currentItemTypeFilter, this.showFavorites);
       if (this.getVisibleItems().length === 0) {
         this.emit('scroll-focus-out');
       } else {
@@ -163,18 +193,17 @@ export class PanoScrollView extends ScrollView {
 
   private removeExcessiveItems() {
     const historyLength = this.settings.get_int('history-length');
-    if (historyLength < this.getItems().length) {
-      this.getItems()
-        .slice(historyLength)
-        .forEach((item) => {
-          this.removeItem(item);
-        });
+    const items = this.getItems().filter((i) => i.dbItem.isFavorite === false);
+    if (historyLength < items.length) {
+      items.slice(historyLength).forEach((item) => {
+        this.removeItem(item);
+      });
     }
-    db.query(new ClipboardQueryBuilder().withLimit(-1, this.settings.get_int('history-length')).build()).forEach(
-      (dbItem) => {
-        removeItemResources(dbItem);
-      },
-    );
+    db.query(
+      new ClipboardQueryBuilder().withFavorites(false).withLimit(-1, this.settings.get_int('history-length')).build(),
+    ).forEach((dbItem) => {
+      removeItemResources(dbItem);
+    });
   }
 
   private focusNext() {
@@ -209,21 +238,30 @@ export class PanoScrollView extends ScrollView {
     return false;
   }
 
-  filter(text: string) {
+  filter(text: string, itemType: string, showFavorites: boolean) {
     this.currentFilter = text;
-    if (!text) {
+    this.currentItemTypeFilter = itemType;
+    this.showFavorites = showFavorites;
+    if (!text && !itemType && null === showFavorites) {
       this.getItems().forEach((i) => i.show());
       return;
     }
 
-    const result = db
-      .query(
-        new ClipboardQueryBuilder()
-          .withContainingSearchValue(text)
-          .withLimit(this.settings.get_int('history-length'), 0)
-          .build(),
-      )
-      .map((dbItem) => dbItem.id);
+    const builder = new ClipboardQueryBuilder();
+
+    if (showFavorites) {
+      builder.withFavorites(showFavorites);
+    }
+
+    if (itemType) {
+      builder.withItemTypes([itemType]);
+    }
+
+    if (text) {
+      builder.withContainingSearchValue(text);
+    }
+
+    const result = db.query(builder.build()).map((dbItem) => dbItem.id);
 
     this.getItems().forEach((item) => (result.indexOf(item.dbItem.id) >= 0 ? item.show() : item.hide()));
   }
@@ -280,6 +318,18 @@ export class PanoScrollView extends ScrollView {
     this.scrollToItem(this.currentFocus);
   }
 
+  focusAndScrollToFirst() {
+    if (this.getVisibleItems().length === 0) {
+      this.emit('scroll-focus-out');
+      this.currentFocus = null;
+      return;
+    }
+
+    this.currentFocus = this.getVisibleItems()[0];
+    this.currentFocus.grab_key_focus();
+    this.hscroll.adjustment.set_value(this.get_allocation_box().x1);
+  }
+
   beforeHide() {
     this.currentFocus = null;
     this.scrollToFirstItem();
@@ -307,6 +357,14 @@ export class PanoScrollView extends ScrollView {
     const visibleItems = this.getVisibleItems();
     if (visibleItems.length > 0) {
       const item = visibleItems[0];
+      item.emit('activated');
+    }
+  }
+
+  selectItemByIndex(index: number) {
+    const visibleItems = this.getVisibleItems();
+    if (visibleItems.length > index) {
+      const item = visibleItems[index];
       item.emit('activated');
     }
   }

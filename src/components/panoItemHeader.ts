@@ -13,10 +13,12 @@ export class PanoItemHeader extends BoxLayout {
     GTypeName: 'PanoItemHeader',
     Signals: {
       'on-remove': {},
+      'on-favorite': {},
     },
   };
 
   private dateUpdateIntervalId: any;
+  private favoriteButton: Button;
 
   constructor(itemType: IPanoItemType, date: Date) {
     super({
@@ -39,8 +41,7 @@ export class PanoItemHeader extends BoxLayout {
 
     iconContainer.add_child(
       new Icon({
-        gicon: icon_new_for_string(`${getCurrentExtension().path}/icons/${itemType.icon}`),
-        style_class: 'pano-icon',
+        gicon: icon_new_for_string(`${getCurrentExtension().path}/icons/hicolor/scalable/actions/${itemType.iconPath}`),
       }),
     );
 
@@ -73,9 +74,24 @@ export class PanoItemHeader extends BoxLayout {
       y_align: ActorAlign.START,
     });
 
+    const favoriteIcon = new Icon({
+      icon_name: 'starred-symbolic',
+      icon_size: 10,
+    });
+
+    this.favoriteButton = new Button({
+      style_class: 'pano-item-favorite-button',
+      child: favoriteIcon,
+    });
+
+    this.favoriteButton.connect('clicked', () => {
+      this.emit('on-favorite');
+      return EVENT_PROPAGATE;
+    });
+
     const removeIcon = new Icon({
       icon_name: 'window-close-symbolic',
-      icon_size: 12,
+      icon_size: 10,
     });
 
     const removeButton = new Button({
@@ -88,11 +104,20 @@ export class PanoItemHeader extends BoxLayout {
       return EVENT_PROPAGATE;
     });
 
+    actionContainer.add_child(this.favoriteButton);
     actionContainer.add_child(removeButton);
 
     this.add_child(iconContainer);
     this.add_child(titleContainer);
     this.add_child(actionContainer);
+  }
+
+  setFavorite(isFavorite: boolean): void {
+    if (isFavorite) {
+      this.favoriteButton.add_style_pseudo_class('active');
+    } else {
+      this.favoriteButton.remove_style_pseudo_class('active');
+    }
   }
 
   override destroy(): void {
