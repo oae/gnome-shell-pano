@@ -11,7 +11,7 @@
     "build:types": "yarn run clean:types && gi-ts generate",
     "gen:locale": "yarn run ts-node scripts/generateLocale.ts",
     "clean:types": "rm -rf ./@types",
-    "build:ts": "yarn run clean:ts && rollup -c",
+    "build:ts": "yarn run clean:ts && rollup -c && sed -i '/setTimeout/d' dist/thirdparty/*.js",
     "clean:ts": "rm -rf ./dist",
     "build:extension": "yarn run build:schema",
     "build:schema": "yarn run clean:schema && glib-compile-schemas ./resources/schemas --targetdir=./dist/schemas/",
@@ -92,6 +92,6 @@
     "is-url": "^1.2.4",
     "pretty-bytes": "^6.0.0",
     "prismjs": "^1.28.0",
-    "validate-color": "^2.2.1"
+    "validate-color": "https://gitpkg.now.sh/dreamyguy/validate-color/src/validate-color"
   }
 }
