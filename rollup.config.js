@@ -34,7 +34,6 @@ const thirdParty = [
   'date-fns',
   'date-fns/locale',
   'hex-color-converter',
-  'highlight.js',
   'is-url',
   'pretty-bytes',
   'validate-color',
