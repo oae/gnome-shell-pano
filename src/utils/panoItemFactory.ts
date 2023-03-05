@@ -358,7 +358,6 @@ export const removeItemResources = (dbItem: DBItem) => {
 };
 
 const sendNotification = async (dbItem: DBItem) => {
-  debug(`sending notification for item: ${dbItem.id} - ${dbItem.itemType}}`);
   return new Promise(() => {
     if (dbItem.itemType === 'IMAGE') {
       const { width, height, size }: { width: number; height: number; size: number } = JSON.parse(
