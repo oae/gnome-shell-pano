@@ -1,19 +1,19 @@
 import { PreferencesGroup } from '@gi-types/adw1';
 import { DBLocationRow } from '@pano/prefs/general/dbLocation';
 import { HistoryLengthRow } from '@pano/prefs/general/historyLength';
+import { IncognitoShortcutRow } from '@pano/prefs/general/incognitoShortcutRow';
+import { KeepSearchEntryRow } from '@pano/prefs/general/keepSearchEntryOnHide';
+import { LinkPreviewsRow } from '@pano/prefs/general/linkPreviews';
+import { OpenLinksInBrowserRow } from '@pano/prefs/general/openLinksInBrowser';
 import { PasteOnSelectRow } from '@pano/prefs/general/pasteOnSelect';
 import { PlayAudioOnCopyRow } from '@pano/prefs/general/playAudioOnCopy';
+import { SendNotificationOnCopyRow } from '@pano/prefs/general/sendNotificationOnCopy';
 import { ShortcutRow } from '@pano/prefs/general/shortcutRow';
+import { ShowIndicatorRow } from '@pano/prefs/general/showIndicator';
+import { SyncPrimaryRow } from '@pano/prefs/general/syncPrimary';
 import { WatchExclusionsRow } from '@pano/prefs/general/watchExclusions';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { _ } from '@pano/utils/shell';
-import { IncognitoShortcutRow } from '@pano/prefs/general/incognitoShortcutRow';
-import { ShowIndicatorRow } from '@pano/prefs/general/showIndicator';
-import { LinkPreviewsRow } from '@pano/prefs/general/linkPreviews';
-import { SyncPrimaryRow } from './syncPrimary';
-import { KeepSearchEntryRow } from './keepSearchEntryOnHide';
-import { SendNotificationOnCopyRow } from './sendNotificationOnCopy';
-import { OpenLinksInBrowserRow } from './openLinksInBrowser';
 
 @registerGObjectClass
 export class GeneralGroup extends PreferencesGroup {

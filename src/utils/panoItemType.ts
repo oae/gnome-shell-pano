@@ -1,4 +1,4 @@
-import { _ } from './shell';
+import { _ } from '@pano/utils/shell';
 
 export const PanoItemTypes = {
   LINK: { classSuffix: 'link', title: _('Link'), iconPath: 'link-symbolic.svg', iconName: 'link-symbolic' },

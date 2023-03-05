@@ -3,8 +3,6 @@ import {
   Event,
   EVENT_PROPAGATE,
   EVENT_STOP,
-  KeyEvent,
-  keysym_to_unicode,
   KEY_Alt_L,
   KEY_Alt_R,
   KEY_BackSpace,
@@ -14,6 +12,8 @@ import {
   KEY_Right,
   KEY_Tab,
   KEY_Up,
+  KeyEvent,
+  keysym_to_unicode,
   ScrollDirection,
   ScrollEvent,
 } from '@gi-types/clutter10';

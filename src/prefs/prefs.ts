@@ -1,10 +1,10 @@
 import { PreferencesWindow } from '@gi-types/adw1';
 import { Display } from '@gi-types/gdk4';
 import { IconTheme } from '@gi-types/gtk4';
+import { CustomizationPage } from '@pano/prefs/customization';
 import { DangerZonePage } from '@pano/prefs/dangerZone';
 import { GeneralPage } from '@pano/prefs/general';
 import { getCurrentExtension, initTranslations, logger } from '@pano/utils/shell';
-import { CustomizationPage } from './customization';
 
 const debug = logger('prefs');
 const init = (): void => {

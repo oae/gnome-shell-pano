@@ -2,7 +2,7 @@ import { ActionRow } from '@gi-types/adw1';
 import { Settings, SettingsBindFlags } from '@gi-types/gio2';
 import { Adjustment, Align, SpinButton } from '@gi-types/gtk4';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { getCurrentExtensionSettings, _ } from '@pano/utils/shell';
+import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class HistoryLengthRow extends ActionRow {

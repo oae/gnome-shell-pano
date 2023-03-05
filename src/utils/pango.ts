@@ -1,5 +1,5 @@
-import { languages, tokenize, util } from 'prismjs';
 import { logger } from '@pano/utils/shell';
+import { languages, tokenize, util } from 'prismjs';
 
 const debug = logger('pango');
 

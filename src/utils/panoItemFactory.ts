@@ -1,9 +1,7 @@
-import isUrl from 'is-url';
-import { validateHTMLColorHex, validateHTMLColorName, validateHTMLColorRgb } from 'validate-color/lib/index';
-
 import { Colorspace, Pixbuf } from '@gi-types/gdkpixbuf2';
 import { File, FileCreateFlags } from '@gi-types/gio2';
-import { ChecksumType, compute_checksum_for_bytes, UriFlags, uri_parse } from '@gi-types/glib2';
+import { ChecksumType, compute_checksum_for_bytes, uri_parse, UriFlags } from '@gi-types/glib2';
+import { PixelFormat } from '@imports/cogl2';
 import { CodePanoItem } from '@pano/components/codePanoItem';
 import { ColorPanoItem } from '@pano/components/colorPanoItem';
 import { EmojiPanoItem } from '@pano/components/emojiPanoItem';
@@ -15,7 +13,8 @@ import { TextPanoItem } from '@pano/components/textPanoItem';
 import { ClipboardContent, ContentType, FileOperation } from '@pano/utils/clipboardManager';
 import { ClipboardQueryBuilder, db, DBItem } from '@pano/utils/db';
 import { getDocument, getImage } from '@pano/utils/linkParser';
-import { getCachePath, getCurrentExtensionSettings, getImagesPath, logger, playAudio, _ } from '@pano/utils/shell';
+import { _, getCachePath, getCurrentExtensionSettings, getImagesPath, logger, playAudio } from '@pano/utils/shell';
+import { notify } from '@pano/utils/ui';
 import converter from 'hex-color-converter';
 import hljs from 'highlight.js/lib/core';
 import bash from 'highlight.js/lib/languages/bash';
@@ -43,9 +42,9 @@ import sql from 'highlight.js/lib/languages/sql';
 import swift from 'highlight.js/lib/languages/swift';
 import typescript from 'highlight.js/lib/languages/typescript';
 import yaml from 'highlight.js/lib/languages/yaml';
+import isUrl from 'is-url';
 import prettyBytes from 'pretty-bytes';
-import { notify } from './ui';
-import { PixelFormat } from '@imports/cogl2';
+import { validateHTMLColorHex, validateHTMLColorName, validateHTMLColorRgb } from 'validate-color/lib/index';
 
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('markdown', markdown);

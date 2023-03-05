@@ -13,14 +13,14 @@ import {
   KEY_Right,
   KEY_Tab,
 } from '@gi-types/clutter10';
-import { IconPrototype, icon_new_for_string } from '@gi-types/gio2';
+import { icon_new_for_string, IconPrototype } from '@gi-types/gio2';
 import { MetaInfo, TYPE_BOOLEAN, TYPE_INT, TYPE_STRING } from '@gi-types/gobject2';
 import { Cursor } from '@gi-types/meta10';
 import { Global } from '@gi-types/shell0';
 import { BoxLayout, Entry, Icon } from '@gi-types/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { PanoItemTypes } from '@pano/utils/panoItemType';
-import { getCurrentExtension, _ } from '@pano/utils/shell';
+import { _, getCurrentExtension } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class SearchBox extends BoxLayout {

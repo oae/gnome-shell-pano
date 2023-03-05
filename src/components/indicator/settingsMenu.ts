@@ -3,16 +3,16 @@ import {
   BUTTON_PRIMARY,
   BUTTON_SECONDARY,
   Event,
-  EventType,
   EVENT_PROPAGATE,
+  EventType,
 } from '@gi-types/clutter10';
 import { icon_new_for_string, Settings } from '@gi-types/gio2';
 import { MetaInfo, TYPE_BOOLEAN } from '@gi-types/gobject2';
 import { Icon } from '@gi-types/st1';
+import { ClearHistoryDialog } from '@pano/components/indicator/clearHistoryDialog';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { getCurrentExtension, getCurrentExtensionSettings, _ } from '@pano/utils/shell';
+import { _, getCurrentExtension, getCurrentExtensionSettings } from '@pano/utils/shell';
 import { openExtensionPrefs } from '@pano/utils/ui';
-import { ClearHistoryDialog } from './clearHistoryDialog';
 
 const { PopupMenuItem, PopupSwitchMenuItem, PopupSeparatorMenuItem } = imports.ui.popupMenu;
 const { Button: PopupMenuButton } = imports.ui.panelMenu;

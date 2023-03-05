@@ -10,7 +10,7 @@ import {
   ResponseType,
 } from '@gi-types/gtk4';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { getCurrentExtensionSettings, getDbPath, _ } from '@pano/utils/shell';
+import { _, getCurrentExtensionSettings, getDbPath } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class DBLocationRow extends ActionRow {

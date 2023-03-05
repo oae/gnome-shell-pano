@@ -1,3 +1,5 @@
+import './styles/stylesheet.css';
+
 import { DBus, DBusExportedObject, DBusSignalFlags, Settings } from '@gi-types/gio2';
 import { PRIORITY_DEFAULT, Source, SOURCE_REMOVE, timeout_add } from '@gi-types/glib2';
 import { Global } from '@gi-types/shell0';
@@ -19,7 +21,6 @@ import {
   setupAppDirs,
 } from '@pano/utils/shell';
 import { addTopChrome, addToStatusArea, removeChrome, removeVirtualKeyboard } from '@pano/utils/ui';
-import './styles/stylesheet.css';
 
 const debug = logger('extension');
 class PanoExtension {

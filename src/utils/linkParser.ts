@@ -1,5 +1,5 @@
 import { File, FileCreateFlags, FilePrototype } from '@gi-types/gio2';
-import { ChecksumType, compute_checksum_for_string, PRIORITY_DEFAULT, UriFlags, uri_parse } from '@gi-types/glib2';
+import { ChecksumType, compute_checksum_for_string, PRIORITY_DEFAULT, uri_parse, UriFlags } from '@gi-types/glib2';
 import { Message, Session } from '@gi-types/soup3';
 import { getCachePath, logger } from '@pano/utils/shell';
 import * as htmlparser2 from 'htmlparser2';

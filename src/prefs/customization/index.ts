@@ -1,8 +1,8 @@
 import { PreferencesPage } from '@gi-types/adw1';
+import { CommonStyleGroup } from '@pano/prefs/customization/commonStyleGroup';
+import { ItemStyleGroup } from '@pano/prefs/customization/itemStyleGroup';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { _ } from '@pano/utils/shell';
-import { CommonStyleGroup } from './commonStyleGroup';
-import { ItemStyleGroup } from './itemStyleGroup';
 
 @registerGObjectClass
 export class CustomizationPage extends PreferencesPage {

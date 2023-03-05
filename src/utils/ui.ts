@@ -5,7 +5,7 @@ import { DateTime } from '@gi-types/glib2';
 import { Global } from '@gi-types/shell0';
 import { ImageContent } from '@gi-types/st1';
 import { PixelFormat } from '@imports/cogl2';
-import { getCurrentExtension, _ } from '@pano/utils/shell';
+import { _, getCurrentExtension } from '@pano/utils/shell';
 
 const global = Global.get();
 

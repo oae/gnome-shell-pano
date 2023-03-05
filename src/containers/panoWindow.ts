@@ -1,4 +1,4 @@
-import { ActorAlign, AnimationMode, EVENT_PROPAGATE, KeyEvent, KEY_Escape } from '@gi-types/clutter10';
+import { ActorAlign, AnimationMode, EVENT_PROPAGATE, KEY_Escape, KeyEvent } from '@gi-types/clutter10';
 import { Settings } from '@gi-types/gio2';
 import { BoxLayout } from '@gi-types/st1';
 import { MonitorBox } from '@pano/components/monitorBox';

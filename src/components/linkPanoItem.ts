@@ -1,12 +1,12 @@
 import { ActorAlign } from '@gi-types/clutter10';
 import { File, Settings } from '@gi-types/gio2';
-import { UriFlags, uri_parse } from '@gi-types/glib2';
+import { uri_parse, UriFlags } from '@gi-types/glib2';
 import { BoxLayout, Label } from '@gi-types/st1';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { getCachePath, getCurrentExtension, openUrlInBrowser as openLinkInBrowser, _ } from '@pano/utils/shell';
+import { _, getCachePath, getCurrentExtension, openUrlInBrowser as openLinkInBrowser } from '@pano/utils/shell';
 
 const DEFAULT_LINK_PREVIEW_IMAGE_NAME = 'link-preview.svg';
 

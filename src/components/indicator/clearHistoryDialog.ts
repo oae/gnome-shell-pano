@@ -1,7 +1,7 @@
 import { KEY_Escape } from '@gi-types/clutter10';
 import { Button } from '@gi-types/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { logger, _ } from '@pano/utils/shell';
+import { _, logger } from '@pano/utils/shell';
 
 const { ModalDialog } = imports.ui.modalDialog;
 const { MessageDialogContent } = imports.ui.dialog;

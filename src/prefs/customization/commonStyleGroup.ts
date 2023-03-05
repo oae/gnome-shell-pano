@@ -1,8 +1,8 @@
 import { PreferencesGroup } from '@gi-types/adw1';
 import { Settings } from '@gi-types/gio2';
+import { createColorRow, createSpinRow } from '@pano/prefs/customization/utils';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { getCurrentExtensionSettings, _ } from '@pano/utils/shell';
-import { createColorRow, createSpinRow } from './utils';
+import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class CommonStyleGroup extends PreferencesGroup {
