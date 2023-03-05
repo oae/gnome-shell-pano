@@ -31,7 +31,7 @@ const globals = {
 const thirdParty = [
   'htmlparser2',
   'prismjs',
-  'date-fns',
+  'date-fns/formatDistanceToNow',
   'date-fns/locale',
   'hex-color-converter',
   'is-url',
