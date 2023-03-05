@@ -130,6 +130,10 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
 
   const result = db.query(queryBuilder.build());
 
+  if (getCurrentExtensionSettings().get_boolean('play-audio-on-copy')) {
+    playAudio();
+  }
+
   if (result.length > 0) {
     return db.update({
       ...result[0],
@@ -281,10 +285,6 @@ export const createPanoItem = async (clip: ClipboardContent): Promise<PanoItem |
       sendNotification(dbItem);
     }
 
-    if (getCurrentExtensionSettings().get_boolean('play-audio-on-copy')) {
-      playAudio();
-    }
-
     return createPanoItemFromDb(dbItem);
   }
 
@@ -358,6 +358,7 @@ export const removeItemResources = (dbItem: DBItem) => {
 };
 
 const sendNotification = async (dbItem: DBItem) => {
+  debug(`sending notification for item: ${dbItem.id} - ${dbItem.itemType}}`);
   return new Promise(() => {
     if (dbItem.itemType === 'IMAGE') {
       const { width, height, size }: { width: number; height: number; size: number } = JSON.parse(
