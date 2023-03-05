@@ -37,7 +37,7 @@
 
 ## Favorites
 
-[Favorites](https://user-images.githubusercontent.com/1043714/222840128-7eec9fa1-5e60-4e79-95ee-f376081805d2.webm)
+[Favorites](https://user-images.githubusercontent.com/1043714/222934867-d8fb1c2c-81a2-46c6-a8b0-f0be96850d2f.webm)
 
 ## Content Aware Notifications
 
@@ -120,6 +120,8 @@
 ## Usage
 
 ### Navigation
+
+[Navigation](https://user-images.githubusercontent.com/1043714/222934876-2e922f6c-36db-456b-826b-3b129da540b4.webm)
 
 - `<super>` `<shift>` `v` can be use to toggle visibility of the Pano. This can be changed in Pano extension settings.
 - `<ctrl>` `<super>` `<shift>` `v` can be use to toggle incognito mode.
