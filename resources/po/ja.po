@@ -3,22 +3,22 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: fill-pot-po/2.1.9\n"
 
-#: src/components/indicator/clearHistoryDialog.ts:21
+#: src/components/indicator/clearHistoryDialog.ts:23
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: src/components/indicator/clearHistoryDialog.ts:28
+#: src/components/indicator/clearHistoryDialog.ts:30
 #: src/prefs/dangerZone/clearHistory.ts:17
 msgid "Clear"
 msgstr "クリア"
 
-#: src/components/indicator/clearHistoryDialog.ts:33
+#: src/components/indicator/clearHistoryDialog.ts:35
 #: src/components/indicator/settingsMenu.ts:75
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr "履歴をクリア"
 
-#: src/components/indicator/clearHistoryDialog.ts:34
+#: src/components/indicator/clearHistoryDialog.ts:36
 #: src/prefs/dangerZone/clearHistory.ts:23
 msgid "Are you sure you want to clear history?"
 msgstr "履歴をクリアしてもよろしいですか?"

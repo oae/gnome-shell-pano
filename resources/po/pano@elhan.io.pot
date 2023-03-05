@@ -30,7 +30,7 @@ msgstr ""
 msgid "Allows you to toggle visibility of the clipboard manager"
 msgstr ""
 
-#: src/components/indicator/clearHistoryDialog.ts:34
+#: src/components/indicator/clearHistoryDialog.ts:36
 #: src/prefs/dangerZone/clearHistory.ts:23
 msgid "Are you sure you want to clear history?"
 msgstr ""
@@ -56,7 +56,7 @@ msgstr ""
 msgid "Body Text Color"
 msgstr ""
 
-#: src/components/indicator/clearHistoryDialog.ts:21
+#: src/components/indicator/clearHistoryDialog.ts:23
 msgid "Cancel"
 msgstr ""
 
@@ -97,12 +97,12 @@ msgstr ""
 msgid "Choose pano database location"
 msgstr ""
 
-#: src/components/indicator/clearHistoryDialog.ts:28
+#: src/components/indicator/clearHistoryDialog.ts:30
 #: src/prefs/dangerZone/clearHistory.ts:17
 msgid "Clear"
 msgstr ""
 
-#: src/components/indicator/clearHistoryDialog.ts:33
+#: src/components/indicator/clearHistoryDialog.ts:35
 #: src/components/indicator/settingsMenu.ts:75
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"

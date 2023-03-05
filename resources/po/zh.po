@@ -3,22 +3,22 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: fill-pot-po/2.1.9\n"
 
-#: src/components/indicator/clearHistoryDialog.ts:21
+#: src/components/indicator/clearHistoryDialog.ts:23
 msgid "Cancel"
 msgstr "取消"
 
-#: src/components/indicator/clearHistoryDialog.ts:28
+#: src/components/indicator/clearHistoryDialog.ts:30
 #: src/prefs/dangerZone/clearHistory.ts:17
 msgid "Clear"
 msgstr "清楚"
 
-#: src/components/indicator/clearHistoryDialog.ts:33
+#: src/components/indicator/clearHistoryDialog.ts:35
 #: src/components/indicator/settingsMenu.ts:75
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr "清除历史记录"
 
-#: src/components/indicator/clearHistoryDialog.ts:34
+#: src/components/indicator/clearHistoryDialog.ts:36
 #: src/prefs/dangerZone/clearHistory.ts:23
 msgid "Are you sure you want to clear history?"
 msgstr "您确定要清除历史记录吗？"
