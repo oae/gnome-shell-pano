@@ -43,7 +43,7 @@ export class CommonStyleGroup extends PreferencesGroup {
     );
     this.add(
       createColorRow(
-        _('Hovered Item Border Color'),
+        _('Active Item Border Color'),
         _('You can change the active item border color'),
         this.settings,
         'active-item-border-color',

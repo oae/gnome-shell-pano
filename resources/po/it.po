@@ -192,12 +192,15 @@ msgid "You can change the incognito window background color"
 msgstr ""
 
 #: src/prefs/customization/commonStyleGroup.ts:46
-#: src/prefs/customization/commonStyleGroup.ts:54
-msgid "Hovered Item Border Color"
+msgid "Active Item Border Color"
 msgstr ""
 
 #: src/prefs/customization/commonStyleGroup.ts:47
 msgid "You can change the active item border color"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:54
+msgid "Hovered Item Border Color"
 msgstr ""
 
 #: src/prefs/customization/commonStyleGroup.ts:55

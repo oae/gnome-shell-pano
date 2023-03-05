@@ -2,6 +2,10 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
+#: src/prefs/customization/commonStyleGroup.ts:46
+msgid "Active Item Border Color"
+msgstr ""
+
 #: src/prefs/general/openLinksInBrowser.ts:14
 msgid "Allow Pano to open links on your default browser"
 msgstr ""
@@ -224,7 +228,6 @@ msgstr ""
 msgid "History Length"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:46
 #: src/prefs/customization/commonStyleGroup.ts:54
 msgid "Hovered Item Border Color"
 msgstr ""
