@@ -1,10 +1,12 @@
 import { KEY_Escape } from '@gi-types/clutter10';
 import { Button } from '@gi-types/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { _ } from '@pano/utils/shell';
+import { logger, _ } from '@pano/utils/shell';
 
 const { ModalDialog } = imports.ui.modalDialog;
 const { MessageDialogContent } = imports.ui.dialog;
+
+const debug = logger('clear-history-dialog');
 
 @registerGObjectClass
 export class ClearHistoryDialog extends ModalDialog {
@@ -48,7 +50,7 @@ export class ClearHistoryDialog extends ModalDialog {
     try {
       await this.onClear();
     } catch (err) {
-      log(`err: ${err}`);
+      debug(`err: ${err}`);
     }
     this.close();
   }
