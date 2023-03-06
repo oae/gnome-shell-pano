@@ -1,6 +1,7 @@
 import { ActorAlign, AnimationMode, EVENT_PROPAGATE, KEY_Escape, KeyEvent } from '@gi-types/clutter10';
 import { Settings } from '@gi-types/gio2';
-import { BoxLayout } from '@gi-types/st1';
+import { Global } from '@gi-types/shell0';
+import { BoxLayout, ThemeContext } from '@gi-types/st1';
 import { MonitorBox } from '@pano/components/monitorBox';
 import { PanoScrollView } from '@pano/components/panoScrollView';
 import { SearchBox } from '@pano/components/searchBox';
@@ -30,9 +31,15 @@ export class PanoWindow extends BoxLayout {
     });
 
     this.settings = getCurrentExtensionSettings();
-    this.set_height(this.settings.get_int('window-height'));
+    const themeContext = ThemeContext.get_for_stage(Global.get().get_stage());
+    this.set_height(this.settings.get_int('window-height') * themeContext.scaleFactor);
     this.settings.connect('changed::window-height', () => {
-      this.set_height(this.settings.get_int('window-height'));
+      this.set_height(this.settings.get_int('window-height') * themeContext.scaleFactor);
+    });
+
+    themeContext.connect('notify::scale-factor', () => {
+      const { scaleFactor } = ThemeContext.get_for_stage(Global.get().get_stage());
+      this.set_height(this.settings.get_int('window-height') * scaleFactor);
     });
 
     this.settings.connect('changed::window-background-color', () => {

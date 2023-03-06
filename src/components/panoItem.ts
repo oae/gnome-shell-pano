@@ -22,7 +22,7 @@ import { MetaInfo, TYPE_STRING } from '@gi-types/gobject2';
 import { Point } from '@gi-types/graphene1';
 import { Cursor } from '@gi-types/meta10';
 import { Global } from '@gi-types/shell0';
-import { BoxLayout } from '@gi-types/st1';
+import { BoxLayout, ThemeContext } from '@gi-types/st1';
 import { PanoItemHeader } from '@pano/components/panoItemHeader';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
@@ -140,14 +140,23 @@ export class PanoItem extends BoxLayout {
     this.add_child(this.header);
     this.add_child(this.body);
 
-    this.set_height(this.settings.get_int('window-height') - 80);
-    this.set_width(this.settings.get_int('window-height') - 80);
-    this.body.set_height(this.settings.get_int('window-height') - 80 - 57);
-    this.settings.connect('changed::window-height', () => {
-      this.set_height(this.settings.get_int('window-height') - 80);
-      this.set_width(this.settings.get_int('window-height') - 80);
-      this.body.set_height(this.settings.get_int('window-height') - 80 - 57);
+    const themeContext = ThemeContext.get_for_stage(Global.get().get_stage());
+
+    themeContext.connect('notify::scale-factor', () => {
+      this.setWindowHeight();
     });
+
+    this.setWindowHeight();
+    this.settings.connect('changed::window-height', () => {
+      this.setWindowHeight();
+    });
+  }
+
+  private setWindowHeight() {
+    const { scaleFactor } = ThemeContext.get_for_stage(Global.get().get_stage());
+    this.set_height((this.settings.get_int('window-height') - 80) * scaleFactor);
+    this.set_width((this.settings.get_int('window-height') - 80) * scaleFactor);
+    this.body.set_height((this.settings.get_int('window-height') - 80 - 57) * scaleFactor);
   }
 
   private setSelected(selected: boolean) {

@@ -17,7 +17,7 @@ import { icon_new_for_string, IconPrototype } from '@gi-types/gio2';
 import { MetaInfo, TYPE_BOOLEAN, TYPE_INT, TYPE_STRING } from '@gi-types/gobject2';
 import { Cursor } from '@gi-types/meta10';
 import { Global } from '@gi-types/shell0';
-import { BoxLayout, Entry, Icon } from '@gi-types/st1';
+import { BoxLayout, Entry, Icon, ThemeContext } from '@gi-types/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { PanoItemTypes } from '@pano/utils/panoItemType';
 import { _, getCurrentExtension } from '@pano/utils/shell';
@@ -51,13 +51,20 @@ export class SearchBox extends BoxLayout {
       vertical: false,
     });
 
+    const themeContext = ThemeContext.get_for_stage(Global.get().get_stage());
+
     this.search = new Entry({
       can_focus: true,
       hint_text: _('Type to search, Tab to cycle'),
       track_hover: true,
-      width: 300,
+      width: 300 * themeContext.scaleFactor,
       primary_icon: this.createSearchEntryIcon('edit-find-symbolic', 'search-entry-icon'),
       secondary_icon: this.createSearchEntryIcon('starred-symbolic', 'search-entry-fav-icon'),
+    });
+
+    themeContext.connect('notify::scale-factor', () => {
+      const { scaleFactor } = ThemeContext.get_for_stage(Global.get().get_stage());
+      this.search.set_width(300 * scaleFactor);
     });
 
     this.search.connect('primary-icon-clicked', () => {
