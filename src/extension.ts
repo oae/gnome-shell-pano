@@ -162,7 +162,10 @@ class PanoExtension {
       if (
         wmClass &&
         this.settings.get_boolean('watch-exclusion-list') &&
-        this.settings.get_strv('exclusion-list').indexOf(wmClass) >= 0
+        this.settings
+          .get_strv('exclusion-list')
+          .map((s) => s.toLowerCase())
+          .indexOf(wmClass.toLowerCase()) >= 0
       ) {
         clipboardManager.stopTracking();
       } else if (clipboardManager.isTracking === false) {
