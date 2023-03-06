@@ -35,7 +35,7 @@ msgstr "Impostazioni"
 msgid "No Description"
 msgstr "Nessuna descrizione"
 
-#: src/components/searchBox.ts:56
+#: src/components/searchBox.ts:58
 msgid "Type to search, Tab to cycle"
 msgstr "Digita per cercare, Tab per scorrere"
 
@@ -425,7 +425,7 @@ msgstr "Apri i link nel browser"
 
 #: src/prefs/general/openLinksInBrowser.ts:14
 msgid "Allow Pano to open links on your default browser"
-msgstr ""Consenti a Pano di aprire i link nel tuo browser predefinito"
+msgstr "Consenti a Pano di aprire i link nel tuo browser predefinito"
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"

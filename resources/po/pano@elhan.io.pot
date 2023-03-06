@@ -405,7 +405,7 @@ msgstr ""
 msgid "There are %s file(s)"
 msgstr ""
 
-#: src/components/searchBox.ts:56
+#: src/components/searchBox.ts:58
 msgid "Type to search, Tab to cycle"
 msgstr ""
 
