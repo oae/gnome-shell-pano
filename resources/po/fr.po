@@ -31,7 +31,7 @@ msgstr "Mode incognito"
 msgid "Settings"
 msgstr "Paramètres"
 
-#: src/components/linkPanoItem.ts:37
+#: src/components/linkPanoItem.ts:45
 msgid "No Description"
 msgstr ""
 

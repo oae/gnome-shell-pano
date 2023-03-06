@@ -1,15 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: Amerey.eu <info@amerey.eu>\n"
-"Language-Team: \n"
-"Language: cs\n"
-"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: fill-pot-po/2.1.9\n"
 
 #: src/components/indicator/clearHistoryDialog.ts:23
 msgid "Cancel"
@@ -39,7 +31,7 @@ msgstr "Anonymní režim"
 msgid "Settings"
 msgstr "Nastavení"
 
-#: src/components/linkPanoItem.ts:37
+#: src/components/linkPanoItem.ts:45
 msgid "No Description"
 msgstr "Bez popisu"
 

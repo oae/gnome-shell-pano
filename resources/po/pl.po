@@ -31,7 +31,7 @@ msgstr "Tryb Incognito"
 msgid "Settings"
 msgstr "Ustawienia"
 
-#: src/components/linkPanoItem.ts:37
+#: src/components/linkPanoItem.ts:45
 msgid "No Description"
 msgstr ""
 

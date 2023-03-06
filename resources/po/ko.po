@@ -31,7 +31,7 @@ msgstr "시크릿 모드"
 msgid "Settings"
 msgstr "설정"
 
-#: src/components/linkPanoItem.ts:37
+#: src/components/linkPanoItem.ts:45
 msgid "No Description"
 msgstr ""
 

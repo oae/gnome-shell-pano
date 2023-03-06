@@ -1,4 +1,12 @@
-import { ActorAlign } from '@gi-types/clutter10';
+import {
+  ActorAlign,
+  ButtonEvent,
+  EVENT_PROPAGATE,
+  KEY_ISO_Enter,
+  KEY_KP_Enter,
+  KEY_Return,
+  KeyEvent,
+} from '@gi-types/clutter10';
 import { File, Settings } from '@gi-types/gio2';
 import { uri_parse, UriFlags } from '@gi-types/glib2';
 import { BoxLayout, Label } from '@gi-types/st1';
@@ -6,7 +14,7 @@ import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { _, getCachePath, getCurrentExtension, openUrlInBrowser as openLinkInBrowser } from '@pano/utils/shell';
+import { _, getCachePath, getCurrentExtension, openLinkInBrowser } from '@pano/utils/shell';
 
 const DEFAULT_LINK_PREVIEW_IMAGE_NAME = 'link-preview.svg';
 
@@ -129,8 +137,26 @@ export class LinkPanoItem extends PanoItem {
         value: this.dbItem.content,
       }),
     );
-    if (this.settings.get_boolean('open-links-in-browser')) {
+  }
+
+  override vfunc_key_press_event(event: KeyEvent): boolean {
+    super.vfunc_key_press_event(event);
+    if (
+      this.settings.get_boolean('open-links-in-browser') &&
+      (event.keyval === KEY_Return || event.keyval === KEY_ISO_Enter || event.keyval === KEY_KP_Enter)
+    ) {
       openLinkInBrowser(this.dbItem.content);
     }
+
+    return EVENT_PROPAGATE;
+  }
+
+  override vfunc_button_release_event(event: ButtonEvent): boolean {
+    super.vfunc_button_release_event(event);
+    if (event.button === 1 && this.settings.get_boolean('open-links-in-browser')) {
+      openLinkInBrowser(this.dbItem.content);
+    }
+
+    return EVENT_PROPAGATE;
   }
 }

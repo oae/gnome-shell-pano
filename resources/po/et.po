@@ -31,7 +31,7 @@ msgstr "Inkognito režiim"
 msgid "Settings"
 msgstr "Seaded"
 
-#: src/components/linkPanoItem.ts:37
+#: src/components/linkPanoItem.ts:45
 msgid "No Description"
 msgstr ""
 
