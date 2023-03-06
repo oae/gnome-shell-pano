@@ -33,19 +33,19 @@ msgstr "Impostazioni"
 
 #: src/components/linkPanoItem.ts:45
 msgid "No Description"
-msgstr ""
+msgstr "Nessuna descrizione"
 
 #: src/components/searchBox.ts:56
 msgid "Type to search, Tab to cycle"
-msgstr ""
+msgstr "Digita per cercare, Tab per scorrere"
 
 #: src/prefs/customization/codeItemStyle.ts:13
 msgid "Change the style of the code item"
-msgstr ""
+msgstr "Cambia lo stile dell'elemento di codice"
 
 #: src/prefs/customization/codeItemStyle.ts:13
 msgid "Code Item Style"
-msgstr ""
+msgstr "Codice Voce Stile"
 
 #: src/prefs/customization/codeItemStyle.ts:20
 #: src/prefs/customization/colorItemStyle.ts:20
@@ -55,7 +55,7 @@ msgstr ""
 #: src/prefs/customization/linkItemStyle.ts:20
 #: src/prefs/customization/textItemStyle.ts:20
 msgid "Header Background Color"
-msgstr ""
+msgstr "Colore di sfondo dell'intestazione"
 
 #: src/prefs/customization/codeItemStyle.ts:21
 #: src/prefs/customization/colorItemStyle.ts:21
@@ -65,7 +65,7 @@ msgstr ""
 #: src/prefs/customization/linkItemStyle.ts:21
 #: src/prefs/customization/textItemStyle.ts:21
 msgid "You can change the background color of the header"
-msgstr ""
+msgstr "Puoi cambiare il colore di sfondo dell'intestazione"
 
 #: src/prefs/customization/codeItemStyle.ts:30
 #: src/prefs/customization/colorItemStyle.ts:30
@@ -75,7 +75,7 @@ msgstr ""
 #: src/prefs/customization/linkItemStyle.ts:30
 #: src/prefs/customization/textItemStyle.ts:30
 msgid "Header Text Color"
-msgstr ""
+msgstr "Colore del testo dell'intestazione"
 
 #: src/prefs/customization/codeItemStyle.ts:31
 #: src/prefs/customization/colorItemStyle.ts:31
@@ -85,7 +85,7 @@ msgstr ""
 #: src/prefs/customization/linkItemStyle.ts:31
 #: src/prefs/customization/textItemStyle.ts:31
 msgid "You can change the text color of the header"
-msgstr ""
+msgstr "Puoi cambiare il colore del testo dell'intestazione"
 
 #: src/prefs/customization/codeItemStyle.ts:40
 #: src/prefs/customization/emojiItemStyle.ts:40
@@ -94,7 +94,7 @@ msgstr ""
 #: src/prefs/customization/linkItemStyle.ts:40
 #: src/prefs/customization/textItemStyle.ts:40
 msgid "Body Background Color"
-msgstr ""
+msgstr "Colore di sfondo del corpo"
 
 #: src/prefs/customization/codeItemStyle.ts:41
 #: src/prefs/customization/emojiItemStyle.ts:41
@@ -103,227 +103,227 @@ msgstr ""
 #: src/prefs/customization/linkItemStyle.ts:41
 #: src/prefs/customization/textItemStyle.ts:41
 msgid "You can change the background color of the body"
-msgstr ""
+msgstr "Puoi cambiare il colore di sfondo del corpo"
 
 #: src/prefs/customization/codeItemStyle.ts:48
 #: src/prefs/customization/colorItemStyle.ts:59
 #: src/prefs/customization/fileItemStyle.ts:53
 #: src/prefs/customization/textItemStyle.ts:53
 msgid "Body Font"
-msgstr ""
+msgstr "Carattere del corpo"
 
 #: src/prefs/customization/codeItemStyle.ts:48
 #: src/prefs/customization/fileItemStyle.ts:53
 #: src/prefs/customization/textItemStyle.ts:53
 msgid "You can change the font of the body"
-msgstr ""
+msgstr "Puoi cambiare il carattere del corpo"
 
 #: src/prefs/customization/codeItemStyle.ts:53
 #: src/prefs/customization/textItemStyle.ts:58
 msgid "Character Length"
-msgstr ""
+msgstr "Lunghezza caratteri"
 
 #: src/prefs/customization/codeItemStyle.ts:54
 #: src/prefs/customization/textItemStyle.ts:59
 msgid "You can change the character length of the visible text in the body"
-msgstr ""
+msgstr "Puoi modificare la lunghezza dei caratteri del testo visibile nel corpo"
 
 #: src/prefs/customization/colorItemStyle.ts:13
 msgid "Change the style of the color item"
-msgstr ""
+msgstr "Cambia lo stile del colore dell'elemento"
 
 #: src/prefs/customization/colorItemStyle.ts:13
 msgid "Color Item Style"
-msgstr ""
+msgstr "Stile colore elemento"
 
 #: src/prefs/customization/colorItemStyle.ts:40
 #: src/prefs/customization/imageItemStyle.ts:50
 #: src/prefs/customization/linkItemStyle.ts:50
 msgid "Metadata Background Color"
-msgstr ""
+msgstr "Colore di sfondo dei metadati"
 
 #: src/prefs/customization/colorItemStyle.ts:41
 #: src/prefs/customization/imageItemStyle.ts:51
 #: src/prefs/customization/linkItemStyle.ts:51
 msgid "You can change the background color of the metadata"
-msgstr ""
+msgstr "Puoi cambiare il colore di sfondo dei metadati"
 
 #: src/prefs/customization/colorItemStyle.ts:50
 #: src/prefs/customization/imageItemStyle.ts:60
 msgid "Metadata Text Color"
-msgstr ""
+msgstr "Colore del testo dei metadati"
 
 #: src/prefs/customization/colorItemStyle.ts:51
 #: src/prefs/customization/imageItemStyle.ts:61
 msgid "You can change the text color of the metadata"
-msgstr ""
+msgstr "Puoi cambiare il colore del testo dei metadati"
 
 #: src/prefs/customization/colorItemStyle.ts:59
 #: src/prefs/customization/imageItemStyle.ts:69
 msgid "You can change the font of the metadata"
-msgstr ""
+msgstr "Puoi cambiare il carattere dei metadati"
 
 #: src/prefs/customization/commonStyleGroup.ts:12
 msgid "Common"
-msgstr ""
+msgstr "Comune"
 
 #: src/prefs/customization/commonStyleGroup.ts:19
 msgid "Window Height"
-msgstr ""
+msgstr "Altezza della finestra"
 
 #: src/prefs/customization/commonStyleGroup.ts:20
 msgid "You can change the window height"
-msgstr ""
+msgstr "È possibile modificare l'altezza della finestra"
 
 #: src/prefs/customization/commonStyleGroup.ts:30
 msgid "Window Background Color"
-msgstr ""
+msgstr "Colore di sfondo della finestra"
 
 #: src/prefs/customization/commonStyleGroup.ts:31
 msgid "You can change the window background color"
-msgstr ""
+msgstr "Puoi cambiare il colore di sfondo della finestra"
 
 #: src/prefs/customization/commonStyleGroup.ts:38
 msgid "Incognito Window Background Color"
-msgstr ""
+msgstr "Colore di sfondo della finestra di navigazione in incognito"
 
 #: src/prefs/customization/commonStyleGroup.ts:39
 msgid "You can change the incognito window background color"
-msgstr ""
+msgstr "Puoi cambiare il colore di sfondo della finestra di navigazione in incognito"
 
 #: src/prefs/customization/commonStyleGroup.ts:46
 msgid "Active Item Border Color"
-msgstr ""
+msgstr "Colore del bordo dell'elemento attivo"
 
 #: src/prefs/customization/commonStyleGroup.ts:47
 msgid "You can change the active item border color"
-msgstr ""
+msgstr "È possibile modificare il colore del bordo dell'elemento attivo"
 
 #: src/prefs/customization/commonStyleGroup.ts:54
 msgid "Hovered Item Border Color"
-msgstr ""
+msgstr "Colore del bordo dell'elemento al passaggio del mouse"
 
 #: src/prefs/customization/commonStyleGroup.ts:55
 msgid "You can change the hovered item border color"
-msgstr ""
+msgstr "Puoi cambiare il colore del bordo dell'elemento al passaggio del mouse"
 
 #: src/prefs/customization/emojiItemStyle.ts:13
 msgid "Change the style of the emoji item"
-msgstr ""
+msgstr "Cambia lo stile dell'elemento emoji"
 
 #: src/prefs/customization/emojiItemStyle.ts:13
 msgid "Emoji Item Style"
-msgstr ""
+msgstr "Stile oggetto Emoji"
 
 #: src/prefs/customization/emojiItemStyle.ts:49
 msgid "Emoji Size"
-msgstr ""
+msgstr "Dimensione emoji"
 
 #: src/prefs/customization/emojiItemStyle.ts:49
 msgid "You can change the emoji size"
-msgstr ""
+msgstr "Puoi modificare la dimensione dell'emoji"
 
 #: src/prefs/customization/fileItemStyle.ts:13
 msgid "Change the style of the file item"
-msgstr ""
+msgstr "Cambia lo stile dell'elemento del file"
 
 #: src/prefs/customization/fileItemStyle.ts:13
 msgid "File Item Style"
-msgstr ""
+msgstr "Stile elemento file"
 
 #: src/prefs/customization/fileItemStyle.ts:49
 #: src/prefs/customization/textItemStyle.ts:49
 msgid "Body Text Color"
-msgstr ""
+msgstr "Colore del corpo del testo"
 
 #: src/prefs/customization/fileItemStyle.ts:49
 #: src/prefs/customization/textItemStyle.ts:49
 msgid "You can change the text color of the body"
-msgstr ""
+msgstr "Puoi cambiare il colore del testo del corpo"
 
 #: src/prefs/customization/imageItemStyle.ts:13
 msgid "Change the style of the image item"
-msgstr ""
+msgstr "Cambia lo stile dell'elemento immagine"
 
 #: src/prefs/customization/imageItemStyle.ts:13
 msgid "Image Item Style"
-msgstr ""
+msgstr "Stile oggetto immagine"
 
 #: src/prefs/customization/imageItemStyle.ts:69
 msgid "Metadata Font"
-msgstr ""
+msgstr "Carattere dei metadati"
 
 #: src/prefs/customization/index.ts:11
 msgid "Customization"
-msgstr ""
+msgstr "Personalizzazione"
 
 #: src/prefs/customization/itemStyleGroup.ts:16
 msgid "Item Style"
-msgstr ""
+msgstr "Stile elemento"
 
 #: src/prefs/customization/linkItemStyle.ts:13
 msgid "Change the style of the link item"
-msgstr ""
+msgstr "Modificare lo stile dell'elemento di collegamento"
 
 #: src/prefs/customization/linkItemStyle.ts:13
 msgid "Link Item Style"
-msgstr ""
+msgstr "Stile elemento di collegamento"
 
 #: src/prefs/customization/linkItemStyle.ts:60
 msgid "Metadata Title Color"
-msgstr ""
+msgstr "Colore del titolo dei metadati"
 
 #: src/prefs/customization/linkItemStyle.ts:61
 msgid "You can change the title color of the metadata"
-msgstr ""
+msgstr "Puoi cambiare il colore del titolo dei metadati"
 
 #: src/prefs/customization/linkItemStyle.ts:70
 msgid "Metadata Title Font"
-msgstr ""
+msgstr "Carattere del titolo dei metadati"
 
 #: src/prefs/customization/linkItemStyle.ts:71
 msgid "You can change the font of the metadata title"
-msgstr ""
+msgstr "È possibile modificare il carattere del titolo dei metadati"
 
 #: src/prefs/customization/linkItemStyle.ts:80
 msgid "Metadata Description Color"
-msgstr ""
+msgstr "Descrizione Colore Metadati"
 
 #: src/prefs/customization/linkItemStyle.ts:81
 msgid "You can change the description color of the metadata"
-msgstr ""
+msgstr "Puoi cambiare il colore della descrizione dei metadati"
 
 #: src/prefs/customization/linkItemStyle.ts:90
 msgid "Metadata Description Font"
-msgstr ""
+msgstr "Descrizione Carattere Metadati"
 
 #: src/prefs/customization/linkItemStyle.ts:91
 msgid "You can change the font of the metadata description"
-msgstr ""
+msgstr "È possibile modificare il carattere della descrizione dei metadati"
 
 #: src/prefs/customization/linkItemStyle.ts:100
 msgid "Metadata Link Color"
-msgstr ""
+msgstr "Colore del collegamento ai metadati"
 
 #: src/prefs/customization/linkItemStyle.ts:101
 msgid "You can change the link color of the metadata"
-msgstr ""
+msgstr "È possibile modificare il colore del collegamento dei metadati"
 
 #: src/prefs/customization/linkItemStyle.ts:110
 msgid "Metadata Link Font"
-msgstr ""
+msgstr "Carattere di collegamento metadati"
 
 #: src/prefs/customization/linkItemStyle.ts:111
 msgid "You can change the font of the metadata link"
-msgstr ""
+msgstr "È possibile modificare il carattere del collegamento ai metadati"
 
 #: src/prefs/customization/textItemStyle.ts:13
 msgid "Change the style of the text item"
-msgstr ""
+msgstr "Cambia lo stile dell'elemento di testo"
 
 #: src/prefs/customization/textItemStyle.ts:13
 msgid "Text Item Style"
-msgstr ""
+msgstr "Stile elemento di testo"
 
 #: src/prefs/dangerZone/clearHistory.ts:12
 msgid "Clears the clipboard database and cache"
@@ -421,11 +421,11 @@ msgstr "Consenti a Pano di visitare i collegamenti negli Appunti per generare an
 
 #: src/prefs/general/openLinksInBrowser.ts:13
 msgid "Open Links in Browser"
-msgstr ""
+msgstr "Apri i link nel browser"
 
 #: src/prefs/general/openLinksInBrowser.ts:14
 msgid "Allow Pano to open links on your default browser"
-msgstr ""
+msgstr ""Consenti a Pano di aprire i link nel tuo browser predefinito"
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"
@@ -445,11 +445,11 @@ msgstr "Consenti a Pano di riprodurre un audio durante la copia di nuovi contenu
 
 #: src/prefs/general/sendNotificationOnCopy.ts:13
 msgid "Send Notification on Copy"
-msgstr ""
+msgstr "Invia notifica su copia"
 
 #: src/prefs/general/sendNotificationOnCopy.ts:14
 msgid "Allow Pano to send notification when copying new content"
-msgstr ""
+msgstr "Consenti a Pano di inviare notifiche durante la copia di nuovi contenuti"
 
 #: src/prefs/general/shortcutRow.ts:57
 msgid "Global Shortcut"
@@ -485,68 +485,68 @@ msgstr "Se abilitato, Pano non tiene traccia degli appunti dalle app escluse"
 
 #: src/utils/panoItemFactory.ts:366
 msgid "Image Copied"
-msgstr ""
+msgstr "Immagine copiata"
 
 #: src/utils/panoItemFactory.ts:367
 msgid "Width: %spx, Height: %spx, Size: %s"
-msgstr ""
+msgstr "Larghezza: %spx, Altezza: %spx, Dimensione: %s"
 
 #: src/utils/panoItemFactory.ts:371
 msgid "Text Copied"
-msgstr ""
+msgstr "Testo copiato"
 
 #: src/utils/panoItemFactory.ts:373
 msgid "Code Copied"
-msgstr ""
+msgstr "Codice copiato"
 
 #: src/utils/panoItemFactory.ts:375
 msgid "Emoji Copied"
-msgstr ""
+msgstr "Emoji Copiata"
 
 #: src/utils/panoItemFactory.ts:382
 msgid "Link Copied"
-msgstr ""
+msgstr "Link copiato"
 
 #: src/utils/panoItemFactory.ts:402
 msgid "Color Copied"
-msgstr ""
+msgstr "Colore copiato"
 
 #: src/utils/panoItemFactory.ts:408
 msgid "File %s"
-msgstr ""
+msgstr "File %s"
 
 #: src/utils/panoItemFactory.ts:409
 msgid "There are %s file(s)"
-msgstr ""
+msgstr "Ci sono %s file(s)"
 
 #: src/utils/panoItemType.ts:4
 msgid "Link"
-msgstr ""
+msgstr "Link"
 
 #: src/utils/panoItemType.ts:5
 msgid "Text"
-msgstr ""
+msgstr "Testo"
 
 #: src/utils/panoItemType.ts:6
 msgid "Emoji"
-msgstr ""
+msgstr "Emoji"
 
 #: src/utils/panoItemType.ts:7
 msgid "File"
-msgstr ""
+msgstr "File"
 
 #: src/utils/panoItemType.ts:8
 msgid "Image"
-msgstr ""
+msgstr "Immagine"
 
 #: src/utils/panoItemType.ts:9
 msgid "Code"
-msgstr ""
+msgstr "Codice"
 
 #: src/utils/panoItemType.ts:10
 msgid "Color"
-msgstr ""
+msgstr "Colore"
 
 #: src/utils/ui.ts:13
 msgid "Pano"
-msgstr ""
+msgstr "Pano"
