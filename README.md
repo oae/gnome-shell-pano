@@ -150,6 +150,10 @@ busctl --user call org.gnome.Shell /io/elhan/Pano io.elhan.Pano show # shows pan
 
 ## Development
 
+### Dependencies
+
+- Fedora: `sudo dnf install cogl-devel gsound-devel libgda-devel`
+
 ### Build
 
 - This extension is written in Typescript and uses rollup to compile it into javascript.
