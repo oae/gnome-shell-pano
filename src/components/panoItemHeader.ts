@@ -4,8 +4,8 @@ import { get_language_names_with_category } from '@gi-types/glib2';
 import { MetaInfo } from '@gi-types/gobject2';
 import { BoxLayout, Button, Icon, Label } from '@gi-types/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { IPanoItemType } from '@pano/utils/panoItemType';
-import { getCurrentExtension } from '@pano/utils/shell';
+import { ICON_PACKS, IPanoItemType } from '@pano/utils/panoItemType';
+import { getCurrentExtension, getCurrentExtensionSettings } from '@pano/utils/shell';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import * as dateLocale from 'date-fns/locale';
 
@@ -47,11 +47,25 @@ export class PanoItemHeader extends BoxLayout {
       style_class: 'pano-icon-container',
     });
 
-    iconContainer.add_child(
-      new Icon({
-        gicon: icon_new_for_string(`${getCurrentExtension().path}/icons/hicolor/scalable/actions/${itemType.iconPath}`),
-      }),
-    );
+    const settings = getCurrentExtensionSettings();
+    const icon = new Icon({
+      style_class: 'pano-item-title-icon',
+      gicon: icon_new_for_string(
+        `${getCurrentExtension().path}/icons/hicolor/scalable/actions/${ICON_PACKS[settings.get_uint('icon-pack')]}-${
+          itemType.iconPath
+        }`,
+      ),
+    });
+    iconContainer.add_child(icon);
+    settings.connect('changed::icon-pack', () => {
+      icon.set_gicon(
+        icon_new_for_string(
+          `${getCurrentExtension().path}/icons/hicolor/scalable/actions/${ICON_PACKS[settings.get_uint('icon-pack')]}-${
+            itemType.iconPath
+          }`,
+        ),
+      );
+    });
 
     titleContainer.add_child(
       new Label({

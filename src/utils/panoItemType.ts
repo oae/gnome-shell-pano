@@ -16,3 +16,5 @@ export interface IPanoItemType {
   iconName: string;
   iconPath: string;
 }
+
+export const ICON_PACKS = ['default', 'legacy'];

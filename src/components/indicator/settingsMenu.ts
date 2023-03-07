@@ -11,6 +11,7 @@ import { MetaInfo, TYPE_BOOLEAN } from '@gi-types/gobject2';
 import { Icon } from '@gi-types/st1';
 import { ClearHistoryDialog } from '@pano/components/indicator/clearHistoryDialog';
 import { registerGObjectClass } from '@pano/utils/gjs';
+import { ICON_PACKS } from '@pano/utils/panoItemType';
 import { _, getCurrentExtension, getCurrentExtensionSettings } from '@pano/utils/shell';
 import { openExtensionPrefs } from '@pano/utils/ui';
 
@@ -43,9 +44,9 @@ export class SettingsMenu extends PopupMenuButton {
 
     const icon = new Icon({
       gicon: icon_new_for_string(
-        `${getCurrentExtension().path}/icons/hicolor/scalable/actions/indicator${
-          isInIncognito ? '-incognito-symbolic' : '-symbolic'
-        }.svg`,
+        `${getCurrentExtension().path}/icons/hicolor/scalable/actions/${
+          ICON_PACKS[this.settings.get_uint('icon-pack')]
+        }-indicator${isInIncognito ? '-incognito-symbolic' : '-symbolic'}.svg`,
       ),
       style_class: 'system-status-icon indicator-icon',
     });
@@ -66,6 +67,17 @@ export class SettingsMenu extends PopupMenuButton {
           `${getCurrentExtension().path}/icons/hicolor/scalable/actions/indicator${
             isInIncognito ? '-incognito-symbolic' : '-symbolic'
           }.svg`,
+        ),
+      );
+    });
+
+    this.settings.connect('changed::icon-pack', () => {
+      const isInIncognito = this.settings.get_boolean('is-in-incognito');
+      icon.set_gicon(
+        icon_new_for_string(
+          `${getCurrentExtension().path}/icons/hicolor/scalable/actions/${
+            ICON_PACKS[this.settings.get_uint('icon-pack')]
+          }-indicator${isInIncognito ? '-incognito-symbolic' : '-symbolic'}.svg`,
         ),
       );
     });

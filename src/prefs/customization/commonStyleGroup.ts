@@ -1,6 +1,6 @@
 import { PreferencesGroup } from '@gi-types/adw1';
 import { Settings } from '@gi-types/gio2';
-import { createColorRow, createSpinRow } from '@pano/prefs/customization/utils';
+import { createColorRow, createDropdownRow, createSpinRow } from '@pano/prefs/customization/utils';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
 
@@ -13,6 +13,13 @@ export class CommonStyleGroup extends PreferencesGroup {
     });
 
     this.settings = getCurrentExtensionSettings();
+
+    this.add(
+      createDropdownRow(_('Icon Pack'), _('You can change the icon pack'), this.settings, 'icon-pack', [
+        _('Default Icons'),
+        _('Legacy Icons'),
+      ]),
+    );
 
     this.add(
       createSpinRow(

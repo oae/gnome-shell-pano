@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
-#: src/prefs/customization/commonStyleGroup.ts:46
+#: src/prefs/customization/commonStyleGroup.ts:53
 msgid "Active Item Border Color"
 msgstr ""
 
@@ -107,7 +107,7 @@ msgid "Clear"
 msgstr ""
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:75
+#: src/components/indicator/settingsMenu.ts:87
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr ""
@@ -154,6 +154,10 @@ msgstr ""
 
 #: src/prefs/general/dbLocation.ts:22
 msgid "Database Location"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:19
+msgid "Default Icons"
 msgstr ""
 
 #: src/utils/panoItemType.ts:6
@@ -228,8 +232,12 @@ msgstr ""
 msgid "History Length"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:54
+#: src/prefs/customization/commonStyleGroup.ts:61
 msgid "Hovered Item Border Color"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:18
+msgid "Icon Pack"
 msgstr ""
 
 #: src/utils/panoItemType.ts:8
@@ -244,7 +252,7 @@ msgstr ""
 msgid "Image Item Style"
 msgstr ""
 
-#: src/components/indicator/settingsMenu.ts:55
+#: src/components/indicator/settingsMenu.ts:56
 msgid "Incognito Mode"
 msgstr ""
 
@@ -252,7 +260,7 @@ msgstr ""
 msgid "Incognito Mode Shortcut"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:38
+#: src/prefs/customization/commonStyleGroup.ts:45
 msgid "Incognito Window Background Color"
 msgstr ""
 
@@ -266,6 +274,10 @@ msgstr ""
 
 #: src/prefs/general/keepSearchEntryOnHide.ts:14
 msgid "Keep search entry when Pano hides"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:20
+msgid "Legacy Icons"
 msgstr ""
 
 #: src/utils/panoItemType.ts:4
@@ -369,7 +381,7 @@ msgstr ""
 msgid "Session Only Mode"
 msgstr ""
 
-#: src/components/indicator/settingsMenu.ts:82
+#: src/components/indicator/settingsMenu.ts:94
 msgid "Settings"
 msgstr ""
 
@@ -405,7 +417,7 @@ msgstr ""
 msgid "There are %s file(s)"
 msgstr ""
 
-#: src/components/searchBox.ts:58
+#: src/components/searchBox.ts:61
 msgid "Type to search, Tab to cycle"
 msgstr ""
 
@@ -425,7 +437,7 @@ msgstr ""
 msgid "Width: %spx, Height: %spx, Size: %s"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:30
+#: src/prefs/customization/commonStyleGroup.ts:37
 msgid "Window Background Color"
 msgstr ""
 
@@ -433,11 +445,11 @@ msgstr ""
 msgid "Window class name"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:19
+#: src/prefs/customization/commonStyleGroup.ts:26
 msgid "Window Height"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:47
+#: src/prefs/customization/commonStyleGroup.ts:54
 msgid "You can change the active item border color"
 msgstr ""
 
@@ -502,11 +514,15 @@ msgstr ""
 msgid "You can change the font of the metadata title"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:55
+#: src/prefs/customization/commonStyleGroup.ts:62
 msgid "You can change the hovered item border color"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:39
+#: src/prefs/customization/commonStyleGroup.ts:18
+msgid "You can change the icon pack"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:46
 msgid "You can change the incognito window background color"
 msgstr ""
 
@@ -538,11 +554,11 @@ msgstr ""
 msgid "You can change the title color of the metadata"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:31
+#: src/prefs/customization/commonStyleGroup.ts:38
 msgid "You can change the window background color"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:20
+#: src/prefs/customization/commonStyleGroup.ts:27
 msgid "You can change the window height"
 msgstr ""
 

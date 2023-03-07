@@ -99,6 +99,11 @@
   font-size: 24px;
 }
 
+.pano-item-title-icon {
+  height: 36px;
+  width: 36px;
+}
+
 .pano-item-date {
   font-size: 12px;
 }
