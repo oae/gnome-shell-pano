@@ -100,6 +100,36 @@ export class LinkPanoItem extends PanoItem {
     this.connect('activated', this.setClipboardContent.bind(this));
     this.setStyle();
     this.linkItemSettings.connect('changed', this.setStyle.bind(this));
+
+    const openLinkIcon = new Icon({
+      icon_name: 'web-browser-symbolic',
+      style_class: 'pano-item-action-button-icon',
+    });
+
+    const openLinkButton = new Button({
+      style_class: 'pano-item-action-button pano-item-open-link-button',
+      child: openLinkIcon,
+    });
+
+    openLinkButton.connect('clicked', () => {
+      this.emit('activated');
+      openLinkInBrowser(this.dbItem.content);
+      return EVENT_PROPAGATE;
+    });
+
+    if (this.settings.get_boolean('open-links-in-browser')) {
+      this.header.actionContainer.insert_child_at_index(openLinkButton, 0);
+    }
+
+    this.settings.connect('changed::open-links-in-browser', () => {
+      if (this.header.actionContainer.get_child_at_index(0) === openLinkButton) {
+        this.header.actionContainer.remove_child(openLinkButton);
+      }
+
+      if (this.settings.get_boolean('open-links-in-browser')) {
+        this.header.actionContainer.insert_child_at_index(openLinkButton, 0);
+      }
+    });
   }
 
   private setStyle() {
@@ -129,23 +159,6 @@ export class LinkPanoItem extends PanoItem {
     this.linkLabel.set_style(
       `color: ${metadataLinkColor}; font-family: ${metadataLinkFontFamily}; font-size: ${metadataLinkFontSize}px;`,
     );
-
-    const openLinkIcon = new Icon({
-      icon_name: 'web-browser-symbolic',
-      style_class: 'pano-item-action-button-icon',
-    });
-
-    const openLinkButton = new Button({
-      style_class: 'pano-item-action-button pano-item-open-link-button',
-      child: openLinkIcon,
-    });
-
-    openLinkButton.connect('clicked', () => {
-      openLinkInBrowser(this.dbItem.content);
-      return EVENT_PROPAGATE;
-    });
-
-    this.header.actionContainer.insert_child_at_index(openLinkButton, 0);
   }
 
   private setClipboardContent(): void {
