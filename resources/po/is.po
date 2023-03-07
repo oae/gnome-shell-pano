@@ -31,7 +31,7 @@ msgstr "Huliðsstilling"
 msgid "Settings"
 msgstr "Stillingar"
 
-#: src/components/linkPanoItem.ts:45
+#: src/components/linkPanoItem.ts:46
 msgid "No Description"
 msgstr ""
 

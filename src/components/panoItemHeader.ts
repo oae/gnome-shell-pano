@@ -26,6 +26,7 @@ export class PanoItemHeader extends BoxLayout {
 
   private dateUpdateIntervalId: any;
   private favoriteButton: Button;
+  actionContainer: BoxLayout;
 
   constructor(itemType: IPanoItemType, date: Date) {
     super({
@@ -75,21 +76,22 @@ export class PanoItemHeader extends BoxLayout {
 
     titleContainer.add_child(dateLabel);
 
-    const actionContainer = new BoxLayout({
+    this.actionContainer = new BoxLayout({
       style_class: 'pano-item-actions',
       x_expand: false,
       y_expand: true,
+      opacity: 0,
       x_align: ActorAlign.END,
       y_align: ActorAlign.START,
     });
 
     const favoriteIcon = new Icon({
+      style_class: 'pano-item-action-button-icon',
       icon_name: 'starred-symbolic',
-      icon_size: 10,
     });
 
     this.favoriteButton = new Button({
-      style_class: 'pano-item-favorite-button',
+      style_class: 'pano-item-action-button pano-item-favorite-button',
       child: favoriteIcon,
     });
 
@@ -99,12 +101,12 @@ export class PanoItemHeader extends BoxLayout {
     });
 
     const removeIcon = new Icon({
+      style_class: 'pano-item-action-button-icon pano-item-action-button-remove-icon',
       icon_name: 'window-close-symbolic',
-      icon_size: 10,
     });
 
     const removeButton = new Button({
-      style_class: 'pano-item-remove-button',
+      style_class: 'pano-item-action-button pano-item-remove-button',
       child: removeIcon,
     });
 
@@ -113,12 +115,12 @@ export class PanoItemHeader extends BoxLayout {
       return EVENT_PROPAGATE;
     });
 
-    actionContainer.add_child(this.favoriteButton);
-    actionContainer.add_child(removeButton);
+    this.actionContainer.add_child(this.favoriteButton);
+    this.actionContainer.add_child(removeButton);
 
     this.add_child(iconContainer);
     this.add_child(titleContainer);
-    this.add_child(actionContainer);
+    this.add_child(this.actionContainer);
   }
 
   setFavorite(isFavorite: boolean): void {

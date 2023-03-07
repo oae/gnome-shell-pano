@@ -31,7 +31,7 @@ msgstr "Modalità di navigazione in incognito"
 msgid "Settings"
 msgstr "Impostazioni"
 
-#: src/components/linkPanoItem.ts:45
+#: src/components/linkPanoItem.ts:46
 msgid "No Description"
 msgstr "Nessuna descrizione"
 

@@ -31,7 +31,7 @@ msgstr "Anonymní režim"
 msgid "Settings"
 msgstr "Nastavení"
 
-#: src/components/linkPanoItem.ts:45
+#: src/components/linkPanoItem.ts:46
 msgid "No Description"
 msgstr "Bez popisu"
 

@@ -72,6 +72,7 @@ export class PanoItem extends BoxLayout {
     this.connect('key-focus-in', () => this.setSelected(true));
     this.connect('key-focus-out', () => this.setSelected(false));
     this.connect('enter-event', () => {
+      this.header.actionContainer.set_opacity(255);
       Global.get().display.set_cursor(Cursor.POINTING_HAND);
       if (!this.selected) {
         this.set_style(`border: 4px solid ${this.settings.get_string('hovered-item-border-color')}`);
@@ -83,6 +84,7 @@ export class PanoItem extends BoxLayout {
     this.connect('leave-event', () => {
       Global.get().display.set_cursor(Cursor.DEFAULT);
       if (!this.selected) {
+        this.header.actionContainer.set_opacity(0);
         this.set_style('');
       }
     });
@@ -163,8 +165,10 @@ export class PanoItem extends BoxLayout {
     if (selected) {
       const activeItemBorderColor = this.settings.get_string('active-item-border-color');
       this.set_style(`border: 4px solid ${activeItemBorderColor} !important;`);
+      this.header.actionContainer.set_opacity(255);
       this.grab_key_focus();
     } else {
+      this.header.actionContainer.set_opacity(0);
       this.set_style('');
     }
     this.selected = selected;

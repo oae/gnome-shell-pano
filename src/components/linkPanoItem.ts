@@ -6,10 +6,11 @@ import {
   KEY_KP_Enter,
   KEY_Return,
   KeyEvent,
+  ModifierType,
 } from '@gi-types/clutter10';
 import { File, Settings } from '@gi-types/gio2';
 import { uri_parse, UriFlags } from '@gi-types/glib2';
-import { BoxLayout, Label } from '@gi-types/st1';
+import { BoxLayout, Button, Icon, Label } from '@gi-types/st1';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
@@ -128,6 +129,23 @@ export class LinkPanoItem extends PanoItem {
     this.linkLabel.set_style(
       `color: ${metadataLinkColor}; font-family: ${metadataLinkFontFamily}; font-size: ${metadataLinkFontSize}px;`,
     );
+
+    const openLinkIcon = new Icon({
+      icon_name: 'web-browser-symbolic',
+      style_class: 'pano-item-action-button-icon',
+    });
+
+    const openLinkButton = new Button({
+      style_class: 'pano-item-action-button pano-item-open-link-button',
+      child: openLinkIcon,
+    });
+
+    openLinkButton.connect('clicked', () => {
+      openLinkInBrowser(this.dbItem.content);
+      return EVENT_PROPAGATE;
+    });
+
+    this.header.actionContainer.insert_child_at_index(openLinkButton, 0);
   }
 
   private setClipboardContent(): void {
@@ -143,6 +161,7 @@ export class LinkPanoItem extends PanoItem {
     super.vfunc_key_press_event(event);
     if (
       this.settings.get_boolean('open-links-in-browser') &&
+      event.modifier_state === ModifierType.CONTROL_MASK &&
       (event.keyval === KEY_Return || event.keyval === KEY_ISO_Enter || event.keyval === KEY_KP_Enter)
     ) {
       openLinkInBrowser(this.dbItem.content);
@@ -153,7 +172,11 @@ export class LinkPanoItem extends PanoItem {
 
   override vfunc_button_release_event(event: ButtonEvent): boolean {
     super.vfunc_button_release_event(event);
-    if (event.button === 1 && this.settings.get_boolean('open-links-in-browser')) {
+    if (
+      event.button === 1 &&
+      event.modifier_state === ModifierType.CONTROL_MASK &&
+      this.settings.get_boolean('open-links-in-browser')
+    ) {
       openLinkInBrowser(this.dbItem.content);
     }
 
