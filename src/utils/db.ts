@@ -34,6 +34,8 @@ const add_expr_value = (builder: SqlBuilder, value: any): number => {
     return builder.add_expr_value(value);
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   return builder.add_expr_value(null, value);
 };
 
@@ -149,6 +151,21 @@ export class ClipboardQueryBuilder {
           SqlOperatorType.LIKE,
           this.builder.add_field_id('searchValue', 'clipboard'),
           add_expr_value(this.builder, `%${searchValue}%`),
+          0,
+        ),
+      );
+    }
+
+    return this;
+  }
+
+  withFavorites(include: boolean) {
+    if (include !== null && include !== undefined) {
+      this.conditions.push(
+        this.builder.add_cond(
+          SqlOperatorType.EQ,
+          this.builder.add_field_id('isFavorite', 'clipboard'),
+          add_expr_value(this.builder, +include),
           0,
         ),
       );

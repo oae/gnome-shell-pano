@@ -1,4 +1,5 @@
 import {
+  app_info_launch_default_for_uri,
   File,
   FileCopyFlags,
   FileEnumerator,
@@ -237,3 +238,11 @@ export function debounce(func, wait) {
     debounceIds.push(sourceId);
   };
 }
+
+export const openLinkInBrowser = (url: string) => {
+  try {
+    app_info_launch_default_for_uri(url, null);
+  } catch (e) {
+    debug(`Failed to open url ${url}`);
+  }
+};

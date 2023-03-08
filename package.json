@@ -7,11 +7,11 @@
   "scripts": {
     "build": "yarn run lock:types && yarn run build:types && yarn run build:ts && yarn run gen:locale && yarn run build:extension",
     "clean": "yarn run clean:ts && yarn run build:types",
-    "lock:types": "rm -rf docs-lock.json && cross-env XDG_DATA_DIRS=$XDG_DATA_DIRS:/usr/share/gir-1.0:/usr/share/gnome-shell:/usr/lib/mutter-11:/usr/lib64/mutter-11 yarn run gi-ts config --lock",
+    "lock:types": "rm -rf docs-lock.json && cross-env XDG_DATA_DIRS=$XDG_DATA_DIRS:/usr/share/gir-1.0:/usr/share/gnome-shell:/usr/lib/mutter-12:/usr/lib/mutter-11:/usr/lib64/mutter-12:/usr/lib64/mutter-11 yarn run gi-ts config --lock",
     "build:types": "yarn run clean:types && gi-ts generate",
     "gen:locale": "yarn run ts-node scripts/generateLocale.ts",
     "clean:types": "rm -rf ./@types",
-    "build:ts": "yarn run clean:ts && rollup -c",
+    "build:ts": "yarn run clean:ts && rollup -c && sed -i '/setTimeout/d' dist/thirdparty/*.js",
     "clean:ts": "rm -rf ./dist",
     "build:extension": "yarn run build:schema",
     "build:schema": "yarn run clean:schema && glib-compile-schemas ./resources/schemas --targetdir=./dist/schemas/",
@@ -54,6 +54,7 @@
     "eslint": "^8.22.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
     "fill-pot-po": "^2.1.9",
     "gettext-extractor": "^3.5.4",
     "gettext-parser": "^6.0.0",
@@ -85,11 +86,12 @@
     "@gi-types/soup3": "^3.0.1",
     "@gi-types/st1": "^1.0.1",
     "date-fns": "^2.29.2",
+    "hex-color-converter": "^0.2.1",
     "highlight.js": "^11.6.0",
     "htmlparser2": "^8.0.1",
     "is-url": "^1.2.4",
     "pretty-bytes": "^6.0.0",
     "prismjs": "^1.28.0",
-    "validate-color": "^2.2.1"
+    "validate-color": "https://gitpkg.now.sh/dreamyguy/validate-color/src/validate-color"
   }
 }

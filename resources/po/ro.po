@@ -1,0 +1,568 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: fill-pot-po/2.1.9\n"
+
+#: src/components/indicator/clearHistoryDialog.ts:23
+msgid "Cancel"
+msgstr "Anula"
+
+#: src/components/indicator/clearHistoryDialog.ts:30
+#: src/prefs/dangerZone/clearHistory.ts:17
+msgid "Clear"
+msgstr "Clar"
+
+#: src/components/indicator/clearHistoryDialog.ts:35
+#: src/components/indicator/settingsMenu.ts:87
+#: src/prefs/dangerZone/clearHistory.ts:11
+msgid "Clear History"
+msgstr "Istoric clar"
+
+#: src/components/indicator/clearHistoryDialog.ts:36
+#: src/prefs/dangerZone/clearHistory.ts:23
+msgid "Are you sure you want to clear history?"
+msgstr "Ești sigur că vrei să limpezești istoria?"
+
+#: src/components/indicator/settingsMenu.ts:56
+msgid "Incognito Mode"
+msgstr "Modul incognito"
+
+#: src/components/indicator/settingsMenu.ts:94
+msgid "Settings"
+msgstr "Setări"
+
+#: src/components/linkPanoItem.ts:46
+msgid "No Description"
+msgstr ""
+
+#: src/components/searchBox.ts:61
+msgid "Type to search, Tab to cycle"
+msgstr ""
+
+#: src/prefs/customization/codeItemStyle.ts:13
+msgid "Change the style of the code item"
+msgstr ""
+
+#: src/prefs/customization/codeItemStyle.ts:13
+msgid "Code Item Style"
+msgstr ""
+
+#: src/prefs/customization/codeItemStyle.ts:20
+#: src/prefs/customization/colorItemStyle.ts:20
+#: src/prefs/customization/emojiItemStyle.ts:20
+#: src/prefs/customization/fileItemStyle.ts:20
+#: src/prefs/customization/imageItemStyle.ts:20
+#: src/prefs/customization/linkItemStyle.ts:20
+#: src/prefs/customization/textItemStyle.ts:20
+msgid "Header Background Color"
+msgstr ""
+
+#: src/prefs/customization/codeItemStyle.ts:21
+#: src/prefs/customization/colorItemStyle.ts:21
+#: src/prefs/customization/emojiItemStyle.ts:21
+#: src/prefs/customization/fileItemStyle.ts:21
+#: src/prefs/customization/imageItemStyle.ts:21
+#: src/prefs/customization/linkItemStyle.ts:21
+#: src/prefs/customization/textItemStyle.ts:21
+msgid "You can change the background color of the header"
+msgstr ""
+
+#: src/prefs/customization/codeItemStyle.ts:30
+#: src/prefs/customization/colorItemStyle.ts:30
+#: src/prefs/customization/emojiItemStyle.ts:30
+#: src/prefs/customization/fileItemStyle.ts:30
+#: src/prefs/customization/imageItemStyle.ts:30
+#: src/prefs/customization/linkItemStyle.ts:30
+#: src/prefs/customization/textItemStyle.ts:30
+msgid "Header Text Color"
+msgstr ""
+
+#: src/prefs/customization/codeItemStyle.ts:31
+#: src/prefs/customization/colorItemStyle.ts:31
+#: src/prefs/customization/emojiItemStyle.ts:31
+#: src/prefs/customization/fileItemStyle.ts:31
+#: src/prefs/customization/imageItemStyle.ts:31
+#: src/prefs/customization/linkItemStyle.ts:31
+#: src/prefs/customization/textItemStyle.ts:31
+msgid "You can change the text color of the header"
+msgstr ""
+
+#: src/prefs/customization/codeItemStyle.ts:40
+#: src/prefs/customization/emojiItemStyle.ts:40
+#: src/prefs/customization/fileItemStyle.ts:40
+#: src/prefs/customization/imageItemStyle.ts:40
+#: src/prefs/customization/linkItemStyle.ts:40
+#: src/prefs/customization/textItemStyle.ts:40
+msgid "Body Background Color"
+msgstr ""
+
+#: src/prefs/customization/codeItemStyle.ts:41
+#: src/prefs/customization/emojiItemStyle.ts:41
+#: src/prefs/customization/fileItemStyle.ts:41
+#: src/prefs/customization/imageItemStyle.ts:41
+#: src/prefs/customization/linkItemStyle.ts:41
+#: src/prefs/customization/textItemStyle.ts:41
+msgid "You can change the background color of the body"
+msgstr ""
+
+#: src/prefs/customization/codeItemStyle.ts:48
+#: src/prefs/customization/colorItemStyle.ts:59
+#: src/prefs/customization/fileItemStyle.ts:53
+#: src/prefs/customization/textItemStyle.ts:53
+msgid "Body Font"
+msgstr ""
+
+#: src/prefs/customization/codeItemStyle.ts:48
+#: src/prefs/customization/fileItemStyle.ts:53
+#: src/prefs/customization/textItemStyle.ts:53
+msgid "You can change the font of the body"
+msgstr ""
+
+#: src/prefs/customization/codeItemStyle.ts:53
+#: src/prefs/customization/textItemStyle.ts:58
+msgid "Character Length"
+msgstr ""
+
+#: src/prefs/customization/codeItemStyle.ts:54
+#: src/prefs/customization/textItemStyle.ts:59
+msgid "You can change the character length of the visible text in the body"
+msgstr ""
+
+#: src/prefs/customization/colorItemStyle.ts:13
+msgid "Change the style of the color item"
+msgstr ""
+
+#: src/prefs/customization/colorItemStyle.ts:13
+msgid "Color Item Style"
+msgstr ""
+
+#: src/prefs/customization/colorItemStyle.ts:40
+#: src/prefs/customization/imageItemStyle.ts:50
+#: src/prefs/customization/linkItemStyle.ts:50
+msgid "Metadata Background Color"
+msgstr ""
+
+#: src/prefs/customization/colorItemStyle.ts:41
+#: src/prefs/customization/imageItemStyle.ts:51
+#: src/prefs/customization/linkItemStyle.ts:51
+msgid "You can change the background color of the metadata"
+msgstr ""
+
+#: src/prefs/customization/colorItemStyle.ts:50
+#: src/prefs/customization/imageItemStyle.ts:60
+msgid "Metadata Text Color"
+msgstr ""
+
+#: src/prefs/customization/colorItemStyle.ts:51
+#: src/prefs/customization/imageItemStyle.ts:61
+msgid "You can change the text color of the metadata"
+msgstr ""
+
+#: src/prefs/customization/colorItemStyle.ts:59
+#: src/prefs/customization/imageItemStyle.ts:69
+msgid "You can change the font of the metadata"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:12
+msgid "Common"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:18
+msgid "Icon Pack"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:18
+msgid "You can change the icon pack"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:19
+msgid "Default Icons"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:20
+msgid "Legacy Icons"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:26
+msgid "Window Height"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:27
+msgid "You can change the window height"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:37
+msgid "Window Background Color"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:38
+msgid "You can change the window background color"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:45
+msgid "Incognito Window Background Color"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:46
+msgid "You can change the incognito window background color"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:53
+msgid "Active Item Border Color"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:54
+msgid "You can change the active item border color"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:61
+msgid "Hovered Item Border Color"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:62
+msgid "You can change the hovered item border color"
+msgstr ""
+
+#: src/prefs/customization/emojiItemStyle.ts:13
+msgid "Change the style of the emoji item"
+msgstr ""
+
+#: src/prefs/customization/emojiItemStyle.ts:13
+msgid "Emoji Item Style"
+msgstr ""
+
+#: src/prefs/customization/emojiItemStyle.ts:49
+msgid "Emoji Size"
+msgstr ""
+
+#: src/prefs/customization/emojiItemStyle.ts:49
+msgid "You can change the emoji size"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:13
+msgid "Change the style of the file item"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:13
+msgid "File Item Style"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:49
+#: src/prefs/customization/textItemStyle.ts:49
+msgid "Body Text Color"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:49
+#: src/prefs/customization/textItemStyle.ts:49
+msgid "You can change the text color of the body"
+msgstr ""
+
+#: src/prefs/customization/imageItemStyle.ts:13
+msgid "Change the style of the image item"
+msgstr ""
+
+#: src/prefs/customization/imageItemStyle.ts:13
+msgid "Image Item Style"
+msgstr ""
+
+#: src/prefs/customization/imageItemStyle.ts:69
+msgid "Metadata Font"
+msgstr ""
+
+#: src/prefs/customization/index.ts:11
+msgid "Customization"
+msgstr ""
+
+#: src/prefs/customization/itemStyleGroup.ts:16
+msgid "Item Style"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:13
+msgid "Change the style of the link item"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:13
+msgid "Link Item Style"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:60
+msgid "Metadata Title Color"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:61
+msgid "You can change the title color of the metadata"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:70
+msgid "Metadata Title Font"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:71
+msgid "You can change the font of the metadata title"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:80
+msgid "Metadata Description Color"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:81
+msgid "You can change the description color of the metadata"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:90
+msgid "Metadata Description Font"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:91
+msgid "You can change the font of the metadata description"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:100
+msgid "Metadata Link Color"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:101
+msgid "You can change the link color of the metadata"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:110
+msgid "Metadata Link Font"
+msgstr ""
+
+#: src/prefs/customization/linkItemStyle.ts:111
+msgid "You can change the font of the metadata link"
+msgstr ""
+
+#: src/prefs/customization/textItemStyle.ts:13
+msgid "Change the style of the text item"
+msgstr ""
+
+#: src/prefs/customization/textItemStyle.ts:13
+msgid "Text Item Style"
+msgstr ""
+
+#: src/prefs/dangerZone/clearHistory.ts:12
+msgid "Clears the clipboard database and cache"
+msgstr "Golește baza de date clipboard și memoria cache"
+
+#: src/prefs/dangerZone/index.ts:11
+msgid "Danger Zone"
+msgstr "Zona periculoasă"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr "Modul numai sesiune"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr "Când este activată, Pano va șterge tot istoricul privind deconectarea/repornirea/închiderea."
+
+#: src/prefs/general/dbLocation.ts:22
+msgid "Database Location"
+msgstr "Locația bazei de date"
+
+#: src/prefs/general/dbLocation.ts:30
+msgid "Choose pano database location"
+msgstr "Alegeți locația bazei de date Pano"
+
+#: src/prefs/general/dbLocation.ts:52
+msgid "Failed to select directory"
+msgstr "Nu a reușit să selectați directorul"
+
+#: src/prefs/general/exclusionGroup.ts:15
+msgid "Manage Exclusions"
+msgstr "Gestionarea excluderilor"
+
+#: src/prefs/general/exclusionGroup.ts:22
+msgid "Excluded Apps"
+msgstr "Aplicații excluse"
+
+#: src/prefs/general/exclusionGroup.ts:23
+msgid "Pano will stop tracking if any window from the list is focussed"
+msgstr "Pano va opri urmărirea dacă orice fereastră din listă este focalizată"
+
+#: src/prefs/general/exclusionGroup.ts:52
+msgid "Window class name"
+msgstr "Numele clasei de fereastră"
+
+#: src/prefs/general/generalGroup.ts:22
+msgid "General Options"
+msgstr "Opțiuni generale"
+
+#: src/prefs/general/historyLength.ts:13
+msgid "History Length"
+msgstr "Lungimea istoriei"
+
+#: src/prefs/general/historyLength.ts:14
+msgid "You can limit your clipboard history length between 10 - 500"
+msgstr "Puteți limita lungimea istoricului clipboard-ului între 10 și 500"
+
+#: src/prefs/general/incognitoShortcutRow.ts:57
+msgid "Incognito Mode Shortcut"
+msgstr "Comandă rapidă în modul incognito"
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr "Vă permite să comutați modul incognito"
+
+#: src/prefs/general/incognitoShortcutRow.ts:64
+#: src/prefs/general/shortcutRow.ts:64
+msgid "Select a shortcut"
+msgstr "Selectarea unei scurtături"
+
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "Comandă rapidă nouă"
+
+#: src/prefs/general/index.ts:11
+msgid "General"
+msgstr "General"
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:13
+msgid "Keep Search Entry"
+msgstr "Păstrați intrarea în căutare"
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:14
+msgid "Keep search entry when Pano hides"
+msgstr "Păstrați intrarea de căutare atunci când Pano se ascunde"
+
+#: src/prefs/general/linkPreviews.ts:13
+msgid "Link Previews"
+msgstr "Previzualizări link-ul"
+
+#: src/prefs/general/linkPreviews.ts:14
+msgid "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr "Permiteți lui Pano să viziteze linkurile din clipboard pentru a genera previzualizări ale linkurilor"
+
+#: src/prefs/general/openLinksInBrowser.ts:13
+msgid "Open Links in Browser"
+msgstr ""
+
+#: src/prefs/general/openLinksInBrowser.ts:14
+msgid "Allow Pano to open links on your default browser"
+msgstr ""
+
+#: src/prefs/general/pasteOnSelect.ts:13
+msgid "Paste on Select"
+msgstr "Lipire pe Selectare"
+
+#: src/prefs/general/pasteOnSelect.ts:14
+msgid "Allow Pano to paste content on select"
+msgstr "Permiteți lui Pano să lipească conținut pe anumite"
+
+#: src/prefs/general/playAudioOnCopy.ts:13
+msgid "Play an Audio on Copy"
+msgstr "Redarea unui audio pe copiere"
+
+#: src/prefs/general/playAudioOnCopy.ts:14
+msgid "Allow Pano to play an audio when copying new content"
+msgstr "Permiteți-i lui Pano să redea un sunet atunci când copiază conținut nou"
+
+#: src/prefs/general/sendNotificationOnCopy.ts:13
+msgid "Send Notification on Copy"
+msgstr ""
+
+#: src/prefs/general/sendNotificationOnCopy.ts:14
+msgid "Allow Pano to send notification when copying new content"
+msgstr ""
+
+#: src/prefs/general/shortcutRow.ts:57
+msgid "Global Shortcut"
+msgstr "Comandă rapidă globală"
+
+#: src/prefs/general/shortcutRow.ts:58
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "Vă permite să comutați vizibilitatea managerului de clipboard"
+
+#: src/prefs/general/showIndicator.ts:13
+msgid "Show Indicator"
+msgstr "Afișare indicator"
+
+#: src/prefs/general/showIndicator.ts:14
+msgid "Shows an indicator on top panel"
+msgstr "Afișează un indicator în panoul superior"
+
+#: src/prefs/general/syncPrimary.ts:13
+msgid "Sync Primary"
+msgstr "Sincronizare primară"
+
+#: src/prefs/general/syncPrimary.ts:14
+msgid "Sync primary selection with clipboard selection"
+msgstr "Sincronizarea selecției primare cu selecția clipboard-ului"
+
+#: src/prefs/general/watchExclusions.ts:13
+msgid "Watch Exclusions"
+msgstr "Urmăriți Excluderile"
+
+#: src/prefs/general/watchExclusions.ts:14
+msgid "When enabled, Pano will not track clipboard from excluded apps"
+msgstr "Când este activat, Pano nu va urmări clipboard-ul din aplicațiile excluse"
+
+#: src/utils/panoItemFactory.ts:366
+msgid "Image Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:367
+msgid "Width: %spx, Height: %spx, Size: %s"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:371
+msgid "Text Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:373
+msgid "Code Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:375
+msgid "Emoji Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:382
+msgid "Link Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:402
+msgid "Color Copied"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:408
+msgid "File %s"
+msgstr ""
+
+#: src/utils/panoItemFactory.ts:409
+msgid "There are %s file(s)"
+msgstr ""
+
+#: src/utils/panoItemType.ts:4
+msgid "Link"
+msgstr ""
+
+#: src/utils/panoItemType.ts:5
+msgid "Text"
+msgstr ""
+
+#: src/utils/panoItemType.ts:6
+msgid "Emoji"
+msgstr ""
+
+#: src/utils/panoItemType.ts:7
+msgid "File"
+msgstr ""
+
+#: src/utils/panoItemType.ts:8
+msgid "Image"
+msgstr ""
+
+#: src/utils/panoItemType.ts:9
+msgid "Code"
+msgstr ""
+
+#: src/utils/panoItemType.ts:10
+msgid "Color"
+msgstr ""
+
+#: src/utils/ui.ts:13
+msgid "Pano"
+msgstr ""

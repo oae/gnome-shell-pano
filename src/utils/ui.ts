@@ -1,10 +1,46 @@
 import { Actor, get_default_backend, InputDeviceType, VirtualInputDevice } from '@gi-types/clutter10';
+import { Pixbuf } from '@gi-types/gdkpixbuf2';
+import { Icon } from '@gi-types/gio2';
+import { DateTime } from '@gi-types/glib2';
 import { Global } from '@gi-types/shell0';
-import { getCurrentExtension } from '@pano/utils/shell';
+import { ImageContent } from '@gi-types/st1';
+import { PixelFormat } from '@imports/cogl2';
+import { _, getCurrentExtension } from '@pano/utils/shell';
 
 const global = Global.get();
 
-export const notify = (text: string, body: string): void => imports.ui.main.notify(text, body);
+export const notify = (text: string, body: string, iconOrPixbuf?: Pixbuf | Icon, pixelFormat?: PixelFormat): void => {
+  const source = new imports.ui.messageTray.Source(_('Pano'), 'edit-copy-symbolic');
+  imports.ui.main.messageTray.add(source);
+  let notification;
+  if (iconOrPixbuf) {
+    if (iconOrPixbuf instanceof Pixbuf) {
+      const content = ImageContent.new_with_preferred_size(iconOrPixbuf.width, iconOrPixbuf.height) as ImageContent;
+      content.set_bytes(
+        iconOrPixbuf.read_pixel_bytes(),
+        pixelFormat || PixelFormat.RGBA_8888,
+        iconOrPixbuf.width,
+        iconOrPixbuf.height,
+        iconOrPixbuf.rowstride,
+      );
+
+      notification = new imports.ui.messageTray.Notification(source, text, body, {
+        datetime: DateTime.new_now_local(),
+        gicon: content,
+      });
+    } else {
+      notification = new imports.ui.messageTray.Notification(source, text, body, {
+        datetime: DateTime.new_now_local(),
+        gicon: iconOrPixbuf,
+      });
+    }
+  } else {
+    notification = new imports.ui.messageTray.Notification(source, text, body);
+  }
+
+  notification.setTransient(true);
+  source.showNotification(notification);
+};
 
 export const wm = imports.ui.main.wm;
 

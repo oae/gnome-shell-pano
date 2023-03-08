@@ -3,16 +3,17 @@ import {
   BUTTON_PRIMARY,
   BUTTON_SECONDARY,
   Event,
-  EventType,
   EVENT_PROPAGATE,
+  EventType,
 } from '@gi-types/clutter10';
 import { icon_new_for_string, Settings } from '@gi-types/gio2';
 import { MetaInfo, TYPE_BOOLEAN } from '@gi-types/gobject2';
 import { Icon } from '@gi-types/st1';
+import { ClearHistoryDialog } from '@pano/components/indicator/clearHistoryDialog';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { getCurrentExtension, getCurrentExtensionSettings, _ } from '@pano/utils/shell';
+import { ICON_PACKS } from '@pano/utils/panoItemType';
+import { _, getCurrentExtension, getCurrentExtensionSettings } from '@pano/utils/shell';
 import { openExtensionPrefs } from '@pano/utils/ui';
-import { ClearHistoryDialog } from './clearHistoryDialog';
 
 const { PopupMenuItem, PopupSwitchMenuItem, PopupSeparatorMenuItem } = imports.ui.popupMenu;
 const { Button: PopupMenuButton } = imports.ui.panelMenu;
@@ -43,7 +44,9 @@ export class SettingsMenu extends PopupMenuButton {
 
     const icon = new Icon({
       gicon: icon_new_for_string(
-        `${getCurrentExtension().path}/icons/indicator${isInIncognito ? '-incognito' : ''}.svg`,
+        `${getCurrentExtension().path}/icons/hicolor/scalable/actions/${
+          ICON_PACKS[this.settings.get_uint('icon-pack')]
+        }-indicator${isInIncognito ? '-incognito-symbolic' : '-symbolic'}.svg`,
       ),
       style_class: 'system-status-icon indicator-icon',
     });
@@ -60,7 +63,22 @@ export class SettingsMenu extends PopupMenuButton {
       const isInIncognito = this.settings.get_boolean('is-in-incognito');
       switchMenuItem.setToggleState(isInIncognito);
       icon.set_gicon(
-        icon_new_for_string(`${getCurrentExtension().path}/icons/indicator${isInIncognito ? '-incognito' : ''}.svg`),
+        icon_new_for_string(
+          `${getCurrentExtension().path}/icons/hicolor/scalable/actions/indicator${
+            isInIncognito ? '-incognito-symbolic' : '-symbolic'
+          }.svg`,
+        ),
+      );
+    });
+
+    this.settings.connect('changed::icon-pack', () => {
+      const isInIncognito = this.settings.get_boolean('is-in-incognito');
+      icon.set_gicon(
+        icon_new_for_string(
+          `${getCurrentExtension().path}/icons/hicolor/scalable/actions/${
+            ICON_PACKS[this.settings.get_uint('icon-pack')]
+          }-indicator${isInIncognito ? '-incognito-symbolic' : '-symbolic'}.svg`,
+        ),
       );
     });
 

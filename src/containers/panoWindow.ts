@@ -1,6 +1,7 @@
-import { ActorAlign, AnimationMode, EVENT_PROPAGATE, KeyEvent, KEY_Escape } from '@gi-types/clutter10';
+import { ActorAlign, AnimationMode, EVENT_PROPAGATE, KEY_Escape, KeyEvent } from '@gi-types/clutter10';
 import { Settings } from '@gi-types/gio2';
-import { BoxLayout } from '@gi-types/st1';
+import { Global } from '@gi-types/shell0';
+import { BoxLayout, ThemeContext } from '@gi-types/st1';
 import { MonitorBox } from '@pano/components/monitorBox';
 import { PanoScrollView } from '@pano/components/panoScrollView';
 import { SearchBox } from '@pano/components/searchBox';
@@ -30,6 +31,35 @@ export class PanoWindow extends BoxLayout {
     });
 
     this.settings = getCurrentExtensionSettings();
+    const themeContext = ThemeContext.get_for_stage(Global.get().get_stage());
+    this.set_height(this.settings.get_int('window-height') * themeContext.scaleFactor);
+    this.settings.connect('changed::window-height', () => {
+      this.set_height(this.settings.get_int('window-height') * themeContext.scaleFactor);
+    });
+
+    themeContext.connect('notify::scale-factor', () => {
+      const { scaleFactor } = ThemeContext.get_for_stage(Global.get().get_stage());
+      this.set_height(this.settings.get_int('window-height') * scaleFactor);
+    });
+
+    this.settings.connect('changed::window-background-color', () => {
+      if (this.settings.get_boolean('is-in-incognito')) {
+        this.set_style(
+          `background-color: ${this.settings.get_string('incognito-window-background-color')} !important;`,
+        );
+      } else {
+        this.set_style(`background-color: ${this.settings.get_string('window-background-color')}`);
+      }
+    });
+    this.settings.connect('changed::incognito-window-background-color', () => {
+      if (this.settings.get_boolean('is-in-incognito')) {
+        this.set_style(
+          `background-color: ${this.settings.get_string('incognito-window-background-color')} !important;`,
+        );
+      } else {
+        this.set_style(`background-color: ${this.settings.get_string('window-background-color')}`);
+      }
+    });
     this.monitorBox = new MonitorBox();
     this.scrollView = new PanoScrollView();
     this.searchBox = new SearchBox();
@@ -44,13 +74,20 @@ export class PanoWindow extends BoxLayout {
     this.settings.connect('changed::is-in-incognito', () => {
       if (this.settings.get_boolean('is-in-incognito')) {
         this.add_style_class_name('incognito');
+        this.set_style(
+          `background-color: ${this.settings.get_string('incognito-window-background-color')} !important;`,
+        );
       } else {
         this.remove_style_class_name('incognito');
+        this.set_style(`background-color: ${this.settings.get_string('window-background-color')}`);
       }
     });
 
     if (this.settings.get_boolean('is-in-incognito')) {
       this.add_style_class_name('incognito');
+      this.set_style(`background-color: ${this.settings.get_string('incognito-window-background-color')} !important;`);
+    } else {
+      this.set_style(`background-color: ${this.settings.get_string('window-background-color')}`);
     }
   }
 
@@ -66,12 +103,21 @@ export class PanoWindow extends BoxLayout {
     this.searchBox.connect('search-submit', () => {
       this.scrollView.selectFirstItem();
     });
-    this.searchBox.connect('search-text-changed', (_: any, text: string) => {
-      this.scrollView.filter(text);
+    this.searchBox.connect('search-text-changed', (_: any, text: string, itemType: string, showFavorites: boolean) => {
+      this.scrollView.filter(text, itemType, showFavorites);
+    });
+    this.searchBox.connect('search-item-select-shortcut', (_: any, index: number) => {
+      this.scrollView.selectItemByIndex(index);
     });
   }
 
   private setupScrollView() {
+    this.scrollView.connect('scroll-update-list', () => {
+      this.searchBox.focus();
+      this.searchBox.emitSearchTextChange();
+      this.scrollView.focusOnClosest();
+      this.scrollView.scrollToFocussedItem();
+    });
     this.scrollView.connect('scroll-focus-out', () => {
       this.searchBox.focus();
     });
@@ -79,6 +125,18 @@ export class PanoWindow extends BoxLayout {
     this.scrollView.connect('scroll-backspace-press', () => {
       this.searchBox.removeChar();
       this.searchBox.focus();
+    });
+
+    this.scrollView.connect('scroll-alt-press', () => {
+      this.searchBox.focus();
+      this.searchBox.toggleFavorites();
+      this.scrollView.focusAndScrollToFirst();
+    });
+
+    this.scrollView.connect('scroll-tab-press', (_: any, hasShift: boolean) => {
+      this.searchBox.focus();
+      this.searchBox.toggleItemType(hasShift);
+      this.scrollView.focusAndScrollToFirst();
     });
 
     this.scrollView.connect('scroll-key-press', (_: any, text: string) => {

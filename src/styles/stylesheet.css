@@ -1,13 +1,10 @@
 .pano-window {
-  background-color: rgba(36, 36, 36, 0.9);
-  height: 380px;
   border-top: 1px solid rgba(69, 69, 69, 1);
 }
 
 .pano-window.incognito {
-  background-color: rgba(17, 0, 29, 0.9);
   background-image: url('./images/incognito-mode.svg');
-  background-size: 45px;
+  background-size: 48px;
   background-position: 10px 10px;
 }
 
@@ -21,14 +18,21 @@
   color: inherit;
 }
 
+.pano-window .search-entry-fav-icon {
+  padding: 0 4px;
+  color: inherit;
+}
+
+.pano-window .search-entry-fav-icon.active {
+  color: #f6d32d;
+}
+
 .pano-item {
   border-radius: 11px;
   margin-top: 6px;
   margin-bottom: 6px;
   margin-left: 6px;
   margin-right: 6px;
-  height: 300px;
-  width: 300px;
   border: 4px solid transparent;
 }
 
@@ -39,67 +43,23 @@
   margin-right: 14px;
 }
 
-.pano-item:selected {
-  border: 4px solid #3584e4 !important;
-}
-
-.pano-item:hover {
-  border: 4px solid rgba(53, 132, 228, 0.7);
-}
-
 .pano-item-header {
   border-radius: 6px 6px 0px 0px;
-  height: 80px;
-}
-
-.pano-item-header-link {
-  background-color: #209fb5;
-}
-
-.pano-item-header-text {
-  background-color: #0a3d64;
-}
-
-.pano-item-header-emoji {
-  background-color: #d18f7b;
-}
-
-.pano-item-header-file {
-  background-color: #4c4f69;
-}
-
-.pano-item-header-image {
-  background-color: #e64553;
-}
-
-.pano-item-header-code {
-  background-color: #232634;
-}
-
-.pano-item-header-color {
-  background-color: #8839ef;
+  padding: 5px;
+  height: 50px;
 }
 
 .pano-item-body {
   border-radius: 0px 0px 6px 6px;
-  height: 220px;
-}
-
-.pano-item-body-code {
-  background-color: #303446;
-  color: white;
 }
 
 .pano-item-body-code-content {
   margin: 12px;
-  font-size: 13px;
   tab-size: 2;
-  font-family: monospace;
 }
 
 .pano-item-body-link {
   padding: 0px;
-  background-color: #afbcf7;
 }
 
 .pano-item-body-link .image-container {
@@ -107,20 +67,9 @@
   border-radius: 1px 1px 0px 0px;
 }
 
-.pano-item-body-text {
-  background-color: #e5c890;
-}
-
 .pano-item-body-text-content {
   margin: 12px;
-  font-size: 14px;
-  font-family: sans-serif;
-  color: #000;
   tab-size: 2;
-}
-
-.pano-item-body-emoji {
-  background-color: #edd6d0;
 }
 
 .pano-item-body-emoji .emoji-container {
@@ -128,14 +77,9 @@
 }
 
 .pano-item-body-emoji-content {
-  font-size: 64px;
   font-family: sans-serif;
   tab-size: 2;
   text-shadow: 0 0 5px #000;
-}
-
-.pano-item-body-color {
-  background-color: #a6da95;
 }
 
 .pano-item-body-color .color-container {
@@ -143,98 +87,60 @@
 }
 
 .pano-item-body-color .color-label {
-  font-size: 16px;
   border-radius: 999px;
-  background-color: black;
-  color: white;
   padding: 10px;
 }
 
-.pano-item-body-image {
-  background-color: #2e2e47;
-}
-
-.pano-item-body-file {
-  background-color: #fafafa;
-}
-
-.pano-item-body-file-name-label {
-  font-size: 13px;
-  color: #000;
-  font-family: sans;
-}
-
-.pano-item-body-file-name-label.has-more {
-  font-weight: bold;
-}
-
 .pano-item-title-container {
-  margin-top: 16px;
+  margin-left: 5px;
 }
 
 .pano-item-title {
   font-size: 24px;
-  color: white;
 }
 
-.pano-icon-container {
-  margin-right: 5px;
-  margin-left: 5px;
+.pano-item-title-icon {
+  height: 36px;
+  width: 36px;
 }
 
 .pano-item-date {
   font-size: 12px;
-  color: #f7f7f7;
 }
 
 .pano-item-body-file .file-icon {
   padding: 0 4px;
-  color: #000;
 }
 
 .copied-files-container {
   margin-right: 10px;
   margin-left: 10px;
+  margin-top: 5px;
+}
+
+.pano-item-body-file .copied-file-name:first-child {
+  border-top: 0px !important;
 }
 
 .pano-item-body-file .copied-file-name {
   margin-bottom: 2px;
-}
-
-.copied-file-name.even {
-  background-color: #fafafa;
-}
-
-.copied-file-name.odd {
-  background-color: rgb(216, 216, 216);
+  border-top: 1px solid rgba(63, 63, 63, 0.2);
 }
 
 .pano-item-body-meta-container {
   height: 50px;
   padding: 10px;
-  background-color: rgba(0, 0, 0, 0.7);
-  border-radius: 0px 0px 6px 6px;
+  border-radius: 0px 0px 5px 5px;
 }
 
 .pano-item-body-image-resolution-container {
-  border-bottom: 1px solid rgba(229, 229, 229, 0.2);
+  border-bottom: 1px solid rgba(76, 76, 76);
   padding-bottom: 5px;
 }
 
 .pano-item-body-image-size-container {
-  border-top: 1px solid rgba(229, 229, 229, 0.2);
+  border-top: 1px solid rgb(76, 76, 76);
   padding-top: 5px;
-}
-
-.pano-item-body-image-meta-title {
-  font-size: 12px;
-  color: white;
-}
-
-.pano-item-body-image-meta-value {
-  font-size: 13px;
-  font-weight: bold;
-  color: white;
 }
 
 .pano-item-body-link-meta-container {
@@ -242,33 +148,50 @@
 }
 
 .pano-item-body-link .link-title-label {
-  font-size: 13px;
   font-weight: bold;
-  color: white;
-}
-
-.pano-item-body-link .link-description-label {
-  font-size: 12px;
-  color: white;
 }
 
 .pano-item-body-link .link-label {
   margin-top: 5px;
-  font-size: 10px;
+}
+
+.pano-item-action-button {
+  margin-left: 5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background-color: rgba(0, 0, 0, 0.3);
   color: white;
 }
 
-.pano-item-remove-button {
-  background-color: rgba(0, 0, 0, 0.3);
-  color: white;
-  border-radius: 99px;
-  padding: 5px;
-  margin: 5px;
+.pano-item-action-button-icon {
+  margin: 4px;
+}
+
+.pano-item-open-link-button:hover,
+.pano-item-open-link-button:active {
+  background-color: #1d5ee9;
 }
 
 .pano-item-remove-button:hover,
 .pano-item-remove-button:active {
-  background-color: #d20f39;
+  background-color: #e01b24;
+}
+
+.pano-item-action-button-remove-icon {
+  width: 18px;
+  height: 18px;
+  margin: 2px;
+}
+
+.pano-item-favorite-button:hover {
+  background-color: rgba(246, 211, 45, 0.3);
+  color: black;
+}
+
+.pano-item-favorite-button:active {
+  background-color: #f6d32d;
+  color: black;
 }
 
 .indicator-icon {

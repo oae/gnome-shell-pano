@@ -1,7 +1,23 @@
-import isUrl from 'is-url';
-import { validateHTMLColorHex, validateHTMLColorName, validateHTMLColorRgb } from 'validate-color/lib/index';
-
+import { Colorspace, Pixbuf } from '@gi-types/gdkpixbuf2';
+import { File, FileCreateFlags } from '@gi-types/gio2';
+import { ChecksumType, compute_checksum_for_bytes, uri_parse, UriFlags } from '@gi-types/glib2';
+import { PixelFormat } from '@imports/cogl2';
+import { CodePanoItem } from '@pano/components/codePanoItem';
+import { ColorPanoItem } from '@pano/components/colorPanoItem';
+import { EmojiPanoItem } from '@pano/components/emojiPanoItem';
+import { FilePanoItem } from '@pano/components/filePanoItem';
+import { ImagePanoItem } from '@pano/components/imagePanoItem';
+import { LinkPanoItem } from '@pano/components/linkPanoItem';
+import { PanoItem } from '@pano/components/panoItem';
+import { TextPanoItem } from '@pano/components/textPanoItem';
+import { ClipboardContent, ContentType, FileOperation } from '@pano/utils/clipboardManager';
+import { ClipboardQueryBuilder, db, DBItem } from '@pano/utils/db';
+import { getDocument, getImage } from '@pano/utils/linkParser';
+import { _, getCachePath, getCurrentExtensionSettings, getImagesPath, logger, playAudio } from '@pano/utils/shell';
+import { notify } from '@pano/utils/ui';
+import converter from 'hex-color-converter';
 import hljs from 'highlight.js/lib/core';
+import bash from 'highlight.js/lib/languages/bash';
 import c from 'highlight.js/lib/languages/c';
 import cpp from 'highlight.js/lib/languages/cpp';
 import csharp from 'highlight.js/lib/languages/csharp';
@@ -21,28 +37,14 @@ import python from 'highlight.js/lib/languages/python';
 import ruby from 'highlight.js/lib/languages/ruby';
 import rust from 'highlight.js/lib/languages/rust';
 import scala from 'highlight.js/lib/languages/scala';
+import shell from 'highlight.js/lib/languages/shell';
 import sql from 'highlight.js/lib/languages/sql';
 import swift from 'highlight.js/lib/languages/swift';
 import typescript from 'highlight.js/lib/languages/typescript';
 import yaml from 'highlight.js/lib/languages/yaml';
-import bash from 'highlight.js/lib/languages/bash';
-import shell from 'highlight.js/lib/languages/shell';
-
-import { Pixbuf } from '@gi-types/gdkpixbuf2';
-import { File, FileCreateFlags } from '@gi-types/gio2';
-import { ChecksumType, compute_checksum_for_bytes, UriFlags, uri_parse } from '@gi-types/glib2';
-import { CodePanoItem } from '@pano/components/codePanoItem';
-import { ColorPanoItem } from '@pano/components/colorPanoItem';
-import { FilePanoItem } from '@pano/components/filePanoItem';
-import { ImagePanoItem } from '@pano/components/imagePanoItem';
-import { LinkPanoItem } from '@pano/components/linkPanoItem';
-import { PanoItem } from '@pano/components/panoItem';
-import { TextPanoItem } from '@pano/components/textPanoItem';
-import { ClipboardContent, ContentType } from '@pano/utils/clipboardManager';
-import { ClipboardQueryBuilder, db, DBItem } from '@pano/utils/db';
-import { getDocument, getImage } from '@pano/utils/linkParser';
-import { getCachePath, getCurrentExtensionSettings, getImagesPath, logger, playAudio } from '@pano/utils/shell';
-import { EmojiPanoItem } from '@pano/components/emojiPanoItem';
+import isUrl from 'is-url';
+import prettyBytes from 'pretty-bytes';
+import { validateHTMLColorHex, validateHTMLColorName, validateHTMLColorRgb } from 'validate-color';
 
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('markdown', markdown);
@@ -278,6 +280,10 @@ export const createPanoItem = async (clip: ClipboardContent): Promise<PanoItem |
   }
 
   if (dbItem) {
+    if (getCurrentExtensionSettings().get_boolean('send-notification-on-copy')) {
+      sendNotification(dbItem);
+    }
+
     return createPanoItemFromDb(dbItem);
   }
 
@@ -323,6 +329,14 @@ export const createPanoItemFromDb = (dbItem: DBItem | null): PanoItem | null => 
     removeItemResources(dbItem);
   });
 
+  panoItem.connect('on-favorite', (_, dbItemStr: string) => {
+    const dbItem: DBItem = JSON.parse(dbItemStr);
+    db.update({
+      ...dbItem,
+      copyDate: new Date(dbItem.copyDate),
+    });
+  });
+
   return panoItem;
 };
 
@@ -340,4 +354,60 @@ export const removeItemResources = (dbItem: DBItem) => {
       imageFile.delete(null);
     }
   }
+};
+
+const sendNotification = async (dbItem: DBItem) => {
+  return new Promise(() => {
+    if (dbItem.itemType === 'IMAGE') {
+      const { width, height, size }: { width: number; height: number; size: number } = JSON.parse(
+        dbItem.metaData || '{}',
+      );
+      notify(
+        _('Image Copied'),
+        _('Width: %spx, Height: %spx, Size: %s').format(width, height, prettyBytes(size)),
+        Pixbuf.new_from_file(`${getImagesPath()}/${dbItem.content}.png`),
+      );
+    } else if (dbItem.itemType === 'TEXT') {
+      notify(_('Text Copied'), dbItem.content);
+    } else if (dbItem.itemType === 'CODE') {
+      notify(_('Code Copied'), dbItem.content);
+    } else if (dbItem.itemType === 'EMOJI') {
+      notify(_('Emoji Copied'), dbItem.content);
+    } else if (dbItem.itemType === 'LINK') {
+      const { title, description, image }: { title: string; description: string; image: string } = JSON.parse(
+        dbItem.metaData || '{}',
+      );
+      const pixbuf = image ? Pixbuf.new_from_file(`${getCachePath()}/${image}.png`) : undefined;
+      notify(
+        decodeURI(`${_('Link Copied')}${title ? ` - ${title}` : ''}`),
+        `${dbItem.content}${description ? `\n\n${decodeURI(description)}` : ''}`,
+        pixbuf,
+        PixelFormat.RGB_888,
+      );
+    } else if (dbItem.itemType === 'COLOR') {
+      // Create pixbuf from color
+      const pixbuf = Pixbuf.new(Colorspace.RGB, true, 8, 1, 1);
+      let color: string | null = null;
+      // check if content has alpha
+      if (dbItem.content.includes('rgba')) {
+        color = converter(dbItem.content);
+      } else if (validateHTMLColorRgb(dbItem.content)) {
+        color = `${converter(dbItem.content)}ff`;
+      } else if (validateHTMLColorHex(dbItem.content)) {
+        color = `${dbItem.content}ff`;
+      }
+
+      if (color) {
+        pixbuf.fill(parseInt(color.replace('#', '0x'), 16));
+        notify(_('Color Copied'), dbItem.content, pixbuf);
+      }
+    } else if (dbItem.itemType === 'FILE') {
+      const operation = dbItem.metaData;
+      const fileListSize = JSON.parse(dbItem.content).length;
+      notify(
+        _('File %s').format(operation === FileOperation.CUT ? 'cut' : 'copied'),
+        _('There are %s file(s)').format(fileListSize),
+      );
+    }
+  });
 };

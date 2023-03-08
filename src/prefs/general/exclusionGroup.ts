@@ -2,7 +2,7 @@ import { ActionRow, ExpanderRow, PreferencesGroup } from '@gi-types/adw1';
 import { Settings } from '@gi-types/gio2';
 import { Align, Button, Entry } from '@gi-types/gtk4';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { getCurrentExtensionSettings, _ } from '@pano/utils/shell';
+import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class ExclusionGroup extends PreferencesGroup {

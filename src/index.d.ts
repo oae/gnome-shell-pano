@@ -9,8 +9,12 @@ declare global {
     ui: {
       layout: any;
       lightbox: any;
+      messageTray: any;
       main: {
         notify: (text: string, body: string) => void;
+        messageTray: {
+          add(source: any): any;
+        };
         panel: any;
         wm: any;
         layoutManager: {

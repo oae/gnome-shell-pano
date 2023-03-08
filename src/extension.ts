@@ -1,3 +1,5 @@
+import './styles/stylesheet.css';
+
 import { DBus, DBusExportedObject, DBusSignalFlags, Settings } from '@gi-types/gio2';
 import { PRIORITY_DEFAULT, Source, SOURCE_REMOVE, timeout_add } from '@gi-types/glib2';
 import { Global } from '@gi-types/shell0';
@@ -19,7 +21,6 @@ import {
   setupAppDirs,
 } from '@pano/utils/shell';
 import { addTopChrome, addToStatusArea, removeChrome, removeVirtualKeyboard } from '@pano/utils/ui';
-import './styles/stylesheet.css';
 
 const debug = logger('extension');
 class PanoExtension {
@@ -161,7 +162,10 @@ class PanoExtension {
       if (
         wmClass &&
         this.settings.get_boolean('watch-exclusion-list') &&
-        this.settings.get_strv('exclusion-list').indexOf(wmClass) >= 0
+        this.settings
+          .get_strv('exclusion-list')
+          .map((s) => s.toLowerCase())
+          .indexOf(wmClass.toLowerCase()) >= 0
       ) {
         clipboardManager.stopTracking();
       } else if (clipboardManager.isTracking === false) {
@@ -226,6 +230,18 @@ class PanoExtension {
     } else {
       await this.reInitialize();
     }
+  }
+
+  show() {
+    this.panoWindow?.show();
+  }
+
+  hide() {
+    this.panoWindow?.hide();
+  }
+
+  toggle() {
+    this.panoWindow?.toggle();
   }
 
   private rerender() {

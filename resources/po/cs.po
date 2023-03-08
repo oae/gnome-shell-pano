@@ -1,0 +1,568 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: fill-pot-po/2.1.9\n"
+
+#: src/components/indicator/clearHistoryDialog.ts:23
+msgid "Cancel"
+msgstr "Zrušit"
+
+#: src/components/indicator/clearHistoryDialog.ts:30
+#: src/prefs/dangerZone/clearHistory.ts:17
+msgid "Clear"
+msgstr "Vymazat"
+
+#: src/components/indicator/clearHistoryDialog.ts:35
+#: src/components/indicator/settingsMenu.ts:87
+#: src/prefs/dangerZone/clearHistory.ts:11
+msgid "Clear History"
+msgstr "Vymazat historii"
+
+#: src/components/indicator/clearHistoryDialog.ts:36
+#: src/prefs/dangerZone/clearHistory.ts:23
+msgid "Are you sure you want to clear history?"
+msgstr "Opravdu chcete vymazat historii?"
+
+#: src/components/indicator/settingsMenu.ts:56
+msgid "Incognito Mode"
+msgstr "Anonymní režim"
+
+#: src/components/indicator/settingsMenu.ts:94
+msgid "Settings"
+msgstr "Nastavení"
+
+#: src/components/linkPanoItem.ts:46
+msgid "No Description"
+msgstr "Bez popisu"
+
+#: src/components/searchBox.ts:61
+msgid "Type to search, Tab to cycle"
+msgstr "Pište pro vyhledávání, Tab pro cyklování mezi kategoriemi"
+
+#: src/prefs/customization/codeItemStyle.ts:13
+msgid "Change the style of the code item"
+msgstr "Změňte styl položky kódu"
+
+#: src/prefs/customization/codeItemStyle.ts:13
+msgid "Code Item Style"
+msgstr "Kód - nastavení stylů"
+
+#: src/prefs/customization/codeItemStyle.ts:20
+#: src/prefs/customization/colorItemStyle.ts:20
+#: src/prefs/customization/emojiItemStyle.ts:20
+#: src/prefs/customization/fileItemStyle.ts:20
+#: src/prefs/customization/imageItemStyle.ts:20
+#: src/prefs/customization/linkItemStyle.ts:20
+#: src/prefs/customization/textItemStyle.ts:20
+msgid "Header Background Color"
+msgstr "Barva pozadí záhlaví"
+
+#: src/prefs/customization/codeItemStyle.ts:21
+#: src/prefs/customization/colorItemStyle.ts:21
+#: src/prefs/customization/emojiItemStyle.ts:21
+#: src/prefs/customization/fileItemStyle.ts:21
+#: src/prefs/customization/imageItemStyle.ts:21
+#: src/prefs/customization/linkItemStyle.ts:21
+#: src/prefs/customization/textItemStyle.ts:21
+msgid "You can change the background color of the header"
+msgstr "Můžete změnit barvu pozadí záhlaví"
+
+#: src/prefs/customization/codeItemStyle.ts:30
+#: src/prefs/customization/colorItemStyle.ts:30
+#: src/prefs/customization/emojiItemStyle.ts:30
+#: src/prefs/customization/fileItemStyle.ts:30
+#: src/prefs/customization/imageItemStyle.ts:30
+#: src/prefs/customization/linkItemStyle.ts:30
+#: src/prefs/customization/textItemStyle.ts:30
+msgid "Header Text Color"
+msgstr "Barva textu záhlaví"
+
+#: src/prefs/customization/codeItemStyle.ts:31
+#: src/prefs/customization/colorItemStyle.ts:31
+#: src/prefs/customization/emojiItemStyle.ts:31
+#: src/prefs/customization/fileItemStyle.ts:31
+#: src/prefs/customization/imageItemStyle.ts:31
+#: src/prefs/customization/linkItemStyle.ts:31
+#: src/prefs/customization/textItemStyle.ts:31
+msgid "You can change the text color of the header"
+msgstr "Můžete změnit barvu textu záhlaví"
+
+#: src/prefs/customization/codeItemStyle.ts:40
+#: src/prefs/customization/emojiItemStyle.ts:40
+#: src/prefs/customization/fileItemStyle.ts:40
+#: src/prefs/customization/imageItemStyle.ts:40
+#: src/prefs/customization/linkItemStyle.ts:40
+#: src/prefs/customization/textItemStyle.ts:40
+msgid "Body Background Color"
+msgstr "Barva pozadí těla"
+
+#: src/prefs/customization/codeItemStyle.ts:41
+#: src/prefs/customization/emojiItemStyle.ts:41
+#: src/prefs/customization/fileItemStyle.ts:41
+#: src/prefs/customization/imageItemStyle.ts:41
+#: src/prefs/customization/linkItemStyle.ts:41
+#: src/prefs/customization/textItemStyle.ts:41
+msgid "You can change the background color of the body"
+msgstr "Můžete změnit barvu pozadí těla"
+
+#: src/prefs/customization/codeItemStyle.ts:48
+#: src/prefs/customization/colorItemStyle.ts:59
+#: src/prefs/customization/fileItemStyle.ts:53
+#: src/prefs/customization/textItemStyle.ts:53
+msgid "Body Font"
+msgstr "Písmo těla"
+
+#: src/prefs/customization/codeItemStyle.ts:48
+#: src/prefs/customization/fileItemStyle.ts:53
+#: src/prefs/customization/textItemStyle.ts:53
+msgid "You can change the font of the body"
+msgstr "Můžete změnit písmo těla"
+
+#: src/prefs/customization/codeItemStyle.ts:53
+#: src/prefs/customization/textItemStyle.ts:58
+msgid "Character Length"
+msgstr "Počet znaků"
+
+#: src/prefs/customization/codeItemStyle.ts:54
+#: src/prefs/customization/textItemStyle.ts:59
+msgid "You can change the character length of the visible text in the body"
+msgstr "Můžete změnit počet znaků viditelného textu v těle"
+
+#: src/prefs/customization/colorItemStyle.ts:13
+msgid "Change the style of the color item"
+msgstr "Změňte styly barvy"
+
+#: src/prefs/customization/colorItemStyle.ts:13
+msgid "Color Item Style"
+msgstr "Barva - nastavení stylů"
+
+#: src/prefs/customization/colorItemStyle.ts:40
+#: src/prefs/customization/imageItemStyle.ts:50
+#: src/prefs/customization/linkItemStyle.ts:50
+msgid "Metadata Background Color"
+msgstr "Barva pozadí metadat"
+
+#: src/prefs/customization/colorItemStyle.ts:41
+#: src/prefs/customization/imageItemStyle.ts:51
+#: src/prefs/customization/linkItemStyle.ts:51
+msgid "You can change the background color of the metadata"
+msgstr "Můžete změnit barvu pozadí metadat"
+
+#: src/prefs/customization/colorItemStyle.ts:50
+#: src/prefs/customization/imageItemStyle.ts:60
+msgid "Metadata Text Color"
+msgstr "Barva textu metadat"
+
+#: src/prefs/customization/colorItemStyle.ts:51
+#: src/prefs/customization/imageItemStyle.ts:61
+msgid "You can change the text color of the metadata"
+msgstr "Můžete změnit barvu textu metadat"
+
+#: src/prefs/customization/colorItemStyle.ts:59
+#: src/prefs/customization/imageItemStyle.ts:69
+msgid "You can change the font of the metadata"
+msgstr "Můžete změnit písmo metadat"
+
+#: src/prefs/customization/commonStyleGroup.ts:12
+msgid "Common"
+msgstr "Obecné"
+
+#: src/prefs/customization/commonStyleGroup.ts:18
+msgid "Icon Pack"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:18
+msgid "You can change the icon pack"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:19
+msgid "Default Icons"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:20
+msgid "Legacy Icons"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:26
+msgid "Window Height"
+msgstr "Výška okna"
+
+#: src/prefs/customization/commonStyleGroup.ts:27
+msgid "You can change the window height"
+msgstr "Můžete změnit výšku okna"
+
+#: src/prefs/customization/commonStyleGroup.ts:37
+msgid "Window Background Color"
+msgstr "Barva pozadí okna"
+
+#: src/prefs/customization/commonStyleGroup.ts:38
+msgid "You can change the window background color"
+msgstr "Můžete změnit barvu pozadí okna"
+
+#: src/prefs/customization/commonStyleGroup.ts:45
+msgid "Incognito Window Background Color"
+msgstr "Barva pozadí anonymního okna"
+
+#: src/prefs/customization/commonStyleGroup.ts:46
+msgid "You can change the incognito window background color"
+msgstr "Můžete změnit barvu pozadí anonymního okna"
+
+#: src/prefs/customization/commonStyleGroup.ts:53
+msgid "Active Item Border Color"
+msgstr "Barva ohraničení aktivní položky"
+
+#: src/prefs/customization/commonStyleGroup.ts:54
+msgid "You can change the active item border color"
+msgstr "Můžete změnit barvu okraje aktivní položky"
+
+#: src/prefs/customization/commonStyleGroup.ts:61
+msgid "Hovered Item Border Color"
+msgstr "Barva ohraničení při najetí na položku"
+
+#: src/prefs/customization/commonStyleGroup.ts:62
+msgid "You can change the hovered item border color"
+msgstr "Můžete změnit barvu ohraničení při najetí na položku"
+
+#: src/prefs/customization/emojiItemStyle.ts:13
+msgid "Change the style of the emoji item"
+msgstr "Změňte styly emoji"
+
+#: src/prefs/customization/emojiItemStyle.ts:13
+msgid "Emoji Item Style"
+msgstr "Emoji - nastavení stylů"
+
+#: src/prefs/customization/emojiItemStyle.ts:49
+msgid "Emoji Size"
+msgstr "Velikost emoji"
+
+#: src/prefs/customization/emojiItemStyle.ts:49
+msgid "You can change the emoji size"
+msgstr "Můžete změnit velikost emoji"
+
+#: src/prefs/customization/fileItemStyle.ts:13
+msgid "Change the style of the file item"
+msgstr "Změňte styly souboru"
+
+#: src/prefs/customization/fileItemStyle.ts:13
+msgid "File Item Style"
+msgstr "Soubor - nastavení stylů"
+
+#: src/prefs/customization/fileItemStyle.ts:49
+#: src/prefs/customization/textItemStyle.ts:49
+msgid "Body Text Color"
+msgstr "Barva textu těla"
+
+#: src/prefs/customization/fileItemStyle.ts:49
+#: src/prefs/customization/textItemStyle.ts:49
+msgid "You can change the text color of the body"
+msgstr "Můžete změnit barvu textu těla"
+
+#: src/prefs/customization/imageItemStyle.ts:13
+msgid "Change the style of the image item"
+msgstr "Změňte styly obrázku"
+
+#: src/prefs/customization/imageItemStyle.ts:13
+msgid "Image Item Style"
+msgstr "Obrázek - nastavení stylů"
+
+#: src/prefs/customization/imageItemStyle.ts:69
+msgid "Metadata Font"
+msgstr "Písmo metadat"
+
+#: src/prefs/customization/index.ts:11
+msgid "Customization"
+msgstr "Přizpůsobení"
+
+#: src/prefs/customization/itemStyleGroup.ts:16
+msgid "Item Style"
+msgstr "Styly položky"
+
+#: src/prefs/customization/linkItemStyle.ts:13
+msgid "Change the style of the link item"
+msgstr "Změňte styly odkazu"
+
+#: src/prefs/customization/linkItemStyle.ts:13
+msgid "Link Item Style"
+msgstr "Odkaz - nastavení stylů"
+
+#: src/prefs/customization/linkItemStyle.ts:60
+msgid "Metadata Title Color"
+msgstr "Barva názvu metadat"
+
+#: src/prefs/customization/linkItemStyle.ts:61
+msgid "You can change the title color of the metadata"
+msgstr "Můžete změnit barvu názvu metadat"
+
+#: src/prefs/customization/linkItemStyle.ts:70
+msgid "Metadata Title Font"
+msgstr "Písmo názvu metadat"
+
+#: src/prefs/customization/linkItemStyle.ts:71
+msgid "You can change the font of the metadata title"
+msgstr "Můžete změnit písmo názvu metadat"
+
+#: src/prefs/customization/linkItemStyle.ts:80
+msgid "Metadata Description Color"
+msgstr "Barva popisu metadat"
+
+#: src/prefs/customization/linkItemStyle.ts:81
+msgid "You can change the description color of the metadata"
+msgstr "Můžete změnit barvu popisu metadat"
+
+#: src/prefs/customization/linkItemStyle.ts:90
+msgid "Metadata Description Font"
+msgstr "Písmo popisu metadat"
+
+#: src/prefs/customization/linkItemStyle.ts:91
+msgid "You can change the font of the metadata description"
+msgstr "Můžete změnit písmo popisu metadat"
+
+#: src/prefs/customization/linkItemStyle.ts:100
+msgid "Metadata Link Color"
+msgstr "Barva odkazu metadat"
+
+#: src/prefs/customization/linkItemStyle.ts:101
+msgid "You can change the link color of the metadata"
+msgstr "Můžete změnit barvu odkazu metadat"
+
+#: src/prefs/customization/linkItemStyle.ts:110
+msgid "Metadata Link Font"
+msgstr "Písmo odkazu metadat"
+
+#: src/prefs/customization/linkItemStyle.ts:111
+msgid "You can change the font of the metadata link"
+msgstr "Můžete změnit písmo odkazu na metadata"
+
+#: src/prefs/customization/textItemStyle.ts:13
+msgid "Change the style of the text item"
+msgstr "Změňte styly textu"
+
+#: src/prefs/customization/textItemStyle.ts:13
+msgid "Text Item Style"
+msgstr "Text - nastavení stylů"
+
+#: src/prefs/dangerZone/clearHistory.ts:12
+msgid "Clears the clipboard database and cache"
+msgstr "Vymaže databázi schránky a mezipaměť"
+
+#: src/prefs/dangerZone/index.ts:11
+msgid "Danger Zone"
+msgstr "Pokročilé"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr "Režim: Pouze relace"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr "Pokud je tato možnost povolena, Pano vymaže celou historii při odhlášení/restartu/vypnutí."
+
+#: src/prefs/general/dbLocation.ts:22
+msgid "Database Location"
+msgstr "Umístění databáze"
+
+#: src/prefs/general/dbLocation.ts:30
+msgid "Choose pano database location"
+msgstr "Zvolte umístění databáze pano"
+
+#: src/prefs/general/dbLocation.ts:52
+msgid "Failed to select directory"
+msgstr "Failed to select directory"
+
+#: src/prefs/general/exclusionGroup.ts:15
+msgid "Manage Exclusions"
+msgstr "Správa vyloučených aplikací"
+
+#: src/prefs/general/exclusionGroup.ts:22
+msgid "Excluded Apps"
+msgstr "Vyloučené aplikace"
+
+#: src/prefs/general/exclusionGroup.ts:23
+msgid "Pano will stop tracking if any window from the list is focussed"
+msgstr "Pano přestane sledovat, pokud je vybráno jakékoli okno ze seznamu"
+
+#: src/prefs/general/exclusionGroup.ts:52
+msgid "Window class name"
+msgstr "Název třídy okna"
+
+#: src/prefs/general/generalGroup.ts:22
+msgid "General Options"
+msgstr "Obecné možnosti"
+
+#: src/prefs/general/historyLength.ts:13
+msgid "History Length"
+msgstr "Délka historie"
+
+#: src/prefs/general/historyLength.ts:14
+msgid "You can limit your clipboard history length between 10 - 500"
+msgstr "Délku historie schránky můžete omezit mezi 10 - 500"
+
+#: src/prefs/general/incognitoShortcutRow.ts:57
+msgid "Incognito Mode Shortcut"
+msgstr "Zkratka anonymního režimu"
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr "Umožňuje přepínat anonymní režim"
+
+#: src/prefs/general/incognitoShortcutRow.ts:64
+#: src/prefs/general/shortcutRow.ts:64
+msgid "Select a shortcut"
+msgstr "Vyberte zkratku"
+
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "Nová zkratka"
+
+#: src/prefs/general/index.ts:11
+msgid "General"
+msgstr "Obecné"
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:13
+msgid "Keep Search Entry"
+msgstr "Ponechat položku vyhledávání"
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:14
+msgid "Keep search entry when Pano hides"
+msgstr "Ponechat záznam vyhledávání, když se Pano skryje"
+
+#: src/prefs/general/linkPreviews.ts:13
+msgid "Link Previews"
+msgstr "Náhledy odkazů"
+
+#: src/prefs/general/linkPreviews.ts:14
+msgid "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr "Povolte Pano navštěvovat odkazy ve vaší schránce a generovat náhledy odkazů"
+
+#: src/prefs/general/openLinksInBrowser.ts:13
+msgid "Open Links in Browser"
+msgstr "Otevřít Odkazy v prohlížeči"
+
+#: src/prefs/general/openLinksInBrowser.ts:14
+msgid "Allow Pano to open links on your default browser"
+msgstr "Povolte Pano otevírat odkazy ve vašem výchozím prohlížeči"
+
+#: src/prefs/general/pasteOnSelect.ts:13
+msgid "Paste on Select"
+msgstr "Vložit při výběru"
+
+#: src/prefs/general/pasteOnSelect.ts:14
+msgid "Allow Pano to paste content on select"
+msgstr "Povolte Pano vložit obsah při výběru"
+
+#: src/prefs/general/playAudioOnCopy.ts:13
+msgid "Play an Audio on Copy"
+msgstr "Přehrát zvuk při kopírování"
+
+#: src/prefs/general/playAudioOnCopy.ts:14
+msgid "Allow Pano to play an audio when copying new content"
+msgstr "Při kopírování nového obsahu povolte Pano přehrát zvuk"
+
+#: src/prefs/general/sendNotificationOnCopy.ts:13
+msgid "Send Notification on Copy"
+msgstr "Odeslat oznámení o kopírování"
+
+#: src/prefs/general/sendNotificationOnCopy.ts:14
+msgid "Allow Pano to send notification when copying new content"
+msgstr "Povolte Pano odesílat upozornění při kopírování nového obsahu"
+
+#: src/prefs/general/shortcutRow.ts:57
+msgid "Global Shortcut"
+msgstr "Globální zkratka"
+
+#: src/prefs/general/shortcutRow.ts:58
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "Umožňuje vám přepínat viditelnost správce schránky"
+
+#: src/prefs/general/showIndicator.ts:13
+msgid "Show Indicator"
+msgstr "Zobrazit indikátor"
+
+#: src/prefs/general/showIndicator.ts:14
+msgid "Shows an indicator on top panel"
+msgstr "Zobrazuje ikonu na horním panelu"
+
+#: src/prefs/general/syncPrimary.ts:13
+msgid "Sync Primary"
+msgstr "Synchronizace primárního výběru"
+
+#: src/prefs/general/syncPrimary.ts:14
+msgid "Sync primary selection with clipboard selection"
+msgstr "Synchronizace primárního výběru s výběrem ze schránky"
+
+#: src/prefs/general/watchExclusions.ts:13
+msgid "Watch Exclusions"
+msgstr "Sledování vyloučených aplikací"
+
+#: src/prefs/general/watchExclusions.ts:14
+msgid "When enabled, Pano will not track clipboard from excluded apps"
+msgstr "Je-li tato možnost povolena, nebude Pano sledovat schránku z vyloučených aplikací"
+
+#: src/utils/panoItemFactory.ts:366
+msgid "Image Copied"
+msgstr "Obrázek zkopírován"
+
+#: src/utils/panoItemFactory.ts:367
+msgid "Width: %spx, Height: %spx, Size: %s"
+msgstr "Šířka: %spx, Výška: %spx, Velikost: %s"
+
+#: src/utils/panoItemFactory.ts:371
+msgid "Text Copied"
+msgstr "Text zkopírován"
+
+#: src/utils/panoItemFactory.ts:373
+msgid "Code Copied"
+msgstr "Kód zkopírován"
+
+#: src/utils/panoItemFactory.ts:375
+msgid "Emoji Copied"
+msgstr "Emoji zkopírováno"
+
+#: src/utils/panoItemFactory.ts:382
+msgid "Link Copied"
+msgstr "Odkaz zkopírován"
+
+#: src/utils/panoItemFactory.ts:402
+msgid "Color Copied"
+msgstr "Barva zkopírována"
+
+#: src/utils/panoItemFactory.ts:408
+msgid "File %s"
+msgstr "Soubor %s"
+
+#: src/utils/panoItemFactory.ts:409
+msgid "There are %s file(s)"
+msgstr "Existuje %s souborů"
+
+#: src/utils/panoItemType.ts:4
+msgid "Link"
+msgstr "Odkaz"
+
+#: src/utils/panoItemType.ts:5
+msgid "Text"
+msgstr "Text"
+
+#: src/utils/panoItemType.ts:6
+msgid "Emoji"
+msgstr "Emoji"
+
+#: src/utils/panoItemType.ts:7
+msgid "File"
+msgstr "Soubor"
+
+#: src/utils/panoItemType.ts:8
+msgid "Image"
+msgstr "Obrázek"
+
+#: src/utils/panoItemType.ts:9
+msgid "Code"
+msgstr "Kód"
+
+#: src/utils/panoItemType.ts:10
+msgid "Color"
+msgstr "Barva"
+
+#: src/utils/ui.ts:13
+msgid "Pano"
+msgstr "Pano"

@@ -47,7 +47,7 @@ import {
   ShortcutLabel,
 } from '@gi-types/gtk4';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { getCurrentExtensionSettings, _ } from '@pano/utils/shell';
+import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class ShortcutRow extends ActionRow {
