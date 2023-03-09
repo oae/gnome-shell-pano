@@ -217,7 +217,7 @@ msgstr "Sie können die Hintergrundfarbe des Inkognito-Fensters ändern"
 
 #: src/prefs/customization/commonStyleGroup.ts:53
 msgid "Active Item Border Color"
-msgstr "Aktives Eintrag Randfarbe"
+msgstr "Aktiver Eintrag Randfarbe"
 
 #: src/prefs/customization/commonStyleGroup.ts:54
 msgid "You can change the active item border color"
@@ -225,11 +225,11 @@ msgstr "Sie können die Randfarbe des aktiven Eintrages ändern"
 
 #: src/prefs/customization/commonStyleGroup.ts:61
 msgid "Hovered Item Border Color"
-msgstr "Schwebendes Eintrag Randfarbe"
+msgstr "Fokusierter Eintrag Randfarbe"
 
 #: src/prefs/customization/commonStyleGroup.ts:62
 msgid "You can change the hovered item border color"
-msgstr "Sie können die Randfarbe des schwebenden Eintrages ändern"
+msgstr "Sie können die Randfarbe des fokusierter Eintrages ändern"
 
 #: src/prefs/customization/emojiItemStyle.ts:13
 msgid "Change the style of the emoji item"
