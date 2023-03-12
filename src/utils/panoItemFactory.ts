@@ -374,9 +374,9 @@ const sendNotification = async (dbItem: DBItem) => {
         Pixbuf.new_from_file(`${getImagesPath()}/${dbItem.content}.png`),
       );
     } else if (dbItem.itemType === 'TEXT') {
-      notify(_('Text Copied'), dbItem.content);
+      notify(_('Text Copied'), dbItem.content.trim());
     } else if (dbItem.itemType === 'CODE') {
-      notify(_('Code Copied'), dbItem.content);
+      notify(_('Code Copied'), dbItem.content.trim());
     } else if (dbItem.itemType === 'EMOJI') {
       notify(_('Emoji Copied'), dbItem.content);
     } else if (dbItem.itemType === 'LINK') {
