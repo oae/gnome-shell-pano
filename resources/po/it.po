@@ -169,19 +169,19 @@ msgstr "Comune"
 
 #: src/prefs/customization/commonStyleGroup.ts:18
 msgid "Icon Pack"
-msgstr ""
+msgstr "Pacchetto icone"
 
 #: src/prefs/customization/commonStyleGroup.ts:18
 msgid "You can change the icon pack"
-msgstr ""
+msgstr "Puoi cambiare il pacchetto di icone"
 
 #: src/prefs/customization/commonStyleGroup.ts:19
 msgid "Default Icons"
-msgstr ""
+msgstr "Icone predefinite"
 
 #: src/prefs/customization/commonStyleGroup.ts:20
 msgid "Legacy Icons"
-msgstr ""
+msgstr "Icone legacy"
 
 #: src/prefs/customization/commonStyleGroup.ts:26
 msgid "Window Height"
