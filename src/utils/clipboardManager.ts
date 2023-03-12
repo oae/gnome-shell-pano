@@ -293,7 +293,7 @@ export class ClipboardManager extends Object {
             resolve(
               new ClipboardContent({
                 type: ContentType.TEXT,
-                value: text.trim(),
+                value: text,
               }),
             );
             return;

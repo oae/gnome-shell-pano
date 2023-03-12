@@ -1,15 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: Christian Lauinger <christian@lauinger-clan.de>\n"
-"Language-Team: \n"
-"Language: de\n"
-"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: fill-pot-po/2.1.9\n"
 
 #: src/components/indicator/clearHistoryDialog.ts:23
 msgid "Cancel"
@@ -507,39 +499,39 @@ msgstr "Ausschlüsse überwachen"
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "Wenn aktiviert, wird Pano die ausgeschlossenen Apps nicht tracken"
 
-#: src/utils/panoItemFactory.ts:366
+#: src/utils/panoItemFactory.ts:372
 msgid "Image Copied"
 msgstr "Bild kopiert"
 
-#: src/utils/panoItemFactory.ts:367
+#: src/utils/panoItemFactory.ts:373
 msgid "Width: %spx, Height: %spx, Size: %s"
 msgstr "Breite: %spx, Höhe: %spx, Größe: %s"
 
-#: src/utils/panoItemFactory.ts:371
+#: src/utils/panoItemFactory.ts:377
 msgid "Text Copied"
 msgstr "Text kopiert"
 
-#: src/utils/panoItemFactory.ts:373
+#: src/utils/panoItemFactory.ts:379
 msgid "Code Copied"
 msgstr "Code kopiert"
 
-#: src/utils/panoItemFactory.ts:375
+#: src/utils/panoItemFactory.ts:381
 msgid "Emoji Copied"
 msgstr "Emoji kopiert"
 
-#: src/utils/panoItemFactory.ts:382
+#: src/utils/panoItemFactory.ts:388
 msgid "Link Copied"
 msgstr "Link kopiert"
 
-#: src/utils/panoItemFactory.ts:402
+#: src/utils/panoItemFactory.ts:408
 msgid "Color Copied"
 msgstr "Farbe kopiert"
 
-#: src/utils/panoItemFactory.ts:408
+#: src/utils/panoItemFactory.ts:414
 msgid "File %s"
 msgstr "Datei %s"
 
-#: src/utils/panoItemFactory.ts:409
+#: src/utils/panoItemFactory.ts:415
 msgid "There are %s file(s)"
 msgstr "Es sind %s Datei(en)"
 

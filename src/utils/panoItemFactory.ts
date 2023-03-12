@@ -178,7 +178,9 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
         }),
       });
     case ContentType.TEXT:
-      if (value.toLowerCase().startsWith('http') && isValidUrl(value)) {
+      const trimmedValue = value.trim();
+
+      if (trimmedValue.toLowerCase().startsWith('http') && isValidUrl(trimmedValue)) {
         const linkPreviews = getCurrentExtensionSettings().get_boolean('link-previews');
         let description = '',
           imageUrl = '',
@@ -186,12 +188,12 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
           checksum = '';
         const copyDate = new Date();
         let linkDbItem = db.save({
-          content: value,
+          content: trimmedValue,
           copyDate,
           isFavorite: false,
           itemType: 'LINK',
-          matchValue: value,
-          searchValue: `${title}${description}${value}`,
+          matchValue: trimmedValue,
+          searchValue: `${title}${description}${trimmedValue}`,
           metaData: JSON.stringify({
             title: title ? encodeURI(title) : '',
             description: description ? encodeURI(description) : '',
@@ -200,19 +202,19 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
         });
 
         if (linkPreviews && linkDbItem) {
-          const document = await getDocument(value);
+          const document = await getDocument(trimmedValue);
           description = document.description;
           title = document.title;
           imageUrl = document.imageUrl;
           checksum = (await getImage(imageUrl))[0] || '';
           linkDbItem = db.update({
             id: linkDbItem.id,
-            content: value,
+            content: trimmedValue,
             copyDate: copyDate,
             isFavorite: false,
             itemType: 'LINK',
-            matchValue: value,
-            searchValue: `${title}${description}${value}`,
+            matchValue: trimmedValue,
+            searchValue: `${title}${description}${trimmedValue}`,
             metaData: JSON.stringify({
               title: title ? encodeURI(title) : '',
               description: description ? encodeURI(description) : '',
@@ -223,26 +225,30 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
 
         return linkDbItem;
       }
-      if (validateHTMLColorHex(value) || validateHTMLColorRgb(value) || validateHTMLColorName(value)) {
+      if (
+        validateHTMLColorHex(trimmedValue) ||
+        validateHTMLColorRgb(trimmedValue) ||
+        validateHTMLColorName(trimmedValue)
+      ) {
         return db.save({
-          content: value,
+          content: trimmedValue,
           copyDate: new Date(),
           isFavorite: false,
           itemType: 'COLOR',
-          matchValue: value,
-          searchValue: value,
+          matchValue: trimmedValue,
+          searchValue: trimmedValue,
         });
       }
-      const highlightResult = hljs.highlightAuto(value.slice(0, 2000), SUPPORTED_LANGUAGES);
+      const highlightResult = hljs.highlightAuto(trimmedValue.slice(0, 2000), SUPPORTED_LANGUAGES);
       if (highlightResult.relevance < 10) {
-        if (/^\p{Extended_Pictographic}*$/u.test(value)) {
+        if (/^\p{Extended_Pictographic}*$/u.test(trimmedValue)) {
           return db.save({
-            content: value,
+            content: trimmedValue,
             copyDate: new Date(),
             isFavorite: false,
             itemType: 'EMOJI',
-            matchValue: value,
-            searchValue: value,
+            matchValue: trimmedValue,
+            searchValue: trimmedValue,
           });
         } else {
           return db.save({

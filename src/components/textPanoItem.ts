@@ -45,7 +45,7 @@ export class TextPanoItem extends PanoItem {
     this.body.set_style(`background-color: ${bodyBgColor}`);
 
     // set label styles
-    this.label.set_text(this.dbItem.content.slice(0, characterLength));
+    this.label.set_text(this.dbItem.content.trim().slice(0, characterLength));
     this.label.set_style(`color: ${bodyColor}; font-family: ${bodyFontFamily}; font-size: ${bodyFontSize}px;`);
   }
 
