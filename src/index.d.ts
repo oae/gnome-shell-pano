@@ -36,6 +36,12 @@ declare global {
       };
     };
     misc: {
+      util: {
+        wiggle(
+          actor: Actor,
+          { offset, duration, wiggleCount }: { offset?: number; duration?: number; wiggleCount?: number },
+        ): void;
+      };
       extensionUtils: {
         initTranslations: (domain: string) => void;
         getCurrentExtension: () => any;

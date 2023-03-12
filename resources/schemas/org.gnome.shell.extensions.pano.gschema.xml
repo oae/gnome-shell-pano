@@ -57,6 +57,11 @@
       <summary>Shows indicator</summary>
       <description>Shows an indicator on top panel.</description>
     </key>
+    <key name="wiggle-indicator" type="b">
+      <default>true</default>
+      <summary>Wiggles indicator</summary>
+      <description>Wiggles the indicator.</description>
+    </key>
     <key name="link-previews" type="b">
       <default>true</default>
       <summary>Link Previews</summary>

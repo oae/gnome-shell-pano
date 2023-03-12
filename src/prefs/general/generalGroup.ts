@@ -15,6 +15,8 @@ import { WatchExclusionsRow } from '@pano/prefs/general/watchExclusions';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { _ } from '@pano/utils/shell';
 
+import { WiggleIndicatorRow } from './wiggleIndicator';
+
 @registerGObjectClass
 export class GeneralGroup extends PreferencesGroup {
   constructor() {
@@ -32,6 +34,7 @@ export class GeneralGroup extends PreferencesGroup {
     this.add(new PlayAudioOnCopyRow());
     this.add(new KeepSearchEntryRow());
     this.add(new ShowIndicatorRow());
+    this.add(new WiggleIndicatorRow());
     this.add(new LinkPreviewsRow());
     this.add(new OpenLinksInBrowserRow());
     this.add(new WatchExclusionsRow());

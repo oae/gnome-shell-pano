@@ -42,6 +42,11 @@ export const notify = (text: string, body: string, iconOrPixbuf?: Pixbuf | Icon,
   source.showNotification(notification);
 };
 
+export const wiggle = (
+  actor: Actor,
+  { offset, duration, wiggleCount }: { offset?: number; duration?: number; wiggleCount?: number },
+) => imports.misc.util.wiggle(actor, { offset, duration, wiggleCount });
+
 export const wm = imports.ui.main.wm;
 
 export const getMonitors = (): Monitor[] => imports.ui.main.layoutManager.monitors;

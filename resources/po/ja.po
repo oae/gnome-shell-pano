@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "クリア"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:87
+#: src/components/indicator/settingsMenu.ts:90
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr "履歴をクリア"
@@ -23,11 +23,11 @@ msgstr "履歴をクリア"
 msgid "Are you sure you want to clear history?"
 msgstr "履歴をクリアしてもよろしいですか?"
 
-#: src/components/indicator/settingsMenu.ts:56
+#: src/components/indicator/settingsMenu.ts:59
 msgid "Incognito Mode"
 msgstr "シークレットモード"
 
-#: src/components/indicator/settingsMenu.ts:94
+#: src/components/indicator/settingsMenu.ts:97
 msgid "Settings"
 msgstr "設定"
 
@@ -433,7 +433,7 @@ msgstr "Pano は、リストのいずれかのウィンドウがフォーカス�
 msgid "Window class name"
 msgstr "ウィンドウ クラス名"
 
-#: src/prefs/general/generalGroup.ts:22
+#: src/prefs/general/generalGroup.ts:24
 msgid "General Options"
 msgstr "全般オプション"
 
@@ -546,6 +546,14 @@ msgstr "除外を見る"
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "有効にすると、Panoは除外されたアプリからクリップボードを追跡しません"
+
+#: src/prefs/general/wiggleIndicator.ts:13
+msgid "Wiggle Indicator"
+msgstr ""
+
+#: src/prefs/general/wiggleIndicator.ts:14
+msgid "Wiggles the indicator on panel"
+msgstr ""
 
 #: src/utils/panoItemFactory.ts:372
 msgid "Image Copied"

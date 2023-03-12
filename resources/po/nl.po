@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "Wissen"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:87
+#: src/components/indicator/settingsMenu.ts:90
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr "Geschiedenis wissen"
@@ -23,11 +23,11 @@ msgstr "Geschiedenis wissen"
 msgid "Are you sure you want to clear history?"
 msgstr "Weet u zeker dat u de geschiedenis wilt wissen?"
 
-#: src/components/indicator/settingsMenu.ts:56
+#: src/components/indicator/settingsMenu.ts:59
 msgid "Incognito Mode"
 msgstr "Incognitomodus"
 
-#: src/components/indicator/settingsMenu.ts:94
+#: src/components/indicator/settingsMenu.ts:97
 msgid "Settings"
 msgstr "Voorkeuren"
 
@@ -433,7 +433,7 @@ msgstr "Pano volgt geen vensters van toepassingen op de lijst"
 msgid "Window class name"
 msgstr "Vensterklassenaam"
 
-#: src/prefs/general/generalGroup.ts:22
+#: src/prefs/general/generalGroup.ts:24
 msgid "General Options"
 msgstr "Algemene voorkeuren"
 
@@ -546,6 +546,14 @@ msgstr "Uitzonderingen handhaven"
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "Schakel in om het klembord niet te gebruiken in uitgezonderde toepassingen."
+
+#: src/prefs/general/wiggleIndicator.ts:13
+msgid "Wiggle Indicator"
+msgstr ""
+
+#: src/prefs/general/wiggleIndicator.ts:14
+msgid "Wiggles the indicator on panel"
+msgstr ""
 
 #: src/utils/panoItemFactory.ts:372
 msgid "Image Copied"

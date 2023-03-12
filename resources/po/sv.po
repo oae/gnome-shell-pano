@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "Klar"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:87
+#: src/components/indicator/settingsMenu.ts:90
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr "Rensa historik"
@@ -23,11 +23,11 @@ msgstr "Rensa historik"
 msgid "Are you sure you want to clear history?"
 msgstr "Är du säker på att du vill rensa historiken?"
 
-#: src/components/indicator/settingsMenu.ts:56
+#: src/components/indicator/settingsMenu.ts:59
 msgid "Incognito Mode"
 msgstr "Inkognitoläge"
 
-#: src/components/indicator/settingsMenu.ts:94
+#: src/components/indicator/settingsMenu.ts:97
 msgid "Settings"
 msgstr "Inställningar"
 
@@ -433,7 +433,7 @@ msgstr "Pano slutar spåra om något fönster från listan är fokuserat"
 msgid "Window class name"
 msgstr "Namn på fönsterklass"
 
-#: src/prefs/general/generalGroup.ts:22
+#: src/prefs/general/generalGroup.ts:24
 msgid "General Options"
 msgstr "Allmänna alternativ"
 
@@ -546,6 +546,14 @@ msgstr "Titta på undantag"
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "När det är aktiverat spårar Pano inte Urklipp från uteslutna appar"
+
+#: src/prefs/general/wiggleIndicator.ts:13
+msgid "Wiggle Indicator"
+msgstr ""
+
+#: src/prefs/general/wiggleIndicator.ts:14
+msgid "Wiggles the indicator on panel"
+msgstr ""
 
 #: src/utils/panoItemFactory.ts:372
 msgid "Image Copied"

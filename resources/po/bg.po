@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "Ясен"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:87
+#: src/components/indicator/settingsMenu.ts:90
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr "Изчистване на хронологията"
@@ -23,11 +23,11 @@ msgstr "Изчистване на хронологията"
 msgid "Are you sure you want to clear history?"
 msgstr "Сигурни ли сте, че искате да изчистите историята?"
 
-#: src/components/indicator/settingsMenu.ts:56
+#: src/components/indicator/settingsMenu.ts:59
 msgid "Incognito Mode"
 msgstr "Режим \"инкогнито\""
 
-#: src/components/indicator/settingsMenu.ts:94
+#: src/components/indicator/settingsMenu.ts:97
 msgid "Settings"
 msgstr "Настройки"
 
@@ -433,7 +433,7 @@ msgstr "Pano ще спре проследяването, ако някой пр�
 msgid "Window class name"
 msgstr "Име на класа на прозореца"
 
-#: src/prefs/general/generalGroup.ts:22
+#: src/prefs/general/generalGroup.ts:24
 msgid "General Options"
 msgstr "Общи опции"
 
@@ -546,6 +546,14 @@ msgstr "Гледайте изключенията"
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "Когато е активиран, Pano няма да проследява клипборда от изключени приложения"
+
+#: src/prefs/general/wiggleIndicator.ts:13
+msgid "Wiggle Indicator"
+msgstr ""
+
+#: src/prefs/general/wiggleIndicator.ts:14
+msgid "Wiggles the indicator on panel"
+msgstr ""
 
 #: src/utils/panoItemFactory.ts:372
 msgid "Image Copied"

@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "Limpar"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:87
+#: src/components/indicator/settingsMenu.ts:90
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr "Limpar o histórico"
@@ -23,11 +23,11 @@ msgstr "Limpar o histórico"
 msgid "Are you sure you want to clear history?"
 msgstr "Você tem certeza que deseja limpar o histórico?"
 
-#: src/components/indicator/settingsMenu.ts:56
+#: src/components/indicator/settingsMenu.ts:59
 msgid "Incognito Mode"
 msgstr "Modo anônimo"
 
-#: src/components/indicator/settingsMenu.ts:94
+#: src/components/indicator/settingsMenu.ts:97
 msgid "Settings"
 msgstr "Configurações"
 
@@ -433,7 +433,7 @@ msgstr "Pano irá parar de rastrear se alguma das janelas da lista estiver em fo
 msgid "Window class name"
 msgstr "Nome da classe da janela"
 
-#: src/prefs/general/generalGroup.ts:22
+#: src/prefs/general/generalGroup.ts:24
 msgid "General Options"
 msgstr "Opções gerais"
 
@@ -546,6 +546,14 @@ msgstr "Observar exclusões"
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "Quando habilitado, o Pano não irá rastrear a área de transferência para os aplicativos excluídos"
+
+#: src/prefs/general/wiggleIndicator.ts:13
+msgid "Wiggle Indicator"
+msgstr ""
+
+#: src/prefs/general/wiggleIndicator.ts:14
+msgid "Wiggles the indicator on panel"
+msgstr ""
 
 #: src/utils/panoItemFactory.ts:372
 msgid "Image Copied"

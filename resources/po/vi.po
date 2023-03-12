@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "Xóa"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:87
+#: src/components/indicator/settingsMenu.ts:90
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr "Xóa Lịch Sử"
@@ -23,11 +23,11 @@ msgstr "Xóa Lịch Sử"
 msgid "Are you sure you want to clear history?"
 msgstr "Bạn chắc bạn có muốn xóa lịch sử không?"
 
-#: src/components/indicator/settingsMenu.ts:56
+#: src/components/indicator/settingsMenu.ts:59
 msgid "Incognito Mode"
 msgstr "Chế Độ Ẩn Danh"
 
-#: src/components/indicator/settingsMenu.ts:94
+#: src/components/indicator/settingsMenu.ts:97
 msgid "Settings"
 msgstr "Cài Đặt"
 
@@ -433,7 +433,7 @@ msgstr "Pano sẽ ngừng lưu dữ liệu khay nhớ tạm trong cửa sổ c�
 msgid "Window class name"
 msgstr "Tên của cửa sổ"
 
-#: src/prefs/general/generalGroup.ts:22
+#: src/prefs/general/generalGroup.ts:24
 msgid "General Options"
 msgstr "Tùy Chọn Chung"
 
@@ -546,6 +546,14 @@ msgstr "Theo Dõi Ứng Dụng Ngoại Lệ"
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "Khi đuợc bât, Pano sẽ không lưu dữ liệu đuợc sao chép vào bộ nhớ tạm trong những ứng dụng ngoại lệ"
+
+#: src/prefs/general/wiggleIndicator.ts:13
+msgid "Wiggle Indicator"
+msgstr ""
+
+#: src/prefs/general/wiggleIndicator.ts:14
+msgid "Wiggles the indicator on panel"
+msgstr ""
 
 #: src/utils/panoItemFactory.ts:372
 msgid "Image Copied"

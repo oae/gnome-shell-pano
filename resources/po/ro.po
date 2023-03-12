@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "Clar"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:87
+#: src/components/indicator/settingsMenu.ts:90
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr "Istoric clar"
@@ -23,11 +23,11 @@ msgstr "Istoric clar"
 msgid "Are you sure you want to clear history?"
 msgstr "Ești sigur că vrei să limpezești istoria?"
 
-#: src/components/indicator/settingsMenu.ts:56
+#: src/components/indicator/settingsMenu.ts:59
 msgid "Incognito Mode"
 msgstr "Modul incognito"
 
-#: src/components/indicator/settingsMenu.ts:94
+#: src/components/indicator/settingsMenu.ts:97
 msgid "Settings"
 msgstr "Setări"
 
@@ -433,7 +433,7 @@ msgstr "Pano va opri urmărirea dacă orice fereastră din listă este focalizat
 msgid "Window class name"
 msgstr "Numele clasei de fereastră"
 
-#: src/prefs/general/generalGroup.ts:22
+#: src/prefs/general/generalGroup.ts:24
 msgid "General Options"
 msgstr "Opțiuni generale"
 
@@ -546,6 +546,14 @@ msgstr "Urmăriți Excluderile"
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "Când este activat, Pano nu va urmări clipboard-ul din aplicațiile excluse"
+
+#: src/prefs/general/wiggleIndicator.ts:13
+msgid "Wiggle Indicator"
+msgstr ""
+
+#: src/prefs/general/wiggleIndicator.ts:14
+msgid "Wiggles the indicator on panel"
+msgstr ""
 
 #: src/utils/panoItemFactory.ts:372
 msgid "Image Copied"

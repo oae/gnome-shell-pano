@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "צלול"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:87
+#: src/components/indicator/settingsMenu.ts:90
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr "נקה היסטוריה"
@@ -23,11 +23,11 @@ msgstr "נקה היסטוריה"
 msgid "Are you sure you want to clear history?"
 msgstr "האם אתה בטוח שברצונך לנקות את ההיסטוריה?"
 
-#: src/components/indicator/settingsMenu.ts:56
+#: src/components/indicator/settingsMenu.ts:59
 msgid "Incognito Mode"
 msgstr "מצב גלישה בסתר"
 
-#: src/components/indicator/settingsMenu.ts:94
+#: src/components/indicator/settingsMenu.ts:97
 msgid "Settings"
 msgstr "הגדרות"
 
@@ -433,7 +433,7 @@ msgstr "Pano תפסיק את המעקב אם חלון כלשהו מהרשימה 
 msgid "Window class name"
 msgstr "שם כיתת חלון"
 
-#: src/prefs/general/generalGroup.ts:22
+#: src/prefs/general/generalGroup.ts:24
 msgid "General Options"
 msgstr "אפשרויות כלליות"
 
@@ -546,6 +546,14 @@ msgstr "צפה בהחרגות"
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "כאשר אפשרות זו מופעלת, Pano לא תעקוב אחר הלוח מאפליקציות שאינן נכללות"
+
+#: src/prefs/general/wiggleIndicator.ts:13
+msgid "Wiggle Indicator"
+msgstr ""
+
+#: src/prefs/general/wiggleIndicator.ts:14
+msgid "Wiggles the indicator on panel"
+msgstr ""
 
 #: src/utils/panoItemFactory.ts:372
 msgid "Image Copied"
