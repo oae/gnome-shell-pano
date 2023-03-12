@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
-#: src/prefs/customization/commonStyleGroup.ts:56
+#: src/prefs/customization/commonStyleGroup.ts:70
 msgid "Active Item Border Color"
 msgstr ""
 
@@ -236,7 +236,7 @@ msgstr ""
 msgid "History Length"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:64
+#: src/prefs/customization/commonStyleGroup.ts:78
 msgid "Hovered Item Border Color"
 msgstr ""
 
@@ -268,12 +268,20 @@ msgstr ""
 msgid "Incognito Window Background Color"
 msgstr ""
 
+#: src/prefs/customization/commonStyleGroup.ts:66
+msgid "Item Date Font"
+msgstr ""
+
 #: src/prefs/customization/commonStyleGroup.ts:25
 msgid "Item Size"
 msgstr ""
 
 #: src/prefs/customization/itemStyleGroup.ts:16
 msgid "Item Style"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:63
+msgid "Item Title Font"
 msgstr ""
 
 #: src/prefs/general/keepSearchEntryOnHide.ts:13
@@ -384,6 +392,10 @@ msgstr ""
 msgid "Right"
 msgstr ""
 
+#: src/prefs/customization/commonStyleGroup.ts:56
+msgid "Search Bar Font"
+msgstr ""
+
 #: src/prefs/general/incognitoShortcutRow.ts:64
 #: src/prefs/general/shortcutRow.ts:64
 msgid "Select a shortcut"
@@ -473,7 +485,7 @@ msgstr ""
 msgid "You can change position of the Pano"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:57
+#: src/prefs/customization/commonStyleGroup.ts:71
 msgid "You can change the active item border color"
 msgstr ""
 
@@ -521,6 +533,10 @@ msgstr ""
 msgid "You can change the font of the body"
 msgstr ""
 
+#: src/prefs/customization/commonStyleGroup.ts:66
+msgid "You can change the font of the date"
+msgstr ""
+
 #: src/prefs/customization/colorItemStyle.ts:59
 #: src/prefs/customization/imageItemStyle.ts:69
 msgid "You can change the font of the metadata"
@@ -538,7 +554,15 @@ msgstr ""
 msgid "You can change the font of the metadata title"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:65
+#: src/prefs/customization/commonStyleGroup.ts:57
+msgid "You can change the font of the search bar"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:63
+msgid "You can change the font of the title"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:79
 msgid "You can change the hovered item border color"
 msgstr ""
 

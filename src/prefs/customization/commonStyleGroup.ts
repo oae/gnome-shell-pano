@@ -1,6 +1,6 @@
 import { PreferencesGroup } from '@gi-types/adw1';
 import { Settings } from '@gi-types/gio2';
-import { createColorRow, createDropdownRow, createSpinRow } from '@pano/prefs/customization/utils';
+import { createColorRow, createDropdownRow, createFontRow, createSpinRow } from '@pano/prefs/customization/utils';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
 
@@ -50,6 +50,20 @@ export class CommonStyleGroup extends PreferencesGroup {
         this.settings,
         'incognito-window-background-color',
       ),
+    );
+    this.add(
+      createFontRow(
+        _('Search Bar Font'),
+        _('You can change the font of the search bar'),
+        this.settings,
+        'search-bar-font',
+      ),
+    );
+    this.add(
+      createFontRow(_('Item Title Font'), _('You can change the font of the title'), this.settings, 'item-title-font'),
+    );
+    this.add(
+      createFontRow(_('Item Date Font'), _('You can change the font of the date'), this.settings, 'item-date-font'),
     );
     this.add(
       createColorRow(

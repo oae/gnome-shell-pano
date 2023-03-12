@@ -117,6 +117,36 @@
       <summary>incognito-window-background-color</summary>
       <description>incognito-window-background-color</description>
     </key>
+    <key name="search-bar-font-family" type="s">
+      <default>'Cantarell Regular'</default>
+      <summary>search-bar-font-family</summary>
+      <description>search-bar-font-family</description>
+    </key>
+    <key name="search-bar-font-size" type="i">
+      <default>14</default>
+      <summary>search-bar-font-size</summary>
+      <description>search-bar-font-size</description>
+    </key>
+    <key name="item-title-font-family" type="s">
+      <default>'Cantarell Bold'</default>
+      <summary>item-title-font-family</summary>
+      <description>item-title-font-family</description>
+    </key>
+    <key name="item-title-font-size" type="i">
+      <default>20</default>
+      <summary>item-title-font-size</summary>
+      <description>item-title-font-size</description>
+    </key>
+    <key name="item-date-font-family" type="s">
+      <default>'Cantarell Regular'</default>
+      <summary>item-date-font-family</summary>
+      <description>item-date-font-family</description>
+    </key>
+    <key name="item-date-font-size" type="i">
+      <default>11</default>
+      <summary>item-date-font-size</summary>
+      <description>item-date-font-size</description>
+    </key>
     <key name="active-item-border-color" type="s">
       <default>'rgb(53, 132, 228)'</default>
       <summary>active-item-border-color</summary>

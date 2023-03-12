@@ -62,6 +62,7 @@ export class SearchBox extends BoxLayout {
       can_focus: true,
       hint_text: _('Type to search, Tab to cycle'),
       natural_width: 300 * themeContext.scaleFactor,
+      height: 40 * themeContext.scaleFactor,
       track_hover: true,
       primary_icon: this.createSearchEntryIcon('edit-find-symbolic', 'search-entry-icon'),
       secondary_icon: this.createSearchEntryIcon('starred-symbolic', 'search-entry-fav-icon'),
@@ -69,6 +70,7 @@ export class SearchBox extends BoxLayout {
 
     themeContext.connect('notify::scale-factor', () => {
       this.search.natural_width = 300 * themeContext.scaleFactor;
+      this.search.set_height(40 * themeContext.scaleFactor);
     });
 
     this.search.connect('primary-icon-clicked', () => {
@@ -129,6 +131,15 @@ export class SearchBox extends BoxLayout {
       }
     });
     this.add_child(this.search);
+    this.setStyle();
+    this.settings.connect('changed::search-bar-font-family', this.setStyle.bind(this));
+    this.settings.connect('changed::search-bar-font-size', this.setStyle.bind(this));
+  }
+
+  private setStyle() {
+    const searchBarFontFamily = this.settings.get_string('search-bar-font-family');
+    const searchBarFontSize = this.settings.get_int('search-bar-font-size');
+    this.search.set_style(`font-family: ${searchBarFontFamily}; font-size: ${searchBarFontSize}px;`);
   }
 
   toggleItemType(hasShift: boolean) {

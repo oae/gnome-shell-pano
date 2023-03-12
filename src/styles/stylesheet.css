@@ -84,18 +84,20 @@
   margin-left: 5px;
 }
 
-.pano-item-title {
-  font-size: 20px;
-}
-
 .pano-item-title-icon {
   height: 32px;
   width: 32px;
   margin: 2px;
 }
 
+.pano-item-title {
+  padding: 0px;
+  margin: 0px;
+}
+
 .pano-item-date {
-  font-size: 11px;
+  padding: 0px;
+  margin: 0px;
 }
 
 .pano-item-body-file .file-icon {

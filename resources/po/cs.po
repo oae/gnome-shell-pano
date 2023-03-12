@@ -232,18 +232,42 @@ msgid "You can change the incognito window background color"
 msgstr "Můžete změnit barvu pozadí anonymního okna"
 
 #: src/prefs/customization/commonStyleGroup.ts:56
+msgid "Search Bar Font"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:57
+msgid "You can change the font of the search bar"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:63
+msgid "Item Title Font"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:63
+msgid "You can change the font of the title"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:66
+msgid "Item Date Font"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:66
+msgid "You can change the font of the date"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:70
 msgid "Active Item Border Color"
 msgstr "Barva ohraničení aktivní položky"
 
-#: src/prefs/customization/commonStyleGroup.ts:57
+#: src/prefs/customization/commonStyleGroup.ts:71
 msgid "You can change the active item border color"
 msgstr "Můžete změnit barvu okraje aktivní položky"
 
-#: src/prefs/customization/commonStyleGroup.ts:64
+#: src/prefs/customization/commonStyleGroup.ts:78
 msgid "Hovered Item Border Color"
 msgstr "Barva ohraničení při najetí na položku"
 
-#: src/prefs/customization/commonStyleGroup.ts:65
+#: src/prefs/customization/commonStyleGroup.ts:79
 msgid "You can change the hovered item border color"
 msgstr "Můžete změnit barvu ohraničení při najetí na položku"
 

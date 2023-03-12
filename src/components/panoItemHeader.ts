@@ -1,8 +1,9 @@
 import { ActorAlign, EVENT_PROPAGATE } from '@gi-types/clutter10';
-import { icon_new_for_string } from '@gi-types/gio2';
+import { icon_new_for_string, Settings } from '@gi-types/gio2';
 import { get_language_names_with_category } from '@gi-types/glib2';
 import { MetaInfo } from '@gi-types/gobject2';
-import { BoxLayout, Button, Icon, Label } from '@gi-types/st1';
+import { Global } from '@gi-types/shell0';
+import { BoxLayout, Button, Icon, Label, ThemeContext } from '@gi-types/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { ICON_PACKS, IPanoItemType } from '@pano/utils/panoItemType';
 import { getCurrentExtension, getCurrentExtensionSettings } from '@pano/utils/shell';
@@ -26,6 +27,9 @@ export class PanoItemHeader extends BoxLayout {
 
   private dateUpdateIntervalId: any;
   private favoriteButton: Button;
+  private settings: Settings;
+  private titleLabel: Label;
+  private dateLabel: Label;
   actionContainer: BoxLayout;
   titleContainer: BoxLayout;
   iconContainer: BoxLayout;
@@ -46,35 +50,44 @@ export class PanoItemHeader extends BoxLayout {
       style_class: 'pano-icon-container',
     });
 
-    const settings = getCurrentExtensionSettings();
+    this.settings = getCurrentExtensionSettings();
+
+    const themeContext = ThemeContext.get_for_stage(Global.get().get_stage());
+
+    this.set_height(56 * themeContext.scale_factor);
+
+    themeContext.connect('notify::scale-factor', () => {
+      this.set_height(56 * themeContext.scale_factor);
+    });
+
     const icon = new Icon({
       style_class: 'pano-item-title-icon',
       gicon: icon_new_for_string(
-        `${getCurrentExtension().path}/icons/hicolor/scalable/actions/${ICON_PACKS[settings.get_uint('icon-pack')]}-${
-          itemType.iconPath
-        }`,
+        `${getCurrentExtension().path}/icons/hicolor/scalable/actions/${
+          ICON_PACKS[this.settings.get_uint('icon-pack')]
+        }-${itemType.iconPath}`,
       ),
     });
     this.iconContainer.add_child(icon);
-    settings.connect('changed::icon-pack', () => {
+    this.settings.connect('changed::icon-pack', () => {
       icon.set_gicon(
         icon_new_for_string(
-          `${getCurrentExtension().path}/icons/hicolor/scalable/actions/${ICON_PACKS[settings.get_uint('icon-pack')]}-${
-            itemType.iconPath
-          }`,
+          `${getCurrentExtension().path}/icons/hicolor/scalable/actions/${
+            ICON_PACKS[this.settings.get_uint('icon-pack')]
+          }-${itemType.iconPath}`,
         ),
       );
     });
 
-    this.titleContainer.add_child(
-      new Label({
-        text: itemType.title,
-        style_class: 'pano-item-title',
-        x_expand: true,
-      }),
-    );
+    this.titleLabel = new Label({
+      text: itemType.title,
+      style_class: 'pano-item-title',
+      x_expand: true,
+    });
 
-    const dateLabel = new Label({
+    this.titleContainer.add_child(this.titleLabel);
+
+    this.dateLabel = new Label({
       text: formatDistanceToNow(date, { addSuffix: true, locale: localeKey ? dateLocale[localeKey] : undefined }),
       style_class: 'pano-item-date',
       x_expand: true,
@@ -84,12 +97,12 @@ export class PanoItemHeader extends BoxLayout {
     });
 
     this.dateUpdateIntervalId = setInterval(() => {
-      dateLabel.set_text(
+      this.dateLabel.set_text(
         formatDistanceToNow(date, { addSuffix: true, locale: localeKey ? dateLocale[localeKey] : undefined }),
       );
     }, 60000);
 
-    this.titleContainer.add_child(dateLabel);
+    this.titleContainer.add_child(this.dateLabel);
 
     this.actionContainer = new BoxLayout({
       style_class: 'pano-item-actions',
@@ -135,6 +148,21 @@ export class PanoItemHeader extends BoxLayout {
     this.add_child(this.iconContainer);
     this.add_child(this.titleContainer);
     this.add_child(this.actionContainer);
+
+    this.setStyle();
+    this.settings.connect('changed::item-title-font-family', this.setStyle.bind(this));
+    this.settings.connect('changed::item-title-font-size', this.setStyle.bind(this));
+    this.settings.connect('changed::item-date-font-family', this.setStyle.bind(this));
+    this.settings.connect('changed::item-date-font-size', this.setStyle.bind(this));
+  }
+
+  private setStyle() {
+    const itemTitleFontFamily = this.settings.get_string('item-title-font-family');
+    const itemTitleFontSize = this.settings.get_int('item-title-font-size');
+    const itemDateFontFamily = this.settings.get_string('item-date-font-family');
+    const itemDateFontSize = this.settings.get_int('item-date-font-size');
+    this.titleLabel.set_style(`font-family: ${itemTitleFontFamily}; font-size: ${itemTitleFontSize}px;`);
+    this.dateLabel.set_style(`font-family: ${itemDateFontFamily}; font-size: ${itemDateFontSize}px;`);
   }
 
   setFavorite(isFavorite: boolean): void {

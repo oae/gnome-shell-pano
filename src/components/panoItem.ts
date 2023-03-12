@@ -165,7 +165,7 @@ export class PanoItem extends BoxLayout {
       this.set_y_align(ActorAlign.FILL);
     }
     const { scaleFactor } = ThemeContext.get_for_stage(Global.get().get_stage());
-    this.body.set_height((this.settings.get_int('item-size') - 48) * scaleFactor);
+    this.body.set_height(this.settings.get_int('item-size') * scaleFactor - this.header.get_height());
     this.body.set_width(this.settings.get_int('item-size') * scaleFactor);
   }
 

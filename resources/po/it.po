@@ -232,18 +232,42 @@ msgid "You can change the incognito window background color"
 msgstr "Puoi cambiare il colore di sfondo della finestra di navigazione in incognito"
 
 #: src/prefs/customization/commonStyleGroup.ts:56
+msgid "Search Bar Font"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:57
+msgid "You can change the font of the search bar"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:63
+msgid "Item Title Font"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:63
+msgid "You can change the font of the title"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:66
+msgid "Item Date Font"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:66
+msgid "You can change the font of the date"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:70
 msgid "Active Item Border Color"
 msgstr "Colore del bordo dell'elemento attivo"
 
-#: src/prefs/customization/commonStyleGroup.ts:57
+#: src/prefs/customization/commonStyleGroup.ts:71
 msgid "You can change the active item border color"
 msgstr "È possibile modificare il colore del bordo dell'elemento attivo"
 
-#: src/prefs/customization/commonStyleGroup.ts:64
+#: src/prefs/customization/commonStyleGroup.ts:78
 msgid "Hovered Item Border Color"
 msgstr "Colore del bordo dell'elemento al passaggio del mouse"
 
-#: src/prefs/customization/commonStyleGroup.ts:65
+#: src/prefs/customization/commonStyleGroup.ts:79
 msgid "You can change the hovered item border color"
 msgstr "Puoi cambiare il colore del bordo dell'elemento al passaggio del mouse"
 

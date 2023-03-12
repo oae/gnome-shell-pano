@@ -232,18 +232,42 @@ msgid "You can change the incognito window background color"
 msgstr "Sie können die Hintergrundfarbe des Inkognito-Fensters ändern"
 
 #: src/prefs/customization/commonStyleGroup.ts:56
+msgid "Search Bar Font"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:57
+msgid "You can change the font of the search bar"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:63
+msgid "Item Title Font"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:63
+msgid "You can change the font of the title"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:66
+msgid "Item Date Font"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:66
+msgid "You can change the font of the date"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:70
 msgid "Active Item Border Color"
 msgstr "Aktiver Eintrag Randfarbe"
 
-#: src/prefs/customization/commonStyleGroup.ts:57
+#: src/prefs/customization/commonStyleGroup.ts:71
 msgid "You can change the active item border color"
 msgstr "Sie können die Randfarbe des aktiven Eintrages ändern"
 
-#: src/prefs/customization/commonStyleGroup.ts:64
+#: src/prefs/customization/commonStyleGroup.ts:78
 msgid "Hovered Item Border Color"
 msgstr "Fokusierter Eintrag Randfarbe"
 
-#: src/prefs/customization/commonStyleGroup.ts:65
+#: src/prefs/customization/commonStyleGroup.ts:79
 msgid "You can change the hovered item border color"
 msgstr "Sie können die Randfarbe des fokusierter Eintrages ändern"
 
