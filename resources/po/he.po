@@ -35,7 +35,7 @@ msgstr "הגדרות"
 msgid "No Description"
 msgstr ""
 
-#: src/components/searchBox.ts:61
+#: src/components/searchBox.ts:63
 msgid "Type to search, Tab to cycle"
 msgstr ""
 
@@ -183,43 +183,67 @@ msgstr ""
 msgid "Legacy Icons"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:26
-msgid "Window Height"
+#: src/prefs/customization/commonStyleGroup.ts:25
+msgid "Item Size"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:27
-msgid "You can change the window height"
+#: src/prefs/customization/commonStyleGroup.ts:25
+msgid "You can change the item size"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:37
+#: src/prefs/customization/commonStyleGroup.ts:30
+msgid "Window Position"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:31
+msgid "You can change position of the Pano"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:34
+msgid "Bottom"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:34
+msgid "Left"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:34
+msgid "Right"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:34
+msgid "Top"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:40
 msgid "Window Background Color"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:38
+#: src/prefs/customization/commonStyleGroup.ts:41
 msgid "You can change the window background color"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:45
+#: src/prefs/customization/commonStyleGroup.ts:48
 msgid "Incognito Window Background Color"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:46
+#: src/prefs/customization/commonStyleGroup.ts:49
 msgid "You can change the incognito window background color"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:53
+#: src/prefs/customization/commonStyleGroup.ts:56
 msgid "Active Item Border Color"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:54
+#: src/prefs/customization/commonStyleGroup.ts:57
 msgid "You can change the active item border color"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:61
+#: src/prefs/customization/commonStyleGroup.ts:64
 msgid "Hovered Item Border Color"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:62
+#: src/prefs/customization/commonStyleGroup.ts:65
 msgid "You can change the hovered item border color"
 msgstr ""
 

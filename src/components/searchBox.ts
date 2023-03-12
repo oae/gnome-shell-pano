@@ -50,6 +50,8 @@ export class SearchBox extends BoxLayout {
       x_align: ActorAlign.CENTER,
       style_class: 'search-entry-container',
       vertical: false,
+      track_hover: true,
+      reactive: true,
     });
 
     this.settings = getCurrentExtensionSettings();
@@ -59,15 +61,14 @@ export class SearchBox extends BoxLayout {
     this.search = new Entry({
       can_focus: true,
       hint_text: _('Type to search, Tab to cycle'),
+      natural_width: 300 * themeContext.scaleFactor,
       track_hover: true,
-      width: 300 * themeContext.scaleFactor,
       primary_icon: this.createSearchEntryIcon('edit-find-symbolic', 'search-entry-icon'),
       secondary_icon: this.createSearchEntryIcon('starred-symbolic', 'search-entry-fav-icon'),
     });
 
     themeContext.connect('notify::scale-factor', () => {
-      const { scaleFactor } = ThemeContext.get_for_stage(Global.get().get_stage());
-      this.search.set_width(300 * scaleFactor);
+      this.search.natural_width = 300 * themeContext.scaleFactor;
     });
 
     this.search.connect('primary-icon-clicked', () => {

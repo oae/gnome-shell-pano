@@ -22,16 +22,19 @@ export class CommonStyleGroup extends PreferencesGroup {
     );
 
     this.add(
-      createSpinRow(
-        _('Window Height'),
-        _('You can change the window height'),
+      createSpinRow(_('Item Size'), _('You can change the item size'), this.settings, 'item-size', 5, 200, 1000),
+    );
+
+    this.add(
+      createDropdownRow(
+        _('Window Position'),
+        _('You can change position of the Pano'),
         this.settings,
-        'window-height',
-        5,
-        200,
-        1000,
+        'window-position',
+        [_('Top'), _('Right'), _('Bottom'), _('Left')],
       ),
     );
+
     this.add(
       createColorRow(
         _('Window Background Color'),

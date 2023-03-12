@@ -64,9 +64,9 @@ export class SettingsMenu extends PopupMenuButton {
       switchMenuItem.setToggleState(isInIncognito);
       icon.set_gicon(
         icon_new_for_string(
-          `${getCurrentExtension().path}/icons/hicolor/scalable/actions/indicator${
-            isInIncognito ? '-incognito-symbolic' : '-symbolic'
-          }.svg`,
+          `${getCurrentExtension().path}/icons/hicolor/scalable/actions/${
+            ICON_PACKS[this.settings.get_uint('icon-pack')]
+          }-indicator${isInIncognito ? '-incognito-symbolic' : '-symbolic'}.svg`,
         ),
       );
     });

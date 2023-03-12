@@ -27,23 +27,22 @@ export class PanoItemHeader extends BoxLayout {
   private dateUpdateIntervalId: any;
   private favoriteButton: Button;
   actionContainer: BoxLayout;
+  titleContainer: BoxLayout;
+  iconContainer: BoxLayout;
+  itemType: IPanoItemType;
 
   constructor(itemType: IPanoItemType, date: Date) {
     super({
       style_class: `pano-item-header pano-item-header-${itemType.classSuffix}`,
       vertical: false,
-      x_expand: true,
-      y_expand: false,
-      x_align: ActorAlign.FILL,
-      y_align: ActorAlign.START,
     });
-
-    const titleContainer = new BoxLayout({
+    this.itemType = itemType;
+    this.titleContainer = new BoxLayout({
       style_class: 'pano-item-title-container',
       vertical: true,
       x_expand: true,
     });
-    const iconContainer = new BoxLayout({
+    this.iconContainer = new BoxLayout({
       style_class: 'pano-icon-container',
     });
 
@@ -56,7 +55,7 @@ export class PanoItemHeader extends BoxLayout {
         }`,
       ),
     });
-    iconContainer.add_child(icon);
+    this.iconContainer.add_child(icon);
     settings.connect('changed::icon-pack', () => {
       icon.set_gicon(
         icon_new_for_string(
@@ -67,7 +66,7 @@ export class PanoItemHeader extends BoxLayout {
       );
     });
 
-    titleContainer.add_child(
+    this.titleContainer.add_child(
       new Label({
         text: itemType.title,
         style_class: 'pano-item-title',
@@ -80,6 +79,8 @@ export class PanoItemHeader extends BoxLayout {
       style_class: 'pano-item-date',
       x_expand: true,
       y_expand: true,
+      x_align: ActorAlign.FILL,
+      y_align: ActorAlign.CENTER,
     });
 
     this.dateUpdateIntervalId = setInterval(() => {
@@ -88,13 +89,12 @@ export class PanoItemHeader extends BoxLayout {
       );
     }, 60000);
 
-    titleContainer.add_child(dateLabel);
+    this.titleContainer.add_child(dateLabel);
 
     this.actionContainer = new BoxLayout({
       style_class: 'pano-item-actions',
-      x_expand: false,
+      x_expand: true,
       y_expand: true,
-      opacity: 0,
       x_align: ActorAlign.END,
       y_align: ActorAlign.START,
     });
@@ -132,8 +132,8 @@ export class PanoItemHeader extends BoxLayout {
     this.actionContainer.add_child(this.favoriteButton);
     this.actionContainer.add_child(removeButton);
 
-    this.add_child(iconContainer);
-    this.add_child(titleContainer);
+    this.add_child(this.iconContainer);
+    this.add_child(this.titleContainer);
     this.add_child(this.actionContainer);
   }
 

@@ -35,7 +35,7 @@ msgstr "Impostazioni"
 msgid "No Description"
 msgstr "Nessuna descrizione"
 
-#: src/components/searchBox.ts:61
+#: src/components/searchBox.ts:63
 msgid "Type to search, Tab to cycle"
 msgstr "Digita per cercare, Tab per scorrere"
 
@@ -183,43 +183,67 @@ msgstr "Icone predefinite"
 msgid "Legacy Icons"
 msgstr "Icone legacy"
 
-#: src/prefs/customization/commonStyleGroup.ts:26
-msgid "Window Height"
-msgstr "Altezza della finestra"
+#: src/prefs/customization/commonStyleGroup.ts:25
+msgid "Item Size"
+msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:27
-msgid "You can change the window height"
-msgstr "È possibile modificare l'altezza della finestra"
+#: src/prefs/customization/commonStyleGroup.ts:25
+msgid "You can change the item size"
+msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:37
+#: src/prefs/customization/commonStyleGroup.ts:30
+msgid "Window Position"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:31
+msgid "You can change position of the Pano"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:34
+msgid "Bottom"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:34
+msgid "Left"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:34
+msgid "Right"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:34
+msgid "Top"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:40
 msgid "Window Background Color"
 msgstr "Colore di sfondo della finestra"
 
-#: src/prefs/customization/commonStyleGroup.ts:38
+#: src/prefs/customization/commonStyleGroup.ts:41
 msgid "You can change the window background color"
 msgstr "Puoi cambiare il colore di sfondo della finestra"
 
-#: src/prefs/customization/commonStyleGroup.ts:45
+#: src/prefs/customization/commonStyleGroup.ts:48
 msgid "Incognito Window Background Color"
 msgstr "Colore di sfondo della finestra di navigazione in incognito"
 
-#: src/prefs/customization/commonStyleGroup.ts:46
+#: src/prefs/customization/commonStyleGroup.ts:49
 msgid "You can change the incognito window background color"
 msgstr "Puoi cambiare il colore di sfondo della finestra di navigazione in incognito"
 
-#: src/prefs/customization/commonStyleGroup.ts:53
+#: src/prefs/customization/commonStyleGroup.ts:56
 msgid "Active Item Border Color"
 msgstr "Colore del bordo dell'elemento attivo"
 
-#: src/prefs/customization/commonStyleGroup.ts:54
+#: src/prefs/customization/commonStyleGroup.ts:57
 msgid "You can change the active item border color"
 msgstr "È possibile modificare il colore del bordo dell'elemento attivo"
 
-#: src/prefs/customization/commonStyleGroup.ts:61
+#: src/prefs/customization/commonStyleGroup.ts:64
 msgid "Hovered Item Border Color"
 msgstr "Colore del bordo dell'elemento al passaggio del mouse"
 
-#: src/prefs/customization/commonStyleGroup.ts:62
+#: src/prefs/customization/commonStyleGroup.ts:65
 msgid "You can change the hovered item border color"
 msgstr "Puoi cambiare il colore del bordo dell'elemento al passaggio del mouse"
 

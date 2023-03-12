@@ -96,11 +96,16 @@
       <default>0</default>
       <summary>icon pack: 0-default 1-legacy</summary>
     </key>
-    <key name="window-height" type="i">
+    <key name="item-size" type="i">
       <range min="200" max="1000" />
-      <default>380</default>
-      <summary>Window Height</summary>
-      <description>Controls height of the clipboard window.</description>
+      <default>250</default>
+      <summary>Item Size</summary>
+      <description>Controls size of the clipboard item.</description>
+    </key>
+    <key type="u" name="window-position">
+      <range min="0" max="3"/>
+      <default>2</default>
+      <summary>icon pack: 0-top 1-right 2-bottom 3-left</summary>
     </key>
     <key name="window-background-color" type="s">
       <default>'rgba(35, 35, 35, 0.9)'</default>

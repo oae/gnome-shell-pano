@@ -1,4 +1,4 @@
-import { ActorAlign, AnimationMode, EVENT_PROPAGATE, KEY_Escape, KeyEvent } from '@gi-types/clutter10';
+import { AnimationMode, EVENT_PROPAGATE, KEY_Escape, KeyEvent } from '@gi-types/clutter10';
 import { Settings } from '@gi-types/gio2';
 import { Global } from '@gi-types/shell0';
 import { BoxLayout, ThemeContext } from '@gi-types/st1';
@@ -7,7 +7,7 @@ import { PanoScrollView } from '@pano/components/panoScrollView';
 import { SearchBox } from '@pano/components/searchBox';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
-import { getMonitorConstraint } from '@pano/utils/ui';
+import { getAlignment, getMonitorConstraint, isVertical } from '@pano/utils/ui';
 
 @registerGObjectClass
 export class PanoWindow extends BoxLayout {
@@ -21,8 +21,6 @@ export class PanoWindow extends BoxLayout {
       name: 'pano-window',
       constraints: getMonitorConstraint(),
       style_class: 'pano-window',
-      x_align: ActorAlign.FILL,
-      y_align: ActorAlign.END,
       visible: false,
       vertical: true,
       reactive: true,
@@ -31,15 +29,20 @@ export class PanoWindow extends BoxLayout {
     });
 
     this.settings = getCurrentExtensionSettings();
-    const themeContext = ThemeContext.get_for_stage(Global.get().get_stage());
-    this.set_height(this.settings.get_int('window-height') * themeContext.scaleFactor);
-    this.settings.connect('changed::window-height', () => {
-      this.set_height(this.settings.get_int('window-height') * themeContext.scaleFactor);
-    });
+    this.setAlignment();
 
+    const themeContext = ThemeContext.get_for_stage(Global.get().get_stage());
+
+    this.setWindowDimensions(themeContext.scaleFactor);
     themeContext.connect('notify::scale-factor', () => {
-      const { scaleFactor } = ThemeContext.get_for_stage(Global.get().get_stage());
-      this.set_height(this.settings.get_int('window-height') * scaleFactor);
+      this.setWindowDimensions(themeContext.scaleFactor);
+    });
+    this.settings.connect('changed::item-size', () => {
+      this.setWindowDimensions(themeContext.scaleFactor);
+    });
+    this.settings.connect('changed::window-position', () => {
+      this.setWindowDimensions(themeContext.scaleFactor);
+      this.setAlignment();
     });
 
     this.settings.connect('changed::window-background-color', () => {
@@ -61,8 +64,8 @@ export class PanoWindow extends BoxLayout {
       }
     });
     this.monitorBox = new MonitorBox();
-    this.scrollView = new PanoScrollView();
     this.searchBox = new SearchBox();
+    this.scrollView = new PanoScrollView(this.searchBox);
 
     this.setupMonitorBox();
     this.setupScrollView();
@@ -89,6 +92,22 @@ export class PanoWindow extends BoxLayout {
     } else {
       this.set_style(`background-color: ${this.settings.get_string('window-background-color')}`);
     }
+  }
+
+  private setWindowDimensions(scaleFactor: number) {
+    this.remove_style_class_name('vertical');
+    if (isVertical(this.settings.get_uint('window-position'))) {
+      this.add_style_class_name('vertical');
+      this.set_width((this.settings.get_int('item-size') + 20) * scaleFactor);
+    } else {
+      this.set_height((this.settings.get_int('item-size') + 80) * scaleFactor);
+    }
+  }
+
+  private setAlignment() {
+    const [x_align, y_align] = getAlignment(this.settings.get_uint('window-position'));
+    this.set_x_align(x_align);
+    this.set_y_align(y_align);
   }
 
   private setupMonitorBox() {
@@ -151,6 +170,7 @@ export class PanoWindow extends BoxLayout {
 
   override show() {
     this.clear_constraints();
+    this.setAlignment();
     this.add_constraint(getMonitorConstraint());
     super.show();
     if (this.settings.get_boolean('keep-search-entry')) {

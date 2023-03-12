@@ -1,11 +1,11 @@
-.pano-window {
-  border-top: 1px solid rgba(69, 69, 69, 1);
-}
-
 .pano-window.incognito {
   background-image: url('./images/incognito-mode.svg');
-  background-size: 48px;
-  background-position: 10px 10px;
+  background-size: 36px;
+  background-position: 15px 15px;
+}
+
+.pano-window.incognito.vertical {
+  background-size: 0;
 }
 
 .pano-window .search-entry-container {
@@ -29,24 +29,13 @@
 
 .pano-item {
   border-radius: 11px;
-  margin-top: 6px;
-  margin-bottom: 6px;
-  margin-left: 6px;
-  margin-right: 6px;
+  margin: 6px;
   border: 4px solid transparent;
-}
-
-.pano-item:visible:first-child {
-  margin-left: 14px;
-}
-.pano-item:visible:last-child {
-  margin-right: 14px;
 }
 
 .pano-item-header {
   border-radius: 6px 6px 0px 0px;
   padding: 5px;
-  height: 50px;
 }
 
 .pano-item-body {
@@ -96,16 +85,17 @@
 }
 
 .pano-item-title {
-  font-size: 24px;
+  font-size: 20px;
 }
 
 .pano-item-title-icon {
-  height: 36px;
-  width: 36px;
+  height: 32px;
+  width: 32px;
+  margin: 2px;
 }
 
 .pano-item-date {
-  font-size: 12px;
+  font-size: 11px;
 }
 
 .pano-item-body-file .file-icon {
