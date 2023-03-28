@@ -155,6 +155,18 @@ export class ClipboardManager extends Object {
         if (this.settings.get_boolean('is-in-incognito')) {
           return;
         }
+        const focussedWindow = Global.get().display.focus_window;
+        const wmClass = focussedWindow?.get_wm_class();
+        if (
+          wmClass &&
+          this.settings.get_boolean('watch-exclusion-list') &&
+          this.settings
+            .get_strv('exclusion-list')
+            .map((s) => s.toLowerCase())
+            .indexOf(wmClass.toLowerCase()) >= 0
+        ) {
+          return;
+        }
         if (selectionType === SelectionType.SELECTION_CLIPBOARD) {
           try {
             const result = await this.getContent(ClipboardType.CLIPBOARD);
@@ -281,7 +293,7 @@ export class ClipboardManager extends Object {
             resolve(
               new ClipboardContent({
                 type: ContentType.TEXT,
-                value: text.trim(),
+                value: text,
               }),
             );
             return;

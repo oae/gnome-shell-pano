@@ -5,26 +5,26 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
 
 @registerGObjectClass
-export class SessionOnlyModeRow extends ActionRow {
+export class WiggleIndicatorRow extends ActionRow {
   private settings: Settings;
 
   constructor() {
     super({
-      title: _('Session Only Mode'),
-      subtitle: _('When enabled, Pano will clear all history on logout/restart/shutdown.'),
+      title: _('Wiggle Indicator'),
+      subtitle: _('Wiggles the indicator on panel'),
     });
 
     this.settings = getCurrentExtensionSettings();
 
-    const sessionOnlySwitch = new Switch({
-      active: this.settings.get_boolean('session-only-mode'),
+    const wiggleIndicatorSwitch = new Switch({
+      active: this.settings.get_boolean('wiggle-indicator'),
       valign: Align.CENTER,
       halign: Align.CENTER,
     });
 
-    this.settings.bind('session-only-mode', sessionOnlySwitch, 'active', SettingsBindFlags.DEFAULT);
+    this.settings.bind('wiggle-indicator', wiggleIndicatorSwitch, 'active', SettingsBindFlags.DEFAULT);
 
-    this.add_suffix(sessionOnlySwitch);
-    this.set_activatable_widget(sessionOnlySwitch);
+    this.add_suffix(wiggleIndicatorSwitch);
+    this.set_activatable_widget(wiggleIndicatorSwitch);
   }
 }

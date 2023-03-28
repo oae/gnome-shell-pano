@@ -1,9 +1,9 @@
 import { Settings } from '@gi-types/gio2';
+import { ItemExpanderRow } from '@pano/prefs/customization/itemExpanderRow';
+import { createColorRow, createFontRow } from '@pano/prefs/customization/utils';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { PanoItemTypes } from '@pano/utils/panoItemType';
-import { getCurrentExtensionSettings, _ } from '@pano/utils/shell';
-import { ItemExpanderRow } from './itemExpanderRow';
-import { createColorRow, createFontRow } from './utils';
+import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class ColorItemStyleRow extends ItemExpanderRow {

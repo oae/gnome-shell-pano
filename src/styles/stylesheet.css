@@ -1,11 +1,11 @@
-.pano-window {
-  border-top: 1px solid rgba(69, 69, 69, 1);
-}
-
 .pano-window.incognito {
   background-image: url('./images/incognito-mode.svg');
-  background-size: 48px;
-  background-position: 10px 10px;
+  background-size: 36px;
+  background-position: 15px 15px;
+}
+
+.pano-window.incognito.vertical {
+  background-size: 0;
 }
 
 .pano-window .search-entry-container {
@@ -29,24 +29,13 @@
 
 .pano-item {
   border-radius: 11px;
-  margin-top: 6px;
-  margin-bottom: 6px;
-  margin-left: 6px;
-  margin-right: 6px;
+  margin: 6px;
   border: 4px solid transparent;
-}
-
-.pano-item:visible:first-child {
-  margin-left: 14px;
-}
-.pano-item:visible:last-child {
-  margin-right: 14px;
 }
 
 .pano-item-header {
   border-radius: 6px 6px 0px 0px;
   padding: 5px;
-  height: 50px;
 }
 
 .pano-item-body {
@@ -95,12 +84,20 @@
   margin-left: 5px;
 }
 
+.pano-item-title-icon {
+  height: 32px;
+  width: 32px;
+  margin: 2px;
+}
+
 .pano-item-title {
-  font-size: 24px;
+  padding: 0px;
+  margin: 0px;
 }
 
 .pano-item-date {
-  font-size: 12px;
+  padding: 0px;
+  margin: 0px;
 }
 
 .pano-item-body-file .file-icon {
@@ -150,13 +147,22 @@
   margin-top: 5px;
 }
 
-.pano-item-remove-button {
+.pano-item-action-button {
+  margin-left: 5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
   background-color: rgba(0, 0, 0, 0.3);
   color: white;
-  border-radius: 99px;
-  padding: 6px;
-  margin: 5px;
-  margin-right: 0px;
+}
+
+.pano-item-action-button-icon {
+  margin: 4px;
+}
+
+.pano-item-open-link-button:hover,
+.pano-item-open-link-button:active {
+  background-color: #1d5ee9;
 }
 
 .pano-item-remove-button:hover,
@@ -164,13 +170,10 @@
   background-color: #e01b24;
 }
 
-.pano-item-favorite-button {
-  background-color: rgba(0, 0, 0, 0.3);
-  color: white;
-  border-radius: 99px;
-  padding: 6px;
-  margin: 5px;
-  margin-right: 0px;
+.pano-item-action-button-remove-icon {
+  width: 18px;
+  height: 18px;
+  margin: 2px;
 }
 
 .pano-item-favorite-button:hover {

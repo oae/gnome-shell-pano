@@ -239,7 +239,7 @@ export function debounce(func, wait) {
   };
 }
 
-export const openUrlInBrowser = (url: string) => {
+export const openLinkInBrowser = (url: string) => {
   try {
     app_info_launch_default_for_uri(url, null);
   } catch (e) {

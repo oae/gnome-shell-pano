@@ -13,14 +13,14 @@ import {
   KEY_Right,
   KEY_Tab,
 } from '@gi-types/clutter10';
-import { IconPrototype, icon_new_for_string } from '@gi-types/gio2';
+import { icon_new_for_string, IconPrototype, Settings } from '@gi-types/gio2';
 import { MetaInfo, TYPE_BOOLEAN, TYPE_INT, TYPE_STRING } from '@gi-types/gobject2';
 import { Cursor } from '@gi-types/meta10';
 import { Global } from '@gi-types/shell0';
-import { BoxLayout, Entry, Icon } from '@gi-types/st1';
+import { BoxLayout, Entry, Icon, ThemeContext } from '@gi-types/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { PanoItemTypes } from '@pano/utils/panoItemType';
-import { getCurrentExtension, _ } from '@pano/utils/shell';
+import { ICON_PACKS, PanoItemTypes } from '@pano/utils/panoItemType';
+import { _, getCurrentExtension, getCurrentExtensionSettings } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class SearchBox extends BoxLayout {
@@ -43,21 +43,34 @@ export class SearchBox extends BoxLayout {
   private search: Entry;
   private currentIndex: number | null = null;
   private showFavorites = false;
+  private settings: Settings;
 
   constructor() {
     super({
       x_align: ActorAlign.CENTER,
       style_class: 'search-entry-container',
       vertical: false,
+      track_hover: true,
+      reactive: true,
     });
+
+    this.settings = getCurrentExtensionSettings();
+
+    const themeContext = ThemeContext.get_for_stage(Global.get().get_stage());
 
     this.search = new Entry({
       can_focus: true,
       hint_text: _('Type to search, Tab to cycle'),
+      natural_width: 300 * themeContext.scaleFactor,
+      height: 40 * themeContext.scaleFactor,
       track_hover: true,
-      width: 300,
       primary_icon: this.createSearchEntryIcon('edit-find-symbolic', 'search-entry-icon'),
       secondary_icon: this.createSearchEntryIcon('starred-symbolic', 'search-entry-fav-icon'),
+    });
+
+    themeContext.connect('notify::scale-factor', () => {
+      this.search.natural_width = 300 * themeContext.scaleFactor;
+      this.search.set_height(40 * themeContext.scaleFactor);
     });
 
     this.search.connect('primary-icon-clicked', () => {
@@ -118,6 +131,15 @@ export class SearchBox extends BoxLayout {
       }
     });
     this.add_child(this.search);
+    this.setStyle();
+    this.settings.connect('changed::search-bar-font-family', this.setStyle.bind(this));
+    this.settings.connect('changed::search-bar-font-size', this.setStyle.bind(this));
+  }
+
+  private setStyle() {
+    const searchBarFontFamily = this.settings.get_string('search-bar-font-family');
+    const searchBarFontSize = this.settings.get_int('search-bar-font-size');
+    this.search.set_style(`font-family: ${searchBarFontFamily}; font-size: ${searchBarFontSize}px;`);
   }
 
   toggleItemType(hasShift: boolean) {
@@ -139,13 +161,30 @@ export class SearchBox extends BoxLayout {
         this.createSearchEntryIcon(
           icon_new_for_string(
             `${getCurrentExtension().path}/icons/hicolor/scalable/actions/${
-              PanoItemTypes[Object.keys(PanoItemTypes)[this.currentIndex]].iconPath
-            }`,
+              ICON_PACKS[this.settings.get_uint('icon-pack')]
+            }-${PanoItemTypes[Object.keys(PanoItemTypes)[this.currentIndex]].iconPath}`,
           ),
           'search-entry-icon',
         ),
       );
     }
+
+    this.settings.connect('changed::icon-pack', () => {
+      if (null == this.currentIndex) {
+        this.search.set_primary_icon(this.createSearchEntryIcon('edit-find-symbolic', 'search-entry-icon'));
+      } else {
+        this.search.set_primary_icon(
+          this.createSearchEntryIcon(
+            icon_new_for_string(
+              `${getCurrentExtension().path}/icons/hicolor/scalable/actions/${
+                ICON_PACKS[this.settings.get_uint('icon-pack')]
+              }-${PanoItemTypes[Object.keys(PanoItemTypes)[this.currentIndex]].iconPath}`,
+            ),
+            'search-entry-icon',
+          ),
+        );
+      }
+    });
 
     this.emitSearchTextChange();
   }

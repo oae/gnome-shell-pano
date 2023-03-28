@@ -1,11 +1,11 @@
-import { Actor, get_default_backend, InputDeviceType, VirtualInputDevice } from '@gi-types/clutter10';
+import { Actor, ActorAlign, get_default_backend, InputDeviceType, VirtualInputDevice } from '@gi-types/clutter10';
 import { Pixbuf } from '@gi-types/gdkpixbuf2';
 import { Icon } from '@gi-types/gio2';
 import { DateTime } from '@gi-types/glib2';
 import { Global } from '@gi-types/shell0';
 import { ImageContent } from '@gi-types/st1';
 import { PixelFormat } from '@imports/cogl2';
-import { getCurrentExtension, _ } from '@pano/utils/shell';
+import { _, getCurrentExtension } from '@pano/utils/shell';
 
 const global = Global.get();
 
@@ -41,6 +41,11 @@ export const notify = (text: string, body: string, iconOrPixbuf?: Pixbuf | Icon,
   notification.setTransient(true);
   source.showNotification(notification);
 };
+
+export const wiggle = (
+  actor: Actor,
+  { offset, duration, wiggleCount }: { offset?: number; duration?: number; wiggleCount?: number },
+) => imports.misc.util.wiggle(actor, { offset, duration, wiggleCount });
 
 export const wm = imports.ui.main.wm;
 
@@ -98,3 +103,29 @@ export const addToStatusArea = (button: any) => {
 };
 
 export const openExtensionPrefs = () => imports.misc.extensionUtils.openPrefs();
+
+export const WINDOW_POSITIONS = {
+  TOP: 0,
+  RIGHT: 1,
+  BOTTOM: 2,
+  LEFT: 3,
+};
+
+export const getAlignment = (position: number) => {
+  switch (position) {
+    case WINDOW_POSITIONS.TOP:
+      return [ActorAlign.FILL, ActorAlign.START];
+    case WINDOW_POSITIONS.RIGHT:
+      return [ActorAlign.END, ActorAlign.FILL];
+    case WINDOW_POSITIONS.BOTTOM:
+      return [ActorAlign.FILL, ActorAlign.END];
+    case WINDOW_POSITIONS.LEFT:
+      return [ActorAlign.START, ActorAlign.FILL];
+  }
+
+  return [ActorAlign.FILL, ActorAlign.END];
+};
+
+export const isVertical = (position: number) => {
+  return position === WINDOW_POSITIONS.LEFT || position === WINDOW_POSITIONS.RIGHT;
+};

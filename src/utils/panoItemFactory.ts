@@ -1,9 +1,7 @@
-import isUrl from 'is-url';
-import { validateHTMLColorHex, validateHTMLColorName, validateHTMLColorRgb } from 'validate-color/lib/index';
-
 import { Colorspace, Pixbuf } from '@gi-types/gdkpixbuf2';
 import { File, FileCreateFlags } from '@gi-types/gio2';
-import { ChecksumType, compute_checksum_for_bytes, UriFlags, uri_parse } from '@gi-types/glib2';
+import { ChecksumType, compute_checksum_for_bytes, uri_parse, UriFlags } from '@gi-types/glib2';
+import { PixelFormat } from '@imports/cogl2';
 import { CodePanoItem } from '@pano/components/codePanoItem';
 import { ColorPanoItem } from '@pano/components/colorPanoItem';
 import { EmojiPanoItem } from '@pano/components/emojiPanoItem';
@@ -15,7 +13,8 @@ import { TextPanoItem } from '@pano/components/textPanoItem';
 import { ClipboardContent, ContentType, FileOperation } from '@pano/utils/clipboardManager';
 import { ClipboardQueryBuilder, db, DBItem } from '@pano/utils/db';
 import { getDocument, getImage } from '@pano/utils/linkParser';
-import { getCachePath, getCurrentExtensionSettings, getImagesPath, logger, playAudio, _ } from '@pano/utils/shell';
+import { _, getCachePath, getCurrentExtensionSettings, getImagesPath, logger, playAudio } from '@pano/utils/shell';
+import { notify } from '@pano/utils/ui';
 import converter from 'hex-color-converter';
 import hljs from 'highlight.js/lib/core';
 import bash from 'highlight.js/lib/languages/bash';
@@ -43,9 +42,9 @@ import sql from 'highlight.js/lib/languages/sql';
 import swift from 'highlight.js/lib/languages/swift';
 import typescript from 'highlight.js/lib/languages/typescript';
 import yaml from 'highlight.js/lib/languages/yaml';
+import isUrl from 'is-url';
 import prettyBytes from 'pretty-bytes';
-import { notify } from './ui';
-import { PixelFormat } from '@imports/cogl2';
+import { validateHTMLColorHex, validateHTMLColorName, validateHTMLColorRgb } from 'validate-color';
 
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('markdown', markdown);
@@ -179,7 +178,9 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
         }),
       });
     case ContentType.TEXT:
-      if (value.toLowerCase().startsWith('http') && isValidUrl(value)) {
+      const trimmedValue = value.trim();
+
+      if (trimmedValue.toLowerCase().startsWith('http') && isValidUrl(trimmedValue)) {
         const linkPreviews = getCurrentExtensionSettings().get_boolean('link-previews');
         let description = '',
           imageUrl = '',
@@ -187,12 +188,12 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
           checksum = '';
         const copyDate = new Date();
         let linkDbItem = db.save({
-          content: value,
+          content: trimmedValue,
           copyDate,
           isFavorite: false,
           itemType: 'LINK',
-          matchValue: value,
-          searchValue: `${title}${description}${value}`,
+          matchValue: trimmedValue,
+          searchValue: `${title}${description}${trimmedValue}`,
           metaData: JSON.stringify({
             title: title ? encodeURI(title) : '',
             description: description ? encodeURI(description) : '',
@@ -201,19 +202,19 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
         });
 
         if (linkPreviews && linkDbItem) {
-          const document = await getDocument(value);
+          const document = await getDocument(trimmedValue);
           description = document.description;
           title = document.title;
           imageUrl = document.imageUrl;
           checksum = (await getImage(imageUrl))[0] || '';
           linkDbItem = db.update({
             id: linkDbItem.id,
-            content: value,
+            content: trimmedValue,
             copyDate: copyDate,
             isFavorite: false,
             itemType: 'LINK',
-            matchValue: value,
-            searchValue: `${title}${description}${value}`,
+            matchValue: trimmedValue,
+            searchValue: `${title}${description}${trimmedValue}`,
             metaData: JSON.stringify({
               title: title ? encodeURI(title) : '',
               description: description ? encodeURI(description) : '',
@@ -224,26 +225,30 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
 
         return linkDbItem;
       }
-      if (validateHTMLColorHex(value) || validateHTMLColorRgb(value) || validateHTMLColorName(value)) {
+      if (
+        validateHTMLColorHex(trimmedValue) ||
+        validateHTMLColorRgb(trimmedValue) ||
+        validateHTMLColorName(trimmedValue)
+      ) {
         return db.save({
-          content: value,
+          content: trimmedValue,
           copyDate: new Date(),
           isFavorite: false,
           itemType: 'COLOR',
-          matchValue: value,
-          searchValue: value,
+          matchValue: trimmedValue,
+          searchValue: trimmedValue,
         });
       }
-      const highlightResult = hljs.highlightAuto(value.slice(0, 2000), SUPPORTED_LANGUAGES);
+      const highlightResult = hljs.highlightAuto(trimmedValue.slice(0, 2000), SUPPORTED_LANGUAGES);
       if (highlightResult.relevance < 10) {
-        if (/^\p{Extended_Pictographic}*$/u.test(value)) {
+        if (/^\p{Extended_Pictographic}*$/u.test(trimmedValue)) {
           return db.save({
-            content: value,
+            content: trimmedValue,
             copyDate: new Date(),
             isFavorite: false,
             itemType: 'EMOJI',
-            matchValue: value,
-            searchValue: value,
+            matchValue: trimmedValue,
+            searchValue: trimmedValue,
           });
         } else {
           return db.save({
@@ -369,9 +374,9 @@ const sendNotification = async (dbItem: DBItem) => {
         Pixbuf.new_from_file(`${getImagesPath()}/${dbItem.content}.png`),
       );
     } else if (dbItem.itemType === 'TEXT') {
-      notify(_('Text Copied'), dbItem.content);
+      notify(_('Text Copied'), dbItem.content.trim());
     } else if (dbItem.itemType === 'CODE') {
-      notify(_('Code Copied'), dbItem.content);
+      notify(_('Code Copied'), dbItem.content.trim());
     } else if (dbItem.itemType === 'EMOJI') {
       notify(_('Emoji Copied'), dbItem.content);
     } else if (dbItem.itemType === 'LINK') {

@@ -1,7 +1,7 @@
 import { ActionRow } from '@gi-types/adw1';
 import { RGBA } from '@gi-types/gdk4';
 import { Settings, SettingsBindFlags } from '@gi-types/gio2';
-import { Adjustment, Align, Button, ColorButton, FontButton, SpinButton } from '@gi-types/gtk4';
+import { Adjustment, Align, Button, ColorButton, DropDown, FontButton, SpinButton, StringList } from '@gi-types/gtk4';
 import { SCALE } from '@gi-types/pango1';
 
 export const createColorRow = (title: string, subtitle: string, settings: Settings, schemaKey: string) => {
@@ -188,4 +188,65 @@ export const createFontRow = (title: string, subtitle: string, settings: Setting
   fontRow.add_suffix(clearButton);
 
   return fontRow;
+};
+
+export const createDropdownRow = (
+  title: string,
+  subtitle: string,
+  settings: Settings,
+  schemaKey: string,
+  options: string[],
+) => {
+  const row = new ActionRow({
+    title,
+    subtitle,
+  });
+
+  const value = settings.get_uint(schemaKey);
+
+  const dropDown = new DropDown({
+    valign: Align.CENTER,
+    halign: Align.CENTER,
+    model: StringList.new(options),
+  });
+
+  dropDown.set_selected(value);
+
+  dropDown.connect('notify::selected', () => {
+    settings.set_uint(schemaKey, dropDown.get_selected());
+  });
+
+  row.add_suffix(dropDown);
+  row.set_activatable_widget(dropDown);
+
+  const clearButton = new Button({
+    icon_name: 'edit-clear-symbolic',
+    valign: Align.CENTER,
+    halign: Align.CENTER,
+  });
+
+  const defaultValue = settings.get_default_value(schemaKey)?.get_uint32();
+
+  if (defaultValue === value) {
+    clearButton.sensitive = false;
+  }
+
+  settings.connect(`changed::${schemaKey}`, () => {
+    const value = settings.get_uint(schemaKey);
+    if (defaultValue === value) {
+      clearButton.sensitive = false;
+    } else {
+      clearButton.sensitive = true;
+    }
+    dropDown.set_selected(value);
+  });
+
+  clearButton.connect('clicked', () => {
+    settings.reset(schemaKey);
+    dropDown.set_selected(defaultValue || 0);
+  });
+
+  row.add_suffix(clearButton);
+
+  return row;
 };

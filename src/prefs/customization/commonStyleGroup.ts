@@ -1,8 +1,8 @@
 import { PreferencesGroup } from '@gi-types/adw1';
 import { Settings } from '@gi-types/gio2';
+import { createColorRow, createDropdownRow, createFontRow, createSpinRow } from '@pano/prefs/customization/utils';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { getCurrentExtensionSettings, _ } from '@pano/utils/shell';
-import { createColorRow, createSpinRow } from './utils';
+import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class CommonStyleGroup extends PreferencesGroup {
@@ -15,16 +15,26 @@ export class CommonStyleGroup extends PreferencesGroup {
     this.settings = getCurrentExtensionSettings();
 
     this.add(
-      createSpinRow(
-        _('Window Height'),
-        _('You can change the window height'),
+      createDropdownRow(_('Icon Pack'), _('You can change the icon pack'), this.settings, 'icon-pack', [
+        _('Default Icons'),
+        _('Legacy Icons'),
+      ]),
+    );
+
+    this.add(
+      createSpinRow(_('Item Size'), _('You can change the item size'), this.settings, 'item-size', 5, 200, 1000),
+    );
+
+    this.add(
+      createDropdownRow(
+        _('Window Position'),
+        _('You can change position of the Pano'),
         this.settings,
-        'window-height',
-        5,
-        200,
-        1000,
+        'window-position',
+        [_('Top'), _('Right'), _('Bottom'), _('Left')],
       ),
     );
+
     this.add(
       createColorRow(
         _('Window Background Color'),
@@ -42,8 +52,22 @@ export class CommonStyleGroup extends PreferencesGroup {
       ),
     );
     this.add(
+      createFontRow(
+        _('Search Bar Font'),
+        _('You can change the font of the search bar'),
+        this.settings,
+        'search-bar-font',
+      ),
+    );
+    this.add(
+      createFontRow(_('Item Title Font'), _('You can change the font of the title'), this.settings, 'item-title-font'),
+    );
+    this.add(
+      createFontRow(_('Item Date Font'), _('You can change the font of the date'), this.settings, 'item-date-font'),
+    );
+    this.add(
       createColorRow(
-        _('Hovered Item Border Color'),
+        _('Active Item Border Color'),
         _('You can change the active item border color'),
         this.settings,
         'active-item-border-color',

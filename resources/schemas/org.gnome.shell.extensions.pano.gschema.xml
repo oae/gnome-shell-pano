@@ -57,6 +57,11 @@
       <summary>Shows indicator</summary>
       <description>Shows an indicator on top panel.</description>
     </key>
+    <key name="wiggle-indicator" type="b">
+      <default>true</default>
+      <summary>Wiggles indicator</summary>
+      <description>Wiggles the indicator.</description>
+    </key>
     <key name="link-previews" type="b">
       <default>true</default>
       <summary>Link Previews</summary>
@@ -91,11 +96,21 @@
         Excludes clipboard tracking for windows that has class name listed in here.
       </description>
     </key>
-    <key name="window-height" type="i">
+    <key type="u" name="icon-pack">
+      <range min="0" max="1"/>
+      <default>0</default>
+      <summary>icon pack: 0-default 1-legacy</summary>
+    </key>
+    <key name="item-size" type="i">
       <range min="200" max="1000" />
-      <default>380</default>
-      <summary>Window Height</summary>
-      <description>Controls height of the clipboard window.</description>
+      <default>250</default>
+      <summary>Item Size</summary>
+      <description>Controls size of the clipboard item.</description>
+    </key>
+    <key type="u" name="window-position">
+      <range min="0" max="3"/>
+      <default>2</default>
+      <summary>icon pack: 0-top 1-right 2-bottom 3-left</summary>
     </key>
     <key name="window-background-color" type="s">
       <default>'rgba(35, 35, 35, 0.9)'</default>
@@ -106,6 +121,36 @@
       <default>'rgba(36, 31, 49, 0.9)'</default>
       <summary>incognito-window-background-color</summary>
       <description>incognito-window-background-color</description>
+    </key>
+    <key name="search-bar-font-family" type="s">
+      <default>'Cantarell Regular'</default>
+      <summary>search-bar-font-family</summary>
+      <description>search-bar-font-family</description>
+    </key>
+    <key name="search-bar-font-size" type="i">
+      <default>14</default>
+      <summary>search-bar-font-size</summary>
+      <description>search-bar-font-size</description>
+    </key>
+    <key name="item-title-font-family" type="s">
+      <default>'Cantarell Bold'</default>
+      <summary>item-title-font-family</summary>
+      <description>item-title-font-family</description>
+    </key>
+    <key name="item-title-font-size" type="i">
+      <default>20</default>
+      <summary>item-title-font-size</summary>
+      <description>item-title-font-size</description>
+    </key>
+    <key name="item-date-font-family" type="s">
+      <default>'Cantarell Regular'</default>
+      <summary>item-date-font-family</summary>
+      <description>item-date-font-family</description>
+    </key>
+    <key name="item-date-font-size" type="i">
+      <default>11</default>
+      <summary>item-date-font-size</summary>
+      <description>item-date-font-size</description>
     </key>
     <key name="active-item-border-color" type="s">
       <default>'rgb(53, 132, 228)'</default>

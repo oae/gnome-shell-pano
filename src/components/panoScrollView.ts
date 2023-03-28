@@ -1,31 +1,37 @@
 import {
+  Actor,
   AnimationMode,
   Event,
   EVENT_PROPAGATE,
   EVENT_STOP,
-  KeyEvent,
-  keysym_to_unicode,
   KEY_Alt_L,
   KEY_Alt_R,
   KEY_BackSpace,
+  KEY_Down,
   KEY_ISO_Left_Tab,
   KEY_KP_Tab,
   KEY_Left,
   KEY_Right,
   KEY_Tab,
   KEY_Up,
+  KeyEvent,
+  keysym_to_unicode,
   ScrollDirection,
   ScrollEvent,
 } from '@gi-types/clutter10';
 import { Settings } from '@gi-types/gio2';
 import { MetaInfo, TYPE_BOOLEAN, TYPE_STRING } from '@gi-types/gobject2';
-import { BoxLayout, PolicyType, ScrollView } from '@gi-types/st1';
+import { Global } from '@gi-types/shell0';
+import { Adjustment, BoxLayout, PolicyType, ScrollView } from '@gi-types/st1';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, clipboardManager } from '@pano/utils/clipboardManager';
 import { ClipboardQueryBuilder, db } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { createPanoItem, createPanoItemFromDb, removeItemResources } from '@pano/utils/panoItemFactory';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
+import { isVertical } from '@pano/utils/ui';
+
+import { SearchBox } from './searchBox';
 
 @registerGObjectClass
 export class PanoScrollView extends ScrollView {
@@ -53,19 +59,43 @@ export class PanoScrollView extends ScrollView {
   private currentFilter: string;
   private currentItemTypeFilter: string;
   private showFavorites: boolean;
+  private searchBox: SearchBox;
 
-  constructor() {
+  constructor(searchBox: SearchBox) {
     super({
-      hscrollbar_policy: PolicyType.EXTERNAL,
-      vscrollbar_policy: PolicyType.NEVER,
       overlay_scrollbars: true,
       x_expand: true,
       y_expand: true,
     });
+    this.searchBox = searchBox;
     this.settings = getCurrentExtensionSettings();
 
-    this.list = new BoxLayout({ vertical: false, x_expand: true, y_expand: true });
+    this.setScrollbarPolicy();
+
+    this.list = new BoxLayout({
+      vertical: isVertical(this.settings.get_uint('window-position')),
+      x_expand: true,
+      y_expand: true,
+    });
+
+    this.settings.connect('changed::window-position', () => {
+      this.setScrollbarPolicy();
+      this.list.set_vertical(isVertical(this.settings.get_uint('window-position')));
+    });
     this.add_actor(this.list);
+
+    const shouldFocusOut = (symbol: number) => {
+      const isPanoVertical = isVertical(this.settings.get_uint('window-position'));
+      const currentItemIndex = this.getVisibleItems().findIndex(
+        (item) => item.dbItem.id === this.currentFocus?.dbItem.id,
+      );
+
+      if (isPanoVertical) {
+        return (symbol === KEY_Up && currentItemIndex === 0) || symbol === KEY_Left;
+      } else {
+        return (symbol === KEY_Left && currentItemIndex === 0) || symbol === KEY_Up;
+      }
+    };
 
     this.connect('key-press-event', (_: ScrollView, event: Event) => {
       if (
@@ -85,11 +115,7 @@ export class PanoScrollView extends ScrollView {
         return EVENT_PROPAGATE;
       }
 
-      if (
-        (event.get_key_symbol() === KEY_Left &&
-          this.getVisibleItems().findIndex((item) => item.dbItem.id === this.currentFocus?.dbItem.id) === 0) ||
-        event.get_key_symbol() === KEY_Up
-      ) {
+      if (shouldFocusOut(event.get_key_symbol())) {
         this.emit('scroll-focus-out');
         return EVENT_STOP;
       }
@@ -115,6 +141,11 @@ export class PanoScrollView extends ScrollView {
     db.query(new ClipboardQueryBuilder().build()).forEach((dbItem) => {
       const panoItem = createPanoItemFromDb(dbItem);
       if (panoItem) {
+        panoItem.connect('motion-event', () => {
+          if (this.isHovering(this.searchBox)) {
+            this.searchBox.focus();
+          }
+        });
         this.connectOnRemove(panoItem);
         this.connectOnFavorite(panoItem);
         this.list.add_child(panoItem);
@@ -139,6 +170,14 @@ export class PanoScrollView extends ScrollView {
     });
   }
 
+  private setScrollbarPolicy() {
+    if (isVertical(this.settings.get_uint('window-position'))) {
+      this.set_policy(PolicyType.NEVER, PolicyType.EXTERNAL);
+    } else {
+      this.set_policy(PolicyType.EXTERNAL, PolicyType.NEVER);
+    }
+  }
+
   private prependItem(panoItem: PanoItem) {
     const existingItem = this.getItem(panoItem);
 
@@ -149,12 +188,28 @@ export class PanoScrollView extends ScrollView {
     this.connectOnRemove(panoItem);
     this.connectOnFavorite(panoItem);
 
+    panoItem.connect('motion-event', () => {
+      if (this.isHovering(this.searchBox)) {
+        this.searchBox.focus();
+      }
+    });
+
     this.list.insert_child_at_index(panoItem, 0);
     this.removeExcessiveItems();
   }
 
+  private isHovering(actor: Actor) {
+    const [x, y] = Global.get().get_pointer();
+    const [x1, y1] = [actor.get_abs_allocation_vertices()[0].x, actor.get_abs_allocation_vertices()[0].y];
+    const [x2, y2] = [actor.get_abs_allocation_vertices()[3].x, actor.get_abs_allocation_vertices()[3].y];
+
+    return x1 <= x && x <= x2 && y1 <= y && y <= y2;
+  }
+
   private connectOnFavorite(panoItem: PanoItem) {
     panoItem.connect('on-favorite', () => {
+      this.currentFocus = panoItem;
+      this.focusOnClosest();
       this.emit('scroll-update-list');
     });
   }
@@ -327,7 +382,11 @@ export class PanoScrollView extends ScrollView {
 
     this.currentFocus = this.getVisibleItems()[0];
     this.currentFocus.grab_key_focus();
-    this.hscroll.adjustment.set_value(this.get_allocation_box().x1);
+    if (isVertical(this.settings.get_uint('window-position'))) {
+      this.vscroll.adjustment.set_value(this.get_allocation_box().y1);
+    } else {
+      this.hscroll.adjustment.set_value(this.get_allocation_box().x1);
+    }
   }
 
   beforeHide() {
@@ -339,9 +398,16 @@ export class PanoScrollView extends ScrollView {
   private scrollToItem(item: PanoItem) {
     const box = item.get_allocation_box();
 
-    const adjustment = this.hscroll.adjustment;
+    let adjustment: Adjustment | undefined;
 
-    const value = box.x1 + adjustment.step_increment / 2.0 - adjustment.page_size / 2.0;
+    let value: number | undefined;
+    if (isVertical(this.settings.get_uint('window-position'))) {
+      adjustment = this.vscroll.adjustment;
+      value = box.y1 + adjustment.step_increment / 2.0 - adjustment.page_size / 2.0;
+    } else {
+      adjustment = this.hscroll.adjustment;
+      value = box.x1 + adjustment.step_increment / 2.0 - adjustment.page_size / 2.0;
+    }
 
     if (!Number.isFinite(value)) {
       return;
@@ -370,11 +436,18 @@ export class PanoScrollView extends ScrollView {
   }
 
   override vfunc_key_press_event(event: KeyEvent): boolean {
-    if (event.keyval === KEY_Right) {
+    const isPanoVertical = isVertical(this.settings.get_uint('window-position'));
+    if (isPanoVertical && event.keyval === KEY_Up) {
+      this.focusPrev();
+      this.scrollToFocussedItem();
+    } else if (isPanoVertical && event.keyval === KEY_Down) {
       this.focusNext();
       this.scrollToFocussedItem();
-    } else if (event.keyval === KEY_Left) {
+    } else if (!isPanoVertical && event.keyval === KEY_Left) {
       this.focusPrev();
+      this.scrollToFocussedItem();
+    } else if (!isPanoVertical && event.keyval === KEY_Right) {
+      this.focusNext();
       this.scrollToFocussedItem();
     }
 
@@ -382,7 +455,13 @@ export class PanoScrollView extends ScrollView {
   }
 
   override vfunc_scroll_event(event: ScrollEvent): boolean {
-    const adjustment = this.hscroll.adjustment;
+    let adjustment: Adjustment | undefined;
+
+    if (isVertical(this.settings.get_uint('window-position'))) {
+      adjustment = this.vscroll.adjustment;
+    } else {
+      adjustment = this.hscroll.adjustment;
+    }
     let value = adjustment.value;
 
     if (event.direction === ScrollDirection.SMOOTH) {

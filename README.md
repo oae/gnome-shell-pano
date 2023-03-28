@@ -135,6 +135,7 @@
 - `ctrl` `s` key will favorite/unfavorite the item
 - `alt` key will switch between favorites/all items
 - `ctrl` `1`..`9` keys will copy the item with the corresponding index
+- `ctrl` `click` or `ctrl` `enter` shortcuts will copy the links and open them in default browser if `Open Links in Browser` option enabled
 
 ## Cli
 
@@ -148,6 +149,10 @@ busctl --user call org.gnome.Shell /io/elhan/Pano io.elhan.Pano show # shows pan
 ```
 
 ## Development
+
+### Dependencies
+
+- Fedora: `sudo dnf install cogl-devel gsound-devel libgda-devel`
 
 ### Build
 

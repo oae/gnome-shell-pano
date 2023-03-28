@@ -10,10 +10,10 @@ msgstr "Zrušit"
 #: src/components/indicator/clearHistoryDialog.ts:30
 #: src/prefs/dangerZone/clearHistory.ts:17
 msgid "Clear"
-msgstr "Jasný"
+msgstr "Vymazat"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:75
+#: src/components/indicator/settingsMenu.ts:90
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr "Vymazat historii"
@@ -23,29 +23,29 @@ msgstr "Vymazat historii"
 msgid "Are you sure you want to clear history?"
 msgstr "Opravdu chcete vymazat historii?"
 
-#: src/components/indicator/settingsMenu.ts:55
+#: src/components/indicator/settingsMenu.ts:59
 msgid "Incognito Mode"
 msgstr "Anonymní režim"
 
-#: src/components/indicator/settingsMenu.ts:82
+#: src/components/indicator/settingsMenu.ts:97
 msgid "Settings"
 msgstr "Nastavení"
 
-#: src/components/linkPanoItem.ts:37
+#: src/components/linkPanoItem.ts:46
 msgid "No Description"
-msgstr ""
+msgstr "Bez popisu"
 
-#: src/components/searchBox.ts:56
+#: src/components/searchBox.ts:63
 msgid "Type to search, Tab to cycle"
-msgstr ""
+msgstr "Pište pro vyhledávání, Tab pro cyklování mezi kategoriemi"
 
 #: src/prefs/customization/codeItemStyle.ts:13
 msgid "Change the style of the code item"
-msgstr ""
+msgstr "Změňte styl položky kódu"
 
 #: src/prefs/customization/codeItemStyle.ts:13
 msgid "Code Item Style"
-msgstr ""
+msgstr "Kód - nastavení stylů"
 
 #: src/prefs/customization/codeItemStyle.ts:20
 #: src/prefs/customization/colorItemStyle.ts:20
@@ -55,7 +55,7 @@ msgstr ""
 #: src/prefs/customization/linkItemStyle.ts:20
 #: src/prefs/customization/textItemStyle.ts:20
 msgid "Header Background Color"
-msgstr ""
+msgstr "Barva pozadí záhlaví"
 
 #: src/prefs/customization/codeItemStyle.ts:21
 #: src/prefs/customization/colorItemStyle.ts:21
@@ -65,7 +65,7 @@ msgstr ""
 #: src/prefs/customization/linkItemStyle.ts:21
 #: src/prefs/customization/textItemStyle.ts:21
 msgid "You can change the background color of the header"
-msgstr ""
+msgstr "Můžete změnit barvu pozadí záhlaví"
 
 #: src/prefs/customization/codeItemStyle.ts:30
 #: src/prefs/customization/colorItemStyle.ts:30
@@ -75,7 +75,7 @@ msgstr ""
 #: src/prefs/customization/linkItemStyle.ts:30
 #: src/prefs/customization/textItemStyle.ts:30
 msgid "Header Text Color"
-msgstr ""
+msgstr "Barva textu záhlaví"
 
 #: src/prefs/customization/codeItemStyle.ts:31
 #: src/prefs/customization/colorItemStyle.ts:31
@@ -85,7 +85,7 @@ msgstr ""
 #: src/prefs/customization/linkItemStyle.ts:31
 #: src/prefs/customization/textItemStyle.ts:31
 msgid "You can change the text color of the header"
-msgstr ""
+msgstr "Můžete změnit barvu textu záhlaví"
 
 #: src/prefs/customization/codeItemStyle.ts:40
 #: src/prefs/customization/emojiItemStyle.ts:40
@@ -94,7 +94,7 @@ msgstr ""
 #: src/prefs/customization/linkItemStyle.ts:40
 #: src/prefs/customization/textItemStyle.ts:40
 msgid "Body Background Color"
-msgstr ""
+msgstr "Barva pozadí těla"
 
 #: src/prefs/customization/codeItemStyle.ts:41
 #: src/prefs/customization/emojiItemStyle.ts:41
@@ -103,224 +103,291 @@ msgstr ""
 #: src/prefs/customization/linkItemStyle.ts:41
 #: src/prefs/customization/textItemStyle.ts:41
 msgid "You can change the background color of the body"
-msgstr ""
+msgstr "Můžete změnit barvu pozadí těla"
 
 #: src/prefs/customization/codeItemStyle.ts:48
 #: src/prefs/customization/colorItemStyle.ts:59
 #: src/prefs/customization/fileItemStyle.ts:53
 #: src/prefs/customization/textItemStyle.ts:53
 msgid "Body Font"
-msgstr ""
+msgstr "Písmo těla"
 
 #: src/prefs/customization/codeItemStyle.ts:48
 #: src/prefs/customization/fileItemStyle.ts:53
 #: src/prefs/customization/textItemStyle.ts:53
 msgid "You can change the font of the body"
-msgstr ""
+msgstr "Můžete změnit písmo těla"
 
 #: src/prefs/customization/codeItemStyle.ts:53
 #: src/prefs/customization/textItemStyle.ts:58
 msgid "Character Length"
-msgstr ""
+msgstr "Počet znaků"
 
 #: src/prefs/customization/codeItemStyle.ts:54
 #: src/prefs/customization/textItemStyle.ts:59
 msgid "You can change the character length of the visible text in the body"
-msgstr ""
+msgstr "Můžete změnit počet znaků viditelného textu v těle"
 
 #: src/prefs/customization/colorItemStyle.ts:13
 msgid "Change the style of the color item"
-msgstr ""
+msgstr "Změňte styly barvy"
 
 #: src/prefs/customization/colorItemStyle.ts:13
 msgid "Color Item Style"
-msgstr ""
+msgstr "Barva - nastavení stylů"
 
 #: src/prefs/customization/colorItemStyle.ts:40
 #: src/prefs/customization/imageItemStyle.ts:50
 #: src/prefs/customization/linkItemStyle.ts:50
 msgid "Metadata Background Color"
-msgstr ""
+msgstr "Barva pozadí metadat"
 
 #: src/prefs/customization/colorItemStyle.ts:41
 #: src/prefs/customization/imageItemStyle.ts:51
 #: src/prefs/customization/linkItemStyle.ts:51
 msgid "You can change the background color of the metadata"
-msgstr ""
+msgstr "Můžete změnit barvu pozadí metadat"
 
 #: src/prefs/customization/colorItemStyle.ts:50
 #: src/prefs/customization/imageItemStyle.ts:60
 msgid "Metadata Text Color"
-msgstr ""
+msgstr "Barva textu metadat"
 
 #: src/prefs/customization/colorItemStyle.ts:51
 #: src/prefs/customization/imageItemStyle.ts:61
 msgid "You can change the text color of the metadata"
-msgstr ""
+msgstr "Můžete změnit barvu textu metadat"
 
 #: src/prefs/customization/colorItemStyle.ts:59
 #: src/prefs/customization/imageItemStyle.ts:69
 msgid "You can change the font of the metadata"
-msgstr ""
+msgstr "Můžete změnit písmo metadat"
 
 #: src/prefs/customization/commonStyleGroup.ts:12
 msgid "Common"
+msgstr "Obecné"
+
+#: src/prefs/customization/commonStyleGroup.ts:18
+msgid "Icon Pack"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:18
+msgid "You can change the icon pack"
 msgstr ""
 
 #: src/prefs/customization/commonStyleGroup.ts:19
-msgid "Window Height"
+msgid "Default Icons"
 msgstr ""
 
 #: src/prefs/customization/commonStyleGroup.ts:20
-msgid "You can change the window height"
+msgid "Legacy Icons"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:25
+msgid "Item Size"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:25
+msgid "You can change the item size"
 msgstr ""
 
 #: src/prefs/customization/commonStyleGroup.ts:30
-msgid "Window Background Color"
+msgid "Window Position"
 msgstr ""
 
 #: src/prefs/customization/commonStyleGroup.ts:31
+msgid "You can change position of the Pano"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:34
+msgid "Bottom"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:34
+msgid "Left"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:34
+msgid "Right"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:34
+msgid "Top"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:40
+msgid "Window Background Color"
+msgstr "Barva pozadí okna"
+
+#: src/prefs/customization/commonStyleGroup.ts:41
 msgid "You can change the window background color"
-msgstr ""
+msgstr "Můžete změnit barvu pozadí okna"
 
-#: src/prefs/customization/commonStyleGroup.ts:38
+#: src/prefs/customization/commonStyleGroup.ts:48
 msgid "Incognito Window Background Color"
-msgstr ""
+msgstr "Barva pozadí anonymního okna"
 
-#: src/prefs/customization/commonStyleGroup.ts:39
+#: src/prefs/customization/commonStyleGroup.ts:49
 msgid "You can change the incognito window background color"
+msgstr "Můžete změnit barvu pozadí anonymního okna"
+
+#: src/prefs/customization/commonStyleGroup.ts:56
+msgid "Search Bar Font"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:46
-#: src/prefs/customization/commonStyleGroup.ts:54
-msgid "Hovered Item Border Color"
+#: src/prefs/customization/commonStyleGroup.ts:57
+msgid "You can change the font of the search bar"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:47
+#: src/prefs/customization/commonStyleGroup.ts:63
+msgid "Item Title Font"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:63
+msgid "You can change the font of the title"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:66
+msgid "Item Date Font"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:66
+msgid "You can change the font of the date"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:70
+msgid "Active Item Border Color"
+msgstr "Barva ohraničení aktivní položky"
+
+#: src/prefs/customization/commonStyleGroup.ts:71
 msgid "You can change the active item border color"
-msgstr ""
+msgstr "Můžete změnit barvu okraje aktivní položky"
 
-#: src/prefs/customization/commonStyleGroup.ts:55
+#: src/prefs/customization/commonStyleGroup.ts:78
+msgid "Hovered Item Border Color"
+msgstr "Barva ohraničení při najetí na položku"
+
+#: src/prefs/customization/commonStyleGroup.ts:79
 msgid "You can change the hovered item border color"
-msgstr ""
+msgstr "Můžete změnit barvu ohraničení při najetí na položku"
 
 #: src/prefs/customization/emojiItemStyle.ts:13
 msgid "Change the style of the emoji item"
-msgstr ""
+msgstr "Změňte styly emoji"
 
 #: src/prefs/customization/emojiItemStyle.ts:13
 msgid "Emoji Item Style"
-msgstr ""
+msgstr "Emoji - nastavení stylů"
 
 #: src/prefs/customization/emojiItemStyle.ts:49
 msgid "Emoji Size"
-msgstr ""
+msgstr "Velikost emoji"
 
 #: src/prefs/customization/emojiItemStyle.ts:49
 msgid "You can change the emoji size"
-msgstr ""
+msgstr "Můžete změnit velikost emoji"
 
 #: src/prefs/customization/fileItemStyle.ts:13
 msgid "Change the style of the file item"
-msgstr ""
+msgstr "Změňte styly souboru"
 
 #: src/prefs/customization/fileItemStyle.ts:13
 msgid "File Item Style"
-msgstr ""
+msgstr "Soubor - nastavení stylů"
 
 #: src/prefs/customization/fileItemStyle.ts:49
 #: src/prefs/customization/textItemStyle.ts:49
 msgid "Body Text Color"
-msgstr ""
+msgstr "Barva textu těla"
 
 #: src/prefs/customization/fileItemStyle.ts:49
 #: src/prefs/customization/textItemStyle.ts:49
 msgid "You can change the text color of the body"
-msgstr ""
+msgstr "Můžete změnit barvu textu těla"
 
 #: src/prefs/customization/imageItemStyle.ts:13
 msgid "Change the style of the image item"
-msgstr ""
+msgstr "Změňte styly obrázku"
 
 #: src/prefs/customization/imageItemStyle.ts:13
 msgid "Image Item Style"
-msgstr ""
+msgstr "Obrázek - nastavení stylů"
 
 #: src/prefs/customization/imageItemStyle.ts:69
 msgid "Metadata Font"
-msgstr ""
+msgstr "Písmo metadat"
 
 #: src/prefs/customization/index.ts:11
 msgid "Customization"
-msgstr ""
+msgstr "Přizpůsobení"
 
 #: src/prefs/customization/itemStyleGroup.ts:16
 msgid "Item Style"
-msgstr ""
+msgstr "Styly položky"
 
 #: src/prefs/customization/linkItemStyle.ts:13
 msgid "Change the style of the link item"
-msgstr ""
+msgstr "Změňte styly odkazu"
 
 #: src/prefs/customization/linkItemStyle.ts:13
 msgid "Link Item Style"
-msgstr ""
+msgstr "Odkaz - nastavení stylů"
 
 #: src/prefs/customization/linkItemStyle.ts:60
 msgid "Metadata Title Color"
-msgstr ""
+msgstr "Barva názvu metadat"
 
 #: src/prefs/customization/linkItemStyle.ts:61
 msgid "You can change the title color of the metadata"
-msgstr ""
+msgstr "Můžete změnit barvu názvu metadat"
 
 #: src/prefs/customization/linkItemStyle.ts:70
 msgid "Metadata Title Font"
-msgstr ""
+msgstr "Písmo názvu metadat"
 
 #: src/prefs/customization/linkItemStyle.ts:71
 msgid "You can change the font of the metadata title"
-msgstr ""
+msgstr "Můžete změnit písmo názvu metadat"
 
 #: src/prefs/customization/linkItemStyle.ts:80
 msgid "Metadata Description Color"
-msgstr ""
+msgstr "Barva popisu metadat"
 
 #: src/prefs/customization/linkItemStyle.ts:81
 msgid "You can change the description color of the metadata"
-msgstr ""
+msgstr "Můžete změnit barvu popisu metadat"
 
 #: src/prefs/customization/linkItemStyle.ts:90
 msgid "Metadata Description Font"
-msgstr ""
+msgstr "Písmo popisu metadat"
 
 #: src/prefs/customization/linkItemStyle.ts:91
 msgid "You can change the font of the metadata description"
-msgstr ""
+msgstr "Můžete změnit písmo popisu metadat"
 
 #: src/prefs/customization/linkItemStyle.ts:100
 msgid "Metadata Link Color"
-msgstr ""
+msgstr "Barva odkazu metadat"
 
 #: src/prefs/customization/linkItemStyle.ts:101
 msgid "You can change the link color of the metadata"
-msgstr ""
+msgstr "Můžete změnit barvu odkazu metadat"
 
 #: src/prefs/customization/linkItemStyle.ts:110
 msgid "Metadata Link Font"
-msgstr ""
+msgstr "Písmo odkazu metadat"
 
 #: src/prefs/customization/linkItemStyle.ts:111
 msgid "You can change the font of the metadata link"
-msgstr ""
+msgstr "Můžete změnit písmo odkazu na metadata"
 
 #: src/prefs/customization/textItemStyle.ts:13
 msgid "Change the style of the text item"
-msgstr ""
+msgstr "Změňte styly textu"
 
 #: src/prefs/customization/textItemStyle.ts:13
 msgid "Text Item Style"
-msgstr ""
+msgstr "Text - nastavení stylů"
 
 #: src/prefs/dangerZone/clearHistory.ts:12
 msgid "Clears the clipboard database and cache"
@@ -328,15 +395,15 @@ msgstr "Vymaže databázi schránky a mezipaměť"
 
 #: src/prefs/dangerZone/index.ts:11
 msgid "Danger Zone"
-msgstr "Nebezpečný prostor"
+msgstr "Pokročilé"
 
 #: src/prefs/dangerZone/sessionOnlyMode.ts:13
 msgid "Session Only Mode"
-msgstr "Režim Pouze relace"
+msgstr "Režim: Pouze relace"
 
 #: src/prefs/dangerZone/sessionOnlyMode.ts:14
 msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
-msgstr "Pokud je tato možnost povolena, funkce Pano vymaže veškerou historii při odhlášení/restartu/vypnutí."
+msgstr "Pokud je tato možnost povolena, Pano vymaže celou historii při odhlášení/restartu/vypnutí."
 
 #: src/prefs/general/dbLocation.ts:22
 msgid "Database Location"
@@ -348,11 +415,11 @@ msgstr "Zvolte umístění databáze pano"
 
 #: src/prefs/general/dbLocation.ts:52
 msgid "Failed to select directory"
-msgstr "Nepodařilo se vybrat adresář"
+msgstr "Failed to select directory"
 
 #: src/prefs/general/exclusionGroup.ts:15
 msgid "Manage Exclusions"
-msgstr "Správa vyloučení"
+msgstr "Správa vyloučených aplikací"
 
 #: src/prefs/general/exclusionGroup.ts:22
 msgid "Excluded Apps"
@@ -360,13 +427,13 @@ msgstr "Vyloučené aplikace"
 
 #: src/prefs/general/exclusionGroup.ts:23
 msgid "Pano will stop tracking if any window from the list is focussed"
-msgstr "Pano přestane sledovat, pokud je některé okno ze seznamu fokusováno"
+msgstr "Pano přestane sledovat, pokud je vybráno jakékoli okno ze seznamu"
 
 #: src/prefs/general/exclusionGroup.ts:52
 msgid "Window class name"
 msgstr "Název třídy okna"
 
-#: src/prefs/general/generalGroup.ts:22
+#: src/prefs/general/generalGroup.ts:24
 msgid "General Options"
 msgstr "Obecné možnosti"
 
@@ -406,7 +473,7 @@ msgstr "Ponechat položku vyhledávání"
 
 #: src/prefs/general/keepSearchEntryOnHide.ts:14
 msgid "Keep search entry when Pano hides"
-msgstr "Zachovat položku hledání, když se funkce Pano skryje"
+msgstr "Ponechat záznam vyhledávání, když se Pano skryje"
 
 #: src/prefs/general/linkPreviews.ts:13
 msgid "Link Previews"
@@ -414,39 +481,39 @@ msgstr "Náhledy odkazů"
 
 #: src/prefs/general/linkPreviews.ts:14
 msgid "Allow Pano to visit links on your clipboard to generate link previews"
-msgstr "Umožněte společnosti Pano navštěvovat odkazy ve schránce a generovat náhledy odkazů"
+msgstr "Povolte Pano navštěvovat odkazy ve vaší schránce a generovat náhledy odkazů"
 
 #: src/prefs/general/openLinksInBrowser.ts:13
 msgid "Open Links in Browser"
-msgstr ""
+msgstr "Otevřít Odkazy v prohlížeči"
 
 #: src/prefs/general/openLinksInBrowser.ts:14
 msgid "Allow Pano to open links on your default browser"
-msgstr ""
+msgstr "Povolte Pano otevírat odkazy ve vašem výchozím prohlížeči"
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"
-msgstr "Vložit na Vybrat"
+msgstr "Vložit při výběru"
 
 #: src/prefs/general/pasteOnSelect.ts:14
 msgid "Allow Pano to paste content on select"
-msgstr "Povolit funkci Pano vložit obsah při výběru"
+msgstr "Povolte Pano vložit obsah při výběru"
 
 #: src/prefs/general/playAudioOnCopy.ts:13
 msgid "Play an Audio on Copy"
-msgstr "Přehrání zvuku při kopírování"
+msgstr "Přehrát zvuk při kopírování"
 
 #: src/prefs/general/playAudioOnCopy.ts:14
 msgid "Allow Pano to play an audio when copying new content"
-msgstr "Povolit funkci Pano přehrávání zvuku při kopírování nového obsahu"
+msgstr "Při kopírování nového obsahu povolte Pano přehrát zvuk"
 
 #: src/prefs/general/sendNotificationOnCopy.ts:13
 msgid "Send Notification on Copy"
-msgstr ""
+msgstr "Odeslat oznámení o kopírování"
 
 #: src/prefs/general/sendNotificationOnCopy.ts:14
 msgid "Allow Pano to send notification when copying new content"
-msgstr ""
+msgstr "Povolte Pano odesílat upozornění při kopírování nového obsahu"
 
 #: src/prefs/general/shortcutRow.ts:57
 msgid "Global Shortcut"
@@ -454,7 +521,7 @@ msgstr "Globální zkratka"
 
 #: src/prefs/general/shortcutRow.ts:58
 msgid "Allows you to toggle visibility of the clipboard manager"
-msgstr "Umožňuje přepínat viditelnost správce schránky"
+msgstr "Umožňuje vám přepínat viditelnost správce schránky"
 
 #: src/prefs/general/showIndicator.ts:13
 msgid "Show Indicator"
@@ -462,88 +529,96 @@ msgstr "Zobrazit indikátor"
 
 #: src/prefs/general/showIndicator.ts:14
 msgid "Shows an indicator on top panel"
-msgstr "Zobrazuje indikátor na horním panelu"
+msgstr "Zobrazuje ikonu na horním panelu"
 
 #: src/prefs/general/syncPrimary.ts:13
 msgid "Sync Primary"
-msgstr "Primární synchronizace"
+msgstr "Synchronizace primárního výběru"
 
 #: src/prefs/general/syncPrimary.ts:14
 msgid "Sync primary selection with clipboard selection"
-msgstr "Synchronizace primárního výběru s výběrem schránky"
+msgstr "Synchronizace primárního výběru s výběrem ze schránky"
 
 #: src/prefs/general/watchExclusions.ts:13
 msgid "Watch Exclusions"
-msgstr "Podívejte se na vyloučení"
+msgstr "Sledování vyloučených aplikací"
 
 #: src/prefs/general/watchExclusions.ts:14
 msgid "When enabled, Pano will not track clipboard from excluded apps"
-msgstr "Pokud je funkce Pano povolena, nebude sledovat schránku z vyloučených aplikací"
+msgstr "Je-li tato možnost povolena, nebude Pano sledovat schránku z vyloučených aplikací"
 
-#: src/utils/panoItemFactory.ts:367
-msgid "Image Copied"
+#: src/prefs/general/wiggleIndicator.ts:13
+msgid "Wiggle Indicator"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:368
-msgid "Width: %spx, Height: %spx, Size: %s"
+#: src/prefs/general/wiggleIndicator.ts:14
+msgid "Wiggles the indicator on panel"
 msgstr ""
 
 #: src/utils/panoItemFactory.ts:372
+msgid "Image Copied"
+msgstr "Obrázek zkopírován"
+
+#: src/utils/panoItemFactory.ts:373
+msgid "Width: %spx, Height: %spx, Size: %s"
+msgstr "Šířka: %spx, Výška: %spx, Velikost: %s"
+
+#: src/utils/panoItemFactory.ts:377
 msgid "Text Copied"
-msgstr ""
+msgstr "Text zkopírován"
 
-#: src/utils/panoItemFactory.ts:374
+#: src/utils/panoItemFactory.ts:379
 msgid "Code Copied"
-msgstr ""
+msgstr "Kód zkopírován"
 
-#: src/utils/panoItemFactory.ts:376
+#: src/utils/panoItemFactory.ts:381
 msgid "Emoji Copied"
-msgstr ""
+msgstr "Emoji zkopírováno"
 
-#: src/utils/panoItemFactory.ts:383
+#: src/utils/panoItemFactory.ts:388
 msgid "Link Copied"
-msgstr ""
+msgstr "Odkaz zkopírován"
 
-#: src/utils/panoItemFactory.ts:403
+#: src/utils/panoItemFactory.ts:408
 msgid "Color Copied"
-msgstr ""
+msgstr "Barva zkopírována"
 
-#: src/utils/panoItemFactory.ts:409
+#: src/utils/panoItemFactory.ts:414
 msgid "File %s"
-msgstr ""
+msgstr "Soubor %s"
 
-#: src/utils/panoItemFactory.ts:410
+#: src/utils/panoItemFactory.ts:415
 msgid "There are %s file(s)"
-msgstr ""
+msgstr "Existuje %s souborů"
 
 #: src/utils/panoItemType.ts:4
 msgid "Link"
-msgstr ""
+msgstr "Odkaz"
 
 #: src/utils/panoItemType.ts:5
 msgid "Text"
-msgstr ""
+msgstr "Text"
 
 #: src/utils/panoItemType.ts:6
 msgid "Emoji"
-msgstr ""
+msgstr "Emoji"
 
 #: src/utils/panoItemType.ts:7
 msgid "File"
-msgstr ""
+msgstr "Soubor"
 
 #: src/utils/panoItemType.ts:8
 msgid "Image"
-msgstr ""
+msgstr "Obrázek"
 
 #: src/utils/panoItemType.ts:9
 msgid "Code"
-msgstr ""
+msgstr "Kód"
 
 #: src/utils/panoItemType.ts:10
 msgid "Color"
-msgstr ""
+msgstr "Barva"
 
 #: src/utils/ui.ts:13
 msgid "Pano"
-msgstr ""
+msgstr "Pano"

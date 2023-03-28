@@ -1,19 +1,20 @@
 import {
+  ActorAlign,
   ButtonEvent,
   EVENT_PROPAGATE,
   EVENT_STOP,
   get_current_event_time,
-  KeyEvent,
-  KeyState,
   KEY_Control_L,
   KEY_Delete,
   KEY_ISO_Enter,
   KEY_KP_Delete,
   KEY_KP_Enter,
   KEY_Return,
-  KEY_s,
   KEY_S,
+  KEY_s,
   KEY_v,
+  KeyEvent,
+  KeyState,
   ModifierType,
 } from '@gi-types/clutter10';
 import { Settings } from '@gi-types/gio2';
@@ -22,13 +23,13 @@ import { MetaInfo, TYPE_STRING } from '@gi-types/gobject2';
 import { Point } from '@gi-types/graphene1';
 import { Cursor } from '@gi-types/meta10';
 import { Global } from '@gi-types/shell0';
-import { BoxLayout } from '@gi-types/st1';
+import { BoxLayout, ThemeContext } from '@gi-types/st1';
 import { PanoItemHeader } from '@pano/components/panoItemHeader';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { PanoItemTypes } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
-import { getVirtualKeyboard } from '@pano/utils/ui';
+import { getVirtualKeyboard, WINDOW_POSITIONS } from '@pano/utils/ui';
 
 @registerGObjectClass
 export class PanoItem extends BoxLayout {
@@ -76,9 +77,6 @@ export class PanoItem extends BoxLayout {
       if (!this.selected) {
         this.set_style(`border: 4px solid ${this.settings.get_string('hovered-item-border-color')}`);
       }
-    });
-    this.connect('motion-event', () => {
-      Global.get().display.set_cursor(Cursor.POINTING_HAND);
     });
     this.connect('leave-event', () => {
       Global.get().display.set_cursor(Cursor.DEFAULT);
@@ -133,6 +131,8 @@ export class PanoItem extends BoxLayout {
       style_class: 'pano-item-body',
       clip_to_allocation: true,
       vertical: true,
+      x_align: ActorAlign.FILL,
+      y_align: ActorAlign.FILL,
       x_expand: true,
       y_expand: true,
     });
@@ -140,14 +140,33 @@ export class PanoItem extends BoxLayout {
     this.add_child(this.header);
     this.add_child(this.body);
 
-    this.set_height(this.settings.get_int('window-height') - 80);
-    this.set_width(this.settings.get_int('window-height') - 80);
-    this.body.set_height(this.settings.get_int('window-height') - 80 - 57);
-    this.settings.connect('changed::window-height', () => {
-      this.set_height(this.settings.get_int('window-height') - 80);
-      this.set_width(this.settings.get_int('window-height') - 80);
-      this.body.set_height(this.settings.get_int('window-height') - 80 - 57);
+    const themeContext = ThemeContext.get_for_stage(Global.get().get_stage());
+
+    themeContext.connect('notify::scale-factor', () => {
+      this.setBodyDimensions();
     });
+    this.settings.connect('changed::item-size', () => {
+      this.setBodyDimensions();
+    });
+    this.settings.connect('changed::window-position', () => {
+      this.setBodyDimensions();
+    });
+
+    this.setBodyDimensions();
+  }
+
+  private setBodyDimensions() {
+    const pos = this.settings.get_uint('window-position');
+    if (pos === WINDOW_POSITIONS.LEFT || pos === WINDOW_POSITIONS.RIGHT) {
+      this.set_x_align(ActorAlign.FILL);
+      this.set_y_align(ActorAlign.START);
+    } else {
+      this.set_x_align(ActorAlign.START);
+      this.set_y_align(ActorAlign.FILL);
+    }
+    const { scaleFactor } = ThemeContext.get_for_stage(Global.get().get_stage());
+    this.body.set_height(this.settings.get_int('item-size') * scaleFactor - this.header.get_height());
+    this.body.set_width(this.settings.get_int('item-size') * scaleFactor);
   }
 
   private setSelected(selected: boolean) {

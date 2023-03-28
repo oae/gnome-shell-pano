@@ -2,6 +2,10 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
+#: src/prefs/customization/commonStyleGroup.ts:70
+msgid "Active Item Border Color"
+msgstr ""
+
 #: src/prefs/general/openLinksInBrowser.ts:14
 msgid "Allow Pano to open links on your default browser"
 msgstr ""
@@ -56,6 +60,10 @@ msgstr ""
 msgid "Body Text Color"
 msgstr ""
 
+#: src/prefs/customization/commonStyleGroup.ts:34
+msgid "Bottom"
+msgstr ""
+
 #: src/components/indicator/clearHistoryDialog.ts:23
 msgid "Cancel"
 msgstr ""
@@ -103,7 +111,7 @@ msgid "Clear"
 msgstr ""
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:75
+#: src/components/indicator/settingsMenu.ts:90
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr ""
@@ -116,7 +124,7 @@ msgstr ""
 msgid "Code"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:374
+#: src/utils/panoItemFactory.ts:379
 msgid "Code Copied"
 msgstr ""
 
@@ -128,7 +136,7 @@ msgstr ""
 msgid "Color"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:403
+#: src/utils/panoItemFactory.ts:408
 msgid "Color Copied"
 msgstr ""
 
@@ -152,11 +160,15 @@ msgstr ""
 msgid "Database Location"
 msgstr ""
 
+#: src/prefs/customization/commonStyleGroup.ts:19
+msgid "Default Icons"
+msgstr ""
+
 #: src/utils/panoItemType.ts:6
 msgid "Emoji"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:376
+#: src/utils/panoItemFactory.ts:381
 msgid "Emoji Copied"
 msgstr ""
 
@@ -180,7 +192,7 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:409
+#: src/utils/panoItemFactory.ts:414
 msgid "File %s"
 msgstr ""
 
@@ -192,7 +204,7 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: src/prefs/general/generalGroup.ts:22
+#: src/prefs/general/generalGroup.ts:24
 msgid "General Options"
 msgstr ""
 
@@ -224,16 +236,19 @@ msgstr ""
 msgid "History Length"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:46
-#: src/prefs/customization/commonStyleGroup.ts:54
+#: src/prefs/customization/commonStyleGroup.ts:78
 msgid "Hovered Item Border Color"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:18
+msgid "Icon Pack"
 msgstr ""
 
 #: src/utils/panoItemType.ts:8
 msgid "Image"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:367
+#: src/utils/panoItemFactory.ts:372
 msgid "Image Copied"
 msgstr ""
 
@@ -241,7 +256,7 @@ msgstr ""
 msgid "Image Item Style"
 msgstr ""
 
-#: src/components/indicator/settingsMenu.ts:55
+#: src/components/indicator/settingsMenu.ts:59
 msgid "Incognito Mode"
 msgstr ""
 
@@ -249,12 +264,24 @@ msgstr ""
 msgid "Incognito Mode Shortcut"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:38
+#: src/prefs/customization/commonStyleGroup.ts:48
 msgid "Incognito Window Background Color"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:66
+msgid "Item Date Font"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:25
+msgid "Item Size"
 msgstr ""
 
 #: src/prefs/customization/itemStyleGroup.ts:16
 msgid "Item Style"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:63
+msgid "Item Title Font"
 msgstr ""
 
 #: src/prefs/general/keepSearchEntryOnHide.ts:13
@@ -265,11 +292,19 @@ msgstr ""
 msgid "Keep search entry when Pano hides"
 msgstr ""
 
+#: src/prefs/customization/commonStyleGroup.ts:34
+msgid "Left"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:20
+msgid "Legacy Icons"
+msgstr ""
+
 #: src/utils/panoItemType.ts:4
 msgid "Link"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:383
+#: src/utils/panoItemFactory.ts:388
 msgid "Link Copied"
 msgstr ""
 
@@ -329,7 +364,7 @@ msgstr ""
 msgid "New shortcut"
 msgstr ""
 
-#: src/components/linkPanoItem.ts:37
+#: src/components/linkPanoItem.ts:46
 msgid "No Description"
 msgstr ""
 
@@ -353,6 +388,14 @@ msgstr ""
 msgid "Play an Audio on Copy"
 msgstr ""
 
+#: src/prefs/customization/commonStyleGroup.ts:34
+msgid "Right"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:56
+msgid "Search Bar Font"
+msgstr ""
+
 #: src/prefs/general/incognitoShortcutRow.ts:64
 #: src/prefs/general/shortcutRow.ts:64
 msgid "Select a shortcut"
@@ -366,7 +409,7 @@ msgstr ""
 msgid "Session Only Mode"
 msgstr ""
 
-#: src/components/indicator/settingsMenu.ts:82
+#: src/components/indicator/settingsMenu.ts:97
 msgid "Settings"
 msgstr ""
 
@@ -390,7 +433,7 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:372
+#: src/utils/panoItemFactory.ts:377
 msgid "Text Copied"
 msgstr ""
 
@@ -398,11 +441,15 @@ msgstr ""
 msgid "Text Item Style"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:410
+#: src/utils/panoItemFactory.ts:415
 msgid "There are %s file(s)"
 msgstr ""
 
-#: src/components/searchBox.ts:56
+#: src/prefs/customization/commonStyleGroup.ts:34
+msgid "Top"
+msgstr ""
+
+#: src/components/searchBox.ts:63
 msgid "Type to search, Tab to cycle"
 msgstr ""
 
@@ -418,11 +465,19 @@ msgstr ""
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:368
+#: src/utils/panoItemFactory.ts:373
 msgid "Width: %spx, Height: %spx, Size: %s"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:30
+#: src/prefs/general/wiggleIndicator.ts:13
+msgid "Wiggle Indicator"
+msgstr ""
+
+#: src/prefs/general/wiggleIndicator.ts:14
+msgid "Wiggles the indicator on panel"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:40
 msgid "Window Background Color"
 msgstr ""
 
@@ -430,11 +485,15 @@ msgstr ""
 msgid "Window class name"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:19
-msgid "Window Height"
+#: src/prefs/customization/commonStyleGroup.ts:30
+msgid "Window Position"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:47
+#: src/prefs/customization/commonStyleGroup.ts:31
+msgid "You can change position of the Pano"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:71
 msgid "You can change the active item border color"
 msgstr ""
 
@@ -482,6 +541,10 @@ msgstr ""
 msgid "You can change the font of the body"
 msgstr ""
 
+#: src/prefs/customization/commonStyleGroup.ts:66
+msgid "You can change the font of the date"
+msgstr ""
+
 #: src/prefs/customization/colorItemStyle.ts:59
 #: src/prefs/customization/imageItemStyle.ts:69
 msgid "You can change the font of the metadata"
@@ -499,12 +562,28 @@ msgstr ""
 msgid "You can change the font of the metadata title"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:55
+#: src/prefs/customization/commonStyleGroup.ts:57
+msgid "You can change the font of the search bar"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:63
+msgid "You can change the font of the title"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:79
 msgid "You can change the hovered item border color"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:39
+#: src/prefs/customization/commonStyleGroup.ts:18
+msgid "You can change the icon pack"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:49
 msgid "You can change the incognito window background color"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:25
+msgid "You can change the item size"
 msgstr ""
 
 #: src/prefs/customization/linkItemStyle.ts:101
@@ -535,12 +614,8 @@ msgstr ""
 msgid "You can change the title color of the metadata"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:31
+#: src/prefs/customization/commonStyleGroup.ts:41
 msgid "You can change the window background color"
-msgstr ""
-
-#: src/prefs/customization/commonStyleGroup.ts:20
-msgid "You can change the window height"
 msgstr ""
 
 #: src/prefs/general/historyLength.ts:14
