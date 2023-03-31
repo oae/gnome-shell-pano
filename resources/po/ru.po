@@ -33,19 +33,19 @@ msgstr "Настройки"
 
 #: src/components/linkPanoItem.ts:46
 msgid "No Description"
-msgstr ""
+msgstr "Без описания"
 
 #: src/components/searchBox.ts:63
 msgid "Type to search, Tab to cycle"
-msgstr ""
+msgstr "Введите для поиска или нажмите Tab для переключения"
 
 #: src/prefs/customization/codeItemStyle.ts:13
 msgid "Change the style of the code item"
-msgstr ""
+msgstr "Изменить стиль элемента с кодом"
 
 #: src/prefs/customization/codeItemStyle.ts:13
 msgid "Code Item Style"
-msgstr ""
+msgstr "Стиль элемента с кодом"
 
 #: src/prefs/customization/codeItemStyle.ts:20
 #: src/prefs/customization/colorItemStyle.ts:20
@@ -55,7 +55,7 @@ msgstr ""
 #: src/prefs/customization/linkItemStyle.ts:20
 #: src/prefs/customization/textItemStyle.ts:20
 msgid "Header Background Color"
-msgstr ""
+msgstr "Цвет фона заголовка"
 
 #: src/prefs/customization/codeItemStyle.ts:21
 #: src/prefs/customization/colorItemStyle.ts:21
@@ -65,7 +65,7 @@ msgstr ""
 #: src/prefs/customization/linkItemStyle.ts:21
 #: src/prefs/customization/textItemStyle.ts:21
 msgid "You can change the background color of the header"
-msgstr ""
+msgstr "Вы можете изменить цвет фона заголовка"
 
 #: src/prefs/customization/codeItemStyle.ts:30
 #: src/prefs/customization/colorItemStyle.ts:30
@@ -75,7 +75,7 @@ msgstr ""
 #: src/prefs/customization/linkItemStyle.ts:30
 #: src/prefs/customization/textItemStyle.ts:30
 msgid "Header Text Color"
-msgstr ""
+msgstr "Цвет текста заголовка"
 
 #: src/prefs/customization/codeItemStyle.ts:31
 #: src/prefs/customization/colorItemStyle.ts:31
@@ -85,7 +85,7 @@ msgstr ""
 #: src/prefs/customization/linkItemStyle.ts:31
 #: src/prefs/customization/textItemStyle.ts:31
 msgid "You can change the text color of the header"
-msgstr ""
+msgstr "Вы можете изменить цвет текста в заголовке"
 
 #: src/prefs/customization/codeItemStyle.ts:40
 #: src/prefs/customization/emojiItemStyle.ts:40
@@ -94,7 +94,7 @@ msgstr ""
 #: src/prefs/customization/linkItemStyle.ts:40
 #: src/prefs/customization/textItemStyle.ts:40
 msgid "Body Background Color"
-msgstr ""
+msgstr "Цвет фона содержимого"
 
 #: src/prefs/customization/codeItemStyle.ts:41
 #: src/prefs/customization/emojiItemStyle.ts:41
@@ -103,20 +103,20 @@ msgstr ""
 #: src/prefs/customization/linkItemStyle.ts:41
 #: src/prefs/customization/textItemStyle.ts:41
 msgid "You can change the background color of the body"
-msgstr ""
+msgstr "Вы можете изменить цвет фона содержимого"
 
 #: src/prefs/customization/codeItemStyle.ts:48
 #: src/prefs/customization/colorItemStyle.ts:59
 #: src/prefs/customization/fileItemStyle.ts:53
 #: src/prefs/customization/textItemStyle.ts:53
 msgid "Body Font"
-msgstr ""
+msgstr "Шрифт содержимого"
 
 #: src/prefs/customization/codeItemStyle.ts:48
 #: src/prefs/customization/fileItemStyle.ts:53
 #: src/prefs/customization/textItemStyle.ts:53
 msgid "You can change the font of the body"
-msgstr ""
+msgstr "Вы можете изменить шрифт содержимого"
 
 #: src/prefs/customization/codeItemStyle.ts:53
 #: src/prefs/customization/textItemStyle.ts:58
@@ -185,7 +185,7 @@ msgstr ""
 
 #: src/prefs/customization/commonStyleGroup.ts:25
 msgid "Item Size"
-msgstr ""
+msgstr "Размер элемента"
 
 #: src/prefs/customization/commonStyleGroup.ts:25
 msgid "You can change the item size"
@@ -217,11 +217,11 @@ msgstr ""
 
 #: src/prefs/customization/commonStyleGroup.ts:40
 msgid "Window Background Color"
-msgstr ""
+msgstr "Цвет фона окна"
 
 #: src/prefs/customization/commonStyleGroup.ts:41
 msgid "You can change the window background color"
-msgstr ""
+msgstr "Вы можете изменить цвет фона окна"
 
 #: src/prefs/customization/commonStyleGroup.ts:48
 msgid "Incognito Window Background Color"
@@ -383,7 +383,7 @@ msgstr ""
 
 #: src/prefs/customization/textItemStyle.ts:13
 msgid "Change the style of the text item"
-msgstr ""
+msgstr "Изменить стиль текстового элемента"
 
 #: src/prefs/customization/textItemStyle.ts:13
 msgid "Text Item Style"
@@ -485,11 +485,11 @@ msgstr "Разрешить Pano посещать ссылки в буфере о
 
 #: src/prefs/general/openLinksInBrowser.ts:13
 msgid "Open Links in Browser"
-msgstr ""
+msgstr "Открывать сслыки в браузере"
 
 #: src/prefs/general/openLinksInBrowser.ts:14
 msgid "Allow Pano to open links on your default browser"
-msgstr ""
+msgstr "Разрешить Pano открывать ссылки в браузере по умолчанию"
 
 #: src/prefs/general/pasteOnSelect.ts:13
 msgid "Paste on Select"
@@ -509,11 +509,11 @@ msgstr "Разрешить Pano воспроизводить звук при к�
 
 #: src/prefs/general/sendNotificationOnCopy.ts:13
 msgid "Send Notification on Copy"
-msgstr ""
+msgstr "Отправить уведомление о копировании"
 
 #: src/prefs/general/sendNotificationOnCopy.ts:14
 msgid "Allow Pano to send notification when copying new content"
-msgstr ""
+msgstr "Разрешить Pano отправлять уведомления при копировании нового контента"
 
 #: src/prefs/general/shortcutRow.ts:57
 msgid "Global Shortcut"
@@ -549,7 +549,7 @@ msgstr "Когда включено, Pano не будет отслеживать
 
 #: src/prefs/general/wiggleIndicator.ts:13
 msgid "Wiggle Indicator"
-msgstr ""
+msgstr "Покачивающийся индикатор"
 
 #: src/prefs/general/wiggleIndicator.ts:14
 msgid "Wiggles the indicator on panel"
@@ -557,7 +557,7 @@ msgstr ""
 
 #: src/utils/panoItemFactory.ts:372
 msgid "Image Copied"
-msgstr ""
+msgstr "Изображение скопировано"
 
 #: src/utils/panoItemFactory.ts:373
 msgid "Width: %spx, Height: %spx, Size: %s"
@@ -565,11 +565,11 @@ msgstr ""
 
 #: src/utils/panoItemFactory.ts:377
 msgid "Text Copied"
-msgstr ""
+msgstr "Текст скопирован"
 
 #: src/utils/panoItemFactory.ts:379
 msgid "Code Copied"
-msgstr ""
+msgstr "Код скопирован"
 
 #: src/utils/panoItemFactory.ts:381
 msgid "Emoji Copied"
@@ -577,11 +577,11 @@ msgstr ""
 
 #: src/utils/panoItemFactory.ts:388
 msgid "Link Copied"
-msgstr ""
+msgstr "Ссылка скопирована"
 
 #: src/utils/panoItemFactory.ts:408
 msgid "Color Copied"
-msgstr ""
+msgstr "Цвет скопирован"
 
 #: src/utils/panoItemFactory.ts:414
 msgid "File %s"
@@ -593,31 +593,31 @@ msgstr ""
 
 #: src/utils/panoItemType.ts:4
 msgid "Link"
-msgstr ""
+msgstr "Ссылка"
 
 #: src/utils/panoItemType.ts:5
 msgid "Text"
-msgstr ""
+msgstr "Текст"
 
 #: src/utils/panoItemType.ts:6
 msgid "Emoji"
-msgstr ""
+msgstr "Эмодзи"
 
 #: src/utils/panoItemType.ts:7
 msgid "File"
-msgstr ""
+msgstr "Файл"
 
 #: src/utils/panoItemType.ts:8
 msgid "Image"
-msgstr ""
+msgstr "Изображение"
 
 #: src/utils/panoItemType.ts:9
 msgid "Code"
-msgstr ""
+msgstr "Код"
 
 #: src/utils/panoItemType.ts:10
 msgid "Color"
-msgstr ""
+msgstr "Цвет"
 
 #: src/utils/ui.ts:13
 msgid "Pano"
