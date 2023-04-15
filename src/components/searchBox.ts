@@ -1,6 +1,8 @@
 import {
   ActorAlign,
   Event,
+  EVENT_PROPAGATE,
+  EVENT_STOP,
   KEY_Alt_L,
   KEY_Alt_R,
   KEY_BackSpace,
@@ -94,12 +96,14 @@ export class SearchBox extends BoxLayout {
           (this.search.clutter_text.cursor_position === -1 || this.search.text.length === 0))
       ) {
         this.emit('search-focus-out');
+        return EVENT_STOP;
       } else if (
         event.get_key_symbol() === KEY_Right &&
         this.search.clutter_text.get_selection() !== null &&
         this.search.clutter_text.get_selection() === this.search.text
       ) {
         this.search.clutter_text.set_cursor_position(this.search.text.length);
+        return EVENT_STOP;
       }
       if (
         event.get_key_symbol() === KEY_Return ||
@@ -107,10 +111,12 @@ export class SearchBox extends BoxLayout {
         event.get_key_symbol() === KEY_KP_Enter
       ) {
         this.emit('search-submit');
+        return EVENT_STOP;
       }
 
       if (event.has_control_modifier() && event.get_key_symbol() >= 49 && event.get_key_symbol() <= 57) {
         this.emit('search-item-select-shortcut', event.get_key_symbol() - 49);
+        return EVENT_STOP;
       }
 
       if (
@@ -119,16 +125,25 @@ export class SearchBox extends BoxLayout {
         event.get_key_symbol() === KEY_KP_Tab
       ) {
         this.toggleItemType(event.has_shift_modifier());
+
+        return EVENT_STOP;
       }
       if (event.get_key_symbol() === KEY_BackSpace && this.search.text.length === 0) {
         this.search.set_primary_icon(this.createSearchEntryIcon('edit-find-symbolic', 'search-entry-icon'));
         this.currentIndex = null;
         this.emitSearchTextChange();
+
+        return EVENT_STOP;
       }
+
       if (event.get_key_symbol() === KEY_Alt_L || event.get_key_symbol() === KEY_Alt_R) {
         this.toggleFavorites();
         this.emitSearchTextChange();
+
+        return EVENT_STOP;
       }
+
+      return EVENT_PROPAGATE;
     });
     this.add_child(this.search);
     this.setStyle();

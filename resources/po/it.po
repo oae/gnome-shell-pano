@@ -35,7 +35,7 @@ msgstr "Impostazioni"
 msgid "No Description"
 msgstr "Nessuna descrizione"
 
-#: src/components/searchBox.ts:63
+#: src/components/searchBox.ts:65
 msgid "Type to search, Tab to cycle"
 msgstr "Digita per cercare, Tab per scorrere"
 
