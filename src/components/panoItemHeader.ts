@@ -114,7 +114,7 @@ export class PanoItemHeader extends BoxLayout {
 
     const favoriteIcon = new Icon({
       style_class: 'pano-item-action-button-icon',
-      icon_name: 'starred-symbolic',
+      icon_name: 'view-pin-symbolic',
     });
 
     this.favoriteButton = new Button({
@@ -129,7 +129,7 @@ export class PanoItemHeader extends BoxLayout {
 
     const removeIcon = new Icon({
       style_class: 'pano-item-action-button-icon pano-item-action-button-remove-icon',
-      icon_name: 'window-close-symbolic',
+      icon_name: 'user-trash-symbolic',
     });
 
     const removeButton = new Button({

@@ -67,7 +67,7 @@ export class SearchBox extends BoxLayout {
       height: 40 * themeContext.scaleFactor,
       track_hover: true,
       primary_icon: this.createSearchEntryIcon('edit-find-symbolic', 'search-entry-icon'),
-      secondary_icon: this.createSearchEntryIcon('starred-symbolic', 'search-entry-fav-icon'),
+      secondary_icon: this.createSearchEntryIcon('view-pin-symbolic', 'search-entry-fav-icon'),
     });
 
     themeContext.connect('notify::scale-factor', () => {
