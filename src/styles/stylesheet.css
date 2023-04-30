@@ -8,6 +8,15 @@
   background-size: 0;
 }
 
+.pano-window {
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 12px;
+  border: 1px solid rgb(66, 66, 66);
+  box-shadow: 0px 0px 8px;
+}
+
 .pano-window .search-entry-container {
   padding: 14px;
   padding-bottom: 5px;
@@ -147,13 +156,24 @@
   margin-top: 5px;
 }
 
+.pano-item-actions {
+  background-color: #424242;
+  border-radius: 999px;
+  padding: 2px;
+}
+
 .pano-item-action-button {
-  margin-left: 5px;
+  /* margin-left: 5px; */
+  padding: 2px;
   width: 20px;
   height: 20px;
   border-radius: 999px;
   background-color: rgba(0, 0, 0, 0.3);
   color: white;
+}
+
+.pano-item-action-button:first-child {
+  margin-right: 5px;
 }
 
 .pano-item-action-button-icon {
