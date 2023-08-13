@@ -10,7 +10,7 @@ msgstr "Annulla"
 #: src/components/indicator/clearHistoryDialog.ts:30
 #: src/prefs/dangerZone/clearHistory.ts:17
 msgid "Clear"
-msgstr "Chiaro"
+msgstr "Cancella"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
 #: src/components/indicator/settingsMenu.ts:90
@@ -185,35 +185,35 @@ msgstr "Icone legacy"
 
 #: src/prefs/customization/commonStyleGroup.ts:25
 msgid "Item Size"
-msgstr ""
+msgstr "Grandezza Elemento"
 
 #: src/prefs/customization/commonStyleGroup.ts:25
 msgid "You can change the item size"
-msgstr ""
+msgstr "Puoi cambiare la grandezza dell'elemento"
 
 #: src/prefs/customization/commonStyleGroup.ts:30
 msgid "Window Position"
-msgstr ""
+msgstr "Posizione della finestra"
 
 #: src/prefs/customization/commonStyleGroup.ts:31
 msgid "You can change position of the Pano"
-msgstr ""
+msgstr "Puoi cambiare la posizione della finestra"
 
 #: src/prefs/customization/commonStyleGroup.ts:34
 msgid "Bottom"
-msgstr ""
+msgstr "Sotto"
 
 #: src/prefs/customization/commonStyleGroup.ts:34
 msgid "Left"
-msgstr ""
+msgstr "Sinistra"
 
 #: src/prefs/customization/commonStyleGroup.ts:34
 msgid "Right"
-msgstr ""
+msgstr "Destra"
 
 #: src/prefs/customization/commonStyleGroup.ts:34
 msgid "Top"
-msgstr ""
+msgstr "Sopra"
 
 #: src/prefs/customization/commonStyleGroup.ts:40
 msgid "Window Background Color"
@@ -233,27 +233,27 @@ msgstr "Puoi cambiare il colore di sfondo della finestra di navigazione in incog
 
 #: src/prefs/customization/commonStyleGroup.ts:56
 msgid "Search Bar Font"
-msgstr ""
+msgstr "Carattere della barra di ricerca"
 
 #: src/prefs/customization/commonStyleGroup.ts:57
 msgid "You can change the font of the search bar"
-msgstr ""
+msgstr "Puoi cambiare il carattere della barra di ricerca"
 
 #: src/prefs/customization/commonStyleGroup.ts:63
 msgid "Item Title Font"
-msgstr ""
+msgstr "Carattere del titolo"
 
 #: src/prefs/customization/commonStyleGroup.ts:63
 msgid "You can change the font of the title"
-msgstr ""
+msgstr "Puoi cambiare il carattere del titolo"
 
 #: src/prefs/customization/commonStyleGroup.ts:66
 msgid "Item Date Font"
-msgstr ""
+msgstr "Carattere della data"
 
 #: src/prefs/customization/commonStyleGroup.ts:66
 msgid "You can change the font of the date"
-msgstr ""
+msgstr "Puoi cambiare il carattere della data"
 
 #: src/prefs/customization/commonStyleGroup.ts:70
 msgid "Active Item Border Color"
@@ -549,11 +549,11 @@ msgstr "Se abilitato, Pano non tiene traccia degli appunti dalle app escluse"
 
 #: src/prefs/general/wiggleIndicator.ts:13
 msgid "Wiggle Indicator"
-msgstr ""
+msgstr "Agita l'indicatore"
 
 #: src/prefs/general/wiggleIndicator.ts:14
 msgid "Wiggles the indicator on panel"
-msgstr ""
+msgstr "Agita l'indicatore sul pannello"
 
 #: src/utils/panoItemFactory.ts:372
 msgid "Image Copied"
