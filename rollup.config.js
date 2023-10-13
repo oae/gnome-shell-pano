@@ -9,23 +9,23 @@ import visualizer from 'rollup-plugin-visualizer';
 const buildPath = 'dist';
 
 const globals = {
-  '@gi-types/gdk4': 'imports.gi.Gdk',
-  '@gi-types/gio2': 'imports.gi.Gio',
-  '@gi-types/gtk4': 'imports.gi.Gtk',
-  '@gi-types/gdkpixbuf2': 'imports.gi.GdkPixbuf',
-  '@gi-types/glib2': 'imports.gi.GLib',
-  '@gi-types/st1': 'imports.gi.St',
-  '@gi-types/shell0': 'imports.gi.Shell',
-  '@gi-types/meta10': 'imports.gi.Meta',
-  '@gi-types/clutter10': 'imports.gi.Clutter',
-  '@gi-types/soup3': 'imports.gi.Soup',
-  '@gi-types/gobject2': 'imports.gi.GObject',
-  '@gi-types/pango1': 'imports.gi.Pango',
-  '@gi-types/graphene1': 'imports.gi.Graphene',
-  '@imports/gda6': 'imports.gi.Gda',
-  '@imports/gsound1': 'imports.gi.GSound',
-  '@imports/cogl2': 'imports.gi.Cogl',
-  '@gi-types/adw1': 'imports.gi.Adw',
+  '@gi-types/gdk4': '"gi://Gdk"',
+  '@gi-types/gio2': '"gi://Gio"',
+  '@gi-types/gtk4': '"gi://Gtk?version=4.0"',
+  '@gi-types/gdkpixbuf2': '"gi://GdkPixbuf"',
+  '@gi-types/glib2': '"gi://GLib"',
+  '@gi-types/st1': '"gi://St"',
+  '@gi-types/shell0': '"gi://Shell"',
+  '@gi-types/meta10': '"gi://Meta"',
+  '@gi-types/clutter10': '"gi://Clutter"',
+  '@gi-types/soup3': '"gi://Soup"',
+  '@gi-types/gobject2': '"gi://GObject"',
+  '@gi-types/pango1': '"gi://Pango"',
+  '@gi-types/graphene1': '"gi://Graphene"',
+  '@imports/gda6': '"gi://Gda"',
+  '@imports/gsound1': '"gi://GSound"',
+  '@imports/cogl2': '"gi://Cogl"',
+  '@gi-types/adw1': '"gi://Adw"',
 };
 
 const thirdParty = [
@@ -91,7 +91,6 @@ const thirdPartyBuild = thirdParty.map((pkg) => {
 const external = [...Object.keys(globals), thirdParty];
 
 const prefsBanner = [
-  "imports.gi.versions.Gtk = '4.0';",
   'const Me = imports.misc.extensionUtils.getCurrentExtension();',
 ].join('\n');
 
