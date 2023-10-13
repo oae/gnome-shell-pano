@@ -6,12 +6,17 @@ import { Global } from '@gi-types/shell0';
 import { ImageContent } from '@gi-types/st1';
 import { PixelFormat } from '@imports/cogl2';
 import { _, getCurrentExtension } from '@pano/utils/shell';
+import extensionUtils from 'resource:///org/gnome/shell/misc/extensionUtils.js';
+import util from 'resource:///org/gnome/shell/misc/util.js';
+import { MonitorConstraint } from 'resource:///org/gnome/shell/ui/layout.js';
+import main from 'resource:///org/gnome/shell/ui/main.js';
+import { add, Notification, Source } from 'resource:///org/gnome/shell/ui/messageTray.js';
 
 const global = Global.get();
 
 export const notify = (text: string, body: string, iconOrPixbuf?: Pixbuf | Icon, pixelFormat?: PixelFormat): void => {
-  const source = new imports.ui.messageTray.Source(_('Pano'), 'edit-copy-symbolic');
-  imports.ui.main.messageTray.add(source);
+  const source = new Source(_('Pano'), 'edit-copy-symbolic');
+  add(source);
   let notification;
   if (iconOrPixbuf) {
     if (iconOrPixbuf instanceof Pixbuf) {
@@ -24,18 +29,18 @@ export const notify = (text: string, body: string, iconOrPixbuf?: Pixbuf | Icon,
         iconOrPixbuf.rowstride,
       );
 
-      notification = new imports.ui.messageTray.Notification(source, text, body, {
+      notification = new Notification(source, text, body, {
         datetime: DateTime.new_now_local(),
         gicon: content,
       });
     } else {
-      notification = new imports.ui.messageTray.Notification(source, text, body, {
+      notification = new Notification(source, text, body, {
         datetime: DateTime.new_now_local(),
         gicon: iconOrPixbuf,
       });
     }
   } else {
-    notification = new imports.ui.messageTray.Notification(source, text, body);
+    notification = new Notification(source, text, body);
   }
 
   notification.setTransient(true);
@@ -45,11 +50,11 @@ export const notify = (text: string, body: string, iconOrPixbuf?: Pixbuf | Icon,
 export const wiggle = (
   actor: Actor,
   { offset, duration, wiggleCount }: { offset?: number; duration?: number; wiggleCount?: number },
-) => imports.misc.util.wiggle(actor, { offset, duration, wiggleCount });
+) => util.wiggle(actor, { offset, duration, wiggleCount });
 
-export const wm = imports.ui.main.wm;
+export const wm = main.wm;
 
-export const getMonitors = (): Monitor[] => imports.ui.main.layoutManager.monitors;
+export const getMonitors = (): Monitor[] => main.layoutManager.monitors;
 
 export const getMonitorIndexForPointer = () => {
   const [x, y] = global.get_pointer();
@@ -63,21 +68,21 @@ export const getMonitorIndexForPointer = () => {
     }
   }
 
-  return imports.ui.main.layoutManager.primaryIndex;
+  return main.layoutManager.primaryIndex;
 };
 
 export const getMonitorConstraint = () =>
-  new imports.ui.layout.MonitorConstraint({
+  new MonitorConstraint({
     index: getMonitorIndexForPointer(),
   });
 
 export const getMonitorConstraintForIndex = (index: number) =>
-  new imports.ui.layout.MonitorConstraint({
+  new MonitorConstraint({
     index,
   });
 
-export const addTopChrome = (actor: Actor, options?: any) => imports.ui.main.layoutManager.addTopChrome(actor, options);
-export const removeChrome = (actor: Actor) => imports.ui.main.layoutManager.removeChrome(actor);
+export const addTopChrome = (actor: Actor, options?: any) => main.layoutManager.addTopChrome(actor, options);
+export const removeChrome = (actor: Actor) => main.layoutManager.removeChrome(actor);
 
 let virtualKeyboard: null | VirtualInputDevice = null;
 
@@ -99,10 +104,10 @@ export const removeVirtualKeyboard = () => {
 };
 
 export const addToStatusArea = (button: any) => {
-  imports.ui.main.panel.addToStatusArea(getCurrentExtension().metadata.uuid, button, 1, 'right');
+  main.panel.addToStatusArea(getCurrentExtension().metadata.uuid, button, 1, 'right');
 };
 
-export const openExtensionPrefs = () => imports.misc.extensionUtils.openPrefs();
+export const openExtensionPrefs = () => extensionUtils.openPrefs();
 
 export const WINDOW_POSITIONS = {
   TOP: 0,

@@ -18,6 +18,8 @@ import {
   timeout_add,
 } from '@gi-types/glib2';
 import { ATTR_EVENT_ID, Context } from '@imports/gsound1';
+import { gettext } from 'resource:///org/gnome/shell/extensions/extension.js';
+import extensionUtils from 'resource:///org/gnome/shell/misc/extensionUtils.js';
 
 export const logger =
   (prefix: string) =>
@@ -169,9 +171,9 @@ export const getDbPath = (): string => {
   return path;
 };
 
-export const getCurrentExtension = (): any => imports.misc.extensionUtils.getCurrentExtension();
+export const getCurrentExtension = (): any => extensionUtils.getCurrentExtension();
 
-export const getCurrentExtensionSettings = (): Settings => imports.misc.extensionUtils.getSettings();
+export const getCurrentExtensionSettings = (): Settings => extensionUtils.getSettings();
 
 export const loadInterfaceXML = (iface: string): any => {
   const uri = `file:///${getCurrentExtension().path}/dbus/${iface}.xml`;
@@ -213,9 +215,9 @@ export const removeSoundContext = () => {
   }
 };
 
-export const initTranslations = () => imports.misc.extensionUtils.initTranslations(getCurrentExtension().metadata.uuid);
-export const _ = imports.gettext.domain(getCurrentExtension().metadata.uuid).gettext;
-export const ngettext = imports.gettext.domain(getCurrentExtension().metadata.uuid).ngettext;
+export const initTranslations = () => extensionUtils.initTranslations(getCurrentExtension().metadata.uuid);
+export const _ = gettext.domain(getCurrentExtension().metadata.uuid).gettext;
+export const ngettext = gettext.domain(getCurrentExtension().metadata.uuid).ngettext;
 
 export let debounceIds: number[] = [];
 

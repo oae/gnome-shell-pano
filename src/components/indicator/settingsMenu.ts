@@ -15,9 +15,12 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 import { ICON_PACKS } from '@pano/utils/panoItemType';
 import { _, getCurrentExtension, getCurrentExtensionSettings } from '@pano/utils/shell';
 import { openExtensionPrefs, wiggle } from '@pano/utils/ui';
-
-const { PopupMenuItem, PopupSwitchMenuItem, PopupSeparatorMenuItem } = imports.ui.popupMenu;
-const { Button: PopupMenuButton } = imports.ui.panelMenu;
+import { Button as PopupMenuButton } from 'resource:///org/gnome/shell/ui/panelMenu.js';
+import {
+  PopupMenuItem,
+  PopupSeparatorMenuItem,
+  PopupSwitchMenuItem,
+} from 'resource:///org/gnome/shell/ui/popupMenu.js';
 
 @registerGObjectClass
 export class SettingsMenu extends PopupMenuButton {

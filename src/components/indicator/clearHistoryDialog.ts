@@ -2,9 +2,8 @@ import { KEY_Escape } from '@gi-types/clutter10';
 import { Button } from '@gi-types/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { _, logger } from '@pano/utils/shell';
-
-const { ModalDialog } = imports.ui.modalDialog;
-const { MessageDialogContent } = imports.ui.dialog;
+import { MessageDialogContent } from 'resource:///org/gnome/shell/ui/dialog.js';
+import { ModalDialog } from 'resource:///org/gnome/shell/ui/modalDialog.js';
 
 const debug = logger('clear-history-dialog');
 

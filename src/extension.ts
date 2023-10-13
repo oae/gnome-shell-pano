@@ -21,9 +21,10 @@ import {
   setupAppDirs,
 } from '@pano/utils/shell';
 import { addTopChrome, addToStatusArea, removeChrome, removeVirtualKeyboard } from '@pano/utils/ui';
+import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 
 const debug = logger('extension');
-class PanoExtension {
+class PanoExtension extends Extension {
   private panoWindow: PanoWindow;
   private keyManager: KeyManager;
   private dbus: DBusExportedObject;

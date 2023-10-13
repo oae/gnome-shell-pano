@@ -3,8 +3,9 @@ import { MetaInfo } from '@gi-types/gobject2';
 import { Global } from '@gi-types/shell0';
 import { Bin, BoxLayout, Widget } from '@gi-types/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
-
-const { Lightbox } = imports.ui.lightbox;
+import { MonitorConstraint } from 'resource:///org/gnome/shell/ui/layout.js';
+import { Lightbox } from 'resource:///org/gnome/shell/ui/lightbox.js';
+import { uiGroup } from 'resource:///org/gnome/shell/ui/main.js';
 @registerGObjectClass
 export class MonitorBox extends BoxLayout {
   static metaInfo: MetaInfo = {
@@ -42,7 +43,7 @@ export class MonitorBox extends BoxLayout {
       y_expand: true,
     });
     const _backgroundBin = new Bin({ child: backgroundStack });
-    const _monitorConstraint = new imports.ui.layout.MonitorConstraint();
+    const _monitorConstraint = new MonitorConstraint();
     _backgroundBin.add_constraint(_monitorConstraint);
     this.add_actor(_backgroundBin);
     this._lightbox = new Lightbox(this, {
@@ -54,7 +55,7 @@ export class MonitorBox extends BoxLayout {
 
     const _eventBlocker = new Actor({ reactive: true });
     backgroundStack.add_actor(_eventBlocker);
-    imports.ui.main.uiGroup.add_actor(this);
+    uiGroup.add_actor(this);
   }
 
   open() {
