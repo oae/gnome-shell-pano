@@ -28,6 +28,7 @@ const importsGeneral = {
   '@imports/gsound1': { name: 'gi://GSound', type: "*" },
   '@imports/cogl2': { name: 'gi://Cogl', type: "*" },
   '@gi-types/adw1': { name: 'gi://Adw', type: "*" },
+
   // extension.js specific resources
   '@gnome-shell/misc/util': { name: 'resource://EXT_ROOT/misc/util.js', type: "*" },
   '@gnome-shell/extensions/extension': { name: 'resource://EXT_ROOT/extensions/extension.js', type: "*" },
@@ -53,53 +54,10 @@ const ExtensionEntries = Object.fromEntries(Object.entries(importsGeneral).map((
 }))
 
 
-const ExtensionGlobals = {}
-
-const unusedExtensionNames = [
-  // gi_types_gdk4,
-  // gi_types_gtk4,
-  // gi_types_adw1
-]
-
-
-
-const importsExtensions = Object.entries(importsGeneral).map(([name, { name: mapping, type }]) => {
-
-  const mappedName = mapping.replaceAll(/EXT_ROOT/g, "/org/gnome/shell")
-
-  const sanitizedName = name.split('/').join('_').replaceAll('-', '_').replaceAll('.', '_').replaceAll('@', '');
-
-  if (sanitizedName in unusedExtensionNames) {
-    return `const ${sanitizedName} = ()=>throw new Error("DECLARED AS UNUSED")`
-  }
-
-  ExtensionGlobals[name] = sanitizedName
-  if (type === "*") {
-    return `import * as ${sanitizedName} from '${mappedName}';`
-  } else {
-    return `import {default as ${sanitizedName}} from '${mappedName}';`
-  }
-
-})
-
 
 const PreferencesEntries = Object.fromEntries(Object.entries(importsPrefs).map(([name, { name: mapping, type }]) => {
   return ([name, mapping.replaceAll(/EXT_ROOT/g, "/org/gnome/Shell/Extensions/js")])
 }))
-
-
-const PreferencesGlobals = {}
-
-const importsPreferences = Object.entries(PreferencesEntries).map(([name, mappedName]) => {
-
-  const sanitizedName = name.split('/').join('_').replaceAll('-', '_').replaceAll('.', '_').replaceAll('@', '');
-
-  PreferencesGlobals[name] = sanitizedName
-
-  return `import * as ${sanitizedName} from '${mappedName}';`
-})
-
-
 
 
 const thirdParty = [
@@ -139,32 +97,11 @@ const thirdParty = [
   ['highlight.js/lib/languages/yaml', "*"]
 ];
 
-const globalImports = []
 const GlobalEntries = {}
 
 const thirdPartyBuild = thirdParty.map(([pkg, type]) => {
   const sanitizedPkg = pkg.split('/').join('_').replaceAll('-', '_').replaceAll('.', '_').replaceAll('@', '');
-  globals[pkg] = `${sanitizedPkg}`
-
   GlobalEntries[pkg] = `./thirdparty/${sanitizedPkg}.js`
-
-  if (type === "*") {
-    globalImports.push(
-      `import * as ${sanitizedPkg} from './thirdparty/${sanitizedPkg}.js';`
-
-    )
-  } else if (type === "normal") {
-    globalImports.push(
-      `import ${sanitizedPkg} from './thirdparty/${sanitizedPkg}.js';`
-
-    )
-
-  } else {
-    globalImports.push(
-      `import {default as ${sanitizedPkg}} from './thirdparty/${sanitizedPkg}.js';`
-
-    )
-  }
 
   return {
     input: `node_modules/${pkg}`,
@@ -185,32 +122,7 @@ const thirdPartyBuild = thirdParty.map(([pkg, type]) => {
   };
 });
 
-const external = [...Object.keys(globals), thirdParty.map(([name]) => name)];
-
-const prefsBanner = ""/* `
-${importsPreferences.join("\n")}
-
-` */
-
-const prefsFooter = [/* 'var init = prefs.init;', 'var fillPreferencesWindow = prefs.fillPreferencesWindow;' */].join('\n');
-
-const extensionBanner = ""/* `
-//TODO: use in the extension.ts itself
-import * as main from 'resource:///org/gnome/shell/ui/main.js';
-${importsExtensions.join("\n")}
-${globalImports.join("\n")}
-try {
-`; */
-
-const extensionFooter = ""/* `
-}
-catch(err) {
-  log(\`[pano] [init] \$\{err\}\`);
-  main.notify('Pano', \`\$\{err\}\`);
-  throw err;
-}
-`; */
-
+const external = [...thirdParty.map(([name]) => name)];
 
 const builds = [
   ...thirdPartyBuild,
@@ -223,10 +135,7 @@ const builds = [
       file: `${buildPath}/extension.js`,
       format: 'esm',
       name: 'init',
-      banner: extensionBanner,
-      footer: extensionFooter,
       exports: 'default',
-      globals: { ...globals, ...ExtensionGlobals },
       paths: { ...ExtensionEntries, ...GlobalEntries },
       assetFileNames: '[name][extname]'
     },
@@ -264,9 +173,6 @@ const builds = [
       format: 'esm',
       exports: 'default',
       name: 'prefs',
-      banner: prefsBanner,
-      footer: prefsFooter,
-      globals: { ...globals, ...PreferencesGlobals },
       paths: { ...PreferencesEntries, ...GlobalEntries },
     },
     treeshake: {
