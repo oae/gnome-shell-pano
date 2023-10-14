@@ -1,11 +1,13 @@
 import { KEY_Escape } from '@gi-types/clutter10';
 import { Button } from '@gi-types/st1';
+// import { MessageDialogContent } from '@gnome-shell/ui/dialog';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { _, logger } from '@pano/utils/shell';
-import { MessageDialogContent } from 'resource:///org/gnome/shell/ui/dialog.js';
-import { ModalDialog } from 'resource:///org/gnome/shell/ui/modalDialog.js';
+import * as dialog from 'resource:///org/gnome/shell/ui/dialog.js';
+import {ModalDialog} from 'resource:///org/gnome/shell/ui/modalDialog.js';
 
 const debug = logger('clear-history-dialog');
+
 
 @registerGObjectClass
 export class ClearHistoryDialog extends ModalDialog {
@@ -30,7 +32,7 @@ export class ClearHistoryDialog extends ModalDialog {
       action: this.onClearButtonPressed.bind(this),
     });
 
-    const content = new MessageDialogContent({
+    const content = new dialog.MessageDialogContent({
       title: _('Clear History'),
       description: _('Are you sure you want to clear history?'),
     });

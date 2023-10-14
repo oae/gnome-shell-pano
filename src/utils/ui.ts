@@ -4,19 +4,19 @@ import { Icon } from '@gi-types/gio2';
 import { DateTime } from '@gi-types/glib2';
 import { Global } from '@gi-types/shell0';
 import { ImageContent } from '@gi-types/st1';
+//import { MonitorConstraint } from '@gnome-shell/ui/layout';
 import { PixelFormat } from '@imports/cogl2';
 import { _, getCurrentExtension } from '@pano/utils/shell';
-import extensionUtils from 'resource:///org/gnome/shell/misc/extensionUtils.js';
-import util from 'resource:///org/gnome/shell/misc/util.js';
-import { MonitorConstraint } from 'resource:///org/gnome/shell/ui/layout.js';
-import main from 'resource:///org/gnome/shell/ui/main.js';
-import { add, Notification, Source } from 'resource:///org/gnome/shell/ui/messageTray.js';
+import * as util from 'resource:///org/gnome/shell/misc/util.js';
+import * as layout from 'resource:///org/gnome/shell/ui/layout.js';
+import * as main from 'resource:///org/gnome/shell/ui/main.js';
+import * as messageTray from 'resource:///org/gnome/shell/ui/messageTray.js';
 
 const global = Global.get();
 
 export const notify = (text: string, body: string, iconOrPixbuf?: Pixbuf | Icon, pixelFormat?: PixelFormat): void => {
-  const source = new Source(_('Pano'), 'edit-copy-symbolic');
-  add(source);
+  const source = new messageTray.Source(_('Pano'), 'edit-copy-symbolic');
+  messageTray.add(source);
   let notification;
   if (iconOrPixbuf) {
     if (iconOrPixbuf instanceof Pixbuf) {
@@ -29,18 +29,18 @@ export const notify = (text: string, body: string, iconOrPixbuf?: Pixbuf | Icon,
         iconOrPixbuf.rowstride,
       );
 
-      notification = new Notification(source, text, body, {
+      notification = new messageTray.Notification(source, text, body, {
         datetime: DateTime.new_now_local(),
         gicon: content,
       });
     } else {
-      notification = new Notification(source, text, body, {
+      notification = new messageTray.Notification(source, text, body, {
         datetime: DateTime.new_now_local(),
         gicon: iconOrPixbuf,
       });
     }
   } else {
-    notification = new Notification(source, text, body);
+    notification = new messageTray.Notification(source, text, body);
   }
 
   notification.setTransient(true);
@@ -72,12 +72,12 @@ export const getMonitorIndexForPointer = () => {
 };
 
 export const getMonitorConstraint = () =>
-  new MonitorConstraint({
+  new layout.MonitorConstraint({
     index: getMonitorIndexForPointer(),
   });
 
 export const getMonitorConstraintForIndex = (index: number) =>
-  new MonitorConstraint({
+  new layout.MonitorConstraint({
     index,
   });
 
@@ -103,11 +103,11 @@ export const removeVirtualKeyboard = () => {
   }
 };
 
-export const addToStatusArea = (button: any) => {
-  main.panel.addToStatusArea(getCurrentExtension().metadata.uuid, button, 1, 'right');
+export const addToStatusArea = (ext: any, button: any) => {
+  main.panel.addToStatusArea(getCurrentExtension(ext).metadata.uuid, button, 1, 'right');
 };
 
-export const openExtensionPrefs = () => extensionUtils.openPrefs();
+export const openExtensionPrefs = (ext: any) => ext.openPreferences();
 
 export const WINDOW_POSITIONS = {
   TOP: 0,

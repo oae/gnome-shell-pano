@@ -110,7 +110,7 @@ const isValidUrl = (text: string) => {
   }
 };
 
-const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null> => {
+const findOrCreateDbItem = async (ext: any, clip: ClipboardContent): Promise<DBItem | null> => {
   const { value, type } = clip.content;
   const queryBuilder = new ClipboardQueryBuilder();
   switch (type) {
@@ -129,7 +129,7 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
 
   const result = db.query(queryBuilder.build());
 
-  if (getCurrentExtensionSettings().get_boolean('play-audio-on-copy')) {
+  if (getCurrentExtensionSettings(ext).get_boolean('play-audio-on-copy')) {
     playAudio();
   }
 
@@ -161,7 +161,7 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
       if (!checksum) {
         return null;
       }
-      const imageFilePath = `${getImagesPath()}/${checksum}.png`;
+      const imageFilePath = `${getImagesPath(ext)}/${checksum}.png`;
       const imageFile = File.new_for_path(imageFilePath);
       imageFile.replace_contents(value, null, false, FileCreateFlags.REPLACE_DESTINATION, null);
       const [, width, height] = Pixbuf.get_file_info(imageFilePath);
@@ -181,7 +181,7 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
       const trimmedValue = value.trim();
 
       if (trimmedValue.toLowerCase().startsWith('http') && isValidUrl(trimmedValue)) {
-        const linkPreviews = getCurrentExtensionSettings().get_boolean('link-previews');
+        const linkPreviews = getCurrentExtensionSettings(ext).get_boolean('link-previews');
         let description = '',
           imageUrl = '',
           title = '',
@@ -275,28 +275,28 @@ const findOrCreateDbItem = async (clip: ClipboardContent): Promise<DBItem | null
   }
 };
 
-export const createPanoItem = async (clip: ClipboardContent): Promise<PanoItem | null> => {
+export const createPanoItem = async (ext: any, clip: ClipboardContent): Promise<PanoItem | null> => {
   let dbItem: DBItem | null = null;
 
   try {
-    dbItem = await findOrCreateDbItem(clip);
+    dbItem = await findOrCreateDbItem(ext, clip);
   } catch (err) {
     debug(`err: ${err}`);
     return null;
   }
 
   if (dbItem) {
-    if (getCurrentExtensionSettings().get_boolean('send-notification-on-copy')) {
-      sendNotification(dbItem);
+    if (getCurrentExtensionSettings(ext).get_boolean('send-notification-on-copy')) {
+      sendNotification(ext, dbItem);
     }
 
-    return createPanoItemFromDb(dbItem);
+    return createPanoItemFromDb(ext, dbItem);
   }
 
   return null;
 };
 
-export const createPanoItemFromDb = (dbItem: DBItem | null): PanoItem | null => {
+export const createPanoItemFromDb = (ext: any, dbItem: DBItem | null): PanoItem | null => {
   if (!dbItem) {
     return null;
   }
@@ -332,7 +332,7 @@ export const createPanoItemFromDb = (dbItem: DBItem | null): PanoItem | null => 
 
   panoItem.connect('on-remove', (_, dbItemStr: string) => {
     const dbItem: DBItem = JSON.parse(dbItemStr);
-    removeItemResources(dbItem);
+    removeItemResources(ext, dbItem);
   });
 
   panoItem.connect('on-favorite', (_, dbItemStr: string) => {
@@ -346,15 +346,15 @@ export const createPanoItemFromDb = (dbItem: DBItem | null): PanoItem | null => 
   return panoItem;
 };
 
-export const removeItemResources = (dbItem: DBItem) => {
+export const removeItemResources = (ext: any, dbItem: DBItem) => {
   db.delete(dbItem.id);
   if (dbItem.itemType === 'LINK') {
     const { image } = JSON.parse(dbItem.metaData || '{}');
-    if (image && File.new_for_uri(`file://${getCachePath()}/${image}.png`).query_exists(null)) {
-      File.new_for_uri(`file://${getCachePath()}/${image}.png`).delete(null);
+    if (image && File.new_for_uri(`file://${getCachePath(ext)}/${image}.png`).query_exists(null)) {
+      File.new_for_uri(`file://${getCachePath(ext)}/${image}.png`).delete(null);
     }
   } else if (dbItem.itemType === 'IMAGE') {
-    const imageFilePath = `file://${getImagesPath()}/${dbItem.content}.png`;
+    const imageFilePath = `file://${getImagesPath(ext)}/${dbItem.content}.png`;
     const imageFile = File.new_for_uri(imageFilePath);
     if (imageFile.query_exists(null)) {
       imageFile.delete(null);
@@ -362,7 +362,7 @@ export const removeItemResources = (dbItem: DBItem) => {
   }
 };
 
-const sendNotification = async (dbItem: DBItem) => {
+const sendNotification = async (ext: any, dbItem: DBItem) => {
   return new Promise(() => {
     if (dbItem.itemType === 'IMAGE') {
       const { width, height, size }: { width: number; height: number; size: number } = JSON.parse(
@@ -371,7 +371,7 @@ const sendNotification = async (dbItem: DBItem) => {
       notify(
         _('Image Copied'),
         _('Width: %spx, Height: %spx, Size: %s').format(width, height, prettyBytes(size)),
-        Pixbuf.new_from_file(`${getImagesPath()}/${dbItem.content}.png`),
+        Pixbuf.new_from_file(`${getImagesPath(ext)}/${dbItem.content}.png`),
       );
     } else if (dbItem.itemType === 'TEXT') {
       notify(_('Text Copied'), dbItem.content.trim());
@@ -383,7 +383,7 @@ const sendNotification = async (dbItem: DBItem) => {
       const { title, description, image }: { title: string; description: string; image: string } = JSON.parse(
         dbItem.metaData || '{}',
       );
-      const pixbuf = image ? Pixbuf.new_from_file(`${getCachePath()}/${image}.png`) : undefined;
+      const pixbuf = image ? Pixbuf.new_from_file(`${getCachePath(ext)}/${image}.png`) : undefined;
       notify(
         decodeURI(`${_('Link Copied')}${title ? ` - ${title}` : ''}`),
         `${dbItem.content}${description ? `\n\n${decodeURI(description)}` : ''}`,

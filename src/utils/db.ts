@@ -186,17 +186,17 @@ class Database {
   private connection: Connection | null;
   private settings: Settings;
 
-  private init() {
-    this.settings = getCurrentExtensionSettings();
+  private init(ext: any) {
+    this.settings = getCurrentExtensionSettings(ext);
     this.connection = new Connection({
       provider: Config.get_provider('SQLite'),
-      cnc_string: `DB_DIR=${getDbPath()};DB_NAME=pano`,
+      cnc_string: `DB_DIR=${getDbPath(ext)};DB_NAME=pano`,
     });
     this.connection.open();
   }
 
-  setup() {
-    this.init();
+  setup(ext: any) {
+    this.init(ext);
     if (!this.connection || !this.connection.is_opened()) {
       debug('connection is not opened');
       return;
@@ -349,9 +349,9 @@ class Database {
     return itemList;
   }
 
-  start() {
+  start(ext: any) {
     if (!this.connection) {
-      this.init();
+      this.init(ext);
     }
 
     if (this.connection && !this.connection.is_opened()) {

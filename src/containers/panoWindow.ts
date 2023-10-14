@@ -16,7 +16,7 @@ export class PanoWindow extends BoxLayout {
   private monitorBox: MonitorBox;
   private settings: Settings;
 
-  constructor() {
+  constructor(ext: any) {
     super({
       name: 'pano-window',
       constraints: getMonitorConstraint(),
@@ -28,7 +28,7 @@ export class PanoWindow extends BoxLayout {
       can_focus: true,
     });
 
-    this.settings = getCurrentExtensionSettings();
+    this.settings = getCurrentExtensionSettings(ext);
     this.setAlignment();
 
     const themeContext = ThemeContext.get_for_stage(Global.get().get_stage());
@@ -65,7 +65,7 @@ export class PanoWindow extends BoxLayout {
     });
     this.monitorBox = new MonitorBox();
     this.searchBox = new SearchBox();
-    this.scrollView = new PanoScrollView(this.searchBox);
+    this.scrollView = new PanoScrollView(ext, this.searchBox);
 
     this.setupMonitorBox();
     this.setupScrollView();

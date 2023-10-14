@@ -60,17 +60,20 @@ export class PanoScrollView extends ScrollView {
   private currentItemTypeFilter: string;
   private showFavorites: boolean;
   private searchBox: SearchBox;
+  private ext: any;
 
-  constructor(searchBox: SearchBox) {
+  constructor(ext: any, searchBox: SearchBox) {
     super({
       overlay_scrollbars: true,
       x_expand: true,
       y_expand: true,
     });
+    this.ext = ext;
     this.searchBox = searchBox;
-    this.settings = getCurrentExtensionSettings();
+    this.settings = getCurrentExtensionSettings(this.ext);
 
     this.setScrollbarPolicy();
+    this.ext = ext;
 
     this.list = new BoxLayout({
       vertical: isVertical(this.settings.get_uint('window-position')),
@@ -139,7 +142,7 @@ export class PanoScrollView extends ScrollView {
     });
 
     db.query(new ClipboardQueryBuilder().build()).forEach((dbItem) => {
-      const panoItem = createPanoItemFromDb(dbItem);
+      const panoItem = createPanoItemFromDb(ext, dbItem);
       if (panoItem) {
         panoItem.connect('motion-event', () => {
           if (this.isHovering(this.searchBox)) {
@@ -162,7 +165,7 @@ export class PanoScrollView extends ScrollView {
     });
 
     clipboardManager.connect('changed', async (_: any, content: ClipboardContent) => {
-      const panoItem = await createPanoItem(content);
+      const panoItem = await createPanoItem(ext, content);
       if (panoItem) {
         this.prependItem(panoItem);
         this.filter(this.currentFilter, this.currentItemTypeFilter, this.showFavorites);

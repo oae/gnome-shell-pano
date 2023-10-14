@@ -7,8 +7,8 @@ import { wm } from '@pano/utils/ui';
 export class KeyManager {
   private settings: Settings;
 
-  constructor() {
-    this.settings = getCurrentExtensionSettings();
+  constructor(ext: any) {
+    this.settings = getCurrentExtensionSettings(ext);
   }
 
   stopListening(gsettingsField: string): void {

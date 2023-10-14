@@ -15,15 +15,11 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 import { ICON_PACKS } from '@pano/utils/panoItemType';
 import { _, getCurrentExtension, getCurrentExtensionSettings } from '@pano/utils/shell';
 import { openExtensionPrefs, wiggle } from '@pano/utils/ui';
-import { Button as PopupMenuButton } from 'resource:///org/gnome/shell/ui/panelMenu.js';
-import {
-  PopupMenuItem,
-  PopupSeparatorMenuItem,
-  PopupSwitchMenuItem,
-} from 'resource:///org/gnome/shell/ui/popupMenu.js';
+import * as panelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
+import * as popupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 
 @registerGObjectClass
-export class SettingsMenu extends PopupMenuButton {
+export class SettingsMenu extends panelMenu.Button {
   static metaInfo: MetaInfo = {
     GTypeName: 'SettingsButton',
     Signals: {
@@ -59,7 +55,7 @@ export class SettingsMenu extends PopupMenuButton {
 
     this.add_child(this.icon);
 
-    const switchMenuItem = new PopupSwitchMenuItem(_('Incognito Mode'), this.settings.get_boolean('is-in-incognito'));
+    const switchMenuItem = new popupMenu.PopupSwitchMenuItem(_('Incognito Mode'), this.settings.get_boolean('is-in-incognito'));
 
     switchMenuItem.connect('toggled', (item) => {
       this.settings.set_boolean('is-in-incognito', item.state);
@@ -89,15 +85,15 @@ export class SettingsMenu extends PopupMenuButton {
     });
 
     this.menu.addMenuItem(switchMenuItem);
-    this.menu.addMenuItem(new PopupSeparatorMenuItem());
-    const clearHistoryItem = new PopupMenuItem(_('Clear History'));
+    this.menu.addMenuItem(new popupMenu.PopupSeparatorMenuItem());
+    const clearHistoryItem = new popupMenu.PopupMenuItem(_('Clear History'));
     clearHistoryItem.connect('activate', () => {
       const dialog = new ClearHistoryDialog(onClear);
       dialog.open();
     });
     this.menu.addMenuItem(clearHistoryItem);
-    this.menu.addMenuItem(new PopupSeparatorMenuItem());
-    const settingsItem = new PopupMenuItem(_('Settings'));
+    this.menu.addMenuItem(new popupMenu.PopupSeparatorMenuItem());
+    const settingsItem = new popupMenu.PopupMenuItem(_('Settings'));
     settingsItem.connect('activate', () => {
       openExtensionPrefs();
     });

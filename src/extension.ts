@@ -5,7 +5,7 @@ import { PRIORITY_DEFAULT, Source, SOURCE_REMOVE, timeout_add } from '@gi-types/
 import { Global } from '@gi-types/shell0';
 import { SettingsMenu } from '@pano/components/indicator/settingsMenu';
 import { PanoWindow } from '@pano/containers/panoWindow';
-import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/clipboardManager';
+import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { db } from '@pano/utils/db';
 import { KeyManager } from '@pano/utils/keyManager';
 import {
@@ -13,7 +13,6 @@ import {
   deleteAppDirs,
   getCurrentExtensionSettings,
   getDbPath,
-  initTranslations,
   loadInterfaceXML,
   logger,
   moveDbFile,
@@ -24,9 +23,10 @@ import { addTopChrome, addToStatusArea, removeChrome, removeVirtualKeyboard } fr
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 
 const debug = logger('extension');
-class PanoExtension extends Extension {
+export default class PanoExtension extends Extension {
   private panoWindow: PanoWindow;
   private keyManager: KeyManager;
+
   private dbus: DBusExportedObject;
   private isEnabled = false;
   private settings: Settings;
@@ -38,30 +38,33 @@ class PanoExtension extends Extension {
   private logoutSignalId: number | null;
   private rebootSignalId: number | null;
   private systemdSignalId: number | null;
+  private clipboardManager: ClipboardManager;
 
   constructor() {
-    setupAppDirs();
-    db.setup();
+    super();
+
+    setupAppDirs(this);
+    db.setup(this);
     debug('extension is initialized');
-    this.keyManager = new KeyManager();
-    this.panoWindow = new PanoWindow();
-    const iface = loadInterfaceXML('io.elhan.Pano');
+    this.keyManager = new KeyManager(this);
+    this.panoWindow = new PanoWindow(this);
+    const iface = loadInterfaceXML(this, 'io.elhan.Pano');
     this.dbus = DBusExportedObject.wrapJSObject(iface, this);
     this.dbus.export(DBus.session, '/io/elhan/Pano');
-    this.settings = getCurrentExtensionSettings();
-    this.lastDBpath = getDbPath();
+    this.settings = getCurrentExtensionSettings(this);
+    this.lastDBpath = getDbPath(this);
     this.settings.connect('changed::database-location', () => {
       const newDBpath = this.settings.get_string('database-location');
 
       if (this.isEnabled) {
         this.disable();
         moveDbFile(this.lastDBpath, newDBpath);
-        db.setup();
+        db.setup(this);
         this.rerender();
         this.enable();
       } else {
         moveDbFile(this.lastDBpath, newDBpath);
-        db.setup();
+        db.setup(this);
         this.rerender();
       }
       this.lastDBpath = newDBpath;
@@ -73,16 +76,17 @@ class PanoExtension extends Extension {
         this.removeIndicator();
       }
     });
+    this.clipboardManager = new ClipboardManager(this);
   }
 
   async clearSessionHistory() {
     if (this.settings.get_boolean('session-only-mode')) {
       debug('clearing session history');
       db.shutdown();
-      clipboardManager.stopTracking();
-      await deleteAppDirs();
+      this.clipboardManager.stopTracking();
+      await deleteAppDirs(this);
       debug('deleted session cache and db');
-      clipboardManager.setContent(
+      this.clipboardManager.setContent(
         new ClipboardContent({
           type: ContentType.TEXT,
           value: '',
@@ -95,7 +99,7 @@ class PanoExtension extends Extension {
   createIndicator() {
     if (this.settings.get_boolean('show-indicator')) {
       this.settingsMenu = new SettingsMenu(this.clearHistory.bind(this), () => this.panoWindow.toggle());
-      addToStatusArea(this.settingsMenu);
+      addToStatusArea(this, this.settingsMenu);
     }
   }
 
@@ -106,9 +110,9 @@ class PanoExtension extends Extension {
 
   enable(): void {
     this.isEnabled = true;
-    setupAppDirs();
+    setupAppDirs(this);
     this.createIndicator();
-    db.start();
+    db.start(this);
     this.logoutSignalId = DBus.session.signal_subscribe(
       null,
       'org.gnome.SessionManager.EndSessionDialog',
@@ -153,7 +157,7 @@ class PanoExtension extends Extension {
       this.settings.set_boolean('is-in-incognito', !this.settings.get_boolean('is-in-incognito'));
     });
 
-    clipboardManager.startTracking();
+    this.clipboardManager.startTracking();
     this.windowTrackerId = Global.get().display.connect('notify::focus-window', () => {
       const focussedWindow = Global.get().display.focus_window;
       if (focussedWindow && this.panoWindow.is_visible()) {
@@ -168,10 +172,10 @@ class PanoExtension extends Extension {
           .map((s) => s.toLowerCase())
           .indexOf(wmClass.toLowerCase()) >= 0
       ) {
-        clipboardManager.stopTracking();
-      } else if (clipboardManager.isTracking === false) {
+        this.clipboardManager.stopTracking();
+      } else if (this.clipboardManager.isTracking === false) {
         this.timeoutId = timeout_add(PRIORITY_DEFAULT, 300, () => {
-          clipboardManager.startTracking();
+          this.clipboardManager.startTracking();
           if (this.timeoutId) {
             Source.remove(this.timeoutId);
           }
@@ -201,7 +205,7 @@ class PanoExtension extends Extension {
     this.isEnabled = false;
     this.keyManager.stopListening('global-shortcut');
     this.keyManager.stopListening('incognito-shortcut');
-    clipboardManager.stopTracking();
+    this.clipboardManager.stopTracking();
     removeChrome(this.panoWindow);
     debug('extension is disabled');
     db.shutdown();
@@ -248,19 +252,14 @@ class PanoExtension extends Extension {
   private rerender() {
     this.panoWindow.remove_all_children();
     this.panoWindow.destroy();
-    this.panoWindow = new PanoWindow();
+    this.panoWindow = new PanoWindow(this);
   }
 
   private async reInitialize() {
     db.shutdown();
-    await deleteAppDirs();
-    setupAppDirs();
-    db.setup();
+    await deleteAppDirs(this);
+    setupAppDirs(this);
+    db.setup(this);
     this.rerender();
   }
-}
-
-export default function (): PanoExtension {
-  initTranslations();
-  return new PanoExtension();
 }

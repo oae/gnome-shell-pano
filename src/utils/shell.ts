@@ -18,8 +18,9 @@ import {
   timeout_add,
 } from '@gi-types/glib2';
 import { ATTR_EVENT_ID, Context } from '@imports/gsound1';
-import { gettext } from 'resource:///org/gnome/shell/extensions/extension.js';
-import extensionUtils from 'resource:///org/gnome/shell/misc/extensionUtils.js';
+
+// import { gettext } from '@gnome-shell/types/extension';
+export { gettext as _, ngettext } from 'resource:///org/gnome/shell/extensions/extension.js';
 
 export const logger =
   (prefix: string) =>
@@ -110,22 +111,22 @@ const deleteDirectory = async (file: FilePrototype) => {
   }
 };
 
-export const getAppDataPath = (): string => `${get_user_data_dir()}/${getCurrentExtension().metadata.uuid}`;
+export const getAppDataPath = (ext: any): string => `${get_user_data_dir()}/${getCurrentExtension(ext).metadata.uuid}`;
 
-export const getImagesPath = (): string => `${getAppDataPath()}/images`;
+export const getImagesPath = (ext: any): string => `${getAppDataPath(ext)}/images`;
 
-export const getCachePath = (): string => `${get_user_cache_dir()}/${getCurrentExtension().metadata.uuid}`;
+export const getCachePath = (ext: any): string => `${get_user_cache_dir()}/${getCurrentExtension(ext).metadata.uuid}`;
 
-export const setupAppDirs = (): void => {
-  const imagePath = File.new_for_path(getImagesPath());
+export const setupAppDirs = (ext: any): void => {
+  const imagePath = File.new_for_path(getImagesPath(ext));
   if (!imagePath.query_exists(null)) {
     imagePath.make_directory_with_parents(null);
   }
-  const cachePath = File.new_for_path(getCachePath());
+  const cachePath = File.new_for_path(getCachePath(ext));
   if (!cachePath.query_exists(null)) {
     cachePath.make_directory_with_parents(null);
   }
-  const dbPath = File.new_for_path(`${getDbPath()}`);
+  const dbPath = File.new_for_path(`${getDbPath(ext)}`);
   if (!dbPath.query_exists(null)) {
     dbPath.make_directory_with_parents(null);
   }
@@ -147,36 +148,36 @@ export const moveDbFile = (from: string, to: string) => {
   }
 };
 
-export const deleteAppDirs = async (): Promise<void> => {
-  const appDataPath = File.new_for_path(getAppDataPath());
+export const deleteAppDirs = async (ext: any): Promise<void> => {
+  const appDataPath = File.new_for_path(getAppDataPath(ext));
   if (appDataPath.query_exists(null)) {
     await deleteDirectory(appDataPath);
   }
-  const cachePath = File.new_for_path(getCachePath());
+  const cachePath = File.new_for_path(getCachePath(ext));
   if (cachePath.query_exists(null)) {
     await deleteDirectory(cachePath);
   }
-  const dbPath = File.new_for_path(`${getDbPath()}/pano.db`);
+  const dbPath = File.new_for_path(`${getDbPath(ext)}/pano.db`);
   if (dbPath.query_exists(null)) {
     dbPath.delete(null);
   }
 };
 
-export const getDbPath = (): string => {
-  const path = getCurrentExtensionSettings().get_string('database-location');
+export const getDbPath = (ext: any): string => {
+  const path = getCurrentExtensionSettings(ext).get_string('database-location');
   if (!path) {
-    return getAppDataPath();
+    return getAppDataPath(ext);
   }
 
   return path;
 };
 
-export const getCurrentExtension = (): any => extensionUtils.getCurrentExtension();
+export const getCurrentExtension = (ext: any): any => ext.getCurrentExtension();
 
-export const getCurrentExtensionSettings = (): Settings => extensionUtils.getSettings();
+export const getCurrentExtensionSettings = (ext: any): Settings => ext.getSettings();
 
-export const loadInterfaceXML = (iface: string): any => {
-  const uri = `file:///${getCurrentExtension().path}/dbus/${iface}.xml`;
+export const loadInterfaceXML = (ext: any, iface: string): any => {
+  const uri = `file:///${getCurrentExtension(ext).path}/dbus/${iface}.xml`;
   const file = File.new_for_uri(uri);
 
   try {
@@ -214,10 +215,6 @@ export const removeSoundContext = () => {
     soundContext = null;
   }
 };
-
-export const initTranslations = () => extensionUtils.initTranslations(getCurrentExtension().metadata.uuid);
-export const _ = gettext.domain(getCurrentExtension().metadata.uuid).gettext;
-export const ngettext = gettext.domain(getCurrentExtension().metadata.uuid).ngettext;
 
 export let debounceIds: number[] = [];
 

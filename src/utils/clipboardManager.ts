@@ -125,9 +125,9 @@ export class ClipboardManager extends Object {
   private settings: Settings;
   private lastCopiedContent: ClipboardContent | null;
 
-  constructor() {
+  constructor(ext: any) {
     super();
-    this.settings = getCurrentExtensionSettings();
+    this.settings = getCurrentExtensionSettings(ext);
     this.clipboard = Clipboard.get_default();
     this.selection = global.get_display().get_selection();
     this.lastCopiedContent = null;
@@ -306,5 +306,3 @@ export class ClipboardManager extends Object {
     });
   }
 }
-
-export const clipboardManager = new ClipboardManager();
