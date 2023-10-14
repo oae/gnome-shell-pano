@@ -1,3 +1,7 @@
-import GnomeShell from '@girs/gnome-shell';
-
-export type Dialog = typeof GnomeShell.ui.dialog.Dialog;
+export {
+  ButtonInfo,
+  Dialog,
+  ListSection,
+  ListSectionItem,
+  MessageDialogContent,
+} from '@girs/gnome-shell/src/ui/dialog';

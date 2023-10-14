@@ -9,6 +9,7 @@ import {
   MessageDialog,
   ResponseType,
 } from '@gi-types/gtk4';
+import { ExtensionBase } from '@pano/types/extension/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { _, getCurrentExtensionSettings, getDbPath } from '@pano/utils/shell';
 
@@ -17,13 +18,13 @@ export class DBLocationRow extends ActionRow {
   private fileChooser: FileChooserNative;
   private settings: Settings;
 
-  constructor() {
+  constructor(ext: ExtensionBase) {
     super({
       title: _('Database Location'),
-      subtitle: `<b>${getDbPath()}/pano.db</b>`,
+      subtitle: `<b>${getDbPath(ext)}/pano.db</b>`,
     });
 
-    this.settings = getCurrentExtensionSettings();
+    this.settings = getCurrentExtensionSettings(ext);
 
     this.fileChooser = new FileChooserNative({
       modal: true,
@@ -34,7 +35,7 @@ export class DBLocationRow extends ActionRow {
     this.connect('map', () => {
       this.fileChooser.set_transient_for(this.get_root() as Window);
     });
-    this.fileChooser.set_current_folder(File.new_for_path(`${getDbPath()}`));
+    this.fileChooser.set_current_folder(File.new_for_path(`${getDbPath(ext)}`));
     this.fileChooser.connect('response', (chooser, response) => {
       if (response !== ResponseType.ACCEPT) {
         this.fileChooser.hide();
@@ -75,8 +76,8 @@ export class DBLocationRow extends ActionRow {
     this.set_activatable_widget(dbLocationButton);
 
     this.settings.connect('changed::database-location', () => {
-      this.fileChooser.set_current_folder(File.new_for_path(`${getDbPath()}`));
-      this.set_subtitle(`<b>${getDbPath()}/pano.db</b>`);
+      this.fileChooser.set_current_folder(File.new_for_path(`${getDbPath(ext)}`));
+      this.set_subtitle(`<b>${getDbPath(ext)}/pano.db</b>`);
     });
   }
 }

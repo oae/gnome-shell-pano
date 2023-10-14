@@ -1,5 +1,6 @@
 import { PreferencesGroup } from '@gi-types/adw1';
 import { Settings } from '@gi-types/gio2';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { createColorRow, createDropdownRow, createFontRow, createSpinRow } from '@pano/prefs/customization/utils';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
@@ -7,12 +8,12 @@ import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
 @registerGObjectClass
 export class CommonStyleGroup extends PreferencesGroup {
   private settings: Settings;
-  constructor() {
+  constructor(ext: ExtensionBase) {
     super({
       title: _('Common'),
     });
 
-    this.settings = getCurrentExtensionSettings();
+    this.settings = getCurrentExtensionSettings(ext);
 
     this.add(
       createDropdownRow(_('Icon Pack'), _('You can change the icon pack'), this.settings, 'icon-pack', [

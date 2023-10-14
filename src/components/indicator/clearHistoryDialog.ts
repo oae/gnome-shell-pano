@@ -1,14 +1,14 @@
 import { KEY_Escape } from '@gi-types/clutter10';
 import { Button } from '@gi-types/st1';
 import * as dialog from '@gnome-shell/ui/dialog';
-import { ModalDialog } from '@gnome-shell/ui/modalDialog';
+import { default as modalDialog } from '@gnome-shell/ui/modalDialog';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { _, logger } from '@pano/utils/shell';
 
 const debug = logger('clear-history-dialog');
 
 @registerGObjectClass
-export class ClearHistoryDialog extends ModalDialog {
+export class ClearHistoryDialog extends modalDialog.ModalDialog {
   private cancelButton: Button;
   private clearButton: Button;
   private onClear: () => Promise<void>;

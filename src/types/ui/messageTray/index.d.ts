@@ -1,3 +1,17 @@
-import GnomeShell from '@girs/gnome-shell';
-
-export type FocusGrabber = typeof GnomeShell.ui.messageTray.FocusGrabber;
+export {
+  FocusGrabber,
+  MessageTray,
+  MOUSE_LEFT_ACTOR_THRESHOLD,
+  Notification,
+  NotificationApplicationPolicy,
+  NotificationBanner,
+  NotificationDestroyedReason,
+  NotificationGenericPolicy,
+  NotificationPolicy,
+  PrivacyScope,
+  Source,
+  SourceActor,
+  State,
+  SystemNotificationSource,
+  Urgency,
+} from '@girs/gnome-shell/src/ui/messageTray';

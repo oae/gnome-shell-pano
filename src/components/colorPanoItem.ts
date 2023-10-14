@@ -1,6 +1,7 @@
 import { ActorAlign, AlignAxis, AlignConstraint } from '@gi-types/clutter10';
 import { Settings } from '@gi-types/gio2';
 import { BoxLayout, Label } from '@gi-types/st1';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
@@ -10,8 +11,8 @@ export class ColorPanoItem extends PanoItem {
   private colorItemSettings: Settings;
   private label: Label;
 
-  constructor(clipboardManager: ClipboardManager, dbItem: DBItem) {
-    super(clipboardManager, dbItem);
+  constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
+    super(ext, clipboardManager, dbItem);
 
     this.body.add_style_class_name('pano-item-body-color');
 

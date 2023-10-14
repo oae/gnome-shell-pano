@@ -1,13 +1,13 @@
 import { Settings } from '@gi-types/gio2';
 import { KeyBindingFlags } from '@gi-types/meta10';
 import { ActionMode } from '@gi-types/shell0';
-import { Extension } from '@gnome-shell/extensions/extension';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
 import { wm } from '@pano/utils/ui';
 export class KeyManager {
   private settings: Settings;
 
-  constructor(ext: Extension) {
+  constructor(ext: ExtensionBase) {
     this.settings = getCurrentExtensionSettings(ext);
   }
 

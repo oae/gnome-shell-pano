@@ -1,18 +1,18 @@
 import { Settings } from '@gi-types/gio2';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { ItemExpanderRow } from '@pano/prefs/customization/itemExpanderRow';
 import { createColorRow, createFontRow } from '@pano/prefs/customization/utils';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { PanoItemTypes } from '@pano/utils/panoItemType';
 import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
-
 @registerGObjectClass
 export class ImageItemStyleRow extends ItemExpanderRow {
   private settings: Settings;
 
-  constructor() {
-    super(_('Image Item Style'), _('Change the style of the image item'), PanoItemTypes.IMAGE.iconName);
+  constructor(ext: ExtensionBase) {
+    super(ext, _('Image Item Style'), _('Change the style of the image item'), PanoItemTypes.IMAGE.iconName);
 
-    this.settings = getCurrentExtensionSettings().get_child('image-item');
+    this.settings = getCurrentExtensionSettings(ext).get_child('image-item');
 
     // create header background color row
     this.add_row(

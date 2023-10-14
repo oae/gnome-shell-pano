@@ -1,4 +1,5 @@
 import { Settings } from '@gi-types/gio2';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { ItemExpanderRow } from '@pano/prefs/customization/itemExpanderRow';
 import { createColorRow, createFontRow, createSpinRow } from '@pano/prefs/customization/utils';
 import { registerGObjectClass } from '@pano/utils/gjs';
@@ -9,10 +10,10 @@ import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
 export class CodeItemStyleRow extends ItemExpanderRow {
   private settings: Settings;
 
-  constructor() {
-    super(_('Code Item Style'), _('Change the style of the code item'), PanoItemTypes.CODE.iconName);
+  constructor(ext: ExtensionBase) {
+    super(ext, _('Code Item Style'), _('Change the style of the code item'), PanoItemTypes.CODE.iconName);
 
-    this.settings = getCurrentExtensionSettings().get_child('code-item');
+    this.settings = getCurrentExtensionSettings(ext).get_child('code-item');
 
     // create header background color row
     this.add_row(

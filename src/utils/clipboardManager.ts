@@ -4,7 +4,7 @@ import { MetaInfo, Object } from '@gi-types/gobject2';
 import { Selection, SelectionSource, SelectionType } from '@gi-types/meta10';
 import { Global } from '@gi-types/shell0';
 import { Clipboard, ClipboardType } from '@gi-types/st1';
-import { Extension } from '@gnome-shell/extensions/extension';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { debounce, getCurrentExtensionSettings, logger } from '@pano/utils/shell';
 
@@ -126,7 +126,7 @@ export class ClipboardManager extends Object {
   private settings: Settings;
   private lastCopiedContent: ClipboardContent | null;
 
-  constructor(ext: Extension) {
+  constructor(ext: ExtensionBase) {
     super();
     this.settings = getCurrentExtensionSettings(ext);
     this.clipboard = Clipboard.get_default();

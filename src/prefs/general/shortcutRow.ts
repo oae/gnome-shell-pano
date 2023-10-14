@@ -46,19 +46,20 @@ import {
   EventControllerKey,
   ShortcutLabel,
 } from '@gi-types/gtk4';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class ShortcutRow extends ActionRow {
   private settings: Settings;
-  constructor() {
+  constructor(ext: ExtensionBase) {
     super({
       title: _('Global Shortcut'),
       subtitle: _('Allows you to toggle visibility of the clipboard manager'),
     });
 
-    this.settings = getCurrentExtensionSettings();
+    this.settings = getCurrentExtensionSettings(ext);
 
     const shortcutLabel = new ShortcutLabel({
       disabled_text: _('Select a shortcut'),

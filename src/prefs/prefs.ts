@@ -11,9 +11,9 @@ const debug = logger('prefs');
 
 export default class PanoExtensionPreferences extends ExtensionPreferences {
   fillPreferencesWindow(window: PreferencesWindow) {
-    window.add(new GeneralPage());
-    window.add(new CustomizationPage());
-    window.add(new DangerZonePage());
+    window.add(new GeneralPage(this));
+    window.add(new CustomizationPage(this));
+    window.add(new DangerZonePage(this));
     window.search_enabled = true;
 
     const display = Display.get_default();

@@ -1,3 +1,1 @@
-import GnomeShell from '@girs/gnome-shell';
-
-export type ModalDialog = typeof GnomeShell.ui.modalDialog.ModalDialog;
+export { ModalDialog, State } from '@girs/gnome-shell/src/ui/modalDialog';

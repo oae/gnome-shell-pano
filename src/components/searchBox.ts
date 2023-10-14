@@ -20,7 +20,7 @@ import { MetaInfo, TYPE_BOOLEAN, TYPE_INT, TYPE_STRING } from '@gi-types/gobject
 import { Cursor } from '@gi-types/meta10';
 import { Global } from '@gi-types/shell0';
 import { BoxLayout, Entry, Icon, ThemeContext } from '@gi-types/st1';
-import { Extension } from '@gnome-shell/extensions/extension';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { ICON_PACKS, PanoItemTypes } from '@pano/utils/panoItemType';
 import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
@@ -47,8 +47,9 @@ export class SearchBox extends BoxLayout {
   private currentIndex: number | null = null;
   private showFavorites = false;
   private settings: Settings;
+  private ext: ExtensionBase;
 
-  constructor() {
+  constructor(ext: ExtensionBase) {
     super({
       x_align: ActorAlign.CENTER,
       style_class: 'search-entry-container',
@@ -57,7 +58,9 @@ export class SearchBox extends BoxLayout {
       reactive: true,
     });
 
-    this.settings = getCurrentExtensionSettings();
+    this.ext = ext;
+
+    this.settings = getCurrentExtensionSettings(ext);
 
     const themeContext = ThemeContext.get_for_stage(Global.get().get_stage());
 
@@ -176,9 +179,9 @@ export class SearchBox extends BoxLayout {
       this.search.set_primary_icon(
         this.createSearchEntryIcon(
           icon_new_for_string(
-            `${getCurrentExtension().path}/icons/hicolor/scalable/actions/${
-              ICON_PACKS[this.settings.get_uint('icon-pack')]
-            }-${PanoItemTypes[Object.keys(PanoItemTypes)[this.currentIndex]].iconPath}`,
+            `${this.ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${
+              PanoItemTypes[Object.keys(PanoItemTypes)[this.currentIndex]].iconPath
+            }`,
           ),
           'search-entry-icon',
         ),
@@ -192,9 +195,9 @@ export class SearchBox extends BoxLayout {
         this.search.set_primary_icon(
           this.createSearchEntryIcon(
             icon_new_for_string(
-              `${getCurrentExtension().path}/icons/hicolor/scalable/actions/${
-                ICON_PACKS[this.settings.get_uint('icon-pack')]
-              }-${PanoItemTypes[Object.keys(PanoItemTypes)[this.currentIndex]].iconPath}`,
+              `${this.ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${
+                PanoItemTypes[Object.keys(PanoItemTypes)[this.currentIndex]].iconPath
+              }`,
             ),
             'search-entry-icon',
           ),

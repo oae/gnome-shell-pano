@@ -24,6 +24,7 @@ import { Point } from '@gi-types/graphene1';
 import { Cursor } from '@gi-types/meta10';
 import { Global } from '@gi-types/shell0';
 import { BoxLayout, ThemeContext } from '@gi-types/st1';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItemHeader } from '@pano/components/panoItemHeader';
 import { ClipboardManager } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
@@ -31,7 +32,6 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 import { PanoItemTypes } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
 import { getVirtualKeyboard, WINDOW_POSITIONS } from '@pano/utils/ui';
-
 @registerGObjectClass
 export class PanoItem extends BoxLayout {
   static metaInfo: MetaInfo = {
@@ -57,7 +57,7 @@ export class PanoItem extends BoxLayout {
   protected settings: Settings;
   private selected: boolean;
 
-  constructor(clipboardManager: ClipboardManager, dbItem: DBItem) {
+  constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
     super({
       name: 'pano-item',
       visible: true,
@@ -71,7 +71,7 @@ export class PanoItem extends BoxLayout {
     this.clipboardManager = clipboardManager;
     this.dbItem = dbItem;
 
-    this.settings = getCurrentExtensionSettings();
+    this.settings = getCurrentExtensionSettings(ext);
 
     this.connect('key-focus-in', () => this.setSelected(true));
     this.connect('key-focus-out', () => this.setSelected(false));
@@ -112,7 +112,7 @@ export class PanoItem extends BoxLayout {
       }
     });
 
-    this.header = new PanoItemHeader(PanoItemTypes[dbItem.itemType], dbItem.copyDate);
+    this.header = new PanoItemHeader(ext, PanoItemTypes[dbItem.itemType], dbItem.copyDate);
     this.header.setFavorite(this.dbItem.isFavorite);
     this.header.connect('on-remove', () => {
       this.emit('on-remove', JSON.stringify(this.dbItem));

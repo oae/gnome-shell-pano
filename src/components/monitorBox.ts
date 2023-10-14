@@ -43,7 +43,7 @@ export class MonitorBox extends BoxLayout {
       y_expand: true,
     });
     const _backgroundBin = new Bin({ child: backgroundStack });
-    const _monitorConstraint = new layout.MonitorConstraint();
+    const _monitorConstraint = new layout.MonitorConstraint({});
     _backgroundBin.add_constraint(_monitorConstraint);
     this.add_actor(_backgroundBin);
     this._lightbox = new lightbox.Lightbox(this, {

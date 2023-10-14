@@ -4,7 +4,8 @@ import { Icon } from '@gi-types/gio2';
 import { DateTime } from '@gi-types/glib2';
 import { Global } from '@gi-types/shell0';
 import { ImageContent } from '@gi-types/st1';
-import { Extension } from '@gnome-shell/extensions/extension';
+import type Clutter from '@girs/clutter-12';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import * as util from '@gnome-shell/misc/util';
 import * as layout from '@gnome-shell/ui/layout';
 import * as main from '@gnome-shell/ui/main';
@@ -15,7 +16,7 @@ const global = Global.get();
 
 export const notify = (text: string, body: string, iconOrPixbuf?: Pixbuf | Icon, pixelFormat?: PixelFormat): void => {
   const source = new messageTray.Source(_('Pano'), 'edit-copy-symbolic');
-  messageTray.add(source);
+  main.messageTray.add(source);
   let notification;
   if (iconOrPixbuf) {
     if (iconOrPixbuf instanceof Pixbuf) {
@@ -39,7 +40,7 @@ export const notify = (text: string, body: string, iconOrPixbuf?: Pixbuf | Icon,
       });
     }
   } else {
-    notification = new messageTray.Notification(source, text, body);
+    notification = new messageTray.Notification(source, text, body, {});
   }
 
   notification.setTransient(true);
@@ -53,7 +54,7 @@ export const wiggle = (
 
 export const wm = main.wm;
 
-export const getMonitors = (): Monitor[] => main.layoutManager.monitors;
+export const getMonitors = () => main.layoutManager.monitors;
 
 export const getMonitorIndexForPointer = () => {
   const [x, y] = global.get_pointer();
@@ -80,8 +81,8 @@ export const getMonitorConstraintForIndex = (index: number) =>
     index,
   });
 
-export const addTopChrome = (actor: Actor, options?: any) => main.layoutManager.addTopChrome(actor, options);
-export const removeChrome = (actor: Actor) => main.layoutManager.removeChrome(actor);
+export const addTopChrome = (actor: Clutter.Actor, options?: any) => main.layoutManager.addTopChrome(actor, options);
+export const removeChrome = (actor: Clutter.Actor) => main.layoutManager.removeChrome(actor);
 
 let virtualKeyboard: null | VirtualInputDevice = null;
 
@@ -102,11 +103,11 @@ export const removeVirtualKeyboard = () => {
   }
 };
 
-export const addToStatusArea = (ext: Extension, button: any) => {
+export const addToStatusArea = (ext: ExtensionBase, button: any) => {
   main.panel.addToStatusArea(ext.uuid, button, 1, 'right');
 };
 
-export const openExtensionPreferences = (ext: Extension) => ext.openPreferences();
+export const openExtensionPreferences = (ext: ExtensionBase) => ext.openPreferences();
 
 export const WINDOW_POSITIONS = {
   TOP: 0,

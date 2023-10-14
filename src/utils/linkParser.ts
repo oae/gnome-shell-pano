@@ -1,9 +1,9 @@
 import { File, FileCreateFlags, FilePrototype } from '@gi-types/gio2';
 import { ChecksumType, compute_checksum_for_string, PRIORITY_DEFAULT, uri_parse, UriFlags } from '@gi-types/glib2';
 import { Message, Session } from '@gi-types/soup3';
+import { ExtensionBase } from '@pano/types/extension/extension';
 import { getCachePath, logger } from '@pano/utils/shell';
 import * as htmlparser2 from 'htmlparser2';
-
 const DEFAULT_USER_AGENT = 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)';
 
 const session = new Session();
@@ -121,11 +121,14 @@ export const getDocument = async (url: string): Promise<{ title: string; descrip
   return defaultResult;
 };
 
-export const getImage = async (imageUrl: string): Promise<[string | null, FilePrototype | null]> => {
+export const getImage = async (
+  ext: ExtensionBase,
+  imageUrl: string,
+): Promise<[string | null, FilePrototype | null]> => {
   if (imageUrl && imageUrl.startsWith('http')) {
     try {
       const checksum = compute_checksum_for_string(ChecksumType.MD5, imageUrl, imageUrl.length);
-      const cachedImage = File.new_for_path(`${getCachePath()}/${checksum}.png`);
+      const cachedImage = File.new_for_path(`${getCachePath(ext)}/${checksum}.png`);
 
       if (cachedImage.query_exists(null)) {
         return [checksum, cachedImage];

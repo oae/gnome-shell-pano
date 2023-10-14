@@ -1,4 +1,5 @@
 import { Settings } from '@gi-types/gio2';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { ItemExpanderRow } from '@pano/prefs/customization/itemExpanderRow';
 import { createColorRow, createSpinRow } from '@pano/prefs/customization/utils';
 import { registerGObjectClass } from '@pano/utils/gjs';
@@ -9,10 +10,10 @@ import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
 export class EmojiItemStyleRow extends ItemExpanderRow {
   private settings: Settings;
 
-  constructor() {
-    super(_('Emoji Item Style'), _('Change the style of the emoji item'), PanoItemTypes.EMOJI.iconName);
+  constructor(ext: ExtensionBase) {
+    super(ext, _('Emoji Item Style'), _('Change the style of the emoji item'), PanoItemTypes.EMOJI.iconName);
 
-    this.settings = getCurrentExtensionSettings().get_child('emoji-item');
+    this.settings = getCurrentExtensionSettings(ext).get_child('emoji-item');
 
     // create header background color row
     this.add_row(

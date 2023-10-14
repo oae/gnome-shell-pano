@@ -2,7 +2,7 @@ import { AnimationMode, EVENT_PROPAGATE, KEY_Escape, KeyEvent } from '@gi-types/
 import { Settings } from '@gi-types/gio2';
 import { Global } from '@gi-types/shell0';
 import { BoxLayout, ThemeContext } from '@gi-types/st1';
-import { Extension } from '@gnome-shell/extensions/extension';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { MonitorBox } from '@pano/components/monitorBox';
 import { PanoScrollView } from '@pano/components/panoScrollView';
 import { SearchBox } from '@pano/components/searchBox';
@@ -18,7 +18,7 @@ export class PanoWindow extends BoxLayout {
   private monitorBox: MonitorBox;
   private settings: Settings;
 
-  constructor(ext: Extension, clipboardManager: ClipboardManager) {
+  constructor(ext: ExtensionBase, clipboardManager: ClipboardManager) {
     super({
       name: 'pano-window',
       constraints: getMonitorConstraint(),
@@ -66,7 +66,7 @@ export class PanoWindow extends BoxLayout {
       }
     });
     this.monitorBox = new MonitorBox();
-    this.searchBox = new SearchBox();
+    this.searchBox = new SearchBox(ext);
     this.scrollView = new PanoScrollView(ext, clipboardManager, this.searchBox);
 
     this.setupMonitorBox();

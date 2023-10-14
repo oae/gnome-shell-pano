@@ -1,7 +1,7 @@
 import { ActorAlign, AlignAxis, AlignConstraint } from '@gi-types/clutter10';
 import { File, Settings } from '@gi-types/gio2';
 import { BoxLayout, Label } from '@gi-types/st1';
-import { Extension } from '@gnome-shell/extensions/extension';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
@@ -19,10 +19,10 @@ export class ImagePanoItem extends PanoItem {
   private resolutionValue: Label;
   private sizeLabel: Label;
   private sizeValue: Label;
-  private ext: Extension;
+  private ext: ExtensionBase;
 
-  constructor(ext: Extension, clipboardManager: ClipboardManager, dbItem: DBItem) {
-    super(clipboardManager, dbItem);
+  constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
+    super(ext, clipboardManager, dbItem);
 
     this.ext = ext;
 

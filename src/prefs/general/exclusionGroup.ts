@@ -1,6 +1,7 @@
 import { ActionRow, ExpanderRow, PreferencesGroup } from '@gi-types/adw1';
 import { Settings } from '@gi-types/gio2';
 import { Align, Button, Entry } from '@gi-types/gtk4';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
 
@@ -10,13 +11,13 @@ export class ExclusionGroup extends PreferencesGroup {
   private exclusionButton: Button;
   private settings: Settings;
 
-  constructor() {
+  constructor(ext: ExtensionBase) {
     super({
       title: _('Manage Exclusions'),
       margin_top: 20,
     });
 
-    this.settings = getCurrentExtensionSettings();
+    this.settings = getCurrentExtensionSettings(ext);
 
     this.exclusionRow = new ExpanderRow({
       title: _('Excluded Apps'),

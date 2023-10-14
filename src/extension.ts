@@ -40,8 +40,8 @@ export default class PanoExtension extends Extension {
   private rebootSignalId: number | null;
   private systemdSignalId: number | null;
 
-  constructor() {
-    super();
+  constructor(a) {
+    super(a);
 
     setupAppDirs(this);
     db.setup(this);

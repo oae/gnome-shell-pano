@@ -23,7 +23,7 @@ import { Settings } from '@gi-types/gio2';
 import { MetaInfo, TYPE_BOOLEAN, TYPE_STRING } from '@gi-types/gobject2';
 import { Global } from '@gi-types/shell0';
 import { Adjustment, BoxLayout, PolicyType, ScrollView } from '@gi-types/st1';
-import { Extension } from '@gnome-shell/extensions/extension';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager } from '@pano/utils/clipboardManager';
 import { ClipboardQueryBuilder, db } from '@pano/utils/db';
@@ -61,10 +61,10 @@ export class PanoScrollView extends ScrollView {
   private currentItemTypeFilter: string;
   private showFavorites: boolean;
   private searchBox: SearchBox;
-  private ext: Extension;
+  private ext: ExtensionBase;
   private clipboardManager: ClipboardManager;
 
-  constructor(ext: Extension, clipboardManager: ClipboardManager, searchBox: SearchBox) {
+  constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, searchBox: SearchBox) {
     super({
       overlay_scrollbars: true,
       x_expand: true,

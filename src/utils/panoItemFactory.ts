@@ -1,7 +1,7 @@
 import { Colorspace, Pixbuf } from '@gi-types/gdkpixbuf2';
 import { File, FileCreateFlags } from '@gi-types/gio2';
 import { ChecksumType, compute_checksum_for_bytes, uri_parse, UriFlags } from '@gi-types/glib2';
-import { Extension } from '@gnome-shell/extensions/extension';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PixelFormat } from '@imports/cogl2';
 import { CodePanoItem } from '@pano/components/codePanoItem';
 import { ColorPanoItem } from '@pano/components/colorPanoItem';
@@ -111,7 +111,7 @@ const isValidUrl = (text: string) => {
   }
 };
 
-const findOrCreateDbItem = async (ext: Extension, clip: ClipboardContent): Promise<DBItem | null> => {
+const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): Promise<DBItem | null> => {
   const { value, type } = clip.content;
   const queryBuilder = new ClipboardQueryBuilder();
   switch (type) {
@@ -207,7 +207,7 @@ const findOrCreateDbItem = async (ext: Extension, clip: ClipboardContent): Promi
           description = document.description;
           title = document.title;
           imageUrl = document.imageUrl;
-          checksum = (await getImage(imageUrl))[0] || '';
+          checksum = (await getImage(ext, imageUrl))[0] || '';
           linkDbItem = db.update({
             id: linkDbItem.id,
             content: trimmedValue,
@@ -277,7 +277,7 @@ const findOrCreateDbItem = async (ext: Extension, clip: ClipboardContent): Promi
 };
 
 export const createPanoItem = async (
-  ext: Extension,
+  ext: ExtensionBase,
   clipboardManager: ClipboardManager,
   clip: ClipboardContent,
 ): Promise<PanoItem | null> => {
@@ -302,7 +302,7 @@ export const createPanoItem = async (
 };
 
 export const createPanoItemFromDb = (
-  ext: Extension,
+  ext: ExtensionBase,
   clipboardManager: ClipboardManager,
   dbItem: DBItem | null,
 ): PanoItem | null => {
@@ -314,25 +314,25 @@ export const createPanoItemFromDb = (
 
   switch (dbItem.itemType) {
     case 'TEXT':
-      panoItem = new TextPanoItem(clipboardManager, dbItem);
+      panoItem = new TextPanoItem(ext, clipboardManager, dbItem);
       break;
     case 'CODE':
-      panoItem = new CodePanoItem(clipboardManager, dbItem);
+      panoItem = new CodePanoItem(ext, clipboardManager, dbItem);
       break;
     case 'LINK':
-      panoItem = new LinkPanoItem(clipboardManager, dbItem);
+      panoItem = new LinkPanoItem(ext, clipboardManager, dbItem);
       break;
     case 'COLOR':
-      panoItem = new ColorPanoItem(clipboardManager, dbItem);
+      panoItem = new ColorPanoItem(ext, clipboardManager, dbItem);
       break;
     case 'FILE':
-      panoItem = new FilePanoItem(clipboardManager, dbItem);
+      panoItem = new FilePanoItem(ext, clipboardManager, dbItem);
       break;
     case 'IMAGE':
-      panoItem = new ImagePanoItem(clipboardManager, dbItem);
+      panoItem = new ImagePanoItem(ext, clipboardManager, dbItem);
       break;
     case 'EMOJI':
-      panoItem = new EmojiPanoItem(clipboardManager, dbItem);
+      panoItem = new EmojiPanoItem(ext, clipboardManager, dbItem);
       break;
 
     default:
@@ -355,7 +355,7 @@ export const createPanoItemFromDb = (
   return panoItem;
 };
 
-export const removeItemResources = (ext: Extension, dbItem: DBItem) => {
+export const removeItemResources = (ext: ExtensionBase, dbItem: DBItem) => {
   db.delete(dbItem.id);
   if (dbItem.itemType === 'LINK') {
     const { image } = JSON.parse(dbItem.metaData || '{}');
@@ -371,7 +371,7 @@ export const removeItemResources = (ext: Extension, dbItem: DBItem) => {
   }
 };
 
-const sendNotification = async (ext: Extension, dbItem: DBItem) => {
+const sendNotification = async (ext: ExtensionBase, dbItem: DBItem) => {
   return new Promise(() => {
     if (dbItem.itemType === 'IMAGE') {
       const { width, height, size }: { width: number; height: number; size: number } = JSON.parse(

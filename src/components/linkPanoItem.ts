@@ -11,7 +11,7 @@ import {
 import { File, Settings } from '@gi-types/gio2';
 import { uri_parse, UriFlags } from '@gi-types/glib2';
 import { BoxLayout, Button, Icon, Label } from '@gi-types/st1';
-import { Extension } from '@gnome-shell/extensions/extension';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
@@ -28,8 +28,8 @@ export class LinkPanoItem extends PanoItem {
   private descriptionLabel: Label;
   private linkLabel: Label;
 
-  constructor(clipboardManager: ClipboardManager, dbItem: DBItem) {
-    super(clipboardManager, dbItem);
+  constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
+    super(ext, clipboardManager, dbItem);
 
     this.linkItemSettings = this.settings.get_child('link-item');
 
@@ -77,8 +77,8 @@ export class LinkPanoItem extends PanoItem {
     });
 
     let imageFilePath = `file:///${ext.path}/images/${DEFAULT_LINK_PREVIEW_IMAGE_NAME}`;
-    if (image && File.new_for_uri(`file://${getCachePath()}/${image}.png`).query_exists(null)) {
-      imageFilePath = `file://${getCachePath()}/${image}.png`;
+    if (image && File.new_for_uri(`file://${getCachePath(ext)}/${image}.png`).query_exists(null)) {
+      imageFilePath = `file://${getCachePath(ext)}/${image}.png`;
     }
 
     const imageContainer = new BoxLayout({

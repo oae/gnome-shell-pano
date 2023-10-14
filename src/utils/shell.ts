@@ -17,7 +17,7 @@ import {
   SOURCE_REMOVE,
   timeout_add,
 } from '@gi-types/glib2';
-import { Extension } from '@gnome-shell/extensions/extension';
+import { Extension, ExtensionBase } from '@gnome-shell/extensions/extension';
 import { ATTR_EVENT_ID, Context } from '@imports/gsound1';
 export { gettext as _, ngettext } from '@gnome-shell/extensions/extension';
 
@@ -110,13 +110,13 @@ const deleteDirectory = async (file: FilePrototype) => {
   }
 };
 
-export const getAppDataPath = (ext: Extension): string => `${get_user_data_dir()}/${ext.uuid}`;
+export const getAppDataPath = (ext: ExtensionBase): string => `${get_user_data_dir()}/${ext.uuid}`;
 
-export const getImagesPath = (ext: Extension): string => `${getAppDataPath(ext)}/images`;
+export const getImagesPath = (ext: ExtensionBase): string => `${getAppDataPath(ext)}/images`;
 
-export const getCachePath = (ext: Extension): string => `${get_user_cache_dir()}/${ext.uuid}`;
+export const getCachePath = (ext: ExtensionBase): string => `${get_user_cache_dir()}/${ext.uuid}`;
 
-export const setupAppDirs = (ext: Extension): void => {
+export const setupAppDirs = (ext: ExtensionBase): void => {
   const imagePath = File.new_for_path(getImagesPath(ext));
   if (!imagePath.query_exists(null)) {
     imagePath.make_directory_with_parents(null);
@@ -147,7 +147,7 @@ export const moveDbFile = (from: string, to: string) => {
   }
 };
 
-export const deleteAppDirs = async (ext: Extension): Promise<void> => {
+export const deleteAppDirs = async (ext: ExtensionBase): Promise<void> => {
   const appDataPath = File.new_for_path(getAppDataPath(ext));
   if (appDataPath.query_exists(null)) {
     await deleteDirectory(appDataPath);
@@ -162,7 +162,7 @@ export const deleteAppDirs = async (ext: Extension): Promise<void> => {
   }
 };
 
-export const getDbPath = (ext: Extension): string => {
+export const getDbPath = (ext: ExtensionBase): string => {
   const path = getCurrentExtensionSettings(ext).get_string('database-location');
   if (!path) {
     return getAppDataPath(ext);
@@ -170,9 +170,9 @@ export const getDbPath = (ext: Extension): string => {
 
   return path;
 };
-export const getCurrentExtensionSettings = (ext: Extension): Settings => ext.getSettings();
+export const getCurrentExtensionSettings = (ext: ExtensionBase): Settings => ext.getSettings();
 
-export const loadInterfaceXML = (ext: Extension, iface: string): any => {
+export const loadInterfaceXML = (ext: ExtensionBase, iface: string): any => {
   const uri = `file:///${ext.path}/dbus/${iface}.xml`;
   const file = File.new_for_uri(uri);
 

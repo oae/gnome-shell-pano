@@ -1,6 +1,7 @@
 import { ActionRow } from '@gi-types/adw1';
 import { Settings, SettingsBindFlags } from '@gi-types/gio2';
 import { Align, Switch } from '@gi-types/gtk4';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
 
@@ -8,7 +9,7 @@ import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
 export class SendNotificationOnCopyRow extends ActionRow {
   private settings: Settings;
 
-  constructor(ext: Extension) {
+  constructor(ext: ExtensionBase) {
     super({
       title: _('Send Notification on Copy'),
       subtitle: _('Allow Pano to send notification when copying new content'),

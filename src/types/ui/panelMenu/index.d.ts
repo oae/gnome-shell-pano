@@ -1,3 +1,1 @@
-import GnomeShell from '@girs/gnome-shell';
-
-export type Button = typeof GnomeShell.ui.panelMenu.Button;
+export { Button, ButtonBox, SystemIndicator } from '@girs/gnome-shell/src/ui/panelMenu';

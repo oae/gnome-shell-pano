@@ -4,7 +4,7 @@ import { get_language_names_with_category } from '@gi-types/glib2';
 import { MetaInfo } from '@gi-types/gobject2';
 import { Global } from '@gi-types/shell0';
 import { BoxLayout, Button, Icon, Label, ThemeContext } from '@gi-types/st1';
-import { Extension } from '@gnome-shell/extensions/extension';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { ICON_PACKS, IPanoItemType } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
@@ -36,7 +36,7 @@ export class PanoItemHeader extends BoxLayout {
   iconContainer: BoxLayout;
   itemType: IPanoItemType;
 
-  constructor(itemType: IPanoItemType, date: Date) {
+  constructor(ext: ExtensionBase, itemType: IPanoItemType, date: Date) {
     super({
       style_class: `pano-item-header pano-item-header-${itemType.classSuffix}`,
       vertical: false,
@@ -51,7 +51,7 @@ export class PanoItemHeader extends BoxLayout {
       style_class: 'pano-icon-container',
     });
 
-    this.settings = getCurrentExtensionSettings();
+    this.settings = getCurrentExtensionSettings(ext);
 
     const themeContext = ThemeContext.get_for_stage(Global.get().get_stage());
 
@@ -64,18 +64,18 @@ export class PanoItemHeader extends BoxLayout {
     const icon = new Icon({
       style_class: 'pano-item-title-icon',
       gicon: icon_new_for_string(
-        `${getCurrentExtension().path}/icons/hicolor/scalable/actions/${
-          ICON_PACKS[this.settings.get_uint('icon-pack')]
-        }-${itemType.iconPath}`,
+        `${ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${
+          itemType.iconPath
+        }`,
       ),
     });
     this.iconContainer.add_child(icon);
     this.settings.connect('changed::icon-pack', () => {
       icon.set_gicon(
         icon_new_for_string(
-          `${getCurrentExtension().path}/icons/hicolor/scalable/actions/${
-            ICON_PACKS[this.settings.get_uint('icon-pack')]
-          }-${itemType.iconPath}`,
+          `${ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${
+            itemType.iconPath
+          }`,
         ),
       );
     });

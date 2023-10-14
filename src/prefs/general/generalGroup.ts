@@ -14,29 +14,29 @@ import { SyncPrimaryRow } from '@pano/prefs/general/syncPrimary';
 import { WatchExclusionsRow } from '@pano/prefs/general/watchExclusions';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { _ } from '@pano/utils/shell';
-
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { WiggleIndicatorRow } from './wiggleIndicator';
 
 @registerGObjectClass
 export class GeneralGroup extends PreferencesGroup {
-  constructor() {
+  constructor(ext: ExtensionBase) {
     super({
       title: _('General Options'),
     });
 
-    this.add(new DBLocationRow());
-    this.add(new HistoryLengthRow());
-    this.add(new ShortcutRow());
-    this.add(new IncognitoShortcutRow());
-    this.add(new SyncPrimaryRow());
-    this.add(new PasteOnSelectRow());
-    this.add(new SendNotificationOnCopyRow());
-    this.add(new PlayAudioOnCopyRow());
-    this.add(new KeepSearchEntryRow());
-    this.add(new ShowIndicatorRow());
-    this.add(new WiggleIndicatorRow());
-    this.add(new LinkPreviewsRow());
-    this.add(new OpenLinksInBrowserRow());
-    this.add(new WatchExclusionsRow());
+    this.add(new DBLocationRow(ext));
+    this.add(new HistoryLengthRow(ext));
+    this.add(new ShortcutRow(ext));
+    this.add(new IncognitoShortcutRow(ext));
+    this.add(new SyncPrimaryRow(ext));
+    this.add(new PasteOnSelectRow(ext));
+    this.add(new SendNotificationOnCopyRow(ext));
+    this.add(new PlayAudioOnCopyRow(ext));
+    this.add(new KeepSearchEntryRow(ext));
+    this.add(new ShowIndicatorRow(ext));
+    this.add(new WiggleIndicatorRow(ext));
+    this.add(new LinkPreviewsRow(ext));
+    this.add(new OpenLinksInBrowserRow(ext));
+    this.add(new WatchExclusionsRow(ext));
   }
 }
