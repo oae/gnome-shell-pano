@@ -61,7 +61,12 @@ export const getMonitorIndexForPointer = () => {
   const monitors = getMonitors();
 
   for (let i = 0; i <= monitors.length; i++) {
-    const monitor = monitors[i];
+    const monitor: layout.Monitor | undefined | null = monitors[i];
+
+    //TODO: debug this issue, sometimes (around 20% of the time) monitor[1] (on my dual monitor setup) is undefined
+    if (!monitor) {
+      continue;
+    }
 
     if (x >= monitor.x && x < monitor.x + monitor.width && y >= monitor.y && y < monitor.y + monitor.height) {
       return i;

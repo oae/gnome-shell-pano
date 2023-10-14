@@ -24,7 +24,7 @@ export { gettext as _, ngettext } from '@gnome-shell/extensions/extension';
 export const logger =
   (prefix: string) =>
   (content: string): void =>
-    log(`[pano] [${prefix}] ${content}`);
+    console.log(`[pano] [${prefix}] ${content}`);
 
 const debug = logger('shell-utils');
 

@@ -12,7 +12,6 @@ declare global {
       toString: (x: Uint8Array) => string;
     };
   };
-  export const log: (arg: any) => void;
 }
 
 type AnimatableActorFields =

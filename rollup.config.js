@@ -187,12 +187,12 @@ const thirdPartyBuild = thirdParty.map(([pkg, type]) => {
 
 const external = [...Object.keys(globals), thirdParty.map(([name]) => name)];
 
-const prefsBanner = `
+const prefsBanner = ""/* `
 ${importsPreferences.join("\n")}
 
-`
+` */
 
-const prefsFooter = ['var init = prefs.init;', 'var fillPreferencesWindow = prefs.fillPreferencesWindow;'].join('\n');
+const prefsFooter = [/* 'var init = prefs.init;', 'var fillPreferencesWindow = prefs.fillPreferencesWindow;' */].join('\n');
 
 const extensionBanner = ""/* `
 //TODO: use in the extension.ts itself
@@ -261,7 +261,7 @@ const builds = [
     input: 'src/prefs/prefs.ts',
     output: {
       file: `${buildPath}/prefs.js`,
-      format: 'iife',
+      format: 'esm',
       exports: 'default',
       name: 'prefs',
       banner: prefsBanner,
