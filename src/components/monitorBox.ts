@@ -2,12 +2,10 @@ import { Actor, BindConstraint, BindCoordinate, BinLayout, EVENT_STOP } from '@g
 import { MetaInfo } from '@gi-types/gobject2';
 import { Global } from '@gi-types/shell0';
 import { Bin, BoxLayout, Widget } from '@gi-types/st1';
-// import { MonitorConstraint } from '@pano/types/ui/layout';
-// import { Lightbox } from '@pano/types/ui/lightbox';
+import * as layout from '@gnome-shell/ui/layout';
+import * as lightbox from '@gnome-shell/ui/lightbox';
+import * as main from '@gnome-shell/ui/main';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import * as layout from 'resource:///org/gnome/shell/ui/layout.js';
-import * as lightbox from 'resource:///org/gnome/shell/ui/lightbox.js';
-import * as main from 'resource:///org/gnome/shell/ui/main.js';
 @registerGObjectClass
 export class MonitorBox extends BoxLayout {
   static metaInfo: MetaInfo = {

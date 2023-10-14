@@ -19,8 +19,7 @@ import {
 } from '@gi-types/glib2';
 import { ATTR_EVENT_ID, Context } from '@imports/gsound1';
 
-// import { gettext } from '@gnome-shell/types/extension';
-export { gettext as _, ngettext } from 'resource:///org/gnome/shell/extensions/extension.js';
+export { gettext as _, ngettext } from '@gnome-shell/extensions/extension';
 
 export const logger =
   (prefix: string) =>

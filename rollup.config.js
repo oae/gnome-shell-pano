@@ -9,15 +9,6 @@ import visualizer from 'rollup-plugin-visualizer';
 const buildPath = 'dist';
 
 
-const shellFiles = ["resource:///org/gnome/shell/extensions/extension.js",
-  'resource:///org/gnome/shell/ui/lightbox.js',
-  'resource:///org/gnome/shell/ui/dialog.js',
-  'resource:///org/gnome/shell/ui/modalDialog.js',
-  'resource:///org/gnome/shell/ui/popupMenu.js', 'resource:///org/gnome/shell/ui/panelMenu.js'
-]
-
-
-const shellGlobals = Object.fromEntries(shellFiles.map(name => ([name, `"${name}"`])))
 
 
 const globals = {
@@ -38,11 +29,17 @@ const globals = {
   '@imports/gsound1': '"gi://GSound"',
   '@imports/cogl2': '"gi://Cogl"',
   '@gi-types/adw1': '"gi://Adw"',
-  ...shellGlobals,
+  '@gnome-shell/misc/util': '"resource:///org/gnome/shell/misc/util.js"',
+  '@gnome-shell/extensions/extension': '"resource:///org/gnome/shell/extensions/extension.js"',
   '@gnome-shell/ui/layout': '"resource:///org/gnome/shell/ui/layout.js"',
   '@gnome-shell/ui/main': '"resource:///org/gnome/shell/ui/main.js"',
-  '@gnome-shell/misc/util': '"resource:///org/gnome/shell/misc/util.js"',
   '@gnome-shell/ui/messageTray': '"resource:///org/gnome/shell/ui/messageTray.js"',
+  '@gnome-shell/ui/lightbox': '"resource:///org/gnome/shell/ui/lightbox.js"',
+  '@gnome-shell/ui/dialog': '"resource:///org/gnome/shell/ui/dialog.js"',
+  '@gnome-shell/ui/modalDialog': '"resource:///org/gnome/shell/ui/modalDialog.js"',
+  '@gnome-shell/ui/popupMenu': '"resource:///org/gnome/shell/ui/popupMenu.js"',
+  '@gnome-shell/ui/panelMenu': '"resource:///org/gnome/shell/ui/panelMenu.js"'
+
 };
 
 const thirdParty = [

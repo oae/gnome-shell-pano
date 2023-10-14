@@ -3,6 +3,7 @@ import './styles/stylesheet.css';
 import { DBus, DBusExportedObject, DBusSignalFlags, Settings } from '@gi-types/gio2';
 import { PRIORITY_DEFAULT, Source, SOURCE_REMOVE, timeout_add } from '@gi-types/glib2';
 import { Global } from '@gi-types/shell0';
+import { Extension } from '@gnome-shell/extensions/extension';
 import { SettingsMenu } from '@pano/components/indicator/settingsMenu';
 import { PanoWindow } from '@pano/containers/panoWindow';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
@@ -20,7 +21,6 @@ import {
   setupAppDirs,
 } from '@pano/utils/shell';
 import { addTopChrome, addToStatusArea, removeChrome, removeVirtualKeyboard } from '@pano/utils/ui';
-import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 
 const debug = logger('extension');
 export default class PanoExtension extends Extension {

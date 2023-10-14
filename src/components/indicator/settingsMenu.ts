@@ -9,14 +9,14 @@ import {
 import { icon_new_for_string, Settings } from '@gi-types/gio2';
 import { MetaInfo, TYPE_BOOLEAN } from '@gi-types/gobject2';
 import { Icon } from '@gi-types/st1';
+import * as panelMenu from '@gnome-shell/ui/panelMenu';
+import * as popupMenu from '@gnome-shell/ui/popupMenu';
 import { ClearHistoryDialog } from '@pano/components/indicator/clearHistoryDialog';
 import { ClipboardManager } from '@pano/utils/clipboardManager';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { ICON_PACKS } from '@pano/utils/panoItemType';
 import { _, getCurrentExtension, getCurrentExtensionSettings } from '@pano/utils/shell';
-import { openExtensionPrefs, wiggle } from '@pano/utils/ui';
-import * as panelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
-import * as popupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
+import { openExtensionPreferences, wiggle } from '@pano/utils/ui';
 
 @registerGObjectClass
 export class SettingsMenu extends panelMenu.Button {
@@ -102,7 +102,7 @@ export class SettingsMenu extends panelMenu.Button {
     this.menu.addMenuItem(new popupMenu.PopupSeparatorMenuItem());
     const settingsItem = new popupMenu.PopupMenuItem(_('Settings'));
     settingsItem.connect('activate', () => {
-      openExtensionPrefs(this.ext);
+      openExtensionPreferences(this.ext);
     });
     this.menu.addMenuItem(settingsItem);
     this.clipboardChangeId = clipboardManager.connect('changed', this.animate.bind(this));

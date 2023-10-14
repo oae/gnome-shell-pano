@@ -85,5 +85,3 @@ declare module '@gi-types/gobject2' {
     InternalChildren?: string[];
   }
 }
-
-declare module 'resource://*';
