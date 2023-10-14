@@ -1,19 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Actor, AnimationMode } from '@gi-types/clutter10';
 
-export {};
-
-declare global {
-  export const imports: {
-    byteArray: {
-      fromString: (input: string) => Uint8Array;
-      fromArray: (input: number[]) => any;
-      fromGBytes: (input: any) => Uint8Array;
-      toString: (x: Uint8Array) => string;
-    };
-  };
-}
-
 type AnimatableActorFields =
   | 'fixed_x'
   | 'fixed_y'
@@ -56,12 +43,6 @@ interface EasingParams {
 
 // Any number of extra fields for the properties to be animated (e.g. "opacity: 0").
 interface EasingParamsWithProperties extends EasingParams, Partial<Pick<Actor, AnimatableActorFields>> {}
-
-declare module '@gi-types/clutter10' {
-  interface Actor {
-    ease(params: EasingParamsWithProperties): void;
-  }
-}
 
 declare module '@gi-types/st1' {
   interface Adjustment {

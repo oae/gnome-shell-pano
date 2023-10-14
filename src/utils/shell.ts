@@ -17,9 +17,8 @@ import {
   SOURCE_REMOVE,
   timeout_add,
 } from '@gi-types/glib2';
-import { Extension, ExtensionBase } from '@gnome-shell/extensions/extension';
+import { ExtensionBase, GetTextString } from '@gnome-shell/extensions/extension';
 import { ATTR_EVENT_ID, Context } from '@imports/gsound1';
-export { gettext as _, ngettext } from '@gnome-shell/extensions/extension';
 
 export const logger =
   (prefix: string) =>
@@ -241,3 +240,7 @@ export const openLinkInBrowser = (url: string) => {
     debug(`Failed to open url ${url}`);
   }
 };
+
+export function gettext(ext: ExtensionBase): (str: string) => GetTextString {
+  return ext.gettext.bind(ext);
+}

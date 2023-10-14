@@ -31,6 +31,7 @@ const importsGeneral = {
 
   // extension.js specific resources
   '@gnome-shell/misc/util': { name: 'resource://EXT_ROOT/misc/util.js', type: "*" },
+  '@gnome-shell/misc/animationUtils': { name: 'resource://EXT_ROOT/misc/animationUtils.js', type: "*" },
   '@gnome-shell/extensions/extension': { name: 'resource://EXT_ROOT/extensions/extension.js', type: "*" },
   '@gnome-shell/ui/layout': { name: 'resource://EXT_ROOT/ui/layout.js', type: "*" },
   '@gnome-shell/ui/main': { name: 'resource://EXT_ROOT/ui/main.js', type: "*" },

@@ -1,4 +1,4 @@
-import { Actor, ActorAlign, get_default_backend, InputDeviceType, VirtualInputDevice } from '@gi-types/clutter10';
+import { ActorAlign, get_default_backend, InputDeviceType, VirtualInputDevice } from '@gi-types/clutter10';
 import { Pixbuf } from '@gi-types/gdkpixbuf2';
 import { Icon } from '@gi-types/gio2';
 import { DateTime } from '@gi-types/glib2';
@@ -6,15 +6,22 @@ import { Global } from '@gi-types/shell0';
 import { ImageContent } from '@gi-types/st1';
 import type Clutter from '@girs/clutter-12';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
-import * as util from '@gnome-shell/misc/util';
+import * as animationUtils from '@gnome-shell/misc/animationUtils';
 import * as layout from '@gnome-shell/ui/layout';
 import * as main from '@gnome-shell/ui/main';
 import * as messageTray from '@gnome-shell/ui/messageTray';
 import { PixelFormat } from '@imports/cogl2';
-import { _ } from '@pano/utils/shell';
+import { gettext } from '@pano/utils/shell';
 const global = Global.get();
 
-export const notify = (text: string, body: string, iconOrPixbuf?: Pixbuf | Icon, pixelFormat?: PixelFormat): void => {
+export const notify = (
+  ext: ExtensionBase,
+  text: string,
+  body: string,
+  iconOrPixbuf?: Pixbuf | Icon,
+  pixelFormat?: PixelFormat,
+): void => {
+  const _ = gettext(ext);
   const source = new messageTray.Source(_('Pano'), 'edit-copy-symbolic');
   main.messageTray.add(source);
   let notification;
@@ -48,13 +55,13 @@ export const notify = (text: string, body: string, iconOrPixbuf?: Pixbuf | Icon,
 };
 
 export const wiggle = (
-  actor: Actor,
+  actor: Clutter.Actor,
   { offset, duration, wiggleCount }: { offset?: number; duration?: number; wiggleCount?: number },
-) => util.wiggle(actor, { offset, duration, wiggleCount });
+) => animationUtils.wiggle(actor, { offset, duration, wiggleCount });
 
 export const wm = main.wm;
 
-export const getMonitors = () => main.layoutManager.monitors;
+export const getMonitors = (): layout.Monitor[] => main.layoutManager.monitors;
 
 export const getMonitorIndexForPointer = () => {
   const [x, y] = global.get_pointer();

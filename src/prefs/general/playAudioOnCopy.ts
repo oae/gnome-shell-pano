@@ -3,12 +3,13 @@ import { Settings, SettingsBindFlags } from '@gi-types/gio2';
 import { Align, Switch } from '@gi-types/gtk4';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
+import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
 @registerGObjectClass
 export class PlayAudioOnCopyRow extends ActionRow {
   private settings: Settings;
 
   constructor(ext: ExtensionBase) {
+    const _ = gettext(ext);
     super({
       title: _('Play an Audio on Copy'),
       subtitle: _('Allow Pano to play an audio when copying new content'),

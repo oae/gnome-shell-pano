@@ -43,6 +43,8 @@ export default class PanoExtension extends Extension {
   constructor(a) {
     super(a);
 
+    debug(this.#gettextDomain)
+
     setupAppDirs(this);
     db.setup(this);
     debug('extension is initialized');

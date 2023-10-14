@@ -1,12 +1,14 @@
 import { ActionRow, Window } from '@gi-types/adw1';
 import { DBus, DBusCallFlags } from '@gi-types/gio2';
 import { Align, Button, ButtonsType, MessageDialog, ResponseType } from '@gi-types/gtk4';
+import type { ExtensionBase } from '@pano/types/extension/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { _ } from '@pano/utils/shell';
+import { gettext } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class ClearHistoryRow extends ActionRow {
-  constructor() {
+  constructor(ext: ExtensionBase) {
+    const _ = gettext(ext);
     super({
       title: _('Clear History'),
       subtitle: _('Clears the clipboard database and cache'),

@@ -3,12 +3,13 @@ import { Settings, SettingsBindFlags } from '@gi-types/gio2';
 import { Align, Switch } from '@gi-types/gtk4';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
+import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
 @registerGObjectClass
 export class WatchExclusionsRow extends ActionRow {
   private settings: Settings;
 
   constructor(ext: ExtensionBase) {
+    const _ = gettext(ext);
     super({
       title: _('Watch Exclusions'),
       subtitle: _('When enabled, Pano will not track clipboard from excluded apps'),

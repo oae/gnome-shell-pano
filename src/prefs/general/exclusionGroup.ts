@@ -3,7 +3,7 @@ import { Settings } from '@gi-types/gio2';
 import { Align, Button, Entry } from '@gi-types/gtk4';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
+import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class ExclusionGroup extends PreferencesGroup {
@@ -12,6 +12,7 @@ export class ExclusionGroup extends PreferencesGroup {
   private settings: Settings;
 
   constructor(ext: ExtensionBase) {
+    const _ = gettext(ext);
     super({
       title: _('Manage Exclusions'),
       margin_top: 20,
@@ -34,7 +35,7 @@ export class ExclusionGroup extends PreferencesGroup {
     this.exclusionButton.connect('clicked', () => {
       this.exclusionRow.set_expanded(true);
       this.exclusionButton.set_sensitive(false);
-      this.exclusionRow.add_row(this.createEntryRow());
+      this.exclusionRow.add_row(this.createEntryRow(ext));
     });
 
     this.set_header_suffix(this.exclusionButton);
@@ -46,9 +47,9 @@ export class ExclusionGroup extends PreferencesGroup {
     }
   }
 
-  private createEntryRow(): ActionRow {
+  private createEntryRow(ext: ExtensionBase): ActionRow {
     const entryRow = new ActionRow();
-
+    const _ = gettext(ext);
     const entry = new Entry({
       placeholder_text: _('Window class name'),
       halign: Align.FILL,

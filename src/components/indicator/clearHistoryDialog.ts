@@ -1,20 +1,21 @@
 import { KEY_Escape } from '@gi-types/clutter10';
-import { Button } from '@gi-types/st1';
+import type St from '@girs/st-12';
 import * as dialog from '@gnome-shell/ui/dialog';
 import { default as modalDialog } from '@gnome-shell/ui/modalDialog';
+import type { ExtensionBase } from '@pano/types/extension/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { _, logger } from '@pano/utils/shell';
-
+import { gettext, logger } from '@pano/utils/shell';
 const debug = logger('clear-history-dialog');
 
 @registerGObjectClass
 export class ClearHistoryDialog extends modalDialog.ModalDialog {
-  private cancelButton: Button;
-  private clearButton: Button;
+  private cancelButton: St.Button;
+  private clearButton: St.Button;
   private onClear: () => Promise<void>;
 
-  constructor(onClear: () => Promise<void>) {
+  constructor(ext: ExtensionBase, onClear: () => Promise<void>) {
     super();
+    const _ = gettext(ext);
 
     this.onClear = onClear;
 
@@ -35,7 +36,7 @@ export class ClearHistoryDialog extends modalDialog.ModalDialog {
       description: _('Are you sure you want to clear history?'),
     });
 
-    this.contentLayout.add(content);
+    this.contentLayout.vfunc_add(content);
   }
 
   private onCancelButtonPressed() {

@@ -2,12 +2,7 @@ import { File, Settings } from '@gi-types/gio2';
 import GnomeShell from '@girs/gnome-shell';
 export type ExtensionType = typeof GnomeShell.misc.extensionUtils.ExtensionType;
 
-export type GetTextString = string & { format: (...args: any[]) => string };
-
-export function gettext(str: string): GetTextString;
-export function ngettext(str: string, strPlural: string, n: number): GetTextString;
 //TODO how to solve this better (atm this is just a copy of the @girs/gnome-shell' internals + added gnome 45 types)
-
 export interface ExtensionMetadata {
   uuid: string;
   name?: string;
@@ -20,6 +15,9 @@ export interface ExtensionMetadata {
   'original-author'?: string[];
   'extension-id'?: string;
 }
+
+export type GetTextString = string & { format: (...args: any[]) => string };
+
 export class ExtensionBase {
   // >= gnome 45
   getSettings(): Settings;
@@ -29,6 +27,9 @@ export class ExtensionBase {
   path: string;
   dir: File;
   metadata: ExtensionMetadata;
+
+  gettext(str: string): GetTextString;
+  ngettext(str: string, strPlural: string, n: number): GetTextString;
 }
 
 export abstract class Extension extends ExtensionBase {

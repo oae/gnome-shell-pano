@@ -3,15 +3,16 @@ import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { ItemExpanderRow } from '@pano/prefs/customization/itemExpanderRow';
 import { createColorRow, createSpinRow } from '@pano/prefs/customization/utils';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { PanoItemTypes } from '@pano/utils/panoItemType';
-import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
+import { getPanoItemTypes } from '@pano/utils/panoItemType';
+import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class EmojiItemStyleRow extends ItemExpanderRow {
   private settings: Settings;
 
   constructor(ext: ExtensionBase) {
-    super(ext, _('Emoji Item Style'), _('Change the style of the emoji item'), PanoItemTypes.EMOJI.iconName);
+    const _ = gettext(ext);
+    super(ext, _('Emoji Item Style'), _('Change the style of the emoji item'), getPanoItemTypes(ext).EMOJI.iconName);
 
     this.settings = getCurrentExtensionSettings(ext).get_child('emoji-item');
 

@@ -22,8 +22,8 @@ import { Global } from '@gi-types/shell0';
 import { BoxLayout, Entry, Icon, ThemeContext } from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { ICON_PACKS, PanoItemTypes } from '@pano/utils/panoItemType';
-import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
+import { getPanoItemTypes, ICON_PACKS } from '@pano/utils/panoItemType';
+import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class SearchBox extends BoxLayout {
@@ -59,6 +59,7 @@ export class SearchBox extends BoxLayout {
     });
 
     this.ext = ext;
+    const _ = gettext(ext);
 
     this.settings = getCurrentExtensionSettings(ext);
 
@@ -162,14 +163,15 @@ export class SearchBox extends BoxLayout {
   }
 
   toggleItemType(hasShift: boolean) {
+    const panoItemTypes = getPanoItemTypes(this.ext);
     // increment or decrement the current index based on the shift modifier
     if (hasShift) {
-      this.currentIndex = this.currentIndex === null ? Object.keys(PanoItemTypes).length - 1 : this.currentIndex - 1;
+      this.currentIndex = this.currentIndex === null ? Object.keys(panoItemTypes).length - 1 : this.currentIndex - 1;
     } else {
       this.currentIndex = this.currentIndex === null ? 0 : this.currentIndex + 1;
     }
     // if the index is out of bounds, set it to the other end
-    if (this.currentIndex < 0 || this.currentIndex >= Object.keys(PanoItemTypes).length) {
+    if (this.currentIndex < 0 || this.currentIndex >= Object.keys(panoItemTypes).length) {
       this.currentIndex = null;
     }
 
@@ -180,7 +182,7 @@ export class SearchBox extends BoxLayout {
         this.createSearchEntryIcon(
           icon_new_for_string(
             `${this.ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${
-              PanoItemTypes[Object.keys(PanoItemTypes)[this.currentIndex]].iconPath
+              panoItemTypes[Object.keys(panoItemTypes)[this.currentIndex]].iconPath
             }`,
           ),
           'search-entry-icon',
@@ -196,7 +198,7 @@ export class SearchBox extends BoxLayout {
           this.createSearchEntryIcon(
             icon_new_for_string(
               `${this.ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${
-                PanoItemTypes[Object.keys(PanoItemTypes)[this.currentIndex]].iconPath
+                panoItemTypes[Object.keys(panoItemTypes)[this.currentIndex]].iconPath
               }`,
             ),
             'search-entry-icon',
@@ -246,9 +248,10 @@ export class SearchBox extends BoxLayout {
   }
 
   emitSearchTextChange() {
+    const panoItemTypes = getPanoItemTypes(this.ext);
     let itemType: string | null = null;
     if (this.currentIndex !== null) {
-      itemType = Object.keys(PanoItemTypes)[this.currentIndex];
+      itemType = Object.keys(panoItemTypes)[this.currentIndex];
     }
     this.emit('search-text-changed', this.search.text, itemType || '', this.showFavorites);
   }

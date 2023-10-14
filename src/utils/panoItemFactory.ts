@@ -14,7 +14,14 @@ import { TextPanoItem } from '@pano/components/textPanoItem';
 import { ClipboardContent, ClipboardManager, ContentType, FileOperation } from '@pano/utils/clipboardManager';
 import { ClipboardQueryBuilder, db, DBItem } from '@pano/utils/db';
 import { getDocument, getImage } from '@pano/utils/linkParser';
-import { _, getCachePath, getCurrentExtensionSettings, getImagesPath, logger, playAudio } from '@pano/utils/shell';
+import {
+  getCachePath,
+  getCurrentExtensionSettings,
+  getImagesPath,
+  gettext,
+  logger,
+  playAudio,
+} from '@pano/utils/shell';
 import { notify } from '@pano/utils/ui';
 import converter from 'hex-color-converter';
 import hljs from 'highlight.js/lib/core';
@@ -373,27 +380,30 @@ export const removeItemResources = (ext: ExtensionBase, dbItem: DBItem) => {
 
 const sendNotification = async (ext: ExtensionBase, dbItem: DBItem) => {
   return new Promise(() => {
+    const _ = gettext(ext);
     if (dbItem.itemType === 'IMAGE') {
       const { width, height, size }: { width: number; height: number; size: number } = JSON.parse(
         dbItem.metaData || '{}',
       );
       notify(
+        ext,
         _('Image Copied'),
         _('Width: %spx, Height: %spx, Size: %s').format(width, height, prettyBytes(size)),
         Pixbuf.new_from_file(`${getImagesPath(ext)}/${dbItem.content}.png`),
       );
     } else if (dbItem.itemType === 'TEXT') {
-      notify(_('Text Copied'), dbItem.content.trim());
+      notify(ext, _('Text Copied'), dbItem.content.trim());
     } else if (dbItem.itemType === 'CODE') {
-      notify(_('Code Copied'), dbItem.content.trim());
+      notify(ext, _('Code Copied'), dbItem.content.trim());
     } else if (dbItem.itemType === 'EMOJI') {
-      notify(_('Emoji Copied'), dbItem.content);
+      notify(ext, _('Emoji Copied'), dbItem.content);
     } else if (dbItem.itemType === 'LINK') {
       const { title, description, image }: { title: string; description: string; image: string } = JSON.parse(
         dbItem.metaData || '{}',
       );
       const pixbuf = image ? Pixbuf.new_from_file(`${getCachePath(ext)}/${image}.png`) : undefined;
       notify(
+        ext,
         decodeURI(`${_('Link Copied')}${title ? ` - ${title}` : ''}`),
         `${dbItem.content}${description ? `\n\n${decodeURI(description)}` : ''}`,
         pixbuf,
@@ -414,12 +424,13 @@ const sendNotification = async (ext: ExtensionBase, dbItem: DBItem) => {
 
       if (color) {
         pixbuf.fill(parseInt(color.replace('#', '0x'), 16));
-        notify(_('Color Copied'), dbItem.content, pixbuf);
+        notify(ext, _('Color Copied'), dbItem.content, pixbuf);
       }
     } else if (dbItem.itemType === 'FILE') {
       const operation = dbItem.metaData;
       const fileListSize = JSON.parse(dbItem.content).length;
       notify(
+        ext,
         _('File %s').format(operation === FileOperation.CUT ? 'cut' : 'copied'),
         _('There are %s file(s)').format(fileListSize),
       );

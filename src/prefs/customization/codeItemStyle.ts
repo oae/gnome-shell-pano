@@ -3,15 +3,16 @@ import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { ItemExpanderRow } from '@pano/prefs/customization/itemExpanderRow';
 import { createColorRow, createFontRow, createSpinRow } from '@pano/prefs/customization/utils';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { PanoItemTypes } from '@pano/utils/panoItemType';
-import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
+import { getPanoItemTypes } from '@pano/utils/panoItemType';
+import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class CodeItemStyleRow extends ItemExpanderRow {
   private settings: Settings;
 
   constructor(ext: ExtensionBase) {
-    super(ext, _('Code Item Style'), _('Change the style of the code item'), PanoItemTypes.CODE.iconName);
+    const _ = gettext(ext);
+    super(ext, _('Code Item Style'), _('Change the style of the code item'), getPanoItemTypes(ext).CODE.iconName);
 
     this.settings = getCurrentExtensionSettings(ext).get_child('code-item');
 

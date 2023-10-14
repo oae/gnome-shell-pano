@@ -11,7 +11,7 @@ import {
 } from '@gi-types/gtk4';
 import { ExtensionBase } from '@pano/types/extension/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { _, getCurrentExtensionSettings, getDbPath } from '@pano/utils/shell';
+import { getCurrentExtensionSettings, getDbPath, gettext } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class DBLocationRow extends ActionRow {
@@ -19,6 +19,7 @@ export class DBLocationRow extends ActionRow {
   private settings: Settings;
 
   constructor(ext: ExtensionBase) {
+    const _ = gettext(ext);
     super({
       title: _('Database Location'),
       subtitle: `<b>${getDbPath(ext)}/pano.db</b>`,

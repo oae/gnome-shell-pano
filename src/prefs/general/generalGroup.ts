@@ -1,4 +1,5 @@
 import { PreferencesGroup } from '@gi-types/adw1';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { DBLocationRow } from '@pano/prefs/general/dbLocation';
 import { HistoryLengthRow } from '@pano/prefs/general/historyLength';
 import { IncognitoShortcutRow } from '@pano/prefs/general/incognitoShortcutRow';
@@ -13,13 +14,14 @@ import { ShowIndicatorRow } from '@pano/prefs/general/showIndicator';
 import { SyncPrimaryRow } from '@pano/prefs/general/syncPrimary';
 import { WatchExclusionsRow } from '@pano/prefs/general/watchExclusions';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { _ } from '@pano/utils/shell';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
+import { gettext } from '@pano/utils/shell';
+
 import { WiggleIndicatorRow } from './wiggleIndicator';
 
 @registerGObjectClass
 export class GeneralGroup extends PreferencesGroup {
   constructor(ext: ExtensionBase) {
+    const _ = gettext(ext);
     super({
       title: _('General Options'),
     });

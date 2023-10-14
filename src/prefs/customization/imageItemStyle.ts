@@ -3,14 +3,15 @@ import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { ItemExpanderRow } from '@pano/prefs/customization/itemExpanderRow';
 import { createColorRow, createFontRow } from '@pano/prefs/customization/utils';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { PanoItemTypes } from '@pano/utils/panoItemType';
-import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
+import { getPanoItemTypes } from '@pano/utils/panoItemType';
+import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
 @registerGObjectClass
 export class ImageItemStyleRow extends ItemExpanderRow {
   private settings: Settings;
 
   constructor(ext: ExtensionBase) {
-    super(ext, _('Image Item Style'), _('Change the style of the image item'), PanoItemTypes.IMAGE.iconName);
+    const _ = gettext(ext);
+    super(ext, _('Image Item Style'), _('Change the style of the image item'), getPanoItemTypes(ext).IMAGE.iconName);
 
     this.settings = getCurrentExtensionSettings(ext).get_child('image-item');
 

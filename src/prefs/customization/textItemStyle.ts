@@ -3,15 +3,16 @@ import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { ItemExpanderRow } from '@pano/prefs/customization/itemExpanderRow';
 import { createColorRow, createFontRow, createSpinRow } from '@pano/prefs/customization/utils';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { PanoItemTypes } from '@pano/utils/panoItemType';
-import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
+import { getPanoItemTypes } from '@pano/utils/panoItemType';
+import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class TextItemStyleRow extends ItemExpanderRow {
   private settings: Settings;
 
   constructor(ext: ExtensionBase) {
-    super(ext, _('Text Item Style'), _('Change the style of the text item'), PanoItemTypes.TEXT.iconName);
+    const _ = gettext(ext);
+    super(ext, _('Text Item Style'), _('Change the style of the text item'), getPanoItemTypes(ext).TEXT.iconName);
 
     this.settings = getCurrentExtensionSettings(ext).get_child('text-item');
 

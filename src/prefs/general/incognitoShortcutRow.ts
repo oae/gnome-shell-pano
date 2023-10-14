@@ -48,12 +48,13 @@ import {
 } from '@gi-types/gtk4';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
+import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class IncognitoShortcutRow extends ActionRow {
   private settings: Settings;
   constructor(ext: ExtensionBase) {
+    const _ = gettext(ext);
     super({
       title: _('Incognito Mode Shortcut'),
       subtitle: _('Allows you to toggle incognito mode'),

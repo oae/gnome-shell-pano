@@ -16,7 +16,7 @@ import { ClearHistoryDialog } from '@pano/components/indicator/clearHistoryDialo
 import { ClipboardManager } from '@pano/utils/clipboardManager';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { ICON_PACKS } from '@pano/utils/panoItemType';
-import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
+import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
 import { openExtensionPreferences, wiggle } from '@pano/utils/ui';
 
 @registerGObjectClass
@@ -46,6 +46,7 @@ export class SettingsMenu extends panelMenu.Button {
     onClear: () => Promise<void>,
     onToggle: () => void,
   ) {
+    const _ = gettext(ext);
     super(0.5, 'Pano Indicator', false);
 
     this.ext = ext;
@@ -101,7 +102,7 @@ export class SettingsMenu extends panelMenu.Button {
     this.menu.addMenuItem(new popupMenu.PopupSeparatorMenuItem());
     const clearHistoryItem = new popupMenu.PopupMenuItem(_('Clear History'));
     clearHistoryItem.connect('activate', () => {
-      const dialog = new ClearHistoryDialog(onClear);
+      const dialog = new ClearHistoryDialog(this.ext, onClear);
       dialog.open();
     });
     this.menu.addMenuItem(clearHistoryItem);

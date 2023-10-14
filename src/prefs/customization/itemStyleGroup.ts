@@ -8,11 +8,12 @@ import { ImageItemStyleRow } from '@pano/prefs/customization/imageItemStyle';
 import { LinkItemStyleRow } from '@pano/prefs/customization/linkItemStyle';
 import { TextItemStyleRow } from '@pano/prefs/customization/textItemStyle';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { _ } from '@pano/utils/shell';
+import { gettext } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class ItemStyleGroup extends PreferencesGroup {
   constructor(ext: ExtensionBase) {
+    const _ = gettext(ext);
     super({
       title: _('Item Style'),
       margin_top: 10,

@@ -16,6 +16,7 @@
       "@imports/*": ["../@types/*"],
       "@pano/*": ["./*"],
       "@gnome-shell/misc/util": ["./types/misc/util/index.d.ts"],
+      "@gnome-shell/misc/animationUtils": ["./types/misc/animationUtils/index.d.ts"],
       "@gnome-shell/extensions/extension": ["./types/extension/extension.d.ts"],
       "@gnome-shell/extensions/prefs": ["./types/extension/prefs.d.ts"],
       "@gnome-shell/ui/layout": ["./types/ui/layout/index.d.ts"],

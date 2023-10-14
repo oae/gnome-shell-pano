@@ -16,7 +16,7 @@ import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { _, getCachePath, openLinkInBrowser } from '@pano/utils/shell';
+import { getCachePath, gettext, openLinkInBrowser } from '@pano/utils/shell';
 
 const DEFAULT_LINK_PREVIEW_IMAGE_NAME = 'link-preview.svg';
 
@@ -30,7 +30,7 @@ export class LinkPanoItem extends PanoItem {
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
     super(ext, clipboardManager, dbItem);
-
+    const _ = gettext(ext);
     this.linkItemSettings = this.settings.get_child('link-item');
 
     const { title, description, image } = JSON.parse(dbItem.metaData || '{"title": "", "description": ""}');

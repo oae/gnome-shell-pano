@@ -29,7 +29,7 @@ import { PanoItemHeader } from '@pano/components/panoItemHeader';
 import { ClipboardManager } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { PanoItemTypes } from '@pano/utils/panoItemType';
+import { getPanoItemTypes } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
 import { getVirtualKeyboard, WINDOW_POSITIONS } from '@pano/utils/ui';
 @registerGObjectClass
@@ -112,7 +112,7 @@ export class PanoItem extends BoxLayout {
       }
     });
 
-    this.header = new PanoItemHeader(ext, PanoItemTypes[dbItem.itemType], dbItem.copyDate);
+    this.header = new PanoItemHeader(ext, getPanoItemTypes(ext)[dbItem.itemType], dbItem.copyDate);
     this.header.setFavorite(this.dbItem.isFavorite);
     this.header.connect('on-remove', () => {
       this.emit('on-remove', JSON.stringify(this.dbItem));
