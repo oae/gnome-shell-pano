@@ -1,41 +1,33 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: Christian Lauinger <christian@lauinger-clan.de>\n"
-"Language-Team: \n"
-"Language: de\n"
-"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: fill-pot-po/2.1.9\n"
 
-#: src/components/indicator/clearHistoryDialog.ts:23
+#: src/components/indicator/clearHistoryDialog.ts:24
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: src/components/indicator/clearHistoryDialog.ts:30
+#: src/components/indicator/clearHistoryDialog.ts:31
 #: src/prefs/dangerZone/clearHistory.ts:17
 msgid "Clear"
 msgstr "Leeren"
 
-#: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:90
+#: src/components/indicator/clearHistoryDialog.ts:36
+#: src/components/indicator/settingsMenu.ts:89
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr "Historie leeren"
 
-#: src/components/indicator/clearHistoryDialog.ts:36
+#: src/components/indicator/clearHistoryDialog.ts:37
 #: src/prefs/dangerZone/clearHistory.ts:23
 msgid "Are you sure you want to clear history?"
 msgstr "Sind Sie sicher das Sie die Historie entfernen möchten?"
 
-#: src/components/indicator/settingsMenu.ts:59
+#: src/components/indicator/settingsMenu.ts:58
 msgid "Incognito Mode"
 msgstr "Inkognito-Modus"
 
-#: src/components/indicator/settingsMenu.ts:97
+#: src/components/indicator/settingsMenu.ts:96
 msgid "Settings"
 msgstr "Einstellungen"
 
@@ -627,6 +619,6 @@ msgstr "Code"
 msgid "Color"
 msgstr "Farbe"
 
-#: src/utils/ui.ts:13
+#: src/utils/ui.ts:18
 msgid "Pano"
 msgstr "Pano"

@@ -34,7 +34,7 @@ msgstr ""
 msgid "Allows you to toggle visibility of the clipboard manager"
 msgstr ""
 
-#: src/components/indicator/clearHistoryDialog.ts:36
+#: src/components/indicator/clearHistoryDialog.ts:37
 #: src/prefs/dangerZone/clearHistory.ts:23
 msgid "Are you sure you want to clear history?"
 msgstr ""
@@ -64,7 +64,7 @@ msgstr ""
 msgid "Bottom"
 msgstr ""
 
-#: src/components/indicator/clearHistoryDialog.ts:23
+#: src/components/indicator/clearHistoryDialog.ts:24
 msgid "Cancel"
 msgstr ""
 
@@ -105,13 +105,13 @@ msgstr ""
 msgid "Choose pano database location"
 msgstr ""
 
-#: src/components/indicator/clearHistoryDialog.ts:30
+#: src/components/indicator/clearHistoryDialog.ts:31
 #: src/prefs/dangerZone/clearHistory.ts:17
 msgid "Clear"
 msgstr ""
 
-#: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:90
+#: src/components/indicator/clearHistoryDialog.ts:36
+#: src/components/indicator/settingsMenu.ts:89
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr ""
@@ -256,7 +256,7 @@ msgstr ""
 msgid "Image Item Style"
 msgstr ""
 
-#: src/components/indicator/settingsMenu.ts:59
+#: src/components/indicator/settingsMenu.ts:58
 msgid "Incognito Mode"
 msgstr ""
 
@@ -372,7 +372,7 @@ msgstr ""
 msgid "Open Links in Browser"
 msgstr ""
 
-#: src/utils/ui.ts:13
+#: src/utils/ui.ts:18
 msgid "Pano"
 msgstr ""
 
@@ -409,7 +409,7 @@ msgstr ""
 msgid "Session Only Mode"
 msgstr ""
 
-#: src/components/indicator/settingsMenu.ts:97
+#: src/components/indicator/settingsMenu.ts:96
 msgid "Settings"
 msgstr ""
 

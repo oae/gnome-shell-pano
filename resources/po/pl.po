@@ -3,31 +3,31 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: fill-pot-po/2.1.9\n"
 
-#: src/components/indicator/clearHistoryDialog.ts:23
+#: src/components/indicator/clearHistoryDialog.ts:24
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: src/components/indicator/clearHistoryDialog.ts:30
+#: src/components/indicator/clearHistoryDialog.ts:31
 #: src/prefs/dangerZone/clearHistory.ts:17
 msgid "Clear"
 msgstr "Wyczyść"
 
-#: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:90
+#: src/components/indicator/clearHistoryDialog.ts:36
+#: src/components/indicator/settingsMenu.ts:89
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr "Wyczyść Historię"
 
-#: src/components/indicator/clearHistoryDialog.ts:36
+#: src/components/indicator/clearHistoryDialog.ts:37
 #: src/prefs/dangerZone/clearHistory.ts:23
 msgid "Are you sure you want to clear history?"
 msgstr "Czy jesteś pewny, że chcesz wyczyścić historię?"
 
-#: src/components/indicator/settingsMenu.ts:59
+#: src/components/indicator/settingsMenu.ts:58
 msgid "Incognito Mode"
 msgstr "Tryb Incognito"
 
-#: src/components/indicator/settingsMenu.ts:97
+#: src/components/indicator/settingsMenu.ts:96
 msgid "Settings"
 msgstr "Ustawienia"
 
@@ -619,6 +619,6 @@ msgstr ""
 msgid "Color"
 msgstr ""
 
-#: src/utils/ui.ts:13
+#: src/utils/ui.ts:18
 msgid "Pano"
 msgstr ""
