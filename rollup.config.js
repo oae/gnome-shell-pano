@@ -8,26 +8,25 @@ import visualizer from 'rollup-plugin-visualizer';
 
 const buildPath = 'dist';
 
-const globals = {}
 
 const importsGeneral = {
   '@gi-types/gdk4': { name: 'gi://Gdk', type: "*" },
-  '@gi-types/gio2': { name: 'gi://Gio', type: "*" },
-  '@gi-types/gtk4': { name: 'gi://Gtk?version=4.0', type: "*" },
+  '@gi-types/gio2': { name: 'gi://Gio', type: "default" },
+  '@gi-types/gtk4': { name: 'gi://Gtk?version=4.0', type: "default" },
   '@gi-types/gdkpixbuf2': { name: 'gi://GdkPixbuf', type: "*" },
   '@gi-types/glib2': { name: 'gi://GLib', type: "default" },
-  '@gi-types/st1': { name: 'gi://St', type: "*" },
+  '@gi-types/st1': { name: 'gi://St', type: "default" },
   '@gi-types/shell0': { name: 'gi://Shell', type: "default" },
-  '@gi-types/meta10': { name: 'gi://Meta', type: "*" },
-  '@gi-types/clutter10': { name: 'gi://Clutter', type: "*" },
+  '@gi-types/meta10': { name: 'gi://Meta', type: "default" },
+  '@gi-types/clutter10': { name: 'gi://Clutter', type: "default" },
   '@gi-types/soup3': { name: 'gi://Soup', type: "default" },
   '@gi-types/gobject2': { name: 'gi://GObject', type: "default" },
-  '@gi-types/pango1': { name: 'gi://Pango', type: "*" },
-  '@gi-types/graphene1': { name: 'gi://Graphene', type: "*" },
-  '@imports/gda6': { name: 'gi://Gda', type: "*" },
+  '@gi-types/pango1': { name: 'gi://Pango', type: "default" },
+  '@gi-types/graphene1': { name: 'gi://Graphene', type: "default" },
+  '@imports/gda6': { name: 'gi://Gda', type: "default" },
   '@imports/gsound1': { name: 'gi://GSound', type: "*" },
   '@imports/cogl2': { name: 'gi://Cogl', type: "*" },
-  '@gi-types/adw1': { name: 'gi://Adw', type: "*" },
+  '@gi-types/adw1': { name: 'gi://Adw', type: "default" },
 
   // extension.js specific resources
   '@gnome-shell/misc/util': { name: 'resource://EXT_ROOT/misc/util.js', type: "*" },
@@ -63,40 +62,45 @@ const PreferencesEntries = Object.fromEntries(Object.entries(importsPrefs).map((
 
 const thirdParty = [
   ['htmlparser2', "*"],
-  ['prismjs', "*"],
-  ['date-fns/formatDistanceToNow', "*"],
+  ['prismjs', "default"],
+  ['date-fns/formatDistanceToNow', "normal"],
   ['date-fns/locale', "*"],
   ['hex-color-converter', "*"],
   ['is-url', "*"],
-  ['pretty-bytes', "*"],
-  ['validate-color', "*"],
-  ['highlight.js/lib/core', "*"],
-  ['highlight.js/lib/languages/bash', "*"],
-  ['highlight.js/lib/languages/c', "*"],
-  ['highlight.js/lib/languages/cpp', "*"],
-  ['highlight.js/lib/languages/csharp', "*"],
-  ['highlight.js/lib/languages/dart', "*"],
-  ['highlight.js/lib/languages/go', "*"],
-  ['highlight.js/lib/languages/groovy', "*"],
-  ['highlight.js/lib/languages/haskell', "*"],
-  ['highlight.js/lib/languages/java', "*"],
-  ['highlight.js/lib/languages/javascript', "*"],
-  ['highlight.js/lib/languages/julia', "*"],
-  ['highlight.js/lib/languages/kotlin', "*"],
-  ['highlight.js/lib/languages/lua', "*"],
-  ['highlight.js/lib/languages/markdown', "*"],
-  ['highlight.js/lib/languages/perl', "*"],
-  ['highlight.js/lib/languages/php', "*"],
-  ['highlight.js/lib/languages/python', "*"],
-  ['highlight.js/lib/languages/ruby', "*"],
-  ['highlight.js/lib/languages/rust', "*"],
-  ['highlight.js/lib/languages/scala', "*"],
-  ['highlight.js/lib/languages/shell', "*"],
-  ['highlight.js/lib/languages/sql', "*"],
-  ['highlight.js/lib/languages/swift', "*"],
-  ['highlight.js/lib/languages/typescript', "*"],
-  ['highlight.js/lib/languages/yaml', "*"]
+  ['pretty-bytes', "default"],
+  ['validate-color', "normal"],
+  ['highlight.js/lib/core', "normal"],
+  ['highlight.js/lib/languages/bash', "normal"],
+  ['highlight.js/lib/languages/c', "normal"],
+  ['highlight.js/lib/languages/cpp', "normal"],
+  ['highlight.js/lib/languages/csharp', "normal"],
+  ['highlight.js/lib/languages/dart', "normal"],
+  ['highlight.js/lib/languages/go', "normal"],
+  ['highlight.js/lib/languages/groovy', "normal"],
+  ['highlight.js/lib/languages/haskell', "normal"],
+  ['highlight.js/lib/languages/java', "normal"],
+  ['highlight.js/lib/languages/javascript', "normal"],
+  ['highlight.js/lib/languages/julia', "normal"],
+  ['highlight.js/lib/languages/kotlin', "normal"],
+  ['highlight.js/lib/languages/lua', "normal"],
+  ['highlight.js/lib/languages/markdown', "normal"],
+  ['highlight.js/lib/languages/perl', "normal"],
+  ['highlight.js/lib/languages/php', "normal"],
+  ['highlight.js/lib/languages/python', "normal"],
+  ['highlight.js/lib/languages/ruby', "normal"],
+  ['highlight.js/lib/languages/rust', "normal"],
+  ['highlight.js/lib/languages/scala', "normal"],
+  ['highlight.js/lib/languages/shell', "normal"],
+  ['highlight.js/lib/languages/sql', "normal"],
+  ['highlight.js/lib/languages/swift', "normal"],
+  ['highlight.js/lib/languages/typescript', "normal"],
+  ['highlight.js/lib/languages/yaml', "normal"]
 ];
+
+//TODO: respect annotations for the import type:
+// *       => import * as name           from
+// normal  => import name                from 
+// default => import { default as name } from 
 
 const GlobalEntries = {}
 
@@ -142,7 +146,7 @@ const builds = [
     },
     external,
     plugins: [
-      commonjs(),
+      commonjs({ requireReturnsDefault: "auto" }),
       nodeResolve({
         preferBuiltins: false,
       }),

@@ -15,7 +15,7 @@ export class MonitorBox extends BoxLayout {
     },
   };
 
-  private _lightbox: any;
+  private _lightbox: lightbox.Lightbox;
 
   constructor() {
     super({
