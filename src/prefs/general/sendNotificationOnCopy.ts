@@ -8,7 +8,7 @@ import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
 export class SendNotificationOnCopyRow extends ActionRow {
   private settings: Settings;
 
-  constructor(ext: any) {
+  constructor(ext: Extension) {
     super({
       title: _('Send Notification on Copy'),
       subtitle: _('Allow Pano to send notification when copying new content'),

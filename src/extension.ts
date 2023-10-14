@@ -24,8 +24,9 @@ import { addTopChrome, addToStatusArea, removeChrome, removeVirtualKeyboard } fr
 
 const debug = logger('extension');
 export default class PanoExtension extends Extension {
-  private panoWindow: PanoWindow;
   private keyManager: KeyManager;
+  private clipboardManager: ClipboardManager;
+  private panoWindow: PanoWindow;
 
   private dbus: DBusExportedObject;
   private isEnabled = false;
@@ -38,7 +39,6 @@ export default class PanoExtension extends Extension {
   private logoutSignalId: number | null;
   private rebootSignalId: number | null;
   private systemdSignalId: number | null;
-  private clipboardManager: ClipboardManager;
 
   constructor() {
     super();
@@ -47,7 +47,8 @@ export default class PanoExtension extends Extension {
     db.setup(this);
     debug('extension is initialized');
     this.keyManager = new KeyManager(this);
-    this.panoWindow = new PanoWindow(this);
+    this.clipboardManager = new ClipboardManager(this);
+    this.panoWindow = new PanoWindow(this, this.clipboardManager);
     const iface = loadInterfaceXML(this, 'io.elhan.Pano');
     this.dbus = DBusExportedObject.wrapJSObject(iface, this);
     this.dbus.export(DBus.session, '/io/elhan/Pano');
@@ -76,7 +77,6 @@ export default class PanoExtension extends Extension {
         this.removeIndicator();
       }
     });
-    this.clipboardManager = new ClipboardManager(this);
   }
 
   async clearSessionHistory() {
@@ -254,7 +254,7 @@ export default class PanoExtension extends Extension {
   private rerender() {
     this.panoWindow.remove_all_children();
     this.panoWindow.destroy();
-    this.panoWindow = new PanoWindow(this);
+    this.panoWindow = new PanoWindow(this, this.clipboardManager);
   }
 
   private async reInitialize() {

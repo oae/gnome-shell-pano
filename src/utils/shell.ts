@@ -17,8 +17,8 @@ import {
   SOURCE_REMOVE,
   timeout_add,
 } from '@gi-types/glib2';
+import { Extension } from '@gnome-shell/extensions/extension';
 import { ATTR_EVENT_ID, Context } from '@imports/gsound1';
-
 export { gettext as _, ngettext } from '@gnome-shell/extensions/extension';
 
 export const logger =
@@ -110,13 +110,13 @@ const deleteDirectory = async (file: FilePrototype) => {
   }
 };
 
-export const getAppDataPath = (ext: any): string => `${get_user_data_dir()}/${getCurrentExtension(ext).metadata.uuid}`;
+export const getAppDataPath = (ext: Extension): string => `${get_user_data_dir()}/${ext.uuid}`;
 
-export const getImagesPath = (ext: any): string => `${getAppDataPath(ext)}/images`;
+export const getImagesPath = (ext: Extension): string => `${getAppDataPath(ext)}/images`;
 
-export const getCachePath = (ext: any): string => `${get_user_cache_dir()}/${getCurrentExtension(ext).metadata.uuid}`;
+export const getCachePath = (ext: Extension): string => `${get_user_cache_dir()}/${ext.uuid}`;
 
-export const setupAppDirs = (ext: any): void => {
+export const setupAppDirs = (ext: Extension): void => {
   const imagePath = File.new_for_path(getImagesPath(ext));
   if (!imagePath.query_exists(null)) {
     imagePath.make_directory_with_parents(null);
@@ -147,7 +147,7 @@ export const moveDbFile = (from: string, to: string) => {
   }
 };
 
-export const deleteAppDirs = async (ext: any): Promise<void> => {
+export const deleteAppDirs = async (ext: Extension): Promise<void> => {
   const appDataPath = File.new_for_path(getAppDataPath(ext));
   if (appDataPath.query_exists(null)) {
     await deleteDirectory(appDataPath);
@@ -162,7 +162,7 @@ export const deleteAppDirs = async (ext: any): Promise<void> => {
   }
 };
 
-export const getDbPath = (ext: any): string => {
+export const getDbPath = (ext: Extension): string => {
   const path = getCurrentExtensionSettings(ext).get_string('database-location');
   if (!path) {
     return getAppDataPath(ext);
@@ -170,13 +170,10 @@ export const getDbPath = (ext: any): string => {
 
   return path;
 };
+export const getCurrentExtensionSettings = (ext: Extension): Settings => ext.getSettings();
 
-export const getCurrentExtension = (ext: any): any => ext.getCurrentExtension();
-
-export const getCurrentExtensionSettings = (ext: any): Settings => ext.getSettings();
-
-export const loadInterfaceXML = (ext: any, iface: string): any => {
-  const uri = `file:///${getCurrentExtension(ext).path}/dbus/${iface}.xml`;
+export const loadInterfaceXML = (ext: Extension, iface: string): any => {
+  const uri = `file:///${ext.path}/dbus/${iface}.xml`;
   const file = File.new_for_uri(uri);
 
   try {

@@ -1,4 +1,5 @@
 import { Settings } from '@gi-types/gio2';
+import { Extension } from '@gnome-shell/extensions/extension';
 import { Config, Connection, SqlBuilder, SqlOperatorType, SqlStatementType, Statement } from '@imports/gda6';
 import { getCurrentExtensionSettings, getDbPath, logger } from '@pano/utils/shell';
 
@@ -186,7 +187,7 @@ class Database {
   private connection: Connection | null;
   private settings: Settings;
 
-  private init(ext: any) {
+  private init(ext: Extension) {
     this.settings = getCurrentExtensionSettings(ext);
     this.connection = new Connection({
       provider: Config.get_provider('SQLite'),
@@ -195,7 +196,7 @@ class Database {
     this.connection.open();
   }
 
-  setup(ext: any) {
+  setup(ext: Extension) {
     this.init(ext);
     if (!this.connection || !this.connection.is_opened()) {
       debug('connection is not opened');
@@ -349,7 +350,7 @@ class Database {
     return itemList;
   }
 
-  start(ext: any) {
+  start(ext: Extension) {
     if (!this.connection) {
       this.init(ext);
     }

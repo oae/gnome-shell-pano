@@ -9,6 +9,7 @@ import {
 import { icon_new_for_string, Settings } from '@gi-types/gio2';
 import { MetaInfo, TYPE_BOOLEAN } from '@gi-types/gobject2';
 import { Icon } from '@gi-types/st1';
+import { Extension } from '@gnome-shell/extensions/extension';
 import * as panelMenu from '@gnome-shell/ui/panelMenu';
 import * as popupMenu from '@gnome-shell/ui/popupMenu';
 import { ClearHistoryDialog } from '@pano/components/indicator/clearHistoryDialog';
@@ -35,11 +36,11 @@ export class SettingsMenu extends panelMenu.Button {
   private incognitoChangeId: number;
   private clipboardChangeId: number;
   private icon: Icon;
-  private ext: any;
+  private ext: Extension;
   private clipboardManager: ClipboardManager;
   private onToggle: () => void;
 
-  constructor(ext: any, clipboardManager: ClipboardManager, onClear: () => Promise<void>, onToggle: () => void) {
+  constructor(ext: Extension, clipboardManager: ClipboardManager, onClear: () => Promise<void>, onToggle: () => void) {
     super(0.5, 'Pano Indicator', false);
 
     this.ext = ext;

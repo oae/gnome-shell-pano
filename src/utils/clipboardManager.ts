@@ -7,6 +7,7 @@ import { Clipboard, ClipboardType } from '@gi-types/st1';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { debounce, getCurrentExtensionSettings, logger } from '@pano/utils/shell';
 
+
 const global = Global.get();
 
 const debug = logger('clipboard-manager');
@@ -125,7 +126,7 @@ export class ClipboardManager extends Object {
   private settings: Settings;
   private lastCopiedContent: ClipboardContent | null;
 
-  constructor(ext: any) {
+  constructor(ext: Extension) {
     super();
     this.settings = getCurrentExtensionSettings(ext);
     this.clipboard = Clipboard.get_default();

@@ -1,6 +1,7 @@
 import { Colorspace, Pixbuf } from '@gi-types/gdkpixbuf2';
 import { File, FileCreateFlags } from '@gi-types/gio2';
 import { ChecksumType, compute_checksum_for_bytes, uri_parse, UriFlags } from '@gi-types/glib2';
+import { Extension } from '@gnome-shell/extensions/extension';
 import { PixelFormat } from '@imports/cogl2';
 import { CodePanoItem } from '@pano/components/codePanoItem';
 import { ColorPanoItem } from '@pano/components/colorPanoItem';
@@ -110,7 +111,7 @@ const isValidUrl = (text: string) => {
   }
 };
 
-const findOrCreateDbItem = async (ext: any, clip: ClipboardContent): Promise<DBItem | null> => {
+const findOrCreateDbItem = async (ext: Extension, clip: ClipboardContent): Promise<DBItem | null> => {
   const { value, type } = clip.content;
   const queryBuilder = new ClipboardQueryBuilder();
   switch (type) {
@@ -276,7 +277,7 @@ const findOrCreateDbItem = async (ext: any, clip: ClipboardContent): Promise<DBI
 };
 
 export const createPanoItem = async (
-  ext: any,
+  ext: Extension,
   clipboardManager: ClipboardManager,
   clip: ClipboardContent,
 ): Promise<PanoItem | null> => {
@@ -301,7 +302,7 @@ export const createPanoItem = async (
 };
 
 export const createPanoItemFromDb = (
-  ext: any,
+  ext: Extension,
   clipboardManager: ClipboardManager,
   dbItem: DBItem | null,
 ): PanoItem | null => {
@@ -354,7 +355,7 @@ export const createPanoItemFromDb = (
   return panoItem;
 };
 
-export const removeItemResources = (ext: any, dbItem: DBItem) => {
+export const removeItemResources = (ext: Extension, dbItem: DBItem) => {
   db.delete(dbItem.id);
   if (dbItem.itemType === 'LINK') {
     const { image } = JSON.parse(dbItem.metaData || '{}');
@@ -370,7 +371,7 @@ export const removeItemResources = (ext: any, dbItem: DBItem) => {
   }
 };
 
-const sendNotification = async (ext: any, dbItem: DBItem) => {
+const sendNotification = async (ext: Extension, dbItem: DBItem) => {
   return new Promise(() => {
     if (dbItem.itemType === 'IMAGE') {
       const { width, height, size }: { width: number; height: number; size: number } = JSON.parse(
