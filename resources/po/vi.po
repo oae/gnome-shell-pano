@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "Xóa"
 
 #: src/components/indicator/clearHistoryDialog.ts:36
-#: src/components/indicator/settingsMenu.ts:89
+#: src/components/indicator/settingsMenu.ts:96
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr "Xóa Lịch Sử"
@@ -23,11 +23,11 @@ msgstr "Xóa Lịch Sử"
 msgid "Are you sure you want to clear history?"
 msgstr "Bạn chắc bạn có muốn xóa lịch sử không?"
 
-#: src/components/indicator/settingsMenu.ts:58
+#: src/components/indicator/settingsMenu.ts:63
 msgid "Incognito Mode"
 msgstr "Chế Độ Ẩn Danh"
 
-#: src/components/indicator/settingsMenu.ts:96
+#: src/components/indicator/settingsMenu.ts:103
 msgid "Settings"
 msgstr "Cài Đặt"
 

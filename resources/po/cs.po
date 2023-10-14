@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "Vymazat"
 
 #: src/components/indicator/clearHistoryDialog.ts:36
-#: src/components/indicator/settingsMenu.ts:89
+#: src/components/indicator/settingsMenu.ts:96
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr "Vymazat historii"
@@ -23,11 +23,11 @@ msgstr "Vymazat historii"
 msgid "Are you sure you want to clear history?"
 msgstr "Opravdu chcete vymazat historii?"
 
-#: src/components/indicator/settingsMenu.ts:58
+#: src/components/indicator/settingsMenu.ts:63
 msgid "Incognito Mode"
 msgstr "Anonymní režim"
 
-#: src/components/indicator/settingsMenu.ts:96
+#: src/components/indicator/settingsMenu.ts:103
 msgid "Settings"
 msgstr "Nastavení"
 

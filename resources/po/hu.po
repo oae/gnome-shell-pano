@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "Világos"
 
 #: src/components/indicator/clearHistoryDialog.ts:36
-#: src/components/indicator/settingsMenu.ts:89
+#: src/components/indicator/settingsMenu.ts:96
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr "Előzmények törlése"
@@ -23,11 +23,11 @@ msgstr "Előzmények törlése"
 msgid "Are you sure you want to clear history?"
 msgstr "Biztos benne, hogy törölni szeretné a történelmet?"
 
-#: src/components/indicator/settingsMenu.ts:58
+#: src/components/indicator/settingsMenu.ts:63
 msgid "Incognito Mode"
 msgstr "Inkognitómód"
 
-#: src/components/indicator/settingsMenu.ts:96
+#: src/components/indicator/settingsMenu.ts:103
 msgid "Settings"
 msgstr "Beállítások"
 

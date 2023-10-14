@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "Leeren"
 
 #: src/components/indicator/clearHistoryDialog.ts:36
-#: src/components/indicator/settingsMenu.ts:89
+#: src/components/indicator/settingsMenu.ts:96
 #: src/prefs/dangerZone/clearHistory.ts:11
 msgid "Clear History"
 msgstr "Historie leeren"
@@ -23,11 +23,11 @@ msgstr "Historie leeren"
 msgid "Are you sure you want to clear history?"
 msgstr "Sind Sie sicher das Sie die Historie entfernen möchten?"
 
-#: src/components/indicator/settingsMenu.ts:58
+#: src/components/indicator/settingsMenu.ts:63
 msgid "Incognito Mode"
 msgstr "Inkognito-Modus"
 
-#: src/components/indicator/settingsMenu.ts:96
+#: src/components/indicator/settingsMenu.ts:103
 msgid "Settings"
 msgstr "Einstellungen"
 
