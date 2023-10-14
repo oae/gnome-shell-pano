@@ -10,7 +10,7 @@ import { ImagePanoItem } from '@pano/components/imagePanoItem';
 import { LinkPanoItem } from '@pano/components/linkPanoItem';
 import { PanoItem } from '@pano/components/panoItem';
 import { TextPanoItem } from '@pano/components/textPanoItem';
-import { ClipboardContent, ContentType, FileOperation } from '@pano/utils/clipboardManager';
+import { ClipboardContent, ClipboardManager, ContentType, FileOperation } from '@pano/utils/clipboardManager';
 import { ClipboardQueryBuilder, db, DBItem } from '@pano/utils/db';
 import { getDocument, getImage } from '@pano/utils/linkParser';
 import { _, getCachePath, getCurrentExtensionSettings, getImagesPath, logger, playAudio } from '@pano/utils/shell';
@@ -275,7 +275,11 @@ const findOrCreateDbItem = async (ext: any, clip: ClipboardContent): Promise<DBI
   }
 };
 
-export const createPanoItem = async (ext: any, clip: ClipboardContent): Promise<PanoItem | null> => {
+export const createPanoItem = async (
+  ext: any,
+  clipboardManager: ClipboardManager,
+  clip: ClipboardContent,
+): Promise<PanoItem | null> => {
   let dbItem: DBItem | null = null;
 
   try {
@@ -290,13 +294,17 @@ export const createPanoItem = async (ext: any, clip: ClipboardContent): Promise<
       sendNotification(ext, dbItem);
     }
 
-    return createPanoItemFromDb(ext, dbItem);
+    return createPanoItemFromDb(ext, clipboardManager, dbItem);
   }
 
   return null;
 };
 
-export const createPanoItemFromDb = (ext: any, dbItem: DBItem | null): PanoItem | null => {
+export const createPanoItemFromDb = (
+  ext: any,
+  clipboardManager: ClipboardManager,
+  dbItem: DBItem | null,
+): PanoItem | null => {
   if (!dbItem) {
     return null;
   }
@@ -305,25 +313,25 @@ export const createPanoItemFromDb = (ext: any, dbItem: DBItem | null): PanoItem 
 
   switch (dbItem.itemType) {
     case 'TEXT':
-      panoItem = new TextPanoItem(dbItem);
+      panoItem = new TextPanoItem(clipboardManager, dbItem);
       break;
     case 'CODE':
-      panoItem = new CodePanoItem(dbItem);
+      panoItem = new CodePanoItem(clipboardManager, dbItem);
       break;
     case 'LINK':
-      panoItem = new LinkPanoItem(dbItem);
+      panoItem = new LinkPanoItem(clipboardManager, dbItem);
       break;
     case 'COLOR':
-      panoItem = new ColorPanoItem(dbItem);
+      panoItem = new ColorPanoItem(clipboardManager, dbItem);
       break;
     case 'FILE':
-      panoItem = new FilePanoItem(dbItem);
+      panoItem = new FilePanoItem(clipboardManager, dbItem);
       break;
     case 'IMAGE':
-      panoItem = new ImagePanoItem(dbItem);
+      panoItem = new ImagePanoItem(clipboardManager, dbItem);
       break;
     case 'EMOJI':
-      panoItem = new EmojiPanoItem(dbItem);
+      panoItem = new EmojiPanoItem(clipboardManager, dbItem);
       break;
 
     default:

@@ -2,7 +2,7 @@ import { ActorAlign, AlignAxis, AlignConstraint } from '@gi-types/clutter10';
 import { File, Settings } from '@gi-types/gio2';
 import { BoxLayout, Label } from '@gi-types/st1';
 import { PanoItem } from '@pano/components/panoItem';
-import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/clipboardManager';
+import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtension, getImagesPath } from '@pano/utils/shell';
@@ -19,8 +19,8 @@ export class ImagePanoItem extends PanoItem {
   private sizeLabel: Label;
   private sizeValue: Label;
 
-  constructor(dbItem: DBItem) {
-    super(dbItem);
+  constructor(clipboardManager: ClipboardManager, dbItem: DBItem) {
+    super(clipboardManager, dbItem);
 
     this.body.add_style_class_name('pano-item-body-image');
 
@@ -152,7 +152,7 @@ export class ImagePanoItem extends PanoItem {
       return;
     }
 
-    clipboardManager.setContent(
+    this.clipboardManager.setContent(
       new ClipboardContent({
         type: ContentType.IMAGE,
         value: data,

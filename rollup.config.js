@@ -8,6 +8,22 @@ import visualizer from 'rollup-plugin-visualizer';
 
 const buildPath = 'dist';
 
+
+const shellFiles = ["resource:///org/gnome/shell/extensions/extension.js",
+  'resource:///org/gnome/shell/ui/layout.js',
+  'resource:///org/gnome/shell/ui/lightbox.js',
+  'resource:///org/gnome/shell/ui/main.js',
+  'resource:///org/gnome/shell/ui/dialog.js',
+  'resource:///org/gnome/shell/ui/modalDialog.js',
+  'resource:///org/gnome/shell/ui/popupMenu.js', 'resource:///org/gnome/shell/ui/panelMenu.js',
+  'resource:///org/gnome/shell/ui/messageTray.js',
+  'resource:///org/gnome/shell/misc/util.js'
+]
+
+
+const shellGlobals = Object.fromEntries(shellFiles.map(name => ([name, `"${name}"`])))
+
+
 const globals = {
   '@gi-types/gdk4': '"gi://Gdk"',
   '@gi-types/gio2': '"gi://Gio"',
@@ -26,6 +42,10 @@ const globals = {
   '@imports/gsound1': '"gi://GSound"',
   '@imports/cogl2': '"gi://Cogl"',
   '@gi-types/adw1': '"gi://Adw"',
+  // '@pano/types/ui/layout': '"resource:///org/gnome/shell/ui/layout.js"',
+  // '@pano/types/ui/dialog': '"resource:///org/gnome/shell/ui/dialog.js"'
+  ...shellGlobals,
+  // '@gnome-shell/types/extension': '"resource:///org/gnome/shell/extensions/extension.js"'
 };
 
 const thirdParty = [
@@ -67,8 +87,7 @@ const thirdParty = [
 
 const thirdPartyBuild = thirdParty.map((pkg) => {
   const sanitizedPkg = pkg.split('/').join('_').replaceAll('-', '_').replaceAll('.', '_').replaceAll('@', '');
-  globals[pkg] = `Me.imports.thirdparty["${sanitizedPkg}"].lib`;
-
+  globals[pkg] = `'./thirdparty/${sanitizedPkg}.js'`;
   return {
     input: `node_modules/${pkg}`,
     output: {
@@ -90,14 +109,12 @@ const thirdPartyBuild = thirdParty.map((pkg) => {
 
 const external = [...Object.keys(globals), thirdParty];
 
-const prefsBanner = [
-  'const Me = imports.misc.extensionUtils.getCurrentExtension();',
-].join('\n');
+const prefsBanner = ""
 
 const prefsFooter = ['var init = prefs.init;', 'var fillPreferencesWindow = prefs.fillPreferencesWindow;'].join('\n');
 
 const extensionBanner = `
-const Me = imports.misc.extensionUtils.getCurrentExtension();
+import * as main from 'resource:///org/gnome/shell/ui/main.js';
 
 try {
 `;
@@ -106,7 +123,7 @@ const extensionFooter = `
 }
 catch(err) {
   log(\`[pano] [init] \$\{err\}\`);
-  imports.ui.main.notify('Pano', \`\$\{err\}\`);
+  main.notify('Pano', \`\$\{err\}\`);
   throw err;
 }
 `;

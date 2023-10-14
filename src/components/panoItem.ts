@@ -25,6 +25,7 @@ import { Cursor } from '@gi-types/meta10';
 import { Global } from '@gi-types/shell0';
 import { BoxLayout, ThemeContext } from '@gi-types/st1';
 import { PanoItemHeader } from '@pano/components/panoItemHeader';
+import { ClipboardManager } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { PanoItemTypes } from '@pano/utils/panoItemType';
@@ -51,11 +52,12 @@ export class PanoItem extends BoxLayout {
   protected header: PanoItemHeader;
   private timeoutId: number | undefined;
   protected body: BoxLayout;
+  protected clipboardManager: ClipboardManager;
   public dbItem: DBItem;
   protected settings: Settings;
   private selected: boolean;
 
-  constructor(dbItem: DBItem) {
+  constructor(clipboardManager: ClipboardManager, dbItem: DBItem) {
     super({
       name: 'pano-item',
       visible: true,
@@ -66,6 +68,7 @@ export class PanoItem extends BoxLayout {
       track_hover: true,
     });
 
+    this.clipboardManager = clipboardManager;
     this.dbItem = dbItem;
 
     this.settings = getCurrentExtensionSettings();

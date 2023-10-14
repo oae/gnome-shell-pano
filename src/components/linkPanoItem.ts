@@ -12,7 +12,7 @@ import { File, Settings } from '@gi-types/gio2';
 import { uri_parse, UriFlags } from '@gi-types/glib2';
 import { BoxLayout, Button, Icon, Label } from '@gi-types/st1';
 import { PanoItem } from '@pano/components/panoItem';
-import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/clipboardManager';
+import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { _, getCachePath, getCurrentExtension, openLinkInBrowser } from '@pano/utils/shell';
@@ -27,8 +27,8 @@ export class LinkPanoItem extends PanoItem {
   private descriptionLabel: Label;
   private linkLabel: Label;
 
-  constructor(dbItem: DBItem) {
-    super(dbItem);
+  constructor(clipboardManager: ClipboardManager, dbItem: DBItem) {
+    super(clipboardManager, dbItem);
 
     this.linkItemSettings = this.settings.get_child('link-item');
 
@@ -162,7 +162,7 @@ export class LinkPanoItem extends PanoItem {
   }
 
   private setClipboardContent(): void {
-    clipboardManager.setContent(
+    this.clipboardManager.setContent(
       new ClipboardContent({
         type: ContentType.TEXT,
         value: this.dbItem.content,

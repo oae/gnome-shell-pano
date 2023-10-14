@@ -3,7 +3,7 @@ import { Settings } from '@gi-types/gio2';
 import { EllipsizeMode } from '@gi-types/pango1';
 import { BoxLayout, Icon, Label } from '@gi-types/st1';
 import { PanoItem } from '@pano/components/panoItem';
-import { ClipboardContent, clipboardManager, ContentType, FileOperation } from '@pano/utils/clipboardManager';
+import { ClipboardContent, ClipboardManager, ContentType, FileOperation } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 
@@ -13,8 +13,8 @@ export class FilePanoItem extends PanoItem {
   private operation: string;
   private fileItemSettings: Settings;
 
-  constructor(dbItem: DBItem) {
-    super(dbItem);
+  constructor(clipboardManager: ClipboardManager, dbItem: DBItem) {
+    super(clipboardManager, dbItem);
 
     this.fileList = JSON.parse(this.dbItem.content);
     this.operation = this.dbItem.metaData || 'copy';
@@ -86,7 +86,7 @@ export class FilePanoItem extends PanoItem {
   }
 
   private setClipboardContent(): void {
-    clipboardManager.setContent(
+    this.clipboardManager.setContent(
       new ClipboardContent({
         type: ContentType.FILE,
         value: { fileList: this.fileList, operation: this.operation },

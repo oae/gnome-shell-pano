@@ -10,7 +10,7 @@ import { icon_new_for_string, Settings } from '@gi-types/gio2';
 import { MetaInfo, TYPE_BOOLEAN } from '@gi-types/gobject2';
 import { Icon } from '@gi-types/st1';
 import { ClearHistoryDialog } from '@pano/components/indicator/clearHistoryDialog';
-import { clipboardManager } from '@pano/utils/clipboardManager';
+import { ClipboardManager } from '@pano/utils/clipboardManager';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { ICON_PACKS } from '@pano/utils/panoItemType';
 import { _, getCurrentExtension, getCurrentExtensionSettings } from '@pano/utils/shell';
@@ -35,18 +35,22 @@ export class SettingsMenu extends panelMenu.Button {
   private incognitoChangeId: number;
   private clipboardChangeId: number;
   private icon: Icon;
+  private ext: any;
+  private clipboardManager: ClipboardManager;
   private onToggle: () => void;
 
-  constructor(onClear: () => Promise<void>, onToggle: () => void) {
+  constructor(ext: any, clipboardManager: ClipboardManager, onClear: () => Promise<void>, onToggle: () => void) {
     super(0.5, 'Pano Indicator', false);
 
+    this.ext = ext;
+    this.clipboardManager = clipboardManager;
     this.onToggle = onToggle;
-    this.settings = getCurrentExtensionSettings();
+    this.settings = getCurrentExtensionSettings(this.ext);
     const isInIncognito = this.settings.get_boolean('is-in-incognito');
 
     this.icon = new Icon({
       gicon: icon_new_for_string(
-        `${getCurrentExtension().path}/icons/hicolor/scalable/actions/${
+        `${getCurrentExtension(this.ext).path}/icons/hicolor/scalable/actions/${
           ICON_PACKS[this.settings.get_uint('icon-pack')]
         }-indicator${isInIncognito ? '-incognito-symbolic' : '-symbolic'}.svg`,
       ),
@@ -55,7 +59,10 @@ export class SettingsMenu extends panelMenu.Button {
 
     this.add_child(this.icon);
 
-    const switchMenuItem = new popupMenu.PopupSwitchMenuItem(_('Incognito Mode'), this.settings.get_boolean('is-in-incognito'));
+    const switchMenuItem = new popupMenu.PopupSwitchMenuItem(
+      _('Incognito Mode'),
+      this.settings.get_boolean('is-in-incognito'),
+    );
 
     switchMenuItem.connect('toggled', (item) => {
       this.settings.set_boolean('is-in-incognito', item.state);
@@ -66,7 +73,7 @@ export class SettingsMenu extends panelMenu.Button {
       switchMenuItem.setToggleState(isInIncognito);
       this.icon.set_gicon(
         icon_new_for_string(
-          `${getCurrentExtension().path}/icons/hicolor/scalable/actions/${
+          `${getCurrentExtension(this.ext).path}/icons/hicolor/scalable/actions/${
             ICON_PACKS[this.settings.get_uint('icon-pack')]
           }-indicator${isInIncognito ? '-incognito-symbolic' : '-symbolic'}.svg`,
         ),
@@ -77,7 +84,7 @@ export class SettingsMenu extends panelMenu.Button {
       const isInIncognito = this.settings.get_boolean('is-in-incognito');
       this.icon.set_gicon(
         icon_new_for_string(
-          `${getCurrentExtension().path}/icons/hicolor/scalable/actions/${
+          `${getCurrentExtension(this.ext).path}/icons/hicolor/scalable/actions/${
             ICON_PACKS[this.settings.get_uint('icon-pack')]
           }-indicator${isInIncognito ? '-incognito-symbolic' : '-symbolic'}.svg`,
         ),
@@ -95,7 +102,7 @@ export class SettingsMenu extends panelMenu.Button {
     this.menu.addMenuItem(new popupMenu.PopupSeparatorMenuItem());
     const settingsItem = new popupMenu.PopupMenuItem(_('Settings'));
     settingsItem.connect('activate', () => {
-      openExtensionPrefs();
+      openExtensionPrefs(this.ext);
     });
     this.menu.addMenuItem(settingsItem);
     this.clipboardChangeId = clipboardManager.connect('changed', this.animate.bind(this));
@@ -123,7 +130,7 @@ export class SettingsMenu extends panelMenu.Button {
 
   destroy() {
     if (this.clipboardChangeId) {
-      clipboardManager.disconnect(this.clipboardChangeId);
+      this.clipboardManager.disconnect(this.clipboardChangeId);
     }
     if (this.incognitoChangeId) {
       this.settings.disconnect(this.incognitoChangeId);

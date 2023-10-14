@@ -65,7 +65,7 @@ export class PanoWindow extends BoxLayout {
     });
     this.monitorBox = new MonitorBox();
     this.searchBox = new SearchBox();
-    this.scrollView = new PanoScrollView(ext, this.searchBox);
+    this.scrollView = new PanoScrollView(ext, ext.clipboardManager, this.searchBox);
 
     this.setupMonitorBox();
     this.setupScrollView();

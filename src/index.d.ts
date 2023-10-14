@@ -1,6 +1,21 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Actor, AnimationMode } from '@gi-types/clutter10';
 
+export {};
+
+declare global {
+  export const imports: {
+    byteArray: {
+      fromString: (input: string) => Uint8Array;
+      fromArray: (input: number[]) => any;
+      fromGBytes: (input: any) => Uint8Array;
+      toString: (x: Uint8Array) => string;
+    };
+  };
+  
+  export const log: (arg: any) => void;
+}
+
 type AnimatableActorFields =
   | 'fixed_x'
   | 'fixed_y'
@@ -70,3 +85,5 @@ declare module '@gi-types/gobject2' {
     InternalChildren?: string[];
   }
 }
+
+declare module 'resource://*';

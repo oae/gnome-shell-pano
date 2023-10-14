@@ -24,7 +24,7 @@ import { MetaInfo, TYPE_BOOLEAN, TYPE_STRING } from '@gi-types/gobject2';
 import { Global } from '@gi-types/shell0';
 import { Adjustment, BoxLayout, PolicyType, ScrollView } from '@gi-types/st1';
 import { PanoItem } from '@pano/components/panoItem';
-import { ClipboardContent, clipboardManager } from '@pano/utils/clipboardManager';
+import { ClipboardContent, ClipboardManager } from '@pano/utils/clipboardManager';
 import { ClipboardQueryBuilder, db } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { createPanoItem, createPanoItemFromDb, removeItemResources } from '@pano/utils/panoItemFactory';
@@ -61,19 +61,20 @@ export class PanoScrollView extends ScrollView {
   private showFavorites: boolean;
   private searchBox: SearchBox;
   private ext: any;
+  private clipboardManager: ClipboardManager;
 
-  constructor(ext: any, searchBox: SearchBox) {
+  constructor(ext: any, clipboardManager: ClipboardManager, searchBox: SearchBox) {
     super({
       overlay_scrollbars: true,
       x_expand: true,
       y_expand: true,
     });
     this.ext = ext;
+    this.clipboardManager = clipboardManager;
     this.searchBox = searchBox;
     this.settings = getCurrentExtensionSettings(this.ext);
 
     this.setScrollbarPolicy();
-    this.ext = ext;
 
     this.list = new BoxLayout({
       vertical: isVertical(this.settings.get_uint('window-position')),
@@ -142,7 +143,7 @@ export class PanoScrollView extends ScrollView {
     });
 
     db.query(new ClipboardQueryBuilder().build()).forEach((dbItem) => {
-      const panoItem = createPanoItemFromDb(ext, dbItem);
+      const panoItem = createPanoItemFromDb(ext, this.clipboardManager, dbItem);
       if (panoItem) {
         panoItem.connect('motion-event', () => {
           if (this.isHovering(this.searchBox)) {
@@ -164,8 +165,8 @@ export class PanoScrollView extends ScrollView {
       this.removeExcessiveItems();
     });
 
-    clipboardManager.connect('changed', async (_: any, content: ClipboardContent) => {
-      const panoItem = await createPanoItem(ext, content);
+    this.clipboardManager.connect('changed', async (_: any, content: ClipboardContent) => {
+      const panoItem = await createPanoItem(ext, this.clipboardManager, content);
       if (panoItem) {
         this.prependItem(panoItem);
         this.filter(this.currentFilter, this.currentItemTypeFilter, this.showFavorites);
@@ -260,7 +261,7 @@ export class PanoScrollView extends ScrollView {
     db.query(
       new ClipboardQueryBuilder().withFavorites(false).withLimit(-1, this.settings.get_int('history-length')).build(),
     ).forEach((dbItem) => {
-      removeItemResources(dbItem);
+      removeItemResources(this.ext, dbItem);
     });
   }
 

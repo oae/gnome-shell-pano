@@ -98,7 +98,9 @@ export default class PanoExtension extends Extension {
 
   createIndicator() {
     if (this.settings.get_boolean('show-indicator')) {
-      this.settingsMenu = new SettingsMenu(this.clearHistory.bind(this), () => this.panoWindow.toggle());
+      this.settingsMenu = new SettingsMenu(this, this.clipboardManager, this.clearHistory.bind(this), () =>
+        this.panoWindow.toggle(),
+      );
       addToStatusArea(this, this.settingsMenu);
     }
   }

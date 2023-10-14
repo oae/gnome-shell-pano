@@ -2,7 +2,7 @@ import { Settings } from '@gi-types/gio2';
 import { EllipsizeMode } from '@gi-types/pango1';
 import { Label } from '@gi-types/st1';
 import { PanoItem } from '@pano/components/panoItem';
-import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/clipboardManager';
+import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { markupCode } from '@pano/utils/pango';
@@ -12,9 +12,8 @@ export class CodePanoItem extends PanoItem {
   private codeItemSettings: Settings;
   private label: Label;
 
-  constructor(dbItem: DBItem) {
-    super(dbItem);
-
+  constructor(clipboardManager: ClipboardManager, dbItem: DBItem) {
+    super(clipboardManager, dbItem);
     this.codeItemSettings = this.settings.get_child('code-item');
 
     this.label = new Label({
@@ -45,7 +44,7 @@ export class CodePanoItem extends PanoItem {
   }
 
   private setClipboardContent(): void {
-    clipboardManager.setContent(
+    this.clipboardManager.setContent(
       new ClipboardContent({
         type: ContentType.TEXT,
         value: this.dbItem.content,
