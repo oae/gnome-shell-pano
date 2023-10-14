@@ -16,7 +16,7 @@ import { ClearHistoryDialog } from '@pano/components/indicator/clearHistoryDialo
 import { ClipboardManager } from '@pano/utils/clipboardManager';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { ICON_PACKS } from '@pano/utils/panoItemType';
-import { _, getCurrentExtension, getCurrentExtensionSettings } from '@pano/utils/shell';
+import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
 import { openExtensionPreferences, wiggle } from '@pano/utils/ui';
 
 @registerGObjectClass

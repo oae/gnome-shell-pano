@@ -4,9 +4,9 @@ import { MetaInfo, Object } from '@gi-types/gobject2';
 import { Selection, SelectionSource, SelectionType } from '@gi-types/meta10';
 import { Global } from '@gi-types/shell0';
 import { Clipboard, ClipboardType } from '@gi-types/st1';
+import { Extension } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { debounce, getCurrentExtensionSettings, logger } from '@pano/utils/shell';
-
 
 const global = Global.get();
 

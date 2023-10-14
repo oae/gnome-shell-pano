@@ -10,7 +10,7 @@ import * as layout from '@gnome-shell/ui/layout';
 import * as main from '@gnome-shell/ui/main';
 import * as messageTray from '@gnome-shell/ui/messageTray';
 import { PixelFormat } from '@imports/cogl2';
-import { _, getCurrentExtension } from '@pano/utils/shell';
+import { _ } from '@pano/utils/shell';
 const global = Global.get();
 
 export const notify = (text: string, body: string, iconOrPixbuf?: Pixbuf | Icon, pixelFormat?: PixelFormat): void => {

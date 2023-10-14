@@ -29,6 +29,7 @@ const globals = {
   '@imports/gsound1': '"gi://GSound"',
   '@imports/cogl2': '"gi://Cogl"',
   '@gi-types/adw1': '"gi://Adw"',
+  // extension.js specific resources
   '@gnome-shell/misc/util': '"resource:///org/gnome/shell/misc/util.js"',
   '@gnome-shell/extensions/extension': '"resource:///org/gnome/shell/extensions/extension.js"',
   '@gnome-shell/ui/layout': '"resource:///org/gnome/shell/ui/layout.js"',
@@ -38,7 +39,9 @@ const globals = {
   '@gnome-shell/ui/dialog': '"resource:///org/gnome/shell/ui/dialog.js"',
   '@gnome-shell/ui/modalDialog': '"resource:///org/gnome/shell/ui/modalDialog.js"',
   '@gnome-shell/ui/popupMenu': '"resource:///org/gnome/shell/ui/popupMenu.js"',
-  '@gnome-shell/ui/panelMenu': '"resource:///org/gnome/shell/ui/panelMenu.js"'
+  '@gnome-shell/ui/panelMenu': '"resource:///org/gnome/shell/ui/panelMenu.js"',
+  // prefs.js specific resources
+  '@gnome-shell/extensions/prefs': '"resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js"'
 
 };
 

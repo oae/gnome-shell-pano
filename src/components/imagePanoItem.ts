@@ -1,11 +1,12 @@
 import { ActorAlign, AlignAxis, AlignConstraint } from '@gi-types/clutter10';
 import { File, Settings } from '@gi-types/gio2';
 import { BoxLayout, Label } from '@gi-types/st1';
+import { Extension } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { getCurrentExtension, getImagesPath } from '@pano/utils/shell';
+import { getImagesPath } from '@pano/utils/shell';
 import prettyBytes from 'pretty-bytes';
 
 const NO_IMAGE_FOUND_FILE_NAME = 'no-image-found.svg';
@@ -18,9 +19,12 @@ export class ImagePanoItem extends PanoItem {
   private resolutionValue: Label;
   private sizeLabel: Label;
   private sizeValue: Label;
+  private ext: Extension;
 
-  constructor(clipboardManager: ClipboardManager, dbItem: DBItem) {
+  constructor(ext: Extension, clipboardManager: ClipboardManager, dbItem: DBItem) {
     super(clipboardManager, dbItem);
+
+    this.ext = ext;
 
     this.body.add_style_class_name('pano-item-body-image');
 
@@ -111,11 +115,11 @@ export class ImagePanoItem extends PanoItem {
     const metadataFontFamily = this.imageItemSettings.get_string('metadata-font-family');
     const metadataFontSize = this.imageItemSettings.get_int('metadata-font-size');
 
-    let imageFilePath = `file://${getImagesPath()}/${this.dbItem.content}.png`;
+    let imageFilePath = `file://${getImagesPath(this.ext)}/${this.dbItem.content}.png`;
     let backgroundSize = 'contain';
     const imageFile = File.new_for_uri(imageFilePath);
     if (!imageFile.query_exists(null)) {
-      imageFilePath = `file://${getCurrentExtension().path}/images/${NO_IMAGE_FOUND_FILE_NAME}`;
+      imageFilePath = `file://${this.ext.path}/images/${NO_IMAGE_FOUND_FILE_NAME}`;
       backgroundSize = 'cover';
     }
 
@@ -140,7 +144,7 @@ export class ImagePanoItem extends PanoItem {
   }
 
   private setClipboardContent(): void {
-    const imageFile = File.new_for_path(`${getImagesPath()}/${this.dbItem.content}.png`);
+    const imageFile = File.new_for_path(`${getImagesPath(this.ext)}/${this.dbItem.content}.png`);
     if (!imageFile.query_exists(null)) {
       return;
     }

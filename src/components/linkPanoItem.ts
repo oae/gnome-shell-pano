@@ -11,11 +11,12 @@ import {
 import { File, Settings } from '@gi-types/gio2';
 import { uri_parse, UriFlags } from '@gi-types/glib2';
 import { BoxLayout, Button, Icon, Label } from '@gi-types/st1';
+import { Extension } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { _, getCachePath, getCurrentExtension, openLinkInBrowser } from '@pano/utils/shell';
+import { _, getCachePath, openLinkInBrowser } from '@pano/utils/shell';
 
 const DEFAULT_LINK_PREVIEW_IMAGE_NAME = 'link-preview.svg';
 
@@ -75,7 +76,7 @@ export class LinkPanoItem extends PanoItem {
       style_class: 'link-label',
     });
 
-    let imageFilePath = `file:///${getCurrentExtension().path}/images/${DEFAULT_LINK_PREVIEW_IMAGE_NAME}`;
+    let imageFilePath = `file:///${ext.path}/images/${DEFAULT_LINK_PREVIEW_IMAGE_NAME}`;
     if (image && File.new_for_uri(`file://${getCachePath()}/${image}.png`).query_exists(null)) {
       imageFilePath = `file://${getCachePath()}/${image}.png`;
     }

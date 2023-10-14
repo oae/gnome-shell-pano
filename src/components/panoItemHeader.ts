@@ -4,9 +4,10 @@ import { get_language_names_with_category } from '@gi-types/glib2';
 import { MetaInfo } from '@gi-types/gobject2';
 import { Global } from '@gi-types/shell0';
 import { BoxLayout, Button, Icon, Label, ThemeContext } from '@gi-types/st1';
+import { Extension } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { ICON_PACKS, IPanoItemType } from '@pano/utils/panoItemType';
-import { getCurrentExtension, getCurrentExtensionSettings } from '@pano/utils/shell';
+import { getCurrentExtensionSettings } from '@pano/utils/shell';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import * as dateLocale from 'date-fns/locale';
 

@@ -20,9 +20,10 @@ import { MetaInfo, TYPE_BOOLEAN, TYPE_INT, TYPE_STRING } from '@gi-types/gobject
 import { Cursor } from '@gi-types/meta10';
 import { Global } from '@gi-types/shell0';
 import { BoxLayout, Entry, Icon, ThemeContext } from '@gi-types/st1';
+import { Extension } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { ICON_PACKS, PanoItemTypes } from '@pano/utils/panoItemType';
-import { _, getCurrentExtension, getCurrentExtensionSettings } from '@pano/utils/shell';
+import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class SearchBox extends BoxLayout {

@@ -18,11 +18,7 @@ export interface ExtensionMetadata {
   'original-author'?: string[];
   'extension-id'?: string;
 }
-export abstract class Extension {
-  abstract enable(): void;
-
-  abstract disable(): void;
-
+export class ExtensionBase {
   // >= gnome 45
   getSettings(): Settings;
   openPreferences(): null;
@@ -31,4 +27,10 @@ export abstract class Extension {
   path: string;
   dir: File;
   metadata: ExtensionMetadata;
+}
+
+export abstract class Extension extends ExtensionBase {
+  abstract enable(): void;
+
+  abstract disable(): void;
 }
