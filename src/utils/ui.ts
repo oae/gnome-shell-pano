@@ -4,13 +4,12 @@ import { Icon } from '@gi-types/gio2';
 import { DateTime } from '@gi-types/glib2';
 import { Global } from '@gi-types/shell0';
 import { ImageContent } from '@gi-types/st1';
-//import { MonitorConstraint } from '@gnome-shell/ui/layout';
+import * as util from '@gnome-shell/misc/util';
+import * as layout from '@gnome-shell/ui/layout';
+import * as main from '@gnome-shell/ui/main';
+import * as messageTray from '@gnome-shell/ui/messageTray';
 import { PixelFormat } from '@imports/cogl2';
 import { _, getCurrentExtension } from '@pano/utils/shell';
-import * as util from 'resource:///org/gnome/shell/misc/util.js';
-import * as layout from 'resource:///org/gnome/shell/ui/layout.js';
-import * as main from 'resource:///org/gnome/shell/ui/main.js';
-import * as messageTray from 'resource:///org/gnome/shell/ui/messageTray.js';
 
 const global = Global.get();
 
@@ -107,7 +106,7 @@ export const addToStatusArea = (ext: any, button: any) => {
   main.panel.addToStatusArea(getCurrentExtension(ext).metadata.uuid, button, 1, 'right');
 };
 
-export const openExtensionPrefs = (ext: any) => ext.openPreferences();
+export const openExtensionPreferences = (ext: any) => ext.openPreferences();
 
 export const WINDOW_POSITIONS = {
   TOP: 0,

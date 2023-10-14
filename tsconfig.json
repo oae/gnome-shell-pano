@@ -14,7 +14,11 @@
     "experimentalDecorators": true,
     "paths": {
       "@imports/*": ["../@types/*"],
-      "@pano/*": ["./*"]
+      "@pano/*": ["./*"],
+      "@gnome-shell/ui/layout": ["./types/ui/layout/index.d.ts"],
+      "@gnome-shell/ui/main": ["./types/ui/main/index.d.ts"],
+      "@gnome-shell/misc/util": ["./types/misc/util/index.d.ts"],
+      "@gnome-shell/ui/messageTray": ["./types/ui/messageTray/index.d.ts"]
     }
   },
   "exclude": ["./dist"]

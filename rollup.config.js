@@ -10,14 +10,10 @@ const buildPath = 'dist';
 
 
 const shellFiles = ["resource:///org/gnome/shell/extensions/extension.js",
-  'resource:///org/gnome/shell/ui/layout.js',
   'resource:///org/gnome/shell/ui/lightbox.js',
-  'resource:///org/gnome/shell/ui/main.js',
   'resource:///org/gnome/shell/ui/dialog.js',
   'resource:///org/gnome/shell/ui/modalDialog.js',
-  'resource:///org/gnome/shell/ui/popupMenu.js', 'resource:///org/gnome/shell/ui/panelMenu.js',
-  'resource:///org/gnome/shell/ui/messageTray.js',
-  'resource:///org/gnome/shell/misc/util.js'
+  'resource:///org/gnome/shell/ui/popupMenu.js', 'resource:///org/gnome/shell/ui/panelMenu.js'
 ]
 
 
@@ -42,10 +38,11 @@ const globals = {
   '@imports/gsound1': '"gi://GSound"',
   '@imports/cogl2': '"gi://Cogl"',
   '@gi-types/adw1': '"gi://Adw"',
-  // '@pano/types/ui/layout': '"resource:///org/gnome/shell/ui/layout.js"',
-  // '@pano/types/ui/dialog': '"resource:///org/gnome/shell/ui/dialog.js"'
   ...shellGlobals,
-  // '@gnome-shell/types/extension': '"resource:///org/gnome/shell/extensions/extension.js"'
+  '@gnome-shell/ui/layout': '"resource:///org/gnome/shell/ui/layout.js"',
+  '@gnome-shell/ui/main': '"resource:///org/gnome/shell/ui/main.js"',
+  '@gnome-shell/misc/util': '"resource:///org/gnome/shell/misc/util.js"',
+  '@gnome-shell/ui/messageTray': '"resource:///org/gnome/shell/ui/messageTray.js"',
 };
 
 const thirdParty = [
