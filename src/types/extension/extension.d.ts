@@ -33,7 +33,7 @@ export class ExtensionBase {
 }
 
 export abstract class Extension extends ExtensionBase {
-  constructor(props: any);
+  constructor(props: ExtensionMetadata);
 
   abstract enable(): void;
 

@@ -3,7 +3,7 @@ import './styles/stylesheet.css';
 import { DBus, DBusExportedObject, DBusSignalFlags, Settings } from '@gi-types/gio2';
 import { PRIORITY_DEFAULT, Source, SOURCE_REMOVE, timeout_add } from '@gi-types/glib2';
 import { Global } from '@gi-types/shell0';
-import { Extension } from '@gnome-shell/extensions/extension';
+import { Extension, ExtensionMetadata } from '@gnome-shell/extensions/extension';
 import { SettingsMenu } from '@pano/components/indicator/settingsMenu';
 import { PanoWindow } from '@pano/containers/panoWindow';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
@@ -40,11 +40,8 @@ export default class PanoExtension extends Extension {
   private rebootSignalId: number | null;
   private systemdSignalId: number | null;
 
-  constructor(a) {
-    super(a);
-
-    debug(this.#gettextDomain)
-
+  constructor(props: ExtensionMetadata) {
+    super(props);
     setupAppDirs(this);
     db.setup(this);
     debug('extension is initialized');
