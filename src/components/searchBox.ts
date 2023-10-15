@@ -1,8 +1,8 @@
 import {
   ActorAlign,
-  Event,
   EVENT_PROPAGATE,
   EVENT_STOP,
+  Event,
   KEY_Alt_L,
   KEY_Alt_R,
   KEY_BackSpace,
@@ -21,6 +21,7 @@ import { Cursor } from '@gi-types/meta10';
 import { Global } from '@gi-types/shell0';
 import { BoxLayout, Entry, Icon, ThemeContext } from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
+import { KeyEvent } from '@pano/types/clutter';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getPanoItemTypes, ICON_PACKS } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';

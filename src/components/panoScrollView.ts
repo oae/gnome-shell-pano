@@ -14,10 +14,8 @@ import {
   KEY_Right,
   KEY_Tab,
   KEY_Up,
-  KeyEvent,
   keysym_to_unicode,
   ScrollDirection,
-  ScrollEvent,
 } from '@gi-types/clutter10';
 import { Settings } from '@gi-types/gio2';
 import { MetaInfo, TYPE_BOOLEAN, TYPE_STRING } from '@gi-types/gobject2';
@@ -25,6 +23,7 @@ import { Global } from '@gi-types/shell0';
 import { Adjustment, BoxLayout, PolicyType, ScrollView } from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
+import { KeyEvent, ScrollEvent } from '@pano/types/clutter';
 import { ClipboardContent, ClipboardManager } from '@pano/utils/clipboardManager';
 import { ClipboardQueryBuilder, db } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
@@ -442,16 +441,16 @@ export class PanoScrollView extends ScrollView {
 
   override vfunc_key_press_event(event: KeyEvent): boolean {
     const isPanoVertical = isVertical(this.settings.get_uint('window-position'));
-    if (isPanoVertical && event.keyval === KEY_Up) {
+    if (isPanoVertical && event.get_key_symbol() === KEY_Up) {
       this.focusPrev();
       this.scrollToFocussedItem();
-    } else if (isPanoVertical && event.keyval === KEY_Down) {
+    } else if (isPanoVertical && event.get_key_symbol() === KEY_Down) {
       this.focusNext();
       this.scrollToFocussedItem();
-    } else if (!isPanoVertical && event.keyval === KEY_Left) {
+    } else if (!isPanoVertical && event.get_key_symbol() === KEY_Left) {
       this.focusPrev();
       this.scrollToFocussedItem();
-    } else if (!isPanoVertical && event.keyval === KEY_Right) {
+    } else if (!isPanoVertical && event.get_key_symbol() === KEY_Right) {
       this.focusNext();
       this.scrollToFocussedItem();
     }
@@ -469,13 +468,16 @@ export class PanoScrollView extends ScrollView {
     }
     let value = adjustment.value;
 
-    if (event.direction === ScrollDirection.SMOOTH) {
+    if (event.get_scroll_direction() === ScrollDirection.SMOOTH) {
       return EVENT_STOP;
     }
 
-    if (event.direction === ScrollDirection.UP || event.direction === ScrollDirection.LEFT) {
+    if (event.get_scroll_direction() === ScrollDirection.UP || event.get_scroll_direction() === ScrollDirection.LEFT) {
       value -= adjustment.step_increment * 2;
-    } else if (event.direction === ScrollDirection.DOWN || event.direction === ScrollDirection.RIGHT) {
+    } else if (
+      event.get_scroll_direction() === ScrollDirection.DOWN ||
+      event.get_scroll_direction() === ScrollDirection.RIGHT
+    ) {
       value += adjustment.step_increment * 2;
     }
 

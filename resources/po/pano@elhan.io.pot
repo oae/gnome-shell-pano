@@ -364,7 +364,7 @@ msgstr ""
 msgid "New shortcut"
 msgstr ""
 
-#: src/components/linkPanoItem.ts:47
+#: src/components/linkPanoItem.ts:46
 msgid "No Description"
 msgstr ""
 

@@ -8,7 +8,6 @@ import visualizer from 'rollup-plugin-visualizer';
 
 const buildPath = 'dist';
 
-
 const importsGeneral = {
   '@gi-types/gdk4': { name: 'gi://Gdk', type: "*" },
   '@gi-types/gio2': { name: 'gi://Gio', type: "default" },
@@ -146,9 +145,33 @@ const builds = [
     },
     external,
     plugins: [
-      commonjs({ requireReturnsDefault: "auto" }),
+      commonjs(/* {
+        ignore: (name) => {
+          console.log("ign", name)
+
+
+          return true
+        },
+        requireReturnsDefault: (name) => {
+          console.log("def", name)
+
+
+          return true
+        },
+        esmExternals: (name) => {
+          console.log("esm", name)
+
+
+          //  false => namespace import
+
+          // true => adhere to requireReturnsDefault
+
+          return true
+        }
+      } */),
       nodeResolve({
         preferBuiltins: false,
+
       }),
       typescript({
         tsconfig: './tsconfig.json',

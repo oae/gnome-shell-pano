@@ -1,11 +1,9 @@
 import {
   ActorAlign,
-  ButtonEvent,
   EVENT_PROPAGATE,
   KEY_ISO_Enter,
   KEY_KP_Enter,
   KEY_Return,
-  KeyEvent,
   ModifierType,
 } from '@gi-types/clutter10';
 import { File, Settings } from '@gi-types/gio2';
@@ -13,6 +11,7 @@ import { uri_parse, UriFlags } from '@gi-types/glib2';
 import { BoxLayout, Button, Icon, Label } from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
+import { ButtonEvent, KeyEvent } from '@pano/types/clutter';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
@@ -175,8 +174,10 @@ export class LinkPanoItem extends PanoItem {
     super.vfunc_key_press_event(event);
     if (
       this.settings.get_boolean('open-links-in-browser') &&
-      event.modifier_state === ModifierType.CONTROL_MASK &&
-      (event.keyval === KEY_Return || event.keyval === KEY_ISO_Enter || event.keyval === KEY_KP_Enter)
+      event.get_state() === ModifierType.CONTROL_MASK &&
+      (event.get_key_symbol() === KEY_Return ||
+        event.get_key_symbol() === KEY_ISO_Enter ||
+        event.get_key_symbol() === KEY_KP_Enter)
     ) {
       openLinkInBrowser(this.dbItem.content);
     }
@@ -187,8 +188,8 @@ export class LinkPanoItem extends PanoItem {
   override vfunc_button_release_event(event: ButtonEvent): boolean {
     super.vfunc_button_release_event(event);
     if (
-      event.button === 1 &&
-      event.modifier_state === ModifierType.CONTROL_MASK &&
+      event.get_button() === 1 &&
+      event.get_state() === ModifierType.CONTROL_MASK &&
       this.settings.get_boolean('open-links-in-browser')
     ) {
       openLinkInBrowser(this.dbItem.content);

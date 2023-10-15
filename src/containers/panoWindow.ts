@@ -1,4 +1,4 @@
-import { AnimationMode, EVENT_PROPAGATE, KEY_Escape, KeyEvent } from '@gi-types/clutter10';
+import { AnimationMode, EVENT_PROPAGATE, KEY_Escape } from '@gi-types/clutter10';
 import { Settings } from '@gi-types/gio2';
 import { Global } from '@gi-types/shell0';
 import { BoxLayout, ThemeContext } from '@gi-types/st1';
@@ -6,6 +6,7 @@ import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { MonitorBox } from '@pano/components/monitorBox';
 import { PanoScrollView } from '@pano/components/panoScrollView';
 import { SearchBox } from '@pano/components/searchBox';
+import { KeyEvent } from '@pano/types/clutter';
 import { ClipboardManager } from '@pano/utils/clipboardManager';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
@@ -210,7 +211,7 @@ export class PanoWindow extends BoxLayout {
   }
 
   override vfunc_key_press_event(event: KeyEvent): boolean {
-    if (event.keyval === KEY_Escape) {
+    if (event.get_key_symbol() === KEY_Escape) {
       this.hide();
     }
 

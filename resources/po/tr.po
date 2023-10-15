@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"X-Generator: fill-pot-po/2.1.9\n"
+"X-Generator: fill-pot-po/2.2.4\n"
 
 #: src/components/indicator/clearHistoryDialog.ts:23
 msgid "Cancel"
@@ -31,7 +31,7 @@ msgstr "Gizli Mod"
 msgid "Settings"
 msgstr "Ayarlar"
 
-#: src/components/linkPanoItem.ts:47
+#: src/components/linkPanoItem.ts:46
 msgid "No Description"
 msgstr ""
 

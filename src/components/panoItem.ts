@@ -1,6 +1,5 @@
 import {
   ActorAlign,
-  ButtonEvent,
   EVENT_PROPAGATE,
   EVENT_STOP,
   get_current_event_time,
@@ -13,7 +12,6 @@ import {
   KEY_S,
   KEY_s,
   KEY_v,
-  KeyEvent,
   KeyState,
   ModifierType,
 } from '@gi-types/clutter10';
@@ -26,6 +24,7 @@ import { Global } from '@gi-types/shell0';
 import { BoxLayout, ThemeContext } from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItemHeader } from '@pano/components/panoItemHeader';
+import { ButtonEvent, KeyEvent } from '@pano/types/clutter';
 import { ClipboardManager } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
@@ -183,15 +182,22 @@ export class PanoItem extends BoxLayout {
     this.selected = selected;
   }
   override vfunc_key_press_event(event: KeyEvent): boolean {
-    if (event.keyval === KEY_Return || event.keyval === KEY_ISO_Enter || event.keyval === KEY_KP_Enter) {
+    if (
+      event.get_key_symbol() === KEY_Return ||
+      event.get_key_symbol() === KEY_ISO_Enter ||
+      event.get_key_symbol() === KEY_KP_Enter
+    ) {
       this.emit('activated');
       return EVENT_STOP;
     }
-    if (event.keyval === KEY_Delete || event.keyval === KEY_KP_Delete) {
+    if (event.get_key_symbol() === KEY_Delete || event.get_key_symbol() === KEY_KP_Delete) {
       this.emit('on-remove', JSON.stringify(this.dbItem));
       return EVENT_STOP;
     }
-    if ((event.keyval === KEY_S || event.keyval === KEY_s) && event.modifier_state === ModifierType.CONTROL_MASK) {
+    if (
+      (event.get_key_symbol() === KEY_S || event.get_key_symbol() === KEY_s) &&
+      event.get_state() === ModifierType.CONTROL_MASK
+    ) {
       this.dbItem = { ...this.dbItem, isFavorite: !this.dbItem.isFavorite };
       this.emit('on-favorite', JSON.stringify(this.dbItem));
       return EVENT_STOP;
@@ -200,7 +206,7 @@ export class PanoItem extends BoxLayout {
   }
 
   override vfunc_button_release_event(event: ButtonEvent): boolean {
-    if (event.button === 1) {
+    if (event.get_button() === 1) {
       this.emit('activated');
       return EVENT_STOP;
     }
