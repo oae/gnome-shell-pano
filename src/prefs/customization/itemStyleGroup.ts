@@ -1,4 +1,4 @@
-import { PreferencesGroup } from '@girs/adw-1';
+import Adw from '@girs/adw-1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { CodeItemStyleRow } from '@pano/prefs/customization/codeItemStyle';
 import { ColorItemStyleRow } from '@pano/prefs/customization/colorItemStyle';
@@ -11,7 +11,7 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 import { gettext } from '@pano/utils/shell';
 
 @registerGObjectClass
-export class ItemStyleGroup extends PreferencesGroup {
+export class ItemStyleGroup extends Adw.PreferencesGroup {
   constructor(ext: ExtensionBase) {
     const _ = gettext(ext);
     super({

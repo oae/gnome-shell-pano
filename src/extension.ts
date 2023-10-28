@@ -56,6 +56,12 @@ export default class PanoExtension extends Extension {
     this.settings.connect('changed::database-location', () => {
       const newDBpath = this.settings.get_string('database-location');
 
+      if (newDBpath === null) {
+        //TODO better error handling
+        console.error("The new DB Path is invalid (since it's null)!");
+        return;
+      }
+
       if (this.isEnabled) {
         this.disable();
         moveDbFile(this.lastDBpath, newDBpath);

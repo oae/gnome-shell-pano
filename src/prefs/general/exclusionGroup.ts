@@ -1,4 +1,4 @@
-import { ActionRow, ExpanderRow, PreferencesGroup } from '@girs/adw-1';
+import Adw from '@girs/adw-1';
 import Gio from '@girs/gio-2.0';
 import Gtk4 from '@girs/gtk-4.0';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
@@ -6,8 +6,8 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
 
 @registerGObjectClass
-export class ExclusionGroup extends PreferencesGroup {
-  private exclusionRow: ExpanderRow;
+export class ExclusionGroup extends Adw.PreferencesGroup {
+  private exclusionRow: Adw.ExpanderRow;
   private exclusionButton: Gtk4.Button;
   private settings: Gio.Settings;
 
@@ -20,7 +20,7 @@ export class ExclusionGroup extends PreferencesGroup {
 
     this.settings = getCurrentExtensionSettings(ext);
 
-    this.exclusionRow = new ExpanderRow({
+    this.exclusionRow = new Adw.ExpanderRow({
       title: _('Excluded Apps'),
       subtitle: _('Pano will stop tracking if any window from the list is focussed'),
     });
@@ -47,8 +47,8 @@ export class ExclusionGroup extends PreferencesGroup {
     }
   }
 
-  private createEntryRow(ext: ExtensionBase): ActionRow {
-    const entryRow = new ActionRow();
+  private createEntryRow(ext: ExtensionBase): Adw.ActionRow {
+    const entryRow = new Adw.ActionRow();
     const _ = gettext(ext);
     const entry = new Gtk4.Entry({
       placeholder_text: _('Window class name'),
@@ -69,14 +69,12 @@ export class ExclusionGroup extends PreferencesGroup {
     });
 
     okButton.connect('clicked', () => {
-      if (entry.get_text().trim()) {
+      const text = entry.get_text();
+      if (text !== null && text.trim() !== '') {
         this.exclusionRow.remove(entryRow);
-        this.exclusionRow.add_row(this.createExcludedApp(entry.get_text().trim()));
+        this.exclusionRow.add_row(this.createExcludedApp(text.trim()));
         this.exclusionButton.set_sensitive(true);
-        this.settings.set_strv('exclusion-list', [
-          ...this.settings.get_strv('exclusion-list'),
-          entry.get_text().trim(),
-        ]);
+        this.settings.set_strv('exclusion-list', [...this.settings.get_strv('exclusion-list'), text.trim()]);
       }
     });
 
@@ -103,8 +101,8 @@ export class ExclusionGroup extends PreferencesGroup {
     return entryRow;
   }
 
-  private createExcludedApp(appClassName: string): ActionRow {
-    const excludedRow = new ActionRow({
+  private createExcludedApp(appClassName: string): Adw.ActionRow {
+    const excludedRow = new Adw.ActionRow({
       title: appClassName,
     });
 

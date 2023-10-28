@@ -1,11 +1,11 @@
-import { ActionRow } from '@girs/adw-1';
+import Adw from '@girs/adw-1';
 import Gio from '@girs/gio-2.0';
 import Gtk4 from '@girs/gtk-4.0';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
 @registerGObjectClass
-export class WatchExclusionsRow extends ActionRow {
+export class WatchExclusionsRow extends Adw.ActionRow {
   private settings: Gio.Settings;
 
   constructor(ext: ExtensionBase) {

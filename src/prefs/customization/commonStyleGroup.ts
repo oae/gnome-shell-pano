@@ -1,4 +1,4 @@
-import { PreferencesGroup } from '@girs/adw-1';
+import Adw from '@girs/adw-1';
 import Gio from '@girs/gio-2.0';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { createColorRow, createDropdownRow, createFontRow, createSpinRow } from '@pano/prefs/customization/utils';
@@ -6,7 +6,7 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
 
 @registerGObjectClass
-export class CommonStyleGroup extends PreferencesGroup {
+export class CommonStyleGroup extends Adw.PreferencesGroup {
   private settings: Gio.Settings;
   constructor(ext: ExtensionBase) {
     const _ = gettext(ext);

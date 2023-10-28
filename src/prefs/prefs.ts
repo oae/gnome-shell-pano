@@ -1,5 +1,5 @@
-import Gdk4 from '@gi-types/gdk4';
-import { PreferencesWindow } from '@girs/adw-1';
+import Adw from '@girs/adw-1';
+import Gdk4 from '@girs/gdk-4.0';
 import Gtk4 from '@girs/gtk-4.0';
 import { ExtensionPreferences, gettext as _ } from '@gnome-shell/extensions/prefs';
 import { CustomizationPage } from '@pano/prefs/customization';
@@ -10,7 +10,7 @@ import { logger } from '@pano/utils/shell';
 const debug = logger('prefs');
 
 export default class PanoExtensionPreferences extends ExtensionPreferences {
-  fillPreferencesWindow(window: PreferencesWindow) {
+  fillPreferencesWindow(window: Adw.PreferencesWindow) {
     window.add(new GeneralPage(this));
     window.add(new CustomizationPage(this));
     window.add(new DangerZonePage(this));

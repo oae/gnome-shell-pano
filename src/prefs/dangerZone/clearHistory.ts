@@ -1,4 +1,4 @@
-import { ActionRow, Window } from '@girs/adw-1';
+import Adw from '@girs/adw-1';
 import Gio from '@girs/gio-2.0';
 import Gtk4 from '@girs/gtk-4.0';
 import type { ExtensionBase } from '@pano/types/extension/extension';
@@ -6,7 +6,7 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 import { gettext } from '@pano/utils/shell';
 
 @registerGObjectClass
-export class ClearHistoryRow extends ActionRow {
+export class ClearHistoryRow extends Adw.ActionRow {
   constructor(ext: ExtensionBase) {
     const _ = gettext(ext);
     super({
@@ -23,7 +23,7 @@ export class ClearHistoryRow extends ActionRow {
     clearHistoryButton.connect('clicked', () => {
       const md = new Gtk4.MessageDialog({
         text: _('Are you sure you want to clear history?'),
-        transient_for: this.get_root() as Window,
+        transient_for: this.get_root() as Adw.Window,
         destroy_with_parent: true,
         modal: true,
         visible: true,

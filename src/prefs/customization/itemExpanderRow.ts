@@ -1,4 +1,4 @@
-import { ExpanderRow } from '@girs/adw-1';
+import Adw from '@girs/adw-1';
 import Gio from '@girs/gio-2.0';
 import Gtk4 from '@girs/gtk-4.0';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
@@ -7,7 +7,7 @@ import { ICON_PACKS } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
 
 @registerGObjectClass
-export class ItemExpanderRow extends ExpanderRow {
+export class ItemExpanderRow extends Adw.ExpanderRow {
   protected extensionSettings: Gio.Settings;
 
   constructor(ext: ExtensionBase, title: string, subtitle: string, iconName: string) {

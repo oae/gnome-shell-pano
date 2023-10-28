@@ -1,4 +1,4 @@
-import { PreferencesGroup } from '@girs/adw-1';
+import Adw from '@girs/adw-1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { DBLocationRow } from '@pano/prefs/general/dbLocation';
 import { HistoryLengthRow } from '@pano/prefs/general/historyLength';
@@ -19,7 +19,7 @@ import { gettext } from '@pano/utils/shell';
 import { WiggleIndicatorRow } from './wiggleIndicator';
 
 @registerGObjectClass
-export class GeneralGroup extends PreferencesGroup {
+export class GeneralGroup extends Adw.PreferencesGroup {
   constructor(ext: ExtensionBase) {
     const _ = gettext(ext);
     super({

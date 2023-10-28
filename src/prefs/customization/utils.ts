@@ -1,11 +1,11 @@
-import { ActionRow } from '@girs/adw-1';
+import Adw from '@girs/adw-1';
 import Gdk4 from '@girs/gdk-4.0';
 import Gio from '@girs/gio-2.0';
 import Gtk4 from '@girs/gtk-4.0';
 import Pango from '@girs/pango-1.0';
 
 export const createColorRow = (title: string, subtitle: string, settings: Gio.Settings, schemaKey: string) => {
-  const colorRow = new ActionRow({
+  const colorRow = new Adw.ActionRow({
     title,
     subtitle,
   });
@@ -74,7 +74,7 @@ export const createSpinRow = (
   lower: number,
   upper: number,
 ) => {
-  const row = new ActionRow({
+  const row = new Adw.ActionRow({
     title,
     subtitle,
   });
@@ -130,7 +130,7 @@ export const createFontRow = (title: string, subtitle: string, settings: Gio.Set
       .get_default_value(`${schemaKey}-size`)
       ?.get_int32()}`;
 
-  const fontRow = new ActionRow({
+  const fontRow = new Adw.ActionRow({
     title,
     subtitle,
   });
@@ -197,7 +197,7 @@ export const createDropdownRow = (
   schemaKey: string,
   options: string[],
 ) => {
-  const row = new ActionRow({
+  const row = new Adw.ActionRow({
     title,
     subtitle,
   });
