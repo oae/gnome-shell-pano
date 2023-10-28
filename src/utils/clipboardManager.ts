@@ -71,8 +71,8 @@ const arraybufferEqual = (buf1: Uint8Array, buf2: Uint8Array) => {
     return false;
   }
 
-  const view1 = new DataView(buf1);
-  const view2 = new DataView(buf2);
+  const view1 = new DataView(buf1.buffer);
+  const view2 = new DataView(buf2.buffer);
 
   let i = buf1.byteLength;
   while (i--) {
