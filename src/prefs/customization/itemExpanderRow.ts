@@ -1,6 +1,6 @@
 import { ExpanderRow } from '@gi-types/adw1';
 import Gio from '@gi-types/gio2';
-import { Image } from '@gi-types/gtk4';
+import Gtk4 from '@gi-types/gtk4';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { ICON_PACKS } from '@pano/utils/panoItemType';
@@ -20,7 +20,7 @@ export class ItemExpanderRow extends ExpanderRow {
 
     const iconPack = this.extensionSettings.get_uint('icon-pack');
 
-    const image = Image.new_from_icon_name(`${ICON_PACKS[iconPack]}-${iconName}`);
+    const image = Gtk4.Image.new_from_icon_name(`${ICON_PACKS[iconPack]}-${iconName}`);
 
     this.extensionSettings.connect('changed::icon-pack', () => {
       const iconPack = this.extensionSettings.get_uint('icon-pack');

@@ -1,6 +1,6 @@
 import { ActionRow, ExpanderRow, PreferencesGroup } from '@gi-types/adw1';
 import Gio from '@gi-types/gio2';
-import { Align, Button, Entry } from '@gi-types/gtk4';
+import Gtk4 from '@gi-types/gtk4';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
@@ -8,7 +8,7 @@ import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
 @registerGObjectClass
 export class ExclusionGroup extends PreferencesGroup {
   private exclusionRow: ExpanderRow;
-  private exclusionButton: Button;
+  private exclusionButton: Gtk4.Button;
   private settings: Gio.Settings;
 
   constructor(ext: ExtensionBase) {
@@ -25,11 +25,11 @@ export class ExclusionGroup extends PreferencesGroup {
       subtitle: _('Pano will stop tracking if any window from the list is focussed'),
     });
 
-    this.exclusionButton = new Button({
+    this.exclusionButton = new Gtk4.Button({
       icon_name: 'list-add-symbolic',
       css_classes: ['flat'],
-      valign: Align.CENTER,
-      halign: Align.CENTER,
+      valign: Gtk4.Align.CENTER,
+      halign: Gtk4.Align.CENTER,
     });
 
     this.exclusionButton.connect('clicked', () => {
@@ -50,10 +50,10 @@ export class ExclusionGroup extends PreferencesGroup {
   private createEntryRow(ext: ExtensionBase): ActionRow {
     const entryRow = new ActionRow();
     const _ = gettext(ext);
-    const entry = new Entry({
+    const entry = new Gtk4.Entry({
       placeholder_text: _('Window class name'),
-      halign: Align.FILL,
-      valign: Align.CENTER,
+      halign: Gtk4.Align.FILL,
+      valign: Gtk4.Align.CENTER,
       hexpand: true,
     });
 
@@ -61,11 +61,11 @@ export class ExclusionGroup extends PreferencesGroup {
       entry.grab_focus();
     });
 
-    const okButton = new Button({
+    const okButton = new Gtk4.Button({
       css_classes: ['flat'],
       icon_name: 'emblem-ok-symbolic',
-      valign: Align.CENTER,
-      halign: Align.CENTER,
+      valign: Gtk4.Align.CENTER,
+      halign: Gtk4.Align.CENTER,
     });
 
     okButton.connect('clicked', () => {
@@ -84,11 +84,11 @@ export class ExclusionGroup extends PreferencesGroup {
       okButton.emit('clicked');
     });
 
-    const cancelButton = new Button({
+    const cancelButton = new Gtk4.Button({
       css_classes: ['flat'],
       icon_name: 'window-close-symbolic',
-      valign: Align.CENTER,
-      halign: Align.CENTER,
+      valign: Gtk4.Align.CENTER,
+      halign: Gtk4.Align.CENTER,
     });
 
     cancelButton.connect('clicked', () => {
@@ -108,11 +108,11 @@ export class ExclusionGroup extends PreferencesGroup {
       title: appClassName,
     });
 
-    const removeButton = new Button({
+    const removeButton = new Gtk4.Button({
       css_classes: ['destructive-action'],
       icon_name: 'edit-delete-symbolic',
-      valign: Align.CENTER,
-      halign: Align.CENTER,
+      valign: Gtk4.Align.CENTER,
+      halign: Gtk4.Align.CENTER,
     });
     removeButton.connect('clicked', () => {
       this.exclusionRow.remove(excludedRow);
