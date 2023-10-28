@@ -141,33 +141,9 @@ const builds = [
     },
     external,
     plugins: [
-      commonjs(/* {
-        ignore: (name) => {
-          console.log("ign", name)
-
-
-          return true
-        },
-        requireReturnsDefault: (name) => {
-          console.log("def", name)
-
-
-          return true
-        },
-        esmExternals: (name) => {
-          console.log("esm", name)
-
-
-          //  false => namespace import
-
-          // true => adhere to requireReturnsDefault
-
-          return true
-        }
-      } */),
+      commonjs(),
       nodeResolve({
         preferBuiltins: false,
-
       }),
       typescript({
         tsconfig: './tsconfig.json',
