@@ -2,7 +2,7 @@ import Clutter from '@girs/clutter-12';
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
 import GObject from '@girs/gobject-2.0';
-import { Point } from '@girs/graphene-1.0';
+import Graphene from '@girs/graphene-1.0';
 import Meta from '@girs/meta-12';
 import Shell from '@girs/shell-12';
 import St1 from '@girs/st-12';
@@ -53,7 +53,7 @@ export class PanoItem extends St1.BoxLayout {
     super({
       name: 'pano-item',
       visible: true,
-      pivot_point: new Point({ x: 0.5, y: 0.5 }),
+      pivot_point: Graphene.Point.alloc().init(0.5, 0.5),
       reactive: true,
       style_class: 'pano-item',
       vertical: true,
