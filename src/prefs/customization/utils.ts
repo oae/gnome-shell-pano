@@ -1,5 +1,5 @@
 import { ActionRow } from '@gi-types/adw1';
-import { RGBA } from '@gi-types/gdk4';
+import Gdk4 from '@gi-types/gdk4';
 import Gio from '@gi-types/gio2';
 import Gtk4 from '@gi-types/gtk4';
 import { SCALE } from '@gi-types/pango1';
@@ -17,7 +17,7 @@ export const createColorRow = (title: string, subtitle: string, settings: Gio.Se
     use_alpha: true,
   });
 
-  const rgba = new RGBA();
+  const rgba = new Gdk4.RGBA();
   rgba.parse(settings.get_string(schemaKey));
   colorButton.set_rgba(rgba);
 
@@ -51,7 +51,7 @@ export const createColorRow = (title: string, subtitle: string, settings: Gio.Se
       clearButton.sensitive = true;
     }
 
-    const rgba = new RGBA();
+    const rgba = new Gdk4.RGBA();
     rgba.parse(value);
     colorButton.set_rgba(rgba);
   });

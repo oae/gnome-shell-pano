@@ -1,5 +1,5 @@
 import { PreferencesWindow } from '@gi-types/adw1';
-import { Display } from '@gi-types/gdk4';
+import Gdk4 from '@gi-types/gdk4';
 import Gtk4 from '@gi-types/gtk4';
 import { ExtensionPreferences, gettext as _ } from '@gnome-shell/extensions/prefs';
 import { CustomizationPage } from '@pano/prefs/customization';
@@ -16,7 +16,7 @@ export default class PanoExtensionPreferences extends ExtensionPreferences {
     window.add(new DangerZonePage(this));
     window.search_enabled = true;
 
-    const display = Display.get_default();
+    const display = Gdk4.Display.get_default();
     if (display) {
       Gtk4.IconTheme.get_for_display(display).add_search_path(`${this.path}/icons/`);
     }
