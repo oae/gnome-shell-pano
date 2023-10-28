@@ -53,7 +53,7 @@ export class MonitorBox extends St1.BoxLayout {
     this._lightbox.highlight(_backgroundBin);
     this._lightbox.set({ style_class: 'pano-monitor-box' });
 
-    const _eventBlocker = new Actor({ reactive: true });
+    const _eventBlocker = new Clutter.Actor({ reactive: true });
     backgroundStack.add_actor(_eventBlocker);
     main.uiGroup.add_actor(this);
   }

@@ -9,7 +9,7 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 @registerGObjectClass
 export class ColorPanoItem extends PanoItem {
   private colorItemSettings: Gio.Settings;
-  private label: Label;
+  private label: St1.Label;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
     super(ext, clipboardManager, dbItem);

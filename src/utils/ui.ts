@@ -4,7 +4,6 @@ import Gio from '@gi-types/gio2';
 import GLib from '@gi-types/glib2';
 import Shell from '@gi-types/shell0';
 import St1 from '@gi-types/st1';
-import type Clutter from '@girs/clutter-12';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import * as animationUtils from '@gnome-shell/misc/animationUtils';
 import * as layout from '@gnome-shell/ui/layout';
@@ -99,7 +98,7 @@ export const getMonitorConstraintForIndex = (index: number) =>
 export const addTopChrome = (actor: Clutter.Actor, options?: any) => main.layoutManager.addTopChrome(actor, options);
 export const removeChrome = (actor: Clutter.Actor) => main.layoutManager.removeChrome(actor);
 
-let virtualKeyboard: null | VirtualInputDevice = null;
+let virtualKeyboard: null | Clutter.VirtualInputDevice = null;
 
 export const getVirtualKeyboard = () => {
   if (virtualKeyboard) {
@@ -134,16 +133,16 @@ export const WINDOW_POSITIONS = {
 export const getAlignment = (position: number) => {
   switch (position) {
     case WINDOW_POSITIONS.TOP:
-      return [ActorAlign.FILL, ActorAlign.START];
+      return [Clutter.ActorAlign.FILL, Clutter.ActorAlign.START];
     case WINDOW_POSITIONS.RIGHT:
-      return [ActorAlign.END, ActorAlign.FILL];
+      return [Clutter.ActorAlign.END, Clutter.ActorAlign.FILL];
     case WINDOW_POSITIONS.BOTTOM:
-      return [ActorAlign.FILL, ActorAlign.END];
+      return [Clutter.ActorAlign.FILL, Clutter.ActorAlign.END];
     case WINDOW_POSITIONS.LEFT:
-      return [ActorAlign.START, ActorAlign.FILL];
+      return [Clutter.ActorAlign.START, Clutter.ActorAlign.FILL];
   }
 
-  return [ActorAlign.FILL, ActorAlign.END];
+  return [Clutter.ActorAlign.FILL, Clutter.ActorAlign.END];
 };
 
 export const isVertical = (position: number) => {
