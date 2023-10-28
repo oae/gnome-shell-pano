@@ -1,4 +1,4 @@
-import { ActorAlign, EVENT_PROPAGATE, KEY_ISO_Enter, KEY_KP_Enter, KEY_Return, ModifierType } from '@girs/clutter-12';
+import Clutter from '@girs/clutter-12';
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
 import St1 from '@girs/st-12';
@@ -48,8 +48,8 @@ export class LinkPanoItem extends PanoItem {
       vertical: true,
       x_expand: true,
       y_expand: false,
-      y_align: ActorAlign.END,
-      x_align: ActorAlign.FILL,
+      y_align: Clutter.ActorAlign.END,
+      x_align: Clutter.ActorAlign.FILL,
     });
 
     this.titleLabel = new St1.Label({
@@ -77,8 +77,8 @@ export class LinkPanoItem extends PanoItem {
       vertical: true,
       x_expand: true,
       y_expand: true,
-      y_align: ActorAlign.FILL,
-      x_align: ActorAlign.FILL,
+      y_align: Clutter.ActorAlign.FILL,
+      x_align: Clutter.ActorAlign.FILL,
       style_class: 'image-container',
       style: `background-image: url(${imageFilePath});`,
     });
@@ -107,7 +107,7 @@ export class LinkPanoItem extends PanoItem {
     openLinkButton.connect('clicked', () => {
       this.emit('activated');
       openLinkInBrowser(this.dbItem.content);
-      return EVENT_PROPAGATE;
+      return Clutter.EVENT_PROPAGATE;
     });
 
     if (this.settings.get_boolean('open-links-in-browser')) {
@@ -167,27 +167,27 @@ export class LinkPanoItem extends PanoItem {
     super.vfunc_key_press_event(event);
     if (
       this.settings.get_boolean('open-links-in-browser') &&
-      event.get_state() === ModifierType.CONTROL_MASK &&
-      (event.get_key_symbol() === KEY_Return ||
-        event.get_key_symbol() === KEY_ISO_Enter ||
-        event.get_key_symbol() === KEY_KP_Enter)
+      event.get_state() === Clutter.ModifierType.CONTROL_MASK &&
+      (event.get_key_symbol() === Clutter.KEY_Return ||
+        event.get_key_symbol() === Clutter.KEY_ISO_Enter ||
+        event.get_key_symbol() === Clutter.KEY_KP_Enter)
     ) {
       openLinkInBrowser(this.dbItem.content);
     }
 
-    return EVENT_PROPAGATE;
+    return Clutter.EVENT_PROPAGATE;
   }
 
   override vfunc_button_release_event(event: ButtonEvent): boolean {
     super.vfunc_button_release_event(event);
     if (
       event.get_button() === 1 &&
-      event.get_state() === ModifierType.CONTROL_MASK &&
+      event.get_state() === Clutter.ModifierType.CONTROL_MASK &&
       this.settings.get_boolean('open-links-in-browser')
     ) {
       openLinkInBrowser(this.dbItem.content);
     }
 
-    return EVENT_PROPAGATE;
+    return Clutter.EVENT_PROPAGATE;
   }
 }
