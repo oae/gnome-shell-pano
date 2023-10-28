@@ -8,7 +8,7 @@ import {
 } from '@gi-types/clutter10';
 import Gio from '@gi-types/gio2';
 import GLib from '@gi-types/glib2';
-import { BoxLayout, Button, Icon, Label } from '@gi-types/st1';
+import St1 from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
 import { ButtonEvent, KeyEvent } from '@pano/types/clutter';
@@ -22,10 +22,10 @@ const DEFAULT_LINK_PREVIEW_IMAGE_NAME = 'link-preview.svg';
 @registerGObjectClass
 export class LinkPanoItem extends PanoItem {
   private linkItemSettings: Gio.Settings;
-  private metaContainer: BoxLayout;
-  private titleLabel: Label;
-  private descriptionLabel: Label;
-  private linkLabel: Label;
+  private metaContainer: St1.BoxLayout;
+  private titleLabel: St1.Label;
+  private descriptionLabel: St1.Label;
+  private linkLabel: St1.Label;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
     super(ext, clipboardManager, dbItem);
@@ -50,7 +50,7 @@ export class LinkPanoItem extends PanoItem {
 
     this.body.add_style_class_name('pano-item-body-link');
 
-    this.metaContainer = new BoxLayout({
+    this.metaContainer = new St1.BoxLayout({
       style_class: 'pano-item-body-meta-container',
       vertical: true,
       x_expand: true,
@@ -59,18 +59,18 @@ export class LinkPanoItem extends PanoItem {
       x_align: ActorAlign.FILL,
     });
 
-    this.titleLabel = new Label({
+    this.titleLabel = new St1.Label({
       text: titleText,
       style_class: 'link-title-label',
     });
 
-    this.descriptionLabel = new Label({
+    this.descriptionLabel = new St1.Label({
       text: descriptionText,
       style_class: 'link-description-label',
     });
     this.descriptionLabel.clutter_text.single_line_mode = true;
 
-    this.linkLabel = new Label({
+    this.linkLabel = new St1.Label({
       text: this.dbItem.content,
       style_class: 'link-label',
     });
@@ -80,7 +80,7 @@ export class LinkPanoItem extends PanoItem {
       imageFilePath = `file://${getCachePath(ext)}/${image}.png`;
     }
 
-    const imageContainer = new BoxLayout({
+    const imageContainer = new St1.BoxLayout({
       vertical: true,
       x_expand: true,
       y_expand: true,
@@ -101,12 +101,12 @@ export class LinkPanoItem extends PanoItem {
     this.setStyle();
     this.linkItemSettings.connect('changed', this.setStyle.bind(this));
 
-    const openLinkIcon = new Icon({
+    const openLinkIcon = new St1.Icon({
       icon_name: 'web-browser-symbolic',
       style_class: 'pano-item-action-button-icon',
     });
 
-    const openLinkButton = new Button({
+    const openLinkButton = new St1.Button({
       style_class: 'pano-item-action-button pano-item-open-link-button',
       child: openLinkIcon,
     });

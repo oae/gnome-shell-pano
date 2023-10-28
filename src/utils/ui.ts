@@ -3,7 +3,7 @@ import GdkPixbuf from '@gi-types/gdkpixbuf2';
 import Gio from '@gi-types/gio2';
 import GLib from '@gi-types/glib2';
 import { Global } from '@gi-types/shell0';
-import { ImageContent } from '@gi-types/st1';
+import St1 from '@gi-types/st1';
 import type Clutter from '@girs/clutter-12';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import * as animationUtils from '@gnome-shell/misc/animationUtils';
@@ -27,7 +27,10 @@ export const notify = (
   let notification;
   if (iconOrPixbuf) {
     if (iconOrPixbuf instanceof GdkPixbuf.Pixbuf) {
-      const content = ImageContent.new_with_preferred_size(iconOrPixbuf.width, iconOrPixbuf.height) as ImageContent;
+      const content = St1.ImageContent.new_with_preferred_size(
+        iconOrPixbuf.width,
+        iconOrPixbuf.height,
+      ) as St1.ImageContent;
       content.set_bytes(
         iconOrPixbuf.read_pixel_bytes(),
         pixelFormat || PixelFormat.RGBA_8888,

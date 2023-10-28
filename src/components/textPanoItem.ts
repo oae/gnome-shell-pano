@@ -1,6 +1,6 @@
 import Gio from '@gi-types/gio2';
 import { EllipsizeMode, WrapMode } from '@gi-types/pango1';
-import { Label } from '@gi-types/st1';
+import St1 from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
@@ -10,14 +10,14 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 @registerGObjectClass
 export class TextPanoItem extends PanoItem {
   private textItemSettings: Gio.Settings;
-  private label: Label;
+  private label: St1.Label;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
     super(ext, clipboardManager, dbItem);
 
     this.textItemSettings = this.settings.get_child('text-item');
 
-    this.label = new Label({
+    this.label = new St1.Label({
       style_class: 'pano-item-body-text-content',
     });
     this.label.clutter_text.line_wrap = true;

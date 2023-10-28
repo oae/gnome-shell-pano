@@ -19,14 +19,14 @@ import Gio from '@gi-types/gio2';
 import { MetaInfo, TYPE_BOOLEAN, TYPE_INT, TYPE_STRING } from '@gi-types/gobject2';
 import { Cursor } from '@gi-types/meta10';
 import { Global } from '@gi-types/shell0';
-import { BoxLayout, Entry, Icon, ThemeContext } from '@gi-types/st1';
+import St1 from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getPanoItemTypes, ICON_PACKS } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
 
 @registerGObjectClass
-export class SearchBox extends BoxLayout {
+export class SearchBox extends St1.BoxLayout {
   static metaInfo: MetaInfo = {
     GTypeName: 'SearchBox',
     Signals: {
@@ -43,7 +43,7 @@ export class SearchBox extends BoxLayout {
     },
   };
 
-  private search: Entry;
+  private search: St1.Entry;
   private currentIndex: number | null = null;
   private showFavorites = false;
   private settings: Gio.Settings;
@@ -63,9 +63,9 @@ export class SearchBox extends BoxLayout {
 
     this.settings = getCurrentExtensionSettings(ext);
 
-    const themeContext = ThemeContext.get_for_stage(Global.get().get_stage());
+    const themeContext = St1.ThemeContext.get_for_stage(Global.get().get_stage());
 
-    this.search = new Entry({
+    this.search = new St1.Entry({
       can_focus: true,
       hint_text: _('Type to search, Tab to cycle'),
       natural_width: 300 * themeContext.scaleFactor,
@@ -94,7 +94,7 @@ export class SearchBox extends BoxLayout {
       this.emitSearchTextChange();
     });
 
-    this.search.clutter_text.connect('key-press-event', (_: Entry, event: Event) => {
+    this.search.clutter_text.connect('key-press-event', (_: St1.Entry, event: Event) => {
       if (
         event.get_key_symbol() === KEY_Down ||
         (event.get_key_symbol() === KEY_Right &&
@@ -211,7 +211,7 @@ export class SearchBox extends BoxLayout {
   }
 
   private createSearchEntryIcon(iconNameOrProto: string | Gio.IconPrototype, styleClass: string) {
-    const icon = new Icon({
+    const icon = new St1.Icon({
       style_class: styleClass,
       icon_size: 13,
       track_hover: true,
@@ -237,7 +237,7 @@ export class SearchBox extends BoxLayout {
   }
 
   toggleFavorites() {
-    const icon = this.search.get_secondary_icon() as Icon;
+    const icon = this.search.get_secondary_icon() as St1.Icon;
     if (this.showFavorites) {
       icon.remove_style_class_name('active');
     } else {

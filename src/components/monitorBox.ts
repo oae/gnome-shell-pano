@@ -1,13 +1,13 @@
 import { Actor, BindConstraint, BindCoordinate, BinLayout, EVENT_STOP } from '@gi-types/clutter10';
 import { MetaInfo } from '@gi-types/gobject2';
 import { Global } from '@gi-types/shell0';
-import { Bin, BoxLayout, Widget } from '@gi-types/st1';
+import St1 from '@gi-types/st1';
 import * as layout from '@gnome-shell/ui/layout';
 import * as lightbox from '@gnome-shell/ui/lightbox';
 import * as main from '@gnome-shell/ui/main';
 import { registerGObjectClass } from '@pano/utils/gjs';
 @registerGObjectClass
-export class MonitorBox extends BoxLayout {
+export class MonitorBox extends St1.BoxLayout {
   static metaInfo: MetaInfo = {
     GTypeName: 'MonitorBox',
     Signals: {

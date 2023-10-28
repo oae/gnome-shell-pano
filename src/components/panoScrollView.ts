@@ -20,7 +20,7 @@ import {
 import Gio from '@gi-types/gio2';
 import { MetaInfo, TYPE_BOOLEAN, TYPE_STRING } from '@gi-types/gobject2';
 import { Global } from '@gi-types/shell0';
-import { Adjustment, BoxLayout, PolicyType, ScrollView } from '@gi-types/st1';
+import St1 from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
 import { KeyEvent, ScrollEvent } from '@pano/types/clutter';
@@ -34,7 +34,7 @@ import { isVertical } from '@pano/utils/ui';
 import { SearchBox } from './searchBox';
 
 @registerGObjectClass
-export class PanoScrollView extends ScrollView {
+export class PanoScrollView extends St1.ScrollView {
   static metaInfo: MetaInfo = {
     GTypeName: 'PanoScrollView',
     Signals: {
@@ -53,7 +53,7 @@ export class PanoScrollView extends ScrollView {
     },
   };
 
-  private list: BoxLayout;
+  private list: St1.BoxLayout;
   private settings: Gio.Settings;
   private currentFocus: PanoItem | null = null;
   private currentFilter: string;
@@ -76,7 +76,7 @@ export class PanoScrollView extends ScrollView {
 
     this.setScrollbarPolicy();
 
-    this.list = new BoxLayout({
+    this.list = new St1.BoxLayout({
       vertical: isVertical(this.settings.get_uint('window-position')),
       x_expand: true,
       y_expand: true,
@@ -101,7 +101,7 @@ export class PanoScrollView extends ScrollView {
       }
     };
 
-    this.connect('key-press-event', (_: ScrollView, event: Event) => {
+    this.connect('key-press-event', (_: St1.ScrollView, event: Event) => {
       if (
         event.get_key_symbol() === KEY_Tab ||
         event.get_key_symbol() === KEY_ISO_Left_Tab ||
@@ -176,9 +176,9 @@ export class PanoScrollView extends ScrollView {
 
   private setScrollbarPolicy() {
     if (isVertical(this.settings.get_uint('window-position'))) {
-      this.set_policy(PolicyType.NEVER, PolicyType.EXTERNAL);
+      this.set_policy(St1.PolicyType.NEVER, St1.PolicyType.EXTERNAL);
     } else {
-      this.set_policy(PolicyType.EXTERNAL, PolicyType.NEVER);
+      this.set_policy(St1.PolicyType.EXTERNAL, St1.PolicyType.NEVER);
     }
   }
 
@@ -459,7 +459,7 @@ export class PanoScrollView extends ScrollView {
   }
 
   override vfunc_scroll_event(event: ScrollEvent): boolean {
-    let adjustment: Adjustment | undefined;
+    let adjustment: St1.Adjustment | undefined;
 
     if (isVertical(this.settings.get_uint('window-position'))) {
       adjustment = this.vscroll.adjustment;

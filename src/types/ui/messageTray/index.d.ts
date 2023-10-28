@@ -18,7 +18,7 @@ export {
 
 import type Gio from '@gi-types/gio2';
 import GLib from '@gi-types/glib2';
-import type { ImageContent } from '@gi-types/st1';
+import St1 from '@gi-types/st1';
 import {
   NotificationBanner,
   NotificationDestroyedReason,
@@ -29,8 +29,8 @@ import {
 import type GObject from '@girs/gobject-2.0';
 export namespace Notification {
   export interface Params {
-    gicon?: Gio.Icon | ImageContent | null;
-    secondaryGIcon?: Gio.Icon | ImageContent | null;
+    gicon?: Gio.Icon | St1.ImageContent | null;
+    secondaryGIcon?: Gio.Icon | St1.ImageContent | null;
     bannerMarkup?: boolean;
     clear?: boolean;
     datetime?: GLib.DateTime | null;

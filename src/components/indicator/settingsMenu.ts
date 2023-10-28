@@ -8,7 +8,7 @@ import {
 } from '@gi-types/clutter10';
 import Gio from '@gi-types/gio2';
 import { MetaInfo, TYPE_BOOLEAN } from '@gi-types/gobject2';
-import { Icon } from '@gi-types/st1';
+import St1 from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import * as panelMenu from '@gnome-shell/ui/panelMenu';
 import * as popupMenu from '@gnome-shell/ui/popupMenu';
@@ -35,7 +35,7 @@ export class SettingsMenu extends panelMenu.Button {
   private settings: Gio.Settings;
   private incognitoChangeId: number;
   private clipboardChangeId: number;
-  private icon: Icon;
+  private icon: St1.Icon;
   private ext: ExtensionBase;
   private clipboardManager: ClipboardManager;
   private onToggle: () => void;
@@ -55,7 +55,7 @@ export class SettingsMenu extends panelMenu.Button {
     this.settings = getCurrentExtensionSettings(this.ext);
     const isInIncognito = this.settings.get_boolean('is-in-incognito');
 
-    this.icon = new Icon({
+    this.icon = new St1.Icon({
       gicon: Gio.icon_new_for_string(
         `${this.ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-indicator${
           isInIncognito ? '-incognito-symbolic' : '-symbolic'

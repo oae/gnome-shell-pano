@@ -21,7 +21,7 @@ import { MetaInfo, TYPE_STRING } from '@gi-types/gobject2';
 import { Point } from '@gi-types/graphene1';
 import { Cursor } from '@gi-types/meta10';
 import { Global } from '@gi-types/shell0';
-import { BoxLayout, ThemeContext } from '@gi-types/st1';
+import St1 from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItemHeader } from '@pano/components/panoItemHeader';
 import { ButtonEvent, KeyEvent } from '@pano/types/clutter';
@@ -32,7 +32,7 @@ import { getPanoItemTypes } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
 import { getVirtualKeyboard, WINDOW_POSITIONS } from '@pano/utils/ui';
 @registerGObjectClass
-export class PanoItem extends BoxLayout {
+export class PanoItem extends St1.BoxLayout {
   static metaInfo: MetaInfo = {
     GTypeName: 'PanoItem',
     Signals: {
@@ -50,7 +50,7 @@ export class PanoItem extends BoxLayout {
 
   protected header: PanoItemHeader;
   private timeoutId: number | undefined;
-  protected body: BoxLayout;
+  protected body: St1.BoxLayout;
   protected clipboardManager: ClipboardManager;
   public dbItem: DBItem;
   protected settings: Gio.Settings;
@@ -129,7 +129,7 @@ export class PanoItem extends BoxLayout {
       return EVENT_PROPAGATE;
     });
 
-    this.body = new BoxLayout({
+    this.body = new St1.BoxLayout({
       style_class: 'pano-item-body',
       clip_to_allocation: true,
       vertical: true,
@@ -142,7 +142,7 @@ export class PanoItem extends BoxLayout {
     this.add_child(this.header);
     this.add_child(this.body);
 
-    const themeContext = ThemeContext.get_for_stage(Global.get().get_stage());
+    const themeContext = St1.ThemeContext.get_for_stage(Global.get().get_stage());
 
     themeContext.connect('notify::scale-factor', () => {
       this.setBodyDimensions();
@@ -166,7 +166,7 @@ export class PanoItem extends BoxLayout {
       this.set_x_align(ActorAlign.START);
       this.set_y_align(ActorAlign.FILL);
     }
-    const { scaleFactor } = ThemeContext.get_for_stage(Global.get().get_stage());
+    const { scaleFactor } = St1.ThemeContext.get_for_stage(Global.get().get_stage());
     this.body.set_height(this.settings.get_int('item-size') * scaleFactor - this.header.get_height());
     this.body.set_width(this.settings.get_int('item-size') * scaleFactor);
   }

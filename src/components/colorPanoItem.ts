@@ -1,6 +1,6 @@
 import { ActorAlign, AlignAxis, AlignConstraint } from '@gi-types/clutter10';
 import Gio from '@gi-types/gio2';
-import { BoxLayout, Label } from '@gi-types/st1';
+import St1 from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
@@ -18,7 +18,7 @@ export class ColorPanoItem extends PanoItem {
 
     this.colorItemSettings = this.settings.get_child('color-item');
 
-    const colorContainer = new BoxLayout({
+    const colorContainer = new St1.BoxLayout({
       vertical: false,
       x_expand: true,
       y_expand: true,
@@ -28,7 +28,7 @@ export class ColorPanoItem extends PanoItem {
       style: `background-color: ${this.dbItem.content};`,
     });
 
-    this.label = new Label({
+    this.label = new St1.Label({
       x_align: ActorAlign.CENTER,
       y_align: ActorAlign.CENTER,
       x_expand: true,

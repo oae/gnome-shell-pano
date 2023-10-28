@@ -1,7 +1,7 @@
 import { ActorAlign } from '@gi-types/clutter10';
 import Gio from '@gi-types/gio2';
 import { EllipsizeMode, WrapMode } from '@gi-types/pango1';
-import { BoxLayout, Label } from '@gi-types/st1';
+import St1 from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
@@ -10,7 +10,7 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 @registerGObjectClass
 export class EmojiPanoItem extends PanoItem {
   private emojiItemSettings: Gio.Settings;
-  private label: Label;
+  private label: St1.Label;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
     super(ext, clipboardManager, dbItem);
@@ -19,7 +19,7 @@ export class EmojiPanoItem extends PanoItem {
 
     this.emojiItemSettings = this.settings.get_child('emoji-item');
 
-    const emojiContainer = new BoxLayout({
+    const emojiContainer = new St1.BoxLayout({
       vertical: false,
       x_expand: true,
       y_expand: true,
