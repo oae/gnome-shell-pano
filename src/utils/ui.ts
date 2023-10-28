@@ -1,5 +1,5 @@
 import { ActorAlign, get_default_backend, InputDeviceType, VirtualInputDevice } from '@gi-types/clutter10';
-import { Pixbuf } from '@gi-types/gdkpixbuf2';
+import GdkPixbuf from '@gi-types/gdkpixbuf2';
 import Gio from '@gi-types/gio2';
 import GLib from '@gi-types/glib2';
 import { Global } from '@gi-types/shell0';
@@ -18,7 +18,7 @@ export const notify = (
   ext: ExtensionBase,
   text: string,
   body: string,
-  iconOrPixbuf?: Pixbuf | Gio.Icon,
+  iconOrPixbuf?: GdkPixbuf.Pixbuf | Gio.Icon,
   pixelFormat?: PixelFormat,
 ): void => {
   const _ = gettext(ext);
@@ -26,7 +26,7 @@ export const notify = (
   main.messageTray.add(source);
   let notification;
   if (iconOrPixbuf) {
-    if (iconOrPixbuf instanceof Pixbuf) {
+    if (iconOrPixbuf instanceof GdkPixbuf.Pixbuf) {
       const content = ImageContent.new_with_preferred_size(iconOrPixbuf.width, iconOrPixbuf.height) as ImageContent;
       content.set_bytes(
         iconOrPixbuf.read_pixel_bytes(),

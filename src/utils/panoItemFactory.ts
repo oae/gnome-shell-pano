@@ -1,4 +1,4 @@
-import { Colorspace, Pixbuf } from '@gi-types/gdkpixbuf2';
+import GdkPixbuf from '@gi-types/gdkpixbuf2';
 import Gio from '@gi-types/gio2';
 import GLib from '@gi-types/glib2';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
@@ -174,7 +174,7 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
       const imageFilePath = `${getImagesPath(ext)}/${checksum}.png`;
       const imageFile = Gio.File.new_for_path(imageFilePath);
       imageFile.replace_contents(value, null, false, Gio.FileCreateFlags.REPLACE_DESTINATION, null);
-      const [, width, height] = Pixbuf.get_file_info(imageFilePath);
+      const [, width, height] = GdkPixbuf.Pixbuf.get_file_info(imageFilePath);
       return db.save({
         content: checksum,
         copyDate: new Date(),
@@ -391,7 +391,7 @@ const sendNotification = async (ext: ExtensionBase, dbItem: DBItem) => {
         ext,
         _('Image Copied'),
         _('Width: %spx, Height: %spx, Size: %s').format(width, height, prettyBytes(size)),
-        Pixbuf.new_from_file(`${getImagesPath(ext)}/${dbItem.content}.png`),
+        GdkPixbuf.Pixbuf.new_from_file(`${getImagesPath(ext)}/${dbItem.content}.png`),
       );
     } else if (dbItem.itemType === 'TEXT') {
       notify(ext, _('Text Copied'), dbItem.content.trim());
@@ -403,7 +403,7 @@ const sendNotification = async (ext: ExtensionBase, dbItem: DBItem) => {
       const { title, description, image }: { title: string; description: string; image: string } = JSON.parse(
         dbItem.metaData || '{}',
       );
-      const pixbuf = image ? Pixbuf.new_from_file(`${getCachePath(ext)}/${image}.png`) : undefined;
+      const pixbuf = image ? GdkPixbuf.Pixbuf.new_from_file(`${getCachePath(ext)}/${image}.png`) : undefined;
       notify(
         ext,
         decodeURI(`${_('Link Copied')}${title ? ` - ${title}` : ''}`),
@@ -413,7 +413,7 @@ const sendNotification = async (ext: ExtensionBase, dbItem: DBItem) => {
       );
     } else if (dbItem.itemType === 'COLOR') {
       // Create pixbuf from color
-      const pixbuf = Pixbuf.new(Colorspace.RGB, true, 8, 1, 1);
+      const pixbuf = GdkPixbuf.Pixbuf.new(GdkPixbuf.Colorspace.RGB, true, 8, 1, 1);
       let color: string | null = null;
       // check if content has alpha
       if (dbItem.content.includes('rgba')) {
