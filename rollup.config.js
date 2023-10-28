@@ -60,46 +60,46 @@ const PreferencesEntries = Object.fromEntries(Object.entries(importsPrefs).map((
 
 
 const thirdParty = [
-  ['htmlparser2', "*"],
-  ['prismjs', "default"],
-  ['date-fns/formatDistanceToNow', "normal"],
-  ['date-fns/locale', "*"],
-  ['hex-color-converter', "*"],
-  ['is-url', "*"],
-  ['pretty-bytes', "default"],
-  ['validate-color', "normal"],
-  ['highlight.js/lib/core', "normal"],
-  ['highlight.js/lib/languages/bash', "normal"],
-  ['highlight.js/lib/languages/c', "normal"],
-  ['highlight.js/lib/languages/cpp', "normal"],
-  ['highlight.js/lib/languages/csharp', "normal"],
-  ['highlight.js/lib/languages/dart', "normal"],
-  ['highlight.js/lib/languages/go', "normal"],
-  ['highlight.js/lib/languages/groovy', "normal"],
-  ['highlight.js/lib/languages/haskell', "normal"],
-  ['highlight.js/lib/languages/java', "normal"],
-  ['highlight.js/lib/languages/javascript', "normal"],
-  ['highlight.js/lib/languages/julia', "normal"],
-  ['highlight.js/lib/languages/kotlin', "normal"],
-  ['highlight.js/lib/languages/lua', "normal"],
-  ['highlight.js/lib/languages/markdown', "normal"],
-  ['highlight.js/lib/languages/perl', "normal"],
-  ['highlight.js/lib/languages/php', "normal"],
-  ['highlight.js/lib/languages/python', "normal"],
-  ['highlight.js/lib/languages/ruby', "normal"],
-  ['highlight.js/lib/languages/rust', "normal"],
-  ['highlight.js/lib/languages/scala', "normal"],
-  ['highlight.js/lib/languages/shell', "normal"],
-  ['highlight.js/lib/languages/sql', "normal"],
-  ['highlight.js/lib/languages/swift', "normal"],
-  ['highlight.js/lib/languages/typescript', "normal"],
-  ['highlight.js/lib/languages/yaml', "normal"]
+  'htmlparser2',
+  'prismjs',
+  'date-fns/formatDistanceToNow',
+  'date-fns/locale',
+  'hex-color-converter',
+  'is-url',
+  'pretty-bytes',
+  'validate-color',
+  'highlight.js/lib/core',
+  'highlight.js/lib/languages/bash',
+  'highlight.js/lib/languages/c',
+  'highlight.js/lib/languages/cpp',
+  'highlight.js/lib/languages/csharp',
+  'highlight.js/lib/languages/dart',
+  'highlight.js/lib/languages/go',
+  'highlight.js/lib/languages/groovy',
+  'highlight.js/lib/languages/haskell',
+  'highlight.js/lib/languages/java',
+  'highlight.js/lib/languages/javascript',
+  'highlight.js/lib/languages/julia',
+  'highlight.js/lib/languages/kotlin',
+  'highlight.js/lib/languages/lua',
+  'highlight.js/lib/languages/markdown',
+  'highlight.js/lib/languages/perl',
+  'highlight.js/lib/languages/php',
+  'highlight.js/lib/languages/python',
+  'highlight.js/lib/languages/ruby',
+  'highlight.js/lib/languages/rust',
+  'highlight.js/lib/languages/scala',
+  'highlight.js/lib/languages/shell',
+  'highlight.js/lib/languages/sql',
+  'highlight.js/lib/languages/swift',
+  'highlight.js/lib/languages/typescript',
+  'highlight.js/lib/languages/yaml',
 ];
 
 
 const GlobalEntries = {}
 
-const thirdPartyBuild = thirdParty.map(([pkg]) => {
+const thirdPartyBuild = thirdParty.map((pkg) => {
   const sanitizedPkg = pkg.split('/').join('_').replaceAll('-', '_').replaceAll('.', '_').replaceAll('@', '');
   GlobalEntries[pkg] = `./thirdparty/${sanitizedPkg}.js`
 
@@ -122,7 +122,6 @@ const thirdPartyBuild = thirdParty.map(([pkg]) => {
   };
 });
 
-const external = [...thirdParty.map(([name]) => name)];
 
 const builds = [
   ...thirdPartyBuild,
@@ -139,7 +138,7 @@ const builds = [
       paths: { ...ExtensionEntries, ...GlobalEntries },
       assetFileNames: '[name][extname]'
     },
-    external,
+    external: thirdParty,
     plugins: [
       commonjs(),
       nodeResolve({
@@ -178,7 +177,7 @@ const builds = [
     treeshake: {
       moduleSideEffects: 'no-external',
     },
-    external,
+    external: thirdParty,
     plugins: [
       commonjs(),
       nodeResolve({
