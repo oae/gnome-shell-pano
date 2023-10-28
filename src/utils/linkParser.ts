@@ -1,12 +1,12 @@
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
-import { Message, Session } from '@girs/soup-3.0';
+import Soup from '@girs/soup-3.0';
 import { ExtensionBase } from '@pano/types/extension/extension';
 import { getCachePath, logger } from '@pano/utils/shell';
 import * as htmlparser2 from 'htmlparser2';
 const DEFAULT_USER_AGENT = 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)';
 
-const session = new Session();
+const session = new Soup.Session();
 session.timeout = 5;
 
 const decoder = new TextDecoder();
@@ -20,7 +20,7 @@ export const getDocument = async (url: string): Promise<{ title: string; descrip
     imageUrl: '',
   };
   try {
-    const message = Message.new('GET', url);
+    const message = Soup.Message.new('GET', url);
     message.request_headers.append('User-Agent', DEFAULT_USER_AGENT);
     const response = await session.send_and_read_async(message, GLib.PRIORITY_DEFAULT, null);
 
@@ -121,10 +121,7 @@ export const getDocument = async (url: string): Promise<{ title: string; descrip
   return defaultResult;
 };
 
-export const getImage = async (
-  ext: ExtensionBase,
-  imageUrl: string,
-): Promise<[string | null, Gio.FilePrototype | null]> => {
+export const getImage = async (ext: ExtensionBase, imageUrl: string): Promise<[string | null, Gio.File | null]> => {
   if (imageUrl && imageUrl.startsWith('http')) {
     try {
       const checksum = GLib.compute_checksum_for_string(GLib.ChecksumType.MD5, imageUrl, imageUrl.length);
@@ -134,7 +131,7 @@ export const getImage = async (
         return [checksum, cachedImage];
       }
 
-      const message = Message.new('GET', imageUrl);
+      const message = Soup.Message.new('GET', imageUrl);
       message.request_headers.append('User-Agent', DEFAULT_USER_AGENT);
       const response = await session.send_and_read_async(message, GLib.PRIORITY_DEFAULT, null);
       if (!response) {
