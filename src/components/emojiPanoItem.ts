@@ -1,6 +1,6 @@
 import Clutter from '@girs/clutter-12';
 import Gio from '@girs/gio-2.0';
-import { EllipsizeMode, WrapMode } from '@girs/pango-1.0';
+import Pango from '@girs/pango-1.0';
 import St1 from '@girs/st-12';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
@@ -37,8 +37,8 @@ export class EmojiPanoItem extends PanoItem {
       style_class: 'pano-item-body-emoji-content',
     });
     this.label.clutter_text.line_wrap = true;
-    this.label.clutter_text.line_wrap_mode = WrapMode.WORD_CHAR;
-    this.label.clutter_text.ellipsize = EllipsizeMode.END;
+    this.label.clutter_text.line_wrap_mode = Pango.WrapMode.WORD_CHAR;
+    this.label.clutter_text.ellipsize = Pango.EllipsizeMode.END;
     emojiContainer.add_child(this.label);
 
     this.body.add_child(emojiContainer);

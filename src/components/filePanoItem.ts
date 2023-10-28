@@ -1,6 +1,6 @@
 import Clutter from '@girs/clutter-12';
 import Gio from '@girs/gio-2.0';
-import { EllipsizeMode } from '@girs/pango-1.0';
+import Pango from '@girs/pango-1.0';
 import St1 from '@girs/st-12';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
@@ -60,7 +60,7 @@ export class FilePanoItem extends PanoItem {
           x_align: Clutter.ActorAlign.FILL,
           x_expand: true,
         });
-        uriLabel.clutter_text.ellipsize = EllipsizeMode.MIDDLE;
+        uriLabel.clutter_text.ellipsize = Pango.EllipsizeMode.MIDDLE;
         bl.add_child(uriLabel);
         container.add_child(bl);
       });

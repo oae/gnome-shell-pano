@@ -1,12 +1,5 @@
 import Gio from '@girs/gio-2.0';
-import {
-  get_user_cache_dir,
-  get_user_data_dir,
-  PRIORITY_DEFAULT,
-  Source,
-  SOURCE_REMOVE,
-  timeout_add,
-} from '@girs/glib-2.0';
+import GLib from '@girs/glib-2.0';
 import { ATTR_EVENT_ID, Context } from '@girs/gsound-1.0';
 import { ExtensionBase, GetTextString } from '@gnome-shell/extensions/extension';
 
@@ -17,9 +10,9 @@ export const logger =
 
 const debug = logger('shell-utils');
 
-const deleteFile = (file: Gio.FilePrototype) => {
+const deleteFile = (file: Gio.File) => {
   return new Promise((resolve, reject) => {
-    file.delete_async(PRIORITY_DEFAULT, null, (_file, res) => {
+    file.delete_async(GLib.PRIORITY_DEFAULT, null, (_file, res) => {
       try {
         resolve(file.delete_finish(res));
       } catch (e) {
@@ -29,13 +22,13 @@ const deleteFile = (file: Gio.FilePrototype) => {
   });
 };
 
-const deleteDirectory = async (file: Gio.FilePrototype) => {
+const deleteDirectory = async (file: Gio.File) => {
   try {
     const iter: Gio.FileEnumerator | undefined = await new Promise((resolve, reject) => {
       file.enumerate_children_async(
         'standard::type',
         Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
-        PRIORITY_DEFAULT,
+        GLib.PRIORITY_DEFAULT,
         null,
         (file, res) => {
           try {
@@ -55,7 +48,7 @@ const deleteDirectory = async (file: Gio.FilePrototype) => {
 
     while (true) {
       const infos: Gio.FileInfo[] = await new Promise((resolve, reject) => {
-        iter.next_files_async(10, PRIORITY_DEFAULT, null, (it, res) => {
+        iter.next_files_async(10, GLib.PRIORITY_DEFAULT, null, (it, res) => {
           try {
             resolve(it ? it.next_files_finish(res) : []);
           } catch (e) {
@@ -99,11 +92,11 @@ const deleteDirectory = async (file: Gio.FilePrototype) => {
   }
 };
 
-export const getAppDataPath = (ext: ExtensionBase): string => `${get_user_data_dir()}/${ext.uuid}`;
+export const getAppDataPath = (ext: ExtensionBase): string => `${GLib.get_user_data_dir()}/${ext.uuid}`;
 
 export const getImagesPath = (ext: ExtensionBase): string => `${getAppDataPath(ext)}/images`;
 
-export const getCachePath = (ext: ExtensionBase): string => `${get_user_cache_dir()}/${ext.uuid}`;
+export const getCachePath = (ext: ExtensionBase): string => `${GLib.get_user_cache_dir()}/${ext.uuid}`;
 
 export const setupAppDirs = (ext: ExtensionBase): void => {
   const imagePath = Gio.File.new_for_path(getImagesPath(ext));
@@ -211,14 +204,14 @@ export function debounce(func, wait) {
       sourceId = null;
       func.apply(this, args);
 
-      return SOURCE_REMOVE;
+      return GLib.SOURCE_REMOVE;
     };
 
     if (sourceId) {
-      Source.remove(sourceId);
+      GLib.Source.remove(sourceId);
       debounceIds = debounceIds.filter((id) => id !== sourceId);
     }
-    sourceId = timeout_add(PRIORITY_DEFAULT, wait, debouncedFunc);
+    sourceId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, wait, debouncedFunc);
     debounceIds.push(sourceId);
   };
 }

@@ -1,8 +1,8 @@
-import Gdk4 from '@gi-types/gdk4';
 import { ActionRow } from '@girs/adw-1';
+import Gdk4 from '@girs/gdk-4.0';
 import Gio from '@girs/gio-2.0';
 import Gtk4 from '@girs/gtk-4.0';
-import { SCALE } from '@girs/pango-1.0';
+import Pango from '@girs/pango-1.0';
 
 export const createColorRow = (title: string, subtitle: string, settings: Gio.Settings, schemaKey: string) => {
   const colorRow = new ActionRow({
@@ -145,7 +145,7 @@ export const createFontRow = (title: string, subtitle: string, settings: Gio.Set
 
   fontButton.connect('font-set', () => {
     const fontFamily = fontButton.get_font_family()?.get_name();
-    const fontSize = fontButton.get_font_size() / SCALE;
+    const fontSize = fontButton.get_font_size() / Pango.SCALE;
 
     settings.set_string(`${schemaKey}-family`, fontFamily || 'Cantarell Regular');
     settings.set_int(`${schemaKey}-size`, fontSize || 11);
