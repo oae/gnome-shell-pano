@@ -1,11 +1,11 @@
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
-import { MetaInfo, Object } from '@girs/gobject-2.0';
+import GObject from '@girs/gobject-2.0';
 import Meta from '@girs/meta-12';
 import Shell from '@girs/shell-12';
 import St1 from '@girs/st-12';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
-import { registerGObjectClass } from '@pano/utils/gjs';
+import { registerGObjectClass, SignalRepresentationType } from '@pano/utils/gjs';
 import { debounce, getCurrentExtensionSettings, logger } from '@pano/utils/shell';
 
 const global = Shell.Global.get();
@@ -50,8 +50,8 @@ type ClipboardContentType =
     };
 
 @registerGObjectClass
-export class ClipboardContent extends Object {
-  static metaInfo: MetaInfo = {
+export class ClipboardContent extends GObject.Object {
+  static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, Record<string, never>> = {
     GTypeName: 'ClipboardContent',
   };
   content: ClipboardContentType;
@@ -107,9 +107,13 @@ const compareClipboardContent = (content1: ClipboardContentType, content2: Clipb
   return false;
 };
 
+interface ClipboardManagerSignals {
+  changed: SignalRepresentationType<[GObject.GType<GObject.Object>]>;
+}
+
 @registerGObjectClass
-export class ClipboardManager extends Object {
-  static metaInfo: MetaInfo = {
+export class ClipboardManager extends GObject.Object {
+  static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, ClipboardManagerSignals> = {
     GTypeName: 'PanoClipboardManager',
     Signals: {
       changed: {
@@ -211,21 +215,21 @@ export class ClipboardManager extends Object {
       this.clipboard.set_text(St1.ClipboardType.CLIPBOARD, content.value);
     } else if (content.type === ContentType.IMAGE) {
       if (syncPrimary) {
-        this.clipboard.set_content(St1.ClipboardType.PRIMARY, MimeType.IMAGE[0], content.value);
+        this.clipboard.set_content(St1.ClipboardType.PRIMARY, MimeType.IMAGE[0], new GLib.Bytes(content.value));
       }
-      this.clipboard.set_content(St1.ClipboardType.CLIPBOARD, MimeType.IMAGE[0], content.value);
+      this.clipboard.set_content(St1.ClipboardType.CLIPBOARD, MimeType.IMAGE[0], new GLib.Bytes(content.value));
     } else if (content.type === ContentType.FILE) {
       if (syncPrimary) {
         this.clipboard.set_content(
           St1.ClipboardType.PRIMARY,
           MimeType.GNOME_FILE[0],
-          new TextEncoder().encode([content.value.operation, ...content.value.fileList].join('\n')),
+          new GLib.Bytes(new TextEncoder().encode([content.value.operation, ...content.value.fileList].join('\n'))),
         );
       }
       this.clipboard.set_content(
         St1.ClipboardType.CLIPBOARD,
         MimeType.GNOME_FILE[0],
-        new TextEncoder().encode([content.value.operation, ...content.value.fileList].join('\n')),
+        new GLib.Bytes(new TextEncoder().encode([content.value.operation, ...content.value.fileList].join('\n'))),
       );
     }
   }
@@ -289,7 +293,7 @@ export class ClipboardManager extends Object {
           resolve(null);
         });
       } else if (this.haveMimeType(cbMimeTypes, MimeType.TEXT)) {
-        this.clipboard.get_text(clipboardType, (_: St1.Clipboard, text: string) => {
+        this.clipboard.get_text(clipboardType, (_: St1.Clipboard, text: string | null) => {
           if (text && text.trim()) {
             resolve(
               new ClipboardContent({

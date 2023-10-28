@@ -1,24 +1,6 @@
-import {
-  Actor,
-  AnimationMode,
-  Event,
-  EVENT_PROPAGATE,
-  EVENT_STOP,
-  KEY_Alt_L,
-  KEY_Alt_R,
-  KEY_BackSpace,
-  KEY_Down,
-  KEY_ISO_Left_Tab,
-  KEY_KP_Tab,
-  KEY_Left,
-  KEY_Right,
-  KEY_Tab,
-  KEY_Up,
-  keysym_to_unicode,
-  ScrollDirection,
-} from '@girs/clutter-12';
+import Clutter from '@girs/clutter-12';
 import Gio from '@girs/gio-2.0';
-import { MetaInfo, TYPE_BOOLEAN, TYPE_STRING } from '@girs/gobject-2.0';
+import GObject from '@girs/gobject-2.0';
 import Shell from '@girs/shell-12';
 import St1 from '@girs/st-12';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
@@ -26,28 +8,45 @@ import { PanoItem } from '@pano/components/panoItem';
 import { KeyEvent, ScrollEvent } from '@pano/types/clutter';
 import { ClipboardContent, ClipboardManager } from '@pano/utils/clipboardManager';
 import { ClipboardQueryBuilder, db, ItemType } from '@pano/utils/db';
-import { registerGObjectClass } from '@pano/utils/gjs';
+import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { createPanoItem, createPanoItemFromDb, removeItemResources } from '@pano/utils/panoItemFactory';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
 import { isVertical } from '@pano/utils/ui';
 
 import { SearchBox } from './searchBox';
 
+export type PanoScrollViewSignalType =
+  | 'scroll-focus-out'
+  | 'scroll-update-list'
+  | 'scroll-alt-press'
+  | 'scroll-tab-press'
+  | 'scroll-backspace-press'
+  | 'scroll-key-press';
+
+interface PanoScrollViewSignals extends SignalsDefinition<PanoScrollViewSignalType> {
+  'scroll-focus-out': Record<string, never>;
+  'scroll-update-list': Record<string, never>;
+  'scroll-alt-press': Record<string, never>;
+  'scroll-tab-press': SignalRepresentationType<[GObject.GType<boolean>]>;
+  'scroll-backspace-press': Record<string, never>;
+  'scroll-key-press': SignalRepresentationType<[GObject.GType<string>]>;
+}
+
 @registerGObjectClass
 export class PanoScrollView extends St1.ScrollView {
-  static metaInfo: MetaInfo = {
+  static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, PanoScrollViewSignals> = {
     GTypeName: 'PanoScrollView',
     Signals: {
       'scroll-focus-out': {},
       'scroll-update-list': {},
       'scroll-alt-press': {},
       'scroll-tab-press': {
-        param_types: [TYPE_BOOLEAN],
+        param_types: [GObject.TYPE_BOOLEAN],
         accumulator: 0,
       },
       'scroll-backspace-press': {},
       'scroll-key-press': {
-        param_types: [TYPE_STRING],
+        param_types: [GObject.TYPE_STRING],
         accumulator: 0,
       },
     },
@@ -95,51 +94,51 @@ export class PanoScrollView extends St1.ScrollView {
       );
 
       if (isPanoVertical) {
-        return (symbol === KEY_Up && currentItemIndex === 0) || symbol === KEY_Left;
+        return (symbol === Clutter.KEY_Up && currentItemIndex === 0) || symbol === Clutter.KEY_Left;
       } else {
-        return (symbol === KEY_Left && currentItemIndex === 0) || symbol === KEY_Up;
+        return (symbol === Clutter.KEY_Left && currentItemIndex === 0) || symbol === Clutter.KEY_Up;
       }
     };
 
-    this.connect('key-press-event', (_: St1.ScrollView, event: Event) => {
+    this.connect('key-press-event', (_: St1.ScrollView, event: Clutter.Event) => {
       if (
-        event.get_key_symbol() === KEY_Tab ||
-        event.get_key_symbol() === KEY_ISO_Left_Tab ||
-        event.get_key_symbol() === KEY_KP_Tab
+        event.get_key_symbol() === Clutter.KEY_Tab ||
+        event.get_key_symbol() === Clutter.KEY_ISO_Left_Tab ||
+        event.get_key_symbol() === Clutter.KEY_KP_Tab
       ) {
         this.emit('scroll-tab-press', event.has_shift_modifier());
-        return EVENT_STOP;
+        return Clutter.EVENT_STOP;
       }
       if (event.has_control_modifier() && event.get_key_symbol() >= 49 && event.get_key_symbol() <= 57) {
         this.selectItemByIndex(event.get_key_symbol() - 49);
-        return EVENT_STOP;
+        return Clutter.EVENT_STOP;
       }
 
       if (event.get_state()) {
-        return EVENT_PROPAGATE;
+        return Clutter.EVENT_PROPAGATE;
       }
 
       if (shouldFocusOut(event.get_key_symbol())) {
         this.emit('scroll-focus-out');
-        return EVENT_STOP;
+        return Clutter.EVENT_STOP;
       }
-      if (event.get_key_symbol() === KEY_Alt_L || event.get_key_symbol() === KEY_Alt_R) {
+      if (event.get_key_symbol() === Clutter.KEY_Alt_L || event.get_key_symbol() === Clutter.KEY_Alt_R) {
         this.emit('scroll-alt-press');
-        return EVENT_PROPAGATE;
+        return Clutter.EVENT_PROPAGATE;
       }
 
-      if (event.get_key_symbol() == KEY_BackSpace) {
+      if (event.get_key_symbol() == Clutter.KEY_BackSpace) {
         this.emit('scroll-backspace-press');
-        return EVENT_STOP;
+        return Clutter.EVENT_STOP;
       }
-      const unicode = keysym_to_unicode(event.get_key_symbol());
+      const unicode = Clutter.keysym_to_unicode(event.get_key_symbol());
       if (unicode === 0) {
-        return EVENT_PROPAGATE;
+        return Clutter.EVENT_PROPAGATE;
       }
 
       this.emit('scroll-key-press', String.fromCharCode(unicode));
 
-      return EVENT_STOP;
+      return Clutter.EVENT_STOP;
     });
 
     db.query(new ClipboardQueryBuilder().build()).forEach((dbItem) => {
@@ -202,7 +201,7 @@ export class PanoScrollView extends St1.ScrollView {
     this.removeExcessiveItems();
   }
 
-  private isHovering(actor: Actor) {
+  private isHovering(actor: Clutter.Actor) {
     const [x, y] = Shell.Global.get().get_pointer();
     const [x1, y1] = [actor.get_abs_allocation_vertices()[0].x, actor.get_abs_allocation_vertices()[0].y];
     const [x2, y2] = [actor.get_abs_allocation_vertices()[3].x, actor.get_abs_allocation_vertices()[3].y];
@@ -419,7 +418,7 @@ export class PanoScrollView extends St1.ScrollView {
 
     adjustment.ease(value, {
       duration: 150,
-      mode: AnimationMode.EASE_OUT_QUAD,
+      mode: Clutter.AnimationMode.EASE_OUT_QUAD,
     });
   }
 
@@ -441,21 +440,21 @@ export class PanoScrollView extends St1.ScrollView {
 
   override vfunc_key_press_event(event: KeyEvent): boolean {
     const isPanoVertical = isVertical(this.settings.get_uint('window-position'));
-    if (isPanoVertical && event.get_key_symbol() === KEY_Up) {
+    if (isPanoVertical && event.get_key_symbol() === Clutter.KEY_Up) {
       this.focusPrev();
       this.scrollToFocussedItem();
-    } else if (isPanoVertical && event.get_key_symbol() === KEY_Down) {
+    } else if (isPanoVertical && event.get_key_symbol() === Clutter.KEY_Down) {
       this.focusNext();
       this.scrollToFocussedItem();
-    } else if (!isPanoVertical && event.get_key_symbol() === KEY_Left) {
+    } else if (!isPanoVertical && event.get_key_symbol() === Clutter.KEY_Left) {
       this.focusPrev();
       this.scrollToFocussedItem();
-    } else if (!isPanoVertical && event.get_key_symbol() === KEY_Right) {
+    } else if (!isPanoVertical && event.get_key_symbol() === Clutter.KEY_Right) {
       this.focusNext();
       this.scrollToFocussedItem();
     }
 
-    return EVENT_PROPAGATE;
+    return Clutter.EVENT_PROPAGATE;
   }
 
   override vfunc_scroll_event(event: ScrollEvent): boolean {
@@ -468,15 +467,18 @@ export class PanoScrollView extends St1.ScrollView {
     }
     let value = adjustment.value;
 
-    if (event.get_scroll_direction() === ScrollDirection.SMOOTH) {
-      return EVENT_STOP;
+    if (event.get_scroll_direction() === Clutter.ScrollDirection.SMOOTH) {
+      return Clutter.EVENT_STOP;
     }
 
-    if (event.get_scroll_direction() === ScrollDirection.UP || event.get_scroll_direction() === ScrollDirection.LEFT) {
+    if (
+      event.get_scroll_direction() === Clutter.ScrollDirection.UP ||
+      event.get_scroll_direction() === Clutter.ScrollDirection.LEFT
+    ) {
       value -= adjustment.step_increment * 2;
     } else if (
-      event.get_scroll_direction() === ScrollDirection.DOWN ||
-      event.get_scroll_direction() === ScrollDirection.RIGHT
+      event.get_scroll_direction() === Clutter.ScrollDirection.DOWN ||
+      event.get_scroll_direction() === Clutter.ScrollDirection.RIGHT
     ) {
       value += adjustment.step_increment * 2;
     }
@@ -484,9 +486,9 @@ export class PanoScrollView extends St1.ScrollView {
     adjustment.remove_transition('value');
     adjustment.ease(value, {
       duration: 150,
-      mode: AnimationMode.EASE_OUT_QUAD,
+      mode: Clutter.AnimationMode.EASE_OUT_QUAD,
     });
 
-    return EVENT_STOP;
+    return Clutter.EVENT_STOP;
   }
 }

@@ -1,11 +1,11 @@
 import Clutter from '@girs/clutter-12';
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
-import { MetaInfo } from '@girs/gobject-2.0';
+import GObject from '@girs/gobject-2.0';
 import Shell from '@girs/shell-12';
 import St1 from '@girs/st-12';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
-import { registerGObjectClass } from '@pano/utils/gjs';
+import { registerGObjectClass, SignalsDefinition } from '@pano/utils/gjs';
 import { ICON_PACKS, IPanoItemType } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
@@ -16,9 +16,15 @@ const langs = GLib.get_language_names_with_category('LC_MESSAGES').map(
 );
 const localeKey = Object.keys(dateLocale).find((key) => langs.includes(key));
 
+export type PanoItemHeaderSignalType = 'on-remove' | 'on-favorite';
+interface PanoItemHeaderSignals extends SignalsDefinition<PanoItemHeaderSignalType> {
+  'on-remove': Record<string, never>;
+  'on-favorite': Record<string, never>;
+}
+
 @registerGObjectClass
 export class PanoItemHeader extends St1.BoxLayout {
-  static metaInfo: MetaInfo = {
+  static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, PanoItemHeaderSignals> = {
     GTypeName: 'PanoItemHeader',
     Signals: {
       'on-remove': {},

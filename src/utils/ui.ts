@@ -105,7 +105,9 @@ export const getVirtualKeyboard = () => {
     return virtualKeyboard;
   }
 
-  virtualKeyboard = get_default_backend().get_default_seat().create_virtual_device(InputDeviceType.KEYBOARD_DEVICE);
+  virtualKeyboard = Clutter.get_default_backend()
+    .get_default_seat()
+    .create_virtual_device(Clutter.InputDeviceType.KEYBOARD_DEVICE);
 
   return virtualKeyboard;
 };

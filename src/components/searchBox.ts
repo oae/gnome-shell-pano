@@ -1,41 +1,39 @@
-import {
-  ActorAlign,
-  Event,
-  EVENT_PROPAGATE,
-  EVENT_STOP,
-  KEY_Alt_L,
-  KEY_Alt_R,
-  KEY_BackSpace,
-  KEY_Down,
-  KEY_ISO_Enter,
-  KEY_ISO_Left_Tab,
-  KEY_KP_Enter,
-  KEY_KP_Tab,
-  KEY_Return,
-  KEY_Right,
-  KEY_Tab,
-} from '@girs/clutter-12';
+import Clutter from '@girs/clutter-12';
 import Gio from '@girs/gio-2.0';
-import { MetaInfo, TYPE_BOOLEAN, TYPE_INT, TYPE_STRING } from '@girs/gobject-2.0';
+import GObject from '@girs/gobject-2.0';
 import Meta from '@girs/meta-12';
 import Shell from '@girs/shell-12';
 import St1 from '@girs/st-12';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
-import { registerGObjectClass } from '@pano/utils/gjs';
+import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { getPanoItemTypes, ICON_PACKS } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
 
+export type SearchBoxSignalType =
+  | 'search-text-changed'
+  | 'search-item-select-shortcut'
+  | 'search-focus-out'
+  | 'search-submit';
+
+interface SearchBoxSignals extends SignalsDefinition<SearchBoxSignalType> {
+  'search-text-changed': SignalRepresentationType<
+    [GObject.GType<string>, GObject.GType<string>, GObject.GType<boolean>]
+  >;
+  'search-item-select-shortcut': SignalRepresentationType<[GObject.GType<number>]>;
+  'search-focus-out': Record<string, never>;
+  'search-submit': Record<string, never>;
+}
 @registerGObjectClass
 export class SearchBox extends St1.BoxLayout {
-  static metaInfo: MetaInfo = {
+  static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, SearchBoxSignals> = {
     GTypeName: 'SearchBox',
     Signals: {
       'search-text-changed': {
-        param_types: [TYPE_STRING, TYPE_STRING, TYPE_BOOLEAN],
+        param_types: [GObject.TYPE_STRING, GObject.TYPE_STRING, GObject.TYPE_BOOLEAN],
         accumulator: 0,
       },
       'search-item-select-shortcut': {
-        param_types: [TYPE_INT],
+        param_types: [GObject.TYPE_INT],
         accumulator: 0,
       },
       'search-focus-out': {},
@@ -51,7 +49,7 @@ export class SearchBox extends St1.BoxLayout {
 
   constructor(ext: ExtensionBase) {
     super({
-      x_align: ActorAlign.CENTER,
+      x_align: Clutter.ActorAlign.CENTER,
       style_class: 'search-entry-container',
       vertical: false,
       track_hover: true,
@@ -94,61 +92,61 @@ export class SearchBox extends St1.BoxLayout {
       this.emitSearchTextChange();
     });
 
-    this.search.clutter_text.connect('key-press-event', (_: St1.Entry, event: Event) => {
+    this.search.clutter_text.connect('key-press-event', (_: St1.Entry, event: Clutter.Event) => {
       if (
-        event.get_key_symbol() === KEY_Down ||
-        (event.get_key_symbol() === KEY_Right &&
+        event.get_key_symbol() === Clutter.KEY_Down ||
+        (event.get_key_symbol() === Clutter.KEY_Right &&
           (this.search.clutter_text.cursor_position === -1 || this.search.text.length === 0))
       ) {
         this.emit('search-focus-out');
-        return EVENT_STOP;
+        return Clutter.EVENT_STOP;
       } else if (
-        event.get_key_symbol() === KEY_Right &&
+        event.get_key_symbol() === Clutter.KEY_Right &&
         this.search.clutter_text.get_selection() !== null &&
         this.search.clutter_text.get_selection() === this.search.text
       ) {
         this.search.clutter_text.set_cursor_position(this.search.text.length);
-        return EVENT_STOP;
+        return Clutter.EVENT_STOP;
       }
       if (
-        event.get_key_symbol() === KEY_Return ||
-        event.get_key_symbol() === KEY_ISO_Enter ||
-        event.get_key_symbol() === KEY_KP_Enter
+        event.get_key_symbol() === Clutter.KEY_Return ||
+        event.get_key_symbol() === Clutter.KEY_ISO_Enter ||
+        event.get_key_symbol() === Clutter.KEY_KP_Enter
       ) {
         this.emit('search-submit');
-        return EVENT_STOP;
+        return Clutter.EVENT_STOP;
       }
 
       if (event.has_control_modifier() && event.get_key_symbol() >= 49 && event.get_key_symbol() <= 57) {
         this.emit('search-item-select-shortcut', event.get_key_symbol() - 49);
-        return EVENT_STOP;
+        return Clutter.EVENT_STOP;
       }
 
       if (
-        event.get_key_symbol() === KEY_Tab ||
-        event.get_key_symbol() === KEY_ISO_Left_Tab ||
-        event.get_key_symbol() === KEY_KP_Tab
+        event.get_key_symbol() === Clutter.KEY_Tab ||
+        event.get_key_symbol() === Clutter.KEY_ISO_Left_Tab ||
+        event.get_key_symbol() === Clutter.KEY_KP_Tab
       ) {
         this.toggleItemType(event.has_shift_modifier());
 
-        return EVENT_STOP;
+        return Clutter.EVENT_STOP;
       }
-      if (event.get_key_symbol() === KEY_BackSpace && this.search.text.length === 0) {
+      if (event.get_key_symbol() === Clutter.KEY_BackSpace && this.search.text.length === 0) {
         this.search.set_primary_icon(this.createSearchEntryIcon('edit-find-symbolic', 'search-entry-icon'));
         this.currentIndex = null;
         this.emitSearchTextChange();
 
-        return EVENT_STOP;
+        return Clutter.EVENT_STOP;
       }
 
-      if (event.get_key_symbol() === KEY_Alt_L || event.get_key_symbol() === KEY_Alt_R) {
+      if (event.get_key_symbol() === Clutter.KEY_Alt_L || event.get_key_symbol() === Clutter.KEY_Alt_R) {
         this.toggleFavorites();
         this.emitSearchTextChange();
 
-        return EVENT_STOP;
+        return Clutter.EVENT_STOP;
       }
 
-      return EVENT_PROPAGATE;
+      return Clutter.EVENT_PROPAGATE;
     });
     this.add_child(this.search);
     this.setStyle();
@@ -210,7 +208,7 @@ export class SearchBox extends St1.BoxLayout {
     this.emitSearchTextChange();
   }
 
-  private createSearchEntryIcon(iconNameOrProto: string | Gio.IconPrototype, styleClass: string) {
+  private createSearchEntryIcon(iconNameOrProto: string | Gio.Icon, styleClass: string) {
     const icon = new St1.Icon({
       style_class: styleClass,
       icon_size: 13,

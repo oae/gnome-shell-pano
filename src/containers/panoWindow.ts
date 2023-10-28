@@ -8,6 +8,7 @@ import { PanoScrollView } from '@pano/components/panoScrollView';
 import { SearchBox } from '@pano/components/searchBox';
 import { KeyEvent } from '@pano/types/clutter';
 import { ClipboardManager } from '@pano/utils/clipboardManager';
+import { ItemType } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
 import { getAlignment, getMonitorConstraint, isVertical } from '@pano/utils/ui';
@@ -125,9 +126,12 @@ export class PanoWindow extends St1.BoxLayout {
     this.searchBox.connect('search-submit', () => {
       this.scrollView.selectFirstItem();
     });
-    this.searchBox.connect('search-text-changed', (_: any, text: string, itemType: string, showFavorites: boolean) => {
-      this.scrollView.filter(text, itemType, showFavorites);
-    });
+    this.searchBox.connect(
+      'search-text-changed',
+      (_: any, text: string, itemType: ItemType, showFavorites: boolean) => {
+        this.scrollView.filter(text, itemType, showFavorites);
+      },
+    );
     this.searchBox.connect('search-item-select-shortcut', (_: any, index: number) => {
       this.scrollView.selectItemByIndex(index);
     });

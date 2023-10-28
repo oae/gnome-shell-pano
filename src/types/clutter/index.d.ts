@@ -1,5 +1,5 @@
 import Clutter from '@girs/clutter-12';
-import * as GObject from '@girs/gobject-2.0';
+import GObject from '@girs/gobject-2.0';
 
 export class KeyEvent {
   static $gtype: GObject.GType<KeyEvent>;

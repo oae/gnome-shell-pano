@@ -25,7 +25,7 @@ import {
   Source,
   Urgency,
 } from '@girs/gnome-shell/src/ui/messageTray';
-import type GObject from '@girs/gobject-2.0';
+import GObject from '@girs/gobject-2.0';
 import St1 from '@girs/st-12';
 export namespace Notification {
   export interface Params {

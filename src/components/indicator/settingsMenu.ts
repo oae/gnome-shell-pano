@@ -1,25 +1,32 @@
-import { BUTTON_MIDDLE, BUTTON_PRIMARY, BUTTON_SECONDARY, Event, EVENT_PROPAGATE, EventType } from '@girs/clutter-12';
+import Clutter from '@girs/clutter-12';
 import Gio from '@girs/gio-2.0';
-import { MetaInfo, TYPE_BOOLEAN } from '@girs/gobject-2.0';
+import GObject from '@girs/gobject-2.0';
 import St1 from '@girs/st-12';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import * as panelMenu from '@gnome-shell/ui/panelMenu';
 import * as popupMenu from '@gnome-shell/ui/popupMenu';
 import { ClearHistoryDialog } from '@pano/components/indicator/clearHistoryDialog';
 import { ClipboardManager } from '@pano/utils/clipboardManager';
-import { registerGObjectClass } from '@pano/utils/gjs';
+import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { ICON_PACKS } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
 import { openExtensionPreferences, wiggle } from '@pano/utils/ui';
 
+export type SettingsMenuSignalType = 'item-selected' | 'menu-state-changed';
+
+interface SettingsMenuSignals extends SignalsDefinition<SettingsMenuSignalType> {
+  'item-selected': Record<string, never>;
+  'menu-state-changed': SignalRepresentationType<[GObject.GType<boolean>]>;
+}
+
 @registerGObjectClass
 export class SettingsMenu extends panelMenu.Button {
-  static metaInfo: MetaInfo = {
+  static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, SettingsMenuSignals> = {
     GTypeName: 'SettingsButton',
     Signals: {
       'item-selected': {},
       'menu-state-changed': {
-        param_types: [TYPE_BOOLEAN],
+        param_types: [GObject.TYPE_BOOLEAN],
         accumulator: 0,
       },
     },
@@ -114,18 +121,18 @@ export class SettingsMenu extends panelMenu.Button {
     }
   }
 
-  vfunc_event(event: Event) {
-    if (!this.menu || event.type() !== EventType.BUTTON_PRESS) {
-      return EVENT_PROPAGATE;
+  vfunc_event(event: Clutter.Event) {
+    if (!this.menu || event.type() !== Clutter.EventType.BUTTON_PRESS) {
+      return Clutter.EVENT_PROPAGATE;
     }
 
-    if (event.get_button() === BUTTON_PRIMARY || event.get_button() === BUTTON_MIDDLE) {
+    if (event.get_button() === Clutter.BUTTON_PRIMARY || event.get_button() === Clutter.BUTTON_MIDDLE) {
       this.onToggle();
-    } else if (event.get_button() === BUTTON_SECONDARY) {
+    } else if (event.get_button() === Clutter.BUTTON_SECONDARY) {
       this.menu.toggle();
     }
 
-    return EVENT_PROPAGATE;
+    return Clutter.EVENT_PROPAGATE;
   }
 
   destroy() {
