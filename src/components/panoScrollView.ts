@@ -25,7 +25,7 @@ import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
 import { KeyEvent, ScrollEvent } from '@pano/types/clutter';
 import { ClipboardContent, ClipboardManager } from '@pano/utils/clipboardManager';
-import { ClipboardQueryBuilder, db } from '@pano/utils/db';
+import { ClipboardQueryBuilder, db, ItemType } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { createPanoItem, createPanoItemFromDb, removeItemResources } from '@pano/utils/panoItemFactory';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
@@ -57,7 +57,7 @@ export class PanoScrollView extends St1.ScrollView {
   private settings: Gio.Settings;
   private currentFocus: PanoItem | null = null;
   private currentFilter: string;
-  private currentItemTypeFilter: string;
+  private currentItemTypeFilter: ItemType;
   private showFavorites: boolean;
   private searchBox: SearchBox;
   private ext: ExtensionBase;
@@ -297,7 +297,7 @@ export class PanoScrollView extends St1.ScrollView {
     return false;
   }
 
-  filter(text: string, itemType: string, showFavorites: boolean) {
+  filter(text: string, itemType: ItemType, showFavorites: boolean) {
     this.currentFilter = text;
     this.currentItemTypeFilter = itemType;
     this.showFavorites = showFavorites;

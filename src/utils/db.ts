@@ -5,9 +5,11 @@ import { getCurrentExtensionSettings, getDbPath, logger } from '@pano/utils/shel
 
 const debug = logger('database');
 
+export type ItemType = 'IMAGE' | 'LINK' | 'TEXT' | 'CODE' | 'COLOR' | 'EMOJI' | 'FILE';
+
 export type DBItem = {
   id: number;
-  itemType: string;
+  itemType: ItemType;
   content: string;
   copyDate: Date;
   isFavorite: boolean;
@@ -84,7 +86,7 @@ export class ClipboardQueryBuilder {
     return this;
   }
 
-  withItemTypes(itemTypes?: string[] | null) {
+  withItemTypes(itemTypes?: ItemType[] | null) {
     if (itemTypes !== null && itemTypes !== undefined) {
       const orConditions = itemTypes.map((itemType) =>
         this.builder.add_cond(
@@ -327,7 +329,7 @@ class Database {
 
     while (iter.move_next()) {
       const id = iter.get_value_for_field('id') as any as number;
-      const itemType = iter.get_value_for_field('itemType') as any as string;
+      const itemType = iter.get_value_for_field('itemType') as any as ItemType;
       const content = iter.get_value_for_field('content') as any as string;
       const copyDate = iter.get_value_for_field('copyDate') as any as string;
       const isFavorite = iter.get_value_for_field('isFavorite') as any as string;
