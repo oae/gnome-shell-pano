@@ -1,6 +1,6 @@
 import { AnimationMode, EVENT_PROPAGATE, KEY_Escape } from '@gi-types/clutter10';
 import Gio from '@gi-types/gio2';
-import { Global } from '@gi-types/shell0';
+import Shell from '@gi-types/shell0';
 import St1 from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { MonitorBox } from '@pano/components/monitorBox';
@@ -34,7 +34,7 @@ export class PanoWindow extends St1.BoxLayout {
     this.settings = getCurrentExtensionSettings(ext);
     this.setAlignment();
 
-    const themeContext = St1.ThemeContext.get_for_stage(Global.get().get_stage());
+    const themeContext = St1.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
 
     this.setWindowDimensions(themeContext.scaleFactor);
     themeContext.connect('notify::scale-factor', () => {

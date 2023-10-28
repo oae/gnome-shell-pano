@@ -2,7 +2,7 @@ import './styles/stylesheet.css';
 
 import Gio from '@gi-types/gio2';
 import GLib from '@gi-types/glib2';
-import { Global } from '@gi-types/shell0';
+import Shell from '@gi-types/shell0';
 import { Extension, ExtensionMetadata } from '@gnome-shell/extensions/extension';
 import { SettingsMenu } from '@pano/components/indicator/settingsMenu';
 import { PanoWindow } from '@pano/containers/panoWindow';
@@ -159,8 +159,8 @@ export default class PanoExtension extends Extension {
     });
 
     this.clipboardManager.startTracking();
-    this.windowTrackerId = Global.get().display.connect('notify::focus-window', () => {
-      const focussedWindow = Global.get().display.focus_window;
+    this.windowTrackerId = Shell.Global.get().display.connect('notify::focus-window', () => {
+      const focussedWindow = Shell.Global.get().display.focus_window;
       if (focussedWindow && this.panoWindow.is_visible()) {
         this.panoWindow.hide();
       }
@@ -190,7 +190,7 @@ export default class PanoExtension extends Extension {
 
   disable(): void {
     if (this.windowTrackerId) {
-      Global.get().display.disconnect(this.windowTrackerId);
+      Shell.Global.get().display.disconnect(this.windowTrackerId);
     }
     if (this.timeoutId) {
       GLib.Source.remove(this.timeoutId);

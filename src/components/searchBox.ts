@@ -18,7 +18,7 @@ import {
 import Gio from '@gi-types/gio2';
 import { MetaInfo, TYPE_BOOLEAN, TYPE_INT, TYPE_STRING } from '@gi-types/gobject2';
 import { Cursor } from '@gi-types/meta10';
-import { Global } from '@gi-types/shell0';
+import Shell from '@gi-types/shell0';
 import St1 from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
@@ -63,7 +63,7 @@ export class SearchBox extends St1.BoxLayout {
 
     this.settings = getCurrentExtensionSettings(ext);
 
-    const themeContext = St1.ThemeContext.get_for_stage(Global.get().get_stage());
+    const themeContext = St1.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
 
     this.search = new St1.Entry({
       can_focus: true,
@@ -224,13 +224,13 @@ export class SearchBox extends St1.BoxLayout {
     }
 
     icon.connect('enter-event', () => {
-      Global.get().display.set_cursor(Cursor.POINTING_HAND);
+      Shell.Global.get().display.set_cursor(Cursor.POINTING_HAND);
     });
     icon.connect('motion-event', () => {
-      Global.get().display.set_cursor(Cursor.POINTING_HAND);
+      Shell.Global.get().display.set_cursor(Cursor.POINTING_HAND);
     });
     icon.connect('leave-event', () => {
-      Global.get().display.set_cursor(Cursor.DEFAULT);
+      Shell.Global.get().display.set_cursor(Cursor.DEFAULT);
     });
 
     return icon;

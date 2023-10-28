@@ -2,7 +2,7 @@ import { ActorAlign, EVENT_PROPAGATE } from '@gi-types/clutter10';
 import Gio from '@gi-types/gio2';
 import GLib from '@gi-types/glib2';
 import { MetaInfo } from '@gi-types/gobject2';
-import { Global } from '@gi-types/shell0';
+import Shell from '@gi-types/shell0';
 import St1 from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
@@ -53,7 +53,7 @@ export class PanoItemHeader extends St1.BoxLayout {
 
     this.settings = getCurrentExtensionSettings(ext);
 
-    const themeContext = St1.ThemeContext.get_for_stage(Global.get().get_stage());
+    const themeContext = St1.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
 
     this.set_height(56 * themeContext.scale_factor);
 

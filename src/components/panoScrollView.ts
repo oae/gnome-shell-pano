@@ -19,7 +19,7 @@ import {
 } from '@gi-types/clutter10';
 import Gio from '@gi-types/gio2';
 import { MetaInfo, TYPE_BOOLEAN, TYPE_STRING } from '@gi-types/gobject2';
-import { Global } from '@gi-types/shell0';
+import Shell from '@gi-types/shell0';
 import St1 from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
@@ -203,7 +203,7 @@ export class PanoScrollView extends St1.ScrollView {
   }
 
   private isHovering(actor: Actor) {
-    const [x, y] = Global.get().get_pointer();
+    const [x, y] = Shell.Global.get().get_pointer();
     const [x1, y1] = [actor.get_abs_allocation_vertices()[0].x, actor.get_abs_allocation_vertices()[0].y];
     const [x2, y2] = [actor.get_abs_allocation_vertices()[3].x, actor.get_abs_allocation_vertices()[3].y];
 
@@ -402,7 +402,7 @@ export class PanoScrollView extends St1.ScrollView {
   private scrollToItem(item: PanoItem) {
     const box = item.get_allocation_box();
 
-    let adjustment: Adjustment | undefined;
+    let adjustment: St1.Adjustment | undefined;
 
     let value: number | undefined;
     if (isVertical(this.settings.get_uint('window-position'))) {

@@ -2,13 +2,13 @@ import Gio from '@gi-types/gio2';
 import GLib from '@gi-types/glib2';
 import { MetaInfo, Object } from '@gi-types/gobject2';
 import { Selection, SelectionSource, SelectionType } from '@gi-types/meta10';
-import { Global } from '@gi-types/shell0';
+import Shell from '@gi-types/shell0';
 import St1 from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { debounce, getCurrentExtensionSettings, logger } from '@pano/utils/shell';
 
-const global = Global.get();
+const global = Shell.Global.get();
 
 const debug = logger('clipboard-manager');
 
@@ -156,7 +156,7 @@ export class ClipboardManager extends Object {
         if (this.settings.get_boolean('is-in-incognito')) {
           return;
         }
-        const focussedWindow = Global.get().display.focus_window;
+        const focussedWindow = Shell.Global.get().display.focus_window;
         const wmClass = focussedWindow?.get_wm_class();
         if (
           wmClass &&

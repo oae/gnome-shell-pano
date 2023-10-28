@@ -2,7 +2,7 @@ import { ActorAlign, get_default_backend, InputDeviceType, VirtualInputDevice } 
 import GdkPixbuf from '@gi-types/gdkpixbuf2';
 import Gio from '@gi-types/gio2';
 import GLib from '@gi-types/glib2';
-import { Global } from '@gi-types/shell0';
+import Shell from '@gi-types/shell0';
 import St1 from '@gi-types/st1';
 import type Clutter from '@girs/clutter-12';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
@@ -12,7 +12,7 @@ import * as main from '@gnome-shell/ui/main';
 import * as messageTray from '@gnome-shell/ui/messageTray';
 import { PixelFormat } from '@imports/cogl2';
 import { gettext } from '@pano/utils/shell';
-const global = Global.get();
+const global = Shell.Global.get();
 
 export const notify = (
   ext: ExtensionBase,

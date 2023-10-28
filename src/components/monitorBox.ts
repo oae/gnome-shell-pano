@@ -1,6 +1,6 @@
 import { Actor, BindConstraint, BindCoordinate, BinLayout, EVENT_STOP } from '@gi-types/clutter10';
 import { MetaInfo } from '@gi-types/gobject2';
-import { Global } from '@gi-types/shell0';
+import Shell from '@gi-types/shell0';
 import St1 from '@gi-types/st1';
 import * as layout from '@gnome-shell/ui/layout';
 import * as lightbox from '@gnome-shell/ui/lightbox';
@@ -32,17 +32,17 @@ export class MonitorBox extends St1.BoxLayout {
     });
 
     const constraint = new BindConstraint({
-      source: Global.get().stage,
+      source: Shell.Global.get().stage,
       coordinate: BindCoordinate.ALL,
     });
     this.add_constraint(constraint);
 
-    const backgroundStack = new Widget({
+    const backgroundStack = new St1.Widget({
       layout_manager: new BinLayout(),
       x_expand: true,
       y_expand: true,
     });
-    const _backgroundBin = new Bin({ child: backgroundStack });
+    const _backgroundBin = new St1.Bin({ child: backgroundStack });
     const _monitorConstraint = new layout.MonitorConstraint({});
     _backgroundBin.add_constraint(_monitorConstraint);
     this.add_actor(_backgroundBin);

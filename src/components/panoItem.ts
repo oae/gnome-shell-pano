@@ -20,7 +20,7 @@ import GLib from '@gi-types/glib2';
 import { MetaInfo, TYPE_STRING } from '@gi-types/gobject2';
 import { Point } from '@gi-types/graphene1';
 import { Cursor } from '@gi-types/meta10';
-import { Global } from '@gi-types/shell0';
+import Shell from '@gi-types/shell0';
 import St1 from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItemHeader } from '@pano/components/panoItemHeader';
@@ -75,13 +75,13 @@ export class PanoItem extends St1.BoxLayout {
     this.connect('key-focus-in', () => this.setSelected(true));
     this.connect('key-focus-out', () => this.setSelected(false));
     this.connect('enter-event', () => {
-      Global.get().display.set_cursor(Cursor.POINTING_HAND);
+      Shell.Global.get().display.set_cursor(Cursor.POINTING_HAND);
       if (!this.selected) {
         this.set_style(`border: 4px solid ${this.settings.get_string('hovered-item-border-color')}`);
       }
     });
     this.connect('leave-event', () => {
-      Global.get().display.set_cursor(Cursor.DEFAULT);
+      Shell.Global.get().display.set_cursor(Cursor.DEFAULT);
       if (!this.selected) {
         this.set_style('');
       }
@@ -142,7 +142,7 @@ export class PanoItem extends St1.BoxLayout {
     this.add_child(this.header);
     this.add_child(this.body);
 
-    const themeContext = St1.ThemeContext.get_for_stage(Global.get().get_stage());
+    const themeContext = St1.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
 
     themeContext.connect('notify::scale-factor', () => {
       this.setBodyDimensions();
@@ -166,7 +166,7 @@ export class PanoItem extends St1.BoxLayout {
       this.set_x_align(ActorAlign.START);
       this.set_y_align(ActorAlign.FILL);
     }
-    const { scaleFactor } = St1.ThemeContext.get_for_stage(Global.get().get_stage());
+    const { scaleFactor } = St1.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
     this.body.set_height(this.settings.get_int('item-size') * scaleFactor - this.header.get_height());
     this.body.set_width(this.settings.get_int('item-size') * scaleFactor);
   }
