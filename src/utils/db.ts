@@ -1,4 +1,4 @@
-import { Settings } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { Config, Connection, SqlBuilder, SqlOperatorType, SqlStatementType, Statement } from '@imports/gda6';
 import { getCurrentExtensionSettings, getDbPath, logger } from '@pano/utils/shell';
@@ -185,7 +185,7 @@ export class ClipboardQueryBuilder {
 }
 class Database {
   private connection: Connection | null;
-  private settings: Settings;
+  private settings: Gio.Settings;
 
   private init(ext: ExtensionBase) {
     this.settings = getCurrentExtensionSettings(ext);

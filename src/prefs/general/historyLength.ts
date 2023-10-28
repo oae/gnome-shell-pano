@@ -1,5 +1,5 @@
 import { ActionRow } from '@gi-types/adw1';
-import { Settings, SettingsBindFlags } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import { Adjustment, Align, SpinButton } from '@gi-types/gtk4';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
@@ -7,7 +7,7 @@ import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class HistoryLengthRow extends ActionRow {
-  private settings: Settings;
+  private settings: Gio.Settings;
 
   constructor(ext: ExtensionBase) {
     const _ = gettext(ext);
@@ -25,7 +25,7 @@ export class HistoryLengthRow extends ActionRow {
       halign: Align.CENTER,
     });
 
-    this.settings.bind('history-length', historyEntry, 'value', SettingsBindFlags.DEFAULT);
+    this.settings.bind('history-length', historyEntry, 'value', Gio.SettingsBindFlags.DEFAULT);
 
     this.add_suffix(historyEntry);
     this.set_activatable_widget(historyEntry);

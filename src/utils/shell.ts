@@ -1,14 +1,4 @@
-import {
-  app_info_launch_default_for_uri,
-  File,
-  FileCopyFlags,
-  FileEnumerator,
-  FileInfo,
-  FilePrototype,
-  FileQueryInfoFlags,
-  FileType,
-  Settings,
-} from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import {
   get_user_cache_dir,
   get_user_data_dir,
@@ -27,7 +17,7 @@ export const logger =
 
 const debug = logger('shell-utils');
 
-const deleteFile = (file: FilePrototype) => {
+const deleteFile = (file: Gio.FilePrototype) => {
   return new Promise((resolve, reject) => {
     file.delete_async(PRIORITY_DEFAULT, null, (_file, res) => {
       try {
@@ -39,12 +29,12 @@ const deleteFile = (file: FilePrototype) => {
   });
 };
 
-const deleteDirectory = async (file: FilePrototype) => {
+const deleteDirectory = async (file: Gio.FilePrototype) => {
   try {
-    const iter: FileEnumerator | undefined = await new Promise((resolve, reject) => {
+    const iter: Gio.FileEnumerator | undefined = await new Promise((resolve, reject) => {
       file.enumerate_children_async(
         'standard::type',
-        FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
+        Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
         PRIORITY_DEFAULT,
         null,
         (file, res) => {
@@ -64,7 +54,7 @@ const deleteDirectory = async (file: FilePrototype) => {
     const branches: any[] = [];
 
     while (true) {
-      const infos: FileInfo[] = await new Promise((resolve, reject) => {
+      const infos: Gio.FileInfo[] = await new Promise((resolve, reject) => {
         iter.next_files_async(10, PRIORITY_DEFAULT, null, (it, res) => {
           try {
             resolve(it ? it.next_files_finish(res) : []);
@@ -85,12 +75,12 @@ const deleteDirectory = async (file: FilePrototype) => {
         let branch;
 
         switch (type) {
-          case FileType.REGULAR:
-          case FileType.SYMBOLIC_LINK:
+          case Gio.FileType.REGULAR:
+          case Gio.FileType.SYMBOLIC_LINK:
             branch = deleteFile(child);
             break;
 
-          case FileType.DIRECTORY:
+          case Gio.FileType.DIRECTORY:
             branch = deleteDirectory(child);
             break;
 
@@ -116,15 +106,15 @@ export const getImagesPath = (ext: ExtensionBase): string => `${getAppDataPath(e
 export const getCachePath = (ext: ExtensionBase): string => `${get_user_cache_dir()}/${ext.uuid}`;
 
 export const setupAppDirs = (ext: ExtensionBase): void => {
-  const imagePath = File.new_for_path(getImagesPath(ext));
+  const imagePath = Gio.File.new_for_path(getImagesPath(ext));
   if (!imagePath.query_exists(null)) {
     imagePath.make_directory_with_parents(null);
   }
-  const cachePath = File.new_for_path(getCachePath(ext));
+  const cachePath = Gio.File.new_for_path(getCachePath(ext));
   if (!cachePath.query_exists(null)) {
     cachePath.make_directory_with_parents(null);
   }
-  const dbPath = File.new_for_path(`${getDbPath(ext)}`);
+  const dbPath = Gio.File.new_for_path(`${getDbPath(ext)}`);
   if (!dbPath.query_exists(null)) {
     dbPath.make_directory_with_parents(null);
   }
@@ -135,27 +125,27 @@ export const moveDbFile = (from: string, to: string) => {
     return;
   }
 
-  const oldDb = File.new_for_path(`${from}/pano.db`);
-  const newDb = File.new_for_path(`${to}/pano.db`);
+  const oldDb = Gio.File.new_for_path(`${from}/pano.db`);
+  const newDb = Gio.File.new_for_path(`${to}/pano.db`);
   if (oldDb.query_exists(null) && !newDb.query_exists(null)) {
-    const newDBParent = File.new_for_path(to);
+    const newDBParent = Gio.File.new_for_path(to);
     if (!newDBParent.query_exists(null)) {
       newDBParent.make_directory_with_parents(null);
     }
-    oldDb.move(newDb, FileCopyFlags.ALL_METADATA, null, null);
+    oldDb.move(newDb, Gio.FileCopyFlags.ALL_METADATA, null, null);
   }
 };
 
 export const deleteAppDirs = async (ext: ExtensionBase): Promise<void> => {
-  const appDataPath = File.new_for_path(getAppDataPath(ext));
+  const appDataPath = Gio.File.new_for_path(getAppDataPath(ext));
   if (appDataPath.query_exists(null)) {
     await deleteDirectory(appDataPath);
   }
-  const cachePath = File.new_for_path(getCachePath(ext));
+  const cachePath = Gio.File.new_for_path(getCachePath(ext));
   if (cachePath.query_exists(null)) {
     await deleteDirectory(cachePath);
   }
-  const dbPath = File.new_for_path(`${getDbPath(ext)}/pano.db`);
+  const dbPath = Gio.File.new_for_path(`${getDbPath(ext)}/pano.db`);
   if (dbPath.query_exists(null)) {
     dbPath.delete(null);
   }
@@ -169,11 +159,11 @@ export const getDbPath = (ext: ExtensionBase): string => {
 
   return path;
 };
-export const getCurrentExtensionSettings = (ext: ExtensionBase): Settings => ext.getSettings();
+export const getCurrentExtensionSettings = (ext: ExtensionBase): Gio.Settings => ext.getSettings();
 
 export const loadInterfaceXML = (ext: ExtensionBase, iface: string): any => {
   const uri = `file:///${ext.path}/dbus/${iface}.xml`;
-  const file = File.new_for_uri(uri);
+  const file = Gio.File.new_for_uri(uri);
 
   try {
     const [, bytes] = file.load_contents(null);
@@ -235,7 +225,7 @@ export function debounce(func, wait) {
 
 export const openLinkInBrowser = (url: string) => {
   try {
-    app_info_launch_default_for_uri(url, null);
+    Gio.app_info_launch_default_for_uri(url, null);
   } catch (e) {
     debug(`Failed to open url ${url}`);
   }

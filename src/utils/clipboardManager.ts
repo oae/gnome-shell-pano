@@ -1,4 +1,4 @@
-import { Settings } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import { Bytes } from '@gi-types/glib2';
 import { MetaInfo, Object } from '@gi-types/gobject2';
 import { Selection, SelectionSource, SelectionType } from '@gi-types/meta10';
@@ -123,7 +123,7 @@ export class ClipboardManager extends Object {
   private selection: Selection;
   private selectionChangedId: number;
   public isTracking: boolean;
-  private settings: Settings;
+  private settings: Gio.Settings;
   private lastCopiedContent: ClipboardContent | null;
 
   constructor(ext: ExtensionBase) {

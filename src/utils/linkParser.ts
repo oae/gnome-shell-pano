@@ -1,4 +1,4 @@
-import { File, FileCreateFlags, FilePrototype } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import { ChecksumType, compute_checksum_for_string, PRIORITY_DEFAULT, uri_parse, UriFlags } from '@gi-types/glib2';
 import { Message, Session } from '@gi-types/soup3';
 import { ExtensionBase } from '@pano/types/extension/extension';
@@ -124,11 +124,11 @@ export const getDocument = async (url: string): Promise<{ title: string; descrip
 export const getImage = async (
   ext: ExtensionBase,
   imageUrl: string,
-): Promise<[string | null, FilePrototype | null]> => {
+): Promise<[string | null, Gio.FilePrototype | null]> => {
   if (imageUrl && imageUrl.startsWith('http')) {
     try {
       const checksum = compute_checksum_for_string(ChecksumType.MD5, imageUrl, imageUrl.length);
-      const cachedImage = File.new_for_path(`${getCachePath(ext)}/${checksum}.png`);
+      const cachedImage = Gio.File.new_for_path(`${getCachePath(ext)}/${checksum}.png`);
 
       if (cachedImage.query_exists(null)) {
         return [checksum, cachedImage];
@@ -147,7 +147,7 @@ export const getImage = async (
         return [null, null];
       }
 
-      cachedImage.replace_contents(data, null, false, FileCreateFlags.REPLACE_DESTINATION, null);
+      cachedImage.replace_contents(data, null, false, Gio.FileCreateFlags.REPLACE_DESTINATION, null);
 
       return [checksum, cachedImage];
     } catch (err) {

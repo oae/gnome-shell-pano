@@ -1,5 +1,5 @@
 import { ActorAlign, EVENT_PROPAGATE } from '@gi-types/clutter10';
-import { icon_new_for_string, Settings } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import { get_language_names_with_category } from '@gi-types/glib2';
 import { MetaInfo } from '@gi-types/gobject2';
 import { Global } from '@gi-types/shell0';
@@ -28,7 +28,7 @@ export class PanoItemHeader extends BoxLayout {
 
   private dateUpdateIntervalId: any;
   private favoriteButton: Button;
-  private settings: Settings;
+  private settings: Gio.Settings;
   private titleLabel: Label;
   private dateLabel: Label;
   actionContainer: BoxLayout;
@@ -63,7 +63,7 @@ export class PanoItemHeader extends BoxLayout {
 
     const icon = new Icon({
       style_class: 'pano-item-title-icon',
-      gicon: icon_new_for_string(
+      gicon: Gio.icon_new_for_string(
         `${ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${
           itemType.iconPath
         }`,
@@ -72,7 +72,7 @@ export class PanoItemHeader extends BoxLayout {
     this.iconContainer.add_child(icon);
     this.settings.connect('changed::icon-pack', () => {
       icon.set_gicon(
-        icon_new_for_string(
+        Gio.icon_new_for_string(
           `${ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${
             itemType.iconPath
           }`,

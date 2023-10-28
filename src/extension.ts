@@ -1,6 +1,6 @@
 import './styles/stylesheet.css';
 
-import { DBus, DBusExportedObject, DBusSignalFlags, Settings } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import { PRIORITY_DEFAULT, Source, SOURCE_REMOVE, timeout_add } from '@gi-types/glib2';
 import { Global } from '@gi-types/shell0';
 import { Extension, ExtensionMetadata } from '@gnome-shell/extensions/extension';
@@ -28,9 +28,9 @@ export default class PanoExtension extends Extension {
   private clipboardManager: ClipboardManager;
   private panoWindow: PanoWindow;
 
-  private dbus: DBusExportedObject;
+  private dbus: Gio.DBusExportedObject;
   private isEnabled = false;
-  private settings: Settings;
+  private settings: Gio.Settings;
   private lastDBpath: string;
   private windowTrackerId: number | null;
   private timeoutId: number | null;
@@ -49,8 +49,8 @@ export default class PanoExtension extends Extension {
     this.clipboardManager = new ClipboardManager(this);
     this.panoWindow = new PanoWindow(this, this.clipboardManager);
     const iface = loadInterfaceXML(this, 'io.elhan.Pano');
-    this.dbus = DBusExportedObject.wrapJSObject(iface, this);
-    this.dbus.export(DBus.session, '/io/elhan/Pano');
+    this.dbus = Gio.DBusExportedObject.wrapJSObject(iface, this);
+    this.dbus.export(Gio.DBus.session, '/io/elhan/Pano');
     this.settings = getCurrentExtensionSettings(this);
     this.lastDBpath = getDbPath(this);
     this.settings.connect('changed::database-location', () => {
@@ -114,42 +114,42 @@ export default class PanoExtension extends Extension {
     setupAppDirs(this);
     this.createIndicator();
     db.start(this);
-    this.logoutSignalId = DBus.session.signal_subscribe(
+    this.logoutSignalId = Gio.DBus.session.signal_subscribe(
       null,
       'org.gnome.SessionManager.EndSessionDialog',
       'ConfirmedLogout',
       '/org/gnome/SessionManager/EndSessionDialog',
       null,
-      DBusSignalFlags.NONE,
+      Gio.DBusSignalFlags.NONE,
       this.clearSessionHistory.bind(this),
     );
 
-    this.rebootSignalId = DBus.session.signal_subscribe(
+    this.rebootSignalId = Gio.DBus.session.signal_subscribe(
       null,
       'org.gnome.SessionManager.EndSessionDialog',
       'ConfirmedReboot',
       '/org/gnome/SessionManager/EndSessionDialog',
       null,
-      DBusSignalFlags.NONE,
+      Gio.DBusSignalFlags.NONE,
       this.clearSessionHistory.bind(this),
     );
 
-    this.shutdownSignalId = DBus.session.signal_subscribe(
+    this.shutdownSignalId = Gio.DBus.session.signal_subscribe(
       null,
       'org.gnome.SessionManager.EndSessionDialog',
       'ConfirmedShutdown',
       '/org/gnome/SessionManager/EndSessionDialog',
       null,
-      DBusSignalFlags.NONE,
+      Gio.DBusSignalFlags.NONE,
       this.clearSessionHistory.bind(this),
     );
-    this.systemdSignalId = DBus.system.signal_subscribe(
+    this.systemdSignalId = Gio.DBus.system.signal_subscribe(
       null,
       'org.freedesktop.login1.Manager',
       'PrepareForShutdown',
       '/org/freedesktop/login1',
       null,
-      DBusSignalFlags.NONE,
+      Gio.DBusSignalFlags.NONE,
       this.clearSessionHistory.bind(this),
     );
     addTopChrome(this.panoWindow);
@@ -211,19 +211,19 @@ export default class PanoExtension extends Extension {
     debug('extension is disabled');
     db.shutdown();
     if (this.logoutSignalId) {
-      DBus.session.signal_unsubscribe(this.logoutSignalId);
+      Gio.DBus.session.signal_unsubscribe(this.logoutSignalId);
       this.logoutSignalId = null;
     }
     if (this.shutdownSignalId) {
-      DBus.session.signal_unsubscribe(this.shutdownSignalId);
+      Gio.DBus.session.signal_unsubscribe(this.shutdownSignalId);
       this.shutdownSignalId = null;
     }
     if (this.rebootSignalId) {
-      DBus.session.signal_unsubscribe(this.rebootSignalId);
+      Gio.DBus.session.signal_unsubscribe(this.rebootSignalId);
       this.rebootSignalId = null;
     }
     if (this.systemdSignalId) {
-      DBus.system.signal_unsubscribe(this.systemdSignalId);
+      Gio.DBus.system.signal_unsubscribe(this.systemdSignalId);
       this.systemdSignalId = null;
     }
   }

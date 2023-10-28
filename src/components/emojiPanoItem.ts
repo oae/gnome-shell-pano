@@ -1,5 +1,5 @@
 import { ActorAlign } from '@gi-types/clutter10';
-import { Settings } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import { EllipsizeMode, WrapMode } from '@gi-types/pango1';
 import { BoxLayout, Label } from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
@@ -9,7 +9,7 @@ import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 @registerGObjectClass
 export class EmojiPanoItem extends PanoItem {
-  private emojiItemSettings: Settings;
+  private emojiItemSettings: Gio.Settings;
   private label: Label;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {

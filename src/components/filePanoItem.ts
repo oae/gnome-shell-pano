@@ -1,5 +1,5 @@
 import { ActorAlign } from '@gi-types/clutter10';
-import { Settings } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import { EllipsizeMode } from '@gi-types/pango1';
 import { BoxLayout, Icon, Label } from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
@@ -12,7 +12,7 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 export class FilePanoItem extends PanoItem {
   private fileList: string[];
   private operation: string;
-  private fileItemSettings: Settings;
+  private fileItemSettings: Gio.Settings;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
     super(ext, clipboardManager, dbItem);

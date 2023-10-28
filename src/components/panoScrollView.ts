@@ -17,7 +17,7 @@ import {
   keysym_to_unicode,
   ScrollDirection,
 } from '@gi-types/clutter10';
-import { Settings } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import { MetaInfo, TYPE_BOOLEAN, TYPE_STRING } from '@gi-types/gobject2';
 import { Global } from '@gi-types/shell0';
 import { Adjustment, BoxLayout, PolicyType, ScrollView } from '@gi-types/st1';
@@ -54,7 +54,7 @@ export class PanoScrollView extends ScrollView {
   };
 
   private list: BoxLayout;
-  private settings: Settings;
+  private settings: Gio.Settings;
   private currentFocus: PanoItem | null = null;
   private currentFilter: string;
   private currentItemTypeFilter: string;

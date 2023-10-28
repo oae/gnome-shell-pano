@@ -1,4 +1,4 @@
-import { Settings } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import { EllipsizeMode, WrapMode } from '@gi-types/pango1';
 import { Label } from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
@@ -9,7 +9,7 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 
 @registerGObjectClass
 export class TextPanoItem extends PanoItem {
-  private textItemSettings: Settings;
+  private textItemSettings: Gio.Settings;
   private label: Label;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {

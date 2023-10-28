@@ -1,5 +1,5 @@
 import { Colorspace, Pixbuf } from '@gi-types/gdkpixbuf2';
-import { File, FileCreateFlags } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import { ChecksumType, compute_checksum_for_bytes, uri_parse, UriFlags } from '@gi-types/glib2';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PixelFormat } from '@imports/cogl2';
@@ -170,8 +170,8 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
         return null;
       }
       const imageFilePath = `${getImagesPath(ext)}/${checksum}.png`;
-      const imageFile = File.new_for_path(imageFilePath);
-      imageFile.replace_contents(value, null, false, FileCreateFlags.REPLACE_DESTINATION, null);
+      const imageFile = Gio.File.new_for_path(imageFilePath);
+      imageFile.replace_contents(value, null, false, Gio.FileCreateFlags.REPLACE_DESTINATION, null);
       const [, width, height] = Pixbuf.get_file_info(imageFilePath);
       return db.save({
         content: checksum,
@@ -366,12 +366,12 @@ export const removeItemResources = (ext: ExtensionBase, dbItem: DBItem) => {
   db.delete(dbItem.id);
   if (dbItem.itemType === 'LINK') {
     const { image } = JSON.parse(dbItem.metaData || '{}');
-    if (image && File.new_for_uri(`file://${getCachePath(ext)}/${image}.png`).query_exists(null)) {
-      File.new_for_uri(`file://${getCachePath(ext)}/${image}.png`).delete(null);
+    if (image && Gio.File.new_for_uri(`file://${getCachePath(ext)}/${image}.png`).query_exists(null)) {
+      Gio.File.new_for_uri(`file://${getCachePath(ext)}/${image}.png`).delete(null);
     }
   } else if (dbItem.itemType === 'IMAGE') {
     const imageFilePath = `file://${getImagesPath(ext)}/${dbItem.content}.png`;
-    const imageFile = File.new_for_uri(imageFilePath);
+    const imageFile = Gio.File.new_for_uri(imageFilePath);
     if (imageFile.query_exists(null)) {
       imageFile.delete(null);
     }

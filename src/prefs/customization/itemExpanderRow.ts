@@ -1,5 +1,5 @@
 import { ExpanderRow } from '@gi-types/adw1';
-import { Settings } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import { Image } from '@gi-types/gtk4';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
@@ -8,7 +8,7 @@ import { getCurrentExtensionSettings } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class ItemExpanderRow extends ExpanderRow {
-  protected extensionSettings: Settings;
+  protected extensionsettings: Gio.Settings;
 
   constructor(ext: ExtensionBase, title: string, subtitle: string, iconName: string) {
     super({

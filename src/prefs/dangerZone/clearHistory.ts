@@ -1,5 +1,5 @@
 import { ActionRow, Window } from '@gi-types/adw1';
-import { DBus, DBusCallFlags } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import { Align, Button, ButtonsType, MessageDialog, ResponseType } from '@gi-types/gtk4';
 import type { ExtensionBase } from '@pano/types/extension/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
@@ -32,14 +32,14 @@ export class ClearHistoryRow extends ActionRow {
       md.get_widget_for_response(ResponseType.OK)?.add_css_class('destructive-action');
       md.connect('response', (_, response) => {
         if (response === ResponseType.OK) {
-          DBus.session.call(
+          Gio.DBus.session.call(
             'org.gnome.Shell',
             '/io/elhan/Pano',
             'io.elhan.Pano',
             'clearHistory',
             null,
             null,
-            DBusCallFlags.NONE,
+            Gio.DBusCallFlags.NONE,
             -1,
             null,
             null,

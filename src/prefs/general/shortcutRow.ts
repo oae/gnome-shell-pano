@@ -37,7 +37,7 @@ import {
   KEY_z,
   ModifierType,
 } from '@gi-types/gdk4';
-import { Settings } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import {
   accelerator_get_default_mod_mask,
   accelerator_name_with_keycode,
@@ -52,7 +52,7 @@ import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class ShortcutRow extends ActionRow {
-  private settings: Settings;
+  private settings: Gio.Settings;
   constructor(ext: ExtensionBase) {
     const _ = gettext(ext);
     super({

@@ -1,5 +1,5 @@
 import { ActorAlign, AlignAxis, AlignConstraint } from '@gi-types/clutter10';
-import { File, Settings } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import { BoxLayout, Label } from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
@@ -13,7 +13,7 @@ const NO_IMAGE_FOUND_FILE_NAME = 'no-image-found.svg';
 
 @registerGObjectClass
 export class ImagePanoItem extends PanoItem {
-  private imageItemSettings: Settings;
+  private imageItemSettings: Gio.Settings;
   private metaContainer: BoxLayout;
   private resolutionTitle: Label;
   private resolutionValue: Label;
@@ -117,7 +117,7 @@ export class ImagePanoItem extends PanoItem {
 
     let imageFilePath = `file://${getImagesPath(this.ext)}/${this.dbItem.content}.png`;
     let backgroundSize = 'contain';
-    const imageFile = File.new_for_uri(imageFilePath);
+    const imageFile = Gio.File.new_for_uri(imageFilePath);
     if (!imageFile.query_exists(null)) {
       imageFilePath = `file://${this.ext.path}/images/${NO_IMAGE_FOUND_FILE_NAME}`;
       backgroundSize = 'cover';
@@ -144,7 +144,7 @@ export class ImagePanoItem extends PanoItem {
   }
 
   private setClipboardContent(): void {
-    const imageFile = File.new_for_path(`${getImagesPath(this.ext)}/${this.dbItem.content}.png`);
+    const imageFile = Gio.File.new_for_path(`${getImagesPath(this.ext)}/${this.dbItem.content}.png`);
     if (!imageFile.query_exists(null)) {
       return;
     }

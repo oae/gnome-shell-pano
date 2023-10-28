@@ -1,10 +1,10 @@
 import { ActionRow } from '@gi-types/adw1';
 import { RGBA } from '@gi-types/gdk4';
-import { Settings, SettingsBindFlags } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import { Adjustment, Align, Button, ColorButton, DropDown, FontButton, SpinButton, StringList } from '@gi-types/gtk4';
 import { SCALE } from '@gi-types/pango1';
 
-export const createColorRow = (title: string, subtitle: string, settings: Settings, schemaKey: string) => {
+export const createColorRow = (title: string, subtitle: string, settings: Gio.Settings, schemaKey: string) => {
   const colorRow = new ActionRow({
     title,
     subtitle,
@@ -68,7 +68,7 @@ export const createColorRow = (title: string, subtitle: string, settings: Settin
 export const createSpinRow = (
   title: string,
   subtitle: string,
-  settings: Settings,
+  settings: Gio.Settings,
   schemaKey: string,
   increment: number,
   lower: number,
@@ -88,7 +88,7 @@ export const createSpinRow = (
     halign: Align.CENTER,
   });
 
-  settings.bind(schemaKey, spinButton, 'value', SettingsBindFlags.DEFAULT);
+  settings.bind(schemaKey, spinButton, 'value', Gio.SettingsBindFlags.DEFAULT);
 
   row.add_suffix(spinButton);
   row.set_activatable_widget(spinButton);
@@ -123,7 +123,7 @@ export const createSpinRow = (
   return row;
 };
 
-export const createFontRow = (title: string, subtitle: string, settings: Settings, schemaKey: string) => {
+export const createFontRow = (title: string, subtitle: string, settings: Gio.Settings, schemaKey: string) => {
   const getFont = () => `${settings.get_string(`${schemaKey}-family`)} ${settings.get_int(`${schemaKey}-size`)}`;
   const getDefaultFont = () =>
     `${settings.get_default_value(`${schemaKey}-family`)?.get_string()[0]} ${settings
@@ -193,7 +193,7 @@ export const createFontRow = (title: string, subtitle: string, settings: Setting
 export const createDropdownRow = (
   title: string,
   subtitle: string,
-  settings: Settings,
+  settings: Gio.Settings,
   schemaKey: string,
   options: string[],
 ) => {

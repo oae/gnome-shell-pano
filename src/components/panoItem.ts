@@ -15,7 +15,7 @@ import {
   KeyState,
   ModifierType,
 } from '@gi-types/clutter10';
-import { Settings } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import { PRIORITY_DEFAULT, Source, SOURCE_REMOVE, timeout_add } from '@gi-types/glib2';
 import { MetaInfo, TYPE_STRING } from '@gi-types/gobject2';
 import { Point } from '@gi-types/graphene1';
@@ -53,7 +53,7 @@ export class PanoItem extends BoxLayout {
   protected body: BoxLayout;
   protected clipboardManager: ClipboardManager;
   public dbItem: DBItem;
-  protected settings: Settings;
+  protected settings: Gio.Settings;
   private selected: boolean;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {

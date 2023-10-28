@@ -1,5 +1,5 @@
 import { ActionRow, Window } from '@gi-types/adw1';
-import { File, Settings } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import {
   Align,
   Button,
@@ -16,7 +16,7 @@ import { getCurrentExtensionSettings, getDbPath, gettext } from '@pano/utils/she
 @registerGObjectClass
 export class DBLocationRow extends ActionRow {
   private fileChooser: FileChooserNative;
-  private settings: Settings;
+  private settings: Gio.Settings;
 
   constructor(ext: ExtensionBase) {
     const _ = gettext(ext);
@@ -36,7 +36,7 @@ export class DBLocationRow extends ActionRow {
     this.connect('map', () => {
       this.fileChooser.set_transient_for(this.get_root() as Window);
     });
-    this.fileChooser.set_current_folder(File.new_for_path(`${getDbPath(ext)}`));
+    this.fileChooser.set_current_folder(Gio.File.new_for_path(`${getDbPath(ext)}`));
     this.fileChooser.connect('response', (chooser, response) => {
       if (response !== ResponseType.ACCEPT) {
         this.fileChooser.hide();
@@ -77,7 +77,7 @@ export class DBLocationRow extends ActionRow {
     this.set_activatable_widget(dbLocationButton);
 
     this.settings.connect('changed::database-location', () => {
-      this.fileChooser.set_current_folder(File.new_for_path(`${getDbPath(ext)}`));
+      this.fileChooser.set_current_folder(Gio.File.new_for_path(`${getDbPath(ext)}`));
       this.set_subtitle(`<b>${getDbPath(ext)}/pano.db</b>`);
     });
   }

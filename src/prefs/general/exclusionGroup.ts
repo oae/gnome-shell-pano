@@ -1,5 +1,5 @@
 import { ActionRow, ExpanderRow, PreferencesGroup } from '@gi-types/adw1';
-import { Settings } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import { Align, Button, Entry } from '@gi-types/gtk4';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
@@ -9,7 +9,7 @@ import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
 export class ExclusionGroup extends PreferencesGroup {
   private exclusionRow: ExpanderRow;
   private exclusionButton: Button;
-  private settings: Settings;
+  private settings: Gio.Settings;
 
   constructor(ext: ExtensionBase) {
     const _ = gettext(ext);

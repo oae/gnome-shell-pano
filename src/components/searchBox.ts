@@ -1,8 +1,8 @@
 import {
   ActorAlign,
+  Event,
   EVENT_PROPAGATE,
   EVENT_STOP,
-  Event,
   KEY_Alt_L,
   KEY_Alt_R,
   KEY_BackSpace,
@@ -15,13 +15,12 @@ import {
   KEY_Right,
   KEY_Tab,
 } from '@gi-types/clutter10';
-import { icon_new_for_string, IconPrototype, Settings } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import { MetaInfo, TYPE_BOOLEAN, TYPE_INT, TYPE_STRING } from '@gi-types/gobject2';
 import { Cursor } from '@gi-types/meta10';
 import { Global } from '@gi-types/shell0';
 import { BoxLayout, Entry, Icon, ThemeContext } from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
-import { KeyEvent } from '@pano/types/clutter';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getPanoItemTypes, ICON_PACKS } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
@@ -47,7 +46,7 @@ export class SearchBox extends BoxLayout {
   private search: Entry;
   private currentIndex: number | null = null;
   private showFavorites = false;
-  private settings: Settings;
+  private settings: Gio.Settings;
   private ext: ExtensionBase;
 
   constructor(ext: ExtensionBase) {
@@ -181,7 +180,7 @@ export class SearchBox extends BoxLayout {
     } else {
       this.search.set_primary_icon(
         this.createSearchEntryIcon(
-          icon_new_for_string(
+          Gio.icon_new_for_string(
             `${this.ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${
               panoItemTypes[Object.keys(panoItemTypes)[this.currentIndex]].iconPath
             }`,
@@ -197,7 +196,7 @@ export class SearchBox extends BoxLayout {
       } else {
         this.search.set_primary_icon(
           this.createSearchEntryIcon(
-            icon_new_for_string(
+            Gio.icon_new_for_string(
               `${this.ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${
                 panoItemTypes[Object.keys(panoItemTypes)[this.currentIndex]].iconPath
               }`,
@@ -211,7 +210,7 @@ export class SearchBox extends BoxLayout {
     this.emitSearchTextChange();
   }
 
-  private createSearchEntryIcon(iconNameOrProto: string | IconPrototype, styleClass: string) {
+  private createSearchEntryIcon(iconNameOrProto: string | Gio.IconPrototype, styleClass: string) {
     const icon = new Icon({
       style_class: styleClass,
       icon_size: 13,

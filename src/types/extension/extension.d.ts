@@ -1,4 +1,4 @@
-import { File, Settings } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import GnomeShell from '@girs/gnome-shell';
 export type ExtensionType = typeof GnomeShell.misc.extensionUtils.ExtensionType;
 
@@ -20,12 +20,12 @@ export type GetTextString = string & { format: (...args: any[]) => string };
 
 export class ExtensionBase {
   // >= gnome 45
-  getSettings(): Settings;
+  getSettings(): Gio.Settings;
   openPreferences(): null;
 
   uuid: string;
   path: string;
-  dir: File;
+  dir: Gio.File;
   metadata: ExtensionMetadata;
 
   gettext(str: string): GetTextString;

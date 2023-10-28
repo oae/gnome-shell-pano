@@ -1,4 +1,4 @@
-import { Settings } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { ItemExpanderRow } from '@pano/prefs/customization/itemExpanderRow';
 import { createColorRow, createFontRow } from '@pano/prefs/customization/utils';
@@ -8,7 +8,7 @@ import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class ColorItemStyleRow extends ItemExpanderRow {
-  private settings: Settings;
+  private settings: Gio.Settings;
 
   constructor(ext: ExtensionBase) {
     const _ = gettext(ext);

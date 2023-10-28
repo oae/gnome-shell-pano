@@ -1,6 +1,6 @@
 import { ActorAlign, get_default_backend, InputDeviceType, VirtualInputDevice } from '@gi-types/clutter10';
 import { Pixbuf } from '@gi-types/gdkpixbuf2';
-import { Icon } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import { DateTime } from '@gi-types/glib2';
 import { Global } from '@gi-types/shell0';
 import { ImageContent } from '@gi-types/st1';
@@ -18,7 +18,7 @@ export const notify = (
   ext: ExtensionBase,
   text: string,
   body: string,
-  iconOrPixbuf?: Pixbuf | Icon,
+  iconOrPixbuf?: Pixbuf | Gio.Icon,
   pixelFormat?: PixelFormat,
 ): void => {
   const _ = gettext(ext);

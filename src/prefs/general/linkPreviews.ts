@@ -1,12 +1,12 @@
 import { ActionRow } from '@gi-types/adw1';
-import { Settings, SettingsBindFlags } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import { Align, Switch } from '@gi-types/gtk4';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
 @registerGObjectClass
 export class LinkPreviewsRow extends ActionRow {
-  private settings: Settings;
+  private settings: Gio.Settings;
 
   constructor(ext: ExtensionBase) {
     const _ = gettext(ext);
@@ -23,7 +23,7 @@ export class LinkPreviewsRow extends ActionRow {
       halign: Align.CENTER,
     });
 
-    this.settings.bind('link-previews', linkPreviews, 'active', SettingsBindFlags.DEFAULT);
+    this.settings.bind('link-previews', linkPreviews, 'active', Gio.SettingsBindFlags.DEFAULT);
 
     this.add_suffix(linkPreviews);
     this.set_activatable_widget(linkPreviews);

@@ -1,4 +1,4 @@
-import { Settings } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import { EllipsizeMode } from '@gi-types/pango1';
 import { Label } from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
@@ -10,7 +10,7 @@ import { markupCode } from '@pano/utils/pango';
 
 @registerGObjectClass
 export class CodePanoItem extends PanoItem {
-  private codeItemSettings: Settings;
+  private codeItemSettings: Gio.Settings;
   private label: Label;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {

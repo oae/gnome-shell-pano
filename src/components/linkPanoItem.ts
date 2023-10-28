@@ -6,7 +6,7 @@ import {
   KEY_Return,
   ModifierType,
 } from '@gi-types/clutter10';
-import { File, Settings } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import { uri_parse, UriFlags } from '@gi-types/glib2';
 import { BoxLayout, Button, Icon, Label } from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
@@ -21,7 +21,7 @@ const DEFAULT_LINK_PREVIEW_IMAGE_NAME = 'link-preview.svg';
 
 @registerGObjectClass
 export class LinkPanoItem extends PanoItem {
-  private linkItemSettings: Settings;
+  private linkItemSettings: Gio.Settings;
   private metaContainer: BoxLayout;
   private titleLabel: Label;
   private descriptionLabel: Label;
@@ -76,7 +76,7 @@ export class LinkPanoItem extends PanoItem {
     });
 
     let imageFilePath = `file:///${ext.path}/images/${DEFAULT_LINK_PREVIEW_IMAGE_NAME}`;
-    if (image && File.new_for_uri(`file://${getCachePath(ext)}/${image}.png`).query_exists(null)) {
+    if (image && Gio.File.new_for_uri(`file://${getCachePath(ext)}/${image}.png`).query_exists(null)) {
       imageFilePath = `file://${getCachePath(ext)}/${image}.png`;
     }
 

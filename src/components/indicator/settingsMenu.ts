@@ -6,7 +6,7 @@ import {
   EVENT_PROPAGATE,
   EventType,
 } from '@gi-types/clutter10';
-import { icon_new_for_string, Settings } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import { MetaInfo, TYPE_BOOLEAN } from '@gi-types/gobject2';
 import { Icon } from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
@@ -32,7 +32,7 @@ export class SettingsMenu extends panelMenu.Button {
     },
   };
 
-  private settings: Settings;
+  private settings: Gio.Settings;
   private incognitoChangeId: number;
   private clipboardChangeId: number;
   private icon: Icon;
@@ -56,7 +56,7 @@ export class SettingsMenu extends panelMenu.Button {
     const isInIncognito = this.settings.get_boolean('is-in-incognito');
 
     this.icon = new Icon({
-      gicon: icon_new_for_string(
+      gicon: Gio.icon_new_for_string(
         `${this.ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-indicator${
           isInIncognito ? '-incognito-symbolic' : '-symbolic'
         }.svg`,
@@ -79,7 +79,7 @@ export class SettingsMenu extends panelMenu.Button {
       const isInIncognito = this.settings.get_boolean('is-in-incognito');
       switchMenuItem.setToggleState(isInIncognito);
       this.icon.set_gicon(
-        icon_new_for_string(
+        Gio.icon_new_for_string(
           `${this.ext.path}/icons/hicolor/scalable/actions/${
             ICON_PACKS[this.settings.get_uint('icon-pack')]
           }-indicator${isInIncognito ? '-incognito-symbolic' : '-symbolic'}.svg`,
@@ -90,7 +90,7 @@ export class SettingsMenu extends panelMenu.Button {
     this.settings.connect('changed::icon-pack', () => {
       const isInIncognito = this.settings.get_boolean('is-in-incognito');
       this.icon.set_gicon(
-        icon_new_for_string(
+        Gio.icon_new_for_string(
           `${this.ext.path}/icons/hicolor/scalable/actions/${
             ICON_PACKS[this.settings.get_uint('icon-pack')]
           }-indicator${isInIncognito ? '-incognito-symbolic' : '-symbolic'}.svg`,

@@ -1,5 +1,5 @@
 import { ActorAlign, AlignAxis, AlignConstraint } from '@gi-types/clutter10';
-import { Settings } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import { BoxLayout, Label } from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
@@ -8,7 +8,7 @@ import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 @registerGObjectClass
 export class ColorPanoItem extends PanoItem {
-  private colorItemSettings: Settings;
+  private colorItemSettings: Gio.Settings;
   private label: Label;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {

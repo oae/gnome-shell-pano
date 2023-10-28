@@ -1,5 +1,5 @@
 import { AnimationMode, EVENT_PROPAGATE, KEY_Escape } from '@gi-types/clutter10';
-import { Settings } from '@gi-types/gio2';
+import Gio from '@gi-types/gio2';
 import { Global } from '@gi-types/shell0';
 import { BoxLayout, ThemeContext } from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
@@ -17,7 +17,7 @@ export class PanoWindow extends BoxLayout {
   private scrollView: PanoScrollView;
   private searchBox: SearchBox;
   private monitorBox: MonitorBox;
-  private settings: Settings;
+  private settings: Gio.Settings;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager) {
     super({
