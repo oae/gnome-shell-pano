@@ -16,7 +16,7 @@ import {
   ModifierType,
 } from '@gi-types/clutter10';
 import Gio from '@gi-types/gio2';
-import { PRIORITY_DEFAULT, Source, SOURCE_REMOVE, timeout_add } from '@gi-types/glib2';
+import GLib from '@gi-types/glib2';
 import { MetaInfo, TYPE_STRING } from '@gi-types/gobject2';
 import { Point } from '@gi-types/graphene1';
 import { Cursor } from '@gi-types/meta10';
@@ -96,17 +96,17 @@ export class PanoItem extends BoxLayout {
 
       if (this.settings.get_boolean('paste-on-select')) {
         // See https://github.com/SUPERCILEX/gnome-clipboard-history/blob/master/extension.js#L606
-        this.timeoutId = timeout_add(PRIORITY_DEFAULT, 250, () => {
+        this.timeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 250, () => {
           getVirtualKeyboard().notify_keyval(get_current_event_time(), KEY_Control_L, KeyState.RELEASED);
           getVirtualKeyboard().notify_keyval(get_current_event_time(), KEY_Control_L, KeyState.PRESSED);
           getVirtualKeyboard().notify_keyval(get_current_event_time(), KEY_v, KeyState.PRESSED);
           getVirtualKeyboard().notify_keyval(get_current_event_time(), KEY_Control_L, KeyState.RELEASED);
           getVirtualKeyboard().notify_keyval(get_current_event_time(), KEY_v, KeyState.RELEASED);
           if (this.timeoutId) {
-            Source.remove(this.timeoutId);
+            GLib.Source.remove(this.timeoutId);
           }
           this.timeoutId = undefined;
-          return SOURCE_REMOVE;
+          return GLib.SOURCE_REMOVE;
         });
       }
     });
@@ -216,7 +216,7 @@ export class PanoItem extends BoxLayout {
 
   override destroy(): void {
     if (this.timeoutId) {
-      Source.remove(this.timeoutId);
+      GLib.Source.remove(this.timeoutId);
     }
     this.header.destroy();
     super.destroy();

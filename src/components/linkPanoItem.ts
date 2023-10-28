@@ -7,7 +7,7 @@ import {
   ModifierType,
 } from '@gi-types/clutter10';
 import Gio from '@gi-types/gio2';
-import { uri_parse, UriFlags } from '@gi-types/glib2';
+import GLib from '@gi-types/glib2';
 import { BoxLayout, Button, Icon, Label } from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
@@ -37,7 +37,7 @@ export class LinkPanoItem extends PanoItem {
     let descriptionText: string = description;
 
     if (!title) {
-      titleText = uri_parse(dbItem.content, UriFlags.NONE).get_host() || this.dbItem.content;
+      titleText = GLib.uri_parse(dbItem.content, GLib.UriFlags.NONE).get_host() || this.dbItem.content;
     } else {
       titleText = decodeURI(title);
     }

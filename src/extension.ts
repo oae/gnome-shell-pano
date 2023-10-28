@@ -1,7 +1,7 @@
 import './styles/stylesheet.css';
 
 import Gio from '@gi-types/gio2';
-import { PRIORITY_DEFAULT, Source, SOURCE_REMOVE, timeout_add } from '@gi-types/glib2';
+import GLib from '@gi-types/glib2';
 import { Global } from '@gi-types/shell0';
 import { Extension, ExtensionMetadata } from '@gnome-shell/extensions/extension';
 import { SettingsMenu } from '@pano/components/indicator/settingsMenu';
@@ -175,13 +175,13 @@ export default class PanoExtension extends Extension {
       ) {
         this.clipboardManager.stopTracking();
       } else if (this.clipboardManager.isTracking === false) {
-        this.timeoutId = timeout_add(PRIORITY_DEFAULT, 300, () => {
+        this.timeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 300, () => {
           this.clipboardManager.startTracking();
           if (this.timeoutId) {
-            Source.remove(this.timeoutId);
+            GLib.Source.remove(this.timeoutId);
           }
           this.timeoutId = null;
-          return SOURCE_REMOVE;
+          return GLib.SOURCE_REMOVE;
         });
       }
     });
@@ -193,10 +193,10 @@ export default class PanoExtension extends Extension {
       Global.get().display.disconnect(this.windowTrackerId);
     }
     if (this.timeoutId) {
-      Source.remove(this.timeoutId);
+      GLib.Source.remove(this.timeoutId);
     }
     debounceIds.forEach((debounceId) => {
-      Source.remove(debounceId);
+      GLib.Source.remove(debounceId);
     });
     this.removeIndicator();
     this.windowTrackerId = null;

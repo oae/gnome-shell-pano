@@ -17,7 +17,7 @@ export {
 } from '@girs/gnome-shell/src/ui/messageTray';
 
 import type Gio from '@gi-types/gio2';
-import type { DateTime } from '@gi-types/glib2';
+import GLib from '@gi-types/glib2';
 import type { ImageContent } from '@gi-types/st1';
 import {
   NotificationBanner,
@@ -33,7 +33,7 @@ export namespace Notification {
     secondaryGIcon?: Gio.Icon | ImageContent | null;
     bannerMarkup?: boolean;
     clear?: boolean;
-    datetime?: DateTime | null;
+    datetime?: GLib.DateTime | null;
     soundName?: string | null;
     soundFile?: Gio.File | null;
   }

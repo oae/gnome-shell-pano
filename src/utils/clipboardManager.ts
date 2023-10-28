@@ -1,5 +1,5 @@
 import Gio from '@gi-types/gio2';
-import { Bytes } from '@gi-types/glib2';
+import GLib from '@gi-types/glib2';
 import { MetaInfo, Object } from '@gi-types/gobject2';
 import { Selection, SelectionSource, SelectionType } from '@gi-types/meta10';
 import { Global } from '@gi-types/shell0';
@@ -250,8 +250,8 @@ export class ClipboardManager extends Object {
           resolve(null);
           return;
         }
-        this.clipboard.get_content(clipboardType, currentMimeType, (_, bytes: Bytes | Uint8Array) => {
-          const data = bytes instanceof Bytes ? bytes.get_data() : bytes;
+        this.clipboard.get_content(clipboardType, currentMimeType, (_, bytes: GLib.Bytes | Uint8Array) => {
+          const data = bytes instanceof GLib.Bytes ? bytes.get_data() : bytes;
           if (data && data.length > 0) {
             const content = new TextDecoder().decode(data);
             const fileContent = content.split('\n').filter((c) => !!c);
@@ -275,8 +275,8 @@ export class ClipboardManager extends Object {
           resolve(null);
           return;
         }
-        this.clipboard.get_content(clipboardType, currentMimeType, (_, bytes: Bytes | Uint8Array) => {
-          const data = bytes instanceof Bytes ? bytes.get_data() : bytes;
+        this.clipboard.get_content(clipboardType, currentMimeType, (_, bytes: GLib.Bytes | Uint8Array) => {
+          const data = bytes instanceof GLib.Bytes ? bytes.get_data() : bytes;
           if (data && data.length > 0) {
             resolve(
               new ClipboardContent({

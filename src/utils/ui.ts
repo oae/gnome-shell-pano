@@ -1,7 +1,7 @@
 import { ActorAlign, get_default_backend, InputDeviceType, VirtualInputDevice } from '@gi-types/clutter10';
 import { Pixbuf } from '@gi-types/gdkpixbuf2';
 import Gio from '@gi-types/gio2';
-import { DateTime } from '@gi-types/glib2';
+import GLib from '@gi-types/glib2';
 import { Global } from '@gi-types/shell0';
 import { ImageContent } from '@gi-types/st1';
 import type Clutter from '@girs/clutter-12';
@@ -37,12 +37,12 @@ export const notify = (
       );
 
       notification = new messageTray.Notification(source, text, body, {
-        datetime: DateTime.new_now_local(),
+        datetime: GLib.DateTime.new_now_local(),
         gicon: content,
       });
     } else {
       notification = new messageTray.Notification(source, text, body, {
-        datetime: DateTime.new_now_local(),
+        datetime: GLib.DateTime.new_now_local(),
         gicon: iconOrPixbuf,
       });
     }

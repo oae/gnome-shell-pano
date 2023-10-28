@@ -8,7 +8,7 @@ import { getCurrentExtensionSettings } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class ItemExpanderRow extends ExpanderRow {
-  protected extensionsettings: Gio.Settings;
+  protected extensionSettings: Gio.Settings;
 
   constructor(ext: ExtensionBase, title: string, subtitle: string, iconName: string) {
     super({

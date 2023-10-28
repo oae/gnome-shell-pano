@@ -1,6 +1,6 @@
 import { Colorspace, Pixbuf } from '@gi-types/gdkpixbuf2';
 import Gio from '@gi-types/gio2';
-import { ChecksumType, compute_checksum_for_bytes, uri_parse, UriFlags } from '@gi-types/glib2';
+import GLib from '@gi-types/glib2';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PixelFormat } from '@imports/cogl2';
 import { CodePanoItem } from '@pano/components/codePanoItem';
@@ -112,7 +112,7 @@ const debug = logger('pano-item-factory');
 
 const isValidUrl = (text: string) => {
   try {
-    return isUrl(text) && uri_parse(text, UriFlags.NONE) !== null;
+    return isUrl(text) && GLib.uri_parse(text, GLib.UriFlags.NONE) !== null;
   } catch (err) {
     return false;
   }
@@ -126,7 +126,9 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
       queryBuilder.withItemTypes(['FILE']).withMatchValue(`${value.operation}${value.fileList.sort().join('')}`);
       break;
     case ContentType.IMAGE:
-      queryBuilder.withItemTypes(['IMAGE']).withMatchValue(compute_checksum_for_bytes(ChecksumType.MD5, value));
+      queryBuilder
+        .withItemTypes(['IMAGE'])
+        .withMatchValue(GLib.compute_checksum_for_bytes(GLib.ChecksumType.MD5, value));
       break;
     case ContentType.TEXT:
       queryBuilder.withItemTypes(['LINK', 'TEXT', 'CODE', 'COLOR', 'EMOJI']).withMatchValue(value).build();
@@ -165,7 +167,7 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
         metaData: value.operation,
       });
     case ContentType.IMAGE:
-      const checksum = compute_checksum_for_bytes(ChecksumType.MD5, value);
+      const checksum = GLib.compute_checksum_for_bytes(GLib.ChecksumType.MD5, value);
       if (!checksum) {
         return null;
       }

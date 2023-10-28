@@ -1,6 +1,6 @@
 import { ActorAlign, EVENT_PROPAGATE } from '@gi-types/clutter10';
 import Gio from '@gi-types/gio2';
-import { get_language_names_with_category } from '@gi-types/glib2';
+import GLib from '@gi-types/glib2';
 import { MetaInfo } from '@gi-types/gobject2';
 import { Global } from '@gi-types/shell0';
 import { BoxLayout, Button, Icon, Label, ThemeContext } from '@gi-types/st1';
@@ -11,7 +11,7 @@ import { getCurrentExtensionSettings } from '@pano/utils/shell';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import * as dateLocale from 'date-fns/locale';
 
-const langs = get_language_names_with_category('LC_MESSAGES').map(
+const langs = GLib.get_language_names_with_category('LC_MESSAGES').map(
   (l) => l.replaceAll('_', '').replaceAll('-', '').split('.')[0],
 );
 const localeKey = Object.keys(dateLocale).find((key) => langs.includes(key));

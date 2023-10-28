@@ -1,5 +1,5 @@
 import Gio from '@gi-types/gio2';
-import { ChecksumType, compute_checksum_for_string, PRIORITY_DEFAULT, uri_parse, UriFlags } from '@gi-types/glib2';
+import GLib from '@gi-types/glib2';
 import { Message, Session } from '@gi-types/soup3';
 import { ExtensionBase } from '@pano/types/extension/extension';
 import { getCachePath, logger } from '@pano/utils/shell';
@@ -22,7 +22,7 @@ export const getDocument = async (url: string): Promise<{ title: string; descrip
   try {
     const message = Message.new('GET', url);
     message.request_headers.append('User-Agent', DEFAULT_USER_AGENT);
-    const response = await session.send_and_read_async(message, PRIORITY_DEFAULT, null);
+    const response = await session.send_and_read_async(message, GLib.PRIORITY_DEFAULT, null);
 
     if (response == null) {
       debug(`no response from ${url}`);
@@ -78,7 +78,7 @@ export const getDocument = async (url: string): Promise<{ title: string; descrip
             ) {
               imageUrl = attribs['content'];
               if (imageUrl.startsWith('/')) {
-                const uri = uri_parse(url, UriFlags.NONE);
+                const uri = GLib.uri_parse(url, GLib.UriFlags.NONE);
                 imageUrl = `${uri.get_scheme()}://${uri.get_host()}${imageUrl}`;
               }
             }
@@ -127,7 +127,7 @@ export const getImage = async (
 ): Promise<[string | null, Gio.FilePrototype | null]> => {
   if (imageUrl && imageUrl.startsWith('http')) {
     try {
-      const checksum = compute_checksum_for_string(ChecksumType.MD5, imageUrl, imageUrl.length);
+      const checksum = GLib.compute_checksum_for_string(GLib.ChecksumType.MD5, imageUrl, imageUrl.length);
       const cachedImage = Gio.File.new_for_path(`${getCachePath(ext)}/${checksum}.png`);
 
       if (cachedImage.query_exists(null)) {
@@ -136,7 +136,7 @@ export const getImage = async (
 
       const message = Message.new('GET', imageUrl);
       message.request_headers.append('User-Agent', DEFAULT_USER_AGENT);
-      const response = await session.send_and_read_async(message, PRIORITY_DEFAULT, null);
+      const response = await session.send_and_read_async(message, GLib.PRIORITY_DEFAULT, null);
       if (!response) {
         debug('no response while fetching the image');
         return [null, null];
