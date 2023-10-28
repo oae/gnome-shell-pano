@@ -1,9 +1,9 @@
-import Clutter from '@gi-types/clutter10';
-import Gio from '@gi-types/gio2';
-import GLib from '@gi-types/glib2';
-import { MetaInfo } from '@gi-types/gobject2';
-import Shell from '@gi-types/shell0';
-import St1 from '@gi-types/st1';
+import Clutter from '@girs/clutter-12';
+import Gio from '@girs/gio-2.0';
+import GLib from '@girs/glib-2.0';
+import { MetaInfo } from '@girs/gobject-2.0';
+import Shell from '@girs/shell-12';
+import St1 from '@girs/st-12';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { ICON_PACKS, IPanoItemType } from '@pano/utils/panoItemType';

@@ -1,14 +1,7 @@
-import {
-  BUTTON_MIDDLE,
-  BUTTON_PRIMARY,
-  BUTTON_SECONDARY,
-  Event,
-  EVENT_PROPAGATE,
-  EventType,
-} from '@gi-types/clutter10';
-import Gio from '@gi-types/gio2';
-import { MetaInfo, TYPE_BOOLEAN } from '@gi-types/gobject2';
-import St1 from '@gi-types/st1';
+import { BUTTON_MIDDLE, BUTTON_PRIMARY, BUTTON_SECONDARY, Event, EVENT_PROPAGATE, EventType } from '@girs/clutter-12';
+import Gio from '@girs/gio-2.0';
+import { MetaInfo, TYPE_BOOLEAN } from '@girs/gobject-2.0';
+import St1 from '@girs/st-12';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import * as panelMenu from '@gnome-shell/ui/panelMenu';
 import * as popupMenu from '@gnome-shell/ui/popupMenu';

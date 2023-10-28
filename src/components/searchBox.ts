@@ -14,12 +14,12 @@ import {
   KEY_Return,
   KEY_Right,
   KEY_Tab,
-} from '@gi-types/clutter10';
-import Gio from '@gi-types/gio2';
-import { MetaInfo, TYPE_BOOLEAN, TYPE_INT, TYPE_STRING } from '@gi-types/gobject2';
-import Meta from '@gi-types/meta10';
-import Shell from '@gi-types/shell0';
-import St1 from '@gi-types/st1';
+} from '@girs/clutter-12';
+import Gio from '@girs/gio-2.0';
+import { MetaInfo, TYPE_BOOLEAN, TYPE_INT, TYPE_STRING } from '@girs/gobject-2.0';
+import Meta from '@girs/meta-12';
+import Shell from '@girs/shell-12';
+import St1 from '@girs/st-12';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getPanoItemTypes, ICON_PACKS } from '@pano/utils/panoItemType';

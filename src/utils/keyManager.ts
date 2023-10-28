@@ -1,6 +1,6 @@
-import Gio from '@gi-types/gio2';
-import Meta from '@gi-types/meta10';
-import Shell from '@gi-types/shell0';
+import Gio from '@girs/gio-2.0';
+import Meta from '@girs/meta-12';
+import Shell from '@girs/shell-12';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
 import { wm } from '@pano/utils/ui';

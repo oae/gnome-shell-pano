@@ -1,8 +1,8 @@
 import './styles/stylesheet.css';
 
-import Gio from '@gi-types/gio2';
-import GLib from '@gi-types/glib2';
-import Shell from '@gi-types/shell0';
+import Gio from '@girs/gio-2.0';
+import GLib from '@girs/glib-2.0';
+import Shell from '@girs/shell-12';
 import { Extension, ExtensionMetadata } from '@gnome-shell/extensions/extension';
 import { SettingsMenu } from '@pano/components/indicator/settingsMenu';
 import { PanoWindow } from '@pano/containers/panoWindow';

@@ -1,15 +1,15 @@
-import Clutter from '@gi-types/clutter10';
-import GdkPixbuf from '@gi-types/gdkpixbuf2';
-import Gio from '@gi-types/gio2';
-import GLib from '@gi-types/glib2';
-import Shell from '@gi-types/shell0';
-import St1 from '@gi-types/st1';
+import Clutter from '@girs/clutter-12';
+import { PixelFormat } from '@girs/cogl-2.0';
+import GdkPixbuf from '@girs/gdkpixbuf-2.0';
+import Gio from '@girs/gio-2.0';
+import GLib from '@girs/glib-2.0';
+import Shell from '@girs/shell-12';
+import St1 from '@girs/st-12';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import * as animationUtils from '@gnome-shell/misc/animationUtils';
 import * as layout from '@gnome-shell/ui/layout';
 import * as main from '@gnome-shell/ui/main';
 import * as messageTray from '@gnome-shell/ui/messageTray';
-import { PixelFormat } from '@imports/cogl2';
 import { gettext } from '@pano/utils/shell';
 const global = Shell.Global.get();
 

@@ -1,5 +1,5 @@
-import { PreferencesGroup } from '@gi-types/adw1';
-import Gio from '@gi-types/gio2';
+import { PreferencesGroup } from '@girs/adw-1';
+import Gio from '@girs/gio-2.0';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { createColorRow, createDropdownRow, createFontRow, createSpinRow } from '@pano/prefs/customization/utils';
 import { registerGObjectClass } from '@pano/utils/gjs';

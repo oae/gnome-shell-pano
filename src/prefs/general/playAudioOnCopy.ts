@@ -1,6 +1,6 @@
-import { ActionRow } from '@gi-types/adw1';
-import Gio from '@gi-types/gio2';
-import Gtk4 from '@gi-types/gtk4';
+import { ActionRow } from '@girs/adw-1';
+import Gio from '@girs/gio-2.0';
+import Gtk4 from '@girs/gtk-4.0';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';

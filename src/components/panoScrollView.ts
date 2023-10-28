@@ -16,11 +16,11 @@ import {
   KEY_Up,
   keysym_to_unicode,
   ScrollDirection,
-} from '@gi-types/clutter10';
-import Gio from '@gi-types/gio2';
-import { MetaInfo, TYPE_BOOLEAN, TYPE_STRING } from '@gi-types/gobject2';
-import Shell from '@gi-types/shell0';
-import St1 from '@gi-types/st1';
+} from '@girs/clutter-12';
+import Gio from '@girs/gio-2.0';
+import { MetaInfo, TYPE_BOOLEAN, TYPE_STRING } from '@girs/gobject-2.0';
+import Shell from '@girs/shell-12';
+import St1 from '@girs/st-12';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
 import { KeyEvent, ScrollEvent } from '@pano/types/clutter';

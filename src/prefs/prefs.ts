@@ -1,6 +1,6 @@
-import { PreferencesWindow } from '@gi-types/adw1';
 import Gdk4 from '@gi-types/gdk4';
-import Gtk4 from '@gi-types/gtk4';
+import { PreferencesWindow } from '@girs/adw-1';
+import Gtk4 from '@girs/gtk-4.0';
 import { ExtensionPreferences, gettext as _ } from '@gnome-shell/extensions/prefs';
 import { CustomizationPage } from '@pano/prefs/customization';
 import { DangerZonePage } from '@pano/prefs/dangerZone';

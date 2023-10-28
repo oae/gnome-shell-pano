@@ -1,6 +1,6 @@
-import Gio from '@gi-types/gio2';
-import GLib from '@gi-types/glib2';
-import { Message, Session } from '@gi-types/soup3';
+import Gio from '@girs/gio-2.0';
+import GLib from '@girs/glib-2.0';
+import { Message, Session } from '@girs/soup-3.0';
 import { ExtensionBase } from '@pano/types/extension/extension';
 import { getCachePath, logger } from '@pano/utils/shell';
 import * as htmlparser2 from 'htmlparser2';

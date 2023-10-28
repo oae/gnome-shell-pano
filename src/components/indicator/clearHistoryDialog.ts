@@ -1,4 +1,4 @@
-import Clutter from '@gi-types/clutter10';
+import Clutter from '@girs/clutter-12';
 import type St from '@girs/st-12';
 import * as dialog from '@gnome-shell/ui/dialog';
 import { default as modalDialog } from '@gnome-shell/ui/modalDialog';

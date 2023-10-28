@@ -1,8 +1,8 @@
-import GdkPixbuf from '@gi-types/gdkpixbuf2';
-import Gio from '@gi-types/gio2';
-import GLib from '@gi-types/glib2';
+import { PixelFormat } from '@girs/cogl-2.0';
+import GdkPixbuf from '@girs/gdkpixbuf-2.0';
+import Gio from '@girs/gio-2.0';
+import GLib from '@girs/glib-2.0';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
-import { PixelFormat } from '@imports/cogl2';
 import { CodePanoItem } from '@pano/components/codePanoItem';
 import { ColorPanoItem } from '@pano/components/colorPanoItem';
 import { EmojiPanoItem } from '@pano/components/emojiPanoItem';

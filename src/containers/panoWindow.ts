@@ -1,7 +1,7 @@
-import Clutter from '@gi-types/clutter10';
-import Gio from '@gi-types/gio2';
-import Shell from '@gi-types/shell0';
-import St1 from '@gi-types/st1';
+import Clutter from '@girs/clutter-12';
+import Gio from '@girs/gio-2.0';
+import Shell from '@girs/shell-12';
+import St1 from '@girs/st-12';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { MonitorBox } from '@pano/components/monitorBox';
 import { PanoScrollView } from '@pano/components/panoScrollView';

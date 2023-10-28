@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import Clutter from '@gi-types/clutter10';
+import Clutter from '@girs/clutter-12';
 
 type AnimatableActorFields =
   | 'fixed_x'
@@ -44,13 +44,13 @@ interface EasingParams {
 // Any number of extra fields for the properties to be animated (e.g. "opacity: 0").
 interface EasingParamsWithProperties extends EasingParams, Partial<Pick<Clutter.Actor, AnimatableActorFields>> {}
 
-declare module '@gi-types/st1' {
+declare module '@girs/st-12' {
   interface Adjustment {
     ease(target: any, params: EasingParamsWithProperties): void;
   }
 }
 
-declare module '@gi-types/gobject2' {
+declare module '@girs/gobject-2.0' {
   export interface MetaInfo {
     GTypeName: string;
     GTypeFlags?: TypeFlags;

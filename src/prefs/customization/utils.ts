@@ -1,8 +1,8 @@
-import { ActionRow } from '@gi-types/adw1';
 import Gdk4 from '@gi-types/gdk4';
-import Gio from '@gi-types/gio2';
-import Gtk4 from '@gi-types/gtk4';
-import { SCALE } from '@gi-types/pango1';
+import { ActionRow } from '@girs/adw-1';
+import Gio from '@girs/gio-2.0';
+import Gtk4 from '@girs/gtk-4.0';
+import { SCALE } from '@girs/pango-1.0';
 
 export const createColorRow = (title: string, subtitle: string, settings: Gio.Settings, schemaKey: string) => {
   const colorRow = new ActionRow({

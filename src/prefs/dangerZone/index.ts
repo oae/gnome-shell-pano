@@ -1,4 +1,4 @@
-import { PreferencesGroup, PreferencesPage } from '@gi-types/adw1';
+import { PreferencesGroup, PreferencesPage } from '@girs/adw-1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { ClearHistoryRow } from '@pano/prefs/dangerZone/clearHistory';
 import { SessionOnlyModeRow } from '@pano/prefs/dangerZone/sessionOnlyMode';

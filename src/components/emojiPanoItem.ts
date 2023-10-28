@@ -1,7 +1,7 @@
-import Clutter from '@gi-types/clutter10';
-import Gio from '@gi-types/gio2';
-import { EllipsizeMode, WrapMode } from '@gi-types/pango1';
-import St1 from '@gi-types/st1';
+import Clutter from '@girs/clutter-12';
+import Gio from '@girs/gio-2.0';
+import { EllipsizeMode, WrapMode } from '@girs/pango-1.0';
+import St1 from '@girs/st-12';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';

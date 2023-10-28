@@ -1,4 +1,4 @@
-import { PreferencesPage } from '@gi-types/adw1';
+import { PreferencesPage } from '@girs/adw-1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { CommonStyleGroup } from '@pano/prefs/customization/commonStyleGroup';
 import { ItemStyleGroup } from '@pano/prefs/customization/itemStyleGroup';

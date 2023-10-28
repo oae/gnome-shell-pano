@@ -13,7 +13,6 @@
     "moduleResolution": "Node",
     "experimentalDecorators": true,
     "paths": {
-      "@imports/*": ["../@types/*"],
       "@pano/*": ["./*"],
       "@gnome-shell/misc/util": ["./types/misc/util/index.d.ts"],
       "@gnome-shell/misc/animationUtils": ["./types/misc/animationUtils/index.d.ts"],
@@ -26,7 +25,7 @@
       "@gnome-shell/ui/dialog": ["./types/ui/dialog/index.d.ts"],
       "@gnome-shell/ui/modalDialog": ["./types/ui/modalDialog/index.d.ts"],
       "@gnome-shell/ui/popupMenu": ["./types/ui/popupMenu/index.d.ts"],
-      "@gnome-shell/ui/panelMenu": ["./types/ui/panelMenu/index.d.ts"],
+      "@gnome-shell/ui/panelMenu": ["./types/ui/panelMenu/index.d.ts"]
     }
   },
   "exclude": ["./dist"]

@@ -1,4 +1,4 @@
-import Gio from '@gi-types/gio2';
+import Gio from '@girs/gio-2.0';
 import {
   get_user_cache_dir,
   get_user_data_dir,
@@ -6,9 +6,9 @@ import {
   Source,
   SOURCE_REMOVE,
   timeout_add,
-} from '@gi-types/glib2';
+} from '@girs/glib-2.0';
+import { ATTR_EVENT_ID, Context } from '@girs/gsound-1.0';
 import { ExtensionBase, GetTextString } from '@gnome-shell/extensions/extension';
-import { ATTR_EVENT_ID, Context } from '@imports/gsound1';
 
 export const logger =
   (prefix: string) =>

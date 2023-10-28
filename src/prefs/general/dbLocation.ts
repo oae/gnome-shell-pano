@@ -1,5 +1,5 @@
-import { ActionRow, Window } from '@gi-types/adw1';
-import Gio from '@gi-types/gio2';
+import { ActionRow, Window } from '@girs/adw-1';
+import Gio from '@girs/gio-2.0';
 import {
   Align,
   Button,
@@ -8,7 +8,7 @@ import {
   FileChooserNative,
   MessageDialog,
   ResponseType,
-} from '@gi-types/gtk4';
+} from '@girs/gtk-4.0';
 import { ExtensionBase } from '@pano/types/extension/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtensionSettings, getDbPath, gettext } from '@pano/utils/shell';

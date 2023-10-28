@@ -1,14 +1,7 @@
-import {
-  ActorAlign,
-  EVENT_PROPAGATE,
-  KEY_ISO_Enter,
-  KEY_KP_Enter,
-  KEY_Return,
-  ModifierType,
-} from '@gi-types/clutter10';
-import Gio from '@gi-types/gio2';
-import GLib from '@gi-types/glib2';
-import St1 from '@gi-types/st1';
+import { ActorAlign, EVENT_PROPAGATE, KEY_ISO_Enter, KEY_KP_Enter, KEY_Return, ModifierType } from '@girs/clutter-12';
+import Gio from '@girs/gio-2.0';
+import GLib from '@girs/glib-2.0';
+import St1 from '@girs/st-12';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
 import { ButtonEvent, KeyEvent } from '@pano/types/clutter';

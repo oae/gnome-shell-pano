@@ -1,4 +1,4 @@
-import { PreferencesGroup } from '@gi-types/adw1';
+import { PreferencesGroup } from '@girs/adw-1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { CodeItemStyleRow } from '@pano/prefs/customization/codeItemStyle';
 import { ColorItemStyleRow } from '@pano/prefs/customization/colorItemStyle';

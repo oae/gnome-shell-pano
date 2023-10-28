@@ -1,9 +1,9 @@
-import Gio from '@gi-types/gio2';
-import GLib from '@gi-types/glib2';
-import { MetaInfo, Object } from '@gi-types/gobject2';
-import Meta from '@gi-types/meta10';
-import Shell from '@gi-types/shell0';
-import St1 from '@gi-types/st1';
+import Gio from '@girs/gio-2.0';
+import GLib from '@girs/glib-2.0';
+import { MetaInfo, Object } from '@girs/gobject-2.0';
+import Meta from '@girs/meta-12';
+import Shell from '@girs/shell-12';
+import St1 from '@girs/st-12';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { debounce, getCurrentExtensionSettings, logger } from '@pano/utils/shell';

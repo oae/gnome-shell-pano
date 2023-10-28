@@ -16,9 +16,8 @@ export {
   Urgency,
 } from '@girs/gnome-shell/src/ui/messageTray';
 
-import type Gio from '@gi-types/gio2';
-import GLib from '@gi-types/glib2';
-import St1 from '@gi-types/st1';
+import type Gio from '@girs/gio-2.0';
+import GLib from '@girs/glib-2.0';
 import {
   NotificationBanner,
   NotificationDestroyedReason,
@@ -27,6 +26,7 @@ import {
   Urgency,
 } from '@girs/gnome-shell/src/ui/messageTray';
 import type GObject from '@girs/gobject-2.0';
+import St1 from '@girs/st-12';
 export namespace Notification {
   export interface Params {
     gicon?: Gio.Icon | St1.ImageContent | null;

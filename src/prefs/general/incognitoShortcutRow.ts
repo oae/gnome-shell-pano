@@ -1,4 +1,3 @@
-import { ActionRow, StatusPage, Window } from '@gi-types/adw1';
 import {
   EVENT_STOP,
   KEY_0,
@@ -37,7 +36,8 @@ import {
   KEY_z,
   ModifierType,
 } from '@gi-types/gdk4';
-import Gio from '@gi-types/gio2';
+import { ActionRow, StatusPage, Window } from '@girs/adw-1';
+import Gio from '@girs/gio-2.0';
 import {
   accelerator_get_default_mod_mask,
   accelerator_name_with_keycode,
@@ -45,7 +45,7 @@ import {
   Align,
   EventControllerKey,
   ShortcutLabel,
-} from '@gi-types/gtk4';
+} from '@girs/gtk-4.0';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';

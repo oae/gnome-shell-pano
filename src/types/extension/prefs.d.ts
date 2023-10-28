@@ -1,4 +1,4 @@
-import { PreferencesWindow } from '@gi-types/adw1';
+import { PreferencesWindow } from '@girs/adw-1';
 import GnomeShell from '@girs/gnome-shell';
 
 import { ExtensionBase } from './extension';
