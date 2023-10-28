@@ -1,5 +1,5 @@
 import Clutter from '@girs/clutter-12';
-import { PixelFormat } from '@girs/cogl-2.0';
+import Cogl from '@girs/cogl-2.0';
 import GdkPixbuf from '@girs/gdkpixbuf-2.0';
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
@@ -18,7 +18,7 @@ export const notify = (
   text: string,
   body: string,
   iconOrPixbuf?: GdkPixbuf.Pixbuf | Gio.Icon,
-  pixelFormat?: PixelFormat,
+  pixelFormat?: Cogl.PixelFormat,
 ): void => {
   const _ = gettext(ext);
   const source = new messageTray.Source(_('Pano'), 'edit-copy-symbolic');
@@ -32,7 +32,7 @@ export const notify = (
       ) as St1.ImageContent;
       content.set_bytes(
         iconOrPixbuf.read_pixel_bytes(),
-        pixelFormat || PixelFormat.RGBA_8888,
+        pixelFormat || Cogl.PixelFormat.RGBA_8888,
         iconOrPixbuf.width,
         iconOrPixbuf.height,
         iconOrPixbuf.rowstride,

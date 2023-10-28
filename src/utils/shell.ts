@@ -1,6 +1,6 @@
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
-import { ATTR_EVENT_ID, Context } from '@girs/gsound-1.0';
+import GSound from '@girs/gsound-1.0';
 import { ExtensionBase, GetTextString } from '@gnome-shell/extensions/extension';
 
 export const logger =
@@ -168,17 +168,25 @@ export const loadInterfaceXML = (ext: ExtensionBase, iface: string): any => {
   return null;
 };
 
-let soundContext: null | Context = null;
+let soundContext: null | GSound.Context = null;
 
 export const playAudio = () => {
   try {
     if (!soundContext) {
-      soundContext = new Context();
+      soundContext = new GSound.Context();
       soundContext.init(null);
+    }
+
+    const attr_event_id = GSound.ATTR_EVENT_ID;
+
+    //TODO: log this in a better way!
+    if (attr_event_id == null) {
+      console.error("Can't use GSound.ATTR_EVENT_ID since it's null!");
+      return;
     }
     soundContext.play_simple(
       {
-        [ATTR_EVENT_ID]: 'message',
+        [attr_event_id]: 'message',
       },
       null,
     );

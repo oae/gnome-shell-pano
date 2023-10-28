@@ -1,4 +1,4 @@
-import { PixelFormat } from '@girs/cogl-2.0';
+import Cogl from '@girs/cogl-2.0';
 import GdkPixbuf from '@girs/gdkpixbuf-2.0';
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
@@ -128,7 +128,7 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
     case ContentType.IMAGE:
       queryBuilder
         .withItemTypes(['IMAGE'])
-        .withMatchValue(GLib.compute_checksum_for_bytes(GLib.ChecksumType.MD5, value));
+        .withMatchValue(GLib.compute_checksum_for_bytes(GLib.ChecksumType.MD5, new GLib.Bytes(value)));
       break;
     case ContentType.TEXT:
       queryBuilder.withItemTypes(['LINK', 'TEXT', 'CODE', 'COLOR', 'EMOJI']).withMatchValue(value).build();
@@ -167,7 +167,7 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
         metaData: value.operation,
       });
     case ContentType.IMAGE:
-      const checksum = GLib.compute_checksum_for_bytes(GLib.ChecksumType.MD5, value);
+      const checksum = GLib.compute_checksum_for_bytes(GLib.ChecksumType.MD5, new GLib.Bytes(value));
       if (!checksum) {
         return null;
       }
@@ -409,7 +409,7 @@ const sendNotification = async (ext: ExtensionBase, dbItem: DBItem) => {
         decodeURI(`${_('Link Copied')}${title ? ` - ${title}` : ''}`),
         `${dbItem.content}${description ? `\n\n${decodeURI(description)}` : ''}`,
         pixbuf,
-        PixelFormat.RGB_888,
+        Cogl.PixelFormat.RGB_888,
       );
     } else if (dbItem.itemType === 'COLOR') {
       // Create pixbuf from color
