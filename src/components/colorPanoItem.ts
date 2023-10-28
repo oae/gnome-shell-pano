@@ -1,4 +1,4 @@
-import { ActorAlign, AlignAxis, AlignConstraint } from '@gi-types/clutter10';
+import Clutter from '@gi-types/clutter10';
 import Gio from '@gi-types/gio2';
 import St1 from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
@@ -22,15 +22,15 @@ export class ColorPanoItem extends PanoItem {
       vertical: false,
       x_expand: true,
       y_expand: true,
-      y_align: ActorAlign.FILL,
-      x_align: ActorAlign.FILL,
+      y_align: Clutter.ActorAlign.FILL,
+      x_align: Clutter.ActorAlign.FILL,
       style_class: 'color-container',
       style: `background-color: ${this.dbItem.content};`,
     });
 
     this.label = new St1.Label({
-      x_align: ActorAlign.CENTER,
-      y_align: ActorAlign.CENTER,
+      x_align: Clutter.ActorAlign.CENTER,
+      y_align: Clutter.ActorAlign.CENTER,
       x_expand: true,
       y_expand: true,
       text: this.dbItem.content,
@@ -40,9 +40,9 @@ export class ColorPanoItem extends PanoItem {
     colorContainer.add_child(this.label);
 
     colorContainer.add_constraint(
-      new AlignConstraint({
+      new Clutter.AlignConstraint({
         source: this,
-        align_axis: AlignAxis.Y_AXIS,
+        align_axis: Clutter.AlignAxis.Y_AXIS,
         factor: 0.005,
       }),
     );

@@ -1,4 +1,4 @@
-import { ActorAlign } from '@gi-types/clutter10';
+import Clutter from '@gi-types/clutter10';
 import Gio from '@gi-types/gio2';
 import { EllipsizeMode } from '@gi-types/pango1';
 import St1 from '@gi-types/st1';
@@ -29,7 +29,7 @@ export class FilePanoItem extends PanoItem {
       vertical: true,
       x_expand: true,
       y_expand: false,
-      y_align: ActorAlign.FILL,
+      y_align: Clutter.ActorAlign.FILL,
     });
 
     this.fileList
@@ -42,14 +42,14 @@ export class FilePanoItem extends PanoItem {
           vertical: false,
           style_class: 'copied-file-name',
           x_expand: true,
-          x_align: ActorAlign.FILL,
+          x_align: Clutter.ActorAlign.FILL,
           clip_to_allocation: true,
-          y_align: ActorAlign.FILL,
+          y_align: Clutter.ActorAlign.FILL,
         });
         bl.add_child(
           new St1.Icon({
             icon_name: this.operation === FileOperation.CUT ? 'edit-cut-symbolic' : 'edit-copy-symbolic',
-            x_align: ActorAlign.START,
+            x_align: Clutter.ActorAlign.START,
             icon_size: 14,
             style_class: 'file-icon',
           }),
@@ -57,7 +57,7 @@ export class FilePanoItem extends PanoItem {
         const uriLabel = new St1.Label({
           text: uri,
           style_class: 'pano-item-body-file-name-label',
-          x_align: ActorAlign.FILL,
+          x_align: Clutter.ActorAlign.FILL,
           x_expand: true,
         });
         uriLabel.clutter_text.ellipsize = EllipsizeMode.MIDDLE;

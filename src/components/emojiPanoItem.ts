@@ -1,4 +1,4 @@
-import { ActorAlign } from '@gi-types/clutter10';
+import Clutter from '@gi-types/clutter10';
 import Gio from '@gi-types/gio2';
 import { EllipsizeMode, WrapMode } from '@gi-types/pango1';
 import St1 from '@gi-types/st1';
@@ -23,14 +23,14 @@ export class EmojiPanoItem extends PanoItem {
       vertical: false,
       x_expand: true,
       y_expand: true,
-      y_align: ActorAlign.FILL,
-      x_align: ActorAlign.FILL,
+      y_align: Clutter.ActorAlign.FILL,
+      x_align: Clutter.ActorAlign.FILL,
       style_class: 'emoji-container',
     });
 
-    this.label = new Label({
-      x_align: ActorAlign.CENTER,
-      y_align: ActorAlign.CENTER,
+    this.label = new St1.Label({
+      x_align: Clutter.ActorAlign.CENTER,
+      y_align: Clutter.ActorAlign.CENTER,
       x_expand: true,
       y_expand: true,
       text: this.dbItem.content,

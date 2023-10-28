@@ -1,4 +1,4 @@
-import { KEY_Escape } from '@gi-types/clutter10';
+import Clutter from '@gi-types/clutter10';
 import type St from '@girs/st-12';
 import * as dialog from '@gnome-shell/ui/dialog';
 import { default as modalDialog } from '@gnome-shell/ui/modalDialog';
@@ -22,7 +22,7 @@ export class ClearHistoryDialog extends modalDialog.ModalDialog {
     this.cancelButton = this.addButton({
       label: _('Cancel'),
       action: this.onCancelButtonPressed.bind(this),
-      key: KEY_Escape,
+      key: Clutter.KEY_Escape,
       default: true,
     });
 

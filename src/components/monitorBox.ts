@@ -1,4 +1,4 @@
-import { Actor, BindConstraint, BindCoordinate, BinLayout, EVENT_STOP } from '@gi-types/clutter10';
+import Clutter from '@gi-types/clutter10';
 import { MetaInfo } from '@gi-types/gobject2';
 import Shell from '@gi-types/shell0';
 import St1 from '@gi-types/st1';
@@ -28,17 +28,17 @@ export class MonitorBox extends St1.BoxLayout {
 
     this.connect('button-press-event', () => {
       this.emit('hide');
-      return EVENT_STOP;
+      return Clutter.EVENT_STOP;
     });
 
-    const constraint = new BindConstraint({
+    const constraint = new Clutter.BindConstraint({
       source: Shell.Global.get().stage,
-      coordinate: BindCoordinate.ALL,
+      coordinate: Clutter.BindCoordinate.ALL,
     });
     this.add_constraint(constraint);
 
     const backgroundStack = new St1.Widget({
-      layout_manager: new BinLayout(),
+      layout_manager: new Clutter.BinLayout(),
       x_expand: true,
       y_expand: true,
     });

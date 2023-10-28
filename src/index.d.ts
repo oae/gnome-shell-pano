@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { Actor, AnimationMode } from '@gi-types/clutter10';
+import Clutter from '@gi-types/clutter10';
 
 type AnimatableActorFields =
   | 'fixed_x'
@@ -34,7 +34,7 @@ interface EasingParams {
   duration: number;
   // milliseconds
   delay?: number;
-  mode?: AnimationMode;
+  mode?: Clutter.AnimationMode;
   repeatCount?: number;
   autoReverse?: boolean;
   onComplete?: () => void;
@@ -42,7 +42,7 @@ interface EasingParams {
 }
 
 // Any number of extra fields for the properties to be animated (e.g. "opacity: 0").
-interface EasingParamsWithProperties extends EasingParams, Partial<Pick<Actor, AnimatableActorFields>> {}
+interface EasingParamsWithProperties extends EasingParams, Partial<Pick<Clutter.Actor, AnimatableActorFields>> {}
 
 declare module '@gi-types/st1' {
   interface Adjustment {

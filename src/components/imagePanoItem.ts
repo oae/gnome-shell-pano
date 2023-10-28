@@ -1,4 +1,4 @@
-import { ActorAlign, AlignAxis, AlignConstraint } from '@gi-types/clutter10';
+import Clutter from '@gi-types/clutter10';
 import Gio from '@gi-types/gio2';
 import St1 from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
@@ -39,27 +39,27 @@ export class ImagePanoItem extends PanoItem {
       vertical: true,
       x_expand: true,
       y_expand: true,
-      y_align: ActorAlign.END,
-      x_align: ActorAlign.FILL,
+      y_align: Clutter.ActorAlign.END,
+      x_align: Clutter.ActorAlign.FILL,
     });
 
     const resolutionContainer = new St1.BoxLayout({
       vertical: false,
       x_expand: true,
-      y_align: ActorAlign.FILL,
-      x_align: ActorAlign.FILL,
+      y_align: Clutter.ActorAlign.FILL,
+      x_align: Clutter.ActorAlign.FILL,
       style_class: 'pano-item-body-image-resolution-container',
     });
 
     this.resolutionTitle = new St1.Label({
       text: 'Resolution',
-      x_align: ActorAlign.START,
+      x_align: Clutter.ActorAlign.START,
       x_expand: true,
       style_class: 'pano-item-body-image-meta-title',
     });
     this.resolutionValue = new St1.Label({
       text: `${width} x ${height}`,
-      x_align: ActorAlign.END,
+      x_align: Clutter.ActorAlign.END,
       x_expand: false,
       style_class: 'pano-item-body-image-meta-value',
     });
@@ -69,20 +69,20 @@ export class ImagePanoItem extends PanoItem {
     const sizeContainer = new St1.BoxLayout({
       vertical: false,
       x_expand: true,
-      y_align: ActorAlign.FILL,
-      x_align: ActorAlign.FILL,
+      y_align: Clutter.ActorAlign.FILL,
+      x_align: Clutter.ActorAlign.FILL,
       style_class: 'pano-item-body-image-size-container',
     });
 
     this.sizeLabel = new St1.Label({
       text: 'Size',
-      x_align: ActorAlign.START,
+      x_align: Clutter.ActorAlign.START,
       x_expand: true,
       style_class: 'pano-item-body-image-meta-title',
     });
     this.sizeValue = new St1.Label({
       text: prettyBytes(size),
-      x_align: ActorAlign.END,
+      x_align: Clutter.ActorAlign.END,
       x_expand: false,
       style_class: 'pano-item-body-image-meta-value',
     });
@@ -92,9 +92,9 @@ export class ImagePanoItem extends PanoItem {
     this.metaContainer.add_child(resolutionContainer);
     this.metaContainer.add_child(sizeContainer);
     this.metaContainer.add_constraint(
-      new AlignConstraint({
+      new Clutter.AlignConstraint({
         source: this,
-        align_axis: AlignAxis.Y_AXIS,
+        align_axis: Clutter.AlignAxis.Y_AXIS,
         factor: 0.001,
       }),
     );

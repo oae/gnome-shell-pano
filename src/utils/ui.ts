@@ -1,4 +1,4 @@
-import { ActorAlign, get_default_backend, InputDeviceType, VirtualInputDevice } from '@gi-types/clutter10';
+import Clutter from '@gi-types/clutter10';
 import GdkPixbuf from '@gi-types/gdkpixbuf2';
 import Gio from '@gi-types/gio2';
 import GLib from '@gi-types/glib2';

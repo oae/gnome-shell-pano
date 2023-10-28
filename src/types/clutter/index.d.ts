@@ -1,4 +1,4 @@
-import { EventType, ModifierType, ScrollDirection } from '@gi-types/clutter10';
+import Clutter from '@gi-types/clutter10';
 import * as GObject from '@gi-types/gobject2';
 
 export class KeyEvent {
@@ -7,11 +7,11 @@ export class KeyEvent {
   constructor(copy: KeyEvent);
 
   // Fields
-  type: () => EventType;
+  type: () => Clutter.EventType;
   // time: number;
   // flags: EventFlags;
   // stage: Stage;
-  get_state: () => ModifierType;
+  get_state: () => Clutter.ModifierType;
   get_key_symbol: () => number;
   // hardware_keycode: number;
   // unicode_value: number;
@@ -31,7 +31,7 @@ export class ButtonEvent {
   // stage: Stage;
   // x: number;
   // y: number;
-  get_state: () => ModifierType;
+  get_state: () => Clutter.ModifierType;
   get_button: () => number;
   // axes: number;
   // device: InputDevice;
@@ -50,7 +50,7 @@ export class ScrollEvent {
   // stage: Stage;
   // x: number;
   // y: number;
-  get_scroll_direction: () => ScrollDirection;
+  get_scroll_direction: () => Clutter.ScrollDirection;
   // modifier_state: ModifierType;
   // axes: number;
   // device: InputDevice;

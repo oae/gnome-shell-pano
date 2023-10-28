@@ -1,4 +1,4 @@
-import { AnimationMode, EVENT_PROPAGATE, KEY_Escape } from '@gi-types/clutter10';
+import Clutter from '@gi-types/clutter10';
 import Gio from '@gi-types/gio2';
 import Shell from '@gi-types/shell0';
 import St1 from '@gi-types/st1';
@@ -185,11 +185,11 @@ export class PanoWindow extends St1.BoxLayout {
     this.ease({
       opacity: 255,
       duration: 250,
-      mode: AnimationMode.EASE_OUT_QUAD,
+      mode: Clutter.AnimationMode.EASE_OUT_QUAD,
     });
     this.monitorBox.open();
 
-    return EVENT_PROPAGATE;
+    return Clutter.EVENT_PROPAGATE;
   }
 
   override hide() {
@@ -197,7 +197,7 @@ export class PanoWindow extends St1.BoxLayout {
     this.ease({
       opacity: 0,
       duration: 200,
-      mode: AnimationMode.EASE_OUT_QUAD,
+      mode: Clutter.AnimationMode.EASE_OUT_QUAD,
       onComplete: () => {
         if (!this.settings.get_boolean('keep-search-entry')) {
           this.searchBox.clear();
@@ -207,15 +207,15 @@ export class PanoWindow extends St1.BoxLayout {
       },
     });
 
-    return EVENT_PROPAGATE;
+    return Clutter.EVENT_PROPAGATE;
   }
 
   override vfunc_key_press_event(event: KeyEvent): boolean {
-    if (event.get_key_symbol() === KEY_Escape) {
+    if (event.get_key_symbol() === Clutter.KEY_Escape) {
       this.hide();
     }
 
-    return EVENT_PROPAGATE;
+    return Clutter.EVENT_PROPAGATE;
   }
 
   override destroy(): void {

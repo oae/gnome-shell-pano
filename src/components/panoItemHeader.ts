@@ -1,4 +1,4 @@
-import { ActorAlign, EVENT_PROPAGATE } from '@gi-types/clutter10';
+import Clutter from '@gi-types/clutter10';
 import Gio from '@gi-types/gio2';
 import GLib from '@gi-types/glib2';
 import { MetaInfo } from '@gi-types/gobject2';
@@ -93,8 +93,8 @@ export class PanoItemHeader extends St1.BoxLayout {
       style_class: 'pano-item-date',
       x_expand: true,
       y_expand: true,
-      x_align: ActorAlign.FILL,
-      y_align: ActorAlign.CENTER,
+      x_align: Clutter.ActorAlign.FILL,
+      y_align: Clutter.ActorAlign.CENTER,
     });
 
     this.dateUpdateIntervalId = setInterval(() => {
@@ -109,8 +109,8 @@ export class PanoItemHeader extends St1.BoxLayout {
       style_class: 'pano-item-actions',
       x_expand: true,
       y_expand: true,
-      x_align: ActorAlign.END,
-      y_align: ActorAlign.START,
+      x_align: Clutter.ActorAlign.END,
+      y_align: Clutter.ActorAlign.START,
     });
 
     const favoriteIcon = new St1.Icon({
@@ -125,7 +125,7 @@ export class PanoItemHeader extends St1.BoxLayout {
 
     this.favoriteButton.connect('clicked', () => {
       this.emit('on-favorite');
-      return EVENT_PROPAGATE;
+      return Clutter.EVENT_PROPAGATE;
     });
 
     const removeIcon = new St1.Icon({
@@ -140,7 +140,7 @@ export class PanoItemHeader extends St1.BoxLayout {
 
     removeButton.connect('clicked', () => {
       this.emit('on-remove');
-      return EVENT_PROPAGATE;
+      return Clutter.EVENT_PROPAGATE;
     });
 
     this.actionContainer.add_child(this.favoriteButton);
