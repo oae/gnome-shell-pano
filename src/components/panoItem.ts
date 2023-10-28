@@ -19,7 +19,7 @@ import Gio from '@gi-types/gio2';
 import GLib from '@gi-types/glib2';
 import { MetaInfo, TYPE_STRING } from '@gi-types/gobject2';
 import { Point } from '@gi-types/graphene1';
-import { Cursor } from '@gi-types/meta10';
+import Meta from '@gi-types/meta10';
 import Shell from '@gi-types/shell0';
 import St1 from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
@@ -75,13 +75,13 @@ export class PanoItem extends St1.BoxLayout {
     this.connect('key-focus-in', () => this.setSelected(true));
     this.connect('key-focus-out', () => this.setSelected(false));
     this.connect('enter-event', () => {
-      Shell.Global.get().display.set_cursor(Cursor.POINTING_HAND);
+      Shell.Global.get().display.set_cursor(Meta.Cursor.POINTING_HAND);
       if (!this.selected) {
         this.set_style(`border: 4px solid ${this.settings.get_string('hovered-item-border-color')}`);
       }
     });
     this.connect('leave-event', () => {
-      Shell.Global.get().display.set_cursor(Cursor.DEFAULT);
+      Shell.Global.get().display.set_cursor(Meta.Cursor.DEFAULT);
       if (!this.selected) {
         this.set_style('');
       }

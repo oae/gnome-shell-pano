@@ -1,5 +1,5 @@
 import Gio from '@gi-types/gio2';
-import { KeyBindingFlags } from '@gi-types/meta10';
+import Meta from '@gi-types/meta10';
 import Shell from '@gi-types/shell0';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
@@ -16,6 +16,6 @@ export class KeyManager {
   }
 
   listenFor(gsettingsField: string, callback: () => any): void {
-    wm.addKeybinding(gsettingsField, this.settings, KeyBindingFlags.NONE, Shell.ActionMode.ALL, callback);
+    wm.addKeybinding(gsettingsField, this.settings, Meta.KeyBindingFlags.NONE, Shell.ActionMode.ALL, callback);
   }
 }

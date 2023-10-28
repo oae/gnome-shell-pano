@@ -17,7 +17,7 @@ import {
 } from '@gi-types/clutter10';
 import Gio from '@gi-types/gio2';
 import { MetaInfo, TYPE_BOOLEAN, TYPE_INT, TYPE_STRING } from '@gi-types/gobject2';
-import { Cursor } from '@gi-types/meta10';
+import Meta from '@gi-types/meta10';
 import Shell from '@gi-types/shell0';
 import St1 from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
@@ -224,13 +224,13 @@ export class SearchBox extends St1.BoxLayout {
     }
 
     icon.connect('enter-event', () => {
-      Shell.Global.get().display.set_cursor(Cursor.POINTING_HAND);
+      Shell.Global.get().display.set_cursor(Meta.Cursor.POINTING_HAND);
     });
     icon.connect('motion-event', () => {
-      Shell.Global.get().display.set_cursor(Cursor.POINTING_HAND);
+      Shell.Global.get().display.set_cursor(Meta.Cursor.POINTING_HAND);
     });
     icon.connect('leave-event', () => {
-      Shell.Global.get().display.set_cursor(Cursor.DEFAULT);
+      Shell.Global.get().display.set_cursor(Meta.Cursor.DEFAULT);
     });
 
     return icon;

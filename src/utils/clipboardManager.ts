@@ -1,7 +1,7 @@
 import Gio from '@gi-types/gio2';
 import GLib from '@gi-types/glib2';
 import { MetaInfo, Object } from '@gi-types/gobject2';
-import { Selection, SelectionSource, SelectionType } from '@gi-types/meta10';
+import Meta from '@gi-types/meta10';
 import Shell from '@gi-types/shell0';
 import St1 from '@gi-types/st1';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
@@ -120,7 +120,7 @@ export class ClipboardManager extends Object {
   };
 
   private clipboard: St1.Clipboard;
-  private selection: Selection;
+  private selection: Meta.Selection;
   private selectionChangedId: number;
   public isTracking: boolean;
   private settings: Gio.Settings;
@@ -152,7 +152,7 @@ export class ClipboardManager extends Object {
 
     this.selectionChangedId = this.selection.connect(
       'owner-changed',
-      async (_selection: Selection, selectionType: SelectionType, _selectionSource: SelectionSource) => {
+      async (_selection: Selection, selectionType: Meta.SelectionType, _selectionSource: Meta.SelectionSource) => {
         if (this.settings.get_boolean('is-in-incognito')) {
           return;
         }
@@ -168,7 +168,7 @@ export class ClipboardManager extends Object {
         ) {
           return;
         }
-        if (selectionType === SelectionType.SELECTION_CLIPBOARD) {
+        if (selectionType === Meta.SelectionType.SELECTION_CLIPBOARD) {
           try {
             const result = await this.getContent(St1.ClipboardType.CLIPBOARD);
             if (!result) {
@@ -183,7 +183,7 @@ export class ClipboardManager extends Object {
           } catch (err) {
             debug(`error: ${err}`);
           }
-        } else if (selectionType === SelectionType.SELECTION_PRIMARY) {
+        } else if (selectionType === Meta.SelectionType.SELECTION_PRIMARY) {
           try {
             if (this.settings.get_boolean('sync-primary')) {
               primaryTracker();
