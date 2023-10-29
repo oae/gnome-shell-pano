@@ -6,6 +6,7 @@ import St1 from '@girs/st-12';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
 import { KeyEvent, ScrollEvent } from '@pano/types/clutter';
+import { Adjustment } from '@pano/types/st';
 import { ClipboardContent, ClipboardManager } from '@pano/utils/clipboardManager';
 import { ClipboardQueryBuilder, db, ItemType } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
@@ -418,7 +419,8 @@ export class PanoScrollView extends St1.ScrollView {
       return;
     }
 
-    adjustment.ease(value, {
+    //TODO: use St version >= 13 to get this types!!!, and than you can also use this.scrollView.vscroll.adjustment.ease
+    (adjustment as unknown as Adjustment).ease(value, {
       duration: 150,
       mode: Clutter.AnimationMode.EASE_OUT_QUAD,
     });
@@ -490,7 +492,8 @@ export class PanoScrollView extends St1.ScrollView {
     }
 
     adjustment.remove_transition('value');
-    adjustment.ease(value, {
+
+    (adjustment as unknown as Adjustment).ease(value, {
       duration: 150,
       mode: Clutter.AnimationMode.EASE_OUT_QUAD,
     });

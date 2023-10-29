@@ -44,23 +44,10 @@ interface EasingParams {
 // Any number of extra fields for the properties to be animated (e.g. "opacity: 0").
 interface EasingParamsWithProperties extends EasingParams, Partial<Pick<Clutter.Actor, AnimatableActorFields>> {}
 
-declare module '@girs/st-12' {
-  interface Adjustment {
-    ease(target: any, params: EasingParamsWithProperties): void;
-  }
-}
+export type EaseFunctionType<T> = (this: T, params: EasingParamsWithProperties) => void;
 
-declare module '@girs/gobject-2.0' {
-  export interface MetaInfo {
-    GTypeName: string;
-    GTypeFlags?: TypeFlags;
-    Implements?: Function[];
-    Properties?: { [K: string]: ParamSpec };
-    Signals?: { [K: string]: SignalDefinition };
-    Requires?: Function[];
-    CssName?: string;
-    Template?: string;
-    Children?: string[];
-    InternalChildren?: string[];
-  }
+export type EaseFunctionTypeStandalone<T = unknown> = (target: T, params: EasingParamsWithProperties) => void;
+
+export interface Adjustment {
+  ease: EaseFunctionTypeStandalone;
 }

@@ -7,6 +7,7 @@ import { MonitorBox } from '@pano/components/monitorBox';
 import { PanoScrollView } from '@pano/components/panoScrollView';
 import { SearchBox } from '@pano/components/searchBox';
 import { KeyEvent } from '@pano/types/clutter';
+import { EaseFunctionType } from '@pano/types/st';
 import { ClipboardManager } from '@pano/utils/clipboardManager';
 import { ItemType } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
@@ -19,6 +20,8 @@ export class PanoWindow extends St1.BoxLayout {
   private searchBox: SearchBox;
   private monitorBox: MonitorBox;
   private settings: Gio.Settings;
+  //TODO: use St version >= 13 to get this types!!!, and than you can also use this.scrollView.vscroll.adjustment.ease
+  ease: EaseFunctionType<typeof this>;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager) {
     super({
