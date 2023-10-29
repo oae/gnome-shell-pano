@@ -15,7 +15,7 @@ const importsGeneral = {
   '@girs/gdkpixbuf-2.0': { name: 'gi://GdkPixbuf' },
   '@girs/glib-2.0': { name: 'gi://GLib' },
   '@girs/st-12': { name: 'gi://St?version=1.2' },
-  '@girs/shell-12': { name: 'gi://Shell?version=1.2' },
+  '@girs/shell-12': { name: 'gi://Shell?version>=1.2' },
   '@girs/meta-12': { name: 'gi://Meta?version=1.2' },
   '@girs/clutter-12': { name: 'gi://Clutter?version=1.2' },
   '@girs/soup-3.0': { name: 'gi://Soup?version=3.0' },
@@ -26,6 +26,14 @@ const importsGeneral = {
   '@girs/gsound-1.0': { name: 'gi://GSound' },
   '@girs/cogl-2.0': { name: 'gi://Cogl?version=2.0' },
   '@girs/adw-1': { name: 'gi://Adw' },
+
+  // this is used to pin point the version to >= and not = , since that may fail, it isn't the best solution, since types might change in later versions, but at, there is not better solution!
+  'gi://Shell?version=12': { name: 'gi://Shell?version>=12' },
+  'gi://Meta?version=12': { name: 'gi://Meta?version>=12' },
+  'gi://Clutter?version=12': { name: 'gi://Clutter?version>=12' },
+  'gi://St?version=12': { name: 'gi://St?version>=12' },
+  'gi://Cogl?version=2.0': { name: 'gi://Cogl?version>=2.0' },
+
 
   // extension.js specific resources
   '@gnome-shell/misc/util': { name: 'resource://EXT_ROOT/misc/util.js' },

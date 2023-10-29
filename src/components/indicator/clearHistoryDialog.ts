@@ -1,7 +1,7 @@
 import Clutter from '@girs/clutter-12';
 import type St from '@girs/st-12';
 import * as dialog from '@gnome-shell/ui/dialog';
-import { default as modalDialog } from '@gnome-shell/ui/modalDialog';
+import * as modalDialog from '@gnome-shell/ui/modalDialog';
 import type { ExtensionBase } from '@pano/types/extension/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { gettext, logger } from '@pano/utils/shell';
