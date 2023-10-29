@@ -66,16 +66,16 @@ export class SearchBox extends St1.BoxLayout {
     this.search = new St1.Entry({
       can_focus: true,
       hint_text: _('Type to search, Tab to cycle'),
-      natural_width: 300 * themeContext.scaleFactor,
-      height: 40 * themeContext.scaleFactor,
+      natural_width: 300 * themeContext.scale_factor,
+      height: 40 * themeContext.scale_factor,
       track_hover: true,
       primary_icon: this.createSearchEntryIcon('edit-find-symbolic', 'search-entry-icon'),
       secondary_icon: this.createSearchEntryIcon('starred-symbolic', 'search-entry-fav-icon'),
     });
 
     themeContext.connect('notify::scale-factor', () => {
-      this.search.natural_width = 300 * themeContext.scaleFactor;
-      this.search.set_height(40 * themeContext.scaleFactor);
+      this.search.natural_width = 300 * themeContext.scale_factor;
+      this.search.set_height(40 * themeContext.scale_factor);
     });
 
     this.search.connect('primary-icon-clicked', () => {
@@ -96,7 +96,7 @@ export class SearchBox extends St1.BoxLayout {
       if (
         event.get_key_symbol() === Clutter.KEY_Down ||
         (event.get_key_symbol() === Clutter.KEY_Right &&
-          (this.search.clutter_text.cursor_position === -1 || this.search.text.length === 0))
+          (this.search.clutter_text.cursor_position === -1 || this.search.text?.length === 0))
       ) {
         this.emit('search-focus-out');
         return Clutter.EVENT_STOP;
@@ -105,7 +105,7 @@ export class SearchBox extends St1.BoxLayout {
         this.search.clutter_text.get_selection() !== null &&
         this.search.clutter_text.get_selection() === this.search.text
       ) {
-        this.search.clutter_text.set_cursor_position(this.search.text.length);
+        this.search.clutter_text.set_cursor_position(this.search.text?.length ?? 0);
         return Clutter.EVENT_STOP;
       }
       if (
@@ -131,7 +131,7 @@ export class SearchBox extends St1.BoxLayout {
 
         return Clutter.EVENT_STOP;
       }
-      if (event.get_key_symbol() === Clutter.KEY_BackSpace && this.search.text.length === 0) {
+      if (event.get_key_symbol() === Clutter.KEY_BackSpace && this.search.text?.length === 0) {
         this.search.set_primary_icon(this.createSearchEntryIcon('edit-find-symbolic', 'search-entry-icon'));
         this.currentIndex = null;
         this.emitSearchTextChange();
@@ -259,7 +259,7 @@ export class SearchBox extends St1.BoxLayout {
   }
 
   removeChar() {
-    this.search.text = this.search.text.slice(0, -1);
+    this.search.text = this.search.text?.slice(0, -1) ?? '';
   }
 
   appendText(text: string) {
@@ -267,7 +267,7 @@ export class SearchBox extends St1.BoxLayout {
   }
 
   selectAll() {
-    this.search.clutter_text.set_selection(0, this.search.text.length);
+    this.search.clutter_text.set_selection(0, this.search.text?.length ?? 0);
   }
 
   clear() {
@@ -275,6 +275,6 @@ export class SearchBox extends St1.BoxLayout {
   }
 
   getText(): string {
-    return this.search.text;
+    return this.search.text ?? '';
   }
 }

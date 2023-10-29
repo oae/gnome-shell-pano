@@ -163,8 +163,10 @@ export class LinkPanoItem extends PanoItem {
     );
   }
 
-  override vfunc_key_press_event(event: KeyEvent): boolean {
-    super.vfunc_key_press_event(event);
+  override vfunc_key_press_event(_event: Clutter.KeyEvent): boolean {
+    super.vfunc_key_press_event(_event);
+    // this cast is here, to use the correct type for overriding, use Clutter >= 13 to get the correct types, but that package isn't available yet
+    const event = _event as unknown as KeyEvent;
     if (
       this.settings.get_boolean('open-links-in-browser') &&
       event.get_state() === Clutter.ModifierType.CONTROL_MASK &&
@@ -178,8 +180,10 @@ export class LinkPanoItem extends PanoItem {
     return Clutter.EVENT_PROPAGATE;
   }
 
-  override vfunc_button_release_event(event: ButtonEvent): boolean {
-    super.vfunc_button_release_event(event);
+  override vfunc_button_release_event(_event: Clutter.ButtonEvent): boolean {
+    super.vfunc_button_release_event(_event);
+    // this cast is here, to use the correct type for overriding, use Clutter >= 13 to get the correct types, but that package isn't available yet
+    const event = _event as unknown as ButtonEvent;
     if (
       event.get_button() === 1 &&
       event.get_state() === Clutter.ModifierType.CONTROL_MASK &&

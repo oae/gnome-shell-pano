@@ -37,15 +37,15 @@ export class PanoWindow extends St1.BoxLayout {
 
     const themeContext = St1.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
 
-    this.setWindowDimensions(themeContext.scaleFactor);
+    this.setWindowDimensions(themeContext.scale_factor);
     themeContext.connect('notify::scale-factor', () => {
-      this.setWindowDimensions(themeContext.scaleFactor);
+      this.setWindowDimensions(themeContext.scale_factor);
     });
     this.settings.connect('changed::item-size', () => {
-      this.setWindowDimensions(themeContext.scaleFactor);
+      this.setWindowDimensions(themeContext.scale_factor);
     });
     this.settings.connect('changed::window-position', () => {
-      this.setWindowDimensions(themeContext.scaleFactor);
+      this.setWindowDimensions(themeContext.scale_factor);
       this.setAlignment();
     });
 
@@ -214,7 +214,9 @@ export class PanoWindow extends St1.BoxLayout {
     return Clutter.EVENT_PROPAGATE;
   }
 
-  override vfunc_key_press_event(event: KeyEvent): boolean {
+  override vfunc_key_press_event(_event: Clutter.KeyEvent): boolean {
+    // this cast is here, to use the correct type for overriding, use Clutter >= 13 to get the correct types, but that package isn't available yet
+    const event = _event as unknown as KeyEvent;
     if (event.get_key_symbol() === Clutter.KEY_Escape) {
       this.hide();
     }

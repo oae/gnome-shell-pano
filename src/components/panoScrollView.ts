@@ -32,6 +32,8 @@ interface PanoScrollViewSignals extends SignalsDefinition<PanoScrollViewSignalTy
   'scroll-key-press': SignalRepresentationType<[GObject.GType<string>]>;
 }
 
+//TODO: the list member of St1.BoxLayout are of type Clutter.Actor and we have to cast constantly from PanoItem to Clutter.Actor and reverse, fix that somehow
+
 @registerGObjectClass
 export class PanoScrollView extends St1.ScrollView {
   static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, PanoScrollViewSignals> = {
@@ -151,12 +153,12 @@ export class PanoScrollView extends St1.ScrollView {
         });
         this.connectOnRemove(panoItem);
         this.connectOnFavorite(panoItem);
-        this.list.add_child(panoItem);
+        this.list.add_child(panoItem as unknown as Clutter.Actor);
       }
     });
 
-    const firstItem = this.list.get_first_child() as PanoItem;
-    if (firstItem) {
+    const firstItem = this.list.get_first_child() as unknown as PanoItem | null;
+    if (firstItem !== null) {
       firstItem.emit('activated');
     }
 
@@ -197,7 +199,7 @@ export class PanoScrollView extends St1.ScrollView {
       }
     });
 
-    this.list.insert_child_at_index(panoItem, 0);
+    this.list.insert_child_at_index(panoItem as unknown as Clutter.Actor, 0);
     this.removeExcessiveItems();
   }
 
@@ -234,7 +236,7 @@ export class PanoScrollView extends St1.ScrollView {
 
   private removeItem(item: PanoItem) {
     item.hide();
-    this.list.remove_child(item);
+    this.list.remove_child(item as unknown as Clutter.Actor);
   }
 
   private getItem(panoItem: PanoItem): PanoItem | undefined {
@@ -242,11 +244,11 @@ export class PanoScrollView extends St1.ScrollView {
   }
 
   private getItems(): PanoItem[] {
-    return this.list.get_children() as PanoItem[];
+    return this.list.get_children() as unknown as PanoItem[];
   }
 
   private getVisibleItems(): PanoItem[] {
-    return this.list.get_children().filter((item) => item.is_visible()) as PanoItem[];
+    return this.list.get_children().filter((item) => item.is_visible()) as unknown as PanoItem[];
   }
 
   private removeExcessiveItems() {
@@ -438,7 +440,9 @@ export class PanoScrollView extends St1.ScrollView {
     }
   }
 
-  override vfunc_key_press_event(event: KeyEvent): boolean {
+  override vfunc_key_press_event(_event: Clutter.KeyEvent): boolean {
+    // this cast is here, to use the correct type for overriding, use Clutter >= 13 to get the correct types, but that package isn't available yet
+    const event = _event as unknown as KeyEvent;
     const isPanoVertical = isVertical(this.settings.get_uint('window-position'));
     if (isPanoVertical && event.get_key_symbol() === Clutter.KEY_Up) {
       this.focusPrev();
@@ -457,7 +461,9 @@ export class PanoScrollView extends St1.ScrollView {
     return Clutter.EVENT_PROPAGATE;
   }
 
-  override vfunc_scroll_event(event: ScrollEvent): boolean {
+  override vfunc_scroll_event(_event: Clutter.ScrollEvent): boolean {
+    // this cast is here, to use the correct type for overriding, use Clutter >= 13 to get the correct types, but that package isn't available yet
+    const event = _event as unknown as ScrollEvent;
     let adjustment: St1.Adjustment | undefined;
 
     if (isVertical(this.settings.get_uint('window-position'))) {

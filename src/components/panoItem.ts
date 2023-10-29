@@ -175,9 +175,9 @@ export class PanoItem extends St1.BoxLayout {
       this.set_x_align(Clutter.ActorAlign.START);
       this.set_y_align(Clutter.ActorAlign.FILL);
     }
-    const { scaleFactor } = St1.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
-    this.body.set_height(this.settings.get_int('item-size') * scaleFactor - this.header.get_height());
-    this.body.set_width(this.settings.get_int('item-size') * scaleFactor);
+    const { scale_factor } = St1.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
+    this.body.set_height(this.settings.get_int('item-size') * scale_factor - this.header.get_height());
+    this.body.set_width(this.settings.get_int('item-size') * scale_factor);
   }
 
   private setSelected(selected: boolean) {
@@ -190,7 +190,9 @@ export class PanoItem extends St1.BoxLayout {
     }
     this.selected = selected;
   }
-  override vfunc_key_press_event(event: KeyEvent): boolean {
+  override vfunc_key_press_event(_event: Clutter.KeyEvent): boolean {
+    // this cast is here, to use the correct type for overriding, use Clutter >= 13 to get the correct types, but that package isn't available yet
+    const event = _event as unknown as KeyEvent;
     if (
       event.get_key_symbol() === Clutter.KEY_Return ||
       event.get_key_symbol() === Clutter.KEY_ISO_Enter ||
@@ -214,7 +216,9 @@ export class PanoItem extends St1.BoxLayout {
     return Clutter.EVENT_PROPAGATE;
   }
 
-  override vfunc_button_release_event(event: ButtonEvent): boolean {
+  override vfunc_button_release_event(_event: Clutter.ButtonEvent): boolean {
+    // this cast is here, to use the correct type for overriding, use Clutter >= 13 to get the correct types, but that package isn't available yet
+    const event = _event as unknown as ButtonEvent;
     if (event.get_button() === 1) {
       this.emit('activated');
       return Clutter.EVENT_STOP;
