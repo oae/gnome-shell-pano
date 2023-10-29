@@ -31,11 +31,11 @@ msgstr "Modo anônimo"
 msgid "Settings"
 msgstr "Configurações"
 
-#: src/components/linkPanoItem.ts:46
+#: src/components/linkPanoItem.ts:39
 msgid "No Description"
 msgstr "Sem descrição"
 
-#: src/components/searchBox.ts:70
+#: src/components/searchBox.ts:68
 msgid "Type to search, Tab to cycle"
 msgstr "Digite para pesquisar, Tab para mudar"
 
@@ -405,15 +405,15 @@ msgstr "Modo somente de sessão"
 msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
 msgstr "Quando ativado, o Pano limpará todo o histórico no logout/reinício/desligamento."
 
-#: src/prefs/general/dbLocation.ts:24
+#: src/prefs/general/dbLocation.ts:16
 msgid "Database Location"
 msgstr "Localização do banco de dados"
 
-#: src/prefs/general/dbLocation.ts:32
+#: src/prefs/general/dbLocation.ts:24
 msgid "Choose pano database location"
 msgstr "Escolha o local do banco de dados do Pano"
 
-#: src/prefs/general/dbLocation.ts:54
+#: src/prefs/general/dbLocation.ts:46
 msgid "Failed to select directory"
 msgstr "Falha ao selecionar o diretório"
 
@@ -445,21 +445,21 @@ msgstr "Tamanho do histórico"
 msgid "You can limit your clipboard history length between 10 - 500"
 msgstr "Você pode limitar o tamanho do histórico da área de transferência entre 10 e 500"
 
-#: src/prefs/general/incognitoShortcutRow.ts:59
+#: src/prefs/general/incognitoShortcutRow.ts:17
 msgid "Incognito Mode Shortcut"
 msgstr "Atalho do Modo de Navegação Anônima"
 
-#: src/prefs/general/incognitoShortcutRow.ts:60
+#: src/prefs/general/incognitoShortcutRow.ts:18
 msgid "Allows you to toggle incognito mode"
 msgstr "Permite alternar o modo de navegação anônima"
 
-#: src/prefs/general/incognitoShortcutRow.ts:66
-#: src/prefs/general/shortcutRow.ts:66
+#: src/prefs/general/incognitoShortcutRow.ts:24
+#: src/prefs/general/shortcutRow.ts:24
 msgid "Select a shortcut"
 msgstr "Selecione um atalho"
 
-#: src/prefs/general/incognitoShortcutRow.ts:79
-#: src/prefs/general/shortcutRow.ts:79
+#: src/prefs/general/incognitoShortcutRow.ts:37
+#: src/prefs/general/shortcutRow.ts:37
 msgid "New shortcut"
 msgstr "Novo atalho"
 
@@ -515,11 +515,11 @@ msgstr "Enviar notificação ao copiar"
 msgid "Allow Pano to send notification when copying new content"
 msgstr "Permitir que o Pano envie notificação ao copiar novo conteúdo"
 
-#: src/prefs/general/shortcutRow.ts:59
+#: src/prefs/general/shortcutRow.ts:17
 msgid "Global Shortcut"
 msgstr "Atalho Global"
 
-#: src/prefs/general/shortcutRow.ts:60
+#: src/prefs/general/shortcutRow.ts:18
 msgid "Allows you to toggle visibility of the clipboard manager"
 msgstr "Permite alternar a visibilidade do gerenciador de área de transferência"
 
@@ -555,39 +555,39 @@ msgstr "Agitar Indicador"
 msgid "Wiggles the indicator on panel"
 msgstr "Agita o indicador na barra"
 
-#: src/utils/panoItemFactory.ts:390
+#: src/utils/panoItemFactory.ts:392
 msgid "Image Copied"
 msgstr "Imagem Copiada"
 
-#: src/utils/panoItemFactory.ts:391
+#: src/utils/panoItemFactory.ts:393
 msgid "Width: %spx, Height: %spx, Size: %s"
 msgstr "Largura: %spx, Altura: %spx, Tamanho: %s"
 
-#: src/utils/panoItemFactory.ts:395
+#: src/utils/panoItemFactory.ts:397
 msgid "Text Copied"
 msgstr "Texto Copiado"
 
-#: src/utils/panoItemFactory.ts:397
+#: src/utils/panoItemFactory.ts:399
 msgid "Code Copied"
 msgstr "Código Copiado"
 
-#: src/utils/panoItemFactory.ts:399
+#: src/utils/panoItemFactory.ts:401
 msgid "Emoji Copied"
 msgstr "Emoji Copiado"
 
-#: src/utils/panoItemFactory.ts:407
+#: src/utils/panoItemFactory.ts:409
 msgid "Link Copied"
 msgstr "Link Copiado"
 
-#: src/utils/panoItemFactory.ts:427
+#: src/utils/panoItemFactory.ts:429
 msgid "Color Copied"
 msgstr "Cor Copiada"
 
-#: src/utils/panoItemFactory.ts:434
+#: src/utils/panoItemFactory.ts:436
 msgid "File %s"
 msgstr "Arquivo %s"
 
-#: src/utils/panoItemFactory.ts:435
+#: src/utils/panoItemFactory.ts:437
 msgid "There are %s file(s)"
 msgstr "Existem %s arquivo(s)"
 
@@ -619,6 +619,6 @@ msgstr "Código"
 msgid "Color"
 msgstr "Cor"
 
-#: src/utils/ui.ts:25
+#: src/utils/ui.ts:24
 msgid "Pano"
 msgstr "Pano"

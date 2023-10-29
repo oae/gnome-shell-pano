@@ -31,11 +31,11 @@ msgstr "Modalità di navigazione in incognito"
 msgid "Settings"
 msgstr "Impostazioni"
 
-#: src/components/linkPanoItem.ts:46
+#: src/components/linkPanoItem.ts:39
 msgid "No Description"
 msgstr "Nessuna descrizione"
 
-#: src/components/searchBox.ts:70
+#: src/components/searchBox.ts:68
 msgid "Type to search, Tab to cycle"
 msgstr "Digita per cercare, Tab per scorrere"
 
@@ -405,15 +405,15 @@ msgstr "Modalità solo sessione"
 msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
 msgstr "Quando abilitato, Pano cancellerà tutta la cronologia su logout / riavvio / spegnimento."
 
-#: src/prefs/general/dbLocation.ts:24
+#: src/prefs/general/dbLocation.ts:16
 msgid "Database Location"
 msgstr "Posizione del database"
 
-#: src/prefs/general/dbLocation.ts:32
+#: src/prefs/general/dbLocation.ts:24
 msgid "Choose pano database location"
 msgstr "Scegliere il percorso del database pano"
 
-#: src/prefs/general/dbLocation.ts:54
+#: src/prefs/general/dbLocation.ts:46
 msgid "Failed to select directory"
 msgstr "Impossibile selezionare la directory"
 
@@ -445,21 +445,21 @@ msgstr "Lunghezza della storia"
 msgid "You can limit your clipboard history length between 10 - 500"
 msgstr "È possibile limitare la lunghezza della cronologia degli appunti tra 10 e 500"
 
-#: src/prefs/general/incognitoShortcutRow.ts:59
+#: src/prefs/general/incognitoShortcutRow.ts:17
 msgid "Incognito Mode Shortcut"
 msgstr "Scorciatoia per la modalità di navigazione in incognito"
 
-#: src/prefs/general/incognitoShortcutRow.ts:60
+#: src/prefs/general/incognitoShortcutRow.ts:18
 msgid "Allows you to toggle incognito mode"
 msgstr "Consente di attivare o disattivare la modalità di navigazione in incognito"
 
-#: src/prefs/general/incognitoShortcutRow.ts:66
-#: src/prefs/general/shortcutRow.ts:66
+#: src/prefs/general/incognitoShortcutRow.ts:24
+#: src/prefs/general/shortcutRow.ts:24
 msgid "Select a shortcut"
 msgstr "Selezionare un collegamento"
 
-#: src/prefs/general/incognitoShortcutRow.ts:79
-#: src/prefs/general/shortcutRow.ts:79
+#: src/prefs/general/incognitoShortcutRow.ts:37
+#: src/prefs/general/shortcutRow.ts:37
 msgid "New shortcut"
 msgstr "Nuova scorciatoia"
 
@@ -515,11 +515,11 @@ msgstr "Invia notifica su copia"
 msgid "Allow Pano to send notification when copying new content"
 msgstr "Consenti a Pano di inviare notifiche durante la copia di nuovi contenuti"
 
-#: src/prefs/general/shortcutRow.ts:59
+#: src/prefs/general/shortcutRow.ts:17
 msgid "Global Shortcut"
 msgstr "Scorciatoia globale"
 
-#: src/prefs/general/shortcutRow.ts:60
+#: src/prefs/general/shortcutRow.ts:18
 msgid "Allows you to toggle visibility of the clipboard manager"
 msgstr "Consente di attivare o disattivare la visibilità del gestore degli appunti"
 
@@ -555,39 +555,39 @@ msgstr ""
 msgid "Wiggles the indicator on panel"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:390
+#: src/utils/panoItemFactory.ts:392
 msgid "Image Copied"
 msgstr "Immagine copiata"
 
-#: src/utils/panoItemFactory.ts:391
+#: src/utils/panoItemFactory.ts:393
 msgid "Width: %spx, Height: %spx, Size: %s"
 msgstr "Larghezza: %spx, Altezza: %spx, Dimensione: %s"
 
-#: src/utils/panoItemFactory.ts:395
+#: src/utils/panoItemFactory.ts:397
 msgid "Text Copied"
 msgstr "Testo copiato"
 
-#: src/utils/panoItemFactory.ts:397
+#: src/utils/panoItemFactory.ts:399
 msgid "Code Copied"
 msgstr "Codice copiato"
 
-#: src/utils/panoItemFactory.ts:399
+#: src/utils/panoItemFactory.ts:401
 msgid "Emoji Copied"
 msgstr "Emoji Copiata"
 
-#: src/utils/panoItemFactory.ts:407
+#: src/utils/panoItemFactory.ts:409
 msgid "Link Copied"
 msgstr "Link copiato"
 
-#: src/utils/panoItemFactory.ts:427
+#: src/utils/panoItemFactory.ts:429
 msgid "Color Copied"
 msgstr "Colore copiato"
 
-#: src/utils/panoItemFactory.ts:434
+#: src/utils/panoItemFactory.ts:436
 msgid "File %s"
 msgstr "File %s"
 
-#: src/utils/panoItemFactory.ts:435
+#: src/utils/panoItemFactory.ts:437
 msgid "There are %s file(s)"
 msgstr "Ci sono %s file(s)"
 
@@ -619,6 +619,6 @@ msgstr "Codice"
 msgid "Color"
 msgstr "Colore"
 
-#: src/utils/ui.ts:25
+#: src/utils/ui.ts:24
 msgid "Pano"
 msgstr "Pano"

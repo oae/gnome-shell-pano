@@ -31,11 +31,11 @@ msgstr "Inkognito-Modus"
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: src/components/linkPanoItem.ts:46
+#: src/components/linkPanoItem.ts:39
 msgid "No Description"
 msgstr "Keine Beschreibung"
 
-#: src/components/searchBox.ts:70
+#: src/components/searchBox.ts:68
 msgid "Type to search, Tab to cycle"
 msgstr "Tippen um zu Suchen, Tab um zu durchwechseln"
 
@@ -405,15 +405,15 @@ msgstr "Einzelsession-Modus"
 msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
 msgstr "Wenn aktiviert, wird Pano die Historie leeren beim Ausloggen/Neustarten/Herunterfahren."
 
-#: src/prefs/general/dbLocation.ts:24
+#: src/prefs/general/dbLocation.ts:16
 msgid "Database Location"
 msgstr "Datenbankablage"
 
-#: src/prefs/general/dbLocation.ts:32
+#: src/prefs/general/dbLocation.ts:24
 msgid "Choose pano database location"
 msgstr "Pano Datenbankablage wählen"
 
-#: src/prefs/general/dbLocation.ts:54
+#: src/prefs/general/dbLocation.ts:46
 msgid "Failed to select directory"
 msgstr "Ordnerauswahl fehlgeschlagen"
 
@@ -445,21 +445,21 @@ msgstr "Länge der Historie"
 msgid "You can limit your clipboard history length between 10 - 500"
 msgstr "Sie können Ihre Zwischenablage limitieren auf ein Länge zwischen 10 - 500"
 
-#: src/prefs/general/incognitoShortcutRow.ts:59
+#: src/prefs/general/incognitoShortcutRow.ts:17
 msgid "Incognito Mode Shortcut"
 msgstr "Inkognito-Modus Tastaturkürzel"
 
-#: src/prefs/general/incognitoShortcutRow.ts:60
+#: src/prefs/general/incognitoShortcutRow.ts:18
 msgid "Allows you to toggle incognito mode"
 msgstr "Umschalter des Inkognito-Modus"
 
-#: src/prefs/general/incognitoShortcutRow.ts:66
-#: src/prefs/general/shortcutRow.ts:66
+#: src/prefs/general/incognitoShortcutRow.ts:24
+#: src/prefs/general/shortcutRow.ts:24
 msgid "Select a shortcut"
 msgstr "Kürzel auswählen"
 
-#: src/prefs/general/incognitoShortcutRow.ts:79
-#: src/prefs/general/shortcutRow.ts:79
+#: src/prefs/general/incognitoShortcutRow.ts:37
+#: src/prefs/general/shortcutRow.ts:37
 msgid "New shortcut"
 msgstr "Neues Kürzel"
 
@@ -515,11 +515,11 @@ msgstr "Sende Benachrichtigung beim Kopieren"
 msgid "Allow Pano to send notification when copying new content"
 msgstr "Pano darf Benachrichtigungen beim Kopieren neuer Inhalte senden"
 
-#: src/prefs/general/shortcutRow.ts:59
+#: src/prefs/general/shortcutRow.ts:17
 msgid "Global Shortcut"
 msgstr "Globales Tastaturkürzel"
 
-#: src/prefs/general/shortcutRow.ts:60
+#: src/prefs/general/shortcutRow.ts:18
 msgid "Allows you to toggle visibility of the clipboard manager"
 msgstr "Umschalter zur Anzeige der Zwischenablage-Verwaltung"
 
@@ -555,39 +555,39 @@ msgstr "Wackelindikator"
 msgid "Wiggles the indicator on panel"
 msgstr "Wackelt mit dem Indikator auf dem Bedienfeld"
 
-#: src/utils/panoItemFactory.ts:390
+#: src/utils/panoItemFactory.ts:392
 msgid "Image Copied"
 msgstr "Bild kopiert"
 
-#: src/utils/panoItemFactory.ts:391
+#: src/utils/panoItemFactory.ts:393
 msgid "Width: %spx, Height: %spx, Size: %s"
 msgstr "Breite: %spx, Höhe: %spx, Größe: %s"
 
-#: src/utils/panoItemFactory.ts:395
+#: src/utils/panoItemFactory.ts:397
 msgid "Text Copied"
 msgstr "Text kopiert"
 
-#: src/utils/panoItemFactory.ts:397
+#: src/utils/panoItemFactory.ts:399
 msgid "Code Copied"
 msgstr "Code kopiert"
 
-#: src/utils/panoItemFactory.ts:399
+#: src/utils/panoItemFactory.ts:401
 msgid "Emoji Copied"
 msgstr "Emoji kopiert"
 
-#: src/utils/panoItemFactory.ts:407
+#: src/utils/panoItemFactory.ts:409
 msgid "Link Copied"
 msgstr "Link kopiert"
 
-#: src/utils/panoItemFactory.ts:427
+#: src/utils/panoItemFactory.ts:429
 msgid "Color Copied"
 msgstr "Farbe kopiert"
 
-#: src/utils/panoItemFactory.ts:434
+#: src/utils/panoItemFactory.ts:436
 msgid "File %s"
 msgstr "Datei %s"
 
-#: src/utils/panoItemFactory.ts:435
+#: src/utils/panoItemFactory.ts:437
 msgid "There are %s file(s)"
 msgstr "Es sind %s Datei(en)"
 
@@ -619,6 +619,6 @@ msgstr "Code"
 msgid "Color"
 msgstr "Farbe"
 
-#: src/utils/ui.ts:25
+#: src/utils/ui.ts:24
 msgid "Pano"
 msgstr "Pano"

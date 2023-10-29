@@ -31,11 +31,11 @@ msgstr "Anonymní režim"
 msgid "Settings"
 msgstr "Nastavení"
 
-#: src/components/linkPanoItem.ts:46
+#: src/components/linkPanoItem.ts:39
 msgid "No Description"
 msgstr "Bez popisu"
 
-#: src/components/searchBox.ts:70
+#: src/components/searchBox.ts:68
 msgid "Type to search, Tab to cycle"
 msgstr "Pište pro vyhledávání, Tab pro cyklování mezi kategoriemi"
 
@@ -405,15 +405,15 @@ msgstr "Režim: Pouze relace"
 msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
 msgstr "Pokud je tato možnost povolena, Pano vymaže celou historii při odhlášení/restartu/vypnutí."
 
-#: src/prefs/general/dbLocation.ts:24
+#: src/prefs/general/dbLocation.ts:16
 msgid "Database Location"
 msgstr "Umístění databáze"
 
-#: src/prefs/general/dbLocation.ts:32
+#: src/prefs/general/dbLocation.ts:24
 msgid "Choose pano database location"
 msgstr "Zvolte umístění databáze pano"
 
-#: src/prefs/general/dbLocation.ts:54
+#: src/prefs/general/dbLocation.ts:46
 msgid "Failed to select directory"
 msgstr "Failed to select directory"
 
@@ -445,21 +445,21 @@ msgstr "Délka historie"
 msgid "You can limit your clipboard history length between 10 - 500"
 msgstr "Délku historie schránky můžete omezit mezi 10 - 500"
 
-#: src/prefs/general/incognitoShortcutRow.ts:59
+#: src/prefs/general/incognitoShortcutRow.ts:17
 msgid "Incognito Mode Shortcut"
 msgstr "Zkratka anonymního režimu"
 
-#: src/prefs/general/incognitoShortcutRow.ts:60
+#: src/prefs/general/incognitoShortcutRow.ts:18
 msgid "Allows you to toggle incognito mode"
 msgstr "Umožňuje přepínat anonymní režim"
 
-#: src/prefs/general/incognitoShortcutRow.ts:66
-#: src/prefs/general/shortcutRow.ts:66
+#: src/prefs/general/incognitoShortcutRow.ts:24
+#: src/prefs/general/shortcutRow.ts:24
 msgid "Select a shortcut"
 msgstr "Vyberte zkratku"
 
-#: src/prefs/general/incognitoShortcutRow.ts:79
-#: src/prefs/general/shortcutRow.ts:79
+#: src/prefs/general/incognitoShortcutRow.ts:37
+#: src/prefs/general/shortcutRow.ts:37
 msgid "New shortcut"
 msgstr "Nová zkratka"
 
@@ -515,11 +515,11 @@ msgstr "Odeslat oznámení o kopírování"
 msgid "Allow Pano to send notification when copying new content"
 msgstr "Povolte Pano odesílat upozornění při kopírování nového obsahu"
 
-#: src/prefs/general/shortcutRow.ts:59
+#: src/prefs/general/shortcutRow.ts:17
 msgid "Global Shortcut"
 msgstr "Globální zkratka"
 
-#: src/prefs/general/shortcutRow.ts:60
+#: src/prefs/general/shortcutRow.ts:18
 msgid "Allows you to toggle visibility of the clipboard manager"
 msgstr "Umožňuje vám přepínat viditelnost správce schránky"
 
@@ -555,39 +555,39 @@ msgstr ""
 msgid "Wiggles the indicator on panel"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:390
+#: src/utils/panoItemFactory.ts:392
 msgid "Image Copied"
 msgstr "Obrázek zkopírován"
 
-#: src/utils/panoItemFactory.ts:391
+#: src/utils/panoItemFactory.ts:393
 msgid "Width: %spx, Height: %spx, Size: %s"
 msgstr "Šířka: %spx, Výška: %spx, Velikost: %s"
 
-#: src/utils/panoItemFactory.ts:395
+#: src/utils/panoItemFactory.ts:397
 msgid "Text Copied"
 msgstr "Text zkopírován"
 
-#: src/utils/panoItemFactory.ts:397
+#: src/utils/panoItemFactory.ts:399
 msgid "Code Copied"
 msgstr "Kód zkopírován"
 
-#: src/utils/panoItemFactory.ts:399
+#: src/utils/panoItemFactory.ts:401
 msgid "Emoji Copied"
 msgstr "Emoji zkopírováno"
 
-#: src/utils/panoItemFactory.ts:407
+#: src/utils/panoItemFactory.ts:409
 msgid "Link Copied"
 msgstr "Odkaz zkopírován"
 
-#: src/utils/panoItemFactory.ts:427
+#: src/utils/panoItemFactory.ts:429
 msgid "Color Copied"
 msgstr "Barva zkopírována"
 
-#: src/utils/panoItemFactory.ts:434
+#: src/utils/panoItemFactory.ts:436
 msgid "File %s"
 msgstr "Soubor %s"
 
-#: src/utils/panoItemFactory.ts:435
+#: src/utils/panoItemFactory.ts:437
 msgid "There are %s file(s)"
 msgstr "Existuje %s souborů"
 
@@ -619,6 +619,6 @@ msgstr "Kód"
 msgid "Color"
 msgstr "Barva"
 
-#: src/utils/ui.ts:25
+#: src/utils/ui.ts:24
 msgid "Pano"
 msgstr "Pano"
