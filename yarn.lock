@@ -330,7 +330,7 @@
     "@girs/gobject-2.0" "^2.77.0-3.2.2"
     "@girs/graphene-1.0" "^1.0.0-3.2.2"
 
-"@girs/cogl-2.0@^2.0.0-3.0.0", "@girs/cogl-2.0@^2.0.0-3.2.2":
+"@girs/cogl-2.0@^2.0.0-3.0.0":
   version "2.0.0-3.2.2"
   resolved "https://registry.yarnpkg.com/@girs/cogl-2.0/-/cogl-2.0-2.0.0-3.2.2.tgz#9acdbd723051060e5bc0be1fbf4c7e035e7dbedf"
   integrity sha512-OPKRaYrdRtor9DL6Z1RXZfDexMO2CmloYQe2XLXAbTQlAoEMxyOcVYZYEHYbQsXmWLY1A1lK+mvbiWFvawylLQ==

@@ -10,11 +10,11 @@ const buildPath = 'dist';
 
 const importsGeneral = {
   // this is used to pin point the version to >= and not = , since that may fail, it isn't the best solution, since types might change in later versions, but at, there is not better solution!
-  'gi://Shell?version=12': { name: 'gi://Shell?version>=12' }, // TODO:  not typed and officially supported yet, wait for types updates!
-  'gi://Meta?version=12': { name: 'gi://Meta?version>=12' }, // TODO:  not typed and officially supported yet, wait for types updates!
-  'gi://Clutter?version=12': { name: 'gi://Clutter?version>=12' }, // TODO:  not typed and officially supported yet, wait for types updates!
-  'gi://St?version=12': { name: 'gi://St?version>=12' }, // TODO:  not typed and officially supported yet, wait for types updates!
-  'gi://Cogl?version=2.0': { name: 'gi://Cogl?version>=2.0' }, // TODO:  not typed and officially supported yet, wait for types updates!
+  'gi://Shell?version=12': { name: 'gi://Shell?version>=12' }, // TODO:  not typed and officially supported yet, wait for types updates! (12 + 13)
+  'gi://Meta?version=12': { name: 'gi://Meta?version>=12' }, // TODO:  not typed and officially supported yet, wait for types updates! (12 + 13)
+  'gi://Clutter?version=12': { name: 'gi://Clutter?version>=12' }, // TODO:  not typed and officially supported yet, wait for types updates! (12 + 13)
+  'gi://St?version=12': { name: 'gi://St?version>=12' }, // TODO:  not typed and officially supported yet, wait for types updates! (12 + 13)
+  'gi://Cogl?version=12': { name: 'gi://Cogl?version>=12' }, // TODO:  not typed and officially supported yet, wait for types updates! (12 + 13)
   'gi://Gda?version=5.0': { name: 'gi://Gda?version>=5.0' }, // We officially support (it's also typed!) both 5.0 and 6.0 
 
   // extension.js + prefs.js resources
