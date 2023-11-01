@@ -1,4 +1,5 @@
-import Gda from '@girs/gda-6.0';
+import Gda5 from '@girs/gda-5.0';
+import type Gda6 from '@girs/gda-6.0';
 import Gio from '@girs/gio-2.0';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { getCurrentExtensionSettings, getDbPath, logger } from '@pano/utils/shell';
@@ -19,11 +20,15 @@ export type DBItem = {
 };
 
 class ClipboardQuery {
-  readonly statement: Gda.Statement;
+  readonly statement: Gda5.Statement;
 
-  constructor(statement: Gda.Statement) {
+  constructor(statement: Gda5.Statement) {
     this.statement = statement;
   }
+}
+
+function isGda6Builder(builder: Gda5.SqlBuilder | Gda6.SqlBuilder): builder is Gda6.SqlBuilder {
+  return builder.add_expr_value.length === 1;
 }
 
 /**
@@ -32,8 +37,8 @@ class ClipboardQuery {
  * @param value any
  * @returns expr id
  */
-const add_expr_value = (builder: Gda.SqlBuilder, value: any): number => {
-  if (builder.add_expr_value.length === 1) {
+const add_expr_value = (builder: Gda5.SqlBuilder | Gda6.SqlBuilder, value: any): number => {
+  if (isGda6Builder(builder)) {
     return builder.add_expr_value(value);
   }
 
@@ -43,13 +48,13 @@ const add_expr_value = (builder: Gda.SqlBuilder, value: any): number => {
 };
 
 export class ClipboardQueryBuilder {
-  private readonly builder: Gda.SqlBuilder;
+  private readonly builder: Gda5.SqlBuilder;
   private conditions: number[];
 
   constructor() {
     this.conditions = [];
-    this.builder = new Gda.SqlBuilder({
-      stmt_type: Gda.SqlStatementType.SELECT,
+    this.builder = new Gda5.SqlBuilder({
+      stmt_type: Gda5.SqlStatementType.SELECT,
     });
     this.builder.select_add_field('id', 'clipboard', 'id');
     this.builder.select_add_field('itemType', 'clipboard', 'itemType');
@@ -75,7 +80,7 @@ export class ClipboardQueryBuilder {
     if (id !== null && id !== undefined) {
       this.conditions.push(
         this.builder.add_cond(
-          Gda.SqlOperatorType.EQ,
+          Gda5.SqlOperatorType.EQ,
           this.builder.add_field_id('id', 'clipboard'),
           add_expr_value(this.builder, id),
           0,
@@ -90,13 +95,13 @@ export class ClipboardQueryBuilder {
     if (itemTypes !== null && itemTypes !== undefined) {
       const orConditions = itemTypes.map((itemType) =>
         this.builder.add_cond(
-          Gda.SqlOperatorType.EQ,
+          Gda5.SqlOperatorType.EQ,
           this.builder.add_field_id('itemType', 'clipboard'),
           add_expr_value(this.builder, itemType),
           0,
         ),
       );
-      this.conditions.push(this.builder.add_cond_v(Gda.SqlOperatorType.OR, orConditions));
+      this.conditions.push(this.builder.add_cond_v(Gda5.SqlOperatorType.OR, orConditions));
     }
 
     return this;
@@ -106,7 +111,7 @@ export class ClipboardQueryBuilder {
     if (content !== null && content !== undefined) {
       this.conditions.push(
         this.builder.add_cond(
-          Gda.SqlOperatorType.EQ,
+          Gda5.SqlOperatorType.EQ,
           this.builder.add_field_id('content', 'clipboard'),
           add_expr_value(this.builder, content),
           0,
@@ -121,7 +126,7 @@ export class ClipboardQueryBuilder {
     if (matchValue !== null && matchValue !== undefined) {
       this.conditions.push(
         this.builder.add_cond(
-          Gda.SqlOperatorType.EQ,
+          Gda5.SqlOperatorType.EQ,
           this.builder.add_field_id('matchValue', 'clipboard'),
           add_expr_value(this.builder, matchValue),
           0,
@@ -136,7 +141,7 @@ export class ClipboardQueryBuilder {
     if (content !== null && content !== undefined) {
       this.conditions.push(
         this.builder.add_cond(
-          Gda.SqlOperatorType.LIKE,
+          Gda5.SqlOperatorType.LIKE,
           this.builder.add_field_id('content', 'clipboard'),
           add_expr_value(this.builder, `%${content}%`),
           0,
@@ -151,7 +156,7 @@ export class ClipboardQueryBuilder {
     if (searchValue !== null && searchValue !== undefined) {
       this.conditions.push(
         this.builder.add_cond(
-          Gda.SqlOperatorType.LIKE,
+          Gda5.SqlOperatorType.LIKE,
           this.builder.add_field_id('searchValue', 'clipboard'),
           add_expr_value(this.builder, `%${searchValue}%`),
           0,
@@ -166,7 +171,7 @@ export class ClipboardQueryBuilder {
     if (include !== null && include !== undefined) {
       this.conditions.push(
         this.builder.add_cond(
-          Gda.SqlOperatorType.EQ,
+          Gda5.SqlOperatorType.EQ,
           this.builder.add_field_id('isFavorite', 'clipboard'),
           add_expr_value(this.builder, +include),
           0,
@@ -179,20 +184,20 @@ export class ClipboardQueryBuilder {
 
   build(): ClipboardQuery {
     if (this.conditions.length > 0) {
-      this.builder.set_where(this.builder.add_cond_v(Gda.SqlOperatorType.AND, this.conditions));
+      this.builder.set_where(this.builder.add_cond_v(Gda5.SqlOperatorType.AND, this.conditions));
     }
 
     return new ClipboardQuery(this.builder.get_statement());
   }
 }
 class Database {
-  private connection: Gda.Connection | null;
+  private connection: Gda5.Connection | null;
   private settings: Gio.Settings;
 
   private init(ext: ExtensionBase) {
     this.settings = getCurrentExtensionSettings(ext);
-    this.connection = new Gda.Connection({
-      provider: Gda.Config.get_provider('SQLite'),
+    this.connection = new Gda5.Connection({
+      provider: Gda5.Config.get_provider('SQLite'),
       cnc_string: `DB_DIR=${getDbPath(ext)};DB_NAME=pano`,
     });
     this.connection.open();
@@ -230,8 +235,8 @@ class Database {
       return null;
     }
 
-    const builder = new Gda.SqlBuilder({
-      stmt_type: Gda.SqlStatementType.INSERT,
+    const builder = new Gda5.SqlBuilder({
+      stmt_type: Gda5.SqlStatementType.INSERT,
     });
 
     builder.set_table('clipboard');
@@ -269,8 +274,8 @@ class Database {
       return null;
     }
 
-    const builder = new Gda.SqlBuilder({
-      stmt_type: Gda.SqlStatementType.UPDATE,
+    const builder = new Gda5.SqlBuilder({
+      stmt_type: Gda5.SqlStatementType.UPDATE,
     });
 
     builder.set_table('clipboard');
@@ -287,7 +292,7 @@ class Database {
     }
     builder.set_where(
       builder.add_cond(
-        Gda.SqlOperatorType.EQ,
+        Gda5.SqlOperatorType.EQ,
         builder.add_field_id('id', 'clipboard'),
         add_expr_value(builder, dbItem.id),
         0,
@@ -304,13 +309,18 @@ class Database {
       return;
     }
 
-    const builder = new Gda.SqlBuilder({
-      stmt_type: Gda.SqlStatementType.DELETE,
+    const builder = new Gda5.SqlBuilder({
+      stmt_type: Gda5.SqlStatementType.DELETE,
     });
 
     builder.set_table('clipboard');
     builder.set_where(
-      builder.add_cond(Gda.SqlOperatorType.EQ, builder.add_field_id('id', 'clipboard'), add_expr_value(builder, id), 0),
+      builder.add_cond(
+        Gda5.SqlOperatorType.EQ,
+        builder.add_field_id('id', 'clipboard'),
+        add_expr_value(builder, id),
+        0,
+      ),
     );
     this.connection.statement_execute_non_select(builder.get_statement(), null);
   }
