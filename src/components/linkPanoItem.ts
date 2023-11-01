@@ -4,8 +4,8 @@ import GLib from '@girs/glib-2.0';
 import St1 from '@girs/st-12';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
-import { ButtonEvent, KeyEvent } from '@pano/types/clutter';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
+import { getV13ButtonEvent, getV13KeyEvent } from '@pano/utils/compatibility';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCachePath, gettext, openLinkInBrowser } from '@pano/utils/shell';
@@ -165,8 +165,7 @@ export class LinkPanoItem extends PanoItem {
 
   override vfunc_key_press_event(_event: Clutter.KeyEvent): boolean {
     super.vfunc_key_press_event(_event);
-    // this cast is here, to use the correct type for overriding, use Clutter >= 13 to get the correct types, but that package isn't available yet
-    const event = _event as unknown as KeyEvent;
+    const event = getV13KeyEvent(_event);
     if (
       this.settings.get_boolean('open-links-in-browser') &&
       event.get_state() === Clutter.ModifierType.CONTROL_MASK &&
@@ -182,8 +181,8 @@ export class LinkPanoItem extends PanoItem {
 
   override vfunc_button_release_event(_event: Clutter.ButtonEvent): boolean {
     super.vfunc_button_release_event(_event);
-    // this cast is here, to use the correct type for overriding, use Clutter >= 13 to get the correct types, but that package isn't available yet
-    const event = _event as unknown as ButtonEvent;
+
+    const event = getV13ButtonEvent(_event);
     if (
       event.get_button() === 1 &&
       event.get_state() === Clutter.ModifierType.CONTROL_MASK &&

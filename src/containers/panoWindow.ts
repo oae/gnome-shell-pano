@@ -6,9 +6,9 @@ import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { MonitorBox } from '@pano/components/monitorBox';
 import { PanoScrollView } from '@pano/components/panoScrollView';
 import { SearchBox } from '@pano/components/searchBox';
-import { KeyEvent } from '@pano/types/clutter';
 import { EaseFunctionType } from '@pano/types/st';
 import { ClipboardManager } from '@pano/utils/clipboardManager';
+import { getV13KeyEvent } from '@pano/utils/compatibility';
 import { ItemType } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
@@ -218,8 +218,7 @@ export class PanoWindow extends St1.BoxLayout {
   }
 
   override vfunc_key_press_event(_event: Clutter.KeyEvent): boolean {
-    // this cast is here, to use the correct type for overriding, use Clutter >= 13 to get the correct types, but that package isn't available yet
-    const event = _event as unknown as KeyEvent;
+    const event = getV13KeyEvent(_event);
     if (event.get_key_symbol() === Clutter.KEY_Escape) {
       this.hide();
     }

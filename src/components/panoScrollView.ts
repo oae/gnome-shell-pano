@@ -5,9 +5,9 @@ import Shell from '@girs/shell-12';
 import St1 from '@girs/st-12';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
-import { KeyEvent, ScrollEvent } from '@pano/types/clutter';
 import { Adjustment } from '@pano/types/st';
 import { ClipboardContent, ClipboardManager } from '@pano/utils/clipboardManager';
+import { getV13KeyEvent, getV13ScrollEvent } from '@pano/utils/compatibility';
 import { ClipboardQueryBuilder, db, ItemType } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { createPanoItem, createPanoItemFromDb, removeItemResources } from '@pano/utils/panoItemFactory';
@@ -443,8 +443,7 @@ export class PanoScrollView extends St1.ScrollView {
   }
 
   override vfunc_key_press_event(_event: Clutter.KeyEvent): boolean {
-    // this cast is here, to use the correct type for overriding, use Clutter >= 13 to get the correct types, but that package isn't available yet
-    const event = _event as unknown as KeyEvent;
+    const event = getV13KeyEvent(_event);
     const isPanoVertical = isVertical(this.settings.get_uint('window-position'));
     if (isPanoVertical && event.get_key_symbol() === Clutter.KEY_Up) {
       this.focusPrev();
@@ -464,8 +463,7 @@ export class PanoScrollView extends St1.ScrollView {
   }
 
   override vfunc_scroll_event(_event: Clutter.ScrollEvent): boolean {
-    // this cast is here, to use the correct type for overriding, use Clutter >= 13 to get the correct types, but that package isn't available yet
-    const event = _event as unknown as ScrollEvent;
+    const event = getV13ScrollEvent(_event);
     let adjustment: St1.Adjustment | undefined;
 
     if (isVertical(this.settings.get_uint('window-position'))) {

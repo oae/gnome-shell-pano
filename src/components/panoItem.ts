@@ -8,8 +8,8 @@ import Shell from '@girs/shell-12';
 import St1 from '@girs/st-12';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItemHeader } from '@pano/components/panoItemHeader';
-import { ButtonEvent, KeyEvent } from '@pano/types/clutter';
 import { ClipboardManager } from '@pano/utils/clipboardManager';
+import { getV13ButtonEvent, getV13KeyEvent } from '@pano/utils/compatibility';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { getPanoItemTypes } from '@pano/utils/panoItemType';
@@ -191,8 +191,7 @@ export class PanoItem extends St1.BoxLayout {
     this.selected = selected;
   }
   override vfunc_key_press_event(_event: Clutter.KeyEvent): boolean {
-    // this cast is here, to use the correct type for overriding, use Clutter >= 13 to get the correct types, but that package isn't available yet
-    const event = _event as unknown as KeyEvent;
+    const event = getV13KeyEvent(_event);
     if (
       event.get_key_symbol() === Clutter.KEY_Return ||
       event.get_key_symbol() === Clutter.KEY_ISO_Enter ||
@@ -217,8 +216,7 @@ export class PanoItem extends St1.BoxLayout {
   }
 
   override vfunc_button_release_event(_event: Clutter.ButtonEvent): boolean {
-    // this cast is here, to use the correct type for overriding, use Clutter >= 13 to get the correct types, but that package isn't available yet
-    const event = _event as unknown as ButtonEvent;
+    const event = getV13ButtonEvent(_event);
     if (event.get_button() === 1) {
       this.emit('activated');
       return Clutter.EVENT_STOP;
