@@ -1,8 +1,9 @@
 import Gda5 from '@girs/gda-5.0';
-import type Gda6 from '@girs/gda-6.0';
 import Gio from '@girs/gio-2.0';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { getCurrentExtensionSettings, getDbPath, logger } from '@pano/utils/shell';
+
+import { add_expr_value } from './compatibility';
 
 const debug = logger('database');
 
@@ -26,26 +27,6 @@ class ClipboardQuery {
     this.statement = statement;
   }
 }
-
-function isGda6Builder(builder: Gda5.SqlBuilder | Gda6.SqlBuilder): builder is Gda6.SqlBuilder {
-  return builder.add_expr_value.length === 1;
-}
-
-/**
- * This is hack for libgda6 <> libgda5 compatibility.
- *
- * @param value any
- * @returns expr id
- */
-const add_expr_value = (builder: Gda5.SqlBuilder | Gda6.SqlBuilder, value: any): number => {
-  if (isGda6Builder(builder)) {
-    return builder.add_expr_value(value);
-  }
-
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  return builder.add_expr_value(null, value);
-};
 
 export class ClipboardQueryBuilder {
   private readonly builder: Gda5.SqlBuilder;
