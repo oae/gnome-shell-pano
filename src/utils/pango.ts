@@ -1,5 +1,5 @@
 import { logger } from '@pano/utils/shell';
-import { languages, tokenize, util } from 'prismjs';
+import PrismJS from 'prismjs';
 
 const debug = logger('pango');
 
@@ -90,7 +90,11 @@ const stringify = (o, language) => {
 
 export const markupCode = (text: string, charLength: number): string => {
   const result =
-    INVISIBLE_SPACE + stringify(util.encode(tokenize(text.slice(0, charLength), languages.javascript)), 'javascript');
+    INVISIBLE_SPACE +
+    stringify(
+      PrismJS.util.encode(PrismJS.tokenize(text.slice(0, charLength), PrismJS.languages.javascript)),
+      'javascript',
+    );
 
   return result;
 };

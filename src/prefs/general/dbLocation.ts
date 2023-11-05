@@ -1,42 +1,36 @@
-import { ActionRow, Window } from '@gi-types/adw1';
-import { File, Settings } from '@gi-types/gio2';
-import {
-  Align,
-  Button,
-  ButtonsType,
-  FileChooserAction,
-  FileChooserNative,
-  MessageDialog,
-  ResponseType,
-} from '@gi-types/gtk4';
+import Adw from '@girs/adw-1';
+import Gio from '@girs/gio-2.0';
+import Gtk4 from '@girs/gtk-4.0';
+import { ExtensionBase } from '@pano/types/extension/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { _, getCurrentExtensionSettings, getDbPath } from '@pano/utils/shell';
+import { getCurrentExtensionSettings, getDbPath, gettext } from '@pano/utils/shell';
 
 @registerGObjectClass
-export class DBLocationRow extends ActionRow {
-  private fileChooser: FileChooserNative;
-  private settings: Settings;
+export class DBLocationRow extends Adw.ActionRow {
+  private fileChooser: Gtk4.FileChooserNative;
+  private settings: Gio.Settings;
 
-  constructor() {
+  constructor(ext: ExtensionBase) {
+    const _ = gettext(ext);
     super({
       title: _('Database Location'),
-      subtitle: `<b>${getDbPath()}/pano.db</b>`,
+      subtitle: `<b>${getDbPath(ext)}/pano.db</b>`,
     });
 
-    this.settings = getCurrentExtensionSettings();
+    this.settings = getCurrentExtensionSettings(ext);
 
-    this.fileChooser = new FileChooserNative({
+    this.fileChooser = new Gtk4.FileChooserNative({
       modal: true,
       title: _('Choose pano database location'),
-      action: FileChooserAction.SELECT_FOLDER,
+      action: Gtk4.FileChooserAction.SELECT_FOLDER,
       accept_label: 'Select',
     });
     this.connect('map', () => {
-      this.fileChooser.set_transient_for(this.get_root() as Window);
+      this.fileChooser.set_transient_for(this.get_root() as Adw.Window);
     });
-    this.fileChooser.set_current_folder(File.new_for_path(`${getDbPath()}`));
+    this.fileChooser.set_current_folder(Gio.File.new_for_path(`${getDbPath(ext)}`));
     this.fileChooser.connect('response', (chooser, response) => {
-      if (response !== ResponseType.ACCEPT) {
+      if (response !== Gtk4.ResponseType.ACCEPT) {
         this.fileChooser.hide();
         return;
       }
@@ -48,13 +42,13 @@ export class DBLocationRow extends ActionRow {
           this.settings.set_string('database-location', path);
         }
       } else {
-        const md = new MessageDialog({
+        const md = new Gtk4.MessageDialog({
           text: _('Failed to select directory'),
-          transient_for: this.get_root() as Window,
+          transient_for: this.get_root() as Adw.Window,
           destroy_with_parent: true,
           modal: true,
           visible: true,
-          buttons: ButtonsType.OK,
+          buttons: Gtk4.ButtonsType.OK,
         });
         md.connect('response', () => {
           md.destroy();
@@ -63,10 +57,10 @@ export class DBLocationRow extends ActionRow {
       this.fileChooser.hide();
     });
 
-    const dbLocationButton = new Button({
+    const dbLocationButton = new Gtk4.Button({
       icon_name: 'document-open-symbolic',
-      valign: Align.CENTER,
-      halign: Align.CENTER,
+      valign: Gtk4.Align.CENTER,
+      halign: Gtk4.Align.CENTER,
     });
     dbLocationButton.connect('clicked', () => {
       this.fileChooser.show();
@@ -75,8 +69,8 @@ export class DBLocationRow extends ActionRow {
     this.set_activatable_widget(dbLocationButton);
 
     this.settings.connect('changed::database-location', () => {
-      this.fileChooser.set_current_folder(File.new_for_path(`${getDbPath()}`));
-      this.set_subtitle(`<b>${getDbPath()}/pano.db</b>`);
+      this.fileChooser.set_current_folder(Gio.File.new_for_path(`${getDbPath(ext)}`));
+      this.set_subtitle(`<b>${getDbPath(ext)}/pano.db</b>`);
     });
   }
 }

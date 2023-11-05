@@ -1,28 +1,28 @@
-import { KEY_Escape } from '@gi-types/clutter10';
-import { Button } from '@gi-types/st1';
+import Clutter from '@girs/clutter-12';
+import type St from '@girs/st-12';
+import * as dialog from '@gnome-shell/ui/dialog';
+import * as modalDialog from '@gnome-shell/ui/modalDialog';
+import type { ExtensionBase } from '@pano/types/extension/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { _, logger } from '@pano/utils/shell';
-
-const { ModalDialog } = imports.ui.modalDialog;
-const { MessageDialogContent } = imports.ui.dialog;
-
+import { gettext, logger } from '@pano/utils/shell';
 const debug = logger('clear-history-dialog');
 
 @registerGObjectClass
-export class ClearHistoryDialog extends ModalDialog {
-  private cancelButton: Button;
-  private clearButton: Button;
+export class ClearHistoryDialog extends modalDialog.ModalDialog {
+  private cancelButton: St.Button;
+  private clearButton: St.Button;
   private onClear: () => Promise<void>;
 
-  constructor(onClear: () => Promise<void>) {
+  constructor(ext: ExtensionBase, onClear: () => Promise<void>) {
     super();
+    const _ = gettext(ext);
 
     this.onClear = onClear;
 
     this.cancelButton = this.addButton({
       label: _('Cancel'),
       action: this.onCancelButtonPressed.bind(this),
-      key: KEY_Escape,
+      key: Clutter.KEY_Escape,
       default: true,
     });
 
@@ -31,12 +31,12 @@ export class ClearHistoryDialog extends ModalDialog {
       action: this.onClearButtonPressed.bind(this),
     });
 
-    const content = new MessageDialogContent({
+    const content = new dialog.MessageDialogContent({
       title: _('Clear History'),
       description: _('Are you sure you want to clear history?'),
     });
 
-    this.contentLayout.add(content);
+    this.contentLayout.vfunc_add(content);
   }
 
   private onCancelButtonPressed() {

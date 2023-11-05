@@ -8,25 +8,46 @@ import visualizer from 'rollup-plugin-visualizer';
 
 const buildPath = 'dist';
 
-const globals = {
-  '@gi-types/gdk4': 'imports.gi.Gdk',
-  '@gi-types/gio2': 'imports.gi.Gio',
-  '@gi-types/gtk4': 'imports.gi.Gtk',
-  '@gi-types/gdkpixbuf2': 'imports.gi.GdkPixbuf',
-  '@gi-types/glib2': 'imports.gi.GLib',
-  '@gi-types/st1': 'imports.gi.St',
-  '@gi-types/shell0': 'imports.gi.Shell',
-  '@gi-types/meta10': 'imports.gi.Meta',
-  '@gi-types/clutter10': 'imports.gi.Clutter',
-  '@gi-types/soup3': 'imports.gi.Soup',
-  '@gi-types/gobject2': 'imports.gi.GObject',
-  '@gi-types/pango1': 'imports.gi.Pango',
-  '@gi-types/graphene1': 'imports.gi.Graphene',
-  '@imports/gda6': 'imports.gi.Gda',
-  '@imports/gsound1': 'imports.gi.GSound',
-  '@imports/cogl2': 'imports.gi.Cogl',
-  '@gi-types/adw1': 'imports.gi.Adw',
+const importsGeneral = {
+  // this is used to pin point the version to >= and not = , since that may fail, it isn't the best solution, since types might change in later versions, but at, there is not better solution!
+  'gi://Shell?version=12': { name: 'gi://Shell?version>=12' }, // TODO:  not typed and officially supported yet, wait for types updates! (12 + 13)
+  'gi://Meta?version=12': { name: 'gi://Meta?version>=12' }, // TODO:  not typed and officially supported yet, wait for types updates! (12 + 13)
+  'gi://Clutter?version=12': { name: 'gi://Clutter?version>=12' }, // TODO:  not typed and officially supported yet, wait for types updates! (12 + 13)
+  'gi://St?version=12': { name: 'gi://St?version>=12' }, // TODO:  not typed and officially supported yet, wait for types updates! (12 + 13)
+  'gi://Cogl?version=12': { name: 'gi://Cogl?version>=12' }, // TODO:  not typed and officially supported yet, wait for types updates! (12 + 13)
+  'gi://Gda?version=5.0': { name: 'gi://Gda?version>=5.0' }, // We officially support (it's also typed!) both 5.0 and 6.0 
+
+  // extension.js + prefs.js resources
+  '@gnome-shell/misc/util': { name: 'resource://EXT_ROOT/misc/util.js' },
+  '@gnome-shell/misc/animationUtils': { name: 'resource://EXT_ROOT/misc/animationUtils.js' },
+  '@gnome-shell/extensions/extension': { name: 'resource://EXT_ROOT/extensions/extension.js' },
+  '@gnome-shell/ui/layout': { name: 'resource://EXT_ROOT/ui/layout.js' },
+  '@gnome-shell/ui/main': { name: 'resource://EXT_ROOT/ui/main.js' },
+  '@gnome-shell/ui/messageTray': { name: 'resource://EXT_ROOT/ui/messageTray.js' },
+  '@gnome-shell/ui/lightbox': { name: 'resource://EXT_ROOT/ui/lightbox.js' },
+  '@gnome-shell/ui/dialog': { name: 'resource://EXT_ROOT/ui/dialog.js' },
+  '@gnome-shell/ui/modalDialog': { name: 'resource://EXT_ROOT/ui/modalDialog.js' },
+  '@gnome-shell/ui/popupMenu': { name: 'resource://EXT_ROOT/ui/popupMenu.js' },
+  '@gnome-shell/ui/panelMenu': { name: 'resource://EXT_ROOT/ui/panelMenu.js' },
+
 };
+
+// prefs.js specific resources
+const importsPrefs = {
+  ...importsGeneral,
+  '@gnome-shell/extensions/prefs': { name: 'resource://EXT_ROOT/extensions/prefs.js' },
+}
+
+const ExtensionEntries = Object.fromEntries(Object.entries(importsGeneral).map(([name, { name: mapping }]) => {
+  return ([name, mapping.replaceAll(/EXT_ROOT/g, "/org/gnome/shell")])
+}))
+
+
+
+const PreferencesEntries = Object.fromEntries(Object.entries(importsPrefs).map(([name, { name: mapping }]) => {
+  return ([name, mapping.replaceAll(/EXT_ROOT/g, "/org/gnome/Shell/Extensions/js")])
+}))
+
 
 const thirdParty = [
   'htmlparser2',
@@ -65,15 +86,18 @@ const thirdParty = [
   'highlight.js/lib/languages/yaml',
 ];
 
+
+const GlobalEntries = {}
+
 const thirdPartyBuild = thirdParty.map((pkg) => {
   const sanitizedPkg = pkg.split('/').join('_').replaceAll('-', '_').replaceAll('.', '_').replaceAll('@', '');
-  globals[pkg] = `Me.imports.thirdparty["${sanitizedPkg}"].lib`;
+  GlobalEntries[pkg] = `./thirdparty/${sanitizedPkg}.js`
 
   return {
     input: `node_modules/${pkg}`,
     output: {
       file: `${buildPath}/thirdparty/${sanitizedPkg}.js`,
-      format: 'iife',
+      format: 'esm',
       name: 'lib',
     },
     treeshake: {
@@ -88,31 +112,8 @@ const thirdPartyBuild = thirdParty.map((pkg) => {
   };
 });
 
-const external = [...Object.keys(globals), thirdParty];
 
-const prefsBanner = [
-  "imports.gi.versions.Gtk = '4.0';",
-  'const Me = imports.misc.extensionUtils.getCurrentExtension();',
-].join('\n');
-
-const prefsFooter = ['var init = prefs.init;', 'var fillPreferencesWindow = prefs.fillPreferencesWindow;'].join('\n');
-
-const extensionBanner = `
-const Me = imports.misc.extensionUtils.getCurrentExtension();
-
-try {
-`;
-
-const extensionFooter = `
-}
-catch(err) {
-  log(\`[pano] [init] \$\{err\}\`);
-  imports.ui.main.notify('Pano', \`\$\{err\}\`);
-  throw err;
-}
-`;
-
-export default [
+const builds = [
   ...thirdPartyBuild,
   {
     input: 'src/extension.ts',
@@ -121,15 +122,13 @@ export default [
     },
     output: {
       file: `${buildPath}/extension.js`,
-      format: 'iife',
+      format: 'esm',
       name: 'init',
-      banner: extensionBanner,
-      footer: extensionFooter,
       exports: 'default',
-      globals,
-      assetFileNames: '[name][extname]',
+      paths: { ...ExtensionEntries, ...GlobalEntries },
+      assetFileNames: '[name][extname]'
     },
-    external,
+    external: thirdParty,
     plugins: [
       commonjs(),
       nodeResolve({
@@ -160,17 +159,15 @@ export default [
     input: 'src/prefs/prefs.ts',
     output: {
       file: `${buildPath}/prefs.js`,
-      format: 'iife',
+      format: 'esm',
       exports: 'default',
       name: 'prefs',
-      banner: prefsBanner,
-      footer: prefsFooter,
-      globals,
+      paths: { ...PreferencesEntries, ...GlobalEntries },
     },
     treeshake: {
       moduleSideEffects: 'no-external',
     },
-    external,
+    external: thirdParty,
     plugins: [
       commonjs(),
       nodeResolve({
@@ -185,3 +182,5 @@ export default [
     ],
   },
 ];
+
+export default builds

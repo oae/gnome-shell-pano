@@ -1,23 +1,30 @@
-import { ActorAlign, EVENT_PROPAGATE } from '@gi-types/clutter10';
-import { icon_new_for_string, Settings } from '@gi-types/gio2';
-import { get_language_names_with_category } from '@gi-types/glib2';
-import { MetaInfo } from '@gi-types/gobject2';
-import { Global } from '@gi-types/shell0';
-import { BoxLayout, Button, Icon, Label, ThemeContext } from '@gi-types/st1';
-import { registerGObjectClass } from '@pano/utils/gjs';
+import Clutter from '@girs/clutter-12';
+import Gio from '@girs/gio-2.0';
+import GLib from '@girs/glib-2.0';
+import GObject from '@girs/gobject-2.0';
+import Shell from '@girs/shell-12';
+import St1 from '@girs/st-12';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
+import { registerGObjectClass, SignalsDefinition } from '@pano/utils/gjs';
 import { ICON_PACKS, IPanoItemType } from '@pano/utils/panoItemType';
-import { getCurrentExtension, getCurrentExtensionSettings } from '@pano/utils/shell';
+import { getCurrentExtensionSettings } from '@pano/utils/shell';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import * as dateLocale from 'date-fns/locale';
 
-const langs = get_language_names_with_category('LC_MESSAGES').map(
+const langs = GLib.get_language_names_with_category('LC_MESSAGES').map(
   (l) => l.replaceAll('_', '').replaceAll('-', '').split('.')[0],
 );
 const localeKey = Object.keys(dateLocale).find((key) => langs.includes(key));
 
+export type PanoItemHeaderSignalType = 'on-remove' | 'on-favorite';
+interface PanoItemHeaderSignals extends SignalsDefinition<PanoItemHeaderSignalType> {
+  'on-remove': Record<string, never>;
+  'on-favorite': Record<string, never>;
+}
+
 @registerGObjectClass
-export class PanoItemHeader extends BoxLayout {
-  static metaInfo: MetaInfo = {
+export class PanoItemHeader extends St1.BoxLayout {
+  static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, PanoItemHeaderSignals> = {
     GTypeName: 'PanoItemHeader',
     Signals: {
       'on-remove': {},
@@ -26,33 +33,33 @@ export class PanoItemHeader extends BoxLayout {
   };
 
   private dateUpdateIntervalId: any;
-  private favoriteButton: Button;
-  private settings: Settings;
-  private titleLabel: Label;
-  private dateLabel: Label;
-  actionContainer: BoxLayout;
-  titleContainer: BoxLayout;
-  iconContainer: BoxLayout;
+  private favoriteButton: St1.Button;
+  private settings: Gio.Settings;
+  private titleLabel: St1.Label;
+  private dateLabel: St1.Label;
+  actionContainer: St1.BoxLayout;
+  titleContainer: St1.BoxLayout;
+  iconContainer: St1.BoxLayout;
   itemType: IPanoItemType;
 
-  constructor(itemType: IPanoItemType, date: Date) {
+  constructor(ext: ExtensionBase, itemType: IPanoItemType, date: Date) {
     super({
       style_class: `pano-item-header pano-item-header-${itemType.classSuffix}`,
       vertical: false,
     });
     this.itemType = itemType;
-    this.titleContainer = new BoxLayout({
+    this.titleContainer = new St1.BoxLayout({
       style_class: 'pano-item-title-container',
       vertical: true,
       x_expand: true,
     });
-    this.iconContainer = new BoxLayout({
+    this.iconContainer = new St1.BoxLayout({
       style_class: 'pano-icon-container',
     });
 
-    this.settings = getCurrentExtensionSettings();
+    this.settings = getCurrentExtensionSettings(ext);
 
-    const themeContext = ThemeContext.get_for_stage(Global.get().get_stage());
+    const themeContext = St1.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
 
     this.set_height(56 * themeContext.scale_factor);
 
@@ -60,26 +67,26 @@ export class PanoItemHeader extends BoxLayout {
       this.set_height(56 * themeContext.scale_factor);
     });
 
-    const icon = new Icon({
+    const icon = new St1.Icon({
       style_class: 'pano-item-title-icon',
-      gicon: icon_new_for_string(
-        `${getCurrentExtension().path}/icons/hicolor/scalable/actions/${
-          ICON_PACKS[this.settings.get_uint('icon-pack')]
-        }-${itemType.iconPath}`,
+      gicon: Gio.icon_new_for_string(
+        `${ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${
+          itemType.iconPath
+        }`,
       ),
     });
     this.iconContainer.add_child(icon);
     this.settings.connect('changed::icon-pack', () => {
       icon.set_gicon(
-        icon_new_for_string(
-          `${getCurrentExtension().path}/icons/hicolor/scalable/actions/${
-            ICON_PACKS[this.settings.get_uint('icon-pack')]
-          }-${itemType.iconPath}`,
+        Gio.icon_new_for_string(
+          `${ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${
+            itemType.iconPath
+          }`,
         ),
       );
     });
 
-    this.titleLabel = new Label({
+    this.titleLabel = new St1.Label({
       text: itemType.title,
       style_class: 'pano-item-title',
       x_expand: true,
@@ -87,13 +94,13 @@ export class PanoItemHeader extends BoxLayout {
 
     this.titleContainer.add_child(this.titleLabel);
 
-    this.dateLabel = new Label({
+    this.dateLabel = new St1.Label({
       text: formatDistanceToNow(date, { addSuffix: true, locale: localeKey ? dateLocale[localeKey] : undefined }),
       style_class: 'pano-item-date',
       x_expand: true,
       y_expand: true,
-      x_align: ActorAlign.FILL,
-      y_align: ActorAlign.CENTER,
+      x_align: Clutter.ActorAlign.FILL,
+      y_align: Clutter.ActorAlign.CENTER,
     });
 
     this.dateUpdateIntervalId = setInterval(() => {
@@ -104,42 +111,42 @@ export class PanoItemHeader extends BoxLayout {
 
     this.titleContainer.add_child(this.dateLabel);
 
-    this.actionContainer = new BoxLayout({
+    this.actionContainer = new St1.BoxLayout({
       style_class: 'pano-item-actions',
       x_expand: true,
       y_expand: true,
-      x_align: ActorAlign.END,
-      y_align: ActorAlign.START,
+      x_align: Clutter.ActorAlign.END,
+      y_align: Clutter.ActorAlign.START,
     });
 
-    const favoriteIcon = new Icon({
+    const favoriteIcon = new St1.Icon({
       style_class: 'pano-item-action-button-icon',
       icon_name: 'starred-symbolic',
     });
 
-    this.favoriteButton = new Button({
+    this.favoriteButton = new St1.Button({
       style_class: 'pano-item-action-button pano-item-favorite-button',
       child: favoriteIcon,
     });
 
     this.favoriteButton.connect('clicked', () => {
       this.emit('on-favorite');
-      return EVENT_PROPAGATE;
+      return Clutter.EVENT_PROPAGATE;
     });
 
-    const removeIcon = new Icon({
+    const removeIcon = new St1.Icon({
       style_class: 'pano-item-action-button-icon pano-item-action-button-remove-icon',
       icon_name: 'window-close-symbolic',
     });
 
-    const removeButton = new Button({
+    const removeButton = new St1.Button({
       style_class: 'pano-item-action-button pano-item-remove-button',
       child: removeIcon,
     });
 
     removeButton.connect('clicked', () => {
       this.emit('on-remove');
-      return EVENT_PROPAGATE;
+      return Clutter.EVENT_PROPAGATE;
     });
 
     this.actionContainer.add_child(this.favoriteButton);

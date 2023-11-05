@@ -1,11 +1,12 @@
 import './styles/stylesheet.css';
 
-import { DBus, DBusExportedObject, DBusSignalFlags, Settings } from '@gi-types/gio2';
-import { PRIORITY_DEFAULT, Source, SOURCE_REMOVE, timeout_add } from '@gi-types/glib2';
-import { Global } from '@gi-types/shell0';
+import Gio from '@girs/gio-2.0';
+import GLib from '@girs/glib-2.0';
+import Shell from '@girs/shell-12';
+import { Extension, ExtensionMetadata } from '@gnome-shell/extensions/extension';
 import { SettingsMenu } from '@pano/components/indicator/settingsMenu';
 import { PanoWindow } from '@pano/containers/panoWindow';
-import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/clipboardManager';
+import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { db } from '@pano/utils/db';
 import { KeyManager } from '@pano/utils/keyManager';
 import {
@@ -13,7 +14,6 @@ import {
   deleteAppDirs,
   getCurrentExtensionSettings,
   getDbPath,
-  initTranslations,
   loadInterfaceXML,
   logger,
   moveDbFile,
@@ -23,12 +23,14 @@ import {
 import { addTopChrome, addToStatusArea, removeChrome, removeVirtualKeyboard } from '@pano/utils/ui';
 
 const debug = logger('extension');
-class PanoExtension {
-  private panoWindow: PanoWindow;
+export default class PanoExtension extends Extension {
   private keyManager: KeyManager;
-  private dbus: DBusExportedObject;
+  private clipboardManager: ClipboardManager;
+  private panoWindow: PanoWindow;
+
+  private dbus: Gio.DBusExportedObject;
   private isEnabled = false;
-  private settings: Settings;
+  private settings: Gio.Settings;
   private lastDBpath: string;
   private windowTrackerId: number | null;
   private timeoutId: number | null;
@@ -38,29 +40,37 @@ class PanoExtension {
   private rebootSignalId: number | null;
   private systemdSignalId: number | null;
 
-  constructor() {
-    setupAppDirs();
-    db.setup();
+  constructor(props: ExtensionMetadata) {
+    super(props);
+    setupAppDirs(this);
+    db.setup(this);
     debug('extension is initialized');
-    this.keyManager = new KeyManager();
-    this.panoWindow = new PanoWindow();
-    const iface = loadInterfaceXML('io.elhan.Pano');
-    this.dbus = DBusExportedObject.wrapJSObject(iface, this);
-    this.dbus.export(DBus.session, '/io/elhan/Pano');
-    this.settings = getCurrentExtensionSettings();
-    this.lastDBpath = getDbPath();
+    this.keyManager = new KeyManager(this);
+    this.clipboardManager = new ClipboardManager(this);
+    this.panoWindow = new PanoWindow(this, this.clipboardManager);
+    const iface = loadInterfaceXML(this, 'io.elhan.Pano');
+    this.dbus = Gio.DBusExportedObject.wrapJSObject(iface, this);
+    this.dbus.export(Gio.DBus.session, '/io/elhan/Pano');
+    this.settings = getCurrentExtensionSettings(this);
+    this.lastDBpath = getDbPath(this);
     this.settings.connect('changed::database-location', () => {
       const newDBpath = this.settings.get_string('database-location');
+
+      if (newDBpath === null) {
+        //TODO better error handling
+        console.error("The new DB Path is invalid (since it's null)!");
+        return;
+      }
 
       if (this.isEnabled) {
         this.disable();
         moveDbFile(this.lastDBpath, newDBpath);
-        db.setup();
+        db.setup(this);
         this.rerender();
         this.enable();
       } else {
         moveDbFile(this.lastDBpath, newDBpath);
-        db.setup();
+        db.setup(this);
         this.rerender();
       }
       this.lastDBpath = newDBpath;
@@ -78,10 +88,10 @@ class PanoExtension {
     if (this.settings.get_boolean('session-only-mode')) {
       debug('clearing session history');
       db.shutdown();
-      clipboardManager.stopTracking();
-      await deleteAppDirs();
+      this.clipboardManager.stopTracking();
+      await deleteAppDirs(this);
       debug('deleted session cache and db');
-      clipboardManager.setContent(
+      this.clipboardManager.setContent(
         new ClipboardContent({
           type: ContentType.TEXT,
           value: '',
@@ -93,8 +103,10 @@ class PanoExtension {
 
   createIndicator() {
     if (this.settings.get_boolean('show-indicator')) {
-      this.settingsMenu = new SettingsMenu(this.clearHistory.bind(this), () => this.panoWindow.toggle());
-      addToStatusArea(this.settingsMenu);
+      this.settingsMenu = new SettingsMenu(this, this.clipboardManager, this.clearHistory.bind(this), () =>
+        this.panoWindow.toggle(),
+      );
+      addToStatusArea(this, this.settingsMenu);
     }
   }
 
@@ -105,45 +117,45 @@ class PanoExtension {
 
   enable(): void {
     this.isEnabled = true;
-    setupAppDirs();
+    setupAppDirs(this);
     this.createIndicator();
-    db.start();
-    this.logoutSignalId = DBus.session.signal_subscribe(
+    db.start(this);
+    this.logoutSignalId = Gio.DBus.session.signal_subscribe(
       null,
       'org.gnome.SessionManager.EndSessionDialog',
       'ConfirmedLogout',
       '/org/gnome/SessionManager/EndSessionDialog',
       null,
-      DBusSignalFlags.NONE,
+      Gio.DBusSignalFlags.NONE,
       this.clearSessionHistory.bind(this),
     );
 
-    this.rebootSignalId = DBus.session.signal_subscribe(
+    this.rebootSignalId = Gio.DBus.session.signal_subscribe(
       null,
       'org.gnome.SessionManager.EndSessionDialog',
       'ConfirmedReboot',
       '/org/gnome/SessionManager/EndSessionDialog',
       null,
-      DBusSignalFlags.NONE,
+      Gio.DBusSignalFlags.NONE,
       this.clearSessionHistory.bind(this),
     );
 
-    this.shutdownSignalId = DBus.session.signal_subscribe(
+    this.shutdownSignalId = Gio.DBus.session.signal_subscribe(
       null,
       'org.gnome.SessionManager.EndSessionDialog',
       'ConfirmedShutdown',
       '/org/gnome/SessionManager/EndSessionDialog',
       null,
-      DBusSignalFlags.NONE,
+      Gio.DBusSignalFlags.NONE,
       this.clearSessionHistory.bind(this),
     );
-    this.systemdSignalId = DBus.system.signal_subscribe(
+    this.systemdSignalId = Gio.DBus.system.signal_subscribe(
       null,
       'org.freedesktop.login1.Manager',
       'PrepareForShutdown',
       '/org/freedesktop/login1',
       null,
-      DBusSignalFlags.NONE,
+      Gio.DBusSignalFlags.NONE,
       this.clearSessionHistory.bind(this),
     );
     addTopChrome(this.panoWindow);
@@ -152,9 +164,9 @@ class PanoExtension {
       this.settings.set_boolean('is-in-incognito', !this.settings.get_boolean('is-in-incognito'));
     });
 
-    clipboardManager.startTracking();
-    this.windowTrackerId = Global.get().display.connect('notify::focus-window', () => {
-      const focussedWindow = Global.get().display.focus_window;
+    this.clipboardManager.startTracking();
+    this.windowTrackerId = Shell.Global.get().display.connect('notify::focus-window', () => {
+      const focussedWindow = Shell.Global.get().display.focus_window;
       if (focussedWindow && this.panoWindow.is_visible()) {
         this.panoWindow.hide();
       }
@@ -167,15 +179,15 @@ class PanoExtension {
           .map((s) => s.toLowerCase())
           .indexOf(wmClass.toLowerCase()) >= 0
       ) {
-        clipboardManager.stopTracking();
-      } else if (clipboardManager.isTracking === false) {
-        this.timeoutId = timeout_add(PRIORITY_DEFAULT, 300, () => {
-          clipboardManager.startTracking();
+        this.clipboardManager.stopTracking();
+      } else if (this.clipboardManager.isTracking === false) {
+        this.timeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 300, () => {
+          this.clipboardManager.startTracking();
           if (this.timeoutId) {
-            Source.remove(this.timeoutId);
+            GLib.Source.remove(this.timeoutId);
           }
           this.timeoutId = null;
-          return SOURCE_REMOVE;
+          return GLib.SOURCE_REMOVE;
         });
       }
     });
@@ -184,13 +196,13 @@ class PanoExtension {
 
   disable(): void {
     if (this.windowTrackerId) {
-      Global.get().display.disconnect(this.windowTrackerId);
+      Shell.Global.get().display.disconnect(this.windowTrackerId);
     }
     if (this.timeoutId) {
-      Source.remove(this.timeoutId);
+      GLib.Source.remove(this.timeoutId);
     }
     debounceIds.forEach((debounceId) => {
-      Source.remove(debounceId);
+      GLib.Source.remove(debounceId);
     });
     this.removeIndicator();
     this.windowTrackerId = null;
@@ -200,24 +212,24 @@ class PanoExtension {
     this.isEnabled = false;
     this.keyManager.stopListening('global-shortcut');
     this.keyManager.stopListening('incognito-shortcut');
-    clipboardManager.stopTracking();
+    this.clipboardManager.stopTracking();
     removeChrome(this.panoWindow);
     debug('extension is disabled');
     db.shutdown();
     if (this.logoutSignalId) {
-      DBus.session.signal_unsubscribe(this.logoutSignalId);
+      Gio.DBus.session.signal_unsubscribe(this.logoutSignalId);
       this.logoutSignalId = null;
     }
     if (this.shutdownSignalId) {
-      DBus.session.signal_unsubscribe(this.shutdownSignalId);
+      Gio.DBus.session.signal_unsubscribe(this.shutdownSignalId);
       this.shutdownSignalId = null;
     }
     if (this.rebootSignalId) {
-      DBus.session.signal_unsubscribe(this.rebootSignalId);
+      Gio.DBus.session.signal_unsubscribe(this.rebootSignalId);
       this.rebootSignalId = null;
     }
     if (this.systemdSignalId) {
-      DBus.system.signal_unsubscribe(this.systemdSignalId);
+      Gio.DBus.system.signal_unsubscribe(this.systemdSignalId);
       this.systemdSignalId = null;
     }
   }
@@ -247,19 +259,14 @@ class PanoExtension {
   private rerender() {
     this.panoWindow.remove_all_children();
     this.panoWindow.destroy();
-    this.panoWindow = new PanoWindow();
+    this.panoWindow = new PanoWindow(this, this.clipboardManager);
   }
 
   private async reInitialize() {
     db.shutdown();
-    await deleteAppDirs();
-    setupAppDirs();
-    db.setup();
+    await deleteAppDirs(this);
+    setupAppDirs(this);
+    db.setup(this);
     this.rerender();
   }
-}
-
-export default function (): PanoExtension {
-  initTranslations();
-  return new PanoExtension();
 }

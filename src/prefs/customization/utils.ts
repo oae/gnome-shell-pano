@@ -1,23 +1,23 @@
-import { ActionRow } from '@gi-types/adw1';
-import { RGBA } from '@gi-types/gdk4';
-import { Settings, SettingsBindFlags } from '@gi-types/gio2';
-import { Adjustment, Align, Button, ColorButton, DropDown, FontButton, SpinButton, StringList } from '@gi-types/gtk4';
-import { SCALE } from '@gi-types/pango1';
+import Adw from '@girs/adw-1';
+import Gdk4 from '@girs/gdk-4.0';
+import Gio from '@girs/gio-2.0';
+import Gtk4 from '@girs/gtk-4.0';
+import Pango from '@girs/pango-1.0';
 
-export const createColorRow = (title: string, subtitle: string, settings: Settings, schemaKey: string) => {
-  const colorRow = new ActionRow({
+export const createColorRow = (title: string, subtitle: string, settings: Gio.Settings, schemaKey: string) => {
+  const colorRow = new Adw.ActionRow({
     title,
     subtitle,
   });
 
-  const colorButton = new ColorButton({
+  const colorButton = new Gtk4.ColorButton({
     title,
-    valign: Align.CENTER,
-    halign: Align.CENTER,
+    valign: Gtk4.Align.CENTER,
+    halign: Gtk4.Align.CENTER,
     use_alpha: true,
   });
 
-  const rgba = new RGBA();
+  const rgba = new Gdk4.RGBA();
   rgba.parse(settings.get_string(schemaKey));
   colorButton.set_rgba(rgba);
 
@@ -30,10 +30,10 @@ export const createColorRow = (title: string, subtitle: string, settings: Settin
   colorRow.add_suffix(colorButton);
   colorRow.set_activatable_widget(colorButton);
 
-  const clearButton = new Button({
+  const clearButton = new Gtk4.Button({
     icon_name: 'edit-clear-symbolic',
-    valign: Align.CENTER,
-    halign: Align.CENTER,
+    valign: Gtk4.Align.CENTER,
+    halign: Gtk4.Align.CENTER,
   });
 
   const value = settings.get_string(schemaKey);
@@ -51,7 +51,7 @@ export const createColorRow = (title: string, subtitle: string, settings: Settin
       clearButton.sensitive = true;
     }
 
-    const rgba = new RGBA();
+    const rgba = new Gdk4.RGBA();
     rgba.parse(value);
     colorButton.set_rgba(rgba);
   });
@@ -68,35 +68,35 @@ export const createColorRow = (title: string, subtitle: string, settings: Settin
 export const createSpinRow = (
   title: string,
   subtitle: string,
-  settings: Settings,
+  settings: Gio.Settings,
   schemaKey: string,
   increment: number,
   lower: number,
   upper: number,
 ) => {
-  const row = new ActionRow({
+  const row = new Adw.ActionRow({
     title,
     subtitle,
   });
 
   const value = settings.get_int(schemaKey);
 
-  const spinButton = new SpinButton({
-    adjustment: new Adjustment({ step_increment: increment, lower, upper }),
+  const spinButton = new Gtk4.SpinButton({
+    adjustment: new Gtk4.Adjustment({ step_increment: increment, lower, upper }),
     value,
-    valign: Align.CENTER,
-    halign: Align.CENTER,
+    valign: Gtk4.Align.CENTER,
+    halign: Gtk4.Align.CENTER,
   });
 
-  settings.bind(schemaKey, spinButton, 'value', SettingsBindFlags.DEFAULT);
+  settings.bind(schemaKey, spinButton, 'value', Gio.SettingsBindFlags.DEFAULT);
 
   row.add_suffix(spinButton);
   row.set_activatable_widget(spinButton);
 
-  const clearButton = new Button({
+  const clearButton = new Gtk4.Button({
     icon_name: 'edit-clear-symbolic',
-    valign: Align.CENTER,
-    halign: Align.CENTER,
+    valign: Gtk4.Align.CENTER,
+    halign: Gtk4.Align.CENTER,
   });
 
   const defaultValue = settings.get_default_value(schemaKey)?.get_int32();
@@ -123,29 +123,29 @@ export const createSpinRow = (
   return row;
 };
 
-export const createFontRow = (title: string, subtitle: string, settings: Settings, schemaKey: string) => {
+export const createFontRow = (title: string, subtitle: string, settings: Gio.Settings, schemaKey: string) => {
   const getFont = () => `${settings.get_string(`${schemaKey}-family`)} ${settings.get_int(`${schemaKey}-size`)}`;
   const getDefaultFont = () =>
     `${settings.get_default_value(`${schemaKey}-family`)?.get_string()[0]} ${settings
       .get_default_value(`${schemaKey}-size`)
       ?.get_int32()}`;
 
-  const fontRow = new ActionRow({
+  const fontRow = new Adw.ActionRow({
     title,
     subtitle,
   });
 
-  const fontButton = new FontButton({
+  const fontButton = new Gtk4.FontButton({
     title,
-    valign: Align.CENTER,
-    halign: Align.CENTER,
+    valign: Gtk4.Align.CENTER,
+    halign: Gtk4.Align.CENTER,
     use_font: true,
     font: getFont(),
   });
 
   fontButton.connect('font-set', () => {
     const fontFamily = fontButton.get_font_family()?.get_name();
-    const fontSize = fontButton.get_font_size() / SCALE;
+    const fontSize = fontButton.get_font_size() / Pango.SCALE;
 
     settings.set_string(`${schemaKey}-family`, fontFamily || 'Cantarell Regular');
     settings.set_int(`${schemaKey}-size`, fontSize || 11);
@@ -154,10 +154,10 @@ export const createFontRow = (title: string, subtitle: string, settings: Setting
   fontRow.add_suffix(fontButton);
   fontRow.set_activatable_widget(fontButton);
 
-  const clearButton = new Button({
+  const clearButton = new Gtk4.Button({
     icon_name: 'edit-clear-symbolic',
-    valign: Align.CENTER,
-    halign: Align.CENTER,
+    valign: Gtk4.Align.CENTER,
+    halign: Gtk4.Align.CENTER,
   });
 
   const value = getFont();
@@ -193,21 +193,21 @@ export const createFontRow = (title: string, subtitle: string, settings: Setting
 export const createDropdownRow = (
   title: string,
   subtitle: string,
-  settings: Settings,
+  settings: Gio.Settings,
   schemaKey: string,
   options: string[],
 ) => {
-  const row = new ActionRow({
+  const row = new Adw.ActionRow({
     title,
     subtitle,
   });
 
   const value = settings.get_uint(schemaKey);
 
-  const dropDown = new DropDown({
-    valign: Align.CENTER,
-    halign: Align.CENTER,
-    model: StringList.new(options),
+  const dropDown = new Gtk4.DropDown({
+    valign: Gtk4.Align.CENTER,
+    halign: Gtk4.Align.CENTER,
+    model: Gtk4.StringList.new(options),
   });
 
   dropDown.set_selected(value);
@@ -219,10 +219,10 @@ export const createDropdownRow = (
   row.add_suffix(dropDown);
   row.set_activatable_widget(dropDown);
 
-  const clearButton = new Button({
+  const clearButton = new Gtk4.Button({
     icon_name: 'edit-clear-symbolic',
-    valign: Align.CENTER,
-    halign: Align.CENTER,
+    valign: Gtk4.Align.CENTER,
+    halign: Gtk4.Align.CENTER,
   });
 
   const defaultValue = settings.get_default_value(schemaKey)?.get_uint32();

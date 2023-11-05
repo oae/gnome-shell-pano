@@ -1,20 +1,26 @@
-import { Actor, BindConstraint, BindCoordinate, BinLayout, EVENT_STOP } from '@gi-types/clutter10';
-import { MetaInfo } from '@gi-types/gobject2';
-import { Global } from '@gi-types/shell0';
-import { Bin, BoxLayout, Widget } from '@gi-types/st1';
+import Clutter from '@girs/clutter-12';
+import GObject from '@girs/gobject-2.0';
+import Shell from '@girs/shell-12';
+import St1 from '@girs/st-12';
+import * as layout from '@gnome-shell/ui/layout';
+import * as lightbox from '@gnome-shell/ui/lightbox';
+import * as main from '@gnome-shell/ui/main';
 import { registerGObjectClass } from '@pano/utils/gjs';
 
-const { Lightbox } = imports.ui.lightbox;
+interface MonitorBoxSignals {
+  hide: Record<string, never>;
+}
+
 @registerGObjectClass
-export class MonitorBox extends BoxLayout {
-  static metaInfo: MetaInfo = {
+export class MonitorBox extends St1.BoxLayout {
+  static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, MonitorBoxSignals> = {
     GTypeName: 'MonitorBox',
     Signals: {
       hide: {},
     },
   };
 
-  private _lightbox: any;
+  private _lightbox: lightbox.Lightbox;
 
   constructor() {
     super({
@@ -27,34 +33,34 @@ export class MonitorBox extends BoxLayout {
 
     this.connect('button-press-event', () => {
       this.emit('hide');
-      return EVENT_STOP;
+      return Clutter.EVENT_STOP;
     });
 
-    const constraint = new BindConstraint({
-      source: Global.get().stage,
-      coordinate: BindCoordinate.ALL,
+    const constraint = new Clutter.BindConstraint({
+      source: Shell.Global.get().stage,
+      coordinate: Clutter.BindCoordinate.ALL,
     });
     this.add_constraint(constraint);
 
-    const backgroundStack = new Widget({
-      layout_manager: new BinLayout(),
+    const backgroundStack = new St1.Widget({
+      layout_manager: new Clutter.BinLayout(),
       x_expand: true,
       y_expand: true,
     });
-    const _backgroundBin = new Bin({ child: backgroundStack });
-    const _monitorConstraint = new imports.ui.layout.MonitorConstraint();
+    const _backgroundBin = new St1.Bin({ child: backgroundStack });
+    const _monitorConstraint = new layout.MonitorConstraint({});
     _backgroundBin.add_constraint(_monitorConstraint);
     this.add_actor(_backgroundBin);
-    this._lightbox = new Lightbox(this, {
+    this._lightbox = new lightbox.Lightbox(this, {
       inhibitEvents: true,
       radialEffect: false,
     });
     this._lightbox.highlight(_backgroundBin);
     this._lightbox.set({ style_class: 'pano-monitor-box' });
 
-    const _eventBlocker = new Actor({ reactive: true });
+    const _eventBlocker = new Clutter.Actor({ reactive: true });
     backgroundStack.add_actor(_eventBlocker);
-    imports.ui.main.uiGroup.add_actor(this);
+    main.uiGroup.add_actor(this);
   }
 
   open() {
