@@ -1,62 +1,75 @@
-import {
-  BUTTON_MIDDLE,
-  BUTTON_PRIMARY,
-  BUTTON_SECONDARY,
-  Event,
-  EVENT_PROPAGATE,
-  EventType,
-} from '@gi-types/clutter10';
-import { icon_new_for_string, Settings } from '@gi-types/gio2';
-import { MetaInfo, TYPE_BOOLEAN } from '@gi-types/gobject2';
-import { Icon } from '@gi-types/st1';
+import Clutter from '@girs/clutter-12';
+import Gio from '@girs/gio-2.0';
+import GObject from '@girs/gobject-2.0';
+import St1 from '@girs/st-12';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
+import * as panelMenu from '@gnome-shell/ui/panelMenu';
+import * as popupMenu from '@gnome-shell/ui/popupMenu';
 import { ClearHistoryDialog } from '@pano/components/indicator/clearHistoryDialog';
-import { clipboardManager } from '@pano/utils/clipboardManager';
-import { registerGObjectClass } from '@pano/utils/gjs';
+import { ClipboardManager } from '@pano/utils/clipboardManager';
+import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { ICON_PACKS } from '@pano/utils/panoItemType';
-import { _, getCurrentExtension, getCurrentExtensionSettings } from '@pano/utils/shell';
-import { openExtensionPrefs, wiggle } from '@pano/utils/ui';
+import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
+import { openExtensionPreferences, wiggle } from '@pano/utils/ui';
 
-const { PopupMenuItem, PopupSwitchMenuItem, PopupSeparatorMenuItem } = imports.ui.popupMenu;
-const { Button: PopupMenuButton } = imports.ui.panelMenu;
+export type SettingsMenuSignalType = 'item-selected' | 'menu-state-changed';
+
+interface SettingsMenuSignals extends SignalsDefinition<SettingsMenuSignalType> {
+  'item-selected': Record<string, never>;
+  'menu-state-changed': SignalRepresentationType<[GObject.GType<boolean>]>;
+}
 
 @registerGObjectClass
-export class SettingsMenu extends PopupMenuButton {
-  static metaInfo: MetaInfo = {
+export class SettingsMenu extends panelMenu.Button {
+  static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, SettingsMenuSignals> = {
     GTypeName: 'SettingsButton',
     Signals: {
       'item-selected': {},
       'menu-state-changed': {
-        param_types: [TYPE_BOOLEAN],
+        param_types: [GObject.TYPE_BOOLEAN],
         accumulator: 0,
       },
     },
   };
 
-  private settings: Settings;
+  private settings: Gio.Settings;
   private incognitoChangeId: number;
   private clipboardChangeId: number;
-  private icon: Icon;
+  private icon: St1.Icon;
+  private ext: ExtensionBase;
+  private clipboardManager: ClipboardManager;
   private onToggle: () => void;
 
-  constructor(onClear: () => Promise<void>, onToggle: () => void) {
+  constructor(
+    ext: ExtensionBase,
+    clipboardManager: ClipboardManager,
+    onClear: () => Promise<void>,
+    onToggle: () => void,
+  ) {
+    const _ = gettext(ext);
     super(0.5, 'Pano Indicator', false);
 
+    this.ext = ext;
+    this.clipboardManager = clipboardManager;
     this.onToggle = onToggle;
-    this.settings = getCurrentExtensionSettings();
+    this.settings = getCurrentExtensionSettings(this.ext);
     const isInIncognito = this.settings.get_boolean('is-in-incognito');
 
-    this.icon = new Icon({
-      gicon: icon_new_for_string(
-        `${getCurrentExtension().path}/icons/hicolor/scalable/actions/${
-          ICON_PACKS[this.settings.get_uint('icon-pack')]
-        }-indicator${isInIncognito ? '-incognito-symbolic' : '-symbolic'}.svg`,
+    this.icon = new St1.Icon({
+      gicon: Gio.icon_new_for_string(
+        `${this.ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-indicator${
+          isInIncognito ? '-incognito-symbolic' : '-symbolic'
+        }.svg`,
       ),
       style_class: 'system-status-icon indicator-icon',
     });
 
     this.add_child(this.icon);
 
-    const switchMenuItem = new PopupSwitchMenuItem(_('Incognito Mode'), this.settings.get_boolean('is-in-incognito'));
+    const switchMenuItem = new popupMenu.PopupSwitchMenuItem(
+      _('Incognito Mode'),
+      this.settings.get_boolean('is-in-incognito'),
+    );
 
     switchMenuItem.connect('toggled', (item) => {
       this.settings.set_boolean('is-in-incognito', item.state);
@@ -66,8 +79,8 @@ export class SettingsMenu extends PopupMenuButton {
       const isInIncognito = this.settings.get_boolean('is-in-incognito');
       switchMenuItem.setToggleState(isInIncognito);
       this.icon.set_gicon(
-        icon_new_for_string(
-          `${getCurrentExtension().path}/icons/hicolor/scalable/actions/${
+        Gio.icon_new_for_string(
+          `${this.ext.path}/icons/hicolor/scalable/actions/${
             ICON_PACKS[this.settings.get_uint('icon-pack')]
           }-indicator${isInIncognito ? '-incognito-symbolic' : '-symbolic'}.svg`,
         ),
@@ -77,8 +90,8 @@ export class SettingsMenu extends PopupMenuButton {
     this.settings.connect('changed::icon-pack', () => {
       const isInIncognito = this.settings.get_boolean('is-in-incognito');
       this.icon.set_gicon(
-        icon_new_for_string(
-          `${getCurrentExtension().path}/icons/hicolor/scalable/actions/${
+        Gio.icon_new_for_string(
+          `${this.ext.path}/icons/hicolor/scalable/actions/${
             ICON_PACKS[this.settings.get_uint('icon-pack')]
           }-indicator${isInIncognito ? '-incognito-symbolic' : '-symbolic'}.svg`,
         ),
@@ -86,17 +99,17 @@ export class SettingsMenu extends PopupMenuButton {
     });
 
     this.menu.addMenuItem(switchMenuItem);
-    this.menu.addMenuItem(new PopupSeparatorMenuItem());
-    const clearHistoryItem = new PopupMenuItem(_('Clear History'));
+    this.menu.addMenuItem(new popupMenu.PopupSeparatorMenuItem());
+    const clearHistoryItem = new popupMenu.PopupMenuItem(_('Clear History'));
     clearHistoryItem.connect('activate', () => {
-      const dialog = new ClearHistoryDialog(onClear);
+      const dialog = new ClearHistoryDialog(this.ext, onClear);
       dialog.open();
     });
     this.menu.addMenuItem(clearHistoryItem);
-    this.menu.addMenuItem(new PopupSeparatorMenuItem());
-    const settingsItem = new PopupMenuItem(_('Settings'));
+    this.menu.addMenuItem(new popupMenu.PopupSeparatorMenuItem());
+    const settingsItem = new popupMenu.PopupMenuItem(_('Settings'));
     settingsItem.connect('activate', () => {
-      openExtensionPrefs();
+      openExtensionPreferences(this.ext);
     });
     this.menu.addMenuItem(settingsItem);
     this.clipboardChangeId = clipboardManager.connect('changed', this.animate.bind(this));
@@ -108,23 +121,23 @@ export class SettingsMenu extends PopupMenuButton {
     }
   }
 
-  vfunc_event(event: Event) {
-    if (!this.menu || event.type() !== EventType.BUTTON_PRESS) {
-      return EVENT_PROPAGATE;
+  vfunc_event(event: Clutter.Event) {
+    if (!this.menu || event.type() !== Clutter.EventType.BUTTON_PRESS) {
+      return Clutter.EVENT_PROPAGATE;
     }
 
-    if (event.get_button() === BUTTON_PRIMARY || event.get_button() === BUTTON_MIDDLE) {
+    if (event.get_button() === Clutter.BUTTON_PRIMARY || event.get_button() === Clutter.BUTTON_MIDDLE) {
       this.onToggle();
-    } else if (event.get_button() === BUTTON_SECONDARY) {
+    } else if (event.get_button() === Clutter.BUTTON_SECONDARY) {
       this.menu.toggle();
     }
 
-    return EVENT_PROPAGATE;
+    return Clutter.EVENT_PROPAGATE;
   }
 
   destroy() {
     if (this.clipboardChangeId) {
-      clipboardManager.disconnect(this.clipboardChangeId);
+      this.clipboardManager.disconnect(this.clipboardChangeId);
     }
     if (this.incognitoChangeId) {
       this.settings.disconnect(this.incognitoChangeId);

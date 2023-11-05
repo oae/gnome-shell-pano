@@ -1,624 +1,624 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"X-Generator: fill-pot-po/2.1.9\n"
+"X-Generator: fill-pot-po/2.2.7\n"
 
 #: src/components/indicator/clearHistoryDialog.ts:23
 msgid "Cancel"
 msgstr "Annuler"
 
 #: src/components/indicator/clearHistoryDialog.ts:30
-#: src/prefs/dangerZone/clearHistory.ts:17
+#: src/prefs/dangerZone/clearHistory.ts:19
 msgid "Clear"
 msgstr "Vider"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:90
-#: src/prefs/dangerZone/clearHistory.ts:11
+#: src/components/indicator/settingsMenu.ts:103
+#: src/prefs/dangerZone/clearHistory.ts:13
 msgid "Clear History"
 msgstr "Vider l’historique"
 
 #: src/components/indicator/clearHistoryDialog.ts:36
-#: src/prefs/dangerZone/clearHistory.ts:23
+#: src/prefs/dangerZone/clearHistory.ts:25
 msgid "Are you sure you want to clear history?"
 msgstr "Êtes-vous sûr de vouloir vider l’historique ?"
 
-#: src/components/indicator/settingsMenu.ts:59
+#: src/components/indicator/settingsMenu.ts:70
 msgid "Incognito Mode"
 msgstr "Mode incognito"
 
-#: src/components/indicator/settingsMenu.ts:97
+#: src/components/indicator/settingsMenu.ts:110
 msgid "Settings"
 msgstr "Paramètres"
 
-#: src/components/linkPanoItem.ts:46
+#: src/components/linkPanoItem.ts:39
 msgid "No Description"
 msgstr "Aucune description"
 
-#: src/components/searchBox.ts:65
+#: src/components/searchBox.ts:68
 msgid "Type to search, Tab to cycle"
 msgstr "Taper pour rechercher, Tabulation pour trier"
 
-#: src/prefs/customization/codeItemStyle.ts:13
+#: src/prefs/customization/codeItemStyle.ts:15
 msgid "Change the style of the code item"
 msgstr "Changer le style de l’élément de code"
 
-#: src/prefs/customization/codeItemStyle.ts:13
+#: src/prefs/customization/codeItemStyle.ts:15
 msgid "Code Item Style"
 msgstr "Style de l’élément de code"
 
-#: src/prefs/customization/codeItemStyle.ts:20
-#: src/prefs/customization/colorItemStyle.ts:20
-#: src/prefs/customization/emojiItemStyle.ts:20
-#: src/prefs/customization/fileItemStyle.ts:20
-#: src/prefs/customization/imageItemStyle.ts:20
-#: src/prefs/customization/linkItemStyle.ts:20
-#: src/prefs/customization/textItemStyle.ts:20
+#: src/prefs/customization/codeItemStyle.ts:22
+#: src/prefs/customization/colorItemStyle.ts:22
+#: src/prefs/customization/emojiItemStyle.ts:22
+#: src/prefs/customization/fileItemStyle.ts:22
+#: src/prefs/customization/imageItemStyle.ts:21
+#: src/prefs/customization/linkItemStyle.ts:22
+#: src/prefs/customization/textItemStyle.ts:22
 msgid "Header Background Color"
 msgstr "Couleur de fond de l’en-tête"
 
-#: src/prefs/customization/codeItemStyle.ts:21
-#: src/prefs/customization/colorItemStyle.ts:21
-#: src/prefs/customization/emojiItemStyle.ts:21
-#: src/prefs/customization/fileItemStyle.ts:21
-#: src/prefs/customization/imageItemStyle.ts:21
-#: src/prefs/customization/linkItemStyle.ts:21
-#: src/prefs/customization/textItemStyle.ts:21
+#: src/prefs/customization/codeItemStyle.ts:23
+#: src/prefs/customization/colorItemStyle.ts:23
+#: src/prefs/customization/emojiItemStyle.ts:23
+#: src/prefs/customization/fileItemStyle.ts:23
+#: src/prefs/customization/imageItemStyle.ts:22
+#: src/prefs/customization/linkItemStyle.ts:23
+#: src/prefs/customization/textItemStyle.ts:23
 msgid "You can change the background color of the header"
 msgstr "Vous pouvez modifier la couleur d’arrière-plan de l’en-tête"
 
-#: src/prefs/customization/codeItemStyle.ts:30
-#: src/prefs/customization/colorItemStyle.ts:30
-#: src/prefs/customization/emojiItemStyle.ts:30
-#: src/prefs/customization/fileItemStyle.ts:30
-#: src/prefs/customization/imageItemStyle.ts:30
-#: src/prefs/customization/linkItemStyle.ts:30
-#: src/prefs/customization/textItemStyle.ts:30
+#: src/prefs/customization/codeItemStyle.ts:32
+#: src/prefs/customization/colorItemStyle.ts:32
+#: src/prefs/customization/emojiItemStyle.ts:32
+#: src/prefs/customization/fileItemStyle.ts:32
+#: src/prefs/customization/imageItemStyle.ts:31
+#: src/prefs/customization/linkItemStyle.ts:32
+#: src/prefs/customization/textItemStyle.ts:32
 msgid "Header Text Color"
 msgstr "Couleur du texte de l’en-tête"
 
-#: src/prefs/customization/codeItemStyle.ts:31
-#: src/prefs/customization/colorItemStyle.ts:31
-#: src/prefs/customization/emojiItemStyle.ts:31
-#: src/prefs/customization/fileItemStyle.ts:31
-#: src/prefs/customization/imageItemStyle.ts:31
-#: src/prefs/customization/linkItemStyle.ts:31
-#: src/prefs/customization/textItemStyle.ts:31
+#: src/prefs/customization/codeItemStyle.ts:33
+#: src/prefs/customization/colorItemStyle.ts:33
+#: src/prefs/customization/emojiItemStyle.ts:33
+#: src/prefs/customization/fileItemStyle.ts:33
+#: src/prefs/customization/imageItemStyle.ts:32
+#: src/prefs/customization/linkItemStyle.ts:33
+#: src/prefs/customization/textItemStyle.ts:33
 msgid "You can change the text color of the header"
 msgstr "Vous pouvez modifier la couleur du texte de l’en-tête"
 
-#: src/prefs/customization/codeItemStyle.ts:40
-#: src/prefs/customization/emojiItemStyle.ts:40
-#: src/prefs/customization/fileItemStyle.ts:40
-#: src/prefs/customization/imageItemStyle.ts:40
-#: src/prefs/customization/linkItemStyle.ts:40
-#: src/prefs/customization/textItemStyle.ts:40
+#: src/prefs/customization/codeItemStyle.ts:42
+#: src/prefs/customization/emojiItemStyle.ts:42
+#: src/prefs/customization/fileItemStyle.ts:42
+#: src/prefs/customization/imageItemStyle.ts:41
+#: src/prefs/customization/linkItemStyle.ts:42
+#: src/prefs/customization/textItemStyle.ts:42
 msgid "Body Background Color"
 msgstr "Couleur de fond du contenu"
 
-#: src/prefs/customization/codeItemStyle.ts:41
-#: src/prefs/customization/emojiItemStyle.ts:41
-#: src/prefs/customization/fileItemStyle.ts:41
-#: src/prefs/customization/imageItemStyle.ts:41
-#: src/prefs/customization/linkItemStyle.ts:41
-#: src/prefs/customization/textItemStyle.ts:41
+#: src/prefs/customization/codeItemStyle.ts:43
+#: src/prefs/customization/emojiItemStyle.ts:43
+#: src/prefs/customization/fileItemStyle.ts:43
+#: src/prefs/customization/imageItemStyle.ts:42
+#: src/prefs/customization/linkItemStyle.ts:43
+#: src/prefs/customization/textItemStyle.ts:43
 msgid "You can change the background color of the body"
 msgstr "Vous pouvez modifier la couleur d’arrière-plan du contenu"
 
-#: src/prefs/customization/codeItemStyle.ts:48
-#: src/prefs/customization/colorItemStyle.ts:59
-#: src/prefs/customization/fileItemStyle.ts:53
-#: src/prefs/customization/textItemStyle.ts:53
+#: src/prefs/customization/codeItemStyle.ts:50
+#: src/prefs/customization/colorItemStyle.ts:61
+#: src/prefs/customization/fileItemStyle.ts:55
+#: src/prefs/customization/textItemStyle.ts:55
 msgid "Body Font"
 msgstr "Police du contenu"
 
-#: src/prefs/customization/codeItemStyle.ts:48
-#: src/prefs/customization/fileItemStyle.ts:53
-#: src/prefs/customization/textItemStyle.ts:53
+#: src/prefs/customization/codeItemStyle.ts:50
+#: src/prefs/customization/fileItemStyle.ts:55
+#: src/prefs/customization/textItemStyle.ts:55
 msgid "You can change the font of the body"
 msgstr "Vous pouvez modifier la police du contenu"
 
-#: src/prefs/customization/codeItemStyle.ts:53
-#: src/prefs/customization/textItemStyle.ts:58
+#: src/prefs/customization/codeItemStyle.ts:55
+#: src/prefs/customization/textItemStyle.ts:60
 msgid "Character Length"
 msgstr "Nombre de caractères"
 
-#: src/prefs/customization/codeItemStyle.ts:54
-#: src/prefs/customization/textItemStyle.ts:59
+#: src/prefs/customization/codeItemStyle.ts:56
+#: src/prefs/customization/textItemStyle.ts:61
 msgid "You can change the character length of the visible text in the body"
 msgstr "Vous pouvez modifier la longueur du texte affiché dans le contenu"
 
-#: src/prefs/customization/colorItemStyle.ts:13
+#: src/prefs/customization/colorItemStyle.ts:15
 msgid "Change the style of the color item"
 msgstr "Changer le style de l’élément de couleur"
 
-#: src/prefs/customization/colorItemStyle.ts:13
+#: src/prefs/customization/colorItemStyle.ts:15
 msgid "Color Item Style"
 msgstr "Style de l’élément de couleur"
 
-#: src/prefs/customization/colorItemStyle.ts:40
-#: src/prefs/customization/imageItemStyle.ts:50
-#: src/prefs/customization/linkItemStyle.ts:50
+#: src/prefs/customization/colorItemStyle.ts:42
+#: src/prefs/customization/imageItemStyle.ts:51
+#: src/prefs/customization/linkItemStyle.ts:52
 msgid "Metadata Background Color"
 msgstr "Couleur de fond des métadonnées"
 
-#: src/prefs/customization/colorItemStyle.ts:41
-#: src/prefs/customization/imageItemStyle.ts:51
-#: src/prefs/customization/linkItemStyle.ts:51
+#: src/prefs/customization/colorItemStyle.ts:43
+#: src/prefs/customization/imageItemStyle.ts:52
+#: src/prefs/customization/linkItemStyle.ts:53
 msgid "You can change the background color of the metadata"
 msgstr "Vous pouvez modifier la couleur d’arrière-plan des métadonnées"
 
-#: src/prefs/customization/colorItemStyle.ts:50
-#: src/prefs/customization/imageItemStyle.ts:60
+#: src/prefs/customization/colorItemStyle.ts:52
+#: src/prefs/customization/imageItemStyle.ts:61
 msgid "Metadata Text Color"
 msgstr "Couleur du texte des métadonnées"
 
-#: src/prefs/customization/colorItemStyle.ts:51
-#: src/prefs/customization/imageItemStyle.ts:61
+#: src/prefs/customization/colorItemStyle.ts:53
+#: src/prefs/customization/imageItemStyle.ts:62
 msgid "You can change the text color of the metadata"
 msgstr "Vous pouvez modifier la couleur du texte des métadonnées"
 
-#: src/prefs/customization/colorItemStyle.ts:59
-#: src/prefs/customization/imageItemStyle.ts:69
+#: src/prefs/customization/colorItemStyle.ts:61
+#: src/prefs/customization/imageItemStyle.ts:70
 msgid "You can change the font of the metadata"
 msgstr "Vous pouvez modifier la police des métadonnées"
 
-#: src/prefs/customization/commonStyleGroup.ts:12
+#: src/prefs/customization/commonStyleGroup.ts:14
 msgid "Common"
 msgstr "Commun"
 
-#: src/prefs/customization/commonStyleGroup.ts:18
+#: src/prefs/customization/commonStyleGroup.ts:20
 msgid "Icon Pack"
 msgstr "Pack d’icônes"
 
-#: src/prefs/customization/commonStyleGroup.ts:18
+#: src/prefs/customization/commonStyleGroup.ts:20
 msgid "You can change the icon pack"
 msgstr "Vous pouvez changer le pack d’icônes"
 
-#: src/prefs/customization/commonStyleGroup.ts:19
+#: src/prefs/customization/commonStyleGroup.ts:21
 msgid "Default Icons"
 msgstr "Icônes par défaut"
 
-#: src/prefs/customization/commonStyleGroup.ts:20
+#: src/prefs/customization/commonStyleGroup.ts:22
 msgid "Legacy Icons"
 msgstr "Anciennes icônes"
 
-#: src/prefs/customization/commonStyleGroup.ts:25
+#: src/prefs/customization/commonStyleGroup.ts:27
 msgid "Item Size"
 msgstr "Taille d’élément"
 
-#: src/prefs/customization/commonStyleGroup.ts:25
+#: src/prefs/customization/commonStyleGroup.ts:27
 msgid "You can change the item size"
 msgstr "Vous pouvez changer la taille de l’élément"
 
-#: src/prefs/customization/commonStyleGroup.ts:30
+#: src/prefs/customization/commonStyleGroup.ts:32
 msgid "Window Position"
 msgstr "Position de la fenêtre"
 
-#: src/prefs/customization/commonStyleGroup.ts:31
+#: src/prefs/customization/commonStyleGroup.ts:33
 msgid "You can change position of the Pano"
 msgstr "Vous pouvez modifier la position de Pano"
 
-#: src/prefs/customization/commonStyleGroup.ts:34
+#: src/prefs/customization/commonStyleGroup.ts:36
 msgid "Bottom"
 msgstr "En bas"
 
-#: src/prefs/customization/commonStyleGroup.ts:34
+#: src/prefs/customization/commonStyleGroup.ts:36
 msgid "Left"
 msgstr "À gauche"
 
-#: src/prefs/customization/commonStyleGroup.ts:34
+#: src/prefs/customization/commonStyleGroup.ts:36
 msgid "Right"
 msgstr "À droite"
 
-#: src/prefs/customization/commonStyleGroup.ts:34
+#: src/prefs/customization/commonStyleGroup.ts:36
 msgid "Top"
 msgstr "En haut"
 
-#: src/prefs/customization/commonStyleGroup.ts:40
+#: src/prefs/customization/commonStyleGroup.ts:42
 msgid "Window Background Color"
 msgstr "Couleur d’arrière-plan de la fenêtre"
 
-#: src/prefs/customization/commonStyleGroup.ts:41
+#: src/prefs/customization/commonStyleGroup.ts:43
 msgid "You can change the window background color"
 msgstr "Vous pouvez modifier la couleur d’arrière-plan de la fenêtre"
 
-#: src/prefs/customization/commonStyleGroup.ts:48
+#: src/prefs/customization/commonStyleGroup.ts:50
 msgid "Incognito Window Background Color"
 msgstr "Couleur d’arrière-plan de la fenêtre incognito"
 
-#: src/prefs/customization/commonStyleGroup.ts:49
+#: src/prefs/customization/commonStyleGroup.ts:51
 msgid "You can change the incognito window background color"
 msgstr "Vous pouvez modifier la couleur d’arrière-plan de la fenêtre incognito"
 
-#: src/prefs/customization/commonStyleGroup.ts:56
+#: src/prefs/customization/commonStyleGroup.ts:58
 msgid "Search Bar Font"
 msgstr "Police de la barre de recherche"
 
-#: src/prefs/customization/commonStyleGroup.ts:57
+#: src/prefs/customization/commonStyleGroup.ts:59
 msgid "You can change the font of the search bar"
 msgstr "Vous pouvez modifier la police de la barre de recherche"
 
-#: src/prefs/customization/commonStyleGroup.ts:63
+#: src/prefs/customization/commonStyleGroup.ts:65
 msgid "Item Title Font"
 msgstr "Police du titre de l’élément"
 
-#: src/prefs/customization/commonStyleGroup.ts:63
+#: src/prefs/customization/commonStyleGroup.ts:65
 msgid "You can change the font of the title"
 msgstr "Vous pouvez modifier la police du titre"
 
-#: src/prefs/customization/commonStyleGroup.ts:66
+#: src/prefs/customization/commonStyleGroup.ts:68
 msgid "Item Date Font"
 msgstr "Police de la date de l’élément"
 
-#: src/prefs/customization/commonStyleGroup.ts:66
+#: src/prefs/customization/commonStyleGroup.ts:68
 msgid "You can change the font of the date"
 msgstr "Vous pouvez modifier la police de la date"
 
-#: src/prefs/customization/commonStyleGroup.ts:70
+#: src/prefs/customization/commonStyleGroup.ts:72
 msgid "Active Item Border Color"
 msgstr "Couleur de bordure de l’élément actif"
 
-#: src/prefs/customization/commonStyleGroup.ts:71
+#: src/prefs/customization/commonStyleGroup.ts:73
 msgid "You can change the active item border color"
 msgstr "Vous pouvez modifier la couleur de bordure de l’élément actif"
 
-#: src/prefs/customization/commonStyleGroup.ts:78
+#: src/prefs/customization/commonStyleGroup.ts:80
 msgid "Hovered Item Border Color"
 msgstr "Couleur de bordure d’un élément survolé"
 
-#: src/prefs/customization/commonStyleGroup.ts:79
+#: src/prefs/customization/commonStyleGroup.ts:81
 msgid "You can change the hovered item border color"
 msgstr "Vous pouvez modifier la couleur de bordure d’un élément survolé"
 
-#: src/prefs/customization/emojiItemStyle.ts:13
+#: src/prefs/customization/emojiItemStyle.ts:15
 msgid "Change the style of the emoji item"
 msgstr "Changer le style de l’élément émoji"
 
-#: src/prefs/customization/emojiItemStyle.ts:13
+#: src/prefs/customization/emojiItemStyle.ts:15
 msgid "Emoji Item Style"
 msgstr "Style de l’élément émoji"
 
-#: src/prefs/customization/emojiItemStyle.ts:49
+#: src/prefs/customization/emojiItemStyle.ts:51
 msgid "Emoji Size"
 msgstr "Taille d’émoji"
 
-#: src/prefs/customization/emojiItemStyle.ts:49
+#: src/prefs/customization/emojiItemStyle.ts:51
 msgid "You can change the emoji size"
 msgstr "Vous pouvez modifier la taille d’émoji"
 
-#: src/prefs/customization/fileItemStyle.ts:13
+#: src/prefs/customization/fileItemStyle.ts:15
 msgid "Change the style of the file item"
 msgstr "Changer le style de l’élément de fichier"
 
-#: src/prefs/customization/fileItemStyle.ts:13
+#: src/prefs/customization/fileItemStyle.ts:15
 msgid "File Item Style"
 msgstr "Style de l’élément fichier"
 
-#: src/prefs/customization/fileItemStyle.ts:49
-#: src/prefs/customization/textItemStyle.ts:49
+#: src/prefs/customization/fileItemStyle.ts:51
+#: src/prefs/customization/textItemStyle.ts:51
 msgid "Body Text Color"
 msgstr "Couleur du texte du corpus"
 
-#: src/prefs/customization/fileItemStyle.ts:49
-#: src/prefs/customization/textItemStyle.ts:49
+#: src/prefs/customization/fileItemStyle.ts:51
+#: src/prefs/customization/textItemStyle.ts:51
 msgid "You can change the text color of the body"
 msgstr "Vous pouvez modifier la couleur du texte du corpus"
 
-#: src/prefs/customization/imageItemStyle.ts:13
+#: src/prefs/customization/imageItemStyle.ts:14
 msgid "Change the style of the image item"
 msgstr "Changer le style de l’élément d’image"
 
-#: src/prefs/customization/imageItemStyle.ts:13
+#: src/prefs/customization/imageItemStyle.ts:14
 msgid "Image Item Style"
 msgstr "Style de l’élément d’image"
 
-#: src/prefs/customization/imageItemStyle.ts:69
+#: src/prefs/customization/imageItemStyle.ts:70
 msgid "Metadata Font"
 msgstr "Police des métadonnées"
 
-#: src/prefs/customization/index.ts:11
+#: src/prefs/customization/index.ts:13
 msgid "Customization"
 msgstr "Personnalisation"
 
-#: src/prefs/customization/itemStyleGroup.ts:16
+#: src/prefs/customization/itemStyleGroup.ts:18
 msgid "Item Style"
 msgstr "Style de l’élément"
 
-#: src/prefs/customization/linkItemStyle.ts:13
+#: src/prefs/customization/linkItemStyle.ts:15
 msgid "Change the style of the link item"
 msgstr "Changer le style de l’élément de lien"
 
-#: src/prefs/customization/linkItemStyle.ts:13
+#: src/prefs/customization/linkItemStyle.ts:15
 msgid "Link Item Style"
 msgstr "Style de l’élément de lien"
 
-#: src/prefs/customization/linkItemStyle.ts:60
+#: src/prefs/customization/linkItemStyle.ts:62
 msgid "Metadata Title Color"
 msgstr "Couleur du titre des métadonnées"
 
-#: src/prefs/customization/linkItemStyle.ts:61
+#: src/prefs/customization/linkItemStyle.ts:63
 msgid "You can change the title color of the metadata"
 msgstr "Vous pouvez modifier la couleur du titre des métadonnées"
 
-#: src/prefs/customization/linkItemStyle.ts:70
+#: src/prefs/customization/linkItemStyle.ts:72
 msgid "Metadata Title Font"
 msgstr "Police du titre des métadonnées"
 
-#: src/prefs/customization/linkItemStyle.ts:71
+#: src/prefs/customization/linkItemStyle.ts:73
 msgid "You can change the font of the metadata title"
 msgstr "Vous pouvez modifier la police du titre des métadonnées"
 
-#: src/prefs/customization/linkItemStyle.ts:80
+#: src/prefs/customization/linkItemStyle.ts:82
 msgid "Metadata Description Color"
 msgstr "Couleur de la description des métadonnées"
 
-#: src/prefs/customization/linkItemStyle.ts:81
+#: src/prefs/customization/linkItemStyle.ts:83
 msgid "You can change the description color of the metadata"
 msgstr "Vous pouvez modifier la couleur de description des métadonnées"
 
-#: src/prefs/customization/linkItemStyle.ts:90
+#: src/prefs/customization/linkItemStyle.ts:92
 msgid "Metadata Description Font"
 msgstr "Police de description des métadonnées"
 
-#: src/prefs/customization/linkItemStyle.ts:91
+#: src/prefs/customization/linkItemStyle.ts:93
 msgid "You can change the font of the metadata description"
 msgstr "Vous pouvez modifier la police de description des métadonnées"
 
-#: src/prefs/customization/linkItemStyle.ts:100
+#: src/prefs/customization/linkItemStyle.ts:102
 msgid "Metadata Link Color"
 msgstr "Couleur du lien des métadonnées"
 
-#: src/prefs/customization/linkItemStyle.ts:101
+#: src/prefs/customization/linkItemStyle.ts:103
 msgid "You can change the link color of the metadata"
 msgstr "Vous pouvez modifier la couleur du lien des métadonnées"
 
-#: src/prefs/customization/linkItemStyle.ts:110
+#: src/prefs/customization/linkItemStyle.ts:112
 msgid "Metadata Link Font"
 msgstr "Police du lien des métadonnées"
 
-#: src/prefs/customization/linkItemStyle.ts:111
+#: src/prefs/customization/linkItemStyle.ts:113
 msgid "You can change the font of the metadata link"
 msgstr "Vous pouvez modifier la police du lien des métadonnées"
 
-#: src/prefs/customization/textItemStyle.ts:13
+#: src/prefs/customization/textItemStyle.ts:15
 msgid "Change the style of the text item"
 msgstr "Changer le style de l’élément de texte"
 
-#: src/prefs/customization/textItemStyle.ts:13
+#: src/prefs/customization/textItemStyle.ts:15
 msgid "Text Item Style"
 msgstr "Style de l’élément de texte"
 
-#: src/prefs/dangerZone/clearHistory.ts:12
+#: src/prefs/dangerZone/clearHistory.ts:14
 msgid "Clears the clipboard database and cache"
 msgstr "Vider la base de données du presse-papiers et le cache"
 
-#: src/prefs/dangerZone/index.ts:11
+#: src/prefs/dangerZone/index.ts:12
 msgid "Danger Zone"
 msgstr "Zone à risque"
 
-#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+#: src/prefs/dangerZone/sessionOnlyMode.ts:15
 msgid "Session Only Mode"
 msgstr "Mode session unique"
 
-#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+#: src/prefs/dangerZone/sessionOnlyMode.ts:16
 msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
 msgstr "Lorsque ce mode est activé, Pano va automatiquement vider l’historique lors de la déconnexion / redémarrage / extinction."
 
-#: src/prefs/general/dbLocation.ts:22
+#: src/prefs/general/dbLocation.ts:16
 msgid "Database Location"
 msgstr "Emplacement de la base de données"
 
-#: src/prefs/general/dbLocation.ts:30
+#: src/prefs/general/dbLocation.ts:24
 msgid "Choose pano database location"
 msgstr "Choisissez l’emplacement de la base de données Pano"
 
-#: src/prefs/general/dbLocation.ts:52
+#: src/prefs/general/dbLocation.ts:46
 msgid "Failed to select directory"
 msgstr "La sélection du répertoire a échouée"
 
-#: src/prefs/general/exclusionGroup.ts:15
+#: src/prefs/general/exclusionGroup.ts:17
 msgid "Manage Exclusions"
 msgstr "Gérer les exclusions"
 
-#: src/prefs/general/exclusionGroup.ts:22
+#: src/prefs/general/exclusionGroup.ts:24
 msgid "Excluded Apps"
 msgstr "Applications exclues"
 
-#: src/prefs/general/exclusionGroup.ts:23
+#: src/prefs/general/exclusionGroup.ts:25
 msgid "Pano will stop tracking if any window from the list is focussed"
 msgstr "Pano arrêtera le suivi si une fenêtre d’une application de la liste est focalisée"
 
-#: src/prefs/general/exclusionGroup.ts:52
+#: src/prefs/general/exclusionGroup.ts:54
 msgid "Window class name"
 msgstr "Nom de la classe de la fenêtre"
 
-#: src/prefs/general/generalGroup.ts:24
+#: src/prefs/general/generalGroup.ts:26
 msgid "General Options"
 msgstr "Options générales"
 
-#: src/prefs/general/historyLength.ts:13
+#: src/prefs/general/historyLength.ts:15
 msgid "History Length"
 msgstr "Taille de l’historique"
 
-#: src/prefs/general/historyLength.ts:14
+#: src/prefs/general/historyLength.ts:16
 msgid "You can limit your clipboard history length between 10 - 500"
 msgstr "Vous pouvez limiter la taille de l’historique du presse-papiers entre 10 et 500"
 
-#: src/prefs/general/incognitoShortcutRow.ts:57
+#: src/prefs/general/incognitoShortcutRow.ts:17
 msgid "Incognito Mode Shortcut"
 msgstr "Raccourci clavier du mode incognito"
 
-#: src/prefs/general/incognitoShortcutRow.ts:58
+#: src/prefs/general/incognitoShortcutRow.ts:18
 msgid "Allows you to toggle incognito mode"
 msgstr "Permet de basculer vers le mode incognito"
 
-#: src/prefs/general/incognitoShortcutRow.ts:64
-#: src/prefs/general/shortcutRow.ts:64
+#: src/prefs/general/incognitoShortcutRow.ts:24
+#: src/prefs/general/shortcutRow.ts:24
 msgid "Select a shortcut"
 msgstr "Sélectionnez un raccourci"
 
-#: src/prefs/general/incognitoShortcutRow.ts:77
-#: src/prefs/general/shortcutRow.ts:77
+#: src/prefs/general/incognitoShortcutRow.ts:37
+#: src/prefs/general/shortcutRow.ts:37
 msgid "New shortcut"
 msgstr "Nouveau raccourci"
 
-#: src/prefs/general/index.ts:11
+#: src/prefs/general/index.ts:13
 msgid "General"
 msgstr "Général"
 
-#: src/prefs/general/keepSearchEntryOnHide.ts:13
+#: src/prefs/general/keepSearchEntryOnHide.ts:15
 msgid "Keep Search Entry"
 msgstr "Conserver l’entrée de recherche"
 
-#: src/prefs/general/keepSearchEntryOnHide.ts:14
+#: src/prefs/general/keepSearchEntryOnHide.ts:16
 msgid "Keep search entry when Pano hides"
 msgstr "Conserver l’entrée de recherche lorsque Pano est masqué"
 
-#: src/prefs/general/linkPreviews.ts:13
+#: src/prefs/general/linkPreviews.ts:14
 msgid "Link Previews"
 msgstr "Prévisualisation des liens"
 
-#: src/prefs/general/linkPreviews.ts:14
+#: src/prefs/general/linkPreviews.ts:15
 msgid "Allow Pano to visit links on your clipboard to generate link previews"
 msgstr "Permettre à Pano de visiter les liens de votre presse-papiers pour générer un aperçu des sites web"
 
-#: src/prefs/general/openLinksInBrowser.ts:13
+#: src/prefs/general/openLinksInBrowser.ts:15
 msgid "Open Links in Browser"
 msgstr "Ouvrir les liens dans le navigateur"
 
-#: src/prefs/general/openLinksInBrowser.ts:14
+#: src/prefs/general/openLinksInBrowser.ts:16
 msgid "Allow Pano to open links on your default browser"
 msgstr "Permet à Pano d’ouvrir les liens dans votre navigateur par défaut"
 
-#: src/prefs/general/pasteOnSelect.ts:13
+#: src/prefs/general/pasteOnSelect.ts:15
 msgid "Paste on Select"
 msgstr "Coller sur la sélection"
 
-#: src/prefs/general/pasteOnSelect.ts:14
+#: src/prefs/general/pasteOnSelect.ts:16
 msgid "Allow Pano to paste content on select"
 msgstr "Autoriser Pano à coller du contenu sur la sélection"
 
-#: src/prefs/general/playAudioOnCopy.ts:13
+#: src/prefs/general/playAudioOnCopy.ts:14
 msgid "Play an Audio on Copy"
 msgstr "Jouer un son lors de la copie"
 
-#: src/prefs/general/playAudioOnCopy.ts:14
+#: src/prefs/general/playAudioOnCopy.ts:15
 msgid "Allow Pano to play an audio when copying new content"
 msgstr "Autoriser Pano à jouer un son lors de la copie de nouveau contenu"
 
-#: src/prefs/general/sendNotificationOnCopy.ts:13
+#: src/prefs/general/sendNotificationOnCopy.ts:16
 msgid "Send Notification on Copy"
 msgstr "Envoyer une notification lors de la copie"
 
-#: src/prefs/general/sendNotificationOnCopy.ts:14
+#: src/prefs/general/sendNotificationOnCopy.ts:17
 msgid "Allow Pano to send notification when copying new content"
 msgstr "Permet à Pano d’envoyer une notification lors de la copie d’un nouvel élément"
 
-#: src/prefs/general/shortcutRow.ts:57
+#: src/prefs/general/shortcutRow.ts:17
 msgid "Global Shortcut"
 msgstr "Raccourcis globaux"
 
-#: src/prefs/general/shortcutRow.ts:58
+#: src/prefs/general/shortcutRow.ts:18
 msgid "Allows you to toggle visibility of the clipboard manager"
 msgstr "Permet de basculer la visibilité du gestionnaire de presse-papiers"
 
-#: src/prefs/general/showIndicator.ts:13
+#: src/prefs/general/showIndicator.ts:15
 msgid "Show Indicator"
 msgstr "Afficher un indicateur"
 
-#: src/prefs/general/showIndicator.ts:14
+#: src/prefs/general/showIndicator.ts:16
 msgid "Shows an indicator on top panel"
 msgstr "Affiche un indicateur sur le panneau supérieur"
 
-#: src/prefs/general/syncPrimary.ts:13
+#: src/prefs/general/syncPrimary.ts:15
 msgid "Sync Primary"
 msgstr "Synchroniser la sélection primaire"
 
-#: src/prefs/general/syncPrimary.ts:14
+#: src/prefs/general/syncPrimary.ts:16
 msgid "Sync primary selection with clipboard selection"
 msgstr "Synchroniser la sélection primaire avec la sélection du presse-papiers"
 
-#: src/prefs/general/watchExclusions.ts:13
+#: src/prefs/general/watchExclusions.ts:14
 msgid "Watch Exclusions"
 msgstr "Voir les exclusions"
 
-#: src/prefs/general/watchExclusions.ts:14
+#: src/prefs/general/watchExclusions.ts:15
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "Lorsque cette option est activée, Pano ne suivra pas le presse-papiers depuis les applications exclues"
 
-#: src/prefs/general/wiggleIndicator.ts:13
+#: src/prefs/general/wiggleIndicator.ts:15
 msgid "Wiggle Indicator"
 msgstr "Oscillation de l’indicateur"
 
-#: src/prefs/general/wiggleIndicator.ts:14
+#: src/prefs/general/wiggleIndicator.ts:16
 msgid "Wiggles the indicator on panel"
 msgstr "Fait bouger l’indicateur sur le panneau"
 
-#: src/utils/panoItemFactory.ts:372
+#: src/utils/panoItemFactory.ts:392
 msgid "Image Copied"
 msgstr "Image copiée"
 
-#: src/utils/panoItemFactory.ts:373
+#: src/utils/panoItemFactory.ts:393
 msgid "Width: %spx, Height: %spx, Size: %s"
 msgstr "Largeur : %spx, Hauteur : %spx, Taille : %s"
 
-#: src/utils/panoItemFactory.ts:377
+#: src/utils/panoItemFactory.ts:397
 msgid "Text Copied"
 msgstr "Texte copié"
 
-#: src/utils/panoItemFactory.ts:379
+#: src/utils/panoItemFactory.ts:399
 msgid "Code Copied"
 msgstr "Code copié"
 
-#: src/utils/panoItemFactory.ts:381
+#: src/utils/panoItemFactory.ts:401
 msgid "Emoji Copied"
 msgstr "Émoji copié"
 
-#: src/utils/panoItemFactory.ts:388
+#: src/utils/panoItemFactory.ts:409
 msgid "Link Copied"
 msgstr "Lien copié"
 
-#: src/utils/panoItemFactory.ts:408
+#: src/utils/panoItemFactory.ts:429
 msgid "Color Copied"
 msgstr "Couleur copiée"
 
-#: src/utils/panoItemFactory.ts:414
+#: src/utils/panoItemFactory.ts:436
 msgid "File %s"
 msgstr "Fichier %s"
 
-#: src/utils/panoItemFactory.ts:415
+#: src/utils/panoItemFactory.ts:437
 msgid "There are %s file(s)"
 msgstr "Il y a %s fichier(s)"
 
-#: src/utils/panoItemType.ts:4
+#: src/utils/panoItemType.ts:7
 msgid "Link"
 msgstr "Lien"
 
-#: src/utils/panoItemType.ts:5
+#: src/utils/panoItemType.ts:8
 msgid "Text"
 msgstr "Texte"
 
-#: src/utils/panoItemType.ts:6
+#: src/utils/panoItemType.ts:9
 msgid "Emoji"
 msgstr "Émoji"
 
-#: src/utils/panoItemType.ts:7
+#: src/utils/panoItemType.ts:10
 msgid "File"
 msgstr "Fichier"
 
-#: src/utils/panoItemType.ts:8
+#: src/utils/panoItemType.ts:11
 msgid "Image"
 msgstr "Image"
 
-#: src/utils/panoItemType.ts:9
+#: src/utils/panoItemType.ts:12
 msgid "Code"
 msgstr "Code"
 
-#: src/utils/panoItemType.ts:10
+#: src/utils/panoItemType.ts:13
 msgid "Color"
 msgstr "Couleur"
 
-#: src/utils/ui.ts:13
+#: src/utils/ui.ts:24
 msgid "Pano"
 msgstr "Pano"

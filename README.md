@@ -81,13 +81,24 @@
 
 ## Supported Shell Versions
 
+
+### Legacy versions
+
+Since Gnome 45 we had to break compatibility with previous Gnome versions, these only receive critical bug / security fixes and ar not maintained actively
+
 - Gnome Shell 42
 - Gnome Shell 43
 - Gnome Shell 44
 
+### Current version
+
+- Gnome Shell 45
+
+
 ## Installation
 
 - You need `libgda` and `gsound` for this extension to work.
+- We support both libgda 5.0 and 6.0
 
   - Fedora
 
@@ -157,7 +168,7 @@ busctl --user call org.gnome.Shell /io/elhan/Pano io.elhan.Pano show # shows pan
 ### Build
 
 - This extension is written in Typescript and uses rollup to compile it into javascript.
-- To start development, install `nodejs` and `gobject-introspection` on your system.
+- To start development, install `nodejs`  on your system.
 
   - Clone the project
 

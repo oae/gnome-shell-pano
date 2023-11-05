@@ -1,78 +1,84 @@
-import {
-  Actor,
-  AnimationMode,
-  Event,
-  EVENT_PROPAGATE,
-  EVENT_STOP,
-  KEY_Alt_L,
-  KEY_Alt_R,
-  KEY_BackSpace,
-  KEY_Down,
-  KEY_ISO_Left_Tab,
-  KEY_KP_Tab,
-  KEY_Left,
-  KEY_Right,
-  KEY_Tab,
-  KEY_Up,
-  KeyEvent,
-  keysym_to_unicode,
-  ScrollDirection,
-  ScrollEvent,
-} from '@gi-types/clutter10';
-import { Settings } from '@gi-types/gio2';
-import { MetaInfo, TYPE_BOOLEAN, TYPE_STRING } from '@gi-types/gobject2';
-import { Global } from '@gi-types/shell0';
-import { Adjustment, BoxLayout, PolicyType, ScrollView } from '@gi-types/st1';
+import Clutter from '@girs/clutter-12';
+import Gio from '@girs/gio-2.0';
+import GObject from '@girs/gobject-2.0';
+import Shell from '@girs/shell-12';
+import St1 from '@girs/st-12';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
-import { ClipboardContent, clipboardManager } from '@pano/utils/clipboardManager';
-import { ClipboardQueryBuilder, db } from '@pano/utils/db';
-import { registerGObjectClass } from '@pano/utils/gjs';
+import { Adjustment } from '@pano/types/st';
+import { ClipboardContent, ClipboardManager } from '@pano/utils/clipboardManager';
+import { getV13KeyEvent, getV13ScrollEvent } from '@pano/utils/compatibility';
+import { ClipboardQueryBuilder, db, ItemType } from '@pano/utils/db';
+import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { createPanoItem, createPanoItemFromDb, removeItemResources } from '@pano/utils/panoItemFactory';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
 import { isVertical } from '@pano/utils/ui';
 
 import { SearchBox } from './searchBox';
 
+export type PanoScrollViewSignalType =
+  | 'scroll-focus-out'
+  | 'scroll-update-list'
+  | 'scroll-alt-press'
+  | 'scroll-tab-press'
+  | 'scroll-backspace-press'
+  | 'scroll-key-press';
+
+interface PanoScrollViewSignals extends SignalsDefinition<PanoScrollViewSignalType> {
+  'scroll-focus-out': Record<string, never>;
+  'scroll-update-list': Record<string, never>;
+  'scroll-alt-press': Record<string, never>;
+  'scroll-tab-press': SignalRepresentationType<[GObject.GType<boolean>]>;
+  'scroll-backspace-press': Record<string, never>;
+  'scroll-key-press': SignalRepresentationType<[GObject.GType<string>]>;
+}
+
+//TODO: the list member of St1.BoxLayout are of type Clutter.Actor and we have to cast constantly from PanoItem to Clutter.Actor and reverse, fix that somehow
+
 @registerGObjectClass
-export class PanoScrollView extends ScrollView {
-  static metaInfo: MetaInfo = {
+export class PanoScrollView extends St1.ScrollView {
+  static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, PanoScrollViewSignals> = {
     GTypeName: 'PanoScrollView',
     Signals: {
       'scroll-focus-out': {},
       'scroll-update-list': {},
       'scroll-alt-press': {},
       'scroll-tab-press': {
-        param_types: [TYPE_BOOLEAN],
+        param_types: [GObject.TYPE_BOOLEAN],
         accumulator: 0,
       },
       'scroll-backspace-press': {},
       'scroll-key-press': {
-        param_types: [TYPE_STRING],
+        param_types: [GObject.TYPE_STRING],
         accumulator: 0,
       },
     },
   };
 
-  private list: BoxLayout;
-  private settings: Settings;
+  private list: St1.BoxLayout;
+  private settings: Gio.Settings;
   private currentFocus: PanoItem | null = null;
   private currentFilter: string;
-  private currentItemTypeFilter: string;
+  private currentItemTypeFilter: ItemType;
   private showFavorites: boolean;
   private searchBox: SearchBox;
+  private ext: ExtensionBase;
+  private clipboardManager: ClipboardManager;
 
-  constructor(searchBox: SearchBox) {
+  constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, searchBox: SearchBox) {
     super({
       overlay_scrollbars: true,
       x_expand: true,
       y_expand: true,
     });
+    this.ext = ext;
+    this.clipboardManager = clipboardManager;
     this.searchBox = searchBox;
-    this.settings = getCurrentExtensionSettings();
+    this.settings = getCurrentExtensionSettings(this.ext);
 
     this.setScrollbarPolicy();
 
-    this.list = new BoxLayout({
+    this.list = new St1.BoxLayout({
       vertical: isVertical(this.settings.get_uint('window-position')),
       x_expand: true,
       y_expand: true,
@@ -91,55 +97,55 @@ export class PanoScrollView extends ScrollView {
       );
 
       if (isPanoVertical) {
-        return (symbol === KEY_Up && currentItemIndex === 0) || symbol === KEY_Left;
+        return (symbol === Clutter.KEY_Up && currentItemIndex === 0) || symbol === Clutter.KEY_Left;
       } else {
-        return (symbol === KEY_Left && currentItemIndex === 0) || symbol === KEY_Up;
+        return (symbol === Clutter.KEY_Left && currentItemIndex === 0) || symbol === Clutter.KEY_Up;
       }
     };
 
-    this.connect('key-press-event', (_: ScrollView, event: Event) => {
+    this.connect('key-press-event', (_: St1.ScrollView, event: Clutter.Event) => {
       if (
-        event.get_key_symbol() === KEY_Tab ||
-        event.get_key_symbol() === KEY_ISO_Left_Tab ||
-        event.get_key_symbol() === KEY_KP_Tab
+        event.get_key_symbol() === Clutter.KEY_Tab ||
+        event.get_key_symbol() === Clutter.KEY_ISO_Left_Tab ||
+        event.get_key_symbol() === Clutter.KEY_KP_Tab
       ) {
         this.emit('scroll-tab-press', event.has_shift_modifier());
-        return EVENT_STOP;
+        return Clutter.EVENT_STOP;
       }
       if (event.has_control_modifier() && event.get_key_symbol() >= 49 && event.get_key_symbol() <= 57) {
         this.selectItemByIndex(event.get_key_symbol() - 49);
-        return EVENT_STOP;
+        return Clutter.EVENT_STOP;
       }
 
       if (event.get_state()) {
-        return EVENT_PROPAGATE;
+        return Clutter.EVENT_PROPAGATE;
       }
 
       if (shouldFocusOut(event.get_key_symbol())) {
         this.emit('scroll-focus-out');
-        return EVENT_STOP;
+        return Clutter.EVENT_STOP;
       }
-      if (event.get_key_symbol() === KEY_Alt_L || event.get_key_symbol() === KEY_Alt_R) {
+      if (event.get_key_symbol() === Clutter.KEY_Alt_L || event.get_key_symbol() === Clutter.KEY_Alt_R) {
         this.emit('scroll-alt-press');
-        return EVENT_PROPAGATE;
+        return Clutter.EVENT_PROPAGATE;
       }
 
-      if (event.get_key_symbol() == KEY_BackSpace) {
+      if (event.get_key_symbol() == Clutter.KEY_BackSpace) {
         this.emit('scroll-backspace-press');
-        return EVENT_STOP;
+        return Clutter.EVENT_STOP;
       }
-      const unicode = keysym_to_unicode(event.get_key_symbol());
+      const unicode = Clutter.keysym_to_unicode(event.get_key_symbol());
       if (unicode === 0) {
-        return EVENT_PROPAGATE;
+        return Clutter.EVENT_PROPAGATE;
       }
 
       this.emit('scroll-key-press', String.fromCharCode(unicode));
 
-      return EVENT_STOP;
+      return Clutter.EVENT_STOP;
     });
 
     db.query(new ClipboardQueryBuilder().build()).forEach((dbItem) => {
-      const panoItem = createPanoItemFromDb(dbItem);
+      const panoItem = createPanoItemFromDb(ext, this.clipboardManager, dbItem);
       if (panoItem) {
         panoItem.connect('motion-event', () => {
           if (this.isHovering(this.searchBox)) {
@@ -148,12 +154,12 @@ export class PanoScrollView extends ScrollView {
         });
         this.connectOnRemove(panoItem);
         this.connectOnFavorite(panoItem);
-        this.list.add_child(panoItem);
+        this.list.add_child(panoItem as unknown as Clutter.Actor);
       }
     });
 
-    const firstItem = this.list.get_first_child() as PanoItem;
-    if (firstItem) {
+    const firstItem = this.list.get_first_child() as unknown as PanoItem | null;
+    if (firstItem !== null) {
       firstItem.emit('activated');
     }
 
@@ -161,8 +167,8 @@ export class PanoScrollView extends ScrollView {
       this.removeExcessiveItems();
     });
 
-    clipboardManager.connect('changed', async (_: any, content: ClipboardContent) => {
-      const panoItem = await createPanoItem(content);
+    this.clipboardManager.connect('changed', async (_: any, content: ClipboardContent) => {
+      const panoItem = await createPanoItem(ext, this.clipboardManager, content);
       if (panoItem) {
         this.prependItem(panoItem);
         this.filter(this.currentFilter, this.currentItemTypeFilter, this.showFavorites);
@@ -172,9 +178,9 @@ export class PanoScrollView extends ScrollView {
 
   private setScrollbarPolicy() {
     if (isVertical(this.settings.get_uint('window-position'))) {
-      this.set_policy(PolicyType.NEVER, PolicyType.EXTERNAL);
+      this.set_policy(St1.PolicyType.NEVER, St1.PolicyType.EXTERNAL);
     } else {
-      this.set_policy(PolicyType.EXTERNAL, PolicyType.NEVER);
+      this.set_policy(St1.PolicyType.EXTERNAL, St1.PolicyType.NEVER);
     }
   }
 
@@ -194,12 +200,12 @@ export class PanoScrollView extends ScrollView {
       }
     });
 
-    this.list.insert_child_at_index(panoItem, 0);
+    this.list.insert_child_at_index(panoItem as unknown as Clutter.Actor, 0);
     this.removeExcessiveItems();
   }
 
-  private isHovering(actor: Actor) {
-    const [x, y] = Global.get().get_pointer();
+  private isHovering(actor: Clutter.Actor) {
+    const [x, y] = Shell.Global.get().get_pointer();
     const [x1, y1] = [actor.get_abs_allocation_vertices()[0].x, actor.get_abs_allocation_vertices()[0].y];
     const [x2, y2] = [actor.get_abs_allocation_vertices()[3].x, actor.get_abs_allocation_vertices()[3].y];
 
@@ -231,7 +237,7 @@ export class PanoScrollView extends ScrollView {
 
   private removeItem(item: PanoItem) {
     item.hide();
-    this.list.remove_child(item);
+    this.list.remove_child(item as unknown as Clutter.Actor);
   }
 
   private getItem(panoItem: PanoItem): PanoItem | undefined {
@@ -239,11 +245,11 @@ export class PanoScrollView extends ScrollView {
   }
 
   private getItems(): PanoItem[] {
-    return this.list.get_children() as PanoItem[];
+    return this.list.get_children() as unknown as PanoItem[];
   }
 
   private getVisibleItems(): PanoItem[] {
-    return this.list.get_children().filter((item) => item.is_visible()) as PanoItem[];
+    return this.list.get_children().filter((item) => item.is_visible()) as unknown as PanoItem[];
   }
 
   private removeExcessiveItems() {
@@ -257,7 +263,7 @@ export class PanoScrollView extends ScrollView {
     db.query(
       new ClipboardQueryBuilder().withFavorites(false).withLimit(-1, this.settings.get_int('history-length')).build(),
     ).forEach((dbItem) => {
-      removeItemResources(dbItem);
+      removeItemResources(this.ext, dbItem);
     });
   }
 
@@ -293,7 +299,7 @@ export class PanoScrollView extends ScrollView {
     return false;
   }
 
-  filter(text: string, itemType: string, showFavorites: boolean) {
+  filter(text: string, itemType: ItemType, showFavorites: boolean) {
     this.currentFilter = text;
     this.currentItemTypeFilter = itemType;
     this.showFavorites = showFavorites;
@@ -398,7 +404,7 @@ export class PanoScrollView extends ScrollView {
   private scrollToItem(item: PanoItem) {
     const box = item.get_allocation_box();
 
-    let adjustment: Adjustment | undefined;
+    let adjustment: St1.Adjustment | undefined;
 
     let value: number | undefined;
     if (isVertical(this.settings.get_uint('window-position'))) {
@@ -413,9 +419,10 @@ export class PanoScrollView extends ScrollView {
       return;
     }
 
-    adjustment.ease(value, {
+    //TODO: use St version >= 13 to get this types!!!, and than you can also use this.scrollView.vscroll.adjustment.ease
+    (adjustment as unknown as Adjustment).ease(value, {
       duration: 150,
-      mode: AnimationMode.EASE_OUT_QUAD,
+      mode: Clutter.AnimationMode.EASE_OUT_QUAD,
     });
   }
 
@@ -435,27 +442,29 @@ export class PanoScrollView extends ScrollView {
     }
   }
 
-  override vfunc_key_press_event(event: KeyEvent): boolean {
+  override vfunc_key_press_event(_event: Clutter.KeyEvent): boolean {
+    const event = getV13KeyEvent(_event);
     const isPanoVertical = isVertical(this.settings.get_uint('window-position'));
-    if (isPanoVertical && event.keyval === KEY_Up) {
+    if (isPanoVertical && event.get_key_symbol() === Clutter.KEY_Up) {
       this.focusPrev();
       this.scrollToFocussedItem();
-    } else if (isPanoVertical && event.keyval === KEY_Down) {
+    } else if (isPanoVertical && event.get_key_symbol() === Clutter.KEY_Down) {
       this.focusNext();
       this.scrollToFocussedItem();
-    } else if (!isPanoVertical && event.keyval === KEY_Left) {
+    } else if (!isPanoVertical && event.get_key_symbol() === Clutter.KEY_Left) {
       this.focusPrev();
       this.scrollToFocussedItem();
-    } else if (!isPanoVertical && event.keyval === KEY_Right) {
+    } else if (!isPanoVertical && event.get_key_symbol() === Clutter.KEY_Right) {
       this.focusNext();
       this.scrollToFocussedItem();
     }
 
-    return EVENT_PROPAGATE;
+    return Clutter.EVENT_PROPAGATE;
   }
 
-  override vfunc_scroll_event(event: ScrollEvent): boolean {
-    let adjustment: Adjustment | undefined;
+  override vfunc_scroll_event(_event: Clutter.ScrollEvent): boolean {
+    const event = getV13ScrollEvent(_event);
+    let adjustment: St1.Adjustment | undefined;
 
     if (isVertical(this.settings.get_uint('window-position'))) {
       adjustment = this.vscroll.adjustment;
@@ -464,22 +473,29 @@ export class PanoScrollView extends ScrollView {
     }
     let value = adjustment.value;
 
-    if (event.direction === ScrollDirection.SMOOTH) {
-      return EVENT_STOP;
+    if (event.get_scroll_direction() === Clutter.ScrollDirection.SMOOTH) {
+      return Clutter.EVENT_STOP;
     }
 
-    if (event.direction === ScrollDirection.UP || event.direction === ScrollDirection.LEFT) {
+    if (
+      event.get_scroll_direction() === Clutter.ScrollDirection.UP ||
+      event.get_scroll_direction() === Clutter.ScrollDirection.LEFT
+    ) {
       value -= adjustment.step_increment * 2;
-    } else if (event.direction === ScrollDirection.DOWN || event.direction === ScrollDirection.RIGHT) {
+    } else if (
+      event.get_scroll_direction() === Clutter.ScrollDirection.DOWN ||
+      event.get_scroll_direction() === Clutter.ScrollDirection.RIGHT
+    ) {
       value += adjustment.step_increment * 2;
     }
 
     adjustment.remove_transition('value');
-    adjustment.ease(value, {
+
+    (adjustment as unknown as Adjustment).ease(value, {
       duration: 150,
-      mode: AnimationMode.EASE_OUT_QUAD,
+      mode: Clutter.AnimationMode.EASE_OUT_QUAD,
     });
 
-    return EVENT_STOP;
+    return Clutter.EVENT_STOP;
   }
 }

@@ -1,22 +1,29 @@
-import { AnimationMode, EVENT_PROPAGATE, KEY_Escape, KeyEvent } from '@gi-types/clutter10';
-import { Settings } from '@gi-types/gio2';
-import { Global } from '@gi-types/shell0';
-import { BoxLayout, ThemeContext } from '@gi-types/st1';
+import Clutter from '@girs/clutter-12';
+import Gio from '@girs/gio-2.0';
+import Shell from '@girs/shell-12';
+import St1 from '@girs/st-12';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { MonitorBox } from '@pano/components/monitorBox';
 import { PanoScrollView } from '@pano/components/panoScrollView';
 import { SearchBox } from '@pano/components/searchBox';
+import { EaseFunctionType } from '@pano/types/st';
+import { ClipboardManager } from '@pano/utils/clipboardManager';
+import { getV13KeyEvent } from '@pano/utils/compatibility';
+import { ItemType } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
 import { getAlignment, getMonitorConstraint, isVertical } from '@pano/utils/ui';
 
 @registerGObjectClass
-export class PanoWindow extends BoxLayout {
+export class PanoWindow extends St1.BoxLayout {
   private scrollView: PanoScrollView;
   private searchBox: SearchBox;
   private monitorBox: MonitorBox;
-  private settings: Settings;
+  private settings: Gio.Settings;
+  //TODO: use St version >= 13 to get this types!!!, and than you can also use this.scrollView.vscroll.adjustment.ease
+  ease: EaseFunctionType<typeof this>;
 
-  constructor() {
+  constructor(ext: ExtensionBase, clipboardManager: ClipboardManager) {
     super({
       name: 'pano-window',
       constraints: getMonitorConstraint(),
@@ -28,20 +35,20 @@ export class PanoWindow extends BoxLayout {
       can_focus: true,
     });
 
-    this.settings = getCurrentExtensionSettings();
+    this.settings = getCurrentExtensionSettings(ext);
     this.setAlignment();
 
-    const themeContext = ThemeContext.get_for_stage(Global.get().get_stage());
+    const themeContext = St1.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
 
-    this.setWindowDimensions(themeContext.scaleFactor);
+    this.setWindowDimensions(themeContext.scale_factor);
     themeContext.connect('notify::scale-factor', () => {
-      this.setWindowDimensions(themeContext.scaleFactor);
+      this.setWindowDimensions(themeContext.scale_factor);
     });
     this.settings.connect('changed::item-size', () => {
-      this.setWindowDimensions(themeContext.scaleFactor);
+      this.setWindowDimensions(themeContext.scale_factor);
     });
     this.settings.connect('changed::window-position', () => {
-      this.setWindowDimensions(themeContext.scaleFactor);
+      this.setWindowDimensions(themeContext.scale_factor);
       this.setAlignment();
     });
 
@@ -64,8 +71,8 @@ export class PanoWindow extends BoxLayout {
       }
     });
     this.monitorBox = new MonitorBox();
-    this.searchBox = new SearchBox();
-    this.scrollView = new PanoScrollView(this.searchBox);
+    this.searchBox = new SearchBox(ext);
+    this.scrollView = new PanoScrollView(ext, clipboardManager, this.searchBox);
 
     this.setupMonitorBox();
     this.setupScrollView();
@@ -122,9 +129,12 @@ export class PanoWindow extends BoxLayout {
     this.searchBox.connect('search-submit', () => {
       this.scrollView.selectFirstItem();
     });
-    this.searchBox.connect('search-text-changed', (_: any, text: string, itemType: string, showFavorites: boolean) => {
-      this.scrollView.filter(text, itemType, showFavorites);
-    });
+    this.searchBox.connect(
+      'search-text-changed',
+      (_: any, text: string, itemType: ItemType, showFavorites: boolean) => {
+        this.scrollView.filter(text, itemType, showFavorites);
+      },
+    );
     this.searchBox.connect('search-item-select-shortcut', (_: any, index: number) => {
       this.scrollView.selectItemByIndex(index);
     });
@@ -182,11 +192,11 @@ export class PanoWindow extends BoxLayout {
     this.ease({
       opacity: 255,
       duration: 250,
-      mode: AnimationMode.EASE_OUT_QUAD,
+      mode: Clutter.AnimationMode.EASE_OUT_QUAD,
     });
     this.monitorBox.open();
 
-    return EVENT_PROPAGATE;
+    return Clutter.EVENT_PROPAGATE;
   }
 
   override hide() {
@@ -194,7 +204,7 @@ export class PanoWindow extends BoxLayout {
     this.ease({
       opacity: 0,
       duration: 200,
-      mode: AnimationMode.EASE_OUT_QUAD,
+      mode: Clutter.AnimationMode.EASE_OUT_QUAD,
       onComplete: () => {
         if (!this.settings.get_boolean('keep-search-entry')) {
           this.searchBox.clear();
@@ -204,15 +214,16 @@ export class PanoWindow extends BoxLayout {
       },
     });
 
-    return EVENT_PROPAGATE;
+    return Clutter.EVENT_PROPAGATE;
   }
 
-  override vfunc_key_press_event(event: KeyEvent): boolean {
-    if (event.keyval === KEY_Escape) {
+  override vfunc_key_press_event(_event: Clutter.KeyEvent): boolean {
+    const event = getV13KeyEvent(_event);
+    if (event.get_key_symbol() === Clutter.KEY_Escape) {
       this.hide();
     }
 
-    return EVENT_PROPAGATE;
+    return Clutter.EVENT_PROPAGATE;
   }
 
   override destroy(): void {

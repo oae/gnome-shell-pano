@@ -1,35 +1,28 @@
-import {
-  ActorAlign,
-  ButtonEvent,
-  EVENT_PROPAGATE,
-  KEY_ISO_Enter,
-  KEY_KP_Enter,
-  KEY_Return,
-  KeyEvent,
-  ModifierType,
-} from '@gi-types/clutter10';
-import { File, Settings } from '@gi-types/gio2';
-import { uri_parse, UriFlags } from '@gi-types/glib2';
-import { BoxLayout, Button, Icon, Label } from '@gi-types/st1';
+import Clutter from '@girs/clutter-12';
+import Gio from '@girs/gio-2.0';
+import GLib from '@girs/glib-2.0';
+import St1 from '@girs/st-12';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
-import { ClipboardContent, clipboardManager, ContentType } from '@pano/utils/clipboardManager';
+import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
+import { getV13ButtonEvent, getV13KeyEvent } from '@pano/utils/compatibility';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { _, getCachePath, getCurrentExtension, openLinkInBrowser } from '@pano/utils/shell';
+import { getCachePath, gettext, openLinkInBrowser } from '@pano/utils/shell';
 
 const DEFAULT_LINK_PREVIEW_IMAGE_NAME = 'link-preview.svg';
 
 @registerGObjectClass
 export class LinkPanoItem extends PanoItem {
-  private linkItemSettings: Settings;
-  private metaContainer: BoxLayout;
-  private titleLabel: Label;
-  private descriptionLabel: Label;
-  private linkLabel: Label;
+  private linkItemSettings: Gio.Settings;
+  private metaContainer: St1.BoxLayout;
+  private titleLabel: St1.Label;
+  private descriptionLabel: St1.Label;
+  private linkLabel: St1.Label;
 
-  constructor(dbItem: DBItem) {
-    super(dbItem);
-
+  constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
+    super(ext, clipboardManager, dbItem);
+    const _ = gettext(ext);
     this.linkItemSettings = this.settings.get_child('link-item');
 
     const { title, description, image } = JSON.parse(dbItem.metaData || '{"title": "", "description": ""}');
@@ -37,7 +30,7 @@ export class LinkPanoItem extends PanoItem {
     let descriptionText: string = description;
 
     if (!title) {
-      titleText = uri_parse(dbItem.content, UriFlags.NONE).get_host() || this.dbItem.content;
+      titleText = GLib.uri_parse(dbItem.content, GLib.UriFlags.NONE).get_host() || this.dbItem.content;
     } else {
       titleText = decodeURI(title);
     }
@@ -50,42 +43,42 @@ export class LinkPanoItem extends PanoItem {
 
     this.body.add_style_class_name('pano-item-body-link');
 
-    this.metaContainer = new BoxLayout({
+    this.metaContainer = new St1.BoxLayout({
       style_class: 'pano-item-body-meta-container',
       vertical: true,
       x_expand: true,
       y_expand: false,
-      y_align: ActorAlign.END,
-      x_align: ActorAlign.FILL,
+      y_align: Clutter.ActorAlign.END,
+      x_align: Clutter.ActorAlign.FILL,
     });
 
-    this.titleLabel = new Label({
+    this.titleLabel = new St1.Label({
       text: titleText,
       style_class: 'link-title-label',
     });
 
-    this.descriptionLabel = new Label({
+    this.descriptionLabel = new St1.Label({
       text: descriptionText,
       style_class: 'link-description-label',
     });
     this.descriptionLabel.clutter_text.single_line_mode = true;
 
-    this.linkLabel = new Label({
+    this.linkLabel = new St1.Label({
       text: this.dbItem.content,
       style_class: 'link-label',
     });
 
-    let imageFilePath = `file:///${getCurrentExtension().path}/images/${DEFAULT_LINK_PREVIEW_IMAGE_NAME}`;
-    if (image && File.new_for_uri(`file://${getCachePath()}/${image}.png`).query_exists(null)) {
-      imageFilePath = `file://${getCachePath()}/${image}.png`;
+    let imageFilePath = `file:///${ext.path}/images/${DEFAULT_LINK_PREVIEW_IMAGE_NAME}`;
+    if (image && Gio.File.new_for_uri(`file://${getCachePath(ext)}/${image}.png`).query_exists(null)) {
+      imageFilePath = `file://${getCachePath(ext)}/${image}.png`;
     }
 
-    const imageContainer = new BoxLayout({
+    const imageContainer = new St1.BoxLayout({
       vertical: true,
       x_expand: true,
       y_expand: true,
-      y_align: ActorAlign.FILL,
-      x_align: ActorAlign.FILL,
+      y_align: Clutter.ActorAlign.FILL,
+      x_align: Clutter.ActorAlign.FILL,
       style_class: 'image-container',
       style: `background-image: url(${imageFilePath});`,
     });
@@ -101,12 +94,12 @@ export class LinkPanoItem extends PanoItem {
     this.setStyle();
     this.linkItemSettings.connect('changed', this.setStyle.bind(this));
 
-    const openLinkIcon = new Icon({
+    const openLinkIcon = new St1.Icon({
       icon_name: 'web-browser-symbolic',
       style_class: 'pano-item-action-button-icon',
     });
 
-    const openLinkButton = new Button({
+    const openLinkButton = new St1.Button({
       style_class: 'pano-item-action-button pano-item-open-link-button',
       child: openLinkIcon,
     });
@@ -114,7 +107,7 @@ export class LinkPanoItem extends PanoItem {
     openLinkButton.connect('clicked', () => {
       this.emit('activated');
       openLinkInBrowser(this.dbItem.content);
-      return EVENT_PROPAGATE;
+      return Clutter.EVENT_PROPAGATE;
     });
 
     if (this.settings.get_boolean('open-links-in-browser')) {
@@ -162,7 +155,7 @@ export class LinkPanoItem extends PanoItem {
   }
 
   private setClipboardContent(): void {
-    clipboardManager.setContent(
+    this.clipboardManager.setContent(
       new ClipboardContent({
         type: ContentType.TEXT,
         value: this.dbItem.content,
@@ -170,29 +163,34 @@ export class LinkPanoItem extends PanoItem {
     );
   }
 
-  override vfunc_key_press_event(event: KeyEvent): boolean {
-    super.vfunc_key_press_event(event);
+  override vfunc_key_press_event(_event: Clutter.KeyEvent): boolean {
+    super.vfunc_key_press_event(_event);
+    const event = getV13KeyEvent(_event);
     if (
       this.settings.get_boolean('open-links-in-browser') &&
-      event.modifier_state === ModifierType.CONTROL_MASK &&
-      (event.keyval === KEY_Return || event.keyval === KEY_ISO_Enter || event.keyval === KEY_KP_Enter)
+      event.get_state() === Clutter.ModifierType.CONTROL_MASK &&
+      (event.get_key_symbol() === Clutter.KEY_Return ||
+        event.get_key_symbol() === Clutter.KEY_ISO_Enter ||
+        event.get_key_symbol() === Clutter.KEY_KP_Enter)
     ) {
       openLinkInBrowser(this.dbItem.content);
     }
 
-    return EVENT_PROPAGATE;
+    return Clutter.EVENT_PROPAGATE;
   }
 
-  override vfunc_button_release_event(event: ButtonEvent): boolean {
-    super.vfunc_button_release_event(event);
+  override vfunc_button_release_event(_event: Clutter.ButtonEvent): boolean {
+    super.vfunc_button_release_event(_event);
+
+    const event = getV13ButtonEvent(_event);
     if (
-      event.button === 1 &&
-      event.modifier_state === ModifierType.CONTROL_MASK &&
+      event.get_button() === 1 &&
+      event.get_state() === Clutter.ModifierType.CONTROL_MASK &&
       this.settings.get_boolean('open-links-in-browser')
     ) {
       openLinkInBrowser(this.dbItem.content);
     }
 
-    return EVENT_PROPAGATE;
+    return Clutter.EVENT_PROPAGATE;
   }
 }

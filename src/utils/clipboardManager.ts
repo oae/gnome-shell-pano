@@ -1,13 +1,14 @@
-import { Settings } from '@gi-types/gio2';
-import { Bytes } from '@gi-types/glib2';
-import { MetaInfo, Object } from '@gi-types/gobject2';
-import { Selection, SelectionSource, SelectionType } from '@gi-types/meta10';
-import { Global } from '@gi-types/shell0';
-import { Clipboard, ClipboardType } from '@gi-types/st1';
-import { registerGObjectClass } from '@pano/utils/gjs';
+import Gio from '@girs/gio-2.0';
+import GLib from '@girs/glib-2.0';
+import GObject from '@girs/gobject-2.0';
+import Meta from '@girs/meta-12';
+import Shell from '@girs/shell-12';
+import St1 from '@girs/st-12';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
+import { registerGObjectClass, SignalRepresentationType } from '@pano/utils/gjs';
 import { debounce, getCurrentExtensionSettings, logger } from '@pano/utils/shell';
 
-const global = Global.get();
+const global = Shell.Global.get();
 
 const debug = logger('clipboard-manager');
 
@@ -49,8 +50,8 @@ type ClipboardContentType =
     };
 
 @registerGObjectClass
-export class ClipboardContent extends Object {
-  static metaInfo: MetaInfo = {
+export class ClipboardContent extends GObject.Object {
+  static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, Record<string, never>> = {
     GTypeName: 'ClipboardContent',
   };
   content: ClipboardContentType;
@@ -70,8 +71,8 @@ const arraybufferEqual = (buf1: Uint8Array, buf2: Uint8Array) => {
     return false;
   }
 
-  const view1 = new DataView(buf1);
-  const view2 = new DataView(buf2);
+  const view1 = new DataView(buf1.buffer);
+  const view2 = new DataView(buf2.buffer);
 
   let i = buf1.byteLength;
   while (i--) {
@@ -106,9 +107,13 @@ const compareClipboardContent = (content1: ClipboardContentType, content2: Clipb
   return false;
 };
 
+interface ClipboardManagerSignals {
+  changed: SignalRepresentationType<[GObject.GType<GObject.Object>]>;
+}
+
 @registerGObjectClass
-export class ClipboardManager extends Object {
-  static metaInfo: MetaInfo = {
+export class ClipboardManager extends GObject.Object {
+  static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, ClipboardManagerSignals> = {
     GTypeName: 'PanoClipboardManager',
     Signals: {
       changed: {
@@ -118,17 +123,17 @@ export class ClipboardManager extends Object {
     },
   };
 
-  private clipboard: Clipboard;
-  private selection: Selection;
+  private clipboard: St1.Clipboard;
+  private selection: Meta.Selection;
   private selectionChangedId: number;
   public isTracking: boolean;
-  private settings: Settings;
+  private settings: Gio.Settings;
   private lastCopiedContent: ClipboardContent | null;
 
-  constructor() {
+  constructor(ext: ExtensionBase) {
     super();
-    this.settings = getCurrentExtensionSettings();
-    this.clipboard = Clipboard.get_default();
+    this.settings = getCurrentExtensionSettings(ext);
+    this.clipboard = St1.Clipboard.get_default();
     this.selection = global.get_display().get_selection();
     this.lastCopiedContent = null;
   }
@@ -137,7 +142,7 @@ export class ClipboardManager extends Object {
     this.lastCopiedContent = null;
     this.isTracking = true;
     const primaryTracker = debounce(async () => {
-      const result = await this.getContent(ClipboardType.PRIMARY);
+      const result = await this.getContent(St1.ClipboardType.PRIMARY);
       if (!result) {
         return;
       }
@@ -151,11 +156,11 @@ export class ClipboardManager extends Object {
 
     this.selectionChangedId = this.selection.connect(
       'owner-changed',
-      async (_selection: Selection, selectionType: SelectionType, _selectionSource: SelectionSource) => {
+      async (_selection: Selection, selectionType: Meta.SelectionType, _selectionSource: Meta.SelectionSource) => {
         if (this.settings.get_boolean('is-in-incognito')) {
           return;
         }
-        const focussedWindow = Global.get().display.focus_window;
+        const focussedWindow = Shell.Global.get().display.focus_window;
         const wmClass = focussedWindow?.get_wm_class();
         if (
           wmClass &&
@@ -167,9 +172,9 @@ export class ClipboardManager extends Object {
         ) {
           return;
         }
-        if (selectionType === SelectionType.SELECTION_CLIPBOARD) {
+        if (selectionType === Meta.SelectionType.SELECTION_CLIPBOARD) {
           try {
-            const result = await this.getContent(ClipboardType.CLIPBOARD);
+            const result = await this.getContent(St1.ClipboardType.CLIPBOARD);
             if (!result) {
               return;
             }
@@ -182,7 +187,7 @@ export class ClipboardManager extends Object {
           } catch (err) {
             debug(`error: ${err}`);
           }
-        } else if (selectionType === SelectionType.SELECTION_PRIMARY) {
+        } else if (selectionType === Meta.SelectionType.SELECTION_PRIMARY) {
           try {
             if (this.settings.get_boolean('sync-primary')) {
               primaryTracker();
@@ -205,26 +210,26 @@ export class ClipboardManager extends Object {
     const syncPrimary = this.settings.get_boolean('sync-primary');
     if (content.type === ContentType.TEXT) {
       if (syncPrimary) {
-        this.clipboard.set_text(ClipboardType.PRIMARY, content.value);
+        this.clipboard.set_text(St1.ClipboardType.PRIMARY, content.value);
       }
-      this.clipboard.set_text(ClipboardType.CLIPBOARD, content.value);
+      this.clipboard.set_text(St1.ClipboardType.CLIPBOARD, content.value);
     } else if (content.type === ContentType.IMAGE) {
       if (syncPrimary) {
-        this.clipboard.set_content(ClipboardType.PRIMARY, MimeType.IMAGE[0], content.value);
+        this.clipboard.set_content(St1.ClipboardType.PRIMARY, MimeType.IMAGE[0], new GLib.Bytes(content.value));
       }
-      this.clipboard.set_content(ClipboardType.CLIPBOARD, MimeType.IMAGE[0], content.value);
+      this.clipboard.set_content(St1.ClipboardType.CLIPBOARD, MimeType.IMAGE[0], new GLib.Bytes(content.value));
     } else if (content.type === ContentType.FILE) {
       if (syncPrimary) {
         this.clipboard.set_content(
-          ClipboardType.PRIMARY,
+          St1.ClipboardType.PRIMARY,
           MimeType.GNOME_FILE[0],
-          new TextEncoder().encode([content.value.operation, ...content.value.fileList].join('\n')),
+          new GLib.Bytes(new TextEncoder().encode([content.value.operation, ...content.value.fileList].join('\n'))),
         );
       }
       this.clipboard.set_content(
-        ClipboardType.CLIPBOARD,
+        St1.ClipboardType.CLIPBOARD,
         MimeType.GNOME_FILE[0],
-        new TextEncoder().encode([content.value.operation, ...content.value.fileList].join('\n')),
+        new GLib.Bytes(new TextEncoder().encode([content.value.operation, ...content.value.fileList].join('\n'))),
       );
     }
   }
@@ -237,7 +242,7 @@ export class ClipboardManager extends Object {
     return clipboardMimeTypes.find((m) => targetMimeTypes.indexOf(m) >= 0);
   }
 
-  private async getContent(clipboardType: ClipboardType): Promise<ClipboardContent | null> {
+  private async getContent(clipboardType: St1.ClipboardType): Promise<ClipboardContent | null> {
     return new Promise((resolve) => {
       const cbMimeTypes = this.clipboard.get_mimetypes(clipboardType);
       if (this.haveMimeType(cbMimeTypes, MimeType.SENSITIVE)) {
@@ -249,8 +254,8 @@ export class ClipboardManager extends Object {
           resolve(null);
           return;
         }
-        this.clipboard.get_content(clipboardType, currentMimeType, (_, bytes: Bytes | Uint8Array) => {
-          const data = bytes instanceof Bytes ? bytes.get_data() : bytes;
+        this.clipboard.get_content(clipboardType, currentMimeType, (_, bytes: GLib.Bytes | Uint8Array) => {
+          const data = bytes instanceof GLib.Bytes ? bytes.get_data() : bytes;
           if (data && data.length > 0) {
             const content = new TextDecoder().decode(data);
             const fileContent = content.split('\n').filter((c) => !!c);
@@ -274,8 +279,8 @@ export class ClipboardManager extends Object {
           resolve(null);
           return;
         }
-        this.clipboard.get_content(clipboardType, currentMimeType, (_, bytes: Bytes | Uint8Array) => {
-          const data = bytes instanceof Bytes ? bytes.get_data() : bytes;
+        this.clipboard.get_content(clipboardType, currentMimeType, (_, bytes: GLib.Bytes | Uint8Array) => {
+          const data = bytes instanceof GLib.Bytes ? bytes.get_data() : bytes;
           if (data && data.length > 0) {
             resolve(
               new ClipboardContent({
@@ -288,7 +293,7 @@ export class ClipboardManager extends Object {
           resolve(null);
         });
       } else if (this.haveMimeType(cbMimeTypes, MimeType.TEXT)) {
-        this.clipboard.get_text(clipboardType, (_: Clipboard, text: string) => {
+        this.clipboard.get_text(clipboardType, (_: St1.Clipboard, text: string | null) => {
           if (text && text.trim()) {
             resolve(
               new ClipboardContent({
@@ -306,5 +311,3 @@ export class ClipboardManager extends Object {
     });
   }
 }
-
-export const clipboardManager = new ClipboardManager();
