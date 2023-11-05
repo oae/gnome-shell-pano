@@ -1,5 +1,12 @@
 msgid ""
 msgstr ""
+"Project-Id-Version: Pano\n"
+"POT-Creation-Date: 2022-09-15 15:25+0200\n"
+"PO-Revision-Date: 2023-08-04 15:25+0200\n"
+"Last-Translator: Sönke Joppien <websnke@tutanota.com>\n"
+"Language-Team: German\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: fill-pot-po/2.2.7\n"
 
@@ -16,12 +23,12 @@ msgstr "Leeren"
 #: src/components/indicator/settingsMenu.ts:103
 #: src/prefs/dangerZone/clearHistory.ts:13
 msgid "Clear History"
-msgstr "Historie leeren"
+msgstr "Chronik löschen"
 
 #: src/components/indicator/clearHistoryDialog.ts:36
 #: src/prefs/dangerZone/clearHistory.ts:25
 msgid "Are you sure you want to clear history?"
-msgstr "Sind Sie sicher das Sie die Historie entfernen möchten?"
+msgstr "Sind Sie sicher das Sie die Chronik löschen möchten?"
 
 #: src/components/indicator/settingsMenu.ts:70
 msgid "Incognito Mode"
@@ -37,15 +44,15 @@ msgstr "Keine Beschreibung"
 
 #: src/components/searchBox.ts:68
 msgid "Type to search, Tab to cycle"
-msgstr "Tippen um zu Suchen, Tab um zu durchwechseln"
+msgstr "Tippen zum Suchen, Tab zum Wechseln"
 
 #: src/prefs/customization/codeItemStyle.ts:15
 msgid "Change the style of the code item"
-msgstr "Ändern des Stils des Code-Eintrags"
+msgstr "Stils des Code-Eintrags ändern"
 
 #: src/prefs/customization/codeItemStyle.ts:15
 msgid "Code Item Style"
-msgstr "Stil Code-Eintrag"
+msgstr "Stil des Code-Eintrags"
 
 #: src/prefs/customization/codeItemStyle.ts:22
 #: src/prefs/customization/colorItemStyle.ts:22
@@ -55,7 +62,7 @@ msgstr "Stil Code-Eintrag"
 #: src/prefs/customization/linkItemStyle.ts:22
 #: src/prefs/customization/textItemStyle.ts:22
 msgid "Header Background Color"
-msgstr "Überschrift Hintergrundfarbe"
+msgstr "Hintergrundfarbe der Überschrift"
 
 #: src/prefs/customization/codeItemStyle.ts:23
 #: src/prefs/customization/colorItemStyle.ts:23
@@ -75,7 +82,7 @@ msgstr "Sie können die Hintergrundfarbe der Überschrift ändern"
 #: src/prefs/customization/linkItemStyle.ts:32
 #: src/prefs/customization/textItemStyle.ts:32
 msgid "Header Text Color"
-msgstr "Überschrift Textfarbe"
+msgstr "Textfarbe der Überschrift"
 
 #: src/prefs/customization/codeItemStyle.ts:33
 #: src/prefs/customization/colorItemStyle.ts:33
@@ -85,7 +92,7 @@ msgstr "Überschrift Textfarbe"
 #: src/prefs/customization/linkItemStyle.ts:33
 #: src/prefs/customization/textItemStyle.ts:33
 msgid "You can change the text color of the header"
-msgstr "Sie können die Hintergrundfarbe der Überschrift ändern"
+msgstr "Sie können die Textfarbe der Überschrift ändern"
 
 #: src/prefs/customization/codeItemStyle.ts:42
 #: src/prefs/customization/emojiItemStyle.ts:42
@@ -94,7 +101,7 @@ msgstr "Sie können die Hintergrundfarbe der Überschrift ändern"
 #: src/prefs/customization/linkItemStyle.ts:42
 #: src/prefs/customization/textItemStyle.ts:42
 msgid "Body Background Color"
-msgstr "Hauptteil Hintergrundfarbe"
+msgstr "Hintergrundfarbe des Hauptteils"
 
 #: src/prefs/customization/codeItemStyle.ts:43
 #: src/prefs/customization/emojiItemStyle.ts:43
@@ -110,7 +117,7 @@ msgstr "Sie können die Hintergrundfarbe des Hauptteils ändern"
 #: src/prefs/customization/fileItemStyle.ts:55
 #: src/prefs/customization/textItemStyle.ts:55
 msgid "Body Font"
-msgstr "Hauptteil Schriftart"
+msgstr "Schriftart des Hauptteils"
 
 #: src/prefs/customization/codeItemStyle.ts:50
 #: src/prefs/customization/fileItemStyle.ts:55
@@ -134,7 +141,7 @@ msgstr "Ändern des Stils des Farbeintrags"
 
 #: src/prefs/customization/colorItemStyle.ts:15
 msgid "Color Item Style"
-msgstr "Stil Farb-Eintrag"
+msgstr "Stil des Farb-Eintrags"
 
 #: src/prefs/customization/colorItemStyle.ts:42
 #: src/prefs/customization/imageItemStyle.ts:51
@@ -169,7 +176,7 @@ msgstr "Allgemein"
 
 #: src/prefs/customization/commonStyleGroup.ts:20
 msgid "Icon Pack"
-msgstr "Symbolpaket"
+msgstr "Icon-Pack"
 
 #: src/prefs/customization/commonStyleGroup.ts:20
 msgid "You can change the icon pack"
@@ -177,11 +184,11 @@ msgstr "Sie können die Textfarbe das Symbolpaket ändern"
 
 #: src/prefs/customization/commonStyleGroup.ts:21
 msgid "Default Icons"
-msgstr "Standard-Symbole"
+msgstr "Standard-Icons"
 
 #: src/prefs/customization/commonStyleGroup.ts:22
 msgid "Legacy Icons"
-msgstr "Legacy-Symbole"
+msgstr "Legacy-Icons"
 
 #: src/prefs/customization/commonStyleGroup.ts:27
 msgid "Item Size"
@@ -217,7 +224,7 @@ msgstr "Oben"
 
 #: src/prefs/customization/commonStyleGroup.ts:42
 msgid "Window Background Color"
-msgstr "Fenster Hintergrundfarbe"
+msgstr "Hintergrundfarbe des Fensters"
 
 #: src/prefs/customization/commonStyleGroup.ts:43
 msgid "You can change the window background color"
