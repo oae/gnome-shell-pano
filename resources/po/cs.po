@@ -1,7 +1,15 @@
 msgid ""
 msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Amerey.eu <info@amerey.eu>\n"
+"Language-Team: \n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
-"X-Generator: fill-pot-po/2.2.7\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.1\n"
 
 #: src/components/indicator/clearHistoryDialog.ts:23
 msgid "Cancel"
@@ -169,51 +177,51 @@ msgstr "Obecné"
 
 #: src/prefs/customization/commonStyleGroup.ts:20
 msgid "Icon Pack"
-msgstr ""
+msgstr "Sada ikon"
 
 #: src/prefs/customization/commonStyleGroup.ts:20
 msgid "You can change the icon pack"
-msgstr ""
+msgstr "Můžete změnit sadu ikon"
 
 #: src/prefs/customization/commonStyleGroup.ts:21
 msgid "Default Icons"
-msgstr ""
+msgstr "Výchozí ikony"
 
 #: src/prefs/customization/commonStyleGroup.ts:22
 msgid "Legacy Icons"
-msgstr ""
+msgstr "Starší ikony"
 
 #: src/prefs/customization/commonStyleGroup.ts:27
 msgid "Item Size"
-msgstr ""
+msgstr "Velikost položky"
 
 #: src/prefs/customization/commonStyleGroup.ts:27
 msgid "You can change the item size"
-msgstr ""
+msgstr "Můžete změnit velikost položky"
 
 #: src/prefs/customization/commonStyleGroup.ts:32
 msgid "Window Position"
-msgstr ""
+msgstr "Poloha okna"
 
 #: src/prefs/customization/commonStyleGroup.ts:33
 msgid "You can change position of the Pano"
-msgstr ""
+msgstr "Můžete změnit pozici Pano"
 
 #: src/prefs/customization/commonStyleGroup.ts:36
 msgid "Bottom"
-msgstr ""
+msgstr "Dole"
 
 #: src/prefs/customization/commonStyleGroup.ts:36
 msgid "Left"
-msgstr ""
+msgstr "Vlevo"
 
 #: src/prefs/customization/commonStyleGroup.ts:36
 msgid "Right"
-msgstr ""
+msgstr "Vpravo"
 
 #: src/prefs/customization/commonStyleGroup.ts:36
 msgid "Top"
-msgstr ""
+msgstr "Nahoře"
 
 #: src/prefs/customization/commonStyleGroup.ts:42
 msgid "Window Background Color"
@@ -233,27 +241,27 @@ msgstr "Můžete změnit barvu pozadí anonymního okna"
 
 #: src/prefs/customization/commonStyleGroup.ts:58
 msgid "Search Bar Font"
-msgstr ""
+msgstr "Písmo vyhledávací lišty"
 
 #: src/prefs/customization/commonStyleGroup.ts:59
 msgid "You can change the font of the search bar"
-msgstr ""
+msgstr "Můžete změnit písmo vyhledávání"
 
 #: src/prefs/customization/commonStyleGroup.ts:65
 msgid "Item Title Font"
-msgstr ""
+msgstr "Písmo názvu položky"
 
 #: src/prefs/customization/commonStyleGroup.ts:65
 msgid "You can change the font of the title"
-msgstr ""
+msgstr "Můžete změnit písmo nadpisu"
 
 #: src/prefs/customization/commonStyleGroup.ts:68
 msgid "Item Date Font"
-msgstr ""
+msgstr "Písmo položky Datum"
 
 #: src/prefs/customization/commonStyleGroup.ts:68
 msgid "You can change the font of the date"
-msgstr ""
+msgstr "Můžete změnit písmo data"
 
 #: src/prefs/customization/commonStyleGroup.ts:72
 msgid "Active Item Border Color"
@@ -549,11 +557,11 @@ msgstr "Je-li tato možnost povolena, nebude Pano sledovat schránku z vyloučen
 
 #: src/prefs/general/wiggleIndicator.ts:15
 msgid "Wiggle Indicator"
-msgstr ""
+msgstr "Indikátor kmitání"
 
 #: src/prefs/general/wiggleIndicator.ts:16
 msgid "Wiggles the indicator on panel"
-msgstr ""
+msgstr "Rozhýbe indikátor na panelu"
 
 #: src/utils/panoItemFactory.ts:392
 msgid "Image Copied"
