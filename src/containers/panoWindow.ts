@@ -118,7 +118,7 @@ export class PanoWindow extends St1.BoxLayout {
   }
 
   private setupMonitorBox() {
-    this.monitorBox.connect('hide', () => this.hide());
+    this.monitorBox.connect('hide_window', () => this.hide());
   }
 
   private setupSearchBox() {
