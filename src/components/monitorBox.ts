@@ -16,7 +16,7 @@ export class MonitorBox extends St1.BoxLayout {
   static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, MonitorBoxSignals> = {
     GTypeName: 'MonitorBox',
     Signals: {
-      hide: {},
+      hide_window: {},
     },
   };
 
@@ -32,7 +32,7 @@ export class MonitorBox extends St1.BoxLayout {
     });
 
     this.connect('button-press-event', () => {
-      this.emit('hide');
+      this.emit('hide_window');
       return Clutter.EVENT_STOP;
     });
 
