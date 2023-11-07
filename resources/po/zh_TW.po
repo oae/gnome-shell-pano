@@ -1,0 +1,623 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#: src/prefs/customization/commonStyleGroup.ts:70
+msgid "Active Item Border Color"
+msgstr "選取物件邊界顏色"
+
+#: src/prefs/general/openLinksInBrowser.ts:14
+msgid "Allow Pano to open links on your default browser"
+msgstr "允許 Pano 開啟連結"
+
+#: src/prefs/general/pasteOnSelect.ts:14
+msgid "Allow Pano to paste content on select"
+msgstr "允許 Pano 在選取時貼上物件"
+
+#: src/prefs/general/playAudioOnCopy.ts:14
+msgid "Allow Pano to play an audio when copying new content"
+msgstr "允許 Pano 在複製新物件時播放音效"
+
+#: src/prefs/general/sendNotificationOnCopy.ts:14
+msgid "Allow Pano to send notification when copying new content"
+msgstr "允許 Pano 在複製新物件時傳送通知"
+
+#: src/prefs/general/linkPreviews.ts:14
+msgid "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr "允許 Pano 訪問連結來擷取網站預覽"
+
+#: src/prefs/general/incognitoShortcutRow.ts:58
+msgid "Allows you to toggle incognito mode"
+msgstr "允許開啟無痕模式"
+
+#: src/prefs/general/shortcutRow.ts:58
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "允許切換剪貼簿可見度"
+
+#: src/components/indicator/clearHistoryDialog.ts:36
+#: src/prefs/dangerZone/clearHistory.ts:23
+msgid "Are you sure you want to clear history?"
+msgstr "是否清除歷史紀錄"
+
+#: src/prefs/customization/codeItemStyle.ts:40
+#: src/prefs/customization/emojiItemStyle.ts:40
+#: src/prefs/customization/fileItemStyle.ts:40
+#: src/prefs/customization/imageItemStyle.ts:40
+#: src/prefs/customization/linkItemStyle.ts:40
+#: src/prefs/customization/textItemStyle.ts:40
+msgid "Body Background Color"
+msgstr "內容背景顏色"
+
+#: src/prefs/customization/codeItemStyle.ts:48
+#: src/prefs/customization/colorItemStyle.ts:59
+#: src/prefs/customization/fileItemStyle.ts:53
+#: src/prefs/customization/textItemStyle.ts:53
+msgid "Body Font"
+msgstr "內容字體"
+
+#: src/prefs/customization/fileItemStyle.ts:49
+#: src/prefs/customization/textItemStyle.ts:49
+msgid "Body Text Color"
+msgstr "內容字體顏色"
+
+#: src/prefs/customization/commonStyleGroup.ts:34
+msgid "Bottom"
+msgstr "底部"
+
+#: src/components/indicator/clearHistoryDialog.ts:23
+msgid "Cancel"
+msgstr "取消"
+
+#: src/prefs/customization/codeItemStyle.ts:13
+msgid "Change the style of the code item"
+msgstr "切換程式碼物件主題"
+
+#: src/prefs/customization/colorItemStyle.ts:13
+msgid "Change the style of the color item"
+msgstr "切換顏色物件主題"
+
+#: src/prefs/customization/emojiItemStyle.ts:13
+msgid "Change the style of the emoji item"
+msgstr "切換表情符號物件主題"
+
+#: src/prefs/customization/fileItemStyle.ts:13
+msgid "Change the style of the file item"
+msgstr "切換檔案物件主題"
+
+#: src/prefs/customization/imageItemStyle.ts:13
+msgid "Change the style of the image item"
+msgstr "切換圖片物件主題"
+
+#: src/prefs/customization/linkItemStyle.ts:13
+msgid "Change the style of the link item"
+msgstr "切換連結物件主題"
+
+#: src/prefs/customization/textItemStyle.ts:13
+msgid "Change the style of the text item"
+msgstr "切換文字物件主題"
+
+#: src/prefs/customization/codeItemStyle.ts:53
+#: src/prefs/customization/textItemStyle.ts:58
+msgid "Character Length"
+msgstr "字串長度"
+
+#: src/prefs/general/dbLocation.ts:30
+msgid "Choose pano database location"
+msgstr "選擇 Pano 資料庫位址"
+
+#: src/components/indicator/clearHistoryDialog.ts:30
+#: src/prefs/dangerZone/clearHistory.ts:17
+msgid "Clear"
+msgstr "清除"
+
+#: src/components/indicator/clearHistoryDialog.ts:35
+#: src/components/indicator/settingsMenu.ts:90
+#: src/prefs/dangerZone/clearHistory.ts:11
+msgid "Clear History"
+msgstr "清除歷史紀錄"
+
+#: src/prefs/dangerZone/clearHistory.ts:12
+msgid "Clears the clipboard database and cache"
+msgstr "清除剪貼簿資料庫和快取"
+
+#: src/utils/panoItemType.ts:9
+msgid "Code"
+msgstr "程式碼"
+
+#: src/utils/panoItemFactory.ts:379
+msgid "Code Copied"
+msgstr "已複製程式碼"
+
+#: src/prefs/customization/codeItemStyle.ts:13
+msgid "Code Item Style"
+msgstr "程式物件主題"
+
+#: src/utils/panoItemType.ts:10
+msgid "Color"
+msgstr "顏色"
+
+#: src/utils/panoItemFactory.ts:408
+msgid "Color Copied"
+msgstr "已複製顏色"
+
+#: src/prefs/customization/colorItemStyle.ts:13
+msgid "Color Item Style"
+msgstr "顏色物件主題"
+
+#: src/prefs/customization/commonStyleGroup.ts:12
+msgid "Common"
+msgstr "一般"
+
+#: src/prefs/customization/index.ts:11
+msgid "Customization"
+msgstr "個人化"
+
+#: src/prefs/dangerZone/index.ts:11
+msgid "Danger Zone"
+msgstr "危險區域"
+
+#: src/prefs/general/dbLocation.ts:22
+msgid "Database Location"
+msgstr "資料庫位址"
+
+#: src/prefs/customization/commonStyleGroup.ts:19
+msgid "Default Icons"
+msgstr "預設圖示"
+
+#: src/utils/panoItemType.ts:6
+msgid "Emoji"
+msgstr "表情符號"
+
+#: src/utils/panoItemFactory.ts:381
+msgid "Emoji Copied"
+msgstr "已複製表情符號"
+
+#: src/prefs/customization/emojiItemStyle.ts:13
+msgid "Emoji Item Style"
+msgstr "表情符號物件風格"
+
+#: src/prefs/customization/emojiItemStyle.ts:49
+msgid "Emoji Size"
+msgstr "表情符號大小"
+
+#: src/prefs/general/exclusionGroup.ts:22
+msgid "Excluded Apps"
+msgstr "排除的應用程式"
+
+#: src/prefs/general/dbLocation.ts:52
+msgid "Failed to select directory"
+msgstr "選取檔案夾錯誤"
+
+#: src/utils/panoItemType.ts:7
+msgid "File"
+msgstr "檔案"
+
+#: src/utils/panoItemFactory.ts:414
+msgid "File %s"
+msgstr "檔案 %s"
+
+#: src/prefs/customization/fileItemStyle.ts:13
+msgid "File Item Style"
+msgstr "檔案物件風格"
+
+#: src/prefs/general/index.ts:11
+msgid "General"
+msgstr "一般"
+
+#: src/prefs/general/generalGroup.ts:24
+msgid "General Options"
+msgstr "一般設定"
+
+#: src/prefs/general/shortcutRow.ts:57
+msgid "Global Shortcut"
+msgstr "全域捷徑"
+
+#: src/prefs/customization/codeItemStyle.ts:20
+#: src/prefs/customization/colorItemStyle.ts:20
+#: src/prefs/customization/emojiItemStyle.ts:20
+#: src/prefs/customization/fileItemStyle.ts:20
+#: src/prefs/customization/imageItemStyle.ts:20
+#: src/prefs/customization/linkItemStyle.ts:20
+#: src/prefs/customization/textItemStyle.ts:20
+msgid "Header Background Color"
+msgstr "標題背景顏色"
+
+#: src/prefs/customization/codeItemStyle.ts:30
+#: src/prefs/customization/colorItemStyle.ts:30
+#: src/prefs/customization/emojiItemStyle.ts:30
+#: src/prefs/customization/fileItemStyle.ts:30
+#: src/prefs/customization/imageItemStyle.ts:30
+#: src/prefs/customization/linkItemStyle.ts:30
+#: src/prefs/customization/textItemStyle.ts:30
+msgid "Header Text Color"
+msgstr "標題字體顏色"
+
+#: src/prefs/general/historyLength.ts:13
+msgid "History Length"
+msgstr "歷史長度"
+
+#: src/prefs/customization/commonStyleGroup.ts:78
+msgid "Hovered Item Border Color"
+msgstr "被游標覆蓋物件邊界顏色"
+
+#: src/prefs/customization/commonStyleGroup.ts:18
+msgid "Icon Pack"
+msgstr "圖示包"
+
+#: src/utils/panoItemType.ts:8
+msgid "Image"
+msgstr "圖片"
+
+#: src/utils/panoItemFactory.ts:372
+msgid "Image Copied"
+msgstr "已複製圖片"
+
+#: src/prefs/customization/imageItemStyle.ts:13
+msgid "Image Item Style"
+msgstr "圖片物件風格"
+
+#: src/components/indicator/settingsMenu.ts:59
+msgid "Incognito Mode"
+msgstr "無痕模式"
+
+#: src/prefs/general/incognitoShortcutRow.ts:57
+msgid "Incognito Mode Shortcut"
+msgstr "無痕模式捷徑"
+
+#: src/prefs/customization/commonStyleGroup.ts:48
+msgid "Incognito Window Background Color"
+msgstr "無痕模式視窗背景顏色"
+
+#: src/prefs/customization/commonStyleGroup.ts:66
+msgid "Item Date Font"
+msgstr "物件日期字體"
+
+#: src/prefs/customization/commonStyleGroup.ts:25
+msgid "Item Size"
+msgstr "物件大小"
+
+#: src/prefs/customization/itemStyleGroup.ts:16
+msgid "Item Style"
+msgstr "物件風格"
+
+#: src/prefs/customization/commonStyleGroup.ts:63
+msgid "Item Title Font"
+msgstr "物件標題字體"
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:13
+msgid "Keep Search Entry"
+msgstr "保留搜尋紀錄"
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:14
+msgid "Keep search entry when Pano hides"
+msgstr "當 Pano 隱藏時保留搜尋紀錄"
+
+#: src/prefs/customization/commonStyleGroup.ts:34
+msgid "Left"
+msgstr "左邊"
+
+#: src/prefs/customization/commonStyleGroup.ts:20
+msgid "Legacy Icons"
+msgstr "復古圖示"
+
+#: src/utils/panoItemType.ts:4
+msgid "Link"
+msgstr "連結"
+
+#: src/utils/panoItemFactory.ts:388
+msgid "Link Copied"
+msgstr "已複製連結"
+
+#: src/prefs/customization/linkItemStyle.ts:13
+msgid "Link Item Style"
+msgstr "連結物件風格"
+
+#: src/prefs/general/linkPreviews.ts:13
+msgid "Link Previews"
+msgstr "連結預覽"
+
+#: src/prefs/general/exclusionGroup.ts:15
+msgid "Manage Exclusions"
+msgstr "管理已排除應用程式"
+
+#: src/prefs/customization/colorItemStyle.ts:40
+#: src/prefs/customization/imageItemStyle.ts:50
+#: src/prefs/customization/linkItemStyle.ts:50
+msgid "Metadata Background Color"
+msgstr "詮釋資料背景顏色"
+
+#: src/prefs/customization/linkItemStyle.ts:80
+msgid "Metadata Description Color"
+msgstr "詮釋資料說明顏色"
+
+#: src/prefs/customization/linkItemStyle.ts:90
+msgid "Metadata Description Font"
+msgstr "詮釋資料說明字體"
+
+#: src/prefs/customization/imageItemStyle.ts:69
+msgid "Metadata Font"
+msgstr "詮釋資料字體"
+
+#: src/prefs/customization/linkItemStyle.ts:100
+msgid "Metadata Link Color"
+msgstr "詮釋資料連結顏色"
+
+#: src/prefs/customization/linkItemStyle.ts:110
+msgid "Metadata Link Font"
+msgstr "詮釋資料連結字體"
+
+#: src/prefs/customization/colorItemStyle.ts:50
+#: src/prefs/customization/imageItemStyle.ts:60
+msgid "Metadata Text Color"
+msgstr "詮釋資料字體顏色"
+
+#: src/prefs/customization/linkItemStyle.ts:60
+msgid "Metadata Title Color"
+msgstr "詮釋資料標題顏色"
+
+#: src/prefs/customization/linkItemStyle.ts:70
+msgid "Metadata Title Font"
+msgstr "詮釋資料標題字體"
+
+#: src/prefs/general/incognitoShortcutRow.ts:77
+#: src/prefs/general/shortcutRow.ts:77
+msgid "New shortcut"
+msgstr "新捷徑"
+
+#: src/components/linkPanoItem.ts:46
+msgid "No Description"
+msgstr "無說明"
+
+#: src/prefs/general/openLinksInBrowser.ts:13
+msgid "Open Links in Browser"
+msgstr "開啟連結"
+
+#: src/utils/ui.ts:13
+msgid "Pano"
+msgstr "Pano"
+
+#: src/prefs/general/exclusionGroup.ts:23
+msgid "Pano will stop tracking if any window from the list is focussed"
+msgstr "Pano 會在開啟以下應用程式時停止追蹤"
+
+#: src/prefs/general/pasteOnSelect.ts:13
+msgid "Paste on Select"
+msgstr "貼上時選取物件"
+
+#: src/prefs/general/playAudioOnCopy.ts:13
+msgid "Play an Audio on Copy"
+msgstr "在複製時播放音效"
+
+#: src/prefs/customization/commonStyleGroup.ts:34
+msgid "Right"
+msgstr "右邊"
+
+#: src/prefs/customization/commonStyleGroup.ts:56
+msgid "Search Bar Font"
+msgstr "搜尋欄字體"
+
+#: src/prefs/general/incognitoShortcutRow.ts:64
+#: src/prefs/general/shortcutRow.ts:64
+msgid "Select a shortcut"
+msgstr "選擇一個捷徑"
+
+#: src/prefs/general/sendNotificationOnCopy.ts:13
+msgid "Send Notification on Copy"
+msgstr "複製時傳送訊息"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:13
+msgid "Session Only Mode"
+msgstr "僅「記憶體」模式"
+
+#: src/components/indicator/settingsMenu.ts:97
+msgid "Settings"
+msgstr "設定"
+
+#: src/prefs/general/showIndicator.ts:13
+msgid "Show Indicator"
+msgstr "顯示圖示"
+
+#: src/prefs/general/showIndicator.ts:14
+msgid "Shows an indicator on top panel"
+msgstr "在頂欄顯示圖示"
+
+#: src/prefs/general/syncPrimary.ts:13
+msgid "Sync Primary"
+msgstr "同步"
+
+#: src/prefs/general/syncPrimary.ts:14
+msgid "Sync primary selection with clipboard selection"
+msgstr "同步主要選取與剪貼簿選取"
+
+#: src/utils/panoItemType.ts:5
+msgid "Text"
+msgstr "文字"
+
+#: src/utils/panoItemFactory.ts:377
+msgid "Text Copied"
+msgstr "已複製文字"
+
+#: src/prefs/customization/textItemStyle.ts:13
+msgid "Text Item Style"
+msgstr "文字物件風格"
+
+#: src/utils/panoItemFactory.ts:415
+msgid "There are %s file(s)"
+msgstr "這裡有 %s 個檔案"
+
+#: src/prefs/customization/commonStyleGroup.ts:34
+msgid "Top"
+msgstr "頂部"
+
+#: src/components/searchBox.ts:65
+msgid "Type to search, Tab to cycle"
+msgstr "輸入以搜尋，按 Tab 循環"
+
+#: src/prefs/general/watchExclusions.ts:13
+msgid "Watch Exclusions"
+msgstr "查看擴充套件"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:14
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr "啟用時 Pano 會在登出/重新啟動/關機時清除紀錄"
+
+#: src/prefs/general/watchExclusions.ts:14
+msgid "When enabled, Pano will not track clipboard from excluded apps"
+msgstr "啟用時 Pano 不會在已排除的應用程式內追蹤"
+
+#: src/utils/panoItemFactory.ts:373
+msgid "Width: %spx, Height: %spx, Size: %s"
+msgstr "寬度：%s個像素，高度：%s個像素，大小：%s"
+
+#: src/prefs/general/wiggleIndicator.ts:13
+msgid "Wiggle Indicator"
+msgstr "振動圖示"
+
+#: src/prefs/general/wiggleIndicator.ts:14
+msgid "Wiggles the indicator on panel"
+msgstr "在頂欄中振動圖示"
+
+#: src/prefs/customization/commonStyleGroup.ts:40
+msgid "Window Background Color"
+msgstr "視窗背景顏色"
+
+#: src/prefs/general/exclusionGroup.ts:52
+msgid "Window class name"
+msgstr "視窗類別名稱"
+
+#: src/prefs/customization/commonStyleGroup.ts:30
+msgid "Window Position"
+msgstr "視窗位置"
+
+#: src/prefs/customization/commonStyleGroup.ts:31
+msgid "You can change position of the Pano"
+msgstr "你可以更換 Pano 的位置"
+
+#: src/prefs/customization/commonStyleGroup.ts:71
+msgid "You can change the active item border color"
+msgstr "你可以更換活躍的物件邊界顏色"
+
+#: src/prefs/customization/codeItemStyle.ts:41
+#: src/prefs/customization/emojiItemStyle.ts:41
+#: src/prefs/customization/fileItemStyle.ts:41
+#: src/prefs/customization/imageItemStyle.ts:41
+#: src/prefs/customization/linkItemStyle.ts:41
+#: src/prefs/customization/textItemStyle.ts:41
+msgid "You can change the background color of the body"
+msgstr "你可以更換內容的背景顏色"
+
+#: src/prefs/customization/codeItemStyle.ts:21
+#: src/prefs/customization/colorItemStyle.ts:21
+#: src/prefs/customization/emojiItemStyle.ts:21
+#: src/prefs/customization/fileItemStyle.ts:21
+#: src/prefs/customization/imageItemStyle.ts:21
+#: src/prefs/customization/linkItemStyle.ts:21
+#: src/prefs/customization/textItemStyle.ts:21
+msgid "You can change the background color of the header"
+msgstr "你可以更換背景顏色的"
+
+#: src/prefs/customization/colorItemStyle.ts:41
+#: src/prefs/customization/imageItemStyle.ts:51
+#: src/prefs/customization/linkItemStyle.ts:51
+msgid "You can change the background color of the metadata"
+msgstr "你可以更換詮釋資料的背景顏色"
+
+#: src/prefs/customization/codeItemStyle.ts:54
+#: src/prefs/customization/textItemStyle.ts:59
+msgid "You can change the character length of the visible text in the body"
+msgstr "你可以更換內容的可見字串長度"
+
+#: src/prefs/customization/linkItemStyle.ts:81
+msgid "You can change the description color of the metadata"
+msgstr "你可以更換詮釋資料的說明顏色"
+
+#: src/prefs/customization/emojiItemStyle.ts:49
+msgid "You can change the emoji size"
+msgstr "你可以更換表情符號的大小"
+
+#: src/prefs/customization/codeItemStyle.ts:48
+#: src/prefs/customization/fileItemStyle.ts:53
+#: src/prefs/customization/textItemStyle.ts:53
+msgid "You can change the font of the body"
+msgstr "你可以更換內容的字體"
+
+#: src/prefs/customization/commonStyleGroup.ts:66
+msgid "You can change the font of the date"
+msgstr "你可以更換日期的字體"
+
+#: src/prefs/customization/colorItemStyle.ts:59
+#: src/prefs/customization/imageItemStyle.ts:69
+msgid "You can change the font of the metadata"
+msgstr "你可以更換詮釋資料的字體"
+
+#: src/prefs/customization/linkItemStyle.ts:91
+msgid "You can change the font of the metadata description"
+msgstr "你可以更換詮釋資料說明的字體"
+
+#: src/prefs/customization/linkItemStyle.ts:111
+msgid "You can change the font of the metadata link"
+msgstr "你可以更換詮釋資料連結的字體"
+
+#: src/prefs/customization/linkItemStyle.ts:71
+msgid "You can change the font of the metadata title"
+msgstr "你可以更換詮釋資料標題的字體"
+
+#: src/prefs/customization/commonStyleGroup.ts:57
+msgid "You can change the font of the search bar"
+msgstr "你可以更換搜尋欄的字體"
+
+#: src/prefs/customization/commonStyleGroup.ts:63
+msgid "You can change the font of the title"
+msgstr "你可以更換標題的字體"
+
+#: src/prefs/customization/commonStyleGroup.ts:79
+msgid "You can change the hovered item border color"
+msgstr "你可以更換被覆蓋物件邊界顏色"
+
+#: src/prefs/customization/commonStyleGroup.ts:18
+msgid "You can change the icon pack"
+msgstr "你可以更換圖示包"
+
+#: src/prefs/customization/commonStyleGroup.ts:49
+msgid "You can change the incognito window background color"
+msgstr "你可以更換無痕模式視窗背景顏色"
+
+#: src/prefs/customization/commonStyleGroup.ts:25
+msgid "You can change the item size"
+msgstr "你可以更換物件大小"
+
+#: src/prefs/customization/linkItemStyle.ts:101
+msgid "You can change the link color of the metadata"
+msgstr "你可以更換詮釋資料的連結顏色"
+
+#: src/prefs/customization/fileItemStyle.ts:49
+#: src/prefs/customization/textItemStyle.ts:49
+msgid "You can change the text color of the body"
+msgstr "你可以更換內容的字體顏色"
+
+#: src/prefs/customization/codeItemStyle.ts:31
+#: src/prefs/customization/colorItemStyle.ts:31
+#: src/prefs/customization/emojiItemStyle.ts:31
+#: src/prefs/customization/fileItemStyle.ts:31
+#: src/prefs/customization/imageItemStyle.ts:31
+#: src/prefs/customization/linkItemStyle.ts:31
+#: src/prefs/customization/textItemStyle.ts:31
+msgid "You can change the text color of the header"
+msgstr "你可以更換視窗標頭字體顏色"
+
+#: src/prefs/customization/colorItemStyle.ts:51
+#: src/prefs/customization/imageItemStyle.ts:61
+msgid "You can change the text color of the metadata"
+msgstr "你可以更換詮釋資料的字體顏色"
+
+#: src/prefs/customization/linkItemStyle.ts:61
+msgid "You can change the title color of the metadata"
+msgstr "你可以更換詮釋資料的標題顏色"
+
+#: src/prefs/customization/commonStyleGroup.ts:41
+msgid "You can change the window background color"
+msgstr "你可以更換視窗背景顏色"
+
+#: src/prefs/general/historyLength.ts:14
+msgid "You can limit your clipboard history length between 10 - 500"
+msgstr "你可以限制剪貼簿大小（10～500 個物件）"
