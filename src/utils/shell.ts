@@ -160,7 +160,7 @@ export const loadInterfaceXML = (ext: ExtensionBase, iface: string): any => {
 
   try {
     const [, bytes] = file.load_contents(null);
-    return imports.byteArray.toString(bytes);
+    return new TextDecoder().decode(bytes);
   } catch (e) {
     debug(`Failed to load D-Bus interface ${iface}`);
   }
