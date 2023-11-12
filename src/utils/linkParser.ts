@@ -1,12 +1,12 @@
-import { File, FileCreateFlags, FilePrototype } from '@gi-types/gio2';
-import { ChecksumType, compute_checksum_for_string, PRIORITY_DEFAULT, uri_parse, UriFlags } from '@gi-types/glib2';
-import { Message, Session } from '@gi-types/soup3';
+import Gio from '@girs/gio-2.0';
+import GLib from '@girs/glib-2.0';
+import Soup from '@girs/soup-3.0';
+import { ExtensionBase } from '@pano/types/extension/extension';
 import { getCachePath, logger } from '@pano/utils/shell';
 import * as htmlparser2 from 'htmlparser2';
-
 const DEFAULT_USER_AGENT = 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)';
 
-const session = new Session();
+const session = new Soup.Session();
 session.timeout = 5;
 
 const decoder = new TextDecoder();
@@ -20,9 +20,9 @@ export const getDocument = async (url: string): Promise<{ title: string; descrip
     imageUrl: '',
   };
   try {
-    const message = Message.new('GET', url);
+    const message = Soup.Message.new('GET', url);
     message.request_headers.append('User-Agent', DEFAULT_USER_AGENT);
-    const response = await session.send_and_read_async(message, PRIORITY_DEFAULT, null);
+    const response = await session.send_and_read_async(message, GLib.PRIORITY_DEFAULT, null);
 
     if (response == null) {
       debug(`no response from ${url}`);
@@ -78,7 +78,7 @@ export const getDocument = async (url: string): Promise<{ title: string; descrip
             ) {
               imageUrl = attribs['content'];
               if (imageUrl.startsWith('/')) {
-                const uri = uri_parse(url, UriFlags.NONE);
+                const uri = GLib.uri_parse(url, GLib.UriFlags.NONE);
                 imageUrl = `${uri.get_scheme()}://${uri.get_host()}${imageUrl}`;
               }
             }
@@ -121,19 +121,19 @@ export const getDocument = async (url: string): Promise<{ title: string; descrip
   return defaultResult;
 };
 
-export const getImage = async (imageUrl: string): Promise<[string | null, FilePrototype | null]> => {
+export const getImage = async (ext: ExtensionBase, imageUrl: string): Promise<[string | null, Gio.File | null]> => {
   if (imageUrl && imageUrl.startsWith('http')) {
     try {
-      const checksum = compute_checksum_for_string(ChecksumType.MD5, imageUrl, imageUrl.length);
-      const cachedImage = File.new_for_path(`${getCachePath()}/${checksum}.png`);
+      const checksum = GLib.compute_checksum_for_string(GLib.ChecksumType.MD5, imageUrl, imageUrl.length);
+      const cachedImage = Gio.File.new_for_path(`${getCachePath(ext)}/${checksum}.png`);
 
       if (cachedImage.query_exists(null)) {
         return [checksum, cachedImage];
       }
 
-      const message = Message.new('GET', imageUrl);
+      const message = Soup.Message.new('GET', imageUrl);
       message.request_headers.append('User-Agent', DEFAULT_USER_AGENT);
-      const response = await session.send_and_read_async(message, PRIORITY_DEFAULT, null);
+      const response = await session.send_and_read_async(message, GLib.PRIORITY_DEFAULT, null);
       if (!response) {
         debug('no response while fetching the image');
         return [null, null];
@@ -144,7 +144,7 @@ export const getImage = async (imageUrl: string): Promise<[string | null, FilePr
         return [null, null];
       }
 
-      cachedImage.replace_contents(data, null, false, FileCreateFlags.REPLACE_DESTINATION, null);
+      cachedImage.replace_contents(data, null, false, Gio.FileCreateFlags.REPLACE_DESTINATION, null);
 
       return [checksum, cachedImage];
     } catch (err) {

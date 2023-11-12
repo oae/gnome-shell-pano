@@ -1,0 +1,624 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: fill-pot-po/2.2.7\n"
+
+#: src/components/indicator/clearHistoryDialog.ts:23
+msgid "Cancel"
+msgstr "取消"
+
+#: src/components/indicator/clearHistoryDialog.ts:30
+#: src/prefs/dangerZone/clearHistory.ts:20
+msgid "Clear"
+msgstr "清除"
+
+#: src/components/indicator/clearHistoryDialog.ts:35
+#: src/components/indicator/settingsMenu.ts:94
+#: src/prefs/dangerZone/clearHistory.ts:14
+msgid "Clear History"
+msgstr "清除历史记录"
+
+#: src/components/indicator/clearHistoryDialog.ts:36
+#: src/prefs/dangerZone/clearHistory.ts:26
+msgid "Are you sure you want to clear history?"
+msgstr "确定要清除历史记录吗？"
+
+#: src/components/indicator/settingsMenu.ts:61
+msgid "Incognito Mode"
+msgstr "隐身模式"
+
+#: src/components/indicator/settingsMenu.ts:101
+msgid "Settings"
+msgstr "设置"
+
+#: src/components/linkPanoItem.ts:39
+msgid "No Description"
+msgstr "无详情"
+
+#: src/components/searchBox.ts:68
+msgid "Type to search, Tab to cycle"
+msgstr "输入即搜索，Tab键循环"
+
+#: src/prefs/customization/codeItemStyle.ts:15
+msgid "Change the style of the code item"
+msgstr "修改代码项目的风格"
+
+#: src/prefs/customization/codeItemStyle.ts:15
+msgid "Code Item Style"
+msgstr "代码项目风格"
+
+#: src/prefs/customization/codeItemStyle.ts:22
+#: src/prefs/customization/colorItemStyle.ts:22
+#: src/prefs/customization/emojiItemStyle.ts:22
+#: src/prefs/customization/fileItemStyle.ts:22
+#: src/prefs/customization/imageItemStyle.ts:21
+#: src/prefs/customization/linkItemStyle.ts:22
+#: src/prefs/customization/textItemStyle.ts:22
+msgid "Header Background Color"
+msgstr "标题背景色"
+
+#: src/prefs/customization/codeItemStyle.ts:23
+#: src/prefs/customization/colorItemStyle.ts:23
+#: src/prefs/customization/emojiItemStyle.ts:23
+#: src/prefs/customization/fileItemStyle.ts:23
+#: src/prefs/customization/imageItemStyle.ts:22
+#: src/prefs/customization/linkItemStyle.ts:23
+#: src/prefs/customization/textItemStyle.ts:23
+msgid "You can change the background color of the header"
+msgstr "修改标题背景颜色"
+
+#: src/prefs/customization/codeItemStyle.ts:32
+#: src/prefs/customization/colorItemStyle.ts:32
+#: src/prefs/customization/emojiItemStyle.ts:32
+#: src/prefs/customization/fileItemStyle.ts:32
+#: src/prefs/customization/imageItemStyle.ts:31
+#: src/prefs/customization/linkItemStyle.ts:32
+#: src/prefs/customization/textItemStyle.ts:32
+msgid "Header Text Color"
+msgstr "标题文字颜色"
+
+#: src/prefs/customization/codeItemStyle.ts:33
+#: src/prefs/customization/colorItemStyle.ts:33
+#: src/prefs/customization/emojiItemStyle.ts:33
+#: src/prefs/customization/fileItemStyle.ts:33
+#: src/prefs/customization/imageItemStyle.ts:32
+#: src/prefs/customization/linkItemStyle.ts:33
+#: src/prefs/customization/textItemStyle.ts:33
+msgid "You can change the text color of the header"
+msgstr "修改标题文字颜色"
+
+#: src/prefs/customization/codeItemStyle.ts:42
+#: src/prefs/customization/emojiItemStyle.ts:42
+#: src/prefs/customization/fileItemStyle.ts:42
+#: src/prefs/customization/imageItemStyle.ts:41
+#: src/prefs/customization/linkItemStyle.ts:42
+#: src/prefs/customization/textItemStyle.ts:42
+msgid "Body Background Color"
+msgstr "正文背景色"
+
+#: src/prefs/customization/codeItemStyle.ts:43
+#: src/prefs/customization/emojiItemStyle.ts:43
+#: src/prefs/customization/fileItemStyle.ts:43
+#: src/prefs/customization/imageItemStyle.ts:42
+#: src/prefs/customization/linkItemStyle.ts:43
+#: src/prefs/customization/textItemStyle.ts:43
+msgid "You can change the background color of the body"
+msgstr "修改正文背景颜色"
+
+#: src/prefs/customization/codeItemStyle.ts:50
+#: src/prefs/customization/colorItemStyle.ts:61
+#: src/prefs/customization/fileItemStyle.ts:55
+#: src/prefs/customization/textItemStyle.ts:55
+msgid "Body Font"
+msgstr "正文字体"
+
+#: src/prefs/customization/codeItemStyle.ts:50
+#: src/prefs/customization/fileItemStyle.ts:55
+#: src/prefs/customization/textItemStyle.ts:55
+msgid "You can change the font of the body"
+msgstr "修改正文字体"
+
+#: src/prefs/customization/codeItemStyle.ts:55
+#: src/prefs/customization/textItemStyle.ts:60
+msgid "Character Length"
+msgstr "字符长度"
+
+#: src/prefs/customization/codeItemStyle.ts:56
+#: src/prefs/customization/textItemStyle.ts:61
+msgid "You can change the character length of the visible text in the body"
+msgstr "修改正文文本在预览时显示的字数"
+
+#: src/prefs/customization/colorItemStyle.ts:15
+msgid "Change the style of the color item"
+msgstr "修改色彩项目风格"
+
+#: src/prefs/customization/colorItemStyle.ts:15
+msgid "Color Item Style"
+msgstr "色彩项目风格"
+
+#: src/prefs/customization/colorItemStyle.ts:42
+#: src/prefs/customization/imageItemStyle.ts:51
+#: src/prefs/customization/linkItemStyle.ts:52
+msgid "Metadata Background Color"
+msgstr "元数据背景色"
+
+#: src/prefs/customization/colorItemStyle.ts:43
+#: src/prefs/customization/imageItemStyle.ts:52
+#: src/prefs/customization/linkItemStyle.ts:53
+msgid "You can change the background color of the metadata"
+msgstr "修改元数据背景颜色"
+
+#: src/prefs/customization/colorItemStyle.ts:52
+#: src/prefs/customization/imageItemStyle.ts:61
+msgid "Metadata Text Color"
+msgstr "元数据文本颜色"
+
+#: src/prefs/customization/colorItemStyle.ts:53
+#: src/prefs/customization/imageItemStyle.ts:62
+msgid "You can change the text color of the metadata"
+msgstr "修改元数据文本颜色"
+
+#: src/prefs/customization/colorItemStyle.ts:61
+#: src/prefs/customization/imageItemStyle.ts:70
+msgid "You can change the font of the metadata"
+msgstr "修改元数据文本字体"
+
+#: src/prefs/customization/commonStyleGroup.ts:14
+msgid "Common"
+msgstr "共性"
+
+#: src/prefs/customization/commonStyleGroup.ts:20
+msgid "Icon Pack"
+msgstr "图标包"
+
+#: src/prefs/customization/commonStyleGroup.ts:20
+msgid "You can change the icon pack"
+msgstr "修改图标包"
+
+#: src/prefs/customization/commonStyleGroup.ts:21
+msgid "Default Icons"
+msgstr "默认图标"
+
+#: src/prefs/customization/commonStyleGroup.ts:22
+msgid "Legacy Icons"
+msgstr "传统图标"
+
+#: src/prefs/customization/commonStyleGroup.ts:27
+msgid "Item Size"
+msgstr "项目大小"
+
+#: src/prefs/customization/commonStyleGroup.ts:27
+msgid "You can change the item size"
+msgstr "修改项目尺寸"
+
+#: src/prefs/customization/commonStyleGroup.ts:32
+msgid "Window Position"
+msgstr "窗口位置"
+
+#: src/prefs/customization/commonStyleGroup.ts:33
+msgid "You can change position of the Pano"
+msgstr "修改Pano窗口的位置"
+
+#: src/prefs/customization/commonStyleGroup.ts:36
+msgid "Bottom"
+msgstr "底部"
+
+#: src/prefs/customization/commonStyleGroup.ts:36
+msgid "Left"
+msgstr "左侧"
+
+#: src/prefs/customization/commonStyleGroup.ts:36
+msgid "Right"
+msgstr "右侧"
+
+#: src/prefs/customization/commonStyleGroup.ts:36
+msgid "Top"
+msgstr "顶部"
+
+#: src/prefs/customization/commonStyleGroup.ts:42
+msgid "Window Background Color"
+msgstr "窗口背景色"
+
+#: src/prefs/customization/commonStyleGroup.ts:43
+msgid "You can change the window background color"
+msgstr "修改窗口背景颜色"
+
+#: src/prefs/customization/commonStyleGroup.ts:50
+msgid "Incognito Window Background Color"
+msgstr "隐私窗口背景色"
+
+#: src/prefs/customization/commonStyleGroup.ts:51
+msgid "You can change the incognito window background color"
+msgstr "修改隐私窗口背景颜色"
+
+#: src/prefs/customization/commonStyleGroup.ts:58
+msgid "Search Bar Font"
+msgstr "搜索栏字体"
+
+#: src/prefs/customization/commonStyleGroup.ts:59
+msgid "You can change the font of the search bar"
+msgstr "修改搜索栏字体"
+
+#: src/prefs/customization/commonStyleGroup.ts:65
+msgid "Item Title Font"
+msgstr "项目标题字体"
+
+#: src/prefs/customization/commonStyleGroup.ts:65
+msgid "You can change the font of the title"
+msgstr "修改项目标题字体"
+
+#: src/prefs/customization/commonStyleGroup.ts:68
+msgid "Item Date Font"
+msgstr "项目日期字体"
+
+#: src/prefs/customization/commonStyleGroup.ts:68
+msgid "You can change the font of the date"
+msgstr "修改项目日期字体"
+
+#: src/prefs/customization/commonStyleGroup.ts:72
+msgid "Active Item Border Color"
+msgstr "激活项目边框颜色"
+
+#: src/prefs/customization/commonStyleGroup.ts:73
+msgid "You can change the active item border color"
+msgstr "修改激活项目的边框颜色"
+
+#: src/prefs/customization/commonStyleGroup.ts:80
+msgid "Hovered Item Border Color"
+msgstr "悬停项目边框颜色"
+
+#: src/prefs/customization/commonStyleGroup.ts:81
+msgid "You can change the hovered item border color"
+msgstr "修改鼠标悬停项目的边框颜色"
+
+#: src/prefs/customization/emojiItemStyle.ts:15
+msgid "Change the style of the emoji item"
+msgstr "修改表情符号项目风格"
+
+#: src/prefs/customization/emojiItemStyle.ts:15
+msgid "Emoji Item Style"
+msgstr "表情符号项目风格"
+
+#: src/prefs/customization/emojiItemStyle.ts:51
+msgid "Emoji Size"
+msgstr "表情符号大小"
+
+#: src/prefs/customization/emojiItemStyle.ts:51
+msgid "You can change the emoji size"
+msgstr "修改表情符号大小"
+
+#: src/prefs/customization/fileItemStyle.ts:15
+msgid "Change the style of the file item"
+msgstr "修改文件项目的风格"
+
+#: src/prefs/customization/fileItemStyle.ts:15
+msgid "File Item Style"
+msgstr "文件项目风格"
+
+#: src/prefs/customization/fileItemStyle.ts:51
+#: src/prefs/customization/textItemStyle.ts:51
+msgid "Body Text Color"
+msgstr "正文字体颜色"
+
+#: src/prefs/customization/fileItemStyle.ts:51
+#: src/prefs/customization/textItemStyle.ts:51
+msgid "You can change the text color of the body"
+msgstr "修改正文字体颜色"
+
+#: src/prefs/customization/imageItemStyle.ts:14
+msgid "Change the style of the image item"
+msgstr "修改图像项目风格"
+
+#: src/prefs/customization/imageItemStyle.ts:14
+msgid "Image Item Style"
+msgstr "图像项目风格"
+
+#: src/prefs/customization/imageItemStyle.ts:70
+msgid "Metadata Font"
+msgstr "元数据字体"
+
+#: src/prefs/customization/index.ts:13
+msgid "Customization"
+msgstr "自定义"
+
+#: src/prefs/customization/itemStyleGroup.ts:18
+msgid "Item Style"
+msgstr "项目风格"
+
+#: src/prefs/customization/linkItemStyle.ts:15
+msgid "Change the style of the link item"
+msgstr "修改链接项目风格"
+
+#: src/prefs/customization/linkItemStyle.ts:15
+msgid "Link Item Style"
+msgstr "链接项目风格"
+
+#: src/prefs/customization/linkItemStyle.ts:62
+msgid "Metadata Title Color"
+msgstr "元数据标题颜色"
+
+#: src/prefs/customization/linkItemStyle.ts:63
+msgid "You can change the title color of the metadata"
+msgstr "修改元数据标题颜色"
+
+#: src/prefs/customization/linkItemStyle.ts:72
+msgid "Metadata Title Font"
+msgstr "元数据标题字体"
+
+#: src/prefs/customization/linkItemStyle.ts:73
+msgid "You can change the font of the metadata title"
+msgstr "修改元数据标题字体"
+
+#: src/prefs/customization/linkItemStyle.ts:82
+msgid "Metadata Description Color"
+msgstr "元数据详情颜色"
+
+#: src/prefs/customization/linkItemStyle.ts:83
+msgid "You can change the description color of the metadata"
+msgstr "修改元数据详情颜色"
+
+#: src/prefs/customization/linkItemStyle.ts:92
+msgid "Metadata Description Font"
+msgstr "元数据详情字体"
+
+#: src/prefs/customization/linkItemStyle.ts:93
+msgid "You can change the font of the metadata description"
+msgstr "修改元数据详情字体"
+
+#: src/prefs/customization/linkItemStyle.ts:102
+msgid "Metadata Link Color"
+msgstr "元数据链接颜色"
+
+#: src/prefs/customization/linkItemStyle.ts:103
+msgid "You can change the link color of the metadata"
+msgstr "修改元数据链接颜色"
+
+#: src/prefs/customization/linkItemStyle.ts:112
+msgid "Metadata Link Font"
+msgstr "元数据链接字体"
+
+#: src/prefs/customization/linkItemStyle.ts:113
+msgid "You can change the font of the metadata link"
+msgstr "修改元数据链接字体"
+
+#: src/prefs/customization/textItemStyle.ts:15
+msgid "Change the style of the text item"
+msgstr "修改文本项目风格"
+
+#: src/prefs/customization/textItemStyle.ts:15
+msgid "Text Item Style"
+msgstr "文本项目风格"
+
+#: src/prefs/dangerZone/clearHistory.ts:15
+msgid "Clears the clipboard database and cache"
+msgstr "清除剪贴板数据库和缓存"
+
+#: src/prefs/dangerZone/index.ts:12
+msgid "Danger Zone"
+msgstr "危险操作"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:15
+msgid "Session Only Mode"
+msgstr "仅会话模式"
+
+#: src/prefs/dangerZone/sessionOnlyMode.ts:16
+msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
+msgstr "启用后，Pano将在注销/重启/关机时清除所有历史记录。"
+
+#: src/prefs/general/dbLocation.ts:18
+msgid "Database Location"
+msgstr "数据库位置"
+
+#: src/prefs/general/dbLocation.ts:26
+msgid "Choose pano database location"
+msgstr "选择Pano数据库位置"
+
+#: src/prefs/general/dbLocation.ts:79
+msgid "Failed to select directory"
+msgstr "选择目录失败"
+
+#: src/prefs/general/exclusionGroup.ts:17
+msgid "Manage Exclusions"
+msgstr "管理排除项"
+
+#: src/prefs/general/exclusionGroup.ts:24
+msgid "Excluded Apps"
+msgstr "排除以下程序"
+
+#: src/prefs/general/exclusionGroup.ts:25
+msgid "Pano will stop tracking if any window from the list is focussed"
+msgstr "如果选中以下任意程序，Pano将停止监视剪切板"
+
+#: src/prefs/general/exclusionGroup.ts:54
+msgid "Window class name"
+msgstr "窗口类名"
+
+#: src/prefs/general/generalGroup.ts:25
+msgid "General Options"
+msgstr "常规选项"
+
+#: src/prefs/general/historyLength.ts:15
+msgid "History Length"
+msgstr "历史记录条数"
+
+#: src/prefs/general/historyLength.ts:16
+msgid "You can limit your clipboard history length between 10 - 500"
+msgstr "剪贴板历史记录长度限制在10-500条之间"
+
+#: src/prefs/general/incognitoShortcutRow.ts:16
+msgid "Incognito Mode Shortcut"
+msgstr "隐私模式快捷键"
+
+#: src/prefs/general/incognitoShortcutRow.ts:17
+msgid "Allows you to toggle incognito mode"
+msgstr "方便启用或禁用隐私模式"
+
+#: src/prefs/general/incognitoShortcutRow.ts:23
+#: src/prefs/general/shortcutRow.ts:23
+msgid "Select a shortcut"
+msgstr "选择快捷键"
+
+#: src/prefs/general/incognitoShortcutRow.ts:36
+#: src/prefs/general/shortcutRow.ts:36
+msgid "New shortcut"
+msgstr "新建快捷键"
+
+#: src/prefs/general/index.ts:13
+msgid "General"
+msgstr "常规"
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:15
+msgid "Keep Search Entry"
+msgstr "保留搜索条目"
+
+#: src/prefs/general/keepSearchEntryOnHide.ts:16
+msgid "Keep search entry when Pano hides"
+msgstr "Pano隐藏时保留搜索条目"
+
+#: src/prefs/general/linkPreviews.ts:14
+msgid "Link Previews"
+msgstr "链接预览"
+
+#: src/prefs/general/linkPreviews.ts:15
+msgid "Allow Pano to visit links on your clipboard to generate link previews"
+msgstr "允许Pano访问剪贴板上的链接以便生成链接预览"
+
+#: src/prefs/general/openLinksInBrowser.ts:15
+msgid "Open Links in Browser"
+msgstr "在浏览器中打开链接"
+
+#: src/prefs/general/openLinksInBrowser.ts:16
+msgid "Allow Pano to open links on your default browser"
+msgstr "在默认浏览器中打开链接"
+
+#: src/prefs/general/pasteOnSelect.ts:15
+msgid "Paste on Select"
+msgstr "粘贴在选定内容上"
+
+#: src/prefs/general/pasteOnSelect.ts:16
+msgid "Allow Pano to paste content on select"
+msgstr "允许Pano粘贴到所选的内容上"
+
+#: src/prefs/general/playAudioOnCopy.ts:14
+msgid "Play an Audio on Copy"
+msgstr "复制时播放提示音"
+
+#: src/prefs/general/playAudioOnCopy.ts:15
+msgid "Allow Pano to play an audio when copying new content"
+msgstr "允许Pano在复制新内容时播放声音提示"
+
+#: src/prefs/general/sendNotificationOnCopy.ts:16
+msgid "Send Notification on Copy"
+msgstr "复制时弹出提醒"
+
+#: src/prefs/general/sendNotificationOnCopy.ts:17
+msgid "Allow Pano to send notification when copying new content"
+msgstr "复制新内容时，Pano将弹出系统提醒"
+
+#: src/prefs/general/shortcutRow.ts:16
+msgid "Global Shortcut"
+msgstr "全局快捷键"
+
+#: src/prefs/general/shortcutRow.ts:17
+msgid "Allows you to toggle visibility of the clipboard manager"
+msgstr "允许显示或隐藏剪贴板管理器"
+
+#: src/prefs/general/showIndicator.ts:15
+msgid "Show Indicator"
+msgstr "显示托盘指示器"
+
+#: src/prefs/general/showIndicator.ts:16
+msgid "Shows an indicator on top panel"
+msgstr "在顶栏显示程序指示器"
+
+#: src/prefs/general/syncPrimary.ts:15
+msgid "Sync Primary"
+msgstr "同步主数据库"
+
+#: src/prefs/general/syncPrimary.ts:16
+msgid "Sync primary selection with clipboard selection"
+msgstr "将剪切板内容同步到数据库中"
+
+#: src/prefs/general/watchExclusions.ts:14
+msgid "Watch Exclusions"
+msgstr "监视排除对象"
+
+#: src/prefs/general/watchExclusions.ts:15
+msgid "When enabled, Pano will not track clipboard from excluded apps"
+msgstr "启用后，Pano将不会监视被排除程序的剪贴板"
+
+#: src/prefs/general/wiggleIndicator.ts:15
+msgid "Wiggle Indicator"
+msgstr "抖动指示器"
+
+#: src/prefs/general/wiggleIndicator.ts:16
+msgid "Wiggles the indicator on panel"
+msgstr "抖动面板上的程序指示器"
+
+#: src/utils/panoItemFactory.ts:392
+msgid "Image Copied"
+msgstr "图像已复制"
+
+#: src/utils/panoItemFactory.ts:393
+msgid "Width: %spx, Height: %spx, Size: %s"
+msgstr "宽：%spx，高：%spx，尺寸：%s"
+
+#: src/utils/panoItemFactory.ts:397
+msgid "Text Copied"
+msgstr "文本已复制"
+
+#: src/utils/panoItemFactory.ts:399
+msgid "Code Copied"
+msgstr "代码已复制"
+
+#: src/utils/panoItemFactory.ts:401
+msgid "Emoji Copied"
+msgstr "表情符号已复制"
+
+#: src/utils/panoItemFactory.ts:409
+msgid "Link Copied"
+msgstr "链接已复制"
+
+#: src/utils/panoItemFactory.ts:429
+msgid "Color Copied"
+msgstr "颜色已复制"
+
+#: src/utils/panoItemFactory.ts:436
+msgid "File %s"
+msgstr "文件%s"
+
+#: src/utils/panoItemFactory.ts:437
+msgid "There are %s file(s)"
+msgstr "%s个文件"
+
+#: src/utils/panoItemType.ts:7
+msgid "Link"
+msgstr "链接"
+
+#: src/utils/panoItemType.ts:8
+msgid "Text"
+msgstr "文本"
+
+#: src/utils/panoItemType.ts:9
+msgid "Emoji"
+msgstr "表情符号"
+
+#: src/utils/panoItemType.ts:10
+msgid "File"
+msgstr "文件"
+
+#: src/utils/panoItemType.ts:11
+msgid "Image"
+msgstr "图像"
+
+#: src/utils/panoItemType.ts:12
+msgid "Code"
+msgstr "代码"
+
+#: src/utils/panoItemType.ts:13
+msgid "Color"
+msgstr "颜色"
+
+#: src/utils/ui.ts:24
+msgid "Pano"
+msgstr "Pano"

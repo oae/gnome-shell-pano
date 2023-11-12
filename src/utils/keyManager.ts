@@ -1,14 +1,14 @@
-import { Settings } from '@gi-types/gio2';
-import { KeyBindingFlags } from '@gi-types/meta10';
-import { ActionMode } from '@gi-types/shell0';
+import Gio from '@girs/gio-2.0';
+import Meta from '@girs/meta-12';
+import Shell from '@girs/shell-12';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
 import { wm } from '@pano/utils/ui';
-
 export class KeyManager {
-  private settings: Settings;
+  private settings: Gio.Settings;
 
-  constructor() {
-    this.settings = getCurrentExtensionSettings();
+  constructor(ext: ExtensionBase) {
+    this.settings = getCurrentExtensionSettings(ext);
   }
 
   stopListening(gsettingsField: string): void {
@@ -16,6 +16,6 @@ export class KeyManager {
   }
 
   listenFor(gsettingsField: string, callback: () => any): void {
-    wm.addKeybinding(gsettingsField, this.settings, KeyBindingFlags.NONE, ActionMode.ALL, callback);
+    wm.addKeybinding(gsettingsField, this.settings, Meta.KeyBindingFlags.NONE, Shell.ActionMode.ALL, callback);
   }
 }

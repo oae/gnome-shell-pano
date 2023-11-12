@@ -1,9 +1,10 @@
-import { ActorAlign } from '@gi-types/clutter10';
-import { Settings } from '@gi-types/gio2';
-import { EllipsizeMode } from '@gi-types/pango1';
-import { BoxLayout, Icon, Label } from '@gi-types/st1';
+import Clutter from '@girs/clutter-12';
+import Gio from '@girs/gio-2.0';
+import Pango from '@girs/pango-1.0';
+import St1 from '@girs/st-12';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
-import { ClipboardContent, clipboardManager, ContentType, FileOperation } from '@pano/utils/clipboardManager';
+import { ClipboardContent, ClipboardManager, ContentType, FileOperation } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 
@@ -11,10 +12,10 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 export class FilePanoItem extends PanoItem {
   private fileList: string[];
   private operation: string;
-  private fileItemSettings: Settings;
+  private fileItemSettings: Gio.Settings;
 
-  constructor(dbItem: DBItem) {
-    super(dbItem);
+  constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
+    super(ext, clipboardManager, dbItem);
 
     this.fileList = JSON.parse(this.dbItem.content);
     this.operation = this.dbItem.metaData || 'copy';
@@ -23,12 +24,12 @@ export class FilePanoItem extends PanoItem {
 
     this.fileItemSettings = this.settings.get_child('file-item');
 
-    const container = new BoxLayout({
+    const container = new St1.BoxLayout({
       style_class: 'copied-files-container',
       vertical: true,
       x_expand: true,
       y_expand: false,
-      y_align: ActorAlign.FILL,
+      y_align: Clutter.ActorAlign.FILL,
     });
 
     this.fileList
@@ -37,29 +38,29 @@ export class FilePanoItem extends PanoItem {
         return decodeURIComponent(items[items.length - 1]);
       })
       .forEach((uri) => {
-        const bl = new BoxLayout({
+        const bl = new St1.BoxLayout({
           vertical: false,
           style_class: 'copied-file-name',
           x_expand: true,
-          x_align: ActorAlign.FILL,
+          x_align: Clutter.ActorAlign.FILL,
           clip_to_allocation: true,
-          y_align: ActorAlign.FILL,
+          y_align: Clutter.ActorAlign.FILL,
         });
         bl.add_child(
-          new Icon({
+          new St1.Icon({
             icon_name: this.operation === FileOperation.CUT ? 'edit-cut-symbolic' : 'edit-copy-symbolic',
-            x_align: ActorAlign.START,
+            x_align: Clutter.ActorAlign.START,
             icon_size: 14,
             style_class: 'file-icon',
           }),
         );
-        const uriLabel = new Label({
+        const uriLabel = new St1.Label({
           text: uri,
           style_class: 'pano-item-body-file-name-label',
-          x_align: ActorAlign.FILL,
+          x_align: Clutter.ActorAlign.FILL,
           x_expand: true,
         });
-        uriLabel.clutter_text.ellipsize = EllipsizeMode.MIDDLE;
+        uriLabel.clutter_text.ellipsize = Pango.EllipsizeMode.MIDDLE;
         bl.add_child(uriLabel);
         container.add_child(bl);
       });
@@ -86,7 +87,7 @@ export class FilePanoItem extends PanoItem {
   }
 
   private setClipboardContent(): void {
-    clipboardManager.setContent(
+    this.clipboardManager.setContent(
       new ClipboardContent({
         type: ContentType.FILE,
         value: { fileList: this.fileList, operation: this.operation },
