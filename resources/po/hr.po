@@ -8,26 +8,26 @@ msgid "Cancel"
 msgstr ""
 
 #: src/components/indicator/clearHistoryDialog.ts:30
-#: src/prefs/dangerZone/clearHistory.ts:19
+#: src/prefs/dangerZone/clearHistory.ts:20
 msgid "Clear"
 msgstr "Ukloni"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:103
-#: src/prefs/dangerZone/clearHistory.ts:13
+#: src/components/indicator/settingsMenu.ts:94
+#: src/prefs/dangerZone/clearHistory.ts:14
 msgid "Clear History"
 msgstr "Ukloni povijest"
 
 #: src/components/indicator/clearHistoryDialog.ts:36
-#: src/prefs/dangerZone/clearHistory.ts:25
+#: src/prefs/dangerZone/clearHistory.ts:26
 msgid "Are you sure you want to clear history?"
 msgstr "Sigurno želite ukloniti povijest?"
 
-#: src/components/indicator/settingsMenu.ts:70
+#: src/components/indicator/settingsMenu.ts:61
 msgid "Incognito Mode"
 msgstr ""
 
-#: src/components/indicator/settingsMenu.ts:110
+#: src/components/indicator/settingsMenu.ts:101
 msgid "Settings"
 msgstr ""
 
@@ -389,7 +389,7 @@ msgstr ""
 msgid "Text Item Style"
 msgstr ""
 
-#: src/prefs/dangerZone/clearHistory.ts:14
+#: src/prefs/dangerZone/clearHistory.ts:15
 msgid "Clears the clipboard database and cache"
 msgstr "Briše bazu podataka međuspremnika i predmemoriju"
 
@@ -405,15 +405,15 @@ msgstr ""
 msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
 msgstr ""
 
-#: src/prefs/general/dbLocation.ts:16
+#: src/prefs/general/dbLocation.ts:18
 msgid "Database Location"
 msgstr "Lokacija baze podataka"
 
-#: src/prefs/general/dbLocation.ts:24
+#: src/prefs/general/dbLocation.ts:26
 msgid "Choose pano database location"
 msgstr "Odaberi lokaciju baze podataka panoa"
 
-#: src/prefs/general/dbLocation.ts:46
+#: src/prefs/general/dbLocation.ts:79
 msgid "Failed to select directory"
 msgstr "Neuspjeli odabir direktorija"
 
@@ -433,7 +433,7 @@ msgstr ""
 msgid "Window class name"
 msgstr ""
 
-#: src/prefs/general/generalGroup.ts:26
+#: src/prefs/general/generalGroup.ts:25
 msgid "General Options"
 msgstr ""
 
@@ -445,21 +445,21 @@ msgstr "Duljina povijesti"
 msgid "You can limit your clipboard history length between 10 - 500"
 msgstr "Možete ograničiti svoju duljinu povijesti međuspremnika između 10 - 500"
 
-#: src/prefs/general/incognitoShortcutRow.ts:17
+#: src/prefs/general/incognitoShortcutRow.ts:16
 msgid "Incognito Mode Shortcut"
 msgstr ""
 
-#: src/prefs/general/incognitoShortcutRow.ts:18
+#: src/prefs/general/incognitoShortcutRow.ts:17
 msgid "Allows you to toggle incognito mode"
 msgstr ""
 
-#: src/prefs/general/incognitoShortcutRow.ts:24
-#: src/prefs/general/shortcutRow.ts:24
+#: src/prefs/general/incognitoShortcutRow.ts:23
+#: src/prefs/general/shortcutRow.ts:23
 msgid "Select a shortcut"
 msgstr "Odaberi prečac"
 
-#: src/prefs/general/incognitoShortcutRow.ts:37
-#: src/prefs/general/shortcutRow.ts:37
+#: src/prefs/general/incognitoShortcutRow.ts:36
+#: src/prefs/general/shortcutRow.ts:36
 msgid "New shortcut"
 msgstr "Novi prečac"
 
@@ -515,11 +515,11 @@ msgstr ""
 msgid "Allow Pano to send notification when copying new content"
 msgstr ""
 
-#: src/prefs/general/shortcutRow.ts:17
+#: src/prefs/general/shortcutRow.ts:16
 msgid "Global Shortcut"
 msgstr "Globalni prečaci"
 
-#: src/prefs/general/shortcutRow.ts:18
+#: src/prefs/general/shortcutRow.ts:17
 msgid "Allows you to toggle visibility of the clipboard manager"
 msgstr "Omogućuje vam promjenu vidljivosti upravitelja međuspremnika"
 

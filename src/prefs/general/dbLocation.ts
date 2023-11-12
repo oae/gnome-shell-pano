@@ -3,7 +3,9 @@ import Gio from '@girs/gio-2.0';
 import Gtk4 from '@girs/gtk-4.0';
 import { ExtensionBase } from '@pano/types/extension/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { getCurrentExtensionSettings, getDbPath, gettext } from '@pano/utils/shell';
+import { getCurrentExtensionSettings, getDbPath, gettext, logger, moveDbFile } from '@pano/utils/shell';
+
+const debug = logger('prefs:general:dbLocation');
 
 @registerGObjectClass
 export class DBLocationRow extends Adw.ActionRow {
@@ -39,7 +41,38 @@ export class DBLocationRow extends Adw.ActionRow {
       if (dir && dir.query_exists(null) && !dir.get_child('pano.db').query_exists(null)) {
         const path = dir.get_path();
         if (path) {
+          let isDbusRunning = true;
+          try {
+            Gio.DBus.session.call_sync(
+              'org.gnome.Shell',
+              '/io/elhan/Pano',
+              'io.elhan.Pano',
+              'stop',
+              null,
+              null,
+              Gio.DBusCallFlags.NONE,
+              -1,
+              null,
+            );
+          } catch (err) {
+            isDbusRunning = false;
+            debug('Extension is not enabled. Moving db file without stopping the extension.');
+          }
+          moveDbFile(getDbPath(ext), path);
           this.settings.set_string('database-location', path);
+          if (isDbusRunning) {
+            Gio.DBus.session.call_sync(
+              'org.gnome.Shell',
+              '/io/elhan/Pano',
+              'io.elhan.Pano',
+              'start',
+              null,
+              null,
+              Gio.DBusCallFlags.NONE,
+              -1,
+              null,
+            );
+          }
         }
       } else {
         const md = new Gtk4.MessageDialog({

@@ -8,26 +8,26 @@ msgid "Cancel"
 msgstr "キャンセル"
 
 #: src/components/indicator/clearHistoryDialog.ts:30
-#: src/prefs/dangerZone/clearHistory.ts:19
+#: src/prefs/dangerZone/clearHistory.ts:20
 msgid "Clear"
 msgstr "クリア"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:103
-#: src/prefs/dangerZone/clearHistory.ts:13
+#: src/components/indicator/settingsMenu.ts:94
+#: src/prefs/dangerZone/clearHistory.ts:14
 msgid "Clear History"
 msgstr "履歴をクリア"
 
 #: src/components/indicator/clearHistoryDialog.ts:36
-#: src/prefs/dangerZone/clearHistory.ts:25
+#: src/prefs/dangerZone/clearHistory.ts:26
 msgid "Are you sure you want to clear history?"
 msgstr "履歴をクリアしてもよろしいですか?"
 
-#: src/components/indicator/settingsMenu.ts:70
+#: src/components/indicator/settingsMenu.ts:61
 msgid "Incognito Mode"
 msgstr "シークレットモード"
 
-#: src/components/indicator/settingsMenu.ts:110
+#: src/components/indicator/settingsMenu.ts:101
 msgid "Settings"
 msgstr "設定"
 
@@ -389,7 +389,7 @@ msgstr ""
 msgid "Text Item Style"
 msgstr ""
 
-#: src/prefs/dangerZone/clearHistory.ts:14
+#: src/prefs/dangerZone/clearHistory.ts:15
 msgid "Clears the clipboard database and cache"
 msgstr "クリップボードのデータベースとキャッシュをクリアします。"
 
@@ -405,15 +405,15 @@ msgstr "セッションのみモード"
 msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
 msgstr "有効にすると、Panoはログアウト/再起動/シャットダウン時にすべての履歴をクリアします。"
 
-#: src/prefs/general/dbLocation.ts:16
+#: src/prefs/general/dbLocation.ts:18
 msgid "Database Location"
 msgstr "データベースの場所"
 
-#: src/prefs/general/dbLocation.ts:24
+#: src/prefs/general/dbLocation.ts:26
 msgid "Choose pano database location"
 msgstr "pano データベースの場所を選択する"
 
-#: src/prefs/general/dbLocation.ts:46
+#: src/prefs/general/dbLocation.ts:79
 msgid "Failed to select directory"
 msgstr "ディレクトリの選択に失敗しました"
 
@@ -433,7 +433,7 @@ msgstr "Pano は、リストのいずれかのウィンドウがフォーカス�
 msgid "Window class name"
 msgstr "ウィンドウ クラス名"
 
-#: src/prefs/general/generalGroup.ts:26
+#: src/prefs/general/generalGroup.ts:25
 msgid "General Options"
 msgstr "全般オプション"
 
@@ -445,21 +445,21 @@ msgstr "履歴の長さ"
 msgid "You can limit your clipboard history length between 10 - 500"
 msgstr "クリップボードの履歴の長さを 10 から 500 の間で制限できます。"
 
-#: src/prefs/general/incognitoShortcutRow.ts:17
+#: src/prefs/general/incognitoShortcutRow.ts:16
 msgid "Incognito Mode Shortcut"
 msgstr "シークレットモードのショートカット"
 
-#: src/prefs/general/incognitoShortcutRow.ts:18
+#: src/prefs/general/incognitoShortcutRow.ts:17
 msgid "Allows you to toggle incognito mode"
 msgstr "シークレットモードを切り替えることができます"
 
-#: src/prefs/general/incognitoShortcutRow.ts:24
-#: src/prefs/general/shortcutRow.ts:24
+#: src/prefs/general/incognitoShortcutRow.ts:23
+#: src/prefs/general/shortcutRow.ts:23
 msgid "Select a shortcut"
 msgstr "ショートカットを選択する"
 
-#: src/prefs/general/incognitoShortcutRow.ts:37
-#: src/prefs/general/shortcutRow.ts:37
+#: src/prefs/general/incognitoShortcutRow.ts:36
+#: src/prefs/general/shortcutRow.ts:36
 msgid "New shortcut"
 msgstr "新しいショートカット"
 
@@ -515,11 +515,11 @@ msgstr ""
 msgid "Allow Pano to send notification when copying new content"
 msgstr ""
 
-#: src/prefs/general/shortcutRow.ts:17
+#: src/prefs/general/shortcutRow.ts:16
 msgid "Global Shortcut"
 msgstr "グローバルショートカット"
 
-#: src/prefs/general/shortcutRow.ts:18
+#: src/prefs/general/shortcutRow.ts:17
 msgid "Allows you to toggle visibility of the clipboard manager"
 msgstr "クリップボードマネージャーの表示を切り替えることができます"
 

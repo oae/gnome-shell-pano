@@ -13,10 +13,9 @@ import { ShortcutRow } from '@pano/prefs/general/shortcutRow';
 import { ShowIndicatorRow } from '@pano/prefs/general/showIndicator';
 import { SyncPrimaryRow } from '@pano/prefs/general/syncPrimary';
 import { WatchExclusionsRow } from '@pano/prefs/general/watchExclusions';
+import { WiggleIndicatorRow } from '@pano/prefs/general/wiggleIndicator';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { gettext } from '@pano/utils/shell';
-
-import { WiggleIndicatorRow } from './wiggleIndicator';
 
 @registerGObjectClass
 export class GeneralGroup extends Adw.PreferencesGroup {

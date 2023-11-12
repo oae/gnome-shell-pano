@@ -3,10 +3,9 @@ import Gdk4 from '@girs/gdk-4.0';
 import Gio from '@girs/gio-2.0';
 import Gtk4 from '@girs/gtk-4.0';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
+import { getAcceleratorName } from '@pano/prefs/general/helper';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
-
-import { getAcceleratorName } from './helper';
 
 @registerGObjectClass
 export class ShortcutRow extends Adw.ActionRow {

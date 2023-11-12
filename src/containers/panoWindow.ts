@@ -229,6 +229,7 @@ export class PanoWindow extends St1.BoxLayout {
   override destroy(): void {
     this.monitorBox.destroy();
     this.searchBox.destroy();
+    this.scrollView.destroy();
     super.destroy();
   }
 }

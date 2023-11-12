@@ -113,10 +113,7 @@ export const getVirtualKeyboard = () => {
 };
 
 export const removeVirtualKeyboard = () => {
-  if (virtualKeyboard) {
-    virtualKeyboard.run_dispose();
-    virtualKeyboard = null;
-  }
+  virtualKeyboard = null;
 };
 
 export const addToStatusArea = (ext: ExtensionBase, button: any) => {

@@ -196,10 +196,7 @@ export const playAudio = () => {
 };
 
 export const removeSoundContext = () => {
-  if (soundContext) {
-    soundContext.run_dispose();
-    soundContext = null;
-  }
+  soundContext = null;
 };
 
 export let debounceIds: number[] = [];

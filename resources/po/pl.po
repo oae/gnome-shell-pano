@@ -8,26 +8,26 @@ msgid "Cancel"
 msgstr "Anuluj"
 
 #: src/components/indicator/clearHistoryDialog.ts:30
-#: src/prefs/dangerZone/clearHistory.ts:19
+#: src/prefs/dangerZone/clearHistory.ts:20
 msgid "Clear"
 msgstr "Wyczyść"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:103
-#: src/prefs/dangerZone/clearHistory.ts:13
+#: src/components/indicator/settingsMenu.ts:94
+#: src/prefs/dangerZone/clearHistory.ts:14
 msgid "Clear History"
 msgstr "Wyczyść Historię"
 
 #: src/components/indicator/clearHistoryDialog.ts:36
-#: src/prefs/dangerZone/clearHistory.ts:25
+#: src/prefs/dangerZone/clearHistory.ts:26
 msgid "Are you sure you want to clear history?"
 msgstr "Czy jesteś pewny, że chcesz wyczyścić historię?"
 
-#: src/components/indicator/settingsMenu.ts:70
+#: src/components/indicator/settingsMenu.ts:61
 msgid "Incognito Mode"
 msgstr "Tryb Incognito"
 
-#: src/components/indicator/settingsMenu.ts:110
+#: src/components/indicator/settingsMenu.ts:101
 msgid "Settings"
 msgstr "Ustawienia"
 
@@ -389,7 +389,7 @@ msgstr ""
 msgid "Text Item Style"
 msgstr ""
 
-#: src/prefs/dangerZone/clearHistory.ts:14
+#: src/prefs/dangerZone/clearHistory.ts:15
 msgid "Clears the clipboard database and cache"
 msgstr "Czyści schowek i pamięć podręczną"
 
@@ -405,15 +405,15 @@ msgstr "Tryb Sesyjny"
 msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
 msgstr "Gdy włączony, Pano wyczyści całą historię podczas wylogowania/restartu/wyłączenia komputera."
 
-#: src/prefs/general/dbLocation.ts:16
+#: src/prefs/general/dbLocation.ts:18
 msgid "Database Location"
 msgstr "Lokalizacja Bazy Danych"
 
-#: src/prefs/general/dbLocation.ts:24
+#: src/prefs/general/dbLocation.ts:26
 msgid "Choose pano database location"
 msgstr "Wybierz lokalizację bazy danych pano"
 
-#: src/prefs/general/dbLocation.ts:46
+#: src/prefs/general/dbLocation.ts:79
 msgid "Failed to select directory"
 msgstr "Błąd podczas wybierania folderu"
 
@@ -433,7 +433,7 @@ msgstr "Pano przestanie śledzić jeśli któreś z tych programów jest używan
 msgid "Window class name"
 msgstr "Nazwa programu"
 
-#: src/prefs/general/generalGroup.ts:26
+#: src/prefs/general/generalGroup.ts:25
 msgid "General Options"
 msgstr "Ogólne Opcje"
 
@@ -445,21 +445,21 @@ msgstr "Długość Historii"
 msgid "You can limit your clipboard history length between 10 - 500"
 msgstr "Możesz ograniczyć długość historii od 10 do 500 pozycji"
 
-#: src/prefs/general/incognitoShortcutRow.ts:17
+#: src/prefs/general/incognitoShortcutRow.ts:16
 msgid "Incognito Mode Shortcut"
 msgstr "Skrót Klawiszowy Trybu Incognito"
 
-#: src/prefs/general/incognitoShortcutRow.ts:18
+#: src/prefs/general/incognitoShortcutRow.ts:17
 msgid "Allows you to toggle incognito mode"
 msgstr "Pozwala na przełączenie trybu incognito"
 
-#: src/prefs/general/incognitoShortcutRow.ts:24
-#: src/prefs/general/shortcutRow.ts:24
+#: src/prefs/general/incognitoShortcutRow.ts:23
+#: src/prefs/general/shortcutRow.ts:23
 msgid "Select a shortcut"
 msgstr "Wybierz skrót klawiszowy"
 
-#: src/prefs/general/incognitoShortcutRow.ts:37
-#: src/prefs/general/shortcutRow.ts:37
+#: src/prefs/general/incognitoShortcutRow.ts:36
+#: src/prefs/general/shortcutRow.ts:36
 msgid "New shortcut"
 msgstr "Nowy skrót klawiszowy"
 
@@ -515,11 +515,11 @@ msgstr ""
 msgid "Allow Pano to send notification when copying new content"
 msgstr ""
 
-#: src/prefs/general/shortcutRow.ts:17
+#: src/prefs/general/shortcutRow.ts:16
 msgid "Global Shortcut"
 msgstr "Główny Skrót Klawiszowy"
 
-#: src/prefs/general/shortcutRow.ts:18
+#: src/prefs/general/shortcutRow.ts:17
 msgid "Allows you to toggle visibility of the clipboard manager"
 msgstr "Pozwala na przełączenie pokazanie głównego okna pano"
 

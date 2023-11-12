@@ -8,26 +8,26 @@ msgid "Cancel"
 msgstr "Annuleren"
 
 #: src/components/indicator/clearHistoryDialog.ts:30
-#: src/prefs/dangerZone/clearHistory.ts:19
+#: src/prefs/dangerZone/clearHistory.ts:20
 msgid "Clear"
 msgstr "Wissen"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:103
-#: src/prefs/dangerZone/clearHistory.ts:13
+#: src/components/indicator/settingsMenu.ts:94
+#: src/prefs/dangerZone/clearHistory.ts:14
 msgid "Clear History"
 msgstr "Geschiedenis wissen"
 
 #: src/components/indicator/clearHistoryDialog.ts:36
-#: src/prefs/dangerZone/clearHistory.ts:25
+#: src/prefs/dangerZone/clearHistory.ts:26
 msgid "Are you sure you want to clear history?"
 msgstr "Weet u zeker dat u de geschiedenis wilt wissen?"
 
-#: src/components/indicator/settingsMenu.ts:70
+#: src/components/indicator/settingsMenu.ts:61
 msgid "Incognito Mode"
 msgstr "Incognitomodus"
 
-#: src/components/indicator/settingsMenu.ts:110
+#: src/components/indicator/settingsMenu.ts:101
 msgid "Settings"
 msgstr "Voorkeuren"
 
@@ -389,7 +389,7 @@ msgstr ""
 msgid "Text Item Style"
 msgstr ""
 
-#: src/prefs/dangerZone/clearHistory.ts:14
+#: src/prefs/dangerZone/clearHistory.ts:15
 msgid "Clears the clipboard database and cache"
 msgstr "Wis het klembord en de cache"
 
@@ -405,15 +405,15 @@ msgstr "Alleen binnen huidige sessie"
 msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
 msgstr "Schakel in om alle geschiedenis te wissen na uitloggen, herstarten en afsluiten."
 
-#: src/prefs/general/dbLocation.ts:16
+#: src/prefs/general/dbLocation.ts:18
 msgid "Database Location"
 msgstr "Databanklocatie"
 
-#: src/prefs/general/dbLocation.ts:24
+#: src/prefs/general/dbLocation.ts:26
 msgid "Choose pano database location"
 msgstr "Kies de Pano-databanklocatie"
 
-#: src/prefs/general/dbLocation.ts:46
+#: src/prefs/general/dbLocation.ts:79
 msgid "Failed to select directory"
 msgstr "Deze map kan niet worden gebruikt"
 
@@ -433,7 +433,7 @@ msgstr "Pano volgt geen vensters van toepassingen op de lijst"
 msgid "Window class name"
 msgstr "Vensterklassenaam"
 
-#: src/prefs/general/generalGroup.ts:26
+#: src/prefs/general/generalGroup.ts:25
 msgid "General Options"
 msgstr "Algemene voorkeuren"
 
@@ -445,21 +445,21 @@ msgstr "Aantal geschiedenisitems"
 msgid "You can limit your clipboard history length between 10 - 500"
 msgstr "Je kunt de klembordgeschiedenis beperken tot 10-500 items"
 
-#: src/prefs/general/incognitoShortcutRow.ts:17
+#: src/prefs/general/incognitoShortcutRow.ts:16
 msgid "Incognito Mode Shortcut"
 msgstr "Incognitomodus-sneltoets"
 
-#: src/prefs/general/incognitoShortcutRow.ts:18
+#: src/prefs/general/incognitoShortcutRow.ts:17
 msgid "Allows you to toggle incognito mode"
 msgstr "Incognitomodus aan/uit"
 
-#: src/prefs/general/incognitoShortcutRow.ts:24
-#: src/prefs/general/shortcutRow.ts:24
+#: src/prefs/general/incognitoShortcutRow.ts:23
+#: src/prefs/general/shortcutRow.ts:23
 msgid "Select a shortcut"
 msgstr "Kies een snelkoppeling"
 
-#: src/prefs/general/incognitoShortcutRow.ts:37
-#: src/prefs/general/shortcutRow.ts:37
+#: src/prefs/general/incognitoShortcutRow.ts:36
+#: src/prefs/general/shortcutRow.ts:36
 msgid "New shortcut"
 msgstr "Nieuwe snelkoppeling"
 
@@ -515,11 +515,11 @@ msgstr ""
 msgid "Allow Pano to send notification when copying new content"
 msgstr ""
 
-#: src/prefs/general/shortcutRow.ts:17
+#: src/prefs/general/shortcutRow.ts:16
 msgid "Global Shortcut"
 msgstr "Globale sneltoets"
 
-#: src/prefs/general/shortcutRow.ts:18
+#: src/prefs/general/shortcutRow.ts:17
 msgid "Allows you to toggle visibility of the clipboard manager"
 msgstr "Klembordbeheer tonen/verbergen"
 

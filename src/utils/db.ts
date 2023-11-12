@@ -1,9 +1,8 @@
 import Gda5 from '@girs/gda-5.0';
 import Gio from '@girs/gio-2.0';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
+import { add_expr_value } from '@pano/utils/compatibility';
 import { getCurrentExtensionSettings, getDbPath, logger } from '@pano/utils/shell';
-
-import { add_expr_value } from './compatibility';
 
 const debug = logger('database');
 

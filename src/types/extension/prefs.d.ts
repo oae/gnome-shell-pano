@@ -1,7 +1,6 @@
 import Adw from '@girs/adw-1';
 import GnomeShell from '@girs/gnome-shell';
-
-import { ExtensionBase } from './extension';
+import { ExtensionBase } from '@pano/types/extension/extension';
 
 export type gettext = typeof GnomeShell.misc.extensionUtils.gettext;
 export type ngettext = typeof GnomeShell.misc.extensionUtils.ngettext;

@@ -3,8 +3,9 @@ import Gio from '@girs/gio-2.0';
 import Gtk4 from '@girs/gtk-4.0';
 import type { ExtensionBase } from '@pano/types/extension/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { gettext } from '@pano/utils/shell';
+import { deleteAppDirs, gettext, logger } from '@pano/utils/shell';
 
+const debug = logger('prefs:dangerZone:clearHistory');
 @registerGObjectClass
 export class ClearHistoryRow extends Adw.ActionRow {
   constructor(ext: ExtensionBase) {
@@ -30,20 +31,39 @@ export class ClearHistoryRow extends Adw.ActionRow {
         buttons: Gtk4.ButtonsType.OK_CANCEL,
       });
       md.get_widget_for_response(Gtk4.ResponseType.OK)?.add_css_class('destructive-action');
-      md.connect('response', (_, response) => {
+      md.connect('response', async (_, response) => {
         if (response === Gtk4.ResponseType.OK) {
-          Gio.DBus.session.call(
-            'org.gnome.Shell',
-            '/io/elhan/Pano',
-            'io.elhan.Pano',
-            'clearHistory',
-            null,
-            null,
-            Gio.DBusCallFlags.NONE,
-            -1,
-            null,
-            null,
-          );
+          let isDbusRunning = true;
+          try {
+            Gio.DBus.session.call_sync(
+              'org.gnome.Shell',
+              '/io/elhan/Pano',
+              'io.elhan.Pano',
+              'stop',
+              null,
+              null,
+              Gio.DBusCallFlags.NONE,
+              -1,
+              null,
+            );
+          } catch (err) {
+            isDbusRunning = false;
+            debug('Extension is not enabled. Clearing db file without stopping the extension.');
+          }
+          await deleteAppDirs(ext);
+          if (isDbusRunning) {
+            Gio.DBus.session.call_sync(
+              'org.gnome.Shell',
+              '/io/elhan/Pano',
+              'io.elhan.Pano',
+              'start',
+              null,
+              null,
+              Gio.DBusCallFlags.NONE,
+              -1,
+              null,
+            );
+          }
         }
 
         md.destroy();

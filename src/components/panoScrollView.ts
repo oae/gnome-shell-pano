@@ -5,6 +5,7 @@ import Shell from '@girs/shell-12';
 import St1 from '@girs/st-12';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
+import { SearchBox } from '@pano/components/searchBox';
 import { Adjustment } from '@pano/types/st';
 import { ClipboardContent, ClipboardManager } from '@pano/utils/clipboardManager';
 import { getV13KeyEvent, getV13ScrollEvent } from '@pano/utils/compatibility';
@@ -13,8 +14,6 @@ import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } fro
 import { createPanoItem, createPanoItemFromDb, removeItemResources } from '@pano/utils/panoItemFactory';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
 import { isVertical } from '@pano/utils/ui';
-
-import { SearchBox } from './searchBox';
 
 export type PanoScrollViewSignalType =
   | 'scroll-focus-out'
@@ -63,6 +62,7 @@ export class PanoScrollView extends St1.ScrollView {
   private showFavorites: boolean;
   private searchBox: SearchBox;
   private ext: ExtensionBase;
+  private clipboardChangedSignalId: number | null = null;
   private clipboardManager: ClipboardManager;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, searchBox: SearchBox) {
@@ -167,13 +167,16 @@ export class PanoScrollView extends St1.ScrollView {
       this.removeExcessiveItems();
     });
 
-    this.clipboardManager.connect('changed', async (_: any, content: ClipboardContent) => {
-      const panoItem = await createPanoItem(ext, this.clipboardManager, content);
-      if (panoItem) {
-        this.prependItem(panoItem);
-        this.filter(this.currentFilter, this.currentItemTypeFilter, this.showFavorites);
-      }
-    });
+    this.clipboardChangedSignalId = this.clipboardManager.connect(
+      'changed',
+      async (_: any, content: ClipboardContent) => {
+        const panoItem = await createPanoItem(ext, this.clipboardManager, content);
+        if (panoItem) {
+          this.prependItem(panoItem);
+          this.filter(this.currentFilter, this.currentItemTypeFilter, this.showFavorites);
+        }
+      },
+    );
   }
 
   private setScrollbarPolicy() {
@@ -497,5 +500,17 @@ export class PanoScrollView extends St1.ScrollView {
     });
 
     return Clutter.EVENT_STOP;
+  }
+
+  override destroy(): void {
+    if (this.clipboardChangedSignalId) {
+      this.clipboardManager.disconnect(this.clipboardChangedSignalId);
+      this.clipboardChangedSignalId = null;
+    }
+    this.getItems().forEach((item) => {
+      item.destroy();
+    });
+
+    super.destroy();
   }
 }

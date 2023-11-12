@@ -228,6 +228,7 @@ export class PanoItem extends St1.BoxLayout {
   override destroy(): void {
     if (this.timeoutId) {
       GLib.Source.remove(this.timeoutId);
+      this.timeoutId = undefined;
     }
     this.header.destroy();
     super.destroy();

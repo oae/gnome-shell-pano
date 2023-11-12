@@ -8,26 +8,26 @@ msgid "Cancel"
 msgstr "Annulla"
 
 #: src/components/indicator/clearHistoryDialog.ts:30
-#: src/prefs/dangerZone/clearHistory.ts:19
+#: src/prefs/dangerZone/clearHistory.ts:20
 msgid "Clear"
 msgstr "Chiaro"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:103
-#: src/prefs/dangerZone/clearHistory.ts:13
+#: src/components/indicator/settingsMenu.ts:94
+#: src/prefs/dangerZone/clearHistory.ts:14
 msgid "Clear History"
 msgstr "Cancella cronologia"
 
 #: src/components/indicator/clearHistoryDialog.ts:36
-#: src/prefs/dangerZone/clearHistory.ts:25
+#: src/prefs/dangerZone/clearHistory.ts:26
 msgid "Are you sure you want to clear history?"
 msgstr "Sei sicuro di voler cancellare la cronologia?"
 
-#: src/components/indicator/settingsMenu.ts:70
+#: src/components/indicator/settingsMenu.ts:61
 msgid "Incognito Mode"
 msgstr "Modalità di navigazione in incognito"
 
-#: src/components/indicator/settingsMenu.ts:110
+#: src/components/indicator/settingsMenu.ts:101
 msgid "Settings"
 msgstr "Impostazioni"
 
@@ -389,7 +389,7 @@ msgstr "Cambia lo stile dell'elemento di testo"
 msgid "Text Item Style"
 msgstr "Stile elemento di testo"
 
-#: src/prefs/dangerZone/clearHistory.ts:14
+#: src/prefs/dangerZone/clearHistory.ts:15
 msgid "Clears the clipboard database and cache"
 msgstr "Cancella il database degli Appunti e la cache"
 
@@ -405,15 +405,15 @@ msgstr "Modalità solo sessione"
 msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
 msgstr "Quando abilitato, Pano cancellerà tutta la cronologia su logout / riavvio / spegnimento."
 
-#: src/prefs/general/dbLocation.ts:16
+#: src/prefs/general/dbLocation.ts:18
 msgid "Database Location"
 msgstr "Posizione del database"
 
-#: src/prefs/general/dbLocation.ts:24
+#: src/prefs/general/dbLocation.ts:26
 msgid "Choose pano database location"
 msgstr "Scegliere il percorso del database pano"
 
-#: src/prefs/general/dbLocation.ts:46
+#: src/prefs/general/dbLocation.ts:79
 msgid "Failed to select directory"
 msgstr "Impossibile selezionare la directory"
 
@@ -433,7 +433,7 @@ msgstr "Pano interromperà il monitoraggio se una finestra dell'elenco è focali
 msgid "Window class name"
 msgstr "Nome della classe finestra"
 
-#: src/prefs/general/generalGroup.ts:26
+#: src/prefs/general/generalGroup.ts:25
 msgid "General Options"
 msgstr "Opzioni generali"
 
@@ -445,21 +445,21 @@ msgstr "Lunghezza della storia"
 msgid "You can limit your clipboard history length between 10 - 500"
 msgstr "È possibile limitare la lunghezza della cronologia degli appunti tra 10 e 500"
 
-#: src/prefs/general/incognitoShortcutRow.ts:17
+#: src/prefs/general/incognitoShortcutRow.ts:16
 msgid "Incognito Mode Shortcut"
 msgstr "Scorciatoia per la modalità di navigazione in incognito"
 
-#: src/prefs/general/incognitoShortcutRow.ts:18
+#: src/prefs/general/incognitoShortcutRow.ts:17
 msgid "Allows you to toggle incognito mode"
 msgstr "Consente di attivare o disattivare la modalità di navigazione in incognito"
 
-#: src/prefs/general/incognitoShortcutRow.ts:24
-#: src/prefs/general/shortcutRow.ts:24
+#: src/prefs/general/incognitoShortcutRow.ts:23
+#: src/prefs/general/shortcutRow.ts:23
 msgid "Select a shortcut"
 msgstr "Selezionare un collegamento"
 
-#: src/prefs/general/incognitoShortcutRow.ts:37
-#: src/prefs/general/shortcutRow.ts:37
+#: src/prefs/general/incognitoShortcutRow.ts:36
+#: src/prefs/general/shortcutRow.ts:36
 msgid "New shortcut"
 msgstr "Nuova scorciatoia"
 
@@ -515,11 +515,11 @@ msgstr "Invia notifica su copia"
 msgid "Allow Pano to send notification when copying new content"
 msgstr "Consenti a Pano di inviare notifiche durante la copia di nuovi contenuti"
 
-#: src/prefs/general/shortcutRow.ts:17
+#: src/prefs/general/shortcutRow.ts:16
 msgid "Global Shortcut"
 msgstr "Scorciatoia globale"
 
-#: src/prefs/general/shortcutRow.ts:18
+#: src/prefs/general/shortcutRow.ts:17
 msgid "Allows you to toggle visibility of the clipboard manager"
 msgstr "Consente di attivare o disattivare la visibilità del gestore degli appunti"
 

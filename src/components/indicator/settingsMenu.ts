@@ -6,7 +6,6 @@ import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import * as panelMenu from '@gnome-shell/ui/panelMenu';
 import * as popupMenu from '@gnome-shell/ui/popupMenu';
 import { ClearHistoryDialog } from '@pano/components/indicator/clearHistoryDialog';
-import { ClipboardManager } from '@pano/utils/clipboardManager';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { ICON_PACKS } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
@@ -33,24 +32,16 @@ export class SettingsMenu extends panelMenu.Button {
   };
 
   private settings: Gio.Settings;
-  private incognitoChangeId: number;
-  private clipboardChangeId: number;
+  private incognitoChangeId: number | null;
   private icon: St1.Icon;
   private ext: ExtensionBase;
-  private clipboardManager: ClipboardManager;
   private onToggle: () => void;
 
-  constructor(
-    ext: ExtensionBase,
-    clipboardManager: ClipboardManager,
-    onClear: () => Promise<void>,
-    onToggle: () => void,
-  ) {
+  constructor(ext: ExtensionBase, onClear: () => Promise<void>, onToggle: () => void) {
     const _ = gettext(ext);
     super(0.5, 'Pano Indicator', false);
 
     this.ext = ext;
-    this.clipboardManager = clipboardManager;
     this.onToggle = onToggle;
     this.settings = getCurrentExtensionSettings(this.ext);
     const isInIncognito = this.settings.get_boolean('is-in-incognito');
@@ -112,10 +103,9 @@ export class SettingsMenu extends panelMenu.Button {
       openExtensionPreferences(this.ext);
     });
     this.menu.addMenuItem(settingsItem);
-    this.clipboardChangeId = clipboardManager.connect('changed', this.animate.bind(this));
   }
 
-  private animate() {
+  animate() {
     if (this.settings.get_boolean('wiggle-indicator')) {
       wiggle(this.icon, { duration: 100, offset: 2, wiggleCount: 3 });
     }
@@ -136,11 +126,9 @@ export class SettingsMenu extends panelMenu.Button {
   }
 
   destroy() {
-    if (this.clipboardChangeId) {
-      this.clipboardManager.disconnect(this.clipboardChangeId);
-    }
     if (this.incognitoChangeId) {
       this.settings.disconnect(this.incognitoChangeId);
+      this.incognitoChangeId = null;
     }
     super.destroy();
   }

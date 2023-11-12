@@ -103,11 +103,13 @@ export class PanoItemHeader extends St1.BoxLayout {
       y_align: Clutter.ActorAlign.CENTER,
     });
 
-    this.dateUpdateIntervalId = setInterval(() => {
+    this.dateUpdateIntervalId = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 60, () => {
       this.dateLabel.set_text(
         formatDistanceToNow(date, { addSuffix: true, locale: localeKey ? dateLocale[localeKey] : undefined }),
       );
-    }, 60000);
+
+      return GLib.SOURCE_CONTINUE;
+    });
 
     this.titleContainer.add_child(this.dateLabel);
 
@@ -181,7 +183,10 @@ export class PanoItemHeader extends St1.BoxLayout {
   }
 
   override destroy(): void {
-    clearInterval(this.dateUpdateIntervalId);
+    if (this.dateUpdateIntervalId) {
+      GLib.source_remove(this.dateUpdateIntervalId);
+      this.dateUpdateIntervalId = null;
+    }
     super.destroy();
   }
 }
