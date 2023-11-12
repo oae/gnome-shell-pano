@@ -5,9 +5,6 @@ import { ExtensionPreferences, gettext as _ } from '@gnome-shell/extensions/pref
 import { CustomizationPage } from '@pano/prefs/customization';
 import { DangerZonePage } from '@pano/prefs/dangerZone';
 import { GeneralPage } from '@pano/prefs/general';
-import { logger } from '@pano/utils/shell';
-
-const debug = logger('prefs');
 
 export default class PanoExtensionPreferences extends ExtensionPreferences {
   fillPreferencesWindow(window: Adw.PreferencesWindow) {
@@ -20,8 +17,5 @@ export default class PanoExtensionPreferences extends ExtensionPreferences {
     if (display) {
       Gtk4.IconTheme.get_for_display(display).add_search_path(`${this.path}/icons/`);
     }
-  }
-  init(): void {
-    debug('prefs initialized');
   }
 }
