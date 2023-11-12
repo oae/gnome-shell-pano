@@ -19,7 +19,7 @@ const MimeType = {
   SENSITIVE: ['x-kde-passwordManagerHint'],
 };
 
-export enum ContentType {
+export const enum ContentType {
   IMAGE,
   FILE,
   TEXT,
