@@ -8,7 +8,7 @@ import * as main from '@gnome-shell/ui/main';
 import { registerGObjectClass } from '@pano/utils/gjs';
 
 interface MonitorBoxSignals {
-  hide: Record<string, never>;
+  hide_window: Record<string, never>;
 }
 
 @registerGObjectClass
