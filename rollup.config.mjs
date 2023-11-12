@@ -4,7 +4,6 @@ import typescript from '@rollup/plugin-typescript';
 import cleanup from 'rollup-plugin-cleanup';
 import copy from 'rollup-plugin-copy';
 import styles from 'rollup-plugin-styles';
-import visualizer from 'rollup-plugin-visualizer';
 
 const buildPath = 'dist';
 
@@ -15,7 +14,7 @@ const importsGeneral = {
   'gi://Clutter?version=12': { name: 'gi://Clutter?version>=12' }, // TODO:  not typed and officially supported yet, wait for types updates! (12 + 13)
   'gi://St?version=12': { name: 'gi://St?version>=12' }, // TODO:  not typed and officially supported yet, wait for types updates! (12 + 13)
   'gi://Cogl?version=12': { name: 'gi://Cogl?version>=12' }, // TODO:  not typed and officially supported yet, wait for types updates! (12 + 13)
-  'gi://Gda?version=5.0': { name: 'gi://Gda?version>=5.0' }, // We officially support (it's also typed!) both 5.0 and 6.0 
+  'gi://Gda?version=5.0': { name: 'gi://Gda?version>=5.0' }, // We officially support (it's also typed!) both 5.0 and 6.0
 
   // extension.js + prefs.js resources
   '@gnome-shell/misc/util': { name: 'resource://EXT_ROOT/misc/util.js' },
@@ -29,25 +28,25 @@ const importsGeneral = {
   '@gnome-shell/ui/modalDialog': { name: 'resource://EXT_ROOT/ui/modalDialog.js' },
   '@gnome-shell/ui/popupMenu': { name: 'resource://EXT_ROOT/ui/popupMenu.js' },
   '@gnome-shell/ui/panelMenu': { name: 'resource://EXT_ROOT/ui/panelMenu.js' },
-
 };
 
 // prefs.js specific resources
 const importsPrefs = {
   ...importsGeneral,
   '@gnome-shell/extensions/prefs': { name: 'resource://EXT_ROOT/extensions/prefs.js' },
-}
+};
 
-const ExtensionEntries = Object.fromEntries(Object.entries(importsGeneral).map(([name, { name: mapping }]) => {
-  return ([name, mapping.replaceAll(/EXT_ROOT/g, "/org/gnome/shell")])
-}))
+const ExtensionEntries = Object.fromEntries(
+  Object.entries(importsGeneral).map(([name, { name: mapping }]) => {
+    return [name, mapping.replaceAll(/EXT_ROOT/g, '/org/gnome/shell')];
+  }),
+);
 
-
-
-const PreferencesEntries = Object.fromEntries(Object.entries(importsPrefs).map(([name, { name: mapping }]) => {
-  return ([name, mapping.replaceAll(/EXT_ROOT/g, "/org/gnome/Shell/Extensions/js")])
-}))
-
+const PreferencesEntries = Object.fromEntries(
+  Object.entries(importsPrefs).map(([name, { name: mapping }]) => {
+    return [name, mapping.replaceAll(/EXT_ROOT/g, '/org/gnome/Shell/Extensions/js')];
+  }),
+);
 
 const thirdParty = [
   'htmlparser2',
@@ -86,12 +85,11 @@ const thirdParty = [
   'highlight.js/lib/languages/yaml',
 ];
 
-
-const GlobalEntries = {}
+const GlobalEntries = {};
 
 const thirdPartyBuild = thirdParty.map((pkg) => {
   const sanitizedPkg = pkg.split('/').join('_').replaceAll('-', '_').replaceAll('.', '_').replaceAll('@', '');
-  GlobalEntries[pkg] = `./thirdparty/${sanitizedPkg}.js`
+  GlobalEntries[pkg] = `./thirdparty/${sanitizedPkg}.js`;
 
   return {
     input: `node_modules/${pkg}`,
@@ -99,6 +97,9 @@ const thirdPartyBuild = thirdParty.map((pkg) => {
       file: `${buildPath}/thirdparty/${sanitizedPkg}.js`,
       format: 'esm',
       name: 'lib',
+      generatedCode: {
+        constBindings: true,
+      },
     },
     treeshake: {
       moduleSideEffects: 'no-external',
@@ -111,7 +112,6 @@ const thirdPartyBuild = thirdParty.map((pkg) => {
     ],
   };
 });
-
 
 const builds = [
   ...thirdPartyBuild,
@@ -126,7 +126,10 @@ const builds = [
       name: 'init',
       exports: 'default',
       paths: { ...ExtensionEntries, ...GlobalEntries },
-      assetFileNames: '[name][extname]'
+      assetFileNames: '[name][extname]',
+      generatedCode: {
+        constBindings: true,
+      },
     },
     external: thirdParty,
     plugins: [
@@ -152,7 +155,6 @@ const builds = [
       cleanup({
         comments: 'none',
       }),
-      visualizer(),
     ],
   },
   {
@@ -163,6 +165,9 @@ const builds = [
       exports: 'default',
       name: 'prefs',
       paths: { ...PreferencesEntries, ...GlobalEntries },
+      generatedCode: {
+        constBindings: true,
+      },
     },
     treeshake: {
       moduleSideEffects: 'no-external',
@@ -183,4 +188,4 @@ const builds = [
   },
 ];
 
-export default builds
+export default builds;
