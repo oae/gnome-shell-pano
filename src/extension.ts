@@ -22,13 +22,13 @@ import { addTopChrome, removeChrome, removeVirtualKeyboard } from '@pano/utils/u
 
 const debug = logger('extension');
 export default class PanoExtension extends Extension {
-  private keyManager: KeyManager;
-  private clipboardManager: ClipboardManager;
+  private keyManager: KeyManager | null;
+  private clipboardManager: ClipboardManager | null;
   private panoWindow: PanoWindow | null;
-  private indicator: PanoIndicator;
+  private indicator: PanoIndicator | null;
 
   private dbus: Gio.DBusExportedObject | null;
-  private settings: Gio.Settings;
+  private settings: Gio.Settings | null;
   private windowTrackerId: number | null;
   private timeoutId: number | null;
   private shutdownSignalId: number | null;
@@ -39,16 +39,15 @@ export default class PanoExtension extends Extension {
 
   constructor(props: ExtensionMetadata) {
     super(props);
-    this.settings = getCurrentExtensionSettings(this);
-    setupAppDirs(this);
-    db.setup(this);
-    this.keyManager = new KeyManager(this);
-    this.clipboardManager = new ClipboardManager(this);
-    this.indicator = new PanoIndicator(this, this.clearHistory.bind(this), () => this.panoWindow?.toggle());
     debug('extension is initialized');
   }
 
   enable() {
+    this.settings = getCurrentExtensionSettings(this);
+    this.setupResources();
+    this.keyManager = new KeyManager(this);
+    this.clipboardManager = new ClipboardManager(this);
+    this.indicator = new PanoIndicator(this, this.clearHistory.bind(this), () => this.panoWindow?.toggle());
     this.start();
     this.indicator.enable();
     this.enableDbus();
@@ -58,33 +57,36 @@ export default class PanoExtension extends Extension {
   disable(): void {
     this.stop();
     this.disableDbus();
-    this.indicator.disable();
+    this.indicator?.disable();
+    this.settings = null;
+    this.keyManager = null;
+    this.clipboardManager = null;
+    this.indicator = null;
     debug('extension is disabled');
   }
 
   // for dbus
   start() {
-    setupAppDirs(this);
-    db.setup(this);
-    this.clipboardChangedSignalId = this.clipboardManager.connect('changed', () => this.indicator.animate());
+    if (this.clipboardManager !== null && this.keyManager !== null) {
+      this.clipboardChangedSignalId = this.clipboardManager.connect('changed', () => this.indicator?.animate());
+      this.connectSessionDbus();
+      this.panoWindow = new PanoWindow(this, this.clipboardManager);
+      this.trackWindow();
+      addTopChrome(this.panoWindow);
+      this.keyManager.listenFor('global-shortcut', () => this.panoWindow?.toggle());
+      this.keyManager.listenFor('incognito-shortcut', () => {
+        this.settings?.set_boolean('is-in-incognito', !this.settings?.get_boolean('is-in-incognito'));
+      });
 
-    this.connectSessionDbus();
-    this.panoWindow = new PanoWindow(this, this.clipboardManager);
-    this.trackWindow();
-    addTopChrome(this.panoWindow);
-    this.keyManager.listenFor('global-shortcut', () => this.panoWindow?.toggle());
-    this.keyManager.listenFor('incognito-shortcut', () => {
-      this.settings.set_boolean('is-in-incognito', !this.settings.get_boolean('is-in-incognito'));
-    });
-
-    this.clipboardManager.startTracking();
+      this.clipboardManager.startTracking();
+    }
   }
 
   // for dbus
   stop() {
-    this.clipboardManager.stopTracking();
-    this.keyManager.stopListening('incognito-shortcut');
-    this.keyManager.stopListening('global-shortcut');
+    this.clipboardManager?.stopTracking();
+    this.keyManager?.stopListening('incognito-shortcut');
+    this.keyManager?.stopListening('global-shortcut');
     this.untrackWindow();
     if (this.panoWindow) {
       removeChrome(this.panoWindow);
@@ -95,7 +97,7 @@ export default class PanoExtension extends Extension {
     this.disconnectSessionDbus();
 
     if (this.clipboardChangedSignalId) {
-      this.clipboardManager.disconnect(this.clipboardChangedSignalId);
+      this.clipboardManager?.disconnect(this.clipboardChangedSignalId);
       this.clipboardChangedSignalId = null;
     }
 
@@ -122,6 +124,11 @@ export default class PanoExtension extends Extension {
     this.panoWindow?.toggle();
   }
 
+  private setupResources() {
+    setupAppDirs(this);
+    db.setup(this);
+  }
+
   private async clearHistory() {
     this.stop();
     await deleteAppDirs(this);
@@ -129,13 +136,13 @@ export default class PanoExtension extends Extension {
   }
 
   private async clearSessionHistory() {
-    if (this.settings.get_boolean('session-only-mode')) {
+    if (this.settings?.get_boolean('session-only-mode')) {
       debug('clearing session history');
       db.shutdown();
-      this.clipboardManager.stopTracking();
+      this.clipboardManager?.stopTracking();
       await deleteAppDirs(this);
       debug('deleted session cache and db');
-      this.clipboardManager.setContent(
+      this.clipboardManager?.setContent(
         new ClipboardContent({
           type: ContentType.TEXT,
           value: '',
@@ -225,16 +232,16 @@ export default class PanoExtension extends Extension {
       const wmClass = focussedWindow?.get_wm_class();
       if (
         wmClass &&
-        this.settings.get_boolean('watch-exclusion-list') &&
+        this.settings?.get_boolean('watch-exclusion-list') &&
         this.settings
           .get_strv('exclusion-list')
           .map((s) => s.toLowerCase())
           .indexOf(wmClass.toLowerCase()) >= 0
       ) {
-        this.clipboardManager.stopTracking();
-      } else if (this.clipboardManager.isTracking === false) {
+        this.clipboardManager?.stopTracking();
+      } else if (this.clipboardManager?.isTracking === false) {
         this.timeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 300, () => {
-          this.clipboardManager.startTracking();
+          this.clipboardManager?.startTracking();
           if (this.timeoutId) {
             GLib.Source.remove(this.timeoutId);
           }
