@@ -8,13 +8,24 @@ import styles from 'rollup-plugin-styles';
 const buildPath = 'dist';
 
 const importsGeneral = {
-  // this is used to pin point the version to >= and not = , since that may fail, it isn't the best solution, since types might change in later versions, but at, there is not better solution!
-  'gi://Shell?version=12': { name: 'gi://Shell?version>=12' }, // TODO:  not typed and officially supported yet, wait for types updates! (12 + 13)
-  'gi://Meta?version=12': { name: 'gi://Meta?version>=12' }, // TODO:  not typed and officially supported yet, wait for types updates! (12 + 13)
-  'gi://Clutter?version=12': { name: 'gi://Clutter?version>=12' }, // TODO:  not typed and officially supported yet, wait for types updates! (12 + 13)
-  'gi://St?version=12': { name: 'gi://St?version>=12' }, // TODO:  not typed and officially supported yet, wait for types updates! (12 + 13)
-  'gi://Cogl?version=12': { name: 'gi://Cogl?version>=12' }, // TODO:  not typed and officially supported yet, wait for types updates! (12 + 13)
-  'gi://Gda?version=5.0': { name: 'gi://Gda?version>=5.0' }, // We officially support (it's also typed!) both 5.0 and 6.0
+  // // this is used to pin point the version to >= and not = , since that may fail, it isn't the best solution, since types might change in later versions, but at, there is not better solution!
+  'gi://Shell?version=12': { name: 'gi://Shell' }, // TODO:  not typed and officially supported yet, wait for types updates! (12 + 13)
+  'gi://Meta?version=12': { name: 'gi://Meta' }, // TODO:  not typed and officially supported yet, wait for types updates! (12 + 13)
+  'gi://Clutter?version=12': { name: 'gi://Clutter' }, // TODO:  not typed and officially supported yet, wait for types updates! (12 + 13)
+  'gi://St?version=12': { name: 'gi://St' }, // TODO:  not typed and officially supported yet, wait for types updates! (12 + 13)
+  'gi://Cogl?version=12': { name: 'gi://Cogl' }, // TODO:  not typed and officially supported yet, wait for types updates! (12 + 13)
+  'gi://Gda?version=5.0': { name: 'gi://Gda' }, // We officially support (it's also typed!) both 5.0 and 6.0
+  'gi://GSound?version=1.0': { name: 'gi://GSound' },
+  'gi://Pango?version=1.0': { name: 'gi://Pango' },
+  'gi://Graphene?version=1.0': { name: 'gi://Graphene' },
+  'gi://GdkPixbuf?version=2.0': { name: 'gi://GdkPixbuf' },
+  'gi://GObject?version=2.0': { name: 'gi://GObject' },
+  'gi://Gio?version=2.0': { name: 'gi://Gio' },
+  'gi://GLib?version=2.0': { name: 'gi://GLib' },
+  'gi://Soup?version=3.0': { name: 'gi://Soup' },
+  'gi://Gdk?version=4.0': { name: 'gi://Gdk' },
+  'gi://Gtk?version=4.0': { name: 'gi://Gtk' },
+  'gi://Adw?version=1': { name: 'gi://Adw' },
 
   // extension.js + prefs.js resources
   '@gnome-shell/misc/util': { name: 'resource://EXT_ROOT/misc/util.js' },
@@ -141,7 +152,7 @@ const builds = [
         tsconfig: './tsconfig.json',
       }),
       styles({
-        mode: ['extract', `stylesheet.css`],
+        mode: ['extract', 'stylesheet.css'],
       }),
       copy({
         targets: [
