@@ -1,5 +1,5 @@
-import Clutter from '@girs/clutter-12';
-import type St from '@girs/st-12';
+import Clutter from '@girs/clutter-13';
+import type St from '@girs/st-13';
 import * as dialog from '@gnome-shell/ui/dialog';
 import * as modalDialog from '@gnome-shell/ui/modalDialog';
 import type { ExtensionBase } from '@pano/types/extension/extension';

@@ -1,7 +1,7 @@
-import Clutter from '@girs/clutter-12';
+import Clutter from '@girs/clutter-13';
 import Gio from '@girs/gio-2.0';
 import GObject from '@girs/gobject-2.0';
-import St1 from '@girs/st-12';
+import St1 from '@girs/st-13';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import * as panelMenu from '@gnome-shell/ui/panelMenu';
 import * as popupMenu from '@gnome-shell/ui/popupMenu';

@@ -1,14 +1,13 @@
-import Clutter from '@girs/clutter-12';
+import Clutter from '@girs/clutter-13';
 import Gio from '@girs/gio-2.0';
 import GObject from '@girs/gobject-2.0';
-import Shell from '@girs/shell-12';
-import St1 from '@girs/st-12';
+import Shell from '@girs/shell-13';
+import St1 from '@girs/st-13';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
 import { SearchBox } from '@pano/components/searchBox';
 import { Adjustment } from '@pano/types/st';
 import { ClipboardContent, ClipboardManager } from '@pano/utils/clipboardManager';
-import { getV13KeyEvent, getV13ScrollEvent } from '@pano/utils/compatibility';
 import { ClipboardQueryBuilder, db, ItemType } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { createPanoItem, createPanoItemFromDb, removeItemResources } from '@pano/utils/panoItemFactory';
@@ -422,7 +421,7 @@ export class PanoScrollView extends St1.ScrollView {
       return;
     }
 
-    //TODO: use St version >= 13 to get this types!!!, and than you can also use this.scrollView.vscroll.adjustment.ease
+    //TODO: this isn't in the types??? investigate (this.scrollView.vscroll.adjustment.ease is there at runtime and also this.ease, as per prototype chain...)
     (adjustment as unknown as Adjustment).ease(value, {
       duration: 150,
       mode: Clutter.AnimationMode.EASE_OUT_QUAD,
@@ -445,8 +444,7 @@ export class PanoScrollView extends St1.ScrollView {
     }
   }
 
-  override vfunc_key_press_event(_event: Clutter.KeyEvent): boolean {
-    const event = getV13KeyEvent(_event);
+  override vfunc_key_press_event(event: Clutter.Event): boolean {
     const isPanoVertical = isVertical(this.settings.get_uint('window-position'));
     if (isPanoVertical && event.get_key_symbol() === Clutter.KEY_Up) {
       this.focusPrev();
@@ -465,8 +463,7 @@ export class PanoScrollView extends St1.ScrollView {
     return Clutter.EVENT_PROPAGATE;
   }
 
-  override vfunc_scroll_event(_event: Clutter.ScrollEvent): boolean {
-    const event = getV13ScrollEvent(_event);
+  override vfunc_scroll_event(event: Clutter.Event): boolean {
     let adjustment: St1.Adjustment | undefined;
 
     if (isVertical(this.settings.get_uint('window-position'))) {

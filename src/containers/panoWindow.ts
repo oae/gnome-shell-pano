@@ -1,14 +1,13 @@
-import Clutter from '@girs/clutter-12';
+import Clutter from '@girs/clutter-13';
 import Gio from '@girs/gio-2.0';
-import Shell from '@girs/shell-12';
-import St1 from '@girs/st-12';
+import Shell from '@girs/shell-13';
+import St1 from '@girs/st-13';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { MonitorBox } from '@pano/components/monitorBox';
 import { PanoScrollView } from '@pano/components/panoScrollView';
 import { SearchBox } from '@pano/components/searchBox';
 import { EaseFunctionType } from '@pano/types/st';
 import { ClipboardManager } from '@pano/utils/clipboardManager';
-import { getV13KeyEvent } from '@pano/utils/compatibility';
 import { ItemType } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
@@ -20,7 +19,7 @@ export class PanoWindow extends St1.BoxLayout {
   private searchBox: SearchBox;
   private monitorBox: MonitorBox;
   private settings: Gio.Settings;
-  //TODO: use St version >= 13 to get this types!!!, and than you can also use this.scrollView.vscroll.adjustment.ease
+  //TODO: this isn't in the types??? investigate (this.scrollView.vscroll.adjustment.ease is there at runtime and also this.ease, as per prototype chain...)
   ease: EaseFunctionType<typeof this>;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager) {
@@ -217,8 +216,7 @@ export class PanoWindow extends St1.BoxLayout {
     return Clutter.EVENT_PROPAGATE;
   }
 
-  override vfunc_key_press_event(_event: Clutter.KeyEvent): boolean {
-    const event = getV13KeyEvent(_event);
+  override vfunc_key_press_event(event: Clutter.Event): boolean {
     if (event.get_key_symbol() === Clutter.KEY_Escape) {
       this.hide();
     }

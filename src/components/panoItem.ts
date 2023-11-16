@@ -1,15 +1,14 @@
-import Clutter from '@girs/clutter-12';
+import Clutter from '@girs/clutter-13';
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
 import GObject from '@girs/gobject-2.0';
 import Graphene from '@girs/graphene-1.0';
-import Meta from '@girs/meta-12';
-import Shell from '@girs/shell-12';
-import St1 from '@girs/st-12';
+import Meta from '@girs/meta-13';
+import Shell from '@girs/shell-13';
+import St1 from '@girs/st-13';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItemHeader } from '@pano/components/panoItemHeader';
 import { ClipboardManager } from '@pano/utils/clipboardManager';
-import { getV13ButtonEvent, getV13KeyEvent } from '@pano/utils/compatibility';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { getPanoItemTypes } from '@pano/utils/panoItemType';
@@ -190,8 +189,7 @@ export class PanoItem extends St1.BoxLayout {
     }
     this.selected = selected;
   }
-  override vfunc_key_press_event(_event: Clutter.KeyEvent): boolean {
-    const event = getV13KeyEvent(_event);
+  override vfunc_key_press_event(event: Clutter.Event): boolean {
     if (
       event.get_key_symbol() === Clutter.KEY_Return ||
       event.get_key_symbol() === Clutter.KEY_ISO_Enter ||
@@ -215,8 +213,7 @@ export class PanoItem extends St1.BoxLayout {
     return Clutter.EVENT_PROPAGATE;
   }
 
-  override vfunc_button_release_event(_event: Clutter.ButtonEvent): boolean {
-    const event = getV13ButtonEvent(_event);
+  override vfunc_button_release_event(event: Clutter.Event): boolean {
     if (event.get_button() === 1) {
       this.emit('activated');
       return Clutter.EVENT_STOP;
