@@ -6,7 +6,7 @@ export {
   //MessageDialogContent,
 } from '@girs/gnome-shell/src/ui/dialog';
 
-import type St from '@girs/st-12';
+import type St from '@girs/st-13';
 
 export interface MessageDialogContentProps {
   title?: string;

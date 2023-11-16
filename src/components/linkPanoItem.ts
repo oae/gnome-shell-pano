@@ -1,11 +1,10 @@
-import Clutter from '@girs/clutter-12';
+import Clutter from '@girs/clutter-13';
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
-import St1 from '@girs/st-12';
+import St1 from '@girs/st-13';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
-import { getV13ButtonEvent, getV13KeyEvent } from '@pano/utils/compatibility';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCachePath, gettext, openLinkInBrowser } from '@pano/utils/shell';
@@ -163,9 +162,8 @@ export class LinkPanoItem extends PanoItem {
     );
   }
 
-  override vfunc_key_press_event(_event: Clutter.KeyEvent): boolean {
-    super.vfunc_key_press_event(_event);
-    const event = getV13KeyEvent(_event);
+  override vfunc_key_press_event(event: Clutter.Event): boolean {
+    super.vfunc_key_press_event(event);
     if (
       this.settings.get_boolean('open-links-in-browser') &&
       event.get_state() === Clutter.ModifierType.CONTROL_MASK &&
@@ -179,10 +177,8 @@ export class LinkPanoItem extends PanoItem {
     return Clutter.EVENT_PROPAGATE;
   }
 
-  override vfunc_button_release_event(_event: Clutter.ButtonEvent): boolean {
-    super.vfunc_button_release_event(_event);
-
-    const event = getV13ButtonEvent(_event);
+  override vfunc_button_release_event(event: Clutter.Event): boolean {
+    super.vfunc_button_release_event(event);
     if (
       event.get_button() === 1 &&
       event.get_state() === Clutter.ModifierType.CONTROL_MASK &&
