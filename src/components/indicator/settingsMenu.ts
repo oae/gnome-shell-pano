@@ -112,17 +112,14 @@ export class SettingsMenu extends panelMenu.Button {
   }
 
   vfunc_event(event: Clutter.Event) {
-    if (!this.menu || event.type() !== Clutter.EventType.BUTTON_PRESS) {
-      return Clutter.EVENT_PROPAGATE;
-    }
-
-    if (event.get_button() === Clutter.BUTTON_PRIMARY || event.get_button() === Clutter.BUTTON_MIDDLE) {
+    if (
+      this.menu &&
+      event.type() === Clutter.EventType.BUTTON_PRESS &&
+      [Clutter.BUTTON_PRIMARY, Clutter.BUTTON_MIDDLE].includes(event.get_button())
+    ) {
       this.onToggle();
-    } else if (event.get_button() === Clutter.BUTTON_SECONDARY) {
-      this.menu.toggle();
     }
-
-    return Clutter.EVENT_PROPAGATE;
+    return super.vfunc_event(event);
   }
 
   destroy() {
