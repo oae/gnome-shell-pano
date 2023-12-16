@@ -31,7 +31,7 @@ msgstr "シークレットモード"
 msgid "Settings"
 msgstr "設定"
 
-#: src/components/linkPanoItem.ts:39
+#: src/components/linkPanoItem.ts:38
 msgid "No Description"
 msgstr ""
 
