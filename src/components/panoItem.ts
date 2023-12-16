@@ -86,7 +86,7 @@ export class PanoItem extends St1.BoxLayout {
         return;
       }
 
-      if (this.settings.get_boolean('paste-on-select')) {
+      if (this.settings.get_boolean('paste-on-select') && this.clipboardManager.isTracking) {
         // See https://github.com/SUPERCILEX/gnome-clipboard-history/blob/master/extension.js#L606
         this.timeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 250, () => {
           getVirtualKeyboard().notify_keyval(

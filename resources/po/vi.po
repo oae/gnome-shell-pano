@@ -31,7 +31,7 @@ msgstr "Chế Độ Ẩn Danh"
 msgid "Settings"
 msgstr "Cài Đặt"
 
-#: src/components/linkPanoItem.ts:39
+#: src/components/linkPanoItem.ts:38
 msgid "No Description"
 msgstr ""
 

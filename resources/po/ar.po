@@ -31,7 +31,7 @@ msgstr "الوضع المخفي"
 msgid "Settings"
 msgstr "الإعدادات"
 
-#: src/components/linkPanoItem.ts:39
+#: src/components/linkPanoItem.ts:38
 msgid "No Description"
 msgstr ""
 

@@ -31,7 +31,7 @@ msgstr "Режим анонімного перегляду"
 msgid "Settings"
 msgstr "Параметри"
 
-#: src/components/linkPanoItem.ts:39
+#: src/components/linkPanoItem.ts:38
 msgid "No Description"
 msgstr ""
 
