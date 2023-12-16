@@ -222,6 +222,14 @@ export class PanoItem extends St1.BoxLayout {
     return Clutter.EVENT_PROPAGATE;
   }
 
+  override vfunc_touch_event(event: Clutter.Event): boolean {
+    if (event.type() === Clutter.EventType.TOUCH_END) {
+      this.emit('activated');
+      return Clutter.EVENT_STOP;
+    }
+    return Clutter.EVENT_PROPAGATE;
+  }
+
   override destroy(): void {
     if (this.timeoutId) {
       GLib.Source.remove(this.timeoutId);

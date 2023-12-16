@@ -73,6 +73,14 @@ export class MonitorBox extends St1.BoxLayout {
     this.hide();
   }
 
+  override vfunc_touch_event(event: Clutter.Event): boolean {
+    if (event.type() === Clutter.EventType.TOUCH_END) {
+      this.emit('hide_window');
+      return Clutter.EVENT_STOP;
+    }
+    return Clutter.EVENT_PROPAGATE;
+  }
+
   override destroy(): void {
     super.destroy();
   }
