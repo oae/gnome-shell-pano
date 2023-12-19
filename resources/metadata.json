@@ -2,8 +2,14 @@
   "name": "Pano - Clipboard Manager",
   "description": "Next-gen Clipboard manager for Gnome Shell\n\nYou need libgda and gsound for this extension to work.\n\nFedora: sudo dnf install libgda libgda-sqlite\nArch Linux: sudo pacman -S libgda (libgda6 for gnome-43 or later)\nUbuntu/Debian: sudo apt install gir1.2-gda-5.0 gir1.2-gsound-1.0\nopenSUSE: sudo zypper install libgda-6_0-sqlite typelib-1_0-Gda-6_0 typelib-1_0-GSound-1_0",
   "uuid": "pano@elhan.io",
-  "version": 999,
+  "gettext-domain": "pano@elhan.io",
+  "version": 1000,
+  "donations": {
+    "github": "oae"
+  },
   "settings-schema": "org.gnome.shell.extensions.pano",
   "url": "https://github.com/oae/gnome-shell-pano",
-  "shell-version": ["42", "43", "44"]
+  "shell-version": [
+    "45"
+  ]
 }

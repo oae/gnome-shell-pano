@@ -90,7 +90,7 @@
       </description>
     </key>
     <key name="exclusion-list" type="as">
-      <default>['Bitwarden', '1Password', 'KeePassXC', 'secrets', 'org.gnome.World.Secrets']</default>
+      <default>['Bitwarden', '1Password', 'KeePassXC', 'secrets', 'org.gnome.World.Secrets', 'org.keepassxc.KeePassXC']</default>
       <summary>Exclusion list</summary>
       <description>
         Excludes clipboard tracking for windows that has class name listed in here.

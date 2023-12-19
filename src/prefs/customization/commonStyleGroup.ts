@@ -1,18 +1,20 @@
-import { PreferencesGroup } from '@gi-types/adw1';
-import { Settings } from '@gi-types/gio2';
+import Adw from '@girs/adw-1';
+import Gio from '@girs/gio-2.0';
+import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { createColorRow, createDropdownRow, createFontRow, createSpinRow } from '@pano/prefs/customization/utils';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { _, getCurrentExtensionSettings } from '@pano/utils/shell';
+import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
 
 @registerGObjectClass
-export class CommonStyleGroup extends PreferencesGroup {
-  private settings: Settings;
-  constructor() {
+export class CommonStyleGroup extends Adw.PreferencesGroup {
+  private settings: Gio.Settings;
+  constructor(ext: ExtensionBase) {
+    const _ = gettext(ext);
     super({
       title: _('Common'),
     });
 
-    this.settings = getCurrentExtensionSettings();
+    this.settings = getCurrentExtensionSettings(ext);
 
     this.add(
       createDropdownRow(_('Icon Pack'), _('You can change the icon pack'), this.settings, 'icon-pack', [
