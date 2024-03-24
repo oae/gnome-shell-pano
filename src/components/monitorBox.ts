@@ -50,7 +50,7 @@ export class MonitorBox extends St1.BoxLayout {
     const _backgroundBin = new St1.Bin({ child: backgroundStack });
     const _monitorConstraint = new layout.MonitorConstraint({});
     _backgroundBin.add_constraint(_monitorConstraint);
-    this.add_actor(_backgroundBin);
+    this.add_child(_backgroundBin);
     this._lightbox = new lightbox.Lightbox(this, {
       inhibitEvents: true,
       radialEffect: false,
@@ -59,8 +59,8 @@ export class MonitorBox extends St1.BoxLayout {
     this._lightbox.set({ style_class: 'pano-monitor-box' });
 
     const _eventBlocker = new Clutter.Actor({ reactive: true });
-    backgroundStack.add_actor(_eventBlocker);
-    main.uiGroup.add_actor(this);
+    backgroundStack.add_child(_eventBlocker);
+    main.uiGroup.add_child(this);
   }
 
   open() {
