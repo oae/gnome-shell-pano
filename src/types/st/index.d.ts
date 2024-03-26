@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import Clutter from '@girs/clutter-13';
+import Clutter from '@girs/clutter-14';
 
 type AnimatableActorFields =
   | 'fixed_x'

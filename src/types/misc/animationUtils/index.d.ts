@@ -1,4 +1,4 @@
-import type Clutter from '@girs/clutter-13';
+import type Clutter from '@girs/clutter-14';
 
 export function wiggle(
   actor: Clutter.Actor,

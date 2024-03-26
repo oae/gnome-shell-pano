@@ -1,7 +1,7 @@
-import Clutter from '@girs/clutter-13';
+import Clutter from '@girs/clutter-14';
 import GObject from '@girs/gobject-2.0';
-import Shell from '@girs/shell-13';
-import St1 from '@girs/st-13';
+import Shell from '@girs/shell-14';
+import St1 from '@girs/st-14';
 import * as layout from '@gnome-shell/ui/layout';
 import * as lightbox from '@gnome-shell/ui/lightbox';
 import * as main from '@gnome-shell/ui/main';

@@ -2,7 +2,7 @@ import './styles/stylesheet.css';
 
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
-import Shell from '@girs/shell-13';
+import Shell from '@girs/shell-14';
 import { Extension, ExtensionMetadata } from '@gnome-shell/extensions/extension';
 import PanoIndicator from '@pano/components/indicator';
 import { PanoWindow } from '@pano/containers/panoWindow';

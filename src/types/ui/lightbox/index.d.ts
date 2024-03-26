@@ -1,5 +1,5 @@
-import type Clutter from '@girs/clutter-13';
-import type St1 from '@girs/st-13';
+import type Clutter from '@girs/clutter-14';
+import type St1 from '@girs/st-14';
 
 export interface LightboxParams extends St1.Bin.ConstructorProperties {
   active?: boolean;

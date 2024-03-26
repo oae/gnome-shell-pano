@@ -4,7 +4,7 @@ export {
 } from '@girs/gnome-shell/src/ui/modalDialog';
 
 import { State } from '@girs/gnome-shell/src/ui/modalDialog';
-import type Shell from '@girs/shell-13';
+import type Shell from '@girs/shell-14';
 import type St from '@girs/st-13';
 
 import { Dialog } from '../dialog';

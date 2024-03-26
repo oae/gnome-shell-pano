@@ -1,10 +1,10 @@
-import Clutter from '@girs/clutter-13';
-import Cogl from '@girs/cogl-13';
+import Clutter from '@girs/clutter-14';
+import Cogl from '@girs/cogl-14';
 import GdkPixbuf from '@girs/gdkpixbuf-2.0';
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
-import Shell from '@girs/shell-13';
-import St1 from '@girs/st-13';
+import Shell from '@girs/shell-14';
+import St1 from '@girs/st-14';
 import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import * as animationUtils from '@gnome-shell/misc/animationUtils';
 import * as layout from '@gnome-shell/ui/layout';
