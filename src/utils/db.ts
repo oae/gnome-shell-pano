@@ -321,6 +321,7 @@ class Database {
       const id = iter.get_value_for_field('id') as any as number;
       const itemType = iter.get_value_for_field('itemType') as any as ItemType;
       const content = iter.get_value_for_field('content') as any as string;
+      const content_unescaped = Gda5.default_unescape_string(content) ?? content;
       const copyDate = iter.get_value_for_field('copyDate') as any as string;
       const isFavorite = iter.get_value_for_field('isFavorite') as any as string;
       const matchValue = iter.get_value_for_field('matchValue') as any as string;
@@ -330,7 +331,7 @@ class Database {
       itemList.push({
         id,
         itemType,
-        content,
+        content: content_unescaped,
         copyDate: new Date(copyDate),
         isFavorite: !!isFavorite,
         matchValue,
