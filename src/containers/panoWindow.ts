@@ -77,8 +77,8 @@ export class PanoWindow extends St1.BoxLayout {
     this.setupScrollView();
     this.setupSearchBox();
 
-    this.add_actor(this.searchBox);
-    this.add_actor(this.scrollView);
+    this.add_child(this.searchBox);
+    this.add_child(this.scrollView);
 
     this.settings.connect('changed::is-in-incognito', () => {
       if (this.settings.get_boolean('is-in-incognito')) {

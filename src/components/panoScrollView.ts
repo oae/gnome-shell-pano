@@ -87,7 +87,7 @@ export class PanoScrollView extends St1.ScrollView {
       this.setScrollbarPolicy();
       this.list.set_vertical(isVertical(this.settings.get_uint('window-position')));
     });
-    this.add_actor(this.list);
+    this.add_child(this.list);
 
     const shouldFocusOut = (symbol: number) => {
       const isPanoVertical = isVertical(this.settings.get_uint('window-position'));
