@@ -97,6 +97,8 @@ const thirdParty = [
   'highlight.js/lib/languages/yaml',
 ];
 
+const gjsModules = [...Object.keys(importsGeneral), ...Object.keys(importsPrefs)];
+
 const GlobalEntries = {};
 
 const thirdPartyBuild = thirdParty.map((pkg) => {
@@ -143,7 +145,7 @@ const builds = [
         constBindings: true,
       },
     },
-    external: thirdParty,
+    external: [...thirdParty, ...gjsModules],
     plugins: [
       commonjs(),
       nodeResolve({
@@ -184,7 +186,7 @@ const builds = [
     treeshake: {
       moduleSideEffects: 'no-external',
     },
-    external: thirdParty,
+    external: [...thirdParty, ...gjsModules],
     plugins: [
       commonjs(),
       nodeResolve({

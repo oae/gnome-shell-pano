@@ -7,7 +7,7 @@
   "scripts": {
     "build": "yarn run build:ts && yarn run gen:locale && yarn run build:extension",
     "gen:locale": "yarn run ts-node scripts/generateLocale.ts",
-    "build:ts": "yarn run clean:ts && rollup -c && sed -i '/setTimeout/d' dist/thirdparty/prismjs.js && sed -i 's/var\\ /let\\ /g' dist/{extension,prefs}.js",
+    "build:ts": "yarn run clean:ts && rollup -c --failAfterWarnings && sed -i '/setTimeout/d' dist/thirdparty/prismjs.js && sed -i 's/var\\ /let\\ /g' dist/{extension,prefs}.js",
     "clean:ts": "rm -rf ./dist",
     "build:extension": "yarn run build:schema",
     "build:schema": "yarn run clean:schema && glib-compile-schemas ./resources/schemas --targetdir=./dist/schemas/",
