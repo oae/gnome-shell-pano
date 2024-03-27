@@ -1,6 +1,6 @@
 import Gda5 from '@girs/gda-5.0';
 import Gio from '@girs/gio-2.0';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import { add_expr_value } from '@pano/utils/compatibility';
 import { getCurrentExtensionSettings, getDbPath, logger } from '@pano/utils/shell';
 
@@ -178,7 +178,7 @@ class Database {
     this.settings = getCurrentExtensionSettings(ext);
     this.connection = new Gda5.Connection({
       provider: Gda5.Config.get_provider('SQLite'),
-      cnc_string: `DB_DIR=${getDbPath(ext)};DB_NAME=pano`,
+      cncString: `DB_DIR=${getDbPath(ext)};DB_NAME=pano`,
     });
     this.connection.open();
   }

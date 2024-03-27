@@ -1,7 +1,7 @@
 import Adw from '@girs/adw-1';
 import Gio from '@girs/gio-2.0';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import Gtk4 from '@girs/gtk-4.0';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { ICON_PACKS } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';

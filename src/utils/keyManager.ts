@@ -1,7 +1,7 @@
 import Gio from '@girs/gio-2.0';
-import Meta from '@girs/meta-13';
-import Shell from '@girs/shell-13';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
+import Meta from '@girs/meta-14';
+import Shell from '@girs/shell-14';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
 import { wm } from '@pano/utils/ui';
 export class KeyManager {

@@ -1,4 +1,4 @@
-import type { ExtensionBase } from '@pano/types/extension/extension';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import { gettext } from '@pano/utils/shell';
 
 export function getPanoItemTypes(ext: ExtensionBase) {

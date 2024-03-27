@@ -1,5 +1,5 @@
 import Adw from '@girs/adw-1';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import { CommonStyleGroup } from '@pano/prefs/customization/commonStyleGroup';
 import { ItemStyleGroup } from '@pano/prefs/customization/itemStyleGroup';
 import { registerGObjectClass } from '@pano/utils/gjs';
@@ -11,7 +11,7 @@ export class CustomizationPage extends Adw.PreferencesPage {
     const _ = gettext(ext);
     super({
       title: _('Customization'),
-      icon_name: 'emblem-photos-symbolic',
+      iconName: 'emblem-photos-symbolic',
     });
 
     this.add(new CommonStyleGroup(ext));

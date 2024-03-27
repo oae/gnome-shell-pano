@@ -1,5 +1,5 @@
 import Adw from '@girs/adw-1';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import { DBLocationRow } from '@pano/prefs/general/dbLocation';
 import { HistoryLengthRow } from '@pano/prefs/general/historyLength';
 import { IncognitoShortcutRow } from '@pano/prefs/general/incognitoShortcutRow';

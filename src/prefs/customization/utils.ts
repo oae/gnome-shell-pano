@@ -14,16 +14,23 @@ export const createColorRow = (title: string, subtitle: string, settings: Gio.Se
     title,
     valign: Gtk4.Align.CENTER,
     halign: Gtk4.Align.CENTER,
-    use_alpha: true,
+    useAlpha: true,
   });
 
   const rgba = new Gdk4.RGBA();
-  rgba.parse(settings.get_string(schemaKey));
+  const colorResult = settings.get_string(schemaKey);
+  if (!colorResult) {
+    throw new Error(`no string setting stored for key: ${schemaKey}`);
+  }
+  rgba.parse(colorResult);
   colorButton.set_rgba(rgba);
 
   colorButton.connect('color-set', () => {
     const color = colorButton.get_rgba();
     const colorString = color.to_string();
+    if (!colorString) {
+      throw new Error(`couldn't convert color to string: ${color}`);
+    }
     settings.set_string(schemaKey, colorString);
   });
 
@@ -31,7 +38,7 @@ export const createColorRow = (title: string, subtitle: string, settings: Gio.Se
   colorRow.set_activatable_widget(colorButton);
 
   const clearButton = new Gtk4.Button({
-    icon_name: 'edit-clear-symbolic',
+    iconName: 'edit-clear-symbolic',
     valign: Gtk4.Align.CENTER,
     halign: Gtk4.Align.CENTER,
   });
@@ -45,6 +52,10 @@ export const createColorRow = (title: string, subtitle: string, settings: Gio.Se
 
   settings.connect(`changed::${schemaKey}`, () => {
     const value = settings.get_string(schemaKey);
+    if (!value) {
+      throw new Error(`no string setting stored for key: ${schemaKey}`);
+    }
+
     if (defaultValue === value) {
       clearButton.sensitive = false;
     } else {
@@ -82,7 +93,7 @@ export const createSpinRow = (
   const value = settings.get_int(schemaKey);
 
   const spinButton = new Gtk4.SpinButton({
-    adjustment: new Gtk4.Adjustment({ step_increment: increment, lower, upper }),
+    adjustment: new Gtk4.Adjustment({ stepIncrement: increment, lower, upper }),
     value,
     valign: Gtk4.Align.CENTER,
     halign: Gtk4.Align.CENTER,
@@ -94,7 +105,7 @@ export const createSpinRow = (
   row.set_activatable_widget(spinButton);
 
   const clearButton = new Gtk4.Button({
-    icon_name: 'edit-clear-symbolic',
+    iconName: 'edit-clear-symbolic',
     valign: Gtk4.Align.CENTER,
     halign: Gtk4.Align.CENTER,
   });
@@ -139,7 +150,7 @@ export const createFontRow = (title: string, subtitle: string, settings: Gio.Set
     title,
     valign: Gtk4.Align.CENTER,
     halign: Gtk4.Align.CENTER,
-    use_font: true,
+    useFont: true,
     font: getFont(),
   });
 
@@ -155,7 +166,7 @@ export const createFontRow = (title: string, subtitle: string, settings: Gio.Set
   fontRow.set_activatable_widget(fontButton);
 
   const clearButton = new Gtk4.Button({
-    icon_name: 'edit-clear-symbolic',
+    iconName: 'edit-clear-symbolic',
     valign: Gtk4.Align.CENTER,
     halign: Gtk4.Align.CENTER,
   });
@@ -220,7 +231,7 @@ export const createDropdownRow = (
   row.set_activatable_widget(dropDown);
 
   const clearButton = new Gtk4.Button({
-    icon_name: 'edit-clear-symbolic',
+    iconName: 'edit-clear-symbolic',
     valign: Gtk4.Align.CENTER,
     halign: Gtk4.Align.CENTER,
   });

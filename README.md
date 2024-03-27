@@ -93,7 +93,7 @@ Since Gnome 45 we had to break compatibility with previous Gnome versions, these
 ### Current version
 
 - Gnome Shell 45
-
+- Gnome Shell 46
 
 ## Installation
 

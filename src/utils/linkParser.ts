@@ -1,7 +1,7 @@
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import Soup from '@girs/soup-3.0';
-import { ExtensionBase } from '@pano/types/extension/extension';
 import { getCachePath, logger } from '@pano/utils/shell';
 import * as htmlparser2 from 'htmlparser2';
 const DEFAULT_USER_AGENT = 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)';
@@ -21,7 +21,7 @@ export const getDocument = async (url: string): Promise<{ title: string; descrip
   };
   try {
     const message = Soup.Message.new('GET', url);
-    message.request_headers.append('User-Agent', DEFAULT_USER_AGENT);
+    message.requestHeaders.append('User-Agent', DEFAULT_USER_AGENT);
     const response = await session.send_and_read_async(message, GLib.PRIORITY_DEFAULT, null);
 
     if (response == null) {
@@ -132,7 +132,7 @@ export const getImage = async (ext: ExtensionBase, imageUrl: string): Promise<[s
       }
 
       const message = Soup.Message.new('GET', imageUrl);
-      message.request_headers.append('User-Agent', DEFAULT_USER_AGENT);
+      message.requestHeaders.append('User-Agent', DEFAULT_USER_AGENT);
       const response = await session.send_and_read_async(message, GLib.PRIORITY_DEFAULT, null);
       if (!response) {
         debug('no response while fetching the image');

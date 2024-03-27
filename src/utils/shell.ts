@@ -1,7 +1,7 @@
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import GSound from '@girs/gsound-1.0';
-import { ExtensionBase, GetTextString } from '@gnome-shell/extensions/extension';
 
 export const logger =
   (prefix: string) =>
@@ -229,6 +229,6 @@ export const openLinkInBrowser = (url: string) => {
   }
 };
 
-export function gettext(ext: ExtensionBase): (str: string) => GetTextString {
+export function gettext(ext: ExtensionBase): (str: string) => string {
   return ext.gettext.bind(ext);
 }

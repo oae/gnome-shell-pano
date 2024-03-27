@@ -1,5 +1,5 @@
 import Gio from '@girs/gio-2.0';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import { ItemExpanderRow } from '@pano/prefs/customization/itemExpanderRow';
 import { createColorRow, createFontRow, createSpinRow } from '@pano/prefs/customization/utils';
 import { registerGObjectClass } from '@pano/utils/gjs';

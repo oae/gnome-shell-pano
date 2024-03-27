@@ -1,7 +1,7 @@
 import Adw from '@girs/adw-1';
 import Gio from '@girs/gio-2.0';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import Gtk4 from '@girs/gtk-4.0';
-import type { ExtensionBase } from '@pano/types/extension/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { deleteAppDirs, gettext, logger } from '@pano/utils/shell';
 
@@ -16,7 +16,7 @@ export class ClearHistoryRow extends Adw.ActionRow {
     });
 
     const clearHistoryButton = new Gtk4.Button({
-      css_classes: ['destructive-action'],
+      cssClasses: ['destructive-action'],
       label: _('Clear'),
       valign: Gtk4.Align.CENTER,
       halign: Gtk4.Align.CENTER,
@@ -24,8 +24,8 @@ export class ClearHistoryRow extends Adw.ActionRow {
     clearHistoryButton.connect('clicked', () => {
       const md = new Gtk4.MessageDialog({
         text: _('Are you sure you want to clear history?'),
-        transient_for: this.get_root() as Adw.Window,
-        destroy_with_parent: true,
+        transientFor: this.get_root() as Adw.Window,
+        destroyWithParent: true,
         modal: true,
         visible: true,
         buttons: Gtk4.ButtonsType.OK_CANCEL,
