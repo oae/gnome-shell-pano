@@ -30,23 +30,22 @@ const importsGeneral = {
   'gi://Adw?version=1': { name: 'gi://Adw' },
 
   // extension.js + prefs.js resources
-  '@gnome-shell/misc/util': { name: 'resource://EXT_ROOT/misc/util.js' },
-  '@gnome-shell/misc/animationUtils': { name: 'resource://EXT_ROOT/misc/animationUtils.js' },
-  '@gnome-shell/extensions/extension': { name: 'resource://EXT_ROOT/extensions/extension.js' },
-  '@gnome-shell/ui/layout': { name: 'resource://EXT_ROOT/ui/layout.js' },
-  '@gnome-shell/ui/main': { name: 'resource://EXT_ROOT/ui/main.js' },
-  '@gnome-shell/ui/messageTray': { name: 'resource://EXT_ROOT/ui/messageTray.js' },
-  '@gnome-shell/ui/lightbox': { name: 'resource://EXT_ROOT/ui/lightbox.js' },
-  '@gnome-shell/ui/dialog': { name: 'resource://EXT_ROOT/ui/dialog.js' },
-  '@gnome-shell/ui/modalDialog': { name: 'resource://EXT_ROOT/ui/modalDialog.js' },
-  '@gnome-shell/ui/popupMenu': { name: 'resource://EXT_ROOT/ui/popupMenu.js' },
-  '@gnome-shell/ui/panelMenu': { name: 'resource://EXT_ROOT/ui/panelMenu.js' },
+  '@girs/gnome-shell/dist/misc/animationUtils': { name: 'resource://EXT_ROOT/misc/animationUtils.js' },
+  '@girs/gnome-shell/dist/extensions/extension': { name: 'resource://EXT_ROOT/extensions/extension.js' },
+  '@girs/gnome-shell/dist/ui/layout': { name: 'resource://EXT_ROOT/ui/layout.js' },
+  '@girs/gnome-shell/dist/ui/main': { name: 'resource://EXT_ROOT/ui/main.js' },
+  '@girs/gnome-shell/dist/ui/messageTray': { name: 'resource://EXT_ROOT/ui/messageTray.js' },
+  '@girs/gnome-shell/dist/ui/lightbox': { name: 'resource://EXT_ROOT/ui/lightbox.js' },
+  '@girs/gnome-shell/dist/ui/dialog': { name: 'resource://EXT_ROOT/ui/dialog.js' },
+  '@girs/gnome-shell/dist/ui/modalDialog': { name: 'resource://EXT_ROOT/ui/modalDialog.js' },
+  '@girs/gnome-shell/dist/ui/popupMenu': { name: 'resource://EXT_ROOT/ui/popupMenu.js' },
+  '@girs/gnome-shell/dist/ui/panelMenu': { name: 'resource://EXT_ROOT/ui/panelMenu.js' },
 };
 
 // prefs.js specific resources
 const importsPrefs = {
   ...importsGeneral,
-  '@gnome-shell/extensions/prefs': { name: 'resource://EXT_ROOT/extensions/prefs.js' },
+  '@girs/gnome-shell/dist/extensions/prefs': { name: 'resource://EXT_ROOT/extensions/prefs.js' },
 };
 
 const ExtensionEntries = Object.fromEntries(

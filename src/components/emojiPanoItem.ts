@@ -1,8 +1,8 @@
 import Clutter from '@girs/clutter-14';
 import Gio from '@girs/gio-2.0';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import Pango from '@girs/pango-1.0';
 import St1 from '@girs/st-14';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
@@ -21,24 +21,24 @@ export class EmojiPanoItem extends PanoItem {
 
     const emojiContainer = new St1.BoxLayout({
       vertical: false,
-      x_expand: true,
-      y_expand: true,
-      y_align: Clutter.ActorAlign.FILL,
-      x_align: Clutter.ActorAlign.FILL,
-      style_class: 'emoji-container',
+      xExpand: true,
+      yExpand: true,
+      yAlign: Clutter.ActorAlign.FILL,
+      xAlign: Clutter.ActorAlign.FILL,
+      styleClass: 'emoji-container',
     });
 
     this.label = new St1.Label({
-      x_align: Clutter.ActorAlign.CENTER,
-      y_align: Clutter.ActorAlign.CENTER,
-      x_expand: true,
-      y_expand: true,
+      xAlign: Clutter.ActorAlign.CENTER,
+      yAlign: Clutter.ActorAlign.CENTER,
+      xExpand: true,
+      yExpand: true,
       text: this.dbItem.content,
-      style_class: 'pano-item-body-emoji-content',
+      styleClass: 'pano-item-body-emoji-content',
     });
-    this.label.clutter_text.line_wrap = true;
-    this.label.clutter_text.line_wrap_mode = Pango.WrapMode.WORD_CHAR;
-    this.label.clutter_text.ellipsize = Pango.EllipsizeMode.END;
+    this.label.clutterText.lineWrap = true;
+    this.label.clutterText.lineWrapMode = Pango.WrapMode.WORD_CHAR;
+    this.label.clutterText.ellipsize = Pango.EllipsizeMode.END;
     emojiContainer.add_child(this.label);
 
     this.body.add_child(emojiContainer);

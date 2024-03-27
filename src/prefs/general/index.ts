@@ -1,5 +1,5 @@
 import Adw from '@girs/adw-1';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import { ExclusionGroup } from '@pano/prefs/general/exclusionGroup';
 import { GeneralGroup } from '@pano/prefs/general/generalGroup';
 import { registerGObjectClass } from '@pano/utils/gjs';
@@ -11,7 +11,7 @@ export class GeneralPage extends Adw.PreferencesPage {
     const _ = gettext(ext);
     super({
       title: _('General'),
-      icon_name: 'preferences-system-symbolic',
+      iconName: 'preferences-system-symbolic',
     });
 
     this.add(new GeneralGroup(ext));

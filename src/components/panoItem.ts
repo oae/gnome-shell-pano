@@ -1,12 +1,12 @@
 import Clutter from '@girs/clutter-14';
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import GObject from '@girs/gobject-2.0';
 import Graphene from '@girs/graphene-1.0';
 import Meta from '@girs/meta-14';
 import Shell from '@girs/shell-14';
 import St1 from '@girs/st-14';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItemHeader } from '@pano/components/panoItemHeader';
 import { ClipboardManager } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
@@ -52,11 +52,11 @@ export class PanoItem extends St1.BoxLayout {
     super({
       name: 'pano-item',
       visible: true,
-      pivot_point: Graphene.Point.alloc().init(0.5, 0.5),
+      pivotPoint: Graphene.Point.alloc().init(0.5, 0.5),
       reactive: true,
-      style_class: 'pano-item',
+      styleClass: 'pano-item',
       vertical: true,
-      track_hover: true,
+      trackHover: true,
     });
 
     this.clipboardManager = clipboardManager;
@@ -138,13 +138,13 @@ export class PanoItem extends St1.BoxLayout {
     });
 
     this.body = new St1.BoxLayout({
-      style_class: 'pano-item-body',
-      clip_to_allocation: true,
+      styleClass: 'pano-item-body',
+      clipToAllocation: true,
       vertical: true,
-      x_align: Clutter.ActorAlign.FILL,
-      y_align: Clutter.ActorAlign.FILL,
-      x_expand: true,
-      y_expand: true,
+      xAlign: Clutter.ActorAlign.FILL,
+      yAlign: Clutter.ActorAlign.FILL,
+      xExpand: true,
+      yExpand: true,
     });
 
     this.add_child(this.header);
@@ -174,9 +174,9 @@ export class PanoItem extends St1.BoxLayout {
       this.set_x_align(Clutter.ActorAlign.START);
       this.set_y_align(Clutter.ActorAlign.FILL);
     }
-    const { scale_factor } = St1.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
-    this.body.set_height(this.settings.get_int('item-size') * scale_factor - this.header.get_height());
-    this.body.set_width(this.settings.get_int('item-size') * scale_factor);
+    const { scaleFactor } = St1.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
+    this.body.set_height(this.settings.get_int('item-size') * scaleFactor - this.header.get_height());
+    this.body.set_width(this.settings.get_int('item-size') * scaleFactor);
   }
 
   private setSelected(selected: boolean) {

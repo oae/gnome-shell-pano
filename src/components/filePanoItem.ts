@@ -1,8 +1,8 @@
 import Clutter from '@girs/clutter-14';
 import Gio from '@girs/gio-2.0';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import Pango from '@girs/pango-1.0';
 import St1 from '@girs/st-14';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType, FileOperation } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
@@ -25,11 +25,11 @@ export class FilePanoItem extends PanoItem {
     this.fileItemSettings = this.settings.get_child('file-item');
 
     const container = new St1.BoxLayout({
-      style_class: 'copied-files-container',
+      styleClass: 'copied-files-container',
       vertical: true,
-      x_expand: true,
-      y_expand: false,
-      y_align: Clutter.ActorAlign.FILL,
+      xExpand: true,
+      yExpand: false,
+      yAlign: Clutter.ActorAlign.FILL,
     });
 
     this.fileList
@@ -40,27 +40,27 @@ export class FilePanoItem extends PanoItem {
       .forEach((uri) => {
         const bl = new St1.BoxLayout({
           vertical: false,
-          style_class: 'copied-file-name',
-          x_expand: true,
-          x_align: Clutter.ActorAlign.FILL,
-          clip_to_allocation: true,
-          y_align: Clutter.ActorAlign.FILL,
+          styleClass: 'copied-file-name',
+          xExpand: true,
+          xAlign: Clutter.ActorAlign.FILL,
+          clipToAllocation: true,
+          yAlign: Clutter.ActorAlign.FILL,
         });
         bl.add_child(
           new St1.Icon({
-            icon_name: this.operation === FileOperation.CUT ? 'edit-cut-symbolic' : 'edit-copy-symbolic',
-            x_align: Clutter.ActorAlign.START,
-            icon_size: 14,
-            style_class: 'file-icon',
+            iconName: this.operation === FileOperation.CUT ? 'edit-cut-symbolic' : 'edit-copy-symbolic',
+            xAlign: Clutter.ActorAlign.START,
+            iconSize: 14,
+            styleClass: 'file-icon',
           }),
         );
         const uriLabel = new St1.Label({
           text: uri,
-          style_class: 'pano-item-body-file-name-label',
-          x_align: Clutter.ActorAlign.FILL,
-          x_expand: true,
+          styleClass: 'pano-item-body-file-name-label',
+          xAlign: Clutter.ActorAlign.FILL,
+          xExpand: true,
         });
-        uriLabel.clutter_text.ellipsize = Pango.EllipsizeMode.MIDDLE;
+        uriLabel.clutterText.ellipsize = Pango.EllipsizeMode.MIDDLE;
         bl.add_child(uriLabel);
         container.add_child(bl);
       });

@@ -1,15 +1,15 @@
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
+import type { Extension } from '@girs/gnome-shell/dist/extensions/extension';
 import { SettingsMenu } from '@pano/components/indicator/settingsMenu';
 import { addToStatusArea } from '@pano/utils/ui';
 
 export default class PanoIndicator {
   private indicatorChangeSignalId: number | null;
   private settingsMenu: SettingsMenu | null;
-  private extension: ExtensionBase;
+  private extension: Extension;
   private onClear: () => Promise<void>;
   private onToggle: () => void;
 
-  constructor(ext: ExtensionBase, onClear: () => Promise<void>, onToggle: () => void) {
+  constructor(ext: Extension, onClear: () => Promise<void>, onToggle: () => void) {
     this.extension = ext;
     this.onClear = onClear;
     this.onToggle = onToggle;

@@ -2,8 +2,10 @@ import './styles/stylesheet.css';
 
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
+import { Extensions } from '@girs/gnome-shell';
+import type { ExtensionMetadata } from '@girs/gnome-shell/dist/types/extension-metadata';
 import Shell from '@girs/shell-14';
-import { Extension, ExtensionMetadata } from '@gnome-shell/extensions/extension';
+const { Extension } = Extensions.extension;
 import PanoIndicator from '@pano/components/indicator';
 import { PanoWindow } from '@pano/containers/panoWindow';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
@@ -225,7 +227,7 @@ export default class PanoExtension extends Extension {
 
   private trackWindow() {
     this.windowTrackerId = Shell.Global.get().display.connect('notify::focus-window', () => {
-      const focussedWindow = Shell.Global.get().display.focus_window;
+      const focussedWindow = Shell.Global.get().display.focusWindow;
       if (focussedWindow && this.panoWindow?.is_visible()) {
         this.panoWindow.hide();
       }

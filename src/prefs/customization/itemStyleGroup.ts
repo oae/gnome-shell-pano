@@ -1,5 +1,5 @@
 import Adw from '@girs/adw-1';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import { CodeItemStyleRow } from '@pano/prefs/customization/codeItemStyle';
 import { ColorItemStyleRow } from '@pano/prefs/customization/colorItemStyle';
 import { EmojiItemStyleRow } from '@pano/prefs/customization/emojiItemStyle';
@@ -16,7 +16,7 @@ export class ItemStyleGroup extends Adw.PreferencesGroup {
     const _ = gettext(ext);
     super({
       title: _('Item Style'),
-      margin_top: 10,
+      marginTop: 10,
     });
 
     this.add(new LinkItemStyleRow(ext));

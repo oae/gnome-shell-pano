@@ -1,7 +1,7 @@
 import Gio from '@girs/gio-2.0';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import Pango from '@girs/pango-1.0';
 import St1 from '@girs/st-14';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
@@ -18,11 +18,11 @@ export class CodePanoItem extends PanoItem {
     this.codeItemSettings = this.settings.get_child('code-item');
 
     this.label = new St1.Label({
-      style_class: 'pano-item-body-code-content',
-      clip_to_allocation: true,
+      styleClass: 'pano-item-body-code-content',
+      clipToAllocation: true,
     });
-    this.label.clutter_text.use_markup = true;
-    this.label.clutter_text.ellipsize = Pango.EllipsizeMode.END;
+    this.label.clutterText.useMarkup = true;
+    this.label.clutterText.ellipsize = Pango.EllipsizeMode.END;
     this.body.add_child(this.label);
     this.connect('activated', this.setClipboardContent.bind(this));
     this.setStyle();
@@ -41,7 +41,7 @@ export class CodePanoItem extends PanoItem {
     this.body.set_style(`background-color: ${bodyBgColor}`);
     this.label.set_style(`font-size: ${bodyFontSize}px; font-family: ${bodyFontFamily};`);
 
-    this.label.clutter_text.set_markup(markupCode(this.dbItem.content.trim(), characterLength));
+    this.label.clutterText.set_markup(markupCode(this.dbItem.content.trim(), characterLength));
   }
 
   private setClipboardContent(): void {

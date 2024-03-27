@@ -1,12 +1,11 @@
 import Clutter from '@girs/clutter-14';
 import Gio from '@girs/gio-2.0';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import GObject from '@girs/gobject-2.0';
 import Shell from '@girs/shell-14';
 import St1 from '@girs/st-14';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
 import { SearchBox } from '@pano/components/searchBox';
-import { Adjustment } from '@pano/types/st';
 import { ClipboardContent, ClipboardManager } from '@pano/utils/clipboardManager';
 import { ClipboardQueryBuilder, db, ItemType } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
@@ -66,9 +65,9 @@ export class PanoScrollView extends St1.ScrollView {
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, searchBox: SearchBox) {
     super({
-      overlay_scrollbars: true,
-      x_expand: true,
-      y_expand: true,
+      overlayScrollbars: true,
+      xExpand: true,
+      yExpand: true,
     });
     this.ext = ext;
     this.clipboardManager = clipboardManager;
@@ -79,8 +78,8 @@ export class PanoScrollView extends St1.ScrollView {
 
     this.list = new St1.BoxLayout({
       vertical: isVertical(this.settings.get_uint('window-position')),
-      x_expand: true,
-      y_expand: true,
+      xExpand: true,
+      yExpand: true,
     });
 
     this.settings.connect('changed::window-position', () => {
@@ -411,10 +410,10 @@ export class PanoScrollView extends St1.ScrollView {
     let value: number | undefined;
     if (isVertical(this.settings.get_uint('window-position'))) {
       adjustment = this.vscroll.adjustment;
-      value = box.y1 + adjustment.step_increment / 2.0 - adjustment.page_size / 2.0;
+      value = box.y1 + adjustment.stepIncrement / 2.0 - adjustment.pageSize / 2.0;
     } else {
       adjustment = this.hscroll.adjustment;
-      value = box.x1 + adjustment.step_increment / 2.0 - adjustment.page_size / 2.0;
+      value = box.x1 + adjustment.stepIncrement / 2.0 - adjustment.pageSize / 2.0;
     }
 
     if (!Number.isFinite(value)) {
@@ -422,7 +421,7 @@ export class PanoScrollView extends St1.ScrollView {
     }
 
     //TODO: this isn't in the types??? investigate (this.scrollView.vscroll.adjustment.ease is there at runtime and also this.ease, as per prototype chain...)
-    (adjustment as unknown as Adjustment).ease(value, {
+    adjustment.ease(value, {
       duration: 150,
       mode: Clutter.AnimationMode.EASE_OUT_QUAD,
     });
@@ -481,17 +480,17 @@ export class PanoScrollView extends St1.ScrollView {
       event.get_scroll_direction() === Clutter.ScrollDirection.UP ||
       event.get_scroll_direction() === Clutter.ScrollDirection.LEFT
     ) {
-      value -= adjustment.step_increment * 2;
+      value -= adjustment.stepIncrement * 2;
     } else if (
       event.get_scroll_direction() === Clutter.ScrollDirection.DOWN ||
       event.get_scroll_direction() === Clutter.ScrollDirection.RIGHT
     ) {
-      value += adjustment.step_increment * 2;
+      value += adjustment.stepIncrement * 2;
     }
 
     adjustment.remove_transition('value');
 
-    (adjustment as unknown as Adjustment).ease(value, {
+    adjustment.ease(value, {
       duration: 150,
       mode: Clutter.AnimationMode.EASE_OUT_QUAD,
     });

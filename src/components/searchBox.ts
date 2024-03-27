@@ -1,10 +1,10 @@
 import Clutter from '@girs/clutter-14';
 import Gio from '@girs/gio-2.0';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import GObject from '@girs/gobject-2.0';
 import Meta from '@girs/meta-14';
 import Shell from '@girs/shell-14';
 import St1 from '@girs/st-14';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { getPanoItemTypes, ICON_PACKS } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
@@ -49,10 +49,10 @@ export class SearchBox extends St1.BoxLayout {
 
   constructor(ext: ExtensionBase) {
     super({
-      x_align: Clutter.ActorAlign.CENTER,
-      style_class: 'search-entry-container',
+      xAlign: Clutter.ActorAlign.CENTER,
+      styleClass: 'search-entry-container',
       vertical: false,
-      track_hover: true,
+      trackHover: true,
       reactive: true,
     });
 
@@ -64,18 +64,18 @@ export class SearchBox extends St1.BoxLayout {
     const themeContext = St1.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
 
     this.search = new St1.Entry({
-      can_focus: true,
-      hint_text: _('Type to search, Tab to cycle'),
-      natural_width: 300 * themeContext.scale_factor,
-      height: 40 * themeContext.scale_factor,
-      track_hover: true,
-      primary_icon: this.createSearchEntryIcon('edit-find-symbolic', 'search-entry-icon'),
-      secondary_icon: this.createSearchEntryIcon('starred-symbolic', 'search-entry-fav-icon'),
+      canFocus: true,
+      hintText: _('Type to search, Tab to cycle'),
+      naturalWidth: 300 * themeContext.scaleFactor,
+      height: 40 * themeContext.scaleFactor,
+      trackHover: true,
+      primaryIcon: this.createSearchEntryIcon('edit-find-symbolic', 'search-entry-icon'),
+      secondaryIcon: this.createSearchEntryIcon('starred-symbolic', 'search-entry-fav-icon'),
     });
 
     themeContext.connect('notify::scale-factor', () => {
-      this.search.natural_width = 300 * themeContext.scale_factor;
-      this.search.set_height(40 * themeContext.scale_factor);
+      this.search.naturalWidth = 300 * themeContext.scaleFactor;
+      this.search.set_height(40 * themeContext.scaleFactor);
     });
 
     this.search.connect('primary-icon-clicked', () => {
@@ -88,24 +88,24 @@ export class SearchBox extends St1.BoxLayout {
       this.toggleFavorites();
     });
 
-    this.search.clutter_text.connect('text-changed', () => {
+    this.search.clutterText.connect('text-changed', () => {
       this.emitSearchTextChange();
     });
 
-    this.search.clutter_text.connect('key-press-event', (_: St1.Entry, event: Clutter.Event) => {
+    this.search.clutterText.connect('key-press-event', (_: St1.Entry, event: Clutter.Event) => {
       if (
         event.get_key_symbol() === Clutter.KEY_Down ||
         (event.get_key_symbol() === Clutter.KEY_Right &&
-          (this.search.clutter_text.cursor_position === -1 || this.search.text?.length === 0))
+          (this.search.clutterText.cursorPosition === -1 || this.search.text?.length === 0))
       ) {
         this.emit('search-focus-out');
         return Clutter.EVENT_STOP;
       } else if (
         event.get_key_symbol() === Clutter.KEY_Right &&
-        this.search.clutter_text.get_selection() !== null &&
-        this.search.clutter_text.get_selection() === this.search.text
+        this.search.clutterText.get_selection() !== null &&
+        this.search.clutterText.get_selection() === this.search.text
       ) {
-        this.search.clutter_text.set_cursor_position(this.search.text?.length ?? 0);
+        this.search.clutterText.set_cursor_position(this.search.text?.length ?? 0);
         return Clutter.EVENT_STOP;
       }
       if (
@@ -210,9 +210,9 @@ export class SearchBox extends St1.BoxLayout {
 
   private createSearchEntryIcon(iconNameOrProto: string | Gio.Icon, styleClass: string) {
     const icon = new St1.Icon({
-      style_class: styleClass,
-      icon_size: 13,
-      track_hover: true,
+      styleClass: styleClass,
+      iconSize: 13,
+      trackHover: true,
     });
 
     if (typeof iconNameOrProto === 'string') {
@@ -267,7 +267,7 @@ export class SearchBox extends St1.BoxLayout {
   }
 
   selectAll() {
-    this.search.clutter_text.set_selection(0, this.search.text?.length ?? 0);
+    this.search.clutterText.set_selection(0, this.search.text?.length ?? 0);
   }
 
   clear() {

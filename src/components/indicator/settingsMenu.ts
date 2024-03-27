@@ -1,10 +1,10 @@
 import Clutter from '@girs/clutter-14';
 import Gio from '@girs/gio-2.0';
+import type { Extension } from '@girs/gnome-shell/dist/extensions/extension';
+import { Button as PanelMenuButton } from '@girs/gnome-shell/dist/ui/panelMenu';
+import { PopupMenuItem, PopupSeparatorMenuItem, PopupSwitchMenuItem } from '@girs/gnome-shell/dist/ui/popupMenu';
 import GObject from '@girs/gobject-2.0';
 import St1 from '@girs/st-14';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
-import * as panelMenu from '@gnome-shell/ui/panelMenu';
-import * as popupMenu from '@gnome-shell/ui/popupMenu';
 import { ClearHistoryDialog } from '@pano/components/indicator/clearHistoryDialog';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { ICON_PACKS } from '@pano/utils/panoItemType';
@@ -19,7 +19,7 @@ interface SettingsMenuSignals extends SignalsDefinition<SettingsMenuSignalType> 
 }
 
 @registerGObjectClass
-export class SettingsMenu extends panelMenu.Button {
+export class SettingsMenu extends PanelMenuButton {
   static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, SettingsMenuSignals> = {
     GTypeName: 'SettingsButton',
     Signals: {
@@ -34,10 +34,10 @@ export class SettingsMenu extends panelMenu.Button {
   private settings: Gio.Settings;
   private incognitoChangeId: number | null;
   private icon: St1.Icon;
-  private ext: ExtensionBase;
+  private ext: Extension;
   private onToggle: () => void;
 
-  constructor(ext: ExtensionBase, onClear: () => Promise<void>, onToggle: () => void) {
+  constructor(ext: Extension, onClear: () => Promise<void>, onToggle: () => void) {
     const _ = gettext(ext);
     super(0.5, 'Pano Indicator', false);
 
@@ -52,15 +52,12 @@ export class SettingsMenu extends panelMenu.Button {
           isInIncognito ? '-incognito-symbolic' : '-symbolic'
         }.svg`,
       ),
-      style_class: 'system-status-icon indicator-icon',
+      styleClass: 'system-status-icon indicator-icon',
     });
 
     this.add_child(this.icon);
 
-    const switchMenuItem = new popupMenu.PopupSwitchMenuItem(
-      _('Incognito Mode'),
-      this.settings.get_boolean('is-in-incognito'),
-    );
+    const switchMenuItem = new PopupSwitchMenuItem(_('Incognito Mode'), this.settings.get_boolean('is-in-incognito'));
 
     switchMenuItem.connect('toggled', (item) => {
       this.settings.set_boolean('is-in-incognito', item.state);
@@ -90,15 +87,15 @@ export class SettingsMenu extends panelMenu.Button {
     });
 
     this.menu.addMenuItem(switchMenuItem);
-    this.menu.addMenuItem(new popupMenu.PopupSeparatorMenuItem());
-    const clearHistoryItem = new popupMenu.PopupMenuItem(_('Clear History'));
+    this.menu.addMenuItem(new PopupSeparatorMenuItem());
+    const clearHistoryItem = new PopupMenuItem(_('Clear History'));
     clearHistoryItem.connect('activate', () => {
       const dialog = new ClearHistoryDialog(this.ext, onClear);
       dialog.open();
     });
     this.menu.addMenuItem(clearHistoryItem);
-    this.menu.addMenuItem(new popupMenu.PopupSeparatorMenuItem());
-    const settingsItem = new popupMenu.PopupMenuItem(_('Settings'));
+    this.menu.addMenuItem(new PopupSeparatorMenuItem());
+    const settingsItem = new PopupMenuItem(_('Settings'));
     settingsItem.connect('activate', () => {
       openExtensionPreferences(this.ext);
     });

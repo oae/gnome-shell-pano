@@ -1,14 +1,14 @@
 import Clutter from '@girs/clutter-14';
-import type St from '@girs/st-13';
-import * as dialog from '@gnome-shell/ui/dialog';
-import * as modalDialog from '@gnome-shell/ui/modalDialog';
-import type { ExtensionBase } from '@pano/types/extension/extension';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
+import { MessageDialogContent } from '@girs/gnome-shell/dist/ui/dialog';
+import { ModalDialog } from '@girs/gnome-shell/dist/ui/modalDialog';
+import type St from '@girs/st-14';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { gettext, logger } from '@pano/utils/shell';
 const debug = logger('clear-history-dialog');
 
 @registerGObjectClass
-export class ClearHistoryDialog extends modalDialog.ModalDialog {
+export class ClearHistoryDialog extends ModalDialog {
   private cancelButton: St.Button;
   private clearButton: St.Button;
   private onClear: () => Promise<void>;
@@ -31,7 +31,7 @@ export class ClearHistoryDialog extends modalDialog.ModalDialog {
       action: this.onClearButtonPressed.bind(this),
     });
 
-    const content = new dialog.MessageDialogContent({
+    const content = new MessageDialogContent({
       title: _('Clear History'),
       description: _('Are you sure you want to clear history?'),
     });

@@ -1,7 +1,7 @@
 import Gio from '@girs/gio-2.0';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import Pango from '@girs/pango-1.0';
 import St1 from '@girs/st-14';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
@@ -18,11 +18,11 @@ export class TextPanoItem extends PanoItem {
     this.textItemSettings = this.settings.get_child('text-item');
 
     this.label = new St1.Label({
-      style_class: 'pano-item-body-text-content',
+      styleClass: 'pano-item-body-text-content',
     });
-    this.label.clutter_text.line_wrap = true;
-    this.label.clutter_text.line_wrap_mode = Pango.WrapMode.WORD_CHAR;
-    this.label.clutter_text.ellipsize = Pango.EllipsizeMode.END;
+    this.label.clutterText.lineWrap = true;
+    this.label.clutterText.lineWrapMode = Pango.WrapMode.WORD_CHAR;
+    this.label.clutterText.ellipsize = Pango.EllipsizeMode.END;
 
     this.body.add_child(this.label);
 

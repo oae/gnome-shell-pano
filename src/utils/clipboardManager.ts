@@ -1,10 +1,10 @@
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import GObject from '@girs/gobject-2.0';
 import Meta from '@girs/meta-14';
 import Shell from '@girs/shell-14';
 import St1 from '@girs/st-14';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass, SignalRepresentationType } from '@pano/utils/gjs';
 import { debounce, getCurrentExtensionSettings, logger } from '@pano/utils/shell';
 
@@ -160,7 +160,7 @@ export class ClipboardManager extends GObject.Object {
         if (this.settings.get_boolean('is-in-incognito')) {
           return;
         }
-        const focussedWindow = Shell.Global.get().display.focus_window;
+        const focussedWindow = Shell.Global.get().display.focusWindow;
         const wmClass = focussedWindow?.get_wm_class();
         if (
           wmClass &&

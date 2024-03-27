@@ -1,7 +1,7 @@
 import Clutter from '@girs/clutter-14';
 import Gio from '@girs/gio-2.0';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import St1 from '@girs/st-14';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
@@ -35,56 +35,56 @@ export class ImagePanoItem extends PanoItem {
     );
 
     this.metaContainer = new St1.BoxLayout({
-      style_class: 'pano-item-body-meta-container',
+      styleClass: 'pano-item-body-meta-container',
       vertical: true,
-      x_expand: true,
-      y_expand: true,
-      y_align: Clutter.ActorAlign.END,
-      x_align: Clutter.ActorAlign.FILL,
+      xExpand: true,
+      yExpand: true,
+      yAlign: Clutter.ActorAlign.END,
+      xAlign: Clutter.ActorAlign.FILL,
     });
 
     const resolutionContainer = new St1.BoxLayout({
       vertical: false,
-      x_expand: true,
-      y_align: Clutter.ActorAlign.FILL,
-      x_align: Clutter.ActorAlign.FILL,
-      style_class: 'pano-item-body-image-resolution-container',
+      xExpand: true,
+      yAlign: Clutter.ActorAlign.FILL,
+      xAlign: Clutter.ActorAlign.FILL,
+      styleClass: 'pano-item-body-image-resolution-container',
     });
 
     this.resolutionTitle = new St1.Label({
       text: 'Resolution',
-      x_align: Clutter.ActorAlign.START,
-      x_expand: true,
-      style_class: 'pano-item-body-image-meta-title',
+      xAlign: Clutter.ActorAlign.START,
+      xExpand: true,
+      styleClass: 'pano-item-body-image-meta-title',
     });
     this.resolutionValue = new St1.Label({
       text: `${width} x ${height}`,
-      x_align: Clutter.ActorAlign.END,
-      x_expand: false,
-      style_class: 'pano-item-body-image-meta-value',
+      xAlign: Clutter.ActorAlign.END,
+      xExpand: false,
+      styleClass: 'pano-item-body-image-meta-value',
     });
     resolutionContainer.add_child(this.resolutionTitle);
     resolutionContainer.add_child(this.resolutionValue);
 
     const sizeContainer = new St1.BoxLayout({
       vertical: false,
-      x_expand: true,
-      y_align: Clutter.ActorAlign.FILL,
-      x_align: Clutter.ActorAlign.FILL,
-      style_class: 'pano-item-body-image-size-container',
+      xExpand: true,
+      yAlign: Clutter.ActorAlign.FILL,
+      xAlign: Clutter.ActorAlign.FILL,
+      styleClass: 'pano-item-body-image-size-container',
     });
 
     this.sizeLabel = new St1.Label({
       text: 'Size',
-      x_align: Clutter.ActorAlign.START,
-      x_expand: true,
-      style_class: 'pano-item-body-image-meta-title',
+      xAlign: Clutter.ActorAlign.START,
+      xExpand: true,
+      styleClass: 'pano-item-body-image-meta-title',
     });
     this.sizeValue = new St1.Label({
       text: prettyBytes(size),
-      x_align: Clutter.ActorAlign.END,
-      x_expand: false,
-      style_class: 'pano-item-body-image-meta-value',
+      xAlign: Clutter.ActorAlign.END,
+      xExpand: false,
+      styleClass: 'pano-item-body-image-meta-value',
     });
     sizeContainer.add_child(this.sizeLabel);
     sizeContainer.add_child(this.sizeValue);
@@ -94,7 +94,7 @@ export class ImagePanoItem extends PanoItem {
     this.metaContainer.add_constraint(
       new Clutter.AlignConstraint({
         source: this,
-        align_axis: Clutter.AlignAxis.Y_AXIS,
+        alignAxis: Clutter.AlignAxis.Y_AXIS,
         factor: 0.001,
       }),
     );

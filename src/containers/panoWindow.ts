@@ -1,12 +1,11 @@
 import Clutter from '@girs/clutter-14';
 import Gio from '@girs/gio-2.0';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import Shell from '@girs/shell-14';
 import St1 from '@girs/st-14';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { MonitorBox } from '@pano/components/monitorBox';
 import { PanoScrollView } from '@pano/components/panoScrollView';
 import { SearchBox } from '@pano/components/searchBox';
-import { EaseFunctionType } from '@pano/types/st';
 import { ClipboardManager } from '@pano/utils/clipboardManager';
 import { ItemType } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
@@ -26,12 +25,12 @@ export class PanoWindow extends St1.BoxLayout {
     super({
       name: 'pano-window',
       constraints: getMonitorConstraint(),
-      style_class: 'pano-window',
+      styleClass: 'pano-window',
       visible: false,
       vertical: true,
       reactive: true,
       opacity: 0,
-      can_focus: true,
+      canFocus: true,
     });
 
     this.settings = getCurrentExtensionSettings(ext);
@@ -39,15 +38,15 @@ export class PanoWindow extends St1.BoxLayout {
 
     const themeContext = St1.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
 
-    this.setWindowDimensions(themeContext.scale_factor);
+    this.setWindowDimensions(themeContext.scaleFactor);
     themeContext.connect('notify::scale-factor', () => {
-      this.setWindowDimensions(themeContext.scale_factor);
+      this.setWindowDimensions(themeContext.scaleFactor);
     });
     this.settings.connect('changed::item-size', () => {
-      this.setWindowDimensions(themeContext.scale_factor);
+      this.setWindowDimensions(themeContext.scaleFactor);
     });
     this.settings.connect('changed::window-position', () => {
-      this.setWindowDimensions(themeContext.scale_factor);
+      this.setWindowDimensions(themeContext.scaleFactor);
       this.setAlignment();
     });
 
