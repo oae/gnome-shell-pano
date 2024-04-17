@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  ci:
+    runs-on: ubuntu-22.04
+
+    strategy:
+      matrix:
+        node-version:
+          - 20.x
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Validate Formatting
+        run: yarn run prettier:check
+
+      - name: Build Extension
+        run: yarn run build
+
+      - name: Lint Extension
+        run: yarn run lint
+
+      - name: Validate Types
+        run: NODE_OPTIONS=--max_old_space_size=9216 yarn run validate:types
+
+      - name: Build Example
+        run: yarn run build:example
+
+      - name: Validate Example Typescript
+        run: NODE_OPTIONS=--max_old_space_size=9216 yarn run validate:example
