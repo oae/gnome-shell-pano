@@ -99,15 +99,9 @@ const thirdParty = [
   'highlight.js/lib/languages/yaml',
 ];
 
-const additionalExternalModules = ['resource:///org/gnome/shell/*'];
+const gnomeShellExternalModules = [/^resource:\/\/\/org\/gnome\/(shell|Shell\/Extensions)\/.*/];
 
-const gjsModules = [
-  ...Object.keys(importsGeneral),
-  ...Object.keys(importsPrefs),
-  ...Object.entries(ExtensionEntries),
-  ...Object.entries(PreferencesEntries),
-  ...additionalExternalModules,
-];
+const gjsModules = [...Object.keys(importsGeneral), ...Object.keys(importsPrefs), ...gnomeShellExternalModules];
 
 const globalDefinitionImports = ['@girs/gnome-shell/dist/extensions/global'];
 
