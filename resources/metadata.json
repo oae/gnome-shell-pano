@@ -9,8 +9,5 @@
   },
   "settings-schema": "org.gnome.shell.extensions.pano",
   "url": "https://github.com/oae/gnome-shell-pano",
-  "shell-version": [
-    "45",
-    "46"
-  ]
+  "shell-version": ["45", "46"]
 }
