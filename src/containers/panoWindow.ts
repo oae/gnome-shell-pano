@@ -1,3 +1,5 @@
+import '@girs/gnome-shell/dist/extensions/global';
+
 import Clutter from '@girs/clutter-14';
 import Gio from '@girs/gio-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
@@ -18,8 +20,6 @@ export class PanoWindow extends St1.BoxLayout {
   private searchBox: SearchBox;
   private monitorBox: MonitorBox;
   private settings: Gio.Settings;
-  //TODO: this isn't in the types??? investigate (this.scrollView.vscroll.adjustment.ease is there at runtime and also this.ease, as per prototype chain...)
-  ease: EaseFunctionType<typeof this>;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager) {
     super({

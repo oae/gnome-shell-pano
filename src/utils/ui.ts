@@ -2,17 +2,18 @@ import Clutter from '@girs/clutter-14';
 import Cogl from '@girs/cogl-14';
 import GdkPixbuf from '@girs/gdkpixbuf-2.0';
 import Gio from '@girs/gio-2.0';
-import GLib from '@girs/glib-2.0';
 import type { Extension } from '@girs/gnome-shell/dist/extensions/extension';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import * as animationUtils from '@girs/gnome-shell/dist/misc/animationUtils';
 import { Monitor, MonitorConstraint } from '@girs/gnome-shell/dist/ui/layout';
 import * as main from '@girs/gnome-shell/dist/ui/main';
-import { Notification } from '@girs/gnome-shell/dist/ui/messageTray';
-import { Source as MessageTraySource } from '@girs/gnome-shell/dist/ui/messageTray';
+import type { Source as MessageTraySource } from '@girs/gnome-shell/dist/ui/messageTray';
 import Shell from '@girs/shell-14';
 import St1 from '@girs/st-14';
 import { gettext } from '@pano/utils/shell';
+
+import { addNotification, newMessageTraySource, newNotification } from './compatibility';
+
 const global = Shell.Global.get();
 
 export const notify = (
@@ -23,8 +24,8 @@ export const notify = (
   pixelFormat?: Cogl.PixelFormat,
 ): void => {
   const _ = gettext(ext);
-  const source = new MessageTraySource(_('Pano'), 'edit-copy-symbolic');
-  main.messageTray.add(source);
+  const source = newMessageTraySource(_('Pano'), 'edit-copy-symbolic');
+  main.messageTray.add(source as MessageTraySource);
   let notification;
   if (iconOrPixbuf) {
     if (iconOrPixbuf instanceof GdkPixbuf.Pixbuf) {
@@ -40,28 +41,20 @@ export const notify = (
         iconOrPixbuf.rowstride,
       );
 
-      notification = new Notification(source, text, body, {
-        datetime: GLib.DateTime.new_now_local(),
-        gicon: content,
-      });
+      notification = newNotification(source, text, body, { gicon: content });
     } else {
-      notification = new Notification(source, text, body, {
-        datetime: GLib.DateTime.new_now_local(),
-        gicon: iconOrPixbuf,
-      });
+      notification = newNotification(source, text, body, { gicon: iconOrPixbuf });
     }
   } else {
-    notification = new Notification(source, text, body, {});
+    notification = newNotification(source, text, body, {});
   }
 
   notification.setTransient(true);
-  source.showNotification(notification);
+  addNotification(source, notification);
 };
 
-export const wiggle = (
-  actor: Clutter.Actor,
-  { offset, duration, wiggleCount }: { offset: number; duration: number; wiggleCount: number },
-) => animationUtils.wiggle(actor, { offset, duration, wiggleCount });
+export const wiggle = (actor: Clutter.Actor, { offset, duration, wiggleCount }: animationUtils.WiggleParams) =>
+  animationUtils.wiggle(actor, { offset, duration, wiggleCount });
 
 export const wm = main.wm;
 

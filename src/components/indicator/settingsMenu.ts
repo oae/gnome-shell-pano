@@ -2,13 +2,18 @@ import Clutter from '@girs/clutter-14';
 import Gio from '@girs/gio-2.0';
 import type { Extension } from '@girs/gnome-shell/dist/extensions/extension';
 import { Button as PanelMenuButton } from '@girs/gnome-shell/dist/ui/panelMenu';
-import { PopupMenuItem, PopupSeparatorMenuItem, PopupSwitchMenuItem } from '@girs/gnome-shell/dist/ui/popupMenu';
+import {
+  PopupDummyMenu,
+  PopupMenuItem,
+  PopupSeparatorMenuItem,
+  PopupSwitchMenuItem,
+} from '@girs/gnome-shell/dist/ui/popupMenu';
 import GObject from '@girs/gobject-2.0';
 import St1 from '@girs/st-14';
 import { ClearHistoryDialog } from '@pano/components/indicator/clearHistoryDialog';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { ICON_PACKS } from '@pano/utils/panoItemType';
-import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
+import { getCurrentExtensionSettings, gettext, logger } from '@pano/utils/shell';
 import { openExtensionPreferences, wiggle } from '@pano/utils/ui';
 
 export type SettingsMenuSignalType = 'item-selected' | 'menu-state-changed';
@@ -17,6 +22,8 @@ interface SettingsMenuSignals extends SignalsDefinition<SettingsMenuSignalType> 
   'item-selected': Record<string, never>;
   'menu-state-changed': SignalRepresentationType<[GObject.GType<boolean>]>;
 }
+
+const debug = logger('settings-menu');
 
 @registerGObjectClass
 export class SettingsMenu extends PanelMenuButton {
@@ -86,20 +93,24 @@ export class SettingsMenu extends PanelMenuButton {
       );
     });
 
-    this.menu.addMenuItem(switchMenuItem);
-    this.menu.addMenuItem(new PopupSeparatorMenuItem());
-    const clearHistoryItem = new PopupMenuItem(_('Clear History'));
-    clearHistoryItem.connect('activate', () => {
-      const dialog = new ClearHistoryDialog(this.ext, onClear);
-      dialog.open();
-    });
-    this.menu.addMenuItem(clearHistoryItem);
-    this.menu.addMenuItem(new PopupSeparatorMenuItem());
-    const settingsItem = new PopupMenuItem(_('Settings'));
-    settingsItem.connect('activate', () => {
-      openExtensionPreferences(this.ext);
-    });
-    this.menu.addMenuItem(settingsItem);
+    if (this.menu instanceof PopupDummyMenu) {
+      debug('error: menu us PopupDummyMenu, but it should be a normal menu!');
+    } else {
+      this.menu.addMenuItem(switchMenuItem);
+      this.menu.addMenuItem(new PopupSeparatorMenuItem());
+      const clearHistoryItem = new PopupMenuItem(_('Clear History'));
+      clearHistoryItem.connect('activate', () => {
+        const dialog = new ClearHistoryDialog(this.ext, onClear);
+        dialog.open();
+      });
+      this.menu.addMenuItem(clearHistoryItem);
+      this.menu.addMenuItem(new PopupSeparatorMenuItem());
+      const settingsItem = new PopupMenuItem(_('Settings'));
+      settingsItem.connect('activate', () => {
+        openExtensionPreferences(this.ext);
+      });
+      this.menu.addMenuItem(settingsItem);
+    }
   }
 
   animate() {

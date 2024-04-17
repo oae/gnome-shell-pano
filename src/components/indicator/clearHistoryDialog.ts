@@ -36,7 +36,7 @@ export class ClearHistoryDialog extends ModalDialog {
       description: _('Are you sure you want to clear history?'),
     });
 
-    this.contentLayout.vfunc_add(content);
+    this.contentLayout.add_child(content);
   }
 
   private onCancelButtonPressed() {

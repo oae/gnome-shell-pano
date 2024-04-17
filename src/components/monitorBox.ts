@@ -56,7 +56,7 @@ export class MonitorBox extends St1.BoxLayout {
       radialEffect: false,
     });
     this._lightbox.highlight(_backgroundBin);
-    this._lightbox.set({ styleClass: 'pano-monitor-box' });
+    this._lightbox.styleClass = 'pano-monitor-box';
 
     const _eventBlocker = new Clutter.Actor({ reactive: true });
     backgroundStack.add_child(_eventBlocker);

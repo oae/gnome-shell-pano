@@ -1,3 +1,5 @@
+import '@girs/gnome-shell/dist/extensions/global';
+
 import Clutter from '@girs/clutter-14';
 import Gio from '@girs/gio-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
@@ -420,7 +422,6 @@ export class PanoScrollView extends St1.ScrollView {
       return;
     }
 
-    //TODO: this isn't in the types??? investigate (this.scrollView.vscroll.adjustment.ease is there at runtime and also this.ease, as per prototype chain...)
     adjustment.ease(value, {
       duration: 150,
       mode: Clutter.AnimationMode.EASE_OUT_QUAD,
