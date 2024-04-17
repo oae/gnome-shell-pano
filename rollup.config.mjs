@@ -40,6 +40,8 @@ const importsGeneral = {
   '@girs/gnome-shell/dist/ui/modalDialog': { name: 'resource://EXT_ROOT/ui/modalDialog.js' },
   '@girs/gnome-shell/dist/ui/popupMenu': { name: 'resource://EXT_ROOT/ui/popupMenu.js' },
   '@girs/gnome-shell/dist/ui/panelMenu': { name: 'resource://EXT_ROOT/ui/panelMenu.js' },
+  //compatibility imports
+  '@girs/gnome-shell-45/dist/ui/messageTray': { name: 'resource://EXT_ROOT/ui/messageTray.js' },
 };
 
 // prefs.js specific resources
@@ -97,7 +99,17 @@ const thirdParty = [
   'highlight.js/lib/languages/yaml',
 ];
 
-const gjsModules = [...Object.keys(importsGeneral), ...Object.keys(importsPrefs)];
+const additionalExternalModules = ['resource:///org/gnome/shell/*'];
+
+const gjsModules = [
+  ...Object.keys(importsGeneral),
+  ...Object.keys(importsPrefs),
+  ...Object.entries(ExtensionEntries),
+  ...Object.entries(PreferencesEntries),
+  ...additionalExternalModules,
+];
+
+const globalDefinitionImports = ['@girs/gnome-shell/dist/extensions/global'];
 
 const GlobalEntries = {};
 
@@ -145,7 +157,7 @@ const builds = [
         constBindings: true,
       },
     },
-    external: [...thirdParty, ...gjsModules],
+    external: [...thirdParty, ...gjsModules, ...globalDefinitionImports],
     plugins: [
       commonjs(),
       nodeResolve({
@@ -156,6 +168,9 @@ const builds = [
       }),
       styles({
         mode: ['extract', 'stylesheet.css'],
+        alias: {
+          './images/incognito-mode.svg': '../../resources/images/incognito-mode.svg',
+        },
       }),
       copy({
         targets: [
