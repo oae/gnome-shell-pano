@@ -154,11 +154,11 @@ export class PanoScrollView extends St1.ScrollView {
         });
         this.connectOnRemove(panoItem);
         this.connectOnFavorite(panoItem);
-        this.list.add_child(panoItem as unknown as Clutter.Actor);
+        this.list.add_child(panoItem);
       }
     });
 
-    const firstItem = this.list.get_first_child() as unknown as PanoItem | null;
+    const firstItem = this.list.get_first_child() as PanoItem | null;
     if (firstItem !== null) {
       firstItem.emit('activated');
     }
@@ -203,7 +203,7 @@ export class PanoScrollView extends St1.ScrollView {
       }
     });
 
-    this.list.insert_child_at_index(panoItem as unknown as Clutter.Actor, 0);
+    this.list.insert_child_at_index(panoItem, 0);
     this.removeExcessiveItems();
   }
 
@@ -240,19 +240,19 @@ export class PanoScrollView extends St1.ScrollView {
 
   private removeItem(item: PanoItem) {
     item.hide();
-    this.list.remove_child(item as unknown as Clutter.Actor);
+    this.list.remove_child(item);
   }
 
   private getItem(panoItem: PanoItem): PanoItem | undefined {
-    return this.getItems().find((item) => (item as PanoItem).dbItem.id === panoItem.dbItem.id) as PanoItem;
+    return this.getItems().find((item) => item.dbItem.id === panoItem.dbItem.id);
   }
 
   private getItems(): PanoItem[] {
-    return this.list.get_children() as unknown as PanoItem[];
+    return this.list.get_children() as PanoItem[];
   }
 
   private getVisibleItems(): PanoItem[] {
-    return this.list.get_children().filter((item) => item.is_visible()) as unknown as PanoItem[];
+    return this.getItems().filter((item) => item.is_visible());
   }
 
   private removeExcessiveItems() {

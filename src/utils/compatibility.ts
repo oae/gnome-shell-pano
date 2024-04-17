@@ -39,7 +39,7 @@ export function newNotification(
   params: Notification.Params,
 ): Notification | Notification45 {
   if (isGnome45()) {
-    return new Notification45(source as unknown as MessageTraySource45, text, banner, {
+    return new Notification45(source as MessageTraySource45, text, banner, {
       datetime: GLib.DateTime.new_now_local(),
       ...params,
     });

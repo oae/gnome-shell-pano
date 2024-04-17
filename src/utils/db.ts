@@ -220,19 +220,19 @@ class Database {
     });
 
     builder.set_table('clipboard');
-    builder.add_field_value_as_gvalue('itemType', dbItem.itemType as any);
-    builder.add_field_value_as_gvalue('content', dbItem.content as any);
-    builder.add_field_value_as_gvalue('copyDate', dbItem.copyDate.toISOString() as any);
-    builder.add_field_value_as_gvalue('isFavorite', +dbItem.isFavorite as any);
-    builder.add_field_value_as_gvalue('matchValue', dbItem.matchValue as any);
+    builder.add_field_value_as_gvalue('itemType', dbItem.itemType);
+    builder.add_field_value_as_gvalue('content', dbItem.content);
+    builder.add_field_value_as_gvalue('copyDate', dbItem.copyDate.toISOString());
+    builder.add_field_value_as_gvalue('isFavorite', +dbItem.isFavorite);
+    builder.add_field_value_as_gvalue('matchValue', dbItem.matchValue);
     if (dbItem.searchValue) {
-      builder.add_field_value_as_gvalue('searchValue', dbItem.searchValue as any);
+      builder.add_field_value_as_gvalue('searchValue', dbItem.searchValue);
     }
     if (dbItem.metaData) {
-      builder.add_field_value_as_gvalue('metaData', dbItem.metaData as any);
+      builder.add_field_value_as_gvalue('metaData', dbItem.metaData);
     }
     const [_, row] = this.connection.statement_execute_non_select(builder.get_statement(), null);
-    const id = row?.get_nth_holder(0).get_value() as any as number;
+    const id = row?.get_nth_holder(0).get_value() as number;
     if (!id) {
       return null;
     }
@@ -259,16 +259,16 @@ class Database {
     });
 
     builder.set_table('clipboard');
-    builder.add_field_value_as_gvalue('itemType', dbItem.itemType as any);
-    builder.add_field_value_as_gvalue('content', dbItem.content as any);
-    builder.add_field_value_as_gvalue('copyDate', dbItem.copyDate.toISOString() as any);
-    builder.add_field_value_as_gvalue('isFavorite', +dbItem.isFavorite as any);
-    builder.add_field_value_as_gvalue('matchValue', dbItem.matchValue as any);
+    builder.add_field_value_as_gvalue('itemType', dbItem.itemType);
+    builder.add_field_value_as_gvalue('content', dbItem.content);
+    builder.add_field_value_as_gvalue('copyDate', dbItem.copyDate.toISOString());
+    builder.add_field_value_as_gvalue('isFavorite', +dbItem.isFavorite);
+    builder.add_field_value_as_gvalue('matchValue', dbItem.matchValue);
     if (dbItem.searchValue) {
-      builder.add_field_value_as_gvalue('searchValue', dbItem.searchValue as any);
+      builder.add_field_value_as_gvalue('searchValue', dbItem.searchValue);
     }
     if (dbItem.metaData) {
-      builder.add_field_value_as_gvalue('metaData', dbItem.metaData as any);
+      builder.add_field_value_as_gvalue('metaData', dbItem.metaData);
     }
     builder.set_where(
       builder.add_cond(
@@ -318,14 +318,14 @@ class Database {
     const itemList: DBItem[] = [];
 
     while (iter.move_next()) {
-      const id = iter.get_value_for_field('id') as any as number;
-      const itemType = iter.get_value_for_field('itemType') as any as ItemType;
-      const content = iter.get_value_for_field('content') as any as string;
-      const copyDate = iter.get_value_for_field('copyDate') as any as string;
-      const isFavorite = iter.get_value_for_field('isFavorite') as any as string;
-      const matchValue = iter.get_value_for_field('matchValue') as any as string;
-      const searchValue = iter.get_value_for_field('searchValue') as any as string;
-      const metaData = iter.get_value_for_field('metaData') as any as string;
+      const id = iter.get_value_for_field('id') as number;
+      const itemType = iter.get_value_for_field('itemType') as ItemType;
+      const content = iter.get_value_for_field('content') as string;
+      const copyDate = iter.get_value_for_field('copyDate') as string;
+      const isFavorite = iter.get_value_for_field('isFavorite') as string;
+      const matchValue = iter.get_value_for_field('matchValue') as string;
+      const searchValue = iter.get_value_for_field('searchValue') as string;
+      const metaData = iter.get_value_for_field('metaData') as string;
 
       itemList.push({
         id,
