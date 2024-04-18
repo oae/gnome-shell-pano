@@ -220,19 +220,20 @@ class Database {
     });
 
     builder.set_table('clipboard');
-    builder.add_field_value_as_gvalue('itemType', dbItem.itemType);
-    builder.add_field_value_as_gvalue('content', dbItem.content);
-    builder.add_field_value_as_gvalue('copyDate', dbItem.copyDate.toISOString());
-    builder.add_field_value_as_gvalue('isFavorite', +dbItem.isFavorite);
-    builder.add_field_value_as_gvalue('matchValue', dbItem.matchValue);
+    //Note: casting required, since this is a gjs convention, that you don't have to pass a  GObject.Value, this is needed for teh C API, but GJS constructs it on the fly
+    builder.add_field_value_as_gvalue('itemType', dbItem.itemType as any);
+    builder.add_field_value_as_gvalue('content', dbItem.content as any);
+    builder.add_field_value_as_gvalue('copyDate', dbItem.copyDate.toISOString() as any);
+    builder.add_field_value_as_gvalue('isFavorite', +dbItem.isFavorite as any);
+    builder.add_field_value_as_gvalue('matchValue', dbItem.matchValue as any);
     if (dbItem.searchValue) {
-      builder.add_field_value_as_gvalue('searchValue', dbItem.searchValue);
+      builder.add_field_value_as_gvalue('searchValue', dbItem.searchValue as any);
     }
     if (dbItem.metaData) {
-      builder.add_field_value_as_gvalue('metaData', dbItem.metaData);
+      builder.add_field_value_as_gvalue('metaData', dbItem.metaData as any);
     }
     const [_, row] = this.connection.statement_execute_non_select(builder.get_statement(), null);
-    const id = row?.get_nth_holder(0).get_value() as number;
+    const id = row?.get_nth_holder(0).get_value() as any as number;
     if (!id) {
       return null;
     }
@@ -259,16 +260,17 @@ class Database {
     });
 
     builder.set_table('clipboard');
-    builder.add_field_value_as_gvalue('itemType', dbItem.itemType);
-    builder.add_field_value_as_gvalue('content', dbItem.content);
-    builder.add_field_value_as_gvalue('copyDate', dbItem.copyDate.toISOString());
-    builder.add_field_value_as_gvalue('isFavorite', +dbItem.isFavorite);
-    builder.add_field_value_as_gvalue('matchValue', dbItem.matchValue);
+    //Note: casting required, since this is a gjs convention, that you don't have to pass a  GObject.Value, this is needed for teh C API, but GJS constructs it on the fly
+    builder.add_field_value_as_gvalue('itemType', dbItem.itemType as any);
+    builder.add_field_value_as_gvalue('content', dbItem.content as any);
+    builder.add_field_value_as_gvalue('copyDate', dbItem.copyDate.toISOString() as any);
+    builder.add_field_value_as_gvalue('isFavorite', +dbItem.isFavorite as any);
+    builder.add_field_value_as_gvalue('matchValue', dbItem.matchValue as any);
     if (dbItem.searchValue) {
-      builder.add_field_value_as_gvalue('searchValue', dbItem.searchValue);
+      builder.add_field_value_as_gvalue('searchValue', dbItem.searchValue as any);
     }
     if (dbItem.metaData) {
-      builder.add_field_value_as_gvalue('metaData', dbItem.metaData);
+      builder.add_field_value_as_gvalue('metaData', dbItem.metaData as any);
     }
     builder.set_where(
       builder.add_cond(
@@ -318,14 +320,15 @@ class Database {
     const itemList: DBItem[] = [];
 
     while (iter.move_next()) {
-      const id = iter.get_value_for_field('id') as number;
-      const itemType = iter.get_value_for_field('itemType') as ItemType;
-      const content = iter.get_value_for_field('content') as string;
-      const copyDate = iter.get_value_for_field('copyDate') as string;
-      const isFavorite = iter.get_value_for_field('isFavorite') as string;
-      const matchValue = iter.get_value_for_field('matchValue') as string;
-      const searchValue = iter.get_value_for_field('searchValue') as string;
-      const metaData = iter.get_value_for_field('metaData') as string;
+      //Note: casting required, since this is a gjs convention, that any GObject.Value is just the value (e.g. string, number etc.) this types are from C, so there is no dynamic return value so they have to use GObject.Value
+      const id = iter.get_value_for_field('id') as any as number;
+      const itemType = iter.get_value_for_field('itemType') as any as ItemType;
+      const content = iter.get_value_for_field('content') as any as string;
+      const copyDate = iter.get_value_for_field('copyDate') as any as string;
+      const isFavorite = iter.get_value_for_field('isFavorite') as any as number;
+      const matchValue = iter.get_value_for_field('matchValue') as any as string;
+      const searchValue = iter.get_value_for_field('searchValue') as any as string;
+      const metaData = iter.get_value_for_field('metaData') as any as string;
 
       itemList.push({
         id,

@@ -3,8 +3,6 @@ import type Gda6 from '@girs/gda-6.0';
 import GLib from '@girs/glib-2.0';
 import { Source as MessageTraySource } from '@girs/gnome-shell/dist/ui/messageTray';
 import { Notification } from '@girs/gnome-shell/dist/ui/messageTray';
-import { Source as MessageTraySource45 } from '@girs/gnome-shell-45/dist/ui/messageTray';
-import { Notification as Notification45 } from '@girs/gnome-shell-45/dist/ui/messageTray';
 
 // compatibility functions for Gda 5.0 and 6.0
 
@@ -33,13 +31,14 @@ function isGnome45(): boolean {
 }
 
 export function newNotification(
-  source: MessageTraySource | MessageTraySource45,
+  source: MessageTraySource,
   text: string,
   banner: string,
   params: Notification.Params,
-): Notification | Notification45 {
+): Notification {
   if (isGnome45()) {
-    return new Notification45(source as MessageTraySource45, text, banner, {
+    // @ts-expect-error gnome 45 type
+    return new Notification(source, text, banner, {
       datetime: GLib.DateTime.new_now_local(),
       ...params,
     });
@@ -54,20 +53,19 @@ export function newNotification(
   });
 }
 
-export function newMessageTraySource(title: string, iconName: string): MessageTraySource | MessageTraySource45 {
+export function newMessageTraySource(title: string, iconName: string): MessageTraySource {
   if (isGnome45()) {
-    return new MessageTraySource45(title, iconName);
+    // @ts-expect-error gnome 45 type
+    return new MessageTraySource(title, iconName);
   }
 
   return new MessageTraySource({ title, iconName });
 }
 
-export function addNotification(
-  source: MessageTraySource | MessageTraySource45,
-  notification: Notification | Notification45,
-): void {
+export function addNotification(source: MessageTraySource, notification: Notification): void {
   if (isGnome45()) {
-    (source as MessageTraySource45).showNotification(notification as Notification45);
+    // @ts-expect-error gnome 45 type
+    source.showNotification(notification);
   } else {
     (source as MessageTraySource).addNotification(notification as Notification);
   }

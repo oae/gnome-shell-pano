@@ -22,7 +22,12 @@ export const getDocument = async (url: string): Promise<{ title: string; descrip
   try {
     const message = Soup.Message.new('GET', url);
     message.requestHeaders.append('User-Agent', DEFAULT_USER_AGENT);
-    const response = await session.send_and_read_async(message, GLib.PRIORITY_DEFAULT, null);
+    //note: casting required, since this is a gjs convention, to return an promise, instead of accepting a 4. value as callback (thats a C convention, since there's no Promise out of the box, but a callback works)
+    const response = (await session.send_and_read_async(
+      message,
+      GLib.PRIORITY_DEFAULT,
+      null,
+    )) as any as GLib.Bytes | null;
 
     if (response == null) {
       debug(`no response from ${url}`);
@@ -133,7 +138,12 @@ export const getImage = async (ext: ExtensionBase, imageUrl: string): Promise<[s
 
       const message = Soup.Message.new('GET', imageUrl);
       message.requestHeaders.append('User-Agent', DEFAULT_USER_AGENT);
-      const response = await session.send_and_read_async(message, GLib.PRIORITY_DEFAULT, null);
+      //note: casting required, since this is a gjs convention, to return an promise, instead of accepting a 4. value as callback (thats a C convention, since there's no Promise out of the box, but a callback works)
+      const response = (await session.send_and_read_async(
+        message,
+        GLib.PRIORITY_DEFAULT,
+        null,
+      )) as any as GLib.Bytes | null;
       if (!response) {
         debug('no response while fetching the image');
         return [null, null];
