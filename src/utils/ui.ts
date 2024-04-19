@@ -9,7 +9,7 @@ import { Monitor, MonitorConstraint } from '@girs/gnome-shell/dist/ui/layout';
 import * as main from '@girs/gnome-shell/dist/ui/main';
 import type { Source as MessageTraySource } from '@girs/gnome-shell/dist/ui/messageTray';
 import Shell from '@girs/shell-14';
-import St1 from '@girs/st-14';
+import St from '@girs/st-14';
 import { gettext } from '@pano/utils/shell';
 
 import { addNotification, newMessageTraySource, newNotification } from './compatibility';
@@ -29,10 +29,10 @@ export const notify = (
   let notification;
   if (iconOrPixbuf) {
     if (iconOrPixbuf instanceof GdkPixbuf.Pixbuf) {
-      const content = St1.ImageContent.new_with_preferred_size(
+      const content = St.ImageContent.new_with_preferred_size(
         iconOrPixbuf.width,
         iconOrPixbuf.height,
-      ) as St1.ImageContent;
+      ) as St.ImageContent;
       content.set_bytes(
         iconOrPixbuf.read_pixel_bytes(),
         pixelFormat || Cogl.PixelFormat.RGBA_8888,

@@ -4,7 +4,7 @@ import Clutter from '@girs/clutter-14';
 import Gio from '@girs/gio-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import Shell from '@girs/shell-14';
-import St1 from '@girs/st-14';
+import St from '@girs/st-14';
 import { MonitorBox } from '@pano/components/monitorBox';
 import { PanoScrollView } from '@pano/components/panoScrollView';
 import { SearchBox } from '@pano/components/searchBox';
@@ -15,7 +15,7 @@ import { getCurrentExtensionSettings } from '@pano/utils/shell';
 import { getAlignment, getMonitorConstraint, isVertical } from '@pano/utils/ui';
 
 @registerGObjectClass
-export class PanoWindow extends St1.BoxLayout {
+export class PanoWindow extends St.BoxLayout {
   private scrollView: PanoScrollView;
   private searchBox: SearchBox;
   private monitorBox: MonitorBox;
@@ -36,7 +36,7 @@ export class PanoWindow extends St1.BoxLayout {
     this.settings = getCurrentExtensionSettings(ext);
     this.setAlignment();
 
-    const themeContext = St1.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
+    const themeContext = St.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
 
     this.setWindowDimensions(themeContext.scaleFactor);
     themeContext.connect('notify::scale-factor', () => {

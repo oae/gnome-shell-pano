@@ -1,7 +1,7 @@
 import Gio from '@girs/gio-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import Pango from '@girs/pango-1.0';
-import St1 from '@girs/st-14';
+import St from '@girs/st-14';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
@@ -11,13 +11,13 @@ import { markupCode } from '@pano/utils/pango';
 @registerGObjectClass
 export class CodePanoItem extends PanoItem {
   private codeItemSettings: Gio.Settings;
-  private label: St1.Label;
+  private label: St.Label;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
     super(ext, clipboardManager, dbItem);
     this.codeItemSettings = this.settings.get_child('code-item');
 
-    this.label = new St1.Label({
+    this.label = new St.Label({
       styleClass: 'pano-item-body-code-content',
       clipToAllocation: true,
     });

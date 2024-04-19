@@ -2,7 +2,7 @@ import Clutter from '@girs/clutter-14';
 import Gio from '@girs/gio-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import Pango from '@girs/pango-1.0';
-import St1 from '@girs/st-14';
+import St from '@girs/st-14';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType, FileOperation } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
@@ -24,7 +24,7 @@ export class FilePanoItem extends PanoItem {
 
     this.fileItemSettings = this.settings.get_child('file-item');
 
-    const container = new St1.BoxLayout({
+    const container = new St.BoxLayout({
       styleClass: 'copied-files-container',
       vertical: true,
       xExpand: true,
@@ -38,7 +38,7 @@ export class FilePanoItem extends PanoItem {
         return decodeURIComponent(items[items.length - 1]);
       })
       .forEach((uri) => {
-        const bl = new St1.BoxLayout({
+        const bl = new St.BoxLayout({
           vertical: false,
           styleClass: 'copied-file-name',
           xExpand: true,
@@ -47,14 +47,14 @@ export class FilePanoItem extends PanoItem {
           yAlign: Clutter.ActorAlign.FILL,
         });
         bl.add_child(
-          new St1.Icon({
+          new St.Icon({
             iconName: this.operation === FileOperation.CUT ? 'edit-cut-symbolic' : 'edit-copy-symbolic',
             xAlign: Clutter.ActorAlign.START,
             iconSize: 14,
             styleClass: 'file-icon',
           }),
         );
-        const uriLabel = new St1.Label({
+        const uriLabel = new St.Label({
           text: uri,
           styleClass: 'pano-item-body-file-name-label',
           xAlign: Clutter.ActorAlign.FILL,

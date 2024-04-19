@@ -2,7 +2,7 @@ import Clutter from '@girs/clutter-14';
 import Gio from '@girs/gio-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import Pango from '@girs/pango-1.0';
-import St1 from '@girs/st-14';
+import St from '@girs/st-14';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
@@ -10,7 +10,7 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 @registerGObjectClass
 export class EmojiPanoItem extends PanoItem {
   private emojiItemSettings: Gio.Settings;
-  private label: St1.Label;
+  private label: St.Label;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
     super(ext, clipboardManager, dbItem);
@@ -19,7 +19,7 @@ export class EmojiPanoItem extends PanoItem {
 
     this.emojiItemSettings = this.settings.get_child('emoji-item');
 
-    const emojiContainer = new St1.BoxLayout({
+    const emojiContainer = new St.BoxLayout({
       vertical: false,
       xExpand: true,
       yExpand: true,
@@ -28,7 +28,7 @@ export class EmojiPanoItem extends PanoItem {
       styleClass: 'emoji-container',
     });
 
-    this.label = new St1.Label({
+    this.label = new St.Label({
       xAlign: Clutter.ActorAlign.CENTER,
       yAlign: Clutter.ActorAlign.CENTER,
       xExpand: true,

@@ -6,7 +6,7 @@ import GObject from '@girs/gobject-2.0';
 import Graphene from '@girs/graphene-1.0';
 import Meta from '@girs/meta-14';
 import Shell from '@girs/shell-14';
-import St1 from '@girs/st-14';
+import St from '@girs/st-14';
 import { PanoItemHeader } from '@pano/components/panoItemHeader';
 import { ClipboardManager } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
@@ -24,7 +24,7 @@ interface PanoItemSignals extends SignalsDefinition<PanoItemSignalType> {
 }
 
 @registerGObjectClass
-export class PanoItem extends St1.BoxLayout {
+export class PanoItem extends St.BoxLayout {
   static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, PanoItemSignals> = {
     GTypeName: 'PanoItem',
     Signals: {
@@ -42,7 +42,7 @@ export class PanoItem extends St1.BoxLayout {
 
   protected header: PanoItemHeader;
   private timeoutId: number | undefined;
-  protected body: St1.BoxLayout;
+  protected body: St.BoxLayout;
   protected clipboardManager: ClipboardManager;
   public dbItem: DBItem;
   protected settings: Gio.Settings;
@@ -137,7 +137,7 @@ export class PanoItem extends St1.BoxLayout {
       return Clutter.EVENT_PROPAGATE;
     });
 
-    this.body = new St1.BoxLayout({
+    this.body = new St.BoxLayout({
       styleClass: 'pano-item-body',
       clipToAllocation: true,
       vertical: true,
@@ -150,7 +150,7 @@ export class PanoItem extends St1.BoxLayout {
     this.add_child(this.header);
     this.add_child(this.body);
 
-    const themeContext = St1.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
+    const themeContext = St.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
 
     themeContext.connect('notify::scale-factor', () => {
       this.setBodyDimensions();
@@ -174,7 +174,7 @@ export class PanoItem extends St1.BoxLayout {
       this.set_x_align(Clutter.ActorAlign.START);
       this.set_y_align(Clutter.ActorAlign.FILL);
     }
-    const { scaleFactor } = St1.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
+    const { scaleFactor } = St.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
     this.body.set_height(this.settings.get_int('item-size') * scaleFactor - this.header.get_height());
     this.body.set_width(this.settings.get_int('item-size') * scaleFactor);
   }

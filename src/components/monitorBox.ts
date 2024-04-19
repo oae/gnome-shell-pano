@@ -4,7 +4,7 @@ import { Lightbox } from '@girs/gnome-shell/dist/ui/lightbox';
 import * as main from '@girs/gnome-shell/dist/ui/main';
 import GObject from '@girs/gobject-2.0';
 import Shell from '@girs/shell-14';
-import St1 from '@girs/st-14';
+import St from '@girs/st-14';
 import { registerGObjectClass } from '@pano/utils/gjs';
 
 interface MonitorBoxSignals {
@@ -12,7 +12,7 @@ interface MonitorBoxSignals {
 }
 
 @registerGObjectClass
-export class MonitorBox extends St1.BoxLayout {
+export class MonitorBox extends St.BoxLayout {
   static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, MonitorBoxSignals> = {
     GTypeName: 'MonitorBox',
     Signals: {
@@ -42,12 +42,12 @@ export class MonitorBox extends St1.BoxLayout {
     });
     this.add_constraint(constraint);
 
-    const backgroundStack = new St1.Widget({
+    const backgroundStack = new St.Widget({
       layoutManager: new Clutter.BinLayout(),
       xExpand: true,
       yExpand: true,
     });
-    const _backgroundBin = new St1.Bin({ child: backgroundStack });
+    const _backgroundBin = new St.Bin({ child: backgroundStack });
     const _monitorConstraint = new MonitorConstraint({});
     _backgroundBin.add_constraint(_monitorConstraint);
     this.add_child(_backgroundBin);

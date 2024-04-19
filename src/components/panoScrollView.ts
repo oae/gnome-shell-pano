@@ -5,7 +5,7 @@ import Gio from '@girs/gio-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import GObject from '@girs/gobject-2.0';
 import Shell from '@girs/shell-14';
-import St1 from '@girs/st-14';
+import St from '@girs/st-14';
 import { PanoItem } from '@pano/components/panoItem';
 import { SearchBox } from '@pano/components/searchBox';
 import { ClipboardContent, ClipboardManager } from '@pano/utils/clipboardManager';
@@ -33,10 +33,10 @@ interface PanoScrollViewSignals extends SignalsDefinition<PanoScrollViewSignalTy
   'scroll-key-press': SignalRepresentationType<[GObject.GType<string>]>;
 }
 
-//TODO: the list member of St1.BoxLayout are of type Clutter.Actor and we have to cast constantly from PanoItem to Clutter.Actor and reverse, fix that somehow
+//TODO: the list member of St.BoxLayout are of type Clutter.Actor and we have to cast constantly from PanoItem to Clutter.Actor and reverse, fix that somehow
 
 @registerGObjectClass
-export class PanoScrollView extends St1.ScrollView {
+export class PanoScrollView extends St.ScrollView {
   static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, PanoScrollViewSignals> = {
     GTypeName: 'PanoScrollView',
     Signals: {
@@ -55,7 +55,7 @@ export class PanoScrollView extends St1.ScrollView {
     },
   };
 
-  private list: St1.BoxLayout;
+  private list: St.BoxLayout;
   private settings: Gio.Settings;
   private currentFocus: PanoItem | null = null;
   private currentFilter: string;
@@ -79,7 +79,7 @@ export class PanoScrollView extends St1.ScrollView {
 
     this.setScrollbarPolicy();
 
-    this.list = new St1.BoxLayout({
+    this.list = new St.BoxLayout({
       vertical: isVertical(this.settings.get_uint('window-position')),
       xExpand: true,
       yExpand: true,
@@ -104,7 +104,7 @@ export class PanoScrollView extends St1.ScrollView {
       }
     };
 
-    this.connect('key-press-event', (_: St1.ScrollView, event: Clutter.Event) => {
+    this.connect('key-press-event', (_: St.ScrollView, event: Clutter.Event) => {
       if (
         event.get_key_symbol() === Clutter.KEY_Tab ||
         event.get_key_symbol() === Clutter.KEY_ISO_Left_Tab ||
@@ -182,9 +182,9 @@ export class PanoScrollView extends St1.ScrollView {
 
   private setScrollbarPolicy() {
     if (isVertical(this.settings.get_uint('window-position'))) {
-      this.set_policy(St1.PolicyType.NEVER, St1.PolicyType.EXTERNAL);
+      this.set_policy(St.PolicyType.NEVER, St.PolicyType.EXTERNAL);
     } else {
-      this.set_policy(St1.PolicyType.EXTERNAL, St1.PolicyType.NEVER);
+      this.set_policy(St.PolicyType.EXTERNAL, St.PolicyType.NEVER);
     }
   }
 
@@ -408,7 +408,7 @@ export class PanoScrollView extends St1.ScrollView {
   private scrollToItem(item: PanoItem) {
     const box = item.get_allocation_box();
 
-    let adjustment: St1.Adjustment | undefined;
+    let adjustment: St.Adjustment | undefined;
 
     let value: number | undefined;
     if (isVertical(this.settings.get_uint('window-position'))) {
@@ -465,7 +465,7 @@ export class PanoScrollView extends St1.ScrollView {
   }
 
   override vfunc_scroll_event(event: Clutter.Event): boolean {
-    let adjustment: St1.Adjustment | undefined;
+    let adjustment: St.Adjustment | undefined;
 
     if (isVertical(this.settings.get_uint('window-position'))) {
       adjustment = this.vscroll.adjustment;

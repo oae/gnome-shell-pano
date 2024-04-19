@@ -4,7 +4,7 @@ import GLib from '@girs/glib-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import GObject from '@girs/gobject-2.0';
 import Shell from '@girs/shell-14';
-import St1 from '@girs/st-14';
+import St from '@girs/st-14';
 import { registerGObjectClass, SignalsDefinition } from '@pano/utils/gjs';
 import { ICON_PACKS, IPanoItemType } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
@@ -23,7 +23,7 @@ interface PanoItemHeaderSignals extends SignalsDefinition<PanoItemHeaderSignalTy
 }
 
 @registerGObjectClass
-export class PanoItemHeader extends St1.BoxLayout {
+export class PanoItemHeader extends St.BoxLayout {
   static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, PanoItemHeaderSignals> = {
     GTypeName: 'PanoItemHeader',
     Signals: {
@@ -33,13 +33,13 @@ export class PanoItemHeader extends St1.BoxLayout {
   };
 
   private dateUpdateIntervalId: any;
-  private favoriteButton: St1.Button;
+  private favoriteButton: St.Button;
   private settings: Gio.Settings;
-  private titleLabel: St1.Label;
-  private dateLabel: St1.Label;
-  actionContainer: St1.BoxLayout;
-  titleContainer: St1.BoxLayout;
-  iconContainer: St1.BoxLayout;
+  private titleLabel: St.Label;
+  private dateLabel: St.Label;
+  actionContainer: St.BoxLayout;
+  titleContainer: St.BoxLayout;
+  iconContainer: St.BoxLayout;
   itemType: IPanoItemType;
 
   constructor(ext: ExtensionBase, itemType: IPanoItemType, date: Date) {
@@ -48,18 +48,18 @@ export class PanoItemHeader extends St1.BoxLayout {
       vertical: false,
     });
     this.itemType = itemType;
-    this.titleContainer = new St1.BoxLayout({
+    this.titleContainer = new St.BoxLayout({
       styleClass: 'pano-item-title-container',
       vertical: true,
       xExpand: true,
     });
-    this.iconContainer = new St1.BoxLayout({
+    this.iconContainer = new St.BoxLayout({
       styleClass: 'pano-icon-container',
     });
 
     this.settings = getCurrentExtensionSettings(ext);
 
-    const themeContext = St1.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
+    const themeContext = St.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
 
     this.set_height(56 * themeContext.scaleFactor);
 
@@ -67,7 +67,7 @@ export class PanoItemHeader extends St1.BoxLayout {
       this.set_height(56 * themeContext.scaleFactor);
     });
 
-    const icon = new St1.Icon({
+    const icon = new St.Icon({
       styleClass: 'pano-item-title-icon',
       gicon: Gio.icon_new_for_string(
         `${ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${
@@ -86,7 +86,7 @@ export class PanoItemHeader extends St1.BoxLayout {
       );
     });
 
-    this.titleLabel = new St1.Label({
+    this.titleLabel = new St.Label({
       text: itemType.title,
       styleClass: 'pano-item-title',
       xExpand: true,
@@ -94,7 +94,7 @@ export class PanoItemHeader extends St1.BoxLayout {
 
     this.titleContainer.add_child(this.titleLabel);
 
-    this.dateLabel = new St1.Label({
+    this.dateLabel = new St.Label({
       text: formatDistanceToNow(date, { addSuffix: true, locale: localeKey ? dateLocale[localeKey] : undefined }),
       styleClass: 'pano-item-date',
       xExpand: true,
@@ -113,7 +113,7 @@ export class PanoItemHeader extends St1.BoxLayout {
 
     this.titleContainer.add_child(this.dateLabel);
 
-    this.actionContainer = new St1.BoxLayout({
+    this.actionContainer = new St.BoxLayout({
       styleClass: 'pano-item-actions',
       xExpand: true,
       yExpand: true,
@@ -121,12 +121,12 @@ export class PanoItemHeader extends St1.BoxLayout {
       yAlign: Clutter.ActorAlign.START,
     });
 
-    const favoriteIcon = new St1.Icon({
+    const favoriteIcon = new St.Icon({
       styleClass: 'pano-item-action-button-icon',
       iconName: 'starred-symbolic',
     });
 
-    this.favoriteButton = new St1.Button({
+    this.favoriteButton = new St.Button({
       styleClass: 'pano-item-action-button pano-item-favorite-button',
       child: favoriteIcon,
     });
@@ -136,12 +136,12 @@ export class PanoItemHeader extends St1.BoxLayout {
       return Clutter.EVENT_PROPAGATE;
     });
 
-    const removeIcon = new St1.Icon({
+    const removeIcon = new St.Icon({
       styleClass: 'pano-item-action-button-icon pano-item-action-button-remove-icon',
       iconName: 'window-close-symbolic',
     });
 
-    const removeButton = new St1.Button({
+    const removeButton = new St.Button({
       styleClass: 'pano-item-action-button pano-item-remove-button',
       child: removeIcon,
     });

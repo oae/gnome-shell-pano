@@ -9,7 +9,7 @@ import {
   PopupSwitchMenuItem,
 } from '@girs/gnome-shell/dist/ui/popupMenu';
 import GObject from '@girs/gobject-2.0';
-import St1 from '@girs/st-14';
+import St from '@girs/st-14';
 import { ClearHistoryDialog } from '@pano/components/indicator/clearHistoryDialog';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { ICON_PACKS } from '@pano/utils/panoItemType';
@@ -40,7 +40,7 @@ export class SettingsMenu extends PanelMenuButton {
 
   private settings: Gio.Settings;
   private incognitoChangeId: number | null;
-  private icon: St1.Icon;
+  private icon: St.Icon;
   private ext: Extension;
   private onToggle: () => void;
 
@@ -53,7 +53,7 @@ export class SettingsMenu extends PanelMenuButton {
     this.settings = getCurrentExtensionSettings(this.ext);
     const isInIncognito = this.settings.get_boolean('is-in-incognito');
 
-    this.icon = new St1.Icon({
+    this.icon = new St.Icon({
       gicon: Gio.icon_new_for_string(
         `${this.ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-indicator${
           isInIncognito ? '-incognito-symbolic' : '-symbolic'

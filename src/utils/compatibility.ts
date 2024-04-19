@@ -2,7 +2,7 @@ import type Gda5 from '@girs/gda-5.0';
 import type Gda6 from '@girs/gda-6.0';
 import GLib from '@girs/glib-2.0';
 import { Notification, Source as MessageTraySource } from '@girs/gnome-shell/dist/ui/messageTray';
-import St1 from '@girs/st-14';
+import St from '@girs/st-14';
 
 // compatibility functions for Gda 5.0 and 6.0
 
@@ -72,7 +72,7 @@ export function addNotification(source: MessageTraySource, notification: Notific
   }
 }
 
-export function scrollViewAddChild(scrollView: St1.ScrollView, actor: St1.Scrollable): void {
+export function scrollViewAddChild(scrollView: St.ScrollView, actor: St.Scrollable): void {
   if ((scrollView as any as { add_actor: undefined | any }).add_actor !== undefined) {
     // @ts-expect-error gnome 45 type, or even some gnome 46 distros do support that, so using this check, instead of isGnome45()!
     scrollView.add_actor(actor);
@@ -83,7 +83,7 @@ export function scrollViewAddChild(scrollView: St1.ScrollView, actor: St1.Scroll
 
 export type AdjustmentType = 'v' | 'h';
 
-export function getScrollViewAdjustment(scrollView: St1.ScrollView, type: AdjustmentType): St1.Adjustment {
+export function getScrollViewAdjustment(scrollView: St.ScrollView, type: AdjustmentType): St.Adjustment {
   if (scrollView.vadjustment !== undefined) {
     if (type === 'v') {
       return scrollView.vadjustment;

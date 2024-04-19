@@ -4,7 +4,7 @@ import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInte
 import GObject from '@girs/gobject-2.0';
 import Meta from '@girs/meta-14';
 import Shell from '@girs/shell-14';
-import St1 from '@girs/st-14';
+import St from '@girs/st-14';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { getPanoItemTypes, ICON_PACKS } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
@@ -24,7 +24,7 @@ interface SearchBoxSignals extends SignalsDefinition<SearchBoxSignalType> {
   'search-submit': Record<string, never>;
 }
 @registerGObjectClass
-export class SearchBox extends St1.BoxLayout {
+export class SearchBox extends St.BoxLayout {
   static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, SearchBoxSignals> = {
     GTypeName: 'SearchBox',
     Signals: {
@@ -41,7 +41,7 @@ export class SearchBox extends St1.BoxLayout {
     },
   };
 
-  private search: St1.Entry;
+  private search: St.Entry;
   private currentIndex: number | null = null;
   private showFavorites = false;
   private settings: Gio.Settings;
@@ -61,9 +61,9 @@ export class SearchBox extends St1.BoxLayout {
 
     this.settings = getCurrentExtensionSettings(ext);
 
-    const themeContext = St1.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
+    const themeContext = St.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
 
-    this.search = new St1.Entry({
+    this.search = new St.Entry({
       canFocus: true,
       hintText: _('Type to search, Tab to cycle'),
       naturalWidth: 300 * themeContext.scaleFactor,
@@ -92,7 +92,7 @@ export class SearchBox extends St1.BoxLayout {
       this.emitSearchTextChange();
     });
 
-    this.search.clutterText.connect('key-press-event', (_: St1.Entry, event: Clutter.Event) => {
+    this.search.clutterText.connect('key-press-event', (_: St.Entry, event: Clutter.Event) => {
       if (
         event.get_key_symbol() === Clutter.KEY_Down ||
         (event.get_key_symbol() === Clutter.KEY_Right &&
@@ -209,7 +209,7 @@ export class SearchBox extends St1.BoxLayout {
   }
 
   private createSearchEntryIcon(iconNameOrProto: string | Gio.Icon, styleClass: string) {
-    const icon = new St1.Icon({
+    const icon = new St.Icon({
       styleClass: styleClass,
       iconSize: 13,
       trackHover: true,
@@ -235,7 +235,7 @@ export class SearchBox extends St1.BoxLayout {
   }
 
   toggleFavorites() {
-    const icon = this.search.get_secondary_icon() as St1.Icon;
+    const icon = this.search.get_secondary_icon() as St.Icon;
     if (this.showFavorites) {
       icon.remove_style_class_name('active');
     } else {
