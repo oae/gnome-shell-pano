@@ -9,6 +9,7 @@ import St1 from '@girs/st-14';
 import { PanoItem } from '@pano/components/panoItem';
 import { SearchBox } from '@pano/components/searchBox';
 import { ClipboardContent, ClipboardManager } from '@pano/utils/clipboardManager';
+import { scrollViewAddChild } from '@pano/utils/compatibility';
 import { ClipboardQueryBuilder, db, ItemType } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { createPanoItem, createPanoItemFromDb, removeItemResources } from '@pano/utils/panoItemFactory';
@@ -88,7 +89,7 @@ export class PanoScrollView extends St1.ScrollView {
       this.setScrollbarPolicy();
       this.list.set_vertical(isVertical(this.settings.get_uint('window-position')));
     });
-    this.add_child(this.list);
+    scrollViewAddChild(this, this.list);
 
     const shouldFocusOut = (symbol: number) => {
       const isPanoVertical = isVertical(this.settings.get_uint('window-position'));

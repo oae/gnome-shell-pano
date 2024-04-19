@@ -1,8 +1,10 @@
+import Clutter from '@girs/clutter-14';
 import type Gda5 from '@girs/gda-5.0';
 import type Gda6 from '@girs/gda-6.0';
 import GLib from '@girs/glib-2.0';
 import { Source as MessageTraySource } from '@girs/gnome-shell/dist/ui/messageTray';
 import { Notification } from '@girs/gnome-shell/dist/ui/messageTray';
+import St1 from '@girs/st-14';
 
 // compatibility functions for Gda 5.0 and 6.0
 
@@ -27,7 +29,11 @@ export function add_expr_value(builder: Gda5.SqlBuilder | Gda6.SqlBuilder, value
 // compatibility functions for gnome 45 / 46
 
 function isGnome45(): boolean {
-  return MessageTraySource.prototype.addNotification === undefined;
+  // be 100% sure which version we use, and not using Config.PACKAGE_VERSION
+  return (
+    MessageTraySource.prototype.addNotification === undefined ||
+    (Clutter as any as { Container: undefined | any }).Container === undefined
+  );
 }
 
 export function newNotification(
@@ -68,5 +74,14 @@ export function addNotification(source: MessageTraySource, notification: Notific
     source.showNotification(notification);
   } else {
     (source as MessageTraySource).addNotification(notification as Notification);
+  }
+}
+
+export function scrollViewAddChild(scrollView: St1.ScrollView, actor: St1.Scrollable): void {
+  if ((scrollView as any as { add_actor: undefined | any }).add_actor !== undefined) {
+    // @ts-expect-error gnome 45 type, or even some gnome 46 distros do support that, so using this check, instead of isGnome45()!
+    scrollView.add_actor(actor);
+  } else {
+    scrollView.set_child(actor);
   }
 }
