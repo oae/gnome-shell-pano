@@ -515,10 +515,10 @@
     "@girs/glib-2.0" "^2.80.0-4.0.0-beta.2"
     "@girs/gobject-2.0" "^2.80.0-4.0.0-beta.2"
 
-"@girs/gnome-shell@46.0.0-4.0.0-beta.2":
-  version "46.0.0-4.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@girs/gnome-shell/-/gnome-shell-46.0.0-4.0.0-beta.2.tgz#420229b89685acc34597ee670461c4f657c760ed"
-  integrity sha512-TWhhSX9TnWIYeINkP30oBtt08T3Nxy7+zFh2vMTgqwmSqoPXP2QUb724uA5LwveEzskWYF9PkJQm5JojpTwsEA==
+"@girs/gnome-shell@46.0.0-4.0.0-beta.3":
+  version "46.0.0-4.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/@girs/gnome-shell/-/gnome-shell-46.0.0-4.0.0-beta.3.tgz#b22d034e2856d9e2d5c1a1130ed17d2489d7ef4d"
+  integrity sha512-etKoYBlJOx+45W6yzAGabRZD0fiA6b5FIw6JIOjgmSqZBun+mAloWAp1MykXEKVQYsJpS3eIcgEx2j0uM9UKJg==
   dependencies:
     "@girs/accountsservice-1.0" "^1.0.0-4.0.0-beta.2"
     "@girs/adw-1" "^1.5.0-4.0.0-beta.2"

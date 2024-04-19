@@ -43,7 +43,7 @@
     "@girs/gdkpixbuf-2.0": "2.0.0-4.0.0-beta.2",
     "@girs/gio-2.0": "2.80.0-4.0.0-beta.2",
     "@girs/glib-2.0": "2.80.0-4.0.0-beta.2",
-    "@girs/gnome-shell": "46.0.0-4.0.0-beta.2",
+    "@girs/gnome-shell": "46.0.0-4.0.0-beta.3",
     "@girs/gobject-2.0": "2.80.0-4.0.0-beta.2",
     "@girs/graphene-1.0": "1.0.0-4.0.0-beta.2",
     "@girs/gsound-1.0": "1.0.0-4.0.0-beta.2",
