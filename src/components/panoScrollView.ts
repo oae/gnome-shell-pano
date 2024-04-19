@@ -9,7 +9,7 @@ import St1 from '@girs/st-14';
 import { PanoItem } from '@pano/components/panoItem';
 import { SearchBox } from '@pano/components/searchBox';
 import { ClipboardContent, ClipboardManager } from '@pano/utils/clipboardManager';
-import { scrollViewAddChild } from '@pano/utils/compatibility';
+import { getScrollViewAdjustment, scrollViewAddChild } from '@pano/utils/compatibility';
 import { ClipboardQueryBuilder, db, ItemType } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { createPanoItem, createPanoItemFromDb, removeItemResources } from '@pano/utils/panoItemFactory';
@@ -412,10 +412,10 @@ export class PanoScrollView extends St1.ScrollView {
 
     let value: number | undefined;
     if (isVertical(this.settings.get_uint('window-position'))) {
-      adjustment = this.vscroll.adjustment;
+      adjustment = getScrollViewAdjustment(this, 'v');
       value = box.y1 + adjustment.stepIncrement / 2.0 - adjustment.pageSize / 2.0;
     } else {
-      adjustment = this.hscroll.adjustment;
+      adjustment = getScrollViewAdjustment(this, 'h');
       value = box.x1 + adjustment.stepIncrement / 2.0 - adjustment.pageSize / 2.0;
     }
 

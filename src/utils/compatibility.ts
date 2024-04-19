@@ -1,9 +1,7 @@
-import Clutter from '@girs/clutter-14';
 import type Gda5 from '@girs/gda-5.0';
 import type Gda6 from '@girs/gda-6.0';
 import GLib from '@girs/glib-2.0';
-import { Source as MessageTraySource } from '@girs/gnome-shell/dist/ui/messageTray';
-import { Notification } from '@girs/gnome-shell/dist/ui/messageTray';
+import { Notification, Source as MessageTraySource } from '@girs/gnome-shell/dist/ui/messageTray';
 import St1 from '@girs/st-14';
 
 // compatibility functions for Gda 5.0 and 6.0
@@ -30,10 +28,7 @@ export function add_expr_value(builder: Gda5.SqlBuilder | Gda6.SqlBuilder, value
 
 function isGnome45(): boolean {
   // be 100% sure which version we use, and not using Config.PACKAGE_VERSION
-  return (
-    MessageTraySource.prototype.addNotification === undefined ||
-    (Clutter as any as { Container: undefined | any }).Container === undefined
-  );
+  return MessageTraySource.prototype.addNotification === undefined;
 }
 
 export function newNotification(
@@ -83,5 +78,21 @@ export function scrollViewAddChild(scrollView: St1.ScrollView, actor: St1.Scroll
     scrollView.add_actor(actor);
   } else {
     scrollView.set_child(actor);
+  }
+}
+
+export type AdjustmentType = 'v' | 'h';
+
+export function getScrollViewAdjustment(scrollView: St1.ScrollView, type: AdjustmentType): St1.Adjustment {
+  if (scrollView.vadjustment !== undefined) {
+    if (type === 'v') {
+      return scrollView.vadjustment;
+    }
+    return scrollView.hadjustment;
+  } else {
+    if (type === 'v') {
+      return scrollView.vscroll.adjustment;
+    }
+    return scrollView.hscroll.adjustment;
   }
 }
