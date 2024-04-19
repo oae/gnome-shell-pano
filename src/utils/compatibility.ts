@@ -69,8 +69,8 @@ export function newMessageTraySource(title: string, iconName: string): MessageTr
 }
 
 export function addNotification(source: MessageTraySource, notification: Notification): void {
-  if (isGnome45()) {
-    // @ts-expect-error gnome 45 type
+  if ((source as any as { showNotification: undefined | any }).showNotification !== undefined) {
+    // @ts-expect-error gnome 45 type, can also be in some earlier versions of gnome 46, so using an explicit check for undefined, so that it works everywhere
     source.showNotification(notification);
   } else {
     (source as MessageTraySource).addNotification(notification as Notification);
