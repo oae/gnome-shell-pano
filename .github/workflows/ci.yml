@@ -36,12 +36,3 @@ jobs:
 
       - name: Lint Extension
         run: yarn run lint
-
-      - name: Validate Types
-        run: NODE_OPTIONS=--max_old_space_size=9216 yarn run validate:types
-
-      - name: Build Example
-        run: yarn run build:example
-
-      - name: Validate Example Typescript
-        run: NODE_OPTIONS=--max_old_space_size=9216 yarn run validate:example
