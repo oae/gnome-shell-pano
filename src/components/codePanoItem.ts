@@ -12,9 +12,11 @@ import { markupCode } from '@pano/utils/pango';
 export class CodePanoItem extends PanoItem {
   private codeItemSettings: Gio.Settings;
   private label: St.Label;
+  private language: string;
 
-  constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
+  constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem, language: string) {
     super(ext, clipboardManager, dbItem);
+    this.language = language;
     this.codeItemSettings = this.settings.get_child('code-item');
 
     this.label = new St.Label({
@@ -41,7 +43,7 @@ export class CodePanoItem extends PanoItem {
     this.body.set_style(`background-color: ${bodyBgColor}`);
     this.label.set_style(`font-size: ${bodyFontSize}px; font-family: ${bodyFontFamily};`);
 
-    this.label.clutterText.set_markup(markupCode(this.dbItem.content.trim(), characterLength));
+    this.label.clutterText.set_markup(markupCode(this.language, this.dbItem.content.trim()));
   }
 
   private setClipboardContent(): void {
