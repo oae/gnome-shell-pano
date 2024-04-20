@@ -101,7 +101,7 @@ export class PanoItemHeader extends St.BoxLayout {
 
     this.titleContainer.add_child(this.titleLabel);
 
-    let options: FormatOptions = {
+    const options: FormatOptions = {
       addSuffix: true,
     };
 
