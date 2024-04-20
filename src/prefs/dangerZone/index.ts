@@ -1,5 +1,5 @@
 import Adw from '@girs/adw-1';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import { ClearHistoryRow } from '@pano/prefs/dangerZone/clearHistory';
 import { SessionOnlyModeRow } from '@pano/prefs/dangerZone/sessionOnlyMode';
 import { registerGObjectClass } from '@pano/utils/gjs';
@@ -10,7 +10,7 @@ export class DangerZonePage extends Adw.PreferencesPage {
     const _ = gettext(ext);
     super({
       title: _('Danger Zone'),
-      icon_name: 'user-trash-symbolic',
+      iconName: 'user-trash-symbolic',
     });
 
     const dangerZoneGroup = new Adw.PreferencesGroup();

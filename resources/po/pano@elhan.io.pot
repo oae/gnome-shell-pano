@@ -111,7 +111,7 @@ msgid "Clear"
 msgstr ""
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:94
+#: src/components/indicator/settingsMenu.ts:101
 #: src/prefs/dangerZone/clearHistory.ts:14
 msgid "Clear History"
 msgstr ""
@@ -124,7 +124,7 @@ msgstr ""
 msgid "Code"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:399
+#: src/utils/panoItemFactory.ts:413
 msgid "Code Copied"
 msgstr ""
 
@@ -136,7 +136,7 @@ msgstr ""
 msgid "Color"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:429
+#: src/utils/panoItemFactory.ts:443
 msgid "Color Copied"
 msgstr ""
 
@@ -168,7 +168,7 @@ msgstr ""
 msgid "Emoji"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:401
+#: src/utils/panoItemFactory.ts:415
 msgid "Emoji Copied"
 msgstr ""
 
@@ -192,7 +192,7 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:436
+#: src/utils/panoItemFactory.ts:450
 msgid "File %s"
 msgstr ""
 
@@ -248,7 +248,7 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:392
+#: src/utils/panoItemFactory.ts:406
 msgid "Image Copied"
 msgstr ""
 
@@ -256,7 +256,7 @@ msgstr ""
 msgid "Image Item Style"
 msgstr ""
 
-#: src/components/indicator/settingsMenu.ts:61
+#: src/components/indicator/settingsMenu.ts:67
 msgid "Incognito Mode"
 msgstr ""
 
@@ -304,7 +304,7 @@ msgstr ""
 msgid "Link"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:409
+#: src/utils/panoItemFactory.ts:423
 msgid "Link Copied"
 msgstr ""
 
@@ -372,7 +372,7 @@ msgstr ""
 msgid "Open Links in Browser"
 msgstr ""
 
-#: src/utils/ui.ts:24
+#: src/utils/ui.ts:27
 msgid "Pano"
 msgstr ""
 
@@ -409,7 +409,7 @@ msgstr ""
 msgid "Session Only Mode"
 msgstr ""
 
-#: src/components/indicator/settingsMenu.ts:101
+#: src/components/indicator/settingsMenu.ts:108
 msgid "Settings"
 msgstr ""
 
@@ -433,7 +433,7 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:397
+#: src/utils/panoItemFactory.ts:411
 msgid "Text Copied"
 msgstr ""
 
@@ -441,7 +441,7 @@ msgstr ""
 msgid "Text Item Style"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:437
+#: src/utils/panoItemFactory.ts:451
 msgid "There are %s file(s)"
 msgstr ""
 
@@ -449,11 +449,11 @@ msgstr ""
 msgid "Top"
 msgstr ""
 
-#: src/components/searchBox.ts:68
+#: src/components/searchBox.ts:69
 msgid "Type to search, Tab to cycle"
 msgstr ""
 
-#: src/prefs/general/watchExclusions.ts:14
+#: src/prefs/general/watchExclusions.ts:15
 msgid "Watch Exclusions"
 msgstr ""
 
@@ -461,11 +461,11 @@ msgstr ""
 msgid "When enabled, Pano will clear all history on logout/restart/shutdown."
 msgstr ""
 
-#: src/prefs/general/watchExclusions.ts:15
+#: src/prefs/general/watchExclusions.ts:16
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:393
+#: src/utils/panoItemFactory.ts:407
 msgid "Width: %spx, Height: %spx, Size: %s"
 msgstr ""
 

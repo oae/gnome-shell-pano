@@ -1,10 +1,10 @@
-import Clutter from '@girs/clutter-13';
+import Clutter from '@girs/clutter-14';
+import { MonitorConstraint } from '@girs/gnome-shell/dist/ui/layout';
+import { Lightbox } from '@girs/gnome-shell/dist/ui/lightbox';
+import * as main from '@girs/gnome-shell/dist/ui/main';
 import GObject from '@girs/gobject-2.0';
-import Shell from '@girs/shell-13';
-import St1 from '@girs/st-13';
-import * as layout from '@gnome-shell/ui/layout';
-import * as lightbox from '@gnome-shell/ui/lightbox';
-import * as main from '@gnome-shell/ui/main';
+import Shell from '@girs/shell-14';
+import St from '@girs/st-14';
 import { registerGObjectClass } from '@pano/utils/gjs';
 
 interface MonitorBoxSignals {
@@ -12,7 +12,7 @@ interface MonitorBoxSignals {
 }
 
 @registerGObjectClass
-export class MonitorBox extends St1.BoxLayout {
+export class MonitorBox extends St.BoxLayout {
   static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, MonitorBoxSignals> = {
     GTypeName: 'MonitorBox',
     Signals: {
@@ -20,7 +20,7 @@ export class MonitorBox extends St1.BoxLayout {
     },
   };
 
-  private _lightbox: lightbox.Lightbox;
+  private _lightbox: Lightbox;
 
   constructor() {
     super({
@@ -42,21 +42,21 @@ export class MonitorBox extends St1.BoxLayout {
     });
     this.add_constraint(constraint);
 
-    const backgroundStack = new St1.Widget({
-      layout_manager: new Clutter.BinLayout(),
-      x_expand: true,
-      y_expand: true,
+    const backgroundStack = new St.Widget({
+      layoutManager: new Clutter.BinLayout(),
+      xExpand: true,
+      yExpand: true,
     });
-    const _backgroundBin = new St1.Bin({ child: backgroundStack });
-    const _monitorConstraint = new layout.MonitorConstraint({});
+    const _backgroundBin = new St.Bin({ child: backgroundStack });
+    const _monitorConstraint = new MonitorConstraint({});
     _backgroundBin.add_constraint(_monitorConstraint);
     this.add_child(_backgroundBin);
-    this._lightbox = new lightbox.Lightbox(this, {
+    this._lightbox = new Lightbox(this, {
       inhibitEvents: true,
       radialEffect: false,
     });
     this._lightbox.highlight(_backgroundBin);
-    this._lightbox.set({ style_class: 'pano-monitor-box' });
+    this._lightbox.styleClass = 'pano-monitor-box';
 
     const _eventBlocker = new Clutter.Actor({ reactive: true });
     backgroundStack.add_child(_eventBlocker);

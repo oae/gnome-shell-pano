@@ -1,10 +1,11 @@
-import Clutter from '@girs/clutter-13';
+import Clutter from '@girs/clutter-14';
 import Gio from '@girs/gio-2.0';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import GObject from '@girs/gobject-2.0';
-import Meta from '@girs/meta-13';
-import Shell from '@girs/shell-13';
-import St1 from '@girs/st-13';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
+import Meta from '@girs/meta-14';
+import Shell from '@girs/shell-14';
+import St from '@girs/st-14';
+import { ItemType } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { getPanoItemTypes, ICON_PACKS } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
@@ -24,7 +25,7 @@ interface SearchBoxSignals extends SignalsDefinition<SearchBoxSignalType> {
   'search-submit': Record<string, never>;
 }
 @registerGObjectClass
-export class SearchBox extends St1.BoxLayout {
+export class SearchBox extends St.BoxLayout {
   static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, SearchBoxSignals> = {
     GTypeName: 'SearchBox',
     Signals: {
@@ -41,7 +42,7 @@ export class SearchBox extends St1.BoxLayout {
     },
   };
 
-  private search: St1.Entry;
+  private search: St.Entry;
   private currentIndex: number | null = null;
   private showFavorites = false;
   private settings: Gio.Settings;
@@ -49,10 +50,10 @@ export class SearchBox extends St1.BoxLayout {
 
   constructor(ext: ExtensionBase) {
     super({
-      x_align: Clutter.ActorAlign.CENTER,
-      style_class: 'search-entry-container',
+      xAlign: Clutter.ActorAlign.CENTER,
+      styleClass: 'search-entry-container',
       vertical: false,
-      track_hover: true,
+      trackHover: true,
       reactive: true,
     });
 
@@ -61,21 +62,21 @@ export class SearchBox extends St1.BoxLayout {
 
     this.settings = getCurrentExtensionSettings(ext);
 
-    const themeContext = St1.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
+    const themeContext = St.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
 
-    this.search = new St1.Entry({
-      can_focus: true,
-      hint_text: _('Type to search, Tab to cycle'),
-      natural_width: 300 * themeContext.scale_factor,
-      height: 40 * themeContext.scale_factor,
-      track_hover: true,
-      primary_icon: this.createSearchEntryIcon('edit-find-symbolic', 'search-entry-icon'),
-      secondary_icon: this.createSearchEntryIcon('starred-symbolic', 'search-entry-fav-icon'),
+    this.search = new St.Entry({
+      canFocus: true,
+      hintText: _('Type to search, Tab to cycle'),
+      naturalWidth: 300 * themeContext.scaleFactor,
+      height: 40 * themeContext.scaleFactor,
+      trackHover: true,
+      primaryIcon: this.createSearchEntryIcon('edit-find-symbolic', 'search-entry-icon'),
+      secondaryIcon: this.createSearchEntryIcon('starred-symbolic', 'search-entry-fav-icon'),
     });
 
     themeContext.connect('notify::scale-factor', () => {
-      this.search.natural_width = 300 * themeContext.scale_factor;
-      this.search.set_height(40 * themeContext.scale_factor);
+      this.search.naturalWidth = 300 * themeContext.scaleFactor;
+      this.search.set_height(40 * themeContext.scaleFactor);
     });
 
     this.search.connect('primary-icon-clicked', () => {
@@ -88,24 +89,24 @@ export class SearchBox extends St1.BoxLayout {
       this.toggleFavorites();
     });
 
-    this.search.clutter_text.connect('text-changed', () => {
+    this.search.clutterText.connect('text-changed', () => {
       this.emitSearchTextChange();
     });
 
-    this.search.clutter_text.connect('key-press-event', (_: St1.Entry, event: Clutter.Event) => {
+    this.search.clutterText.connect('key-press-event', (_: St.Entry, event: Clutter.Event) => {
       if (
         event.get_key_symbol() === Clutter.KEY_Down ||
         (event.get_key_symbol() === Clutter.KEY_Right &&
-          (this.search.clutter_text.cursor_position === -1 || this.search.text?.length === 0))
+          (this.search.clutterText.cursorPosition === -1 || this.search.text?.length === 0))
       ) {
         this.emit('search-focus-out');
         return Clutter.EVENT_STOP;
       } else if (
         event.get_key_symbol() === Clutter.KEY_Right &&
-        this.search.clutter_text.get_selection() !== null &&
-        this.search.clutter_text.get_selection() === this.search.text
+        this.search.clutterText.get_selection() !== null &&
+        this.search.clutterText.get_selection() === this.search.text
       ) {
-        this.search.clutter_text.set_cursor_position(this.search.text?.length ?? 0);
+        this.search.clutterText.set_cursor_position(this.search.text?.length ?? 0);
         return Clutter.EVENT_STOP;
       }
       if (
@@ -173,14 +174,14 @@ export class SearchBox extends St1.BoxLayout {
       this.currentIndex = null;
     }
 
-    if (null == this.currentIndex) {
+    if (this.currentIndex === null) {
       this.search.set_primary_icon(this.createSearchEntryIcon('edit-find-symbolic', 'search-entry-icon'));
     } else {
       this.search.set_primary_icon(
         this.createSearchEntryIcon(
           Gio.icon_new_for_string(
             `${this.ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${
-              panoItemTypes[Object.keys(panoItemTypes)[this.currentIndex]].iconPath
+              panoItemTypes[Object.keys(panoItemTypes)[this.currentIndex] as ItemType].iconPath
             }`,
           ),
           'search-entry-icon',
@@ -196,7 +197,7 @@ export class SearchBox extends St1.BoxLayout {
           this.createSearchEntryIcon(
             Gio.icon_new_for_string(
               `${this.ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${
-                panoItemTypes[Object.keys(panoItemTypes)[this.currentIndex]].iconPath
+                panoItemTypes[Object.keys(panoItemTypes)[this.currentIndex] as ItemType].iconPath
               }`,
             ),
             'search-entry-icon',
@@ -209,10 +210,10 @@ export class SearchBox extends St1.BoxLayout {
   }
 
   private createSearchEntryIcon(iconNameOrProto: string | Gio.Icon, styleClass: string) {
-    const icon = new St1.Icon({
-      style_class: styleClass,
-      icon_size: 13,
-      track_hover: true,
+    const icon = new St.Icon({
+      styleClass: styleClass,
+      iconSize: 13,
+      trackHover: true,
     });
 
     if (typeof iconNameOrProto === 'string') {
@@ -235,7 +236,7 @@ export class SearchBox extends St1.BoxLayout {
   }
 
   toggleFavorites() {
-    const icon = this.search.get_secondary_icon() as St1.Icon;
+    const icon = this.search.get_secondary_icon() as St.Icon;
     if (this.showFavorites) {
       icon.remove_style_class_name('active');
     } else {
@@ -249,7 +250,7 @@ export class SearchBox extends St1.BoxLayout {
     const panoItemTypes = getPanoItemTypes(this.ext);
     let itemType: string | null = null;
     if (this.currentIndex !== null) {
-      itemType = Object.keys(panoItemTypes)[this.currentIndex];
+      itemType = Object.keys(panoItemTypes)[this.currentIndex] ?? null;
     }
     this.emit('search-text-changed', this.search.text, itemType || '', this.showFavorites);
   }
@@ -267,7 +268,7 @@ export class SearchBox extends St1.BoxLayout {
   }
 
   selectAll() {
-    this.search.clutter_text.set_selection(0, this.search.text?.length ?? 0);
+    this.search.clutterText.set_selection(0, this.search.text?.length ?? 0);
   }
 
   clear() {
@@ -275,6 +276,6 @@ export class SearchBox extends St1.BoxLayout {
   }
 
   getText(): string {
-    return this.search.text ?? '';
+    return this.search.text || '';
   }
 }

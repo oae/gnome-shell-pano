@@ -1,8 +1,10 @@
-import Cogl from '@girs/cogl-13';
+import '@girs/gnome-shell/dist/extensions/global';
+
+import Cogl from '@girs/cogl-14';
 import GdkPixbuf from '@girs/gdkpixbuf-2.0';
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import { CodePanoItem } from '@pano/components/codePanoItem';
 import { ColorPanoItem } from '@pano/components/colorPanoItem';
 import { EmojiPanoItem } from '@pano/components/emojiPanoItem';
@@ -23,7 +25,7 @@ import {
   playAudio,
 } from '@pano/utils/shell';
 import { notify } from '@pano/utils/ui';
-import converter from 'hex-color-converter';
+import convert from 'hex-color-converter';
 import hljs from 'highlight.js/lib/core';
 import bash from 'highlight.js/lib/languages/bash';
 import c from 'highlight.js/lib/languages/c';
@@ -137,7 +139,7 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
       return null;
   }
 
-  const result = db.query(queryBuilder.build());
+  const result: DBItem[] = db.query(queryBuilder.build());
 
   if (getCurrentExtensionSettings(ext).get_boolean('play-audio-on-copy')) {
     playAudio();
@@ -145,7 +147,7 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
 
   if (result.length > 0) {
     return db.update({
-      ...result[0],
+      ...(result[0] as DBItem),
       copyDate: new Date(),
     });
   }
@@ -192,10 +194,11 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
 
       if (trimmedValue.toLowerCase().startsWith('http') && isValidUrl(trimmedValue)) {
         const linkPreviews = getCurrentExtensionSettings(ext).get_boolean('link-previews');
-        let description = '',
-          imageUrl = '',
-          title = '',
-          checksum = '';
+        let description: undefined | string;
+        let imageUrl: string | undefined;
+        let title: string | undefined;
+        let checksum: string | undefined;
+
         const copyDate = new Date();
         let linkDbItem = db.save({
           content: trimmedValue,
@@ -207,7 +210,7 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
           metaData: JSON.stringify({
             title: title ? encodeURI(title) : '',
             description: description ? encodeURI(description) : '',
-            image: checksum || '',
+            image: checksum ?? '',
           }),
         });
 
@@ -216,7 +219,7 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
           description = document.description;
           title = document.title;
           imageUrl = document.imageUrl;
-          checksum = (await getImage(ext, imageUrl))[0] || '';
+          checksum = (await getImage(ext, imageUrl))[0] ?? undefined;
           linkDbItem = db.update({
             id: linkDbItem.id,
             content: trimmedValue,
@@ -228,7 +231,7 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
             metaData: JSON.stringify({
               title: title ? encodeURI(title) : '',
               description: description ? encodeURI(description) : '',
-              image: checksum || '',
+              image: checksum ?? '',
             }),
           });
         }
@@ -301,7 +304,11 @@ export const createPanoItem = async (
 
   if (dbItem) {
     if (getCurrentExtensionSettings(ext).get_boolean('send-notification-on-copy')) {
-      sendNotification(ext, dbItem);
+      try {
+        sendNotification(ext, dbItem);
+      } catch (err) {
+        console.error('PANO: ' + (err as Error).toString());
+      }
     }
 
     return createPanoItemFromDb(ext, clipboardManager, dbItem);
@@ -364,6 +371,14 @@ export const createPanoItemFromDb = (
   return panoItem;
 };
 
+function converter(color: string): string | null {
+  try {
+    return convert(color);
+  } catch (_err) {
+    return null;
+  }
+}
+
 export const removeItemResources = (ext: ExtensionBase, dbItem: DBItem) => {
   db.delete(dbItem.id);
   if (dbItem.itemType === 'LINK') {
@@ -380,62 +395,60 @@ export const removeItemResources = (ext: ExtensionBase, dbItem: DBItem) => {
   }
 };
 
-const sendNotification = async (ext: ExtensionBase, dbItem: DBItem) => {
-  return new Promise(() => {
-    const _ = gettext(ext);
-    if (dbItem.itemType === 'IMAGE') {
-      const { width, height, size }: { width: number; height: number; size: number } = JSON.parse(
-        dbItem.metaData || '{}',
-      );
-      notify(
-        ext,
-        _('Image Copied'),
-        _('Width: %spx, Height: %spx, Size: %s').format(width, height, prettyBytes(size)),
-        GdkPixbuf.Pixbuf.new_from_file(`${getImagesPath(ext)}/${dbItem.content}.png`),
-      );
-    } else if (dbItem.itemType === 'TEXT') {
-      notify(ext, _('Text Copied'), dbItem.content.trim());
-    } else if (dbItem.itemType === 'CODE') {
-      notify(ext, _('Code Copied'), dbItem.content.trim());
-    } else if (dbItem.itemType === 'EMOJI') {
-      notify(ext, _('Emoji Copied'), dbItem.content);
-    } else if (dbItem.itemType === 'LINK') {
-      const { title, description, image }: { title: string; description: string; image: string } = JSON.parse(
-        dbItem.metaData || '{}',
-      );
-      const pixbuf = image ? GdkPixbuf.Pixbuf.new_from_file(`${getCachePath(ext)}/${image}.png`) : undefined;
-      notify(
-        ext,
-        decodeURI(`${_('Link Copied')}${title ? ` - ${title}` : ''}`),
-        `${dbItem.content}${description ? `\n\n${decodeURI(description)}` : ''}`,
-        pixbuf,
-        Cogl.PixelFormat.RGB_888,
-      );
-    } else if (dbItem.itemType === 'COLOR') {
-      // Create pixbuf from color
-      const pixbuf = GdkPixbuf.Pixbuf.new(GdkPixbuf.Colorspace.RGB, true, 8, 1, 1);
-      let color: string | null = null;
-      // check if content has alpha
-      if (dbItem.content.includes('rgba')) {
-        color = converter(dbItem.content);
-      } else if (validateHTMLColorRgb(dbItem.content)) {
-        color = `${converter(dbItem.content)}ff`;
-      } else if (validateHTMLColorHex(dbItem.content)) {
-        color = `${dbItem.content}ff`;
-      }
-
-      if (color) {
-        pixbuf.fill(parseInt(color.replace('#', '0x'), 16));
-        notify(ext, _('Color Copied'), dbItem.content, pixbuf);
-      }
-    } else if (dbItem.itemType === 'FILE') {
-      const operation = dbItem.metaData;
-      const fileListSize = JSON.parse(dbItem.content).length;
-      notify(
-        ext,
-        _('File %s').format(operation === FileOperation.CUT ? 'cut' : 'copied'),
-        _('There are %s file(s)').format(fileListSize),
-      );
+const sendNotification = (ext: ExtensionBase, dbItem: DBItem) => {
+  const _ = gettext(ext);
+  if (dbItem.itemType === 'IMAGE') {
+    const { width, height, size }: { width: number; height: number; size: number } = JSON.parse(
+      dbItem.metaData || '{}',
+    );
+    notify(
+      ext,
+      _('Image Copied'),
+      _('Width: %spx, Height: %spx, Size: %s').format(width, height, prettyBytes(size)),
+      GdkPixbuf.Pixbuf.new_from_file(`${getImagesPath(ext)}/${dbItem.content}.png`),
+    );
+  } else if (dbItem.itemType === 'TEXT') {
+    notify(ext, _('Text Copied'), dbItem.content.trim());
+  } else if (dbItem.itemType === 'CODE') {
+    notify(ext, _('Code Copied'), dbItem.content.trim());
+  } else if (dbItem.itemType === 'EMOJI') {
+    notify(ext, _('Emoji Copied'), dbItem.content);
+  } else if (dbItem.itemType === 'LINK') {
+    const { title, description, image }: { title: string; description: string; image: string } = JSON.parse(
+      dbItem.metaData || '{}',
+    );
+    const pixbuf = image ? GdkPixbuf.Pixbuf.new_from_file(`${getCachePath(ext)}/${image}.png`) : undefined;
+    notify(
+      ext,
+      decodeURI(`${_('Link Copied')}${title ? ` - ${title}` : ''}`),
+      `${dbItem.content}${description ? `\n\n${decodeURI(description)}` : ''}`,
+      pixbuf,
+      Cogl.PixelFormat.RGB_888,
+    );
+  } else if (dbItem.itemType === 'COLOR') {
+    // Create pixbuf from color
+    const pixbuf = GdkPixbuf.Pixbuf.new(GdkPixbuf.Colorspace.RGB, true, 8, 1, 1);
+    let color: string | null = null;
+    // check if content has alpha
+    if (dbItem.content.includes('rgba')) {
+      color = converter(dbItem.content);
+    } else if (validateHTMLColorRgb(dbItem.content)) {
+      color = `${converter(dbItem.content)}ff`;
+    } else if (validateHTMLColorHex(dbItem.content)) {
+      color = `${dbItem.content}ff`;
     }
-  });
+
+    if (color) {
+      pixbuf.fill(parseInt(color.replace('#', '0x'), 16));
+      notify(ext, _('Color Copied'), dbItem.content, pixbuf);
+    }
+  } else if (dbItem.itemType === 'FILE') {
+    const operation = dbItem.metaData;
+    const fileListSize = JSON.parse(dbItem.content).length;
+    notify(
+      ext,
+      _('File %s').format(operation === FileOperation.CUT ? 'cut' : 'copied'),
+      _('There are %s file(s)').format(fileListSize),
+    );
+  }
 };

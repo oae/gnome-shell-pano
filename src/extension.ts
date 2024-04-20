@@ -2,8 +2,10 @@ import './styles/stylesheet.css';
 
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
-import Shell from '@girs/shell-13';
-import { Extension, ExtensionMetadata } from '@gnome-shell/extensions/extension';
+import { Extensions } from '@girs/gnome-shell';
+import type { ExtensionMetadata } from '@girs/gnome-shell/dist/types/extension-metadata';
+import Shell from '@girs/shell-14';
+const { Extension } = Extensions.extension;
 import PanoIndicator from '@pano/components/indicator';
 import { PanoWindow } from '@pano/containers/panoWindow';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
@@ -22,27 +24,27 @@ import { addTopChrome, removeChrome, removeVirtualKeyboard } from '@pano/utils/u
 
 const debug = logger('extension');
 export default class PanoExtension extends Extension {
-  private keyManager: KeyManager | null;
-  private clipboardManager: ClipboardManager | null;
-  private panoWindow: PanoWindow | null;
-  private indicator: PanoIndicator | null;
+  private keyManager: KeyManager | null = null;
+  private clipboardManager: ClipboardManager | null = null;
+  private panoWindow: PanoWindow | null = null;
+  private indicator: PanoIndicator | null = null;
 
-  private dbus: Gio.DBusExportedObject | null;
-  private settings: Gio.Settings | null;
-  private windowTrackerId: number | null;
-  private timeoutId: number | null;
-  private shutdownSignalId: number | null;
-  private logoutSignalId: number | null;
-  private rebootSignalId: number | null;
-  private systemdSignalId: number | null;
-  private clipboardChangedSignalId: number | null;
+  private dbus: Gio.DBusExportedObject | null = null;
+  private settings: Gio.Settings | null = null;
+  private windowTrackerId: number | null = null;
+  private timeoutId: number | null = null;
+  private shutdownSignalId: number | null = null;
+  private logoutSignalId: number | null = null;
+  private rebootSignalId: number | null = null;
+  private systemdSignalId: number | null = null;
+  private clipboardChangedSignalId: number | null = null;
 
   constructor(props: ExtensionMetadata) {
     super(props);
     debug('extension is initialized');
   }
 
-  enable() {
+  override enable() {
     this.settings = getCurrentExtensionSettings(this);
     this.setupResources();
     this.keyManager = new KeyManager(this);
@@ -54,7 +56,7 @@ export default class PanoExtension extends Extension {
     debug('extension is enabled');
   }
 
-  disable(): void {
+  override disable(): void {
     this.stop();
     this.disableDbus();
     this.indicator?.disable();
@@ -225,7 +227,7 @@ export default class PanoExtension extends Extension {
 
   private trackWindow() {
     this.windowTrackerId = Shell.Global.get().display.connect('notify::focus-window', () => {
-      const focussedWindow = Shell.Global.get().display.focus_window;
+      const focussedWindow = Shell.Global.get().display.focusWindow;
       if (focussedWindow && this.panoWindow?.is_visible()) {
         this.panoWindow.hide();
       }

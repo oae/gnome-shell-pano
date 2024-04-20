@@ -1,8 +1,8 @@
-import Clutter from '@girs/clutter-13';
+import Clutter from '@girs/clutter-14';
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
-import St1 from '@girs/st-13';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
+import St from '@girs/st-14';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
@@ -14,10 +14,10 @@ const DEFAULT_LINK_PREVIEW_IMAGE_NAME = 'link-preview.svg';
 @registerGObjectClass
 export class LinkPanoItem extends PanoItem {
   private linkItemSettings: Gio.Settings;
-  private metaContainer: St1.BoxLayout;
-  private titleLabel: St1.Label;
-  private descriptionLabel: St1.Label;
-  private linkLabel: St1.Label;
+  private metaContainer: St.BoxLayout;
+  private titleLabel: St.Label;
+  private descriptionLabel: St.Label;
+  private linkLabel: St.Label;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
     super(ext, clipboardManager, dbItem);
@@ -42,29 +42,29 @@ export class LinkPanoItem extends PanoItem {
 
     this.body.add_style_class_name('pano-item-body-link');
 
-    this.metaContainer = new St1.BoxLayout({
-      style_class: 'pano-item-body-meta-container',
+    this.metaContainer = new St.BoxLayout({
+      styleClass: 'pano-item-body-meta-container',
       vertical: true,
-      x_expand: true,
-      y_expand: false,
-      y_align: Clutter.ActorAlign.END,
-      x_align: Clutter.ActorAlign.FILL,
+      xExpand: true,
+      yExpand: false,
+      yAlign: Clutter.ActorAlign.END,
+      xAlign: Clutter.ActorAlign.FILL,
     });
 
-    this.titleLabel = new St1.Label({
+    this.titleLabel = new St.Label({
       text: titleText,
-      style_class: 'link-title-label',
+      styleClass: 'link-title-label',
     });
 
-    this.descriptionLabel = new St1.Label({
+    this.descriptionLabel = new St.Label({
       text: descriptionText,
-      style_class: 'link-description-label',
+      styleClass: 'link-description-label',
     });
-    this.descriptionLabel.clutter_text.single_line_mode = true;
+    this.descriptionLabel.clutterText.singleLineMode = true;
 
-    this.linkLabel = new St1.Label({
+    this.linkLabel = new St.Label({
       text: this.dbItem.content,
-      style_class: 'link-label',
+      styleClass: 'link-label',
     });
 
     let imageFilePath = `file:///${ext.path}/images/${DEFAULT_LINK_PREVIEW_IMAGE_NAME}`;
@@ -72,13 +72,13 @@ export class LinkPanoItem extends PanoItem {
       imageFilePath = `file://${getCachePath(ext)}/${image}.png`;
     }
 
-    const imageContainer = new St1.BoxLayout({
+    const imageContainer = new St.BoxLayout({
       vertical: true,
-      x_expand: true,
-      y_expand: true,
-      y_align: Clutter.ActorAlign.FILL,
-      x_align: Clutter.ActorAlign.FILL,
-      style_class: 'image-container',
+      xExpand: true,
+      yExpand: true,
+      yAlign: Clutter.ActorAlign.FILL,
+      xAlign: Clutter.ActorAlign.FILL,
+      styleClass: 'image-container',
       style: `background-image: url(${imageFilePath});`,
     });
 
@@ -93,13 +93,13 @@ export class LinkPanoItem extends PanoItem {
     this.setStyle();
     this.linkItemSettings.connect('changed', this.setStyle.bind(this));
 
-    const openLinkIcon = new St1.Icon({
-      icon_name: 'web-browser-symbolic',
-      style_class: 'pano-item-action-button-icon',
+    const openLinkIcon = new St.Icon({
+      iconName: 'web-browser-symbolic',
+      styleClass: 'pano-item-action-button-icon',
     });
 
-    const openLinkButton = new St1.Button({
-      style_class: 'pano-item-action-button pano-item-open-link-button',
+    const openLinkButton = new St.Button({
+      styleClass: 'pano-item-action-button pano-item-open-link-button',
       child: openLinkIcon,
     });
 

@@ -1,12 +1,13 @@
-import Clutter from '@girs/clutter-13';
+import '@girs/gnome-shell/dist/extensions/global';
+
+import Clutter from '@girs/clutter-14';
 import Gio from '@girs/gio-2.0';
-import Shell from '@girs/shell-13';
-import St1 from '@girs/st-13';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
+import Shell from '@girs/shell-14';
+import St from '@girs/st-14';
 import { MonitorBox } from '@pano/components/monitorBox';
 import { PanoScrollView } from '@pano/components/panoScrollView';
 import { SearchBox } from '@pano/components/searchBox';
-import { EaseFunctionType } from '@pano/types/st';
 import { ClipboardManager } from '@pano/utils/clipboardManager';
 import { ItemType } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
@@ -14,40 +15,38 @@ import { getCurrentExtensionSettings } from '@pano/utils/shell';
 import { getAlignment, getMonitorConstraint, isVertical } from '@pano/utils/ui';
 
 @registerGObjectClass
-export class PanoWindow extends St1.BoxLayout {
+export class PanoWindow extends St.BoxLayout {
   private scrollView: PanoScrollView;
   private searchBox: SearchBox;
   private monitorBox: MonitorBox;
   private settings: Gio.Settings;
-  //TODO: this isn't in the types??? investigate (this.scrollView.vscroll.adjustment.ease is there at runtime and also this.ease, as per prototype chain...)
-  ease: EaseFunctionType<typeof this>;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager) {
     super({
       name: 'pano-window',
       constraints: getMonitorConstraint(),
-      style_class: 'pano-window',
+      styleClass: 'pano-window',
       visible: false,
       vertical: true,
       reactive: true,
       opacity: 0,
-      can_focus: true,
+      canFocus: true,
     });
 
     this.settings = getCurrentExtensionSettings(ext);
     this.setAlignment();
 
-    const themeContext = St1.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
+    const themeContext = St.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
 
-    this.setWindowDimensions(themeContext.scale_factor);
+    this.setWindowDimensions(themeContext.scaleFactor);
     themeContext.connect('notify::scale-factor', () => {
-      this.setWindowDimensions(themeContext.scale_factor);
+      this.setWindowDimensions(themeContext.scaleFactor);
     });
     this.settings.connect('changed::item-size', () => {
-      this.setWindowDimensions(themeContext.scale_factor);
+      this.setWindowDimensions(themeContext.scaleFactor);
     });
     this.settings.connect('changed::window-position', () => {
-      this.setWindowDimensions(themeContext.scale_factor);
+      this.setWindowDimensions(themeContext.scaleFactor);
       this.setAlignment();
     });
 

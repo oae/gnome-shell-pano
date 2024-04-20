@@ -1,13 +1,15 @@
-import Clutter from '@girs/clutter-13';
+import '@girs/gnome-shell/dist/extensions/global';
+
+import Clutter from '@girs/clutter-14';
 import Gio from '@girs/gio-2.0';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import GObject from '@girs/gobject-2.0';
-import Shell from '@girs/shell-13';
-import St1 from '@girs/st-13';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
+import Shell from '@girs/shell-14';
+import St from '@girs/st-14';
 import { PanoItem } from '@pano/components/panoItem';
 import { SearchBox } from '@pano/components/searchBox';
-import { Adjustment } from '@pano/types/st';
 import { ClipboardContent, ClipboardManager } from '@pano/utils/clipboardManager';
+import { getScrollViewAdjustment, scrollViewAddChild } from '@pano/utils/compatibility';
 import { ClipboardQueryBuilder, db, ItemType } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { createPanoItem, createPanoItemFromDb, removeItemResources } from '@pano/utils/panoItemFactory';
@@ -31,10 +33,10 @@ interface PanoScrollViewSignals extends SignalsDefinition<PanoScrollViewSignalTy
   'scroll-key-press': SignalRepresentationType<[GObject.GType<string>]>;
 }
 
-//TODO: the list member of St1.BoxLayout are of type Clutter.Actor and we have to cast constantly from PanoItem to Clutter.Actor and reverse, fix that somehow
+//TODO: the list member of St.BoxLayout are of type Clutter.Actor and we have to cast constantly from PanoItem to Clutter.Actor and reverse, fix that somehow
 
 @registerGObjectClass
-export class PanoScrollView extends St1.ScrollView {
+export class PanoScrollView extends St.ScrollView {
   static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, PanoScrollViewSignals> = {
     GTypeName: 'PanoScrollView',
     Signals: {
@@ -53,12 +55,12 @@ export class PanoScrollView extends St1.ScrollView {
     },
   };
 
-  private list: St1.BoxLayout;
+  private list: St.BoxLayout;
   private settings: Gio.Settings;
   private currentFocus: PanoItem | null = null;
-  private currentFilter: string;
-  private currentItemTypeFilter: ItemType;
-  private showFavorites: boolean;
+  private currentFilter: string | null = null;
+  private currentItemTypeFilter: ItemType | null = null;
+  private showFavorites: boolean | null = null;
   private searchBox: SearchBox;
   private ext: ExtensionBase;
   private clipboardChangedSignalId: number | null = null;
@@ -66,9 +68,9 @@ export class PanoScrollView extends St1.ScrollView {
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, searchBox: SearchBox) {
     super({
-      overlay_scrollbars: true,
-      x_expand: true,
-      y_expand: true,
+      overlayScrollbars: true,
+      xExpand: true,
+      yExpand: true,
     });
     this.ext = ext;
     this.clipboardManager = clipboardManager;
@@ -77,17 +79,17 @@ export class PanoScrollView extends St1.ScrollView {
 
     this.setScrollbarPolicy();
 
-    this.list = new St1.BoxLayout({
+    this.list = new St.BoxLayout({
       vertical: isVertical(this.settings.get_uint('window-position')),
-      x_expand: true,
-      y_expand: true,
+      xExpand: true,
+      yExpand: true,
     });
 
     this.settings.connect('changed::window-position', () => {
       this.setScrollbarPolicy();
       this.list.set_vertical(isVertical(this.settings.get_uint('window-position')));
     });
-    this.add_child(this.list);
+    scrollViewAddChild(this, this.list);
 
     const shouldFocusOut = (symbol: number) => {
       const isPanoVertical = isVertical(this.settings.get_uint('window-position'));
@@ -102,7 +104,7 @@ export class PanoScrollView extends St1.ScrollView {
       }
     };
 
-    this.connect('key-press-event', (_: St1.ScrollView, event: Clutter.Event) => {
+    this.connect('key-press-event', (_: St.ScrollView, event: Clutter.Event) => {
       if (
         event.get_key_symbol() === Clutter.KEY_Tab ||
         event.get_key_symbol() === Clutter.KEY_ISO_Left_Tab ||
@@ -153,11 +155,11 @@ export class PanoScrollView extends St1.ScrollView {
         });
         this.connectOnRemove(panoItem);
         this.connectOnFavorite(panoItem);
-        this.list.add_child(panoItem as unknown as Clutter.Actor);
+        this.list.add_child(panoItem);
       }
     });
 
-    const firstItem = this.list.get_first_child() as unknown as PanoItem | null;
+    const firstItem = this.list.get_first_child() as PanoItem | null;
     if (firstItem !== null) {
       firstItem.emit('activated');
     }
@@ -170,7 +172,7 @@ export class PanoScrollView extends St1.ScrollView {
       'changed',
       async (_: any, content: ClipboardContent) => {
         const panoItem = await createPanoItem(ext, this.clipboardManager, content);
-        if (panoItem) {
+        if (panoItem && this) {
           this.prependItem(panoItem);
           this.filter(this.currentFilter, this.currentItemTypeFilter, this.showFavorites);
         }
@@ -180,9 +182,9 @@ export class PanoScrollView extends St1.ScrollView {
 
   private setScrollbarPolicy() {
     if (isVertical(this.settings.get_uint('window-position'))) {
-      this.set_policy(St1.PolicyType.NEVER, St1.PolicyType.EXTERNAL);
+      this.set_policy(St.PolicyType.NEVER, St.PolicyType.EXTERNAL);
     } else {
-      this.set_policy(St1.PolicyType.EXTERNAL, St1.PolicyType.NEVER);
+      this.set_policy(St.PolicyType.EXTERNAL, St.PolicyType.NEVER);
     }
   }
 
@@ -202,14 +204,14 @@ export class PanoScrollView extends St1.ScrollView {
       }
     });
 
-    this.list.insert_child_at_index(panoItem as unknown as Clutter.Actor, 0);
+    this.list.insert_child_at_index(panoItem, 0);
     this.removeExcessiveItems();
   }
 
   private isHovering(actor: Clutter.Actor) {
     const [x, y] = Shell.Global.get().get_pointer();
-    const [x1, y1] = [actor.get_abs_allocation_vertices()[0].x, actor.get_abs_allocation_vertices()[0].y];
-    const [x2, y2] = [actor.get_abs_allocation_vertices()[3].x, actor.get_abs_allocation_vertices()[3].y];
+    const [x1, y1] = [actor.get_abs_allocation_vertices()[0]!.x, actor.get_abs_allocation_vertices()[0]!.y];
+    const [x2, y2] = [actor.get_abs_allocation_vertices()[3]!.x, actor.get_abs_allocation_vertices()[3]!.y];
 
     return x1 <= x && x <= x2 && y1 <= y && y <= y2;
   }
@@ -239,19 +241,19 @@ export class PanoScrollView extends St1.ScrollView {
 
   private removeItem(item: PanoItem) {
     item.hide();
-    this.list.remove_child(item as unknown as Clutter.Actor);
+    this.list.remove_child(item);
   }
 
   private getItem(panoItem: PanoItem): PanoItem | undefined {
-    return this.getItems().find((item) => (item as PanoItem).dbItem.id === panoItem.dbItem.id) as PanoItem;
+    return this.getItems().find((item) => item.dbItem.id === panoItem.dbItem.id);
   }
 
   private getItems(): PanoItem[] {
-    return this.list.get_children() as unknown as PanoItem[];
+    return this.list.get_children() as PanoItem[];
   }
 
   private getVisibleItems(): PanoItem[] {
-    return this.list.get_children().filter((item) => item.is_visible()) as unknown as PanoItem[];
+    return this.getItems().filter((item) => item.is_visible());
   }
 
   private removeExcessiveItems() {
@@ -275,9 +277,11 @@ export class PanoScrollView extends St1.ScrollView {
       return this.focusOnClosest();
     }
 
-    const index = this.getVisibleItems().findIndex((item) => item.dbItem.id === lastFocus.dbItem.id);
-    if (index + 1 < this.getVisibleItems().length) {
-      this.currentFocus = this.getVisibleItems()[index + 1];
+    const items = this.getVisibleItems();
+
+    const index = items.findIndex((item) => item.dbItem.id === lastFocus.dbItem.id);
+    if (index + 1 < items.length) {
+      this.currentFocus = items[index + 1]!;
       this.currentFocus.grab_key_focus();
       return true;
     }
@@ -291,9 +295,11 @@ export class PanoScrollView extends St1.ScrollView {
       return this.focusOnClosest();
     }
 
-    const index = this.getVisibleItems().findIndex((item) => item.dbItem.id === lastFocus.dbItem.id);
+    const items = this.getVisibleItems();
+
+    const index = items.findIndex((item) => item.dbItem.id === lastFocus.dbItem.id);
     if (index - 1 >= 0) {
-      this.currentFocus = this.getVisibleItems()[index - 1];
+      this.currentFocus = items[index - 1]!;
       this.currentFocus.grab_key_focus();
       return true;
     }
@@ -301,7 +307,7 @@ export class PanoScrollView extends St1.ScrollView {
     return false;
   }
 
-  filter(text: string, itemType: ItemType, showFavorites: boolean) {
+  filter(text: string | null, itemType: ItemType | null, showFavorites: boolean | null) {
     this.currentFilter = text;
     this.currentItemTypeFilter = itemType;
     this.showFavorites = showFavorites;
@@ -331,16 +337,16 @@ export class PanoScrollView extends St1.ScrollView {
 
   focusOnClosest() {
     const lastFocus = this.currentFocus;
+    const items = this.getVisibleItems();
+
     if (lastFocus !== null) {
       if (lastFocus.get_parent() === this.list && lastFocus.is_visible()) {
         lastFocus.grab_key_focus();
         return true;
       } else {
-        let nextFocus = this.getVisibleItems().find((item) => item.dbItem.copyDate <= lastFocus.dbItem.copyDate);
+        let nextFocus = items.find((item) => item.dbItem.copyDate <= lastFocus.dbItem.copyDate);
         if (!nextFocus) {
-          nextFocus = this.getVisibleItems()
-            .reverse()
-            .find((item) => item.dbItem.copyDate >= lastFocus.dbItem.copyDate);
+          nextFocus = items.reverse().find((item) => item.dbItem.copyDate >= lastFocus.dbItem.copyDate);
         }
         if (nextFocus) {
           this.currentFocus = nextFocus;
@@ -348,16 +354,16 @@ export class PanoScrollView extends St1.ScrollView {
           return true;
         }
       }
-    } else if (this.currentFilter && this.getVisibleItems().length > 0) {
-      this.currentFocus = this.getVisibleItems()[0];
+    } else if (this.currentFilter && items.length > 0) {
+      this.currentFocus = items[0]!;
       this.currentFocus.grab_key_focus();
       return true;
-    } else if (!this.currentFilter && this.getVisibleItems().length > 1) {
-      this.currentFocus = this.getVisibleItems()[1];
+    } else if (!this.currentFilter && items.length > 1) {
+      this.currentFocus = items[1]!;
       this.currentFocus.grab_key_focus();
       return true;
-    } else if (this.getVisibleItems().length > 0) {
-      this.currentFocus = this.getVisibleItems()[0];
+    } else if (items.length > 0) {
+      this.currentFocus = items[0]!;
       this.currentFocus.grab_key_focus();
       return true;
     }
@@ -366,11 +372,12 @@ export class PanoScrollView extends St1.ScrollView {
   }
 
   scrollToFirstItem() {
-    if (this.getVisibleItems().length === 0) {
+    const items = this.getVisibleItems();
+    if (items.length === 0) {
       return;
     }
 
-    this.scrollToItem(this.getVisibleItems()[0]);
+    this.scrollToItem(items[0]!);
   }
 
   scrollToFocussedItem() {
@@ -382,13 +389,15 @@ export class PanoScrollView extends St1.ScrollView {
   }
 
   focusAndScrollToFirst() {
-    if (this.getVisibleItems().length === 0) {
+    const items = this.getVisibleItems();
+
+    if (items.length === 0) {
       this.emit('scroll-focus-out');
       this.currentFocus = null;
       return;
     }
 
-    this.currentFocus = this.getVisibleItems()[0];
+    this.currentFocus = items[0]!;
     this.currentFocus.grab_key_focus();
     if (isVertical(this.settings.get_uint('window-position'))) {
       this.vscroll.adjustment.set_value(this.get_allocation_box().y1);
@@ -406,23 +415,22 @@ export class PanoScrollView extends St1.ScrollView {
   private scrollToItem(item: PanoItem) {
     const box = item.get_allocation_box();
 
-    let adjustment: St1.Adjustment | undefined;
+    let adjustment: St.Adjustment | undefined;
 
     let value: number | undefined;
     if (isVertical(this.settings.get_uint('window-position'))) {
-      adjustment = this.vscroll.adjustment;
-      value = box.y1 + adjustment.step_increment / 2.0 - adjustment.page_size / 2.0;
+      adjustment = getScrollViewAdjustment(this, 'v');
+      value = box.y1 + adjustment.stepIncrement / 2.0 - adjustment.pageSize / 2.0;
     } else {
-      adjustment = this.hscroll.adjustment;
-      value = box.x1 + adjustment.step_increment / 2.0 - adjustment.page_size / 2.0;
+      adjustment = getScrollViewAdjustment(this, 'h');
+      value = box.x1 + adjustment.stepIncrement / 2.0 - adjustment.pageSize / 2.0;
     }
 
     if (!Number.isFinite(value)) {
       return;
     }
 
-    //TODO: this isn't in the types??? investigate (this.scrollView.vscroll.adjustment.ease is there at runtime and also this.ease, as per prototype chain...)
-    (adjustment as unknown as Adjustment).ease(value, {
+    adjustment.ease(value, {
       duration: 150,
       mode: Clutter.AnimationMode.EASE_OUT_QUAD,
     });
@@ -431,7 +439,7 @@ export class PanoScrollView extends St1.ScrollView {
   selectFirstItem() {
     const visibleItems = this.getVisibleItems();
     if (visibleItems.length > 0) {
-      const item = visibleItems[0];
+      const item = visibleItems[0]!;
       item.emit('activated');
     }
   }
@@ -439,7 +447,7 @@ export class PanoScrollView extends St1.ScrollView {
   selectItemByIndex(index: number) {
     const visibleItems = this.getVisibleItems();
     if (visibleItems.length > index) {
-      const item = visibleItems[index];
+      const item = visibleItems[index]!;
       item.emit('activated');
     }
   }
@@ -464,7 +472,7 @@ export class PanoScrollView extends St1.ScrollView {
   }
 
   override vfunc_scroll_event(event: Clutter.Event): boolean {
-    let adjustment: St1.Adjustment | undefined;
+    let adjustment: St.Adjustment | undefined;
 
     if (isVertical(this.settings.get_uint('window-position'))) {
       adjustment = this.vscroll.adjustment;
@@ -481,17 +489,17 @@ export class PanoScrollView extends St1.ScrollView {
       event.get_scroll_direction() === Clutter.ScrollDirection.UP ||
       event.get_scroll_direction() === Clutter.ScrollDirection.LEFT
     ) {
-      value -= adjustment.step_increment * 2;
+      value -= adjustment.stepIncrement * 2;
     } else if (
       event.get_scroll_direction() === Clutter.ScrollDirection.DOWN ||
       event.get_scroll_direction() === Clutter.ScrollDirection.RIGHT
     ) {
-      value += adjustment.step_increment * 2;
+      value += adjustment.stepIncrement * 2;
     }
 
     adjustment.remove_transition('value');
 
-    (adjustment as unknown as Adjustment).ease(value, {
+    adjustment.ease(value, {
       duration: 150,
       mode: Clutter.AnimationMode.EASE_OUT_QUAD,
     });

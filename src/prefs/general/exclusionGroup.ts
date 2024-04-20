@@ -1,7 +1,7 @@
 import Adw from '@girs/adw-1';
 import Gio from '@girs/gio-2.0';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import Gtk4 from '@girs/gtk-4.0';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
 
@@ -15,7 +15,7 @@ export class ExclusionGroup extends Adw.PreferencesGroup {
     const _ = gettext(ext);
     super({
       title: _('Manage Exclusions'),
-      margin_top: 20,
+      marginTop: 20,
     });
 
     this.settings = getCurrentExtensionSettings(ext);
@@ -26,8 +26,8 @@ export class ExclusionGroup extends Adw.PreferencesGroup {
     });
 
     this.exclusionButton = new Gtk4.Button({
-      icon_name: 'list-add-symbolic',
-      css_classes: ['flat'],
+      iconName: 'list-add-symbolic',
+      cssClasses: ['flat'],
       valign: Gtk4.Align.CENTER,
       halign: Gtk4.Align.CENTER,
     });
@@ -51,7 +51,7 @@ export class ExclusionGroup extends Adw.PreferencesGroup {
     const entryRow = new Adw.ActionRow();
     const _ = gettext(ext);
     const entry = new Gtk4.Entry({
-      placeholder_text: _('Window class name'),
+      placeholderText: _('Window class name'),
       halign: Gtk4.Align.FILL,
       valign: Gtk4.Align.CENTER,
       hexpand: true,
@@ -62,8 +62,8 @@ export class ExclusionGroup extends Adw.PreferencesGroup {
     });
 
     const okButton = new Gtk4.Button({
-      css_classes: ['flat'],
-      icon_name: 'emblem-ok-symbolic',
+      cssClasses: ['flat'],
+      iconName: 'emblem-ok-symbolic',
       valign: Gtk4.Align.CENTER,
       halign: Gtk4.Align.CENTER,
     });
@@ -83,8 +83,8 @@ export class ExclusionGroup extends Adw.PreferencesGroup {
     });
 
     const cancelButton = new Gtk4.Button({
-      css_classes: ['flat'],
-      icon_name: 'window-close-symbolic',
+      cssClasses: ['flat'],
+      iconName: 'window-close-symbolic',
       valign: Gtk4.Align.CENTER,
       halign: Gtk4.Align.CENTER,
     });
@@ -107,8 +107,8 @@ export class ExclusionGroup extends Adw.PreferencesGroup {
     });
 
     const removeButton = new Gtk4.Button({
-      css_classes: ['destructive-action'],
-      icon_name: 'edit-delete-symbolic',
+      cssClasses: ['destructive-action'],
+      iconName: 'edit-delete-symbolic',
       valign: Gtk4.Align.CENTER,
       halign: Gtk4.Align.CENTER,
     });

@@ -1,16 +1,19 @@
-import Clutter from '@girs/clutter-13';
-import Cogl from '@girs/cogl-13';
+import Clutter from '@girs/clutter-14';
+import Cogl from '@girs/cogl-14';
 import GdkPixbuf from '@girs/gdkpixbuf-2.0';
 import Gio from '@girs/gio-2.0';
-import GLib from '@girs/glib-2.0';
-import Shell from '@girs/shell-13';
-import St1 from '@girs/st-13';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
-import * as animationUtils from '@gnome-shell/misc/animationUtils';
-import * as layout from '@gnome-shell/ui/layout';
-import * as main from '@gnome-shell/ui/main';
-import * as messageTray from '@gnome-shell/ui/messageTray';
+import type { Extension } from '@girs/gnome-shell/dist/extensions/extension';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
+import * as animationUtils from '@girs/gnome-shell/dist/misc/animationUtils';
+import { Monitor, MonitorConstraint } from '@girs/gnome-shell/dist/ui/layout';
+import * as main from '@girs/gnome-shell/dist/ui/main';
+import type { Notification, Source as MessageTraySource } from '@girs/gnome-shell/dist/ui/messageTray';
+import Shell from '@girs/shell-14';
+import St from '@girs/st-14';
 import { gettext } from '@pano/utils/shell';
+
+import { addNotification, newMessageTraySource, newNotification } from './compatibility';
+
 const global = Shell.Global.get();
 
 export const notify = (
@@ -21,15 +24,15 @@ export const notify = (
   pixelFormat?: Cogl.PixelFormat,
 ): void => {
   const _ = gettext(ext);
-  const source = new messageTray.Source(_('Pano'), 'edit-copy-symbolic');
-  main.messageTray.add(source);
-  let notification;
+  const source = newMessageTraySource(_('Pano'), 'edit-copy-symbolic');
+  main.messageTray.add(source as MessageTraySource);
+  let notification: Notification;
   if (iconOrPixbuf) {
     if (iconOrPixbuf instanceof GdkPixbuf.Pixbuf) {
-      const content = St1.ImageContent.new_with_preferred_size(
+      const content = St.ImageContent.new_with_preferred_size(
         iconOrPixbuf.width,
         iconOrPixbuf.height,
-      ) as St1.ImageContent;
+      ) as St.ImageContent;
       content.set_bytes(
         iconOrPixbuf.read_pixel_bytes(),
         pixelFormat || Cogl.PixelFormat.RGBA_8888,
@@ -38,39 +41,30 @@ export const notify = (
         iconOrPixbuf.rowstride,
       );
 
-      notification = new messageTray.Notification(source, text, body, {
-        datetime: GLib.DateTime.new_now_local(),
-        gicon: content,
-      });
+      notification = newNotification(source, text, body, true, { gicon: content });
     } else {
-      notification = new messageTray.Notification(source, text, body, {
-        datetime: GLib.DateTime.new_now_local(),
-        gicon: iconOrPixbuf,
-      });
+      notification = newNotification(source, text, body, true, { gicon: iconOrPixbuf });
     }
   } else {
-    notification = new messageTray.Notification(source, text, body, {});
+    notification = newNotification(source, text, body, true, {});
   }
 
-  notification.setTransient(true);
-  source.showNotification(notification);
+  addNotification(source, notification);
 };
 
-export const wiggle = (
-  actor: Clutter.Actor,
-  { offset, duration, wiggleCount }: { offset?: number; duration?: number; wiggleCount?: number },
-) => animationUtils.wiggle(actor, { offset, duration, wiggleCount });
+export const wiggle = (actor: Clutter.Actor, { offset, duration, wiggleCount }: animationUtils.WiggleParams) =>
+  animationUtils.wiggle(actor, { offset, duration, wiggleCount });
 
 export const wm = main.wm;
 
-export const getMonitors = (): layout.Monitor[] => main.layoutManager.monitors;
+export const getMonitors = (): Monitor[] => main.layoutManager.monitors;
 
 export const getMonitorIndexForPointer = () => {
   const [x, y] = global.get_pointer();
   const monitors = getMonitors();
 
   for (let i = 0; i <= monitors.length; i++) {
-    const monitor: layout.Monitor | undefined | null = monitors[i];
+    const monitor: Monitor | undefined | null = monitors[i];
 
     //TODO: debug this issue, sometimes (around 20% of the time) monitor[1] (on my dual monitor setup) is undefined
     if (!monitor) {
@@ -86,13 +80,8 @@ export const getMonitorIndexForPointer = () => {
 };
 
 export const getMonitorConstraint = () =>
-  new layout.MonitorConstraint({
+  new MonitorConstraint({
     index: getMonitorIndexForPointer(),
-  });
-
-export const getMonitorConstraintForIndex = (index: number) =>
-  new layout.MonitorConstraint({
-    index,
   });
 
 export const addTopChrome = (actor: Clutter.Actor, options?: any) => main.layoutManager.addTopChrome(actor, options);
@@ -120,7 +109,7 @@ export const addToStatusArea = (ext: ExtensionBase, button: any) => {
   main.panel.addToStatusArea(ext.uuid, button, 1, 'right');
 };
 
-export const openExtensionPreferences = (ext: ExtensionBase) => ext.openPreferences();
+export const openExtensionPreferences = (ext: Extension) => ext.openPreferences();
 
 export const WINDOW_POSITIONS = {
   TOP: 0,
@@ -129,7 +118,7 @@ export const WINDOW_POSITIONS = {
   LEFT: 3,
 };
 
-export const getAlignment = (position: number) => {
+export const getAlignment = (position: number): [Clutter.ActorAlign, Clutter.ActorAlign] => {
   switch (position) {
     case WINDOW_POSITIONS.TOP:
       return [Clutter.ActorAlign.FILL, Clutter.ActorAlign.START];

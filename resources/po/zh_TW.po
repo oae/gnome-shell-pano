@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"X-Generator: fill-pot-po/2.2.8\n"
+"X-Generator: fill-pot-po/3.0.4\n"
 
 #: src/components/indicator/clearHistoryDialog.ts:23
 msgid "Cancel"
@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "清除"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:94
+#: src/components/indicator/settingsMenu.ts:101
 #: src/prefs/dangerZone/clearHistory.ts:14
 msgid "Clear History"
 msgstr "清除歷史紀錄"
@@ -23,11 +23,11 @@ msgstr "清除歷史紀錄"
 msgid "Are you sure you want to clear history?"
 msgstr "是否清除歷史紀錄"
 
-#: src/components/indicator/settingsMenu.ts:61
+#: src/components/indicator/settingsMenu.ts:67
 msgid "Incognito Mode"
 msgstr "無痕模式"
 
-#: src/components/indicator/settingsMenu.ts:101
+#: src/components/indicator/settingsMenu.ts:108
 msgid "Settings"
 msgstr "設定"
 
@@ -35,7 +35,7 @@ msgstr "設定"
 msgid "No Description"
 msgstr "無說明"
 
-#: src/components/searchBox.ts:68
+#: src/components/searchBox.ts:69
 msgid "Type to search, Tab to cycle"
 msgstr "輸入以搜尋，按 Tab 循環"
 
@@ -539,11 +539,11 @@ msgstr "同步"
 msgid "Sync primary selection with clipboard selection"
 msgstr "同步主要選取與剪貼簿選取"
 
-#: src/prefs/general/watchExclusions.ts:14
+#: src/prefs/general/watchExclusions.ts:15
 msgid "Watch Exclusions"
 msgstr "查看擴充套件"
 
-#: src/prefs/general/watchExclusions.ts:15
+#: src/prefs/general/watchExclusions.ts:16
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "啟用時 Pano 不會在已排除的應用程式內追蹤"
 
@@ -555,39 +555,39 @@ msgstr "振動圖示"
 msgid "Wiggles the indicator on panel"
 msgstr "在頂欄中振動圖示"
 
-#: src/utils/panoItemFactory.ts:392
+#: src/utils/panoItemFactory.ts:406
 msgid "Image Copied"
 msgstr "已複製圖片"
 
-#: src/utils/panoItemFactory.ts:393
+#: src/utils/panoItemFactory.ts:407
 msgid "Width: %spx, Height: %spx, Size: %s"
 msgstr "寬度：%s個像素，高度：%s個像素，大小：%s"
 
-#: src/utils/panoItemFactory.ts:397
+#: src/utils/panoItemFactory.ts:411
 msgid "Text Copied"
 msgstr "已複製文字"
 
-#: src/utils/panoItemFactory.ts:399
+#: src/utils/panoItemFactory.ts:413
 msgid "Code Copied"
 msgstr "已複製程式碼"
 
-#: src/utils/panoItemFactory.ts:401
+#: src/utils/panoItemFactory.ts:415
 msgid "Emoji Copied"
 msgstr "已複製表情符號"
 
-#: src/utils/panoItemFactory.ts:409
+#: src/utils/panoItemFactory.ts:423
 msgid "Link Copied"
 msgstr "已複製連結"
 
-#: src/utils/panoItemFactory.ts:429
+#: src/utils/panoItemFactory.ts:443
 msgid "Color Copied"
 msgstr "已複製顏色"
 
-#: src/utils/panoItemFactory.ts:436
+#: src/utils/panoItemFactory.ts:450
 msgid "File %s"
 msgstr "檔案 %s"
 
-#: src/utils/panoItemFactory.ts:437
+#: src/utils/panoItemFactory.ts:451
 msgid "There are %s file(s)"
 msgstr "這裡有 %s 個檔案"
 
@@ -619,6 +619,6 @@ msgstr "程式碼"
 msgid "Color"
 msgstr "顏色"
 
-#: src/utils/ui.ts:24
+#: src/utils/ui.ts:27
 msgid "Pano"
 msgstr "Pano"

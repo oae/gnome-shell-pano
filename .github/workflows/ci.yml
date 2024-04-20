@@ -1,0 +1,38 @@
+name: Yarn CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  build:
+    name: Yarn CI with Node ${{ matrix.node-version }}
+    runs-on: ubuntu-22.04
+
+    strategy:
+      matrix:
+        node-version:
+          - 20.x
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Validate Formatting
+        run: yarn run prettier:check
+
+      - name: Build Extension
+        run: yarn run build
+
+      - name: Lint Extension
+        run: yarn run lint

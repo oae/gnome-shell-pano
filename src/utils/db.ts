@@ -1,8 +1,7 @@
 import Gda5 from '@girs/gda-5.0';
-import Gio from '@girs/gio-2.0';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import { add_expr_value } from '@pano/utils/compatibility';
-import { getCurrentExtensionSettings, getDbPath, logger } from '@pano/utils/shell';
+import { getDbPath, logger } from '@pano/utils/shell';
 
 const debug = logger('database');
 
@@ -15,8 +14,8 @@ export type DBItem = {
   copyDate: Date;
   isFavorite: boolean;
   matchValue: string;
-  searchValue?: string;
-  metaData?: string;
+  searchValue?: string | undefined;
+  metaData?: string | undefined;
 };
 
 class ClipboardQuery {
@@ -171,14 +170,12 @@ export class ClipboardQueryBuilder {
   }
 }
 class Database {
-  private connection: Gda5.Connection | null;
-  private settings: Gio.Settings;
+  private connection: Gda5.Connection | null = null;
 
   private init(ext: ExtensionBase) {
-    this.settings = getCurrentExtensionSettings(ext);
     this.connection = new Gda5.Connection({
       provider: Gda5.Config.get_provider('SQLite'),
-      cnc_string: `DB_DIR=${getDbPath(ext)};DB_NAME=pano`,
+      cncString: `DB_DIR=${getDbPath(ext)};DB_NAME=pano`,
     });
     this.connection.open();
   }
@@ -220,6 +217,7 @@ class Database {
     });
 
     builder.set_table('clipboard');
+    //Note: casting required, since this is a gjs convention, that you don't have to pass a  GObject.Value, this is needed for teh C API, but GJS constructs it on the fly
     builder.add_field_value_as_gvalue('itemType', dbItem.itemType as any);
     builder.add_field_value_as_gvalue('content', dbItem.content as any);
     builder.add_field_value_as_gvalue('copyDate', dbItem.copyDate.toISOString() as any);
@@ -259,6 +257,7 @@ class Database {
     });
 
     builder.set_table('clipboard');
+    //Note: casting required, since this is a gjs convention, that you don't have to pass a  GObject.Value, this is needed for teh C API, but GJS constructs it on the fly
     builder.add_field_value_as_gvalue('itemType', dbItem.itemType as any);
     builder.add_field_value_as_gvalue('content', dbItem.content as any);
     builder.add_field_value_as_gvalue('copyDate', dbItem.copyDate.toISOString() as any);
@@ -318,11 +317,12 @@ class Database {
     const itemList: DBItem[] = [];
 
     while (iter.move_next()) {
+      //Note: casting required, since this is a gjs convention, that any GObject.Value is just the value (e.g. string, number etc.) this types are from C, so there is no dynamic return value so they have to use GObject.Value
       const id = iter.get_value_for_field('id') as any as number;
       const itemType = iter.get_value_for_field('itemType') as any as ItemType;
       const content = iter.get_value_for_field('content') as any as string;
       const copyDate = iter.get_value_for_field('copyDate') as any as string;
-      const isFavorite = iter.get_value_for_field('isFavorite') as any as string;
+      const isFavorite = iter.get_value_for_field('isFavorite') as any as number;
       const matchValue = iter.get_value_for_field('matchValue') as any as string;
       const searchValue = iter.get_value_for_field('searchValue') as any as string;
       const metaData = iter.get_value_for_field('metaData') as any as string;

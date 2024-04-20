@@ -1,8 +1,8 @@
 import Adw from '@girs/adw-1';
 import Gdk4 from '@girs/gdk-4.0';
 import Gio from '@girs/gio-2.0';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import Gtk4 from '@girs/gtk-4.0';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
 import { getAcceleratorName } from '@pano/prefs/general/helper';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
@@ -20,28 +20,28 @@ export class ShortcutRow extends Adw.ActionRow {
     this.settings = getCurrentExtensionSettings(ext);
 
     const shortcutLabel = new Gtk4.ShortcutLabel({
-      disabled_text: _('Select a shortcut'),
-      accelerator: this.settings.get_strv('global-shortcut')[0],
+      disabledText: _('Select a shortcut'),
+      accelerator: this.settings.get_strv('global-shortcut')[0]!,
       valign: Gtk4.Align.CENTER,
       halign: Gtk4.Align.CENTER,
     });
 
     this.settings.connect('changed::global-shortcut', () => {
-      shortcutLabel.set_accelerator(this.settings.get_strv('global-shortcut')[0]);
+      shortcutLabel.set_accelerator(this.settings.get_strv('global-shortcut')[0]!);
     });
 
     this.connect('activated', () => {
       const ctl = new Gtk4.EventControllerKey();
       const content = new Adw.StatusPage({
         title: _('New shortcut'),
-        icon_name: 'preferences-desktop-keyboard-shortcuts-symbolic',
+        iconName: 'preferences-desktop-keyboard-shortcuts-symbolic',
       });
       const editor = new Adw.Window({
         modal: true,
-        transient_for: this.get_root() as Adw.Window,
-        hide_on_close: true,
-        width_request: 320,
-        height_request: 240,
+        transientFor: this.get_root() as Adw.Window,
+        hideOnClose: true,
+        widthRequest: 320,
+        heightRequest: 240,
         resizable: false,
         content,
       });

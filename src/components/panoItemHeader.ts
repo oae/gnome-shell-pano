@@ -1,13 +1,14 @@
-import Clutter from '@girs/clutter-13';
+import Clutter from '@girs/clutter-14';
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import GObject from '@girs/gobject-2.0';
-import Shell from '@girs/shell-13';
-import St1 from '@girs/st-13';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
+import Shell from '@girs/shell-14';
+import St from '@girs/st-14';
 import { registerGObjectClass, SignalsDefinition } from '@pano/utils/gjs';
 import { ICON_PACKS, IPanoItemType } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
+import { Locale } from 'date-fns';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import * as dateLocale from 'date-fns/locale';
 
@@ -22,8 +23,14 @@ interface PanoItemHeaderSignals extends SignalsDefinition<PanoItemHeaderSignalTy
   'on-favorite': Record<string, never>;
 }
 
+type FormatOptions = {
+  includeSeconds?: boolean;
+  addSuffix?: boolean;
+  locale?: Locale;
+};
+
 @registerGObjectClass
-export class PanoItemHeader extends St1.BoxLayout {
+export class PanoItemHeader extends St.BoxLayout {
   static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, PanoItemHeaderSignals> = {
     GTypeName: 'PanoItemHeader',
     Signals: {
@@ -33,42 +40,42 @@ export class PanoItemHeader extends St1.BoxLayout {
   };
 
   private dateUpdateIntervalId: any;
-  private favoriteButton: St1.Button;
+  private favoriteButton: St.Button;
   private settings: Gio.Settings;
-  private titleLabel: St1.Label;
-  private dateLabel: St1.Label;
-  actionContainer: St1.BoxLayout;
-  titleContainer: St1.BoxLayout;
-  iconContainer: St1.BoxLayout;
+  private titleLabel: St.Label;
+  private dateLabel: St.Label;
+  actionContainer: St.BoxLayout;
+  titleContainer: St.BoxLayout;
+  iconContainer: St.BoxLayout;
   itemType: IPanoItemType;
 
   constructor(ext: ExtensionBase, itemType: IPanoItemType, date: Date) {
     super({
-      style_class: `pano-item-header pano-item-header-${itemType.classSuffix}`,
+      styleClass: `pano-item-header pano-item-header-${itemType.classSuffix}`,
       vertical: false,
     });
     this.itemType = itemType;
-    this.titleContainer = new St1.BoxLayout({
-      style_class: 'pano-item-title-container',
+    this.titleContainer = new St.BoxLayout({
+      styleClass: 'pano-item-title-container',
       vertical: true,
-      x_expand: true,
+      xExpand: true,
     });
-    this.iconContainer = new St1.BoxLayout({
-      style_class: 'pano-icon-container',
+    this.iconContainer = new St.BoxLayout({
+      styleClass: 'pano-icon-container',
     });
 
     this.settings = getCurrentExtensionSettings(ext);
 
-    const themeContext = St1.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
+    const themeContext = St.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
 
-    this.set_height(56 * themeContext.scale_factor);
+    this.set_height(56 * themeContext.scaleFactor);
 
     themeContext.connect('notify::scale-factor', () => {
-      this.set_height(56 * themeContext.scale_factor);
+      this.set_height(56 * themeContext.scaleFactor);
     });
 
-    const icon = new St1.Icon({
-      style_class: 'pano-item-title-icon',
+    const icon = new St.Icon({
+      styleClass: 'pano-item-title-icon',
       gicon: Gio.icon_new_for_string(
         `${ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${
           itemType.iconPath
@@ -86,48 +93,57 @@ export class PanoItemHeader extends St1.BoxLayout {
       );
     });
 
-    this.titleLabel = new St1.Label({
+    this.titleLabel = new St.Label({
       text: itemType.title,
-      style_class: 'pano-item-title',
-      x_expand: true,
+      styleClass: 'pano-item-title',
+      xExpand: true,
     });
 
     this.titleContainer.add_child(this.titleLabel);
 
-    this.dateLabel = new St1.Label({
-      text: formatDistanceToNow(date, { addSuffix: true, locale: localeKey ? dateLocale[localeKey] : undefined }),
-      style_class: 'pano-item-date',
-      x_expand: true,
-      y_expand: true,
-      x_align: Clutter.ActorAlign.FILL,
-      y_align: Clutter.ActorAlign.CENTER,
+    const options: FormatOptions = {
+      addSuffix: true,
+    };
+
+    if (localeKey !== undefined) {
+      const locale = (dateLocale as Record<string, Locale | undefined>)[localeKey];
+      if (locale) {
+        options.locale = locale;
+      }
+    }
+
+    this.dateLabel = new St.Label({
+      text: formatDistanceToNow(date, options),
+      styleClass: 'pano-item-date',
+      xExpand: true,
+      yExpand: true,
+      xAlign: Clutter.ActorAlign.FILL,
+      yAlign: Clutter.ActorAlign.CENTER,
     });
 
     this.dateUpdateIntervalId = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 60, () => {
-      this.dateLabel.set_text(
-        formatDistanceToNow(date, { addSuffix: true, locale: localeKey ? dateLocale[localeKey] : undefined }),
-      );
+      this.dateLabel.set_text(formatDistanceToNow(date, options));
 
       return GLib.SOURCE_CONTINUE;
     });
 
     this.titleContainer.add_child(this.dateLabel);
 
-    this.actionContainer = new St1.BoxLayout({
-      style_class: 'pano-item-actions',
-      x_expand: true,
-      y_expand: true,
-      x_align: Clutter.ActorAlign.END,
-      y_align: Clutter.ActorAlign.START,
+    this.actionContainer = new St.BoxLayout({
+      styleClass: 'pano-item-actions',
+      xExpand: true,
+      yExpand: true,
+      xAlign: Clutter.ActorAlign.END,
+      yAlign: Clutter.ActorAlign.START,
     });
 
-    const favoriteIcon = new St1.Icon({
-      style_class: 'pano-item-action-button-icon',
-      icon_name: 'starred-symbolic',
+    const favoriteIcon = new St.Icon({
+      styleClass: 'pano-item-action-button-icon',
+      iconName: 'starred-symbolic',
     });
 
-    this.favoriteButton = new St1.Button({
-      style_class: 'pano-item-action-button pano-item-favorite-button',
+    this.favoriteButton = new St.Button({
+      styleClass: 'pano-item-action-button pano-item-favorite-button',
       child: favoriteIcon,
     });
 
@@ -136,13 +152,13 @@ export class PanoItemHeader extends St1.BoxLayout {
       return Clutter.EVENT_PROPAGATE;
     });
 
-    const removeIcon = new St1.Icon({
-      style_class: 'pano-item-action-button-icon pano-item-action-button-remove-icon',
-      icon_name: 'window-close-symbolic',
+    const removeIcon = new St.Icon({
+      styleClass: 'pano-item-action-button-icon pano-item-action-button-remove-icon',
+      iconName: 'window-close-symbolic',
     });
 
-    const removeButton = new St1.Button({
-      style_class: 'pano-item-action-button pano-item-remove-button',
+    const removeButton = new St.Button({
+      styleClass: 'pano-item-action-button pano-item-remove-button',
       child: removeIcon,
     });
 

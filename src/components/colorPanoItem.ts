@@ -1,7 +1,7 @@
-import Clutter from '@girs/clutter-13';
+import Clutter from '@girs/clutter-14';
 import Gio from '@girs/gio-2.0';
-import St1 from '@girs/st-13';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
+import St from '@girs/st-14';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
@@ -9,7 +9,7 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 @registerGObjectClass
 export class ColorPanoItem extends PanoItem {
   private colorItemSettings: Gio.Settings;
-  private label: St1.Label;
+  private label: St.Label;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
     super(ext, clipboardManager, dbItem);
@@ -18,23 +18,23 @@ export class ColorPanoItem extends PanoItem {
 
     this.colorItemSettings = this.settings.get_child('color-item');
 
-    const colorContainer = new St1.BoxLayout({
+    const colorContainer = new St.BoxLayout({
       vertical: false,
-      x_expand: true,
-      y_expand: true,
-      y_align: Clutter.ActorAlign.FILL,
-      x_align: Clutter.ActorAlign.FILL,
-      style_class: 'color-container',
+      xExpand: true,
+      yExpand: true,
+      yAlign: Clutter.ActorAlign.FILL,
+      xAlign: Clutter.ActorAlign.FILL,
+      styleClass: 'color-container',
       style: `background-color: ${this.dbItem.content};`,
     });
 
-    this.label = new St1.Label({
-      x_align: Clutter.ActorAlign.CENTER,
-      y_align: Clutter.ActorAlign.CENTER,
-      x_expand: true,
-      y_expand: true,
+    this.label = new St.Label({
+      xAlign: Clutter.ActorAlign.CENTER,
+      yAlign: Clutter.ActorAlign.CENTER,
+      xExpand: true,
+      yExpand: true,
       text: this.dbItem.content,
-      style_class: 'color-label',
+      styleClass: 'color-label',
     });
 
     colorContainer.add_child(this.label);
@@ -42,7 +42,7 @@ export class ColorPanoItem extends PanoItem {
     colorContainer.add_constraint(
       new Clutter.AlignConstraint({
         source: this,
-        align_axis: Clutter.AlignAxis.Y_AXIS,
+        alignAxis: Clutter.AlignAxis.Y_AXIS,
         factor: 0.005,
       }),
     );

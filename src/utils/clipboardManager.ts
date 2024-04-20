@@ -1,10 +1,10 @@
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import GObject from '@girs/gobject-2.0';
-import Meta from '@girs/meta-13';
-import Shell from '@girs/shell-13';
-import St1 from '@girs/st-13';
-import { ExtensionBase } from '@gnome-shell/extensions/extension';
+import Meta from '@girs/meta-14';
+import Shell from '@girs/shell-14';
+import St from '@girs/st-14';
 import { registerGObjectClass, SignalRepresentationType } from '@pano/utils/gjs';
 import { debounce, getCurrentExtensionSettings, logger } from '@pano/utils/shell';
 
@@ -17,7 +17,7 @@ const MimeType = {
   IMAGE: ['image/png'],
   GNOME_FILE: ['x-special/gnome-copied-files'],
   SENSITIVE: ['x-kde-passwordManagerHint'],
-};
+} as const;
 
 export const enum ContentType {
   IMAGE,
@@ -123,17 +123,17 @@ export class ClipboardManager extends GObject.Object {
     },
   };
 
-  private clipboard: St1.Clipboard;
+  private clipboard: St.Clipboard;
   private selection: Meta.Selection;
-  private selectionChangedId: number;
-  public isTracking: boolean;
+  private selectionChangedId: number | undefined;
+  public isTracking: boolean | undefined;
   private settings: Gio.Settings;
   private lastCopiedContent: ClipboardContent | null;
 
   constructor(ext: ExtensionBase) {
     super();
     this.settings = getCurrentExtensionSettings(ext);
-    this.clipboard = St1.Clipboard.get_default();
+    this.clipboard = St.Clipboard.get_default();
     this.selection = global.get_display().get_selection();
     this.lastCopiedContent = null;
   }
@@ -142,7 +142,7 @@ export class ClipboardManager extends GObject.Object {
     this.lastCopiedContent = null;
     this.isTracking = true;
     const primaryTracker = debounce(async () => {
-      const result = await this.getContent(St1.ClipboardType.PRIMARY);
+      const result = await this.getContent(St.ClipboardType.PRIMARY);
       if (!result) {
         return;
       }
@@ -160,7 +160,7 @@ export class ClipboardManager extends GObject.Object {
         if (this.settings.get_boolean('is-in-incognito')) {
           return;
         }
-        const focussedWindow = Shell.Global.get().display.focus_window;
+        const focussedWindow = Shell.Global.get().display.focusWindow;
         const wmClass = focussedWindow?.get_wm_class();
         if (
           wmClass &&
@@ -174,7 +174,7 @@ export class ClipboardManager extends GObject.Object {
         }
         if (selectionType === Meta.SelectionType.SELECTION_CLIPBOARD) {
           try {
-            const result = await this.getContent(St1.ClipboardType.CLIPBOARD);
+            const result = await this.getContent(St.ClipboardType.CLIPBOARD);
             if (!result) {
               return;
             }
@@ -201,7 +201,9 @@ export class ClipboardManager extends GObject.Object {
   }
 
   stopTracking() {
-    this.selection.disconnect(this.selectionChangedId);
+    if (this.selectionChangedId) {
+      this.selection.disconnect(this.selectionChangedId);
+    }
     this.isTracking = false;
     this.lastCopiedContent = null;
   }
@@ -210,39 +212,39 @@ export class ClipboardManager extends GObject.Object {
     const syncPrimary = this.settings.get_boolean('sync-primary');
     if (content.type === ContentType.TEXT) {
       if (syncPrimary) {
-        this.clipboard.set_text(St1.ClipboardType.PRIMARY, content.value);
+        this.clipboard.set_text(St.ClipboardType.PRIMARY, content.value);
       }
-      this.clipboard.set_text(St1.ClipboardType.CLIPBOARD, content.value);
+      this.clipboard.set_text(St.ClipboardType.CLIPBOARD, content.value);
     } else if (content.type === ContentType.IMAGE) {
       if (syncPrimary) {
-        this.clipboard.set_content(St1.ClipboardType.PRIMARY, MimeType.IMAGE[0], new GLib.Bytes(content.value));
+        this.clipboard.set_content(St.ClipboardType.PRIMARY, MimeType.IMAGE[0], new GLib.Bytes(content.value));
       }
-      this.clipboard.set_content(St1.ClipboardType.CLIPBOARD, MimeType.IMAGE[0], new GLib.Bytes(content.value));
+      this.clipboard.set_content(St.ClipboardType.CLIPBOARD, MimeType.IMAGE[0], new GLib.Bytes(content.value));
     } else if (content.type === ContentType.FILE) {
       if (syncPrimary) {
         this.clipboard.set_content(
-          St1.ClipboardType.PRIMARY,
+          St.ClipboardType.PRIMARY,
           MimeType.GNOME_FILE[0],
           new GLib.Bytes(new TextEncoder().encode([content.value.operation, ...content.value.fileList].join('\n'))),
         );
       }
       this.clipboard.set_content(
-        St1.ClipboardType.CLIPBOARD,
+        St.ClipboardType.CLIPBOARD,
         MimeType.GNOME_FILE[0],
         new GLib.Bytes(new TextEncoder().encode([content.value.operation, ...content.value.fileList].join('\n'))),
       );
     }
   }
 
-  private haveMimeType(clipboardMimeTypes: string[], targetMimeTypes: string[]): boolean {
+  private haveMimeType(clipboardMimeTypes: string[], targetMimeTypes: readonly string[]): boolean {
     return clipboardMimeTypes.find((m) => targetMimeTypes.indexOf(m) >= 0) !== undefined;
   }
 
-  private getCurrentMimeType(clipboardMimeTypes: string[], targetMimeTypes: string[]): string | undefined {
+  private getCurrentMimeType(clipboardMimeTypes: string[], targetMimeTypes: readonly string[]): string | undefined {
     return clipboardMimeTypes.find((m) => targetMimeTypes.indexOf(m) >= 0);
   }
 
-  private async getContent(clipboardType: St1.ClipboardType): Promise<ClipboardContent | null> {
+  private async getContent(clipboardType: St.ClipboardType): Promise<ClipboardContent | null> {
     return new Promise((resolve) => {
       const cbMimeTypes = this.clipboard.get_mimetypes(clipboardType);
       if (this.haveMimeType(cbMimeTypes, MimeType.SENSITIVE)) {
@@ -264,7 +266,7 @@ export class ClipboardManager extends GObject.Object {
               new ClipboardContent({
                 type: ContentType.FILE,
                 value: {
-                  operation: hasOperation ? fileContent[0] : FileOperation.COPY,
+                  operation: hasOperation ? fileContent[0]! : FileOperation.COPY,
                   fileList: hasOperation ? fileContent.slice(1) : fileContent,
                 },
               }),
@@ -293,7 +295,7 @@ export class ClipboardManager extends GObject.Object {
           resolve(null);
         });
       } else if (this.haveMimeType(cbMimeTypes, MimeType.TEXT)) {
-        this.clipboard.get_text(clipboardType, (_: St1.Clipboard, text: string | null) => {
+        this.clipboard.get_text(clipboardType, (_: St.Clipboard, text: string | null) => {
           if (text && text.trim()) {
             resolve(
               new ClipboardContent({

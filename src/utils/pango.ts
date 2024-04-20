@@ -59,7 +59,16 @@ const getColor = (classNames: string): string => {
   return item.fgcolor;
 };
 
-const stringify = (o, language) => {
+type Env = {
+  type: string;
+  content: string;
+  tag: string;
+  classes: string[];
+  attributes: Record<string, string>;
+  language: string;
+};
+
+const stringify = (o: string | PrismJS.TokenStream, language: string) => {
   if (typeof o == 'string') {
     return o;
   }
@@ -71,7 +80,7 @@ const stringify = (o, language) => {
     return s;
   }
 
-  const env = {
+  const env: Env = {
     type: o.type,
     content: stringify(o.content, language),
     tag: 'span',
@@ -92,7 +101,7 @@ export const markupCode = (text: string, charLength: number): string => {
   const result =
     INVISIBLE_SPACE +
     stringify(
-      PrismJS.util.encode(PrismJS.tokenize(text.slice(0, charLength), PrismJS.languages.javascript)),
+      PrismJS.util.encode(PrismJS.tokenize(text.slice(0, charLength), PrismJS.languages['javascript']!)),
       'javascript',
     );
 
