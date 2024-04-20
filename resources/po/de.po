@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"X-Generator: fill-pot-po/2.2.8\n"
+"X-Generator: fill-pot-po/3.0.4\n"
 
 #: src/components/indicator/clearHistoryDialog.ts:23
 msgid "Cancel"
@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "Leeren"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:94
+#: src/components/indicator/settingsMenu.ts:101
 #: src/prefs/dangerZone/clearHistory.ts:14
 msgid "Clear History"
 msgstr "Chronik leeren"
@@ -23,11 +23,11 @@ msgstr "Chronik leeren"
 msgid "Are you sure you want to clear history?"
 msgstr "Sind Sie sicher, dass Sie die Chronik leeren möchten?"
 
-#: src/components/indicator/settingsMenu.ts:61
+#: src/components/indicator/settingsMenu.ts:67
 msgid "Incognito Mode"
 msgstr "Inkognito-Modus"
 
-#: src/components/indicator/settingsMenu.ts:101
+#: src/components/indicator/settingsMenu.ts:108
 msgid "Settings"
 msgstr "Einstellungen"
 
@@ -35,7 +35,7 @@ msgstr "Einstellungen"
 msgid "No Description"
 msgstr "Keine Beschreibung"
 
-#: src/components/searchBox.ts:68
+#: src/components/searchBox.ts:69
 msgid "Type to search, Tab to cycle"
 msgstr "Tippen zum Suchen, Tab zum Wechseln"
 
@@ -539,11 +539,11 @@ msgstr "Primärauswahl synchronisieren"
 msgid "Sync primary selection with clipboard selection"
 msgstr "Primäre Auswahl mit der Auswahl der Zwischenablage synchronisieren"
 
-#: src/prefs/general/watchExclusions.ts:14
+#: src/prefs/general/watchExclusions.ts:15
 msgid "Watch Exclusions"
 msgstr "Ausschlüsse überwachen"
 
-#: src/prefs/general/watchExclusions.ts:15
+#: src/prefs/general/watchExclusions.ts:16
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr "Wenn aktiviert, wird Pano die ausgeschlossenen Apps nicht verfolgen"
 
@@ -555,39 +555,39 @@ msgstr "Wackelindikator"
 msgid "Wiggles the indicator on panel"
 msgstr "Lässt den Indikator auf dem Bedienfeld wackeln"
 
-#: src/utils/panoItemFactory.ts:392
+#: src/utils/panoItemFactory.ts:406
 msgid "Image Copied"
 msgstr "Bild kopiert"
 
-#: src/utils/panoItemFactory.ts:393
+#: src/utils/panoItemFactory.ts:407
 msgid "Width: %spx, Height: %spx, Size: %s"
 msgstr "Breite: %spx, Höhe: %spx, Größe: %s"
 
-#: src/utils/panoItemFactory.ts:397
+#: src/utils/panoItemFactory.ts:411
 msgid "Text Copied"
 msgstr "Text kopiert"
 
-#: src/utils/panoItemFactory.ts:399
+#: src/utils/panoItemFactory.ts:413
 msgid "Code Copied"
 msgstr "Code kopiert"
 
-#: src/utils/panoItemFactory.ts:401
+#: src/utils/panoItemFactory.ts:415
 msgid "Emoji Copied"
 msgstr "Emoji kopiert"
 
-#: src/utils/panoItemFactory.ts:409
+#: src/utils/panoItemFactory.ts:423
 msgid "Link Copied"
 msgstr "Verweis kopiert"
 
-#: src/utils/panoItemFactory.ts:429
+#: src/utils/panoItemFactory.ts:443
 msgid "Color Copied"
 msgstr "Farbe kopiert"
 
-#: src/utils/panoItemFactory.ts:436
+#: src/utils/panoItemFactory.ts:450
 msgid "File %s"
 msgstr "Datei %s"
 
-#: src/utils/panoItemFactory.ts:437
+#: src/utils/panoItemFactory.ts:451
 msgid "There are %s file(s)"
 msgstr "Es gibt %s Datei(en)"
 
@@ -619,6 +619,6 @@ msgstr "Code"
 msgid "Color"
 msgstr "Farbe"
 
-#: src/utils/ui.ts:24
+#: src/utils/ui.ts:27
 msgid "Pano"
 msgstr "Pano"
