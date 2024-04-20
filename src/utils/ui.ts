@@ -7,7 +7,7 @@ import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInte
 import * as animationUtils from '@girs/gnome-shell/dist/misc/animationUtils';
 import { Monitor, MonitorConstraint } from '@girs/gnome-shell/dist/ui/layout';
 import * as main from '@girs/gnome-shell/dist/ui/main';
-import type { Source as MessageTraySource } from '@girs/gnome-shell/dist/ui/messageTray';
+import type { Notification, Source as MessageTraySource } from '@girs/gnome-shell/dist/ui/messageTray';
 import Shell from '@girs/shell-14';
 import St from '@girs/st-14';
 import { gettext } from '@pano/utils/shell';
@@ -26,7 +26,7 @@ export const notify = (
   const _ = gettext(ext);
   const source = newMessageTraySource(_('Pano'), 'edit-copy-symbolic');
   main.messageTray.add(source as MessageTraySource);
-  let notification;
+  let notification: Notification;
   if (iconOrPixbuf) {
     if (iconOrPixbuf instanceof GdkPixbuf.Pixbuf) {
       const content = St.ImageContent.new_with_preferred_size(
@@ -41,15 +41,14 @@ export const notify = (
         iconOrPixbuf.rowstride,
       );
 
-      notification = newNotification(source, text, body, { gicon: content });
+      notification = newNotification(source, text, body, true, { gicon: content });
     } else {
-      notification = newNotification(source, text, body, { gicon: iconOrPixbuf });
+      notification = newNotification(source, text, body, true, { gicon: iconOrPixbuf });
     }
   } else {
-    notification = newNotification(source, text, body, {});
+    notification = newNotification(source, text, body, true, {});
   }
 
-  notification.setTransient(true);
   addNotification(source, notification);
 };
 
@@ -119,7 +118,7 @@ export const WINDOW_POSITIONS = {
   LEFT: 3,
 };
 
-export const getAlignment = (position: number) => {
+export const getAlignment = (position: number): [Clutter.ActorAlign, Clutter.ActorAlign] => {
   switch (position) {
     case WINDOW_POSITIONS.TOP:
       return [Clutter.ActorAlign.FILL, Clutter.ActorAlign.START];

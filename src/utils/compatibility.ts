@@ -24,10 +24,9 @@ export function add_expr_value(builder: Gda5.SqlBuilder | Gda6.SqlBuilder, value
   return builder.add_expr_value(null, value);
 }
 
-// compatibility functions for gnome 45 / 46
+// compatibility functions for gnome-shell 45 / 46
 
-function isGnome45(): boolean {
-  // be 100% sure which version we use, and not using Config.PACKAGE_VERSION
+function isGnome45Notifications(): boolean {
   return MessageTraySource.prototype.addNotification === undefined;
 }
 
@@ -35,14 +34,18 @@ export function newNotification(
   source: MessageTraySource,
   text: string,
   banner: string,
+  transient_: boolean,
   params: Notification.Params,
 ): Notification {
-  if (isGnome45()) {
+  if (isGnome45Notifications()) {
     // @ts-expect-error gnome 45 type
-    return new Notification(source, text, banner, {
+    const notification = new Notification(source, text, banner, {
       datetime: GLib.DateTime.new_now_local(),
       ...params,
     });
+
+    (notification as any as { setTransient: (value: boolean) => void }).setTransient(transient_);
+    return notification;
   }
 
   return new Notification({
@@ -50,12 +53,13 @@ export function newNotification(
     title: text,
     body: banner,
     datetime: GLib.DateTime.new_now_local(),
+    isTransient: transient_,
     ...params,
   });
 }
 
 export function newMessageTraySource(title: string, iconName: string): MessageTraySource {
-  if (isGnome45()) {
+  if (isGnome45Notifications()) {
     // @ts-expect-error gnome 45 type
     return new MessageTraySource(title, iconName);
   }
