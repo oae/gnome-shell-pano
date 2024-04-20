@@ -7,7 +7,7 @@
   "scripts": {
     "build": "yarn run build:ts && yarn run gen:locale && yarn run build:extension",
     "gen:locale": "yarn run ts-node scripts/generateLocale.ts",
-    "build:ts": "yarn run clean:ts && rollup -c --failAfterWarnings && sed -i '/setTimeout/d' dist/thirdparty/prismjs.js && sed -i 's/var\\ /let\\ /g' dist/extension.js dist/prefs.js",
+    "build:ts": "yarn run clean:ts && rollup -c --failAfterWarnings && sed -i 's/var\\ /let\\ /g' dist/extension.js dist/prefs.js",
     "clean:ts": "rm -rf ./dist",
     "build:extension": "yarn run build:schema",
     "build:schema": "yarn run clean:schema && glib-compile-schemas ./resources/schemas --targetdir=./dist/schemas/",
@@ -59,7 +59,6 @@
     "@types/events": "^3.0.3",
     "@types/gettext-parser": "^4.0.4",
     "@types/is-url": "^1.2.32",
-    "@types/prismjs": "^1.26.3",
     "@typescript-eslint/eslint-plugin": "^7.7.0",
     "@typescript-eslint/parser": "^7.7.0",
     "cross-env": "^7.0.3",
@@ -87,7 +86,6 @@
     "htmlparser2": "^9.1.0",
     "is-url": "^1.2.4",
     "pretty-bytes": "^6.1.1",
-    "prismjs": "^1.29.0",
     "validate-color": "https://gitpkg.now.sh/dreamyguy/validate-color/src/validate-color"
   }
 }
