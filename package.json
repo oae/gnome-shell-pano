@@ -58,7 +58,6 @@
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/events": "^3.0.3",
     "@types/gettext-parser": "^4.0.4",
-    "@types/highlight.js": "^10.1.0",
     "@types/is-url": "^1.2.32",
     "@types/prismjs": "^1.26.3",
     "@typescript-eslint/eslint-plugin": "^7.7.0",
@@ -85,7 +84,6 @@
   "dependencies": {
     "date-fns": "^2.30.0",
     "hex-color-converter": "^0.2.1",
-    "highlight.js": "^11.9.0",
     "htmlparser2": "^9.1.0",
     "is-url": "^1.2.4",
     "pretty-bytes": "^6.1.1",
