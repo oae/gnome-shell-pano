@@ -64,13 +64,12 @@ const PreferencesEntries = Object.fromEntries(
 
 const thirdParty = [
   'htmlparser2',
-  'prismjs',
   'date-fns/formatDistanceToNow',
   'date-fns/locale',
   'hex-color-converter',
   'is-url',
   'pretty-bytes',
-  'validate-color'
+  'validate-color',
 ];
 
 const gnomeShellExternalModules = [/^resource:\/\/\/org\/gnome\/(shell|Shell\/Extensions)\/.*/];
