@@ -3,8 +3,8 @@ import { SettingsMenu } from '@pano/components/indicator/settingsMenu';
 import { addToStatusArea } from '@pano/utils/ui';
 
 export default class PanoIndicator {
-  private indicatorChangeSignalId: number | null;
-  private settingsMenu: SettingsMenu | null;
+  private indicatorChangeSignalId: number | null = null;
+  private settingsMenu: SettingsMenu | null = null;
   private extension: Extension;
   private onClear: () => Promise<void>;
   private onToggle: () => void;

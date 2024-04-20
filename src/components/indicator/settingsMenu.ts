@@ -119,7 +119,7 @@ export class SettingsMenu extends PanelMenuButton {
     }
   }
 
-  vfunc_event(event: Clutter.Event) {
+  override vfunc_event(event: Clutter.Event) {
     if (
       this.menu &&
       event.type() === Clutter.EventType.BUTTON_PRESS &&
@@ -130,7 +130,7 @@ export class SettingsMenu extends PanelMenuButton {
     return super.vfunc_event(event);
   }
 
-  destroy() {
+  override destroy() {
     if (this.incognitoChangeId) {
       this.settings.disconnect(this.incognitoChangeId);
       this.incognitoChangeId = null;

@@ -21,13 +21,13 @@ export class IncognitoShortcutRow extends Adw.ActionRow {
 
     const shortcutLabel = new Gtk4.ShortcutLabel({
       disabledText: _('Select a shortcut'),
-      accelerator: this.settings.get_strv('incognito-shortcut')[0],
+      accelerator: this.settings.get_strv('incognito-shortcut')[0]!,
       valign: Gtk4.Align.CENTER,
       halign: Gtk4.Align.CENTER,
     });
 
     this.settings.connect('changed::incognito-shortcut', () => {
-      shortcutLabel.set_accelerator(this.settings.get_strv('incognito-shortcut')[0]);
+      shortcutLabel.set_accelerator(this.settings.get_strv('incognito-shortcut')[0]!);
     });
 
     this.connect('activated', () => {

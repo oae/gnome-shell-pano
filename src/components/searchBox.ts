@@ -5,6 +5,7 @@ import GObject from '@girs/gobject-2.0';
 import Meta from '@girs/meta-14';
 import Shell from '@girs/shell-14';
 import St from '@girs/st-14';
+import { ItemType } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { getPanoItemTypes, ICON_PACKS } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
@@ -173,14 +174,14 @@ export class SearchBox extends St.BoxLayout {
       this.currentIndex = null;
     }
 
-    if (null == this.currentIndex) {
+    if (this.currentIndex === null) {
       this.search.set_primary_icon(this.createSearchEntryIcon('edit-find-symbolic', 'search-entry-icon'));
     } else {
       this.search.set_primary_icon(
         this.createSearchEntryIcon(
           Gio.icon_new_for_string(
             `${this.ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${
-              panoItemTypes[Object.keys(panoItemTypes)[this.currentIndex]].iconPath
+              panoItemTypes[Object.keys(panoItemTypes)[this.currentIndex] as ItemType].iconPath
             }`,
           ),
           'search-entry-icon',
@@ -196,7 +197,7 @@ export class SearchBox extends St.BoxLayout {
           this.createSearchEntryIcon(
             Gio.icon_new_for_string(
               `${this.ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${
-                panoItemTypes[Object.keys(panoItemTypes)[this.currentIndex]].iconPath
+                panoItemTypes[Object.keys(panoItemTypes)[this.currentIndex] as ItemType].iconPath
               }`,
             ),
             'search-entry-icon',
@@ -249,7 +250,7 @@ export class SearchBox extends St.BoxLayout {
     const panoItemTypes = getPanoItemTypes(this.ext);
     let itemType: string | null = null;
     if (this.currentIndex !== null) {
-      itemType = Object.keys(panoItemTypes)[this.currentIndex];
+      itemType = Object.keys(panoItemTypes)[this.currentIndex] ?? null;
     }
     this.emit('search-text-changed', this.search.text, itemType || '', this.showFavorites);
   }
@@ -275,6 +276,6 @@ export class SearchBox extends St.BoxLayout {
   }
 
   getText(): string {
-    return this.search.text ?? '';
+    return this.search.text || '';
   }
 }

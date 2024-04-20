@@ -201,9 +201,9 @@ export const removeSoundContext = () => {
 
 export let debounceIds: number[] = [];
 
-export function debounce(func, wait) {
-  let sourceId;
-  return function (...args) {
+export function debounce<T extends any[]>(func: (...args: T) => void | Promise<void>, wait: number) {
+  let sourceId: null | number;
+  return function (...args: T) {
     const debouncedFunc = function (this: unknown) {
       debounceIds = debounceIds.filter((id) => id !== sourceId);
       sourceId = null;

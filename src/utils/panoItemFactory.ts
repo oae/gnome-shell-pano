@@ -25,7 +25,7 @@ import {
   playAudio,
 } from '@pano/utils/shell';
 import { notify } from '@pano/utils/ui';
-import converter from 'hex-color-converter';
+import convert from 'hex-color-converter';
 import hljs from 'highlight.js/lib/core';
 import bash from 'highlight.js/lib/languages/bash';
 import c from 'highlight.js/lib/languages/c';
@@ -139,7 +139,7 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
       return null;
   }
 
-  const result = db.query(queryBuilder.build());
+  const result: DBItem[] = db.query(queryBuilder.build());
 
   if (getCurrentExtensionSettings(ext).get_boolean('play-audio-on-copy')) {
     playAudio();
@@ -147,7 +147,7 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
 
   if (result.length > 0) {
     return db.update({
-      ...result[0],
+      ...(result[0] as DBItem),
       copyDate: new Date(),
     });
   }
@@ -194,10 +194,11 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
 
       if (trimmedValue.toLowerCase().startsWith('http') && isValidUrl(trimmedValue)) {
         const linkPreviews = getCurrentExtensionSettings(ext).get_boolean('link-previews');
-        let description = '',
-          imageUrl = '',
-          title = '',
-          checksum = '';
+        let description: undefined | string;
+        let imageUrl: string | undefined;
+        let title: string | undefined;
+        let checksum: string | undefined;
+
         const copyDate = new Date();
         let linkDbItem = db.save({
           content: trimmedValue,
@@ -209,7 +210,7 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
           metaData: JSON.stringify({
             title: title ? encodeURI(title) : '',
             description: description ? encodeURI(description) : '',
-            image: checksum || '',
+            image: checksum ?? '',
           }),
         });
 
@@ -218,7 +219,7 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
           description = document.description;
           title = document.title;
           imageUrl = document.imageUrl;
-          checksum = (await getImage(ext, imageUrl))[0] || '';
+          checksum = (await getImage(ext, imageUrl))[0] ?? undefined;
           linkDbItem = db.update({
             id: linkDbItem.id,
             content: trimmedValue,
@@ -230,7 +231,7 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
             metaData: JSON.stringify({
               title: title ? encodeURI(title) : '',
               description: description ? encodeURI(description) : '',
-              image: checksum || '',
+              image: checksum ?? '',
             }),
           });
         }
@@ -303,7 +304,11 @@ export const createPanoItem = async (
 
   if (dbItem) {
     if (getCurrentExtensionSettings(ext).get_boolean('send-notification-on-copy')) {
-      sendNotification(ext, dbItem);
+      try {
+        sendNotification(ext, dbItem);
+      } catch (err) {
+        console.error('PANO: ' + (err as Error).toString());
+      }
     }
 
     return createPanoItemFromDb(ext, clipboardManager, dbItem);
@@ -365,6 +370,14 @@ export const createPanoItemFromDb = (
 
   return panoItem;
 };
+
+function converter(color: string): string | null {
+  try {
+    return convert(color);
+  } catch (_err) {
+    return null;
+  }
+}
 
 export const removeItemResources = (ext: ExtensionBase, dbItem: DBItem) => {
   db.delete(dbItem.id);

@@ -17,7 +17,7 @@ const MimeType = {
   IMAGE: ['image/png'],
   GNOME_FILE: ['x-special/gnome-copied-files'],
   SENSITIVE: ['x-kde-passwordManagerHint'],
-};
+} as const;
 
 export const enum ContentType {
   IMAGE,
@@ -125,8 +125,8 @@ export class ClipboardManager extends GObject.Object {
 
   private clipboard: St.Clipboard;
   private selection: Meta.Selection;
-  private selectionChangedId: number;
-  public isTracking: boolean;
+  private selectionChangedId: number | undefined;
+  public isTracking: boolean | undefined;
   private settings: Gio.Settings;
   private lastCopiedContent: ClipboardContent | null;
 
@@ -201,7 +201,9 @@ export class ClipboardManager extends GObject.Object {
   }
 
   stopTracking() {
-    this.selection.disconnect(this.selectionChangedId);
+    if (this.selectionChangedId) {
+      this.selection.disconnect(this.selectionChangedId);
+    }
     this.isTracking = false;
     this.lastCopiedContent = null;
   }
@@ -234,11 +236,11 @@ export class ClipboardManager extends GObject.Object {
     }
   }
 
-  private haveMimeType(clipboardMimeTypes: string[], targetMimeTypes: string[]): boolean {
+  private haveMimeType(clipboardMimeTypes: string[], targetMimeTypes: readonly string[]): boolean {
     return clipboardMimeTypes.find((m) => targetMimeTypes.indexOf(m) >= 0) !== undefined;
   }
 
-  private getCurrentMimeType(clipboardMimeTypes: string[], targetMimeTypes: string[]): string | undefined {
+  private getCurrentMimeType(clipboardMimeTypes: string[], targetMimeTypes: readonly string[]): string | undefined {
     return clipboardMimeTypes.find((m) => targetMimeTypes.indexOf(m) >= 0);
   }
 
@@ -264,7 +266,7 @@ export class ClipboardManager extends GObject.Object {
               new ClipboardContent({
                 type: ContentType.FILE,
                 value: {
-                  operation: hasOperation ? fileContent[0] : FileOperation.COPY,
+                  operation: hasOperation ? fileContent[0]! : FileOperation.COPY,
                   fileList: hasOperation ? fileContent.slice(1) : fileContent,
                 },
               }),

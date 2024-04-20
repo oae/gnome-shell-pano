@@ -58,9 +58,9 @@ export class PanoScrollView extends St.ScrollView {
   private list: St.BoxLayout;
   private settings: Gio.Settings;
   private currentFocus: PanoItem | null = null;
-  private currentFilter: string;
-  private currentItemTypeFilter: ItemType;
-  private showFavorites: boolean;
+  private currentFilter: string | null = null;
+  private currentItemTypeFilter: ItemType | null = null;
+  private showFavorites: boolean | null = null;
   private searchBox: SearchBox;
   private ext: ExtensionBase;
   private clipboardChangedSignalId: number | null = null;
@@ -172,7 +172,7 @@ export class PanoScrollView extends St.ScrollView {
       'changed',
       async (_: any, content: ClipboardContent) => {
         const panoItem = await createPanoItem(ext, this.clipboardManager, content);
-        if (panoItem) {
+        if (panoItem && this) {
           this.prependItem(panoItem);
           this.filter(this.currentFilter, this.currentItemTypeFilter, this.showFavorites);
         }
@@ -210,8 +210,8 @@ export class PanoScrollView extends St.ScrollView {
 
   private isHovering(actor: Clutter.Actor) {
     const [x, y] = Shell.Global.get().get_pointer();
-    const [x1, y1] = [actor.get_abs_allocation_vertices()[0].x, actor.get_abs_allocation_vertices()[0].y];
-    const [x2, y2] = [actor.get_abs_allocation_vertices()[3].x, actor.get_abs_allocation_vertices()[3].y];
+    const [x1, y1] = [actor.get_abs_allocation_vertices()[0]!.x, actor.get_abs_allocation_vertices()[0]!.y];
+    const [x2, y2] = [actor.get_abs_allocation_vertices()[3]!.x, actor.get_abs_allocation_vertices()[3]!.y];
 
     return x1 <= x && x <= x2 && y1 <= y && y <= y2;
   }
@@ -277,9 +277,11 @@ export class PanoScrollView extends St.ScrollView {
       return this.focusOnClosest();
     }
 
-    const index = this.getVisibleItems().findIndex((item) => item.dbItem.id === lastFocus.dbItem.id);
-    if (index + 1 < this.getVisibleItems().length) {
-      this.currentFocus = this.getVisibleItems()[index + 1];
+    const items = this.getVisibleItems();
+
+    const index = items.findIndex((item) => item.dbItem.id === lastFocus.dbItem.id);
+    if (index + 1 < items.length) {
+      this.currentFocus = items[index + 1]!;
       this.currentFocus.grab_key_focus();
       return true;
     }
@@ -293,9 +295,11 @@ export class PanoScrollView extends St.ScrollView {
       return this.focusOnClosest();
     }
 
-    const index = this.getVisibleItems().findIndex((item) => item.dbItem.id === lastFocus.dbItem.id);
+    const items = this.getVisibleItems();
+
+    const index = items.findIndex((item) => item.dbItem.id === lastFocus.dbItem.id);
     if (index - 1 >= 0) {
-      this.currentFocus = this.getVisibleItems()[index - 1];
+      this.currentFocus = items[index - 1]!;
       this.currentFocus.grab_key_focus();
       return true;
     }
@@ -303,7 +307,7 @@ export class PanoScrollView extends St.ScrollView {
     return false;
   }
 
-  filter(text: string, itemType: ItemType, showFavorites: boolean) {
+  filter(text: string | null, itemType: ItemType | null, showFavorites: boolean | null) {
     this.currentFilter = text;
     this.currentItemTypeFilter = itemType;
     this.showFavorites = showFavorites;
@@ -333,16 +337,16 @@ export class PanoScrollView extends St.ScrollView {
 
   focusOnClosest() {
     const lastFocus = this.currentFocus;
+    const items = this.getVisibleItems();
+
     if (lastFocus !== null) {
       if (lastFocus.get_parent() === this.list && lastFocus.is_visible()) {
         lastFocus.grab_key_focus();
         return true;
       } else {
-        let nextFocus = this.getVisibleItems().find((item) => item.dbItem.copyDate <= lastFocus.dbItem.copyDate);
+        let nextFocus = items.find((item) => item.dbItem.copyDate <= lastFocus.dbItem.copyDate);
         if (!nextFocus) {
-          nextFocus = this.getVisibleItems()
-            .reverse()
-            .find((item) => item.dbItem.copyDate >= lastFocus.dbItem.copyDate);
+          nextFocus = items.reverse().find((item) => item.dbItem.copyDate >= lastFocus.dbItem.copyDate);
         }
         if (nextFocus) {
           this.currentFocus = nextFocus;
@@ -350,16 +354,16 @@ export class PanoScrollView extends St.ScrollView {
           return true;
         }
       }
-    } else if (this.currentFilter && this.getVisibleItems().length > 0) {
-      this.currentFocus = this.getVisibleItems()[0];
+    } else if (this.currentFilter && items.length > 0) {
+      this.currentFocus = items[0]!;
       this.currentFocus.grab_key_focus();
       return true;
-    } else if (!this.currentFilter && this.getVisibleItems().length > 1) {
-      this.currentFocus = this.getVisibleItems()[1];
+    } else if (!this.currentFilter && items.length > 1) {
+      this.currentFocus = items[1]!;
       this.currentFocus.grab_key_focus();
       return true;
-    } else if (this.getVisibleItems().length > 0) {
-      this.currentFocus = this.getVisibleItems()[0];
+    } else if (items.length > 0) {
+      this.currentFocus = items[0]!;
       this.currentFocus.grab_key_focus();
       return true;
     }
@@ -368,11 +372,12 @@ export class PanoScrollView extends St.ScrollView {
   }
 
   scrollToFirstItem() {
-    if (this.getVisibleItems().length === 0) {
+    const items = this.getVisibleItems();
+    if (items.length === 0) {
       return;
     }
 
-    this.scrollToItem(this.getVisibleItems()[0]);
+    this.scrollToItem(items[0]!);
   }
 
   scrollToFocussedItem() {
@@ -384,13 +389,15 @@ export class PanoScrollView extends St.ScrollView {
   }
 
   focusAndScrollToFirst() {
-    if (this.getVisibleItems().length === 0) {
+    const items = this.getVisibleItems();
+
+    if (items.length === 0) {
       this.emit('scroll-focus-out');
       this.currentFocus = null;
       return;
     }
 
-    this.currentFocus = this.getVisibleItems()[0];
+    this.currentFocus = items[0]!;
     this.currentFocus.grab_key_focus();
     if (isVertical(this.settings.get_uint('window-position'))) {
       this.vscroll.adjustment.set_value(this.get_allocation_box().y1);
@@ -432,7 +439,7 @@ export class PanoScrollView extends St.ScrollView {
   selectFirstItem() {
     const visibleItems = this.getVisibleItems();
     if (visibleItems.length > 0) {
-      const item = visibleItems[0];
+      const item = visibleItems[0]!;
       item.emit('activated');
     }
   }
@@ -440,7 +447,7 @@ export class PanoScrollView extends St.ScrollView {
   selectItemByIndex(index: number) {
     const visibleItems = this.getVisibleItems();
     if (visibleItems.length > index) {
-      const item = visibleItems[index];
+      const item = visibleItems[index]!;
       item.emit('activated');
     }
   }

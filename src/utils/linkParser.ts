@@ -13,7 +13,13 @@ const decoder = new TextDecoder();
 
 const debug = logger('link-parser');
 
-export const getDocument = async (url: string): Promise<{ title: string; description: string; imageUrl: string }> => {
+type DocumentMetadata = {
+  title: string;
+  description: string | undefined;
+  imageUrl: string | undefined;
+};
+
+export const getDocument = async (url: string): Promise<DocumentMetadata> => {
   const defaultResult = {
     title: '',
     description: '',
@@ -45,9 +51,9 @@ export const getDocument = async (url: string): Promise<{ title: string; descrip
 
     let titleMatch = false;
     let titleTag = '';
-    let title = '',
-      description = '',
-      imageUrl = '';
+    let title: string | undefined;
+    let description: string | undefined;
+    let imageUrl: string | undefined;
     const p = new htmlparser2.Parser(
       {
         onopentag(name, attribs) {
@@ -82,7 +88,7 @@ export const getDocument = async (url: string): Promise<{ title: string; descrip
                 attribs['name'] === 'image')
             ) {
               imageUrl = attribs['content'];
-              if (imageUrl.startsWith('/')) {
+              if (imageUrl && imageUrl.startsWith('/')) {
                 const uri = GLib.uri_parse(url, GLib.UriFlags.NONE);
                 imageUrl = `${uri.get_scheme()}://${uri.get_host()}${imageUrl}`;
               }
@@ -126,7 +132,10 @@ export const getDocument = async (url: string): Promise<{ title: string; descrip
   return defaultResult;
 };
 
-export const getImage = async (ext: ExtensionBase, imageUrl: string): Promise<[string | null, Gio.File | null]> => {
+export const getImage = async (
+  ext: ExtensionBase,
+  imageUrl: string | undefined,
+): Promise<[string | null, Gio.File | null]> => {
   if (imageUrl && imageUrl.startsWith('http')) {
     try {
       const checksum = GLib.compute_checksum_for_string(GLib.ChecksumType.MD5, imageUrl, imageUrl.length);

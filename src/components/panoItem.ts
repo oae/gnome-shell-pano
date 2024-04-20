@@ -46,7 +46,7 @@ export class PanoItem extends St.BoxLayout {
   protected clipboardManager: ClipboardManager;
   public dbItem: DBItem;
   protected settings: Gio.Settings;
-  private selected: boolean;
+  private selected: boolean | null = null;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
     super({

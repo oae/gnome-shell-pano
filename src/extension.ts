@@ -24,27 +24,27 @@ import { addTopChrome, removeChrome, removeVirtualKeyboard } from '@pano/utils/u
 
 const debug = logger('extension');
 export default class PanoExtension extends Extension {
-  private keyManager: KeyManager | null;
-  private clipboardManager: ClipboardManager | null;
-  private panoWindow: PanoWindow | null;
-  private indicator: PanoIndicator | null;
+  private keyManager: KeyManager | null = null;
+  private clipboardManager: ClipboardManager | null = null;
+  private panoWindow: PanoWindow | null = null;
+  private indicator: PanoIndicator | null = null;
 
-  private dbus: Gio.DBusExportedObject | null;
-  private settings: Gio.Settings | null;
-  private windowTrackerId: number | null;
-  private timeoutId: number | null;
-  private shutdownSignalId: number | null;
-  private logoutSignalId: number | null;
-  private rebootSignalId: number | null;
-  private systemdSignalId: number | null;
-  private clipboardChangedSignalId: number | null;
+  private dbus: Gio.DBusExportedObject | null = null;
+  private settings: Gio.Settings | null = null;
+  private windowTrackerId: number | null = null;
+  private timeoutId: number | null = null;
+  private shutdownSignalId: number | null = null;
+  private logoutSignalId: number | null = null;
+  private rebootSignalId: number | null = null;
+  private systemdSignalId: number | null = null;
+  private clipboardChangedSignalId: number | null = null;
 
   constructor(props: ExtensionMetadata) {
     super(props);
     debug('extension is initialized');
   }
 
-  enable() {
+  override enable() {
     this.settings = getCurrentExtensionSettings(this);
     this.setupResources();
     this.keyManager = new KeyManager(this);
@@ -56,7 +56,7 @@ export default class PanoExtension extends Extension {
     debug('extension is enabled');
   }
 
-  disable(): void {
+  override disable(): void {
     this.stop();
     this.disableDbus();
     this.indicator?.disable();

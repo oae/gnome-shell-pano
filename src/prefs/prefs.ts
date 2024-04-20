@@ -7,7 +7,7 @@ import { DangerZonePage } from '@pano/prefs/dangerZone';
 import { GeneralPage } from '@pano/prefs/general';
 
 export default class PanoExtensionPreferences extends ExtensionPreferences {
-  fillPreferencesWindow(window: Adw.PreferencesWindow) {
+  override fillPreferencesWindow(window: Adw.PreferencesWindow) {
     window.add(new GeneralPage(this));
     window.add(new CustomizationPage(this));
     window.add(new DangerZonePage(this));

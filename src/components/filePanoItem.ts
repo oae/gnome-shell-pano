@@ -35,7 +35,7 @@ export class FilePanoItem extends PanoItem {
     this.fileList
       .map((f) => {
         const items = f.split('://').filter((c) => !!c);
-        return decodeURIComponent(items[items.length - 1]);
+        return decodeURIComponent(items[items.length - 1]!);
       })
       .forEach((uri) => {
         const bl = new St.BoxLayout({

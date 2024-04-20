@@ -1,8 +1,7 @@
 import Gda5 from '@girs/gda-5.0';
-import Gio from '@girs/gio-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import { add_expr_value } from '@pano/utils/compatibility';
-import { getCurrentExtensionSettings, getDbPath, logger } from '@pano/utils/shell';
+import { getDbPath, logger } from '@pano/utils/shell';
 
 const debug = logger('database');
 
@@ -15,8 +14,8 @@ export type DBItem = {
   copyDate: Date;
   isFavorite: boolean;
   matchValue: string;
-  searchValue?: string;
-  metaData?: string;
+  searchValue?: string | undefined;
+  metaData?: string | undefined;
 };
 
 class ClipboardQuery {
@@ -171,11 +170,9 @@ export class ClipboardQueryBuilder {
   }
 }
 class Database {
-  private connection: Gda5.Connection | null;
-  private settings: Gio.Settings;
+  private connection: Gda5.Connection | null = null;
 
   private init(ext: ExtensionBase) {
-    this.settings = getCurrentExtensionSettings(ext);
     this.connection = new Gda5.Connection({
       provider: Gda5.Config.get_provider('SQLite'),
       cncString: `DB_DIR=${getDbPath(ext)};DB_NAME=pano`,
