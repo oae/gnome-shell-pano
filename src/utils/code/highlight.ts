@@ -10,7 +10,8 @@ export type DropDownOption = {
   values: string[];
   title: string;
   subtitle: string;
-  defaultValue: string | undefined;
+  defaultValue: string | number;
+  searchEnabled?: boolean;
 };
 
 export type OptionForSettings = DropDownOption;

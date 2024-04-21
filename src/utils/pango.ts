@@ -1,3 +1,4 @@
+import Gio from '@girs/gio-2.0';
 import type { CodeHighlighter, Language } from '@pano/utils/code/highlight';
 import { PygmentsCodeHighlighter } from '@pano/utils/code/pygments';
 
@@ -17,8 +18,11 @@ export class PangoMarkdown {
 
   public static readonly availableCodeHighlighter: CodeHighlighter[] = [new PygmentsCodeHighlighter()];
 
-  constructor(preferredHighlighter: string | null = null) {
-    this.detectHighlighter(preferredHighlighter);
+  constructor(preferredHighlighter: string | null = null, settings: Gio.Settings | null = null) {
+    this.detectHighlighter(preferredHighlighter, settings);
+    if (settings) {
+      this.enableWatch(settings);
+    }
   }
 
   get detectedHighlighter() {
@@ -30,11 +34,15 @@ export class PangoMarkdown {
   }
 
   // this is called in the constructor and can be called at any moment later by settings etc.
-  public detectHighlighter(preferredHighlighter: string | null = null) {
+  public detectHighlighter(preferredHighlighter: string | null = null, settings: Gio.Settings | null = null) {
     this._detectedHighlighter = [];
 
     for (const codeHighlighter of PangoMarkdown.availableCodeHighlighter) {
       if (codeHighlighter.isInstalled()) {
+        if (settings) {
+          codeHighlighter.options = settings.get_string(PangoMarkdown.getSchemaKeyForOptions(codeHighlighter));
+        }
+
         this._detectedHighlighter.push(codeHighlighter);
 
         if (preferredHighlighter === null) {
@@ -62,5 +70,41 @@ export class PangoMarkdown {
     }
 
     return this._currentHighlighter.markupCode(language, text, characterLength);
+  }
+
+  public static getSchemaKeyForOptions(highlighter: CodeHighlighter): string {
+    return `${highlighter.name}-options`;
+  }
+
+  public static readonly codeHighlighterKey = 'code-highlighter';
+  public static readonly enabledKey = 'code-highlighter-enabled';
+
+  private enableWatch(settings: Gio.Settings) {
+    const settingsChanged = () => {
+      const isEnabled = settings.get_boolean(PangoMarkdown.enabledKey);
+      if (!isEnabled) {
+        this._currentHighlighter = null;
+        return;
+      }
+
+      const highlighterValue = settings.get_uint(PangoMarkdown.codeHighlighterKey);
+
+      this.detectHighlighter(PangoMarkdown.availableCodeHighlighter[highlighterValue]!.name);
+    };
+
+    settings.connect(`changed::${PangoMarkdown.enabledKey}`, settingsChanged);
+
+    settings.connect(`changed::${PangoMarkdown.codeHighlighterKey}`, settingsChanged);
+
+    for (const codeHighlighter of PangoMarkdown.availableCodeHighlighter) {
+      const schemaKey = `changed::${PangoMarkdown.getSchemaKeyForOptions(codeHighlighter)}`;
+      settings.connect(schemaKey, () => {
+        if (this._currentHighlighter?.name == codeHighlighter.name) {
+          this._currentHighlighter.options = settings.get_string(schemaKey);
+        }
+      });
+
+      codeHighlighter;
+    }
   }
 }

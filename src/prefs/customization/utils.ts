@@ -19,14 +19,16 @@ export const createSwitchRow = (
   schemaKey: string,
   changeCallback?: ChangeCallback<boolean>,
   refreshButtonCallback?: () => void,
-): [Adw.ActionRow, Gtk4.Switch] => {
+): [Adw.ActionRow, Gtk4.Switch, Gtk4.Button, null | Gtk4.Button] => {
   const row = new Adw.ActionRow({
     title,
     subtitle,
   });
 
+  let refreshButton: null | Gtk4.Button = null;
+
   if (refreshButtonCallback !== undefined) {
-    const refreshButton = new Gtk4.Button({
+    refreshButton = new Gtk4.Button({
       iconName: 'view-refresh-symbolic',
       valign: Gtk4.Align.CENTER,
       halign: Gtk4.Align.CENTER,
@@ -72,6 +74,7 @@ export const createSwitchRow = (
       clearButton.sensitive = true;
     }
     changeCallback?.(value);
+    switch_.state = value;
   });
 
   clearButton.connect('clicked', () => {
@@ -80,7 +83,7 @@ export const createSwitchRow = (
 
   row.add_suffix(clearButton);
 
-  return [row, switch_];
+  return [row, switch_, clearButton, refreshButton];
 };
 
 export const createColorRow = (title: string, subtitle: string, settings: Gio.Settings, schemaKey: string) => {

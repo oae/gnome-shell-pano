@@ -52,11 +52,11 @@ export default class PanoExtension extends Extension {
 
   override enable() {
     this.settings = getCurrentExtensionSettings(this);
+    this._markdownDetector = new PangoMarkdown(null, this.settings.get_child('code-item'));
     this.setupResources();
     this.keyManager = new KeyManager(this);
     this.clipboardManager = new ClipboardManager(this);
     this.indicator = new PanoIndicator(this, this.clearHistory.bind(this), () => this.panoWindow?.toggle());
-    this._markdownDetector = new PangoMarkdown();
     this.start();
     this.indicator.enable();
     this.enableDbus();
@@ -69,10 +69,10 @@ export default class PanoExtension extends Extension {
     this.disableDbus();
     this.indicator?.disable();
     this.settings = null;
+    this._markdownDetector = null;
     this.keyManager = null;
     this.clipboardManager = null;
     this.indicator = null;
-    this._markdownDetector = null;
     Meta.enable_unredirect_for_display(global.display);
     debug('extension is disabled');
   }

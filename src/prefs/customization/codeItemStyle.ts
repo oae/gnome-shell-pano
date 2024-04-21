@@ -18,14 +18,12 @@ import { getCurrentExtensionSettings, gettext, logger } from '@pano/utils/shell'
 @registerGObjectClass
 export class CodeItemStyleRow extends ItemExpanderRow {
   private settings: Gio.Settings;
-  private enableProperties: [Adw.ActionRow, Gtk4.Switch];
+  private enableProperties: [Adw.ActionRow, Gtk4.Switch, Gtk4.Button, Gtk4.Button | null];
   private rows: Adw.ActionRow[];
+  private readonly rowCount: number;
   private markdownDetector: PangoMarkdown | null = null;
   private codeHighlighterOptions: string[];
   private codeHighlighterDropDown: Gtk4.DropDown;
-
-  private readonly codeHighlighterKey = 'code-highlighter';
-  private readonly enabledKey = 'code-highlighter-enabled';
 
   private readonly ext: ExtensionBase;
 
@@ -41,13 +39,13 @@ export class CodeItemStyleRow extends ItemExpanderRow {
       _('Code Highlighter Enabled'),
       _('When enabled, Code will be highlighted'),
       this.settings,
-      this.enabledKey,
-      this.onEnabledChanged,
-      this.refreshCallback,
+      PangoMarkdown.enabledKey,
+      this.onEnabledChanged.bind(this),
+      this.refreshCallback.bind(this),
     );
 
     // disable changing it, until we know, if it's possible to change (we have the tools needed installed) that is done asynchronously, to show something and not block this too long
-    this.enableProperties[1].set_sensitive(false);
+    this.enableProperties[0].sensitive = false;
 
     this.add_row(this.enableProperties[0]);
 
@@ -101,9 +99,9 @@ export class CodeItemStyleRow extends ItemExpanderRow {
       _('Code Highlighter'),
       _('You can change which code highlighter to use'),
       this.settings,
-      this.codeHighlighterKey,
+      PangoMarkdown.codeHighlighterKey,
       this.codeHighlighterOptions,
-      this.onCodeHighlighterChanged,
+      this.onCodeHighlighterChanged.bind(this),
     );
 
     this.rows = [
@@ -115,19 +113,20 @@ export class CodeItemStyleRow extends ItemExpanderRow {
       codeHighlighterRow,
     ];
 
+    this.rowCount = this.rows.length;
+
     this.codeHighlighterDropDown = codeHighlighterDropDown;
 
     for (const row of this.rows) {
       //disable all rows, until we know, that we can set it
-      row.set_sensitive(false);
+      row.sensitive = false;
       this.add_row(row);
     }
   }
 
-  private onEnabledChanged(enabled: boolean): void {
-    for (const row of this.rows) {
-      row.set_sensitive(enabled);
-    }
+  private onEnabledChanged(_enabled: boolean): void {
+    this.scan();
+    //TODOD: recreate those items, which where classified as text previosuly (check if the were created with the correct highliter)
   }
 
   private refreshCallback(): void {
@@ -140,15 +139,18 @@ export class CodeItemStyleRow extends ItemExpanderRow {
   }
 
   public scan() {
-    //TODO show some sort of Gtk4.Spinner
+    const resetRows = () => {
+      const removedRows = this.rows.splice(this.rowCount);
+      for (const removedRow of removedRows) {
+        this.remove(removedRow);
+      }
+    };
 
-    const value = this.settings.get_uint(this.codeHighlighterKey);
+    const value = this.settings.get_uint(PangoMarkdown.codeHighlighterKey);
     const stringValue = this.codeHighlighterOptions[value];
 
-    this.markdownDetector = new PangoMarkdown(stringValue);
-
     if (!this.markdownDetector) {
-      return;
+      this.markdownDetector = new PangoMarkdown(stringValue);
     }
 
     let enablingPossible = true;
@@ -159,45 +161,66 @@ export class CodeItemStyleRow extends ItemExpanderRow {
       enablingPossible = false;
     }
 
-    const isEnabled = this.settings.get_boolean(this.enabledKey);
+    const isEnabled = this.settings.get_boolean(PangoMarkdown.enabledKey);
+
+    const defaultValueForEnabled = this.settings.get_default_value(PangoMarkdown.enabledKey)?.get_boolean() ?? false;
 
     if (!isEnabled) {
       // make all rows in-sensitive, except the enable row, if enabling is possible
-      this.enableProperties[1].set_sensitive(enablingPossible);
+      this.enableProperties[0].sensitive = true;
+      this.enableProperties[1].sensitive = enablingPossible;
+      this.enableProperties[2].sensitive = enablingPossible && defaultValueForEnabled != isEnabled;
+      this.enableProperties[3]?.set_sensitive(true);
 
       for (const row of this.rows) {
         //disable all rows, until we know, that we can set it
-        row.set_sensitive(false);
+        row.sensitive = false;
       }
+
+      resetRows();
+      this.changed();
       return;
     }
 
     if (isEnabled && !enablingPossible) {
-      this.settings.set_boolean(this.enabledKey, false);
+      this.settings.set_boolean(PangoMarkdown.enabledKey, false);
 
       // make all rows in-sensitive, also the enable row
-      this.enableProperties[1].set_sensitive(false);
+      this.enableProperties[0].sensitive = true;
+      this.enableProperties[1].sensitive = false;
+      this.enableProperties[2].sensitive = false;
+      // let the user refresh, so don't disable that
+      this.enableProperties[3]?.set_sensitive(true);
 
       for (const row of this.rows) {
         //disable all rows, until we know, that we can set it
-        row.set_sensitive(false);
+        row.sensitive = false;
       }
+
+      resetRows();
+      this.changed();
+      return;
     }
 
-    //TODO: disable all items,.that are not in  this.markdownDetector.detectedHighlighter
+    //TODO: disable all items, that are not in  this.markdownDetector.detectedHighlighter
     logger('TEST')(JSON.stringify(this.codeHighlighterDropDown.model.get_item(0)));
 
     // make all rows sensitive, so that things can be changed
-    this.enableProperties[1].set_sensitive(true);
+    this.enableProperties[0].sensitive = true;
+    this.enableProperties[1].sensitive = true;
+    this.enableProperties[2].sensitive = defaultValueForEnabled != isEnabled;
+    this.enableProperties[3]?.set_sensitive(true);
 
     for (const row of this.rows) {
       //disable all rows, until we know, that we can set it
-      row.set_sensitive(true);
+      row.sensitive = true;
     }
+
+    resetRows();
 
     const optionsForSettings = currentHighlighter!.getOptionsForSettings(gettext(this.ext));
 
-    const schemaKey = `${currentHighlighter!.name}-options`;
+    const schemaKey = PangoMarkdown.getSchemaKeyForOptions(currentHighlighter!);
 
     currentHighlighter!.options = this.settings.get_string(schemaKey);
 
@@ -228,8 +251,9 @@ export class CodeItemStyleRow extends ItemExpanderRow {
       title: string,
       subtitle: string,
       options: string[],
-      defaultValue: string | undefined,
+      defaultValue: string | number,
       key: string,
+      searchEnabled: boolean,
     ): [Adw.ActionRow, Gtk4.DropDown] => {
       const row = new Adw.ActionRow({
         title,
@@ -240,17 +264,29 @@ export class CodeItemStyleRow extends ItemExpanderRow {
         valign: Gtk4.Align.CENTER,
         halign: Gtk4.Align.CENTER,
         model: Gtk4.StringList.new(options),
+        enableSearch: searchEnabled,
       });
+
+      const getIndexFor = (val: string | undefined): number => {
+        if (val) {
+          const index = options.indexOf(val);
+          if (index >= 0) {
+            return index;
+          }
+        }
+
+        if (typeof defaultValue === 'number') {
+          return defaultValue >= 0 && defaultValue < options.length ? defaultValue : 0;
+        }
+
+        const index = options.indexOf(defaultValue);
+
+        return index >= 0 ? index : 0;
+      };
 
       const value = getValueFor<string>(key);
 
-      if (value) {
-        const index = options.indexOf(value);
-        if (index >= 0) {
-          //TODO. investigate if one has to be selected
-          dropDown.set_selected(index);
-        }
-      }
+      dropDown.set_selected(getIndexFor(value));
 
       dropDown.connect('notify::selected', () => {
         setValueFor<string>(key, options[dropDown.get_selected()]!);
@@ -278,24 +314,20 @@ export class CodeItemStyleRow extends ItemExpanderRow {
           clearButton.sensitive = true;
         }
 
-        if (value) {
-          const index = options.indexOf(value);
-          if (index >= 0) {
-            //TODO. investigate if one has to be selected
-            dropDown.set_selected(index);
-          }
-        }
+        dropDown.set_selected(getIndexFor(value));
       });
 
       clearButton.connect('clicked', () => {
-        setValueFor<string>(key, defaultValue);
+        if (typeof defaultValue === 'number') {
+          const finalIndex = defaultValue >= 0 && defaultValue < options.length ? defaultValue : 0;
+          setValueFor<string>(key, options[finalIndex]);
 
-        if (defaultValue) {
-          const index = options.indexOf(defaultValue);
-          if (index >= 0) {
-            //TODO. investigate if one has to be selected
-            dropDown.set_selected(index);
-          }
+          dropDown.set_selected(finalIndex);
+        } else {
+          const finalIndex = getIndexFor(defaultValue);
+          setValueFor<string>(key, defaultValue);
+
+          dropDown.set_selected(finalIndex);
         }
       });
 
@@ -313,7 +345,11 @@ export class CodeItemStyleRow extends ItemExpanderRow {
             value.values,
             value.defaultValue,
             key,
+            value.searchEnabled ?? false,
           );
+
+          row.sensitive = true;
+          this.add_row(row);
 
           this.rows.push(row);
 
@@ -324,5 +360,7 @@ export class CodeItemStyleRow extends ItemExpanderRow {
           break;
       }
     }
+
+    this.changed();
   }
 }

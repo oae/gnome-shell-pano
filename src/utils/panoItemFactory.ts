@@ -275,16 +275,24 @@ export const createPanoItemFromDb = (
         }
       }
 
+      const createTextPanoItem = () => {
+        const textDbItem = dbItem;
+        textDbItem.itemType = 'TEXT';
+        textDbItem.metaData = undefined;
+
+        return new TextPanoItem(ext, clipboardManager, textDbItem);
+      };
+
       if (language && ext.markdownDetector) {
         try {
           panoItem = new CodePanoItem(ext, clipboardManager, dbItem, language);
           // this might fail in some really rare cases
         } catch (err) {
           debug(`Couldn't create a code item: ${err}`);
-          panoItem = new TextPanoItem(ext, clipboardManager, dbItem);
+          panoItem = createTextPanoItem();
         }
       } else {
-        panoItem = new TextPanoItem(ext, clipboardManager, dbItem);
+        panoItem = createTextPanoItem();
       }
 
       break;

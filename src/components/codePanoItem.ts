@@ -28,7 +28,7 @@ export class CodePanoItem extends PanoItem {
     this.connect('activated', this.setClipboardContent.bind(this));
     this.setStyle(ext);
     this.codeItemSettings.connect('changed', () => {
-      this.setStyle(ext);
+      this.setStyle.call(this, ext);
     });
   }
 
