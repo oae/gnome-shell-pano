@@ -16,6 +16,7 @@ import { TextPanoItem } from '@pano/components/textPanoItem';
 import { ClipboardContent, ClipboardManager, ContentType, FileOperation } from '@pano/utils/clipboardManager';
 import { ClipboardQueryBuilder, db, DBItem } from '@pano/utils/db';
 import { getDocument, getImage } from '@pano/utils/linkParser';
+import { detectLanguage } from '@pano/utils/pango';
 import {
   getCachePath,
   getCurrentExtensionSettings,
@@ -30,10 +31,9 @@ import isUrl from 'is-url';
 import prettyBytes from 'pretty-bytes';
 import { validateHTMLColorHex, validateHTMLColorName, validateHTMLColorRgb } from 'validate-color';
 
-import { detectLanguage } from './pango';
-
 const debug = logger('pano-item-factory');
 
+//TODO: make configurable
 const MINIMUM_LANGUAGE_RELEVANCE = 0.1;
 
 const isValidUrl = (text: string) => {
@@ -235,11 +235,7 @@ export const createPanoItem = async (
 
   if (dbItem) {
     if (getCurrentExtensionSettings(ext).get_boolean('send-notification-on-copy')) {
-      try {
-        sendNotification(ext, dbItem);
-      } catch (err) {
-        console.error('PANO: ' + (err as Error).toString());
-      }
+      sendNotification(ext, dbItem);
     }
 
     return createPanoItemFromDb(ext, clipboardManager, dbItem);
@@ -279,7 +275,13 @@ export const createPanoItemFromDb = (
       }
 
       if (language) {
-        panoItem = new CodePanoItem(ext, clipboardManager, dbItem, language);
+        try {
+          panoItem = new CodePanoItem(ext, clipboardManager, dbItem, language);
+          // this might fail in some really rare cases
+        } catch (err) {
+          debug(`Couldn't create a code item: ${err}`);
+          panoItem = new TextPanoItem(ext, clipboardManager, dbItem);
+        }
       } else {
         panoItem = new TextPanoItem(ext, clipboardManager, dbItem);
       }

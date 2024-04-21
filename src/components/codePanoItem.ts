@@ -43,7 +43,13 @@ export class CodePanoItem extends PanoItem {
     this.body.set_style(`background-color: ${bodyBgColor}`);
     this.label.set_style(`font-size: ${bodyFontSize}px; font-family: ${bodyFontFamily};`);
 
-    this.label.clutterText.set_markup(markupCode(this.language, this.dbItem.content.trim(), characterLength));
+    const markup = markupCode(this.language, this.dbItem.content.trim(), characterLength);
+
+    if (!markup) {
+      throw new Error("Couldn't generate markup");
+    }
+
+    this.label.clutterText.set_markup(markup);
   }
 
   private setClipboardContent(): void {
