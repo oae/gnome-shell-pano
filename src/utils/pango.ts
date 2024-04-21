@@ -10,55 +10,57 @@ import { PygmentsCodeHighlighter } from '@pano/utils/code/pygments';
 // button to recheck tools
 // customs settings per highlighter
 
-let detectedHighlighter: CodeHighlighter[] | null = null;
+export class PangoMarkdown {
+  private _detectedHighlighter: CodeHighlighter[] = [];
 
-let currentHighlighter: CodeHighlighter | null = null;
+  private _currentHighlighter: CodeHighlighter | null = null;
 
-const availableCodeHighlighter: CodeHighlighter[] = [new PygmentsCodeHighlighter()];
+  public static readonly availableCodeHighlighter: CodeHighlighter[] = [new PygmentsCodeHighlighter()];
 
-// this is only implicitly called once, even if nothing is found, it isn't called again later, it has to be initiated by the user later, to scan again
-export function detectHighlighter(force = false, preferredHighlighter: string | null = null) {
-  if (detectedHighlighter !== null && !force) {
-    return;
+  constructor(preferredHighlighter: string | null = null) {
+    this.detectHighlighter(preferredHighlighter);
   }
 
-  detectedHighlighter = [];
+  get detectedHighlighter() {
+    return this._detectedHighlighter;
+  }
 
-  for (const codeHighlighter of availableCodeHighlighter) {
-    if (codeHighlighter.isInstalled()) {
-      detectedHighlighter.push(codeHighlighter);
+  get currentHighlighter() {
+    return this._currentHighlighter;
+  }
 
-      if (preferredHighlighter === null) {
-        if (currentHighlighter === null) {
-          currentHighlighter = codeHighlighter;
+  // this is called in the constructor and can be called at any moment later by settings etc.
+  public detectHighlighter(preferredHighlighter: string | null = null) {
+    this._detectedHighlighter = [];
+
+    for (const codeHighlighter of PangoMarkdown.availableCodeHighlighter) {
+      if (codeHighlighter.isInstalled()) {
+        this._detectedHighlighter.push(codeHighlighter);
+
+        if (preferredHighlighter === null) {
+          if (this._currentHighlighter === null) {
+            this._currentHighlighter = codeHighlighter;
+          }
+        } else if (codeHighlighter.name == preferredHighlighter) {
+          this._currentHighlighter = codeHighlighter;
         }
-      } else if (codeHighlighter.name == preferredHighlighter) {
-        currentHighlighter = codeHighlighter;
       }
     }
   }
-}
 
-export function detectLanguage(text: string): Language | undefined {
-  if (detectedHighlighter === null) {
-    detectHighlighter();
+  public detectLanguage(text: string): Language | undefined {
+    if (this._currentHighlighter === null) {
+      return undefined;
+    }
+
+    return this._currentHighlighter.detectLanguage(text);
   }
 
-  if (currentHighlighter === null) {
-    return undefined;
+  public markupCode(language: string, text: string, characterLength: number): string | undefined {
+    if (this._currentHighlighter === null) {
+      return undefined;
+    }
+
+    return this._currentHighlighter.markupCode(language, text, characterLength);
   }
-
-  return currentHighlighter.detectLanguage(text);
-}
-
-export function markupCode(language: string, text: string, characterLength: number): string | undefined {
-  if (detectedHighlighter === null) {
-    detectHighlighter();
-  }
-
-  if (currentHighlighter === null) {
-    return undefined;
-  }
-
-  return currentHighlighter.markupCode(language, text, characterLength);
 }

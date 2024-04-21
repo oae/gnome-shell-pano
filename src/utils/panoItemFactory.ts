@@ -13,10 +13,10 @@ import { ImagePanoItem } from '@pano/components/imagePanoItem';
 import { LinkPanoItem } from '@pano/components/linkPanoItem';
 import { PanoItem } from '@pano/components/panoItem';
 import { TextPanoItem } from '@pano/components/textPanoItem';
+import type PanoExtension from '@pano/extension';
 import { ClipboardContent, ClipboardManager, ContentType, FileOperation } from '@pano/utils/clipboardManager';
 import { ClipboardQueryBuilder, db, DBItem } from '@pano/utils/db';
 import { getDocument, getImage } from '@pano/utils/linkParser';
-import { detectLanguage } from '@pano/utils/pango';
 import {
   getCachePath,
   getCurrentExtensionSettings,
@@ -44,7 +44,7 @@ const isValidUrl = (text: string) => {
   }
 };
 
-const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): Promise<DBItem | null> => {
+const findOrCreateDbItem = async (ext: PanoExtension, clip: ClipboardContent): Promise<DBItem | null> => {
   const { value, type } = clip.content;
   const queryBuilder = new ClipboardQueryBuilder();
   switch (type) {
@@ -189,7 +189,8 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
           searchValue: trimmedValue,
         });
       }
-      const detectedLanguage = detectLanguage(trimmedValue);
+
+      const detectedLanguage = ext.markdownDetector?.detectLanguage(trimmedValue);
 
       if (detectedLanguage && detectedLanguage.relevance >= MINIMUM_LANGUAGE_RELEVANCE) {
         return db.save({
@@ -220,7 +221,7 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
 };
 
 export const createPanoItem = async (
-  ext: ExtensionBase,
+  ext: PanoExtension,
   clipboardManager: ClipboardManager,
   clip: ClipboardContent,
 ): Promise<PanoItem | null> => {
@@ -245,7 +246,7 @@ export const createPanoItem = async (
 };
 
 export const createPanoItemFromDb = (
-  ext: ExtensionBase,
+  ext: PanoExtension,
   clipboardManager: ClipboardManager,
   dbItem: DBItem | null,
 ): PanoItem | null => {
@@ -268,13 +269,13 @@ export const createPanoItemFromDb = (
       }
 
       if (!language) {
-        const detectedLanguage = detectLanguage(dbItem.content.trim());
+        const detectedLanguage = ext.markdownDetector?.detectLanguage(dbItem.content.trim());
         if (detectedLanguage && detectedLanguage.relevance >= MINIMUM_LANGUAGE_RELEVANCE) {
           language = detectedLanguage.language;
         }
       }
 
-      if (language) {
+      if (language && ext.markdownDetector) {
         try {
           panoItem = new CodePanoItem(ext, clipboardManager, dbItem, language);
           // this might fail in some really rare cases

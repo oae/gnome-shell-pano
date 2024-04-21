@@ -7,6 +7,8 @@ import { gettext } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class CustomizationPage extends Adw.PreferencesPage {
+  private itemStyleGroup: ItemStyleGroup;
+
   constructor(ext: ExtensionBase) {
     const _ = gettext(ext);
     super({
@@ -15,6 +17,12 @@ export class CustomizationPage extends Adw.PreferencesPage {
     });
 
     this.add(new CommonStyleGroup(ext));
-    this.add(new ItemStyleGroup(ext));
+
+    this.itemStyleGroup = new ItemStyleGroup(ext);
+    this.add(this.itemStyleGroup);
+  }
+
+  public scan() {
+    this.itemStyleGroup.scan();
   }
 }

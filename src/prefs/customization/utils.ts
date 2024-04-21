@@ -4,6 +4,85 @@ import Gio from '@girs/gio-2.0';
 import Gtk4 from '@girs/gtk-4.0';
 import Pango from '@girs/pango-1.0';
 
+// const switchMenuItem = new PopupSwitchMenuItem(_('Incognito Mode'), this.settings.get_boolean('is-in-incognito'));
+
+// switchMenuItem.connect('toggled', (value) => {
+//   this.settings.set_boolean('code-highlighter-enabled', value.state);
+// });
+
+export type ChangeCallback<T> = (value: T) => void;
+
+export const createSwitchRow = (
+  title: string,
+  subtitle: string,
+  settings: Gio.Settings,
+  schemaKey: string,
+  changeCallback?: ChangeCallback<boolean>,
+  refreshButtonCallback?: () => void,
+): [Adw.ActionRow, Gtk4.Switch] => {
+  const row = new Adw.ActionRow({
+    title,
+    subtitle,
+  });
+
+  if (refreshButtonCallback !== undefined) {
+    const refreshButton = new Gtk4.Button({
+      iconName: 'view-refresh-symbolic',
+      valign: Gtk4.Align.CENTER,
+      halign: Gtk4.Align.CENTER,
+    });
+
+    refreshButton.connect('clicked', () => {
+      refreshButtonCallback();
+    });
+
+    row.add_suffix(refreshButton);
+  }
+
+  const value = settings.get_boolean(schemaKey);
+
+  const switch_ = new Gtk4.Switch({
+    active: value,
+    valign: Gtk4.Align.CENTER,
+    halign: Gtk4.Align.CENTER,
+  });
+
+  settings.bind(schemaKey, switch_, 'active', Gio.SettingsBindFlags.DEFAULT);
+
+  row.add_suffix(switch_);
+  row.set_activatable_widget(switch_);
+
+  const clearButton = new Gtk4.Button({
+    iconName: 'edit-clear-symbolic',
+    valign: Gtk4.Align.CENTER,
+    halign: Gtk4.Align.CENTER,
+  });
+
+  const defaultValue = settings.get_default_value(schemaKey)?.get_boolean();
+
+  if (defaultValue === value) {
+    clearButton.sensitive = false;
+  }
+
+  settings.connect(`changed::${schemaKey}`, () => {
+    const value = settings.get_boolean(schemaKey);
+    if (defaultValue === value) {
+      clearButton.sensitive = false;
+    } else {
+      clearButton.sensitive = true;
+    }
+    changeCallback?.(value);
+  });
+
+  clearButton.connect('clicked', () => {
+    settings.reset(schemaKey);
+  });
+
+  row.add_suffix(clearButton);
+
+  return [row, switch_];
+};
+
 export const createColorRow = (title: string, subtitle: string, settings: Gio.Settings, schemaKey: string) => {
   const colorRow = new Adw.ActionRow({
     title,
@@ -207,7 +286,8 @@ export const createDropdownRow = (
   settings: Gio.Settings,
   schemaKey: string,
   options: string[],
-) => {
+  changeCallback?: ChangeCallback<string>,
+): [Adw.ActionRow, Gtk4.DropDown] => {
   const row = new Adw.ActionRow({
     title,
     subtitle,
@@ -250,6 +330,10 @@ export const createDropdownRow = (
       clearButton.sensitive = true;
     }
     dropDown.set_selected(value);
+    const stringValue = options[value];
+    if (stringValue) {
+      changeCallback?.(stringValue);
+    }
   });
 
   clearButton.connect('clicked', () => {
@@ -259,5 +343,5 @@ export const createDropdownRow = (
 
   row.add_suffix(clearButton);
 
-  return row;
+  return [row, dropDown];
 };

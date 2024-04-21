@@ -1,12 +1,11 @@
 import Gio from '@girs/gio-2.0';
-import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import Pango from '@girs/pango-1.0';
 import St from '@girs/st-14';
 import { PanoItem } from '@pano/components/panoItem';
+import type PanoExtension from '@pano/extension';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { markupCode } from '@pano/utils/pango';
 
 @registerGObjectClass
 export class CodePanoItem extends PanoItem {
@@ -14,7 +13,7 @@ export class CodePanoItem extends PanoItem {
   private label: St.Label;
   private language: string;
 
-  constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem, language: string) {
+  constructor(ext: PanoExtension, clipboardManager: ClipboardManager, dbItem: DBItem, language: string) {
     super(ext, clipboardManager, dbItem);
     this.language = language;
     this.codeItemSettings = this.settings.get_child('code-item');
@@ -27,11 +26,13 @@ export class CodePanoItem extends PanoItem {
     this.label.clutterText.ellipsize = Pango.EllipsizeMode.END;
     this.body.add_child(this.label);
     this.connect('activated', this.setClipboardContent.bind(this));
-    this.setStyle();
-    this.codeItemSettings.connect('changed', this.setStyle.bind(this));
+    this.setStyle(ext);
+    this.codeItemSettings.connect('changed', () => {
+      this.setStyle(ext);
+    });
   }
 
-  private setStyle() {
+  private setStyle(ext: PanoExtension) {
     const headerBgColor = this.codeItemSettings.get_string('header-bg-color');
     const headerColor = this.codeItemSettings.get_string('header-color');
     const bodyBgColor = this.codeItemSettings.get_string('body-bg-color');
@@ -43,7 +44,7 @@ export class CodePanoItem extends PanoItem {
     this.body.set_style(`background-color: ${bodyBgColor}`);
     this.label.set_style(`font-size: ${bodyFontSize}px; font-family: ${bodyFontFamily};`);
 
-    const markup = markupCode(this.language, this.dbItem.content.trim(), characterLength);
+    const markup = ext.markdownDetector?.markupCode(this.language, this.dbItem.content.trim(), characterLength);
 
     if (!markup) {
       throw new Error("Couldn't generate markup");

@@ -12,6 +12,8 @@ import { gettext } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class ItemStyleGroup extends Adw.PreferencesGroup {
+  private codeItemStyleRow: CodeItemStyleRow;
+
   constructor(ext: ExtensionBase) {
     const _ = gettext(ext);
     super({
@@ -24,7 +26,13 @@ export class ItemStyleGroup extends Adw.PreferencesGroup {
     this.add(new EmojiItemStyleRow(ext));
     this.add(new FileItemStyleRow(ext));
     this.add(new ImageItemStyleRow(ext));
-    this.add(new CodeItemStyleRow(ext));
+
+    this.codeItemStyleRow = new CodeItemStyleRow(ext);
+    this.add(this.codeItemStyleRow);
     this.add(new ColorItemStyleRow(ext));
+  }
+
+  public scan() {
+    this.codeItemStyleRow.scan();
   }
 }

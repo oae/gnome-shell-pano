@@ -406,6 +406,21 @@
       <summary>char-length</summary>
       <description>char-length</description>
     </key>
+    <key name="code-highlighter-enabled" type="b">
+      <default>false</default>
+      <summary>Enabled Code Highlighter</summary>
+      <description>Enabled the Code Highlighter.</description>
+    </key>
+    <key type="u" name="code-highlighter">
+      <range min="0" max="0"/>
+      <default>0</default>
+      <summary>code-highlighter: which code highlighter to use </summary>
+    </key>
+    <key name="pygments-options" type="s">
+      <default>'{}'</default>
+      <summary>options for pygments</summary>
+      <description>set pygments options</description>
+    </key>
   </schema>
 
   <schema path="/org/gnome/shell/extensions/pano/color-item/" id="org.gnome.shell.extensions.pano.color-item">

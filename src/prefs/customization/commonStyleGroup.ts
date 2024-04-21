@@ -20,7 +20,7 @@ export class CommonStyleGroup extends Adw.PreferencesGroup {
       createDropdownRow(_('Icon Pack'), _('You can change the icon pack'), this.settings, 'icon-pack', [
         _('Default Icons'),
         _('Legacy Icons'),
-      ]),
+      ])[0],
     );
 
     this.add(
@@ -34,7 +34,7 @@ export class CommonStyleGroup extends Adw.PreferencesGroup {
         this.settings,
         'window-position',
         [_('Top'), _('Right'), _('Bottom'), _('Left')],
-      ),
+      )[0],
     );
 
     this.add(
