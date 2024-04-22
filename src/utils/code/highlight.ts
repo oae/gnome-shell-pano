@@ -29,15 +29,17 @@ export abstract class CodeHighlighter {
     this.installed = installed;
   }
 
-  abstract isInstalled(): boolean;
+  abstract isInstalled(): Promise<boolean>;
 
-  abstract detectLanguage(text: string): Language | undefined;
+  abstract detectLanguage(text: string): Promise<Language | undefined>;
 
-  abstract markupCode(language: string, text: string, characterLength: number): string | undefined;
+  abstract markupCode(language: string, text: string, characterLength: number): Promise<string | undefined>;
 
-  abstract getOptionsForSettings(_: (str: string) => string): OptionsForSettings;
+  abstract getOptionsForSettings(_: (str: string) => string): Promise<OptionsForSettings>;
 
   abstract set options(options: string);
 
   abstract get options(): string;
+
+  abstract stopProcesses(): void;
 }

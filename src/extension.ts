@@ -69,6 +69,7 @@ export default class PanoExtension extends Extension {
     this.disableDbus();
     this.indicator?.disable();
     this.settings = null;
+    this._markdownDetector?.stopProcesses();
     this._markdownDetector = null;
     this.keyManager = null;
     this.clipboardManager = null;

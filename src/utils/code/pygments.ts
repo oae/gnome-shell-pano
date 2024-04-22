@@ -1,6 +1,19 @@
+import type { Promisified2 } from '@girs/gio-2.0';
+import { CancellableCollection, type CancellableWrapper } from '@pano/utils/code/cancellables';
 import { CodeHighlighter, type Language, type OptionsForSettings } from '@pano/utils/code/highlight';
 import { logger } from '@pano/utils/shell';
 import Gio from 'gi://Gio?version=2.0';
+
+// from https://gjs.guide/guides/gio/subprocesses.html
+/* Gio.Subprocess */
+Gio._promisify(Gio.Subprocess.prototype, 'communicate_async');
+Gio._promisify(Gio.Subprocess.prototype, 'communicate_utf8_async');
+Gio._promisify(Gio.Subprocess.prototype, 'wait_async');
+Gio._promisify(Gio.Subprocess.prototype, 'wait_check_async');
+
+/* Ancillary Methods */
+Gio._promisify(Gio.DataInputStream.prototype, 'read_line_async', 'read_line_finish_utf8');
+Gio._promisify(Gio.OutputStream.prototype, 'write_bytes_async');
 
 const debug = logger('code-highlighter:pygments');
 
@@ -38,20 +51,30 @@ type PygmentsOptions = {
 export class PygmentsCodeHighlighter extends CodeHighlighter {
   private cliName = 'pygmentize';
   private _options: PygmentsOptions;
+  private cancellableCollection: CancellableCollection;
 
   constructor() {
     super('pygments', 'CommandLine');
     this._options = { style: undefined };
+    this.cancellableCollection = new CancellableCollection();
   }
 
-  override isInstalled(): boolean {
+  override async isInstalled(): Promise<boolean> {
+    let cancellable: CancellableWrapper | undefined;
+
     try {
       const proc = Gio.Subprocess.new(
         ['which', this.cliName],
         Gio.SubprocessFlags.STDOUT_SILENCE | Gio.SubprocessFlags.STDERR_SILENCE,
       );
 
-      const success = proc.wait(null);
+      cancellable = this.cancellableCollection.getNew();
+
+      const success = await (proc.wait_async as Promisified2<typeof proc.wait_async, boolean>)(cancellable.value);
+
+      this.cancellableCollection.remove(cancellable);
+      cancellable = undefined;
+
       if (!success) {
         throw new Error('Process was cancelled');
       }
@@ -60,21 +83,38 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
       return this.installed;
     } catch (err) {
       debug(`An error occurred while testing for the executable: ${err}`);
+      this.cancellableCollection.remove(cancellable);
       return false;
     }
   }
 
-  override detectLanguage(text: string): Language | undefined {
+  override async detectLanguage(text: string): Promise<Language | undefined> {
     if (!this.installed) {
       return undefined;
     }
+
+    let cancellable: CancellableWrapper | undefined;
 
     try {
       const proc = Gio.Subprocess.new(
         [this.cliName, '-C'],
         Gio.SubprocessFlags.STDERR_PIPE | Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDIN_PIPE,
       );
-      const [success, stdout, stderr] = proc.communicate_utf8(text, null);
+
+      cancellable = this.cancellableCollection.getNew();
+
+      const result = await (
+        proc.communicate_utf8_async as Promisified2<typeof proc.communicate_utf8_async, [boolean, string, string]>
+      )(text, cancellable.value);
+
+      this.cancellableCollection.remove(cancellable);
+      cancellable = undefined;
+
+      if (!result) {
+        throw new Error('Process result was undefined');
+      }
+
+      const [success, stdout, stderr] = result;
 
       if (!success) {
         throw new Error('Process was cancelled');
@@ -93,23 +133,40 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
       }
     } catch (err) {
       debug(`An error occurred while detecting the language: ${err}`);
+      this.cancellableCollection.remove(cancellable);
       return undefined;
     }
   }
 
-  override markupCode(language: string, text: string, characterLength: number): string | undefined {
+  override async markupCode(language: string, text: string, characterLength: number): Promise<string | undefined> {
     if (!this.installed) {
       return undefined;
     }
 
     const finalText = text.substring(0, characterLength);
 
+    let cancellable: CancellableWrapper | undefined;
+
     try {
       const proc = Gio.Subprocess.new(
         [this.cliName, '-l', language, '-f', 'pango', ...this.getOptionsForCLI()],
         Gio.SubprocessFlags.STDERR_PIPE | Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDIN_PIPE,
       );
-      const [success, stdout, stderr] = proc.communicate_utf8(finalText, null);
+
+      cancellable = this.cancellableCollection.getNew();
+
+      const result = await (
+        proc.communicate_utf8_async as Promisified2<typeof proc.communicate_utf8_async, [boolean, string, string]>
+      )(finalText, cancellable.value);
+
+      this.cancellableCollection.remove(cancellable);
+      cancellable = undefined;
+
+      if (!result) {
+        throw new Error('Process result was undefined');
+      }
+
+      const [success, stdout, stderr] = result;
 
       if (!success) {
         throw new Error('Process was cancelled');
@@ -122,6 +179,7 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
       }
     } catch (err) {
       debug(`An error occurred while formatting the language: ${err}`);
+      this.cancellableCollection.remove(cancellable);
       return undefined;
     }
   }
@@ -148,8 +206,8 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
     return JSON.stringify(this._options);
   }
 
-  override getOptionsForSettings(_: (str: string) => string): OptionsForSettings {
-    const features = this.getFeatures();
+  override async getOptionsForSettings(_: (str: string) => string): Promise<OptionsForSettings> {
+    const features = await this.getFeatures();
 
     if (!features) {
       return {};
@@ -161,22 +219,39 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
         values: Object.keys(features.styles),
         title: _('Style to Use'),
         subtitle: _('Choose the style, you want to use'),
-        defaultValue: undefined,
+        defaultValue: 0,
+        searchEnabled: true,
       },
     };
   }
 
-  private getFeatures(): PygmentsFeatures | undefined {
+  private async getFeatures(): Promise<PygmentsFeatures | undefined> {
     if (!this.installed) {
       return undefined;
     }
+
+    let cancellable: CancellableWrapper | undefined;
 
     try {
       const proc = Gio.Subprocess.new(
         [this.cliName, '-L', '--json'],
         Gio.SubprocessFlags.STDERR_PIPE | Gio.SubprocessFlags.STDOUT_PIPE,
       );
-      const [success, stdout, stderr] = proc.communicate_utf8(null, null);
+
+      cancellable = this.cancellableCollection.getNew();
+
+      const result = await (
+        proc.communicate_utf8_async as Promisified2<typeof proc.communicate_utf8_async, [boolean, string, string]>
+      )(null, cancellable.value);
+
+      this.cancellableCollection.remove(cancellable);
+      cancellable = undefined;
+
+      if (!result) {
+        throw new Error('Process result was undefined');
+      }
+
+      const [success, stdout, stderr] = result;
 
       if (!success) {
         throw new Error('Process was cancelled');
@@ -193,7 +268,12 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
       }
     } catch (err) {
       debug(`An error occurred while detecting features: ${err}`);
+      this.cancellableCollection.remove(cancellable);
       return undefined;
     }
+  }
+
+  override stopProcesses() {
+    this.cancellableCollection.removeAll();
   }
 }
