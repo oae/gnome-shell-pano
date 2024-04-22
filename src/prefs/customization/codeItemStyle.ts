@@ -37,7 +37,7 @@ export class CodeItemStyleRow extends ItemExpanderRow {
 
     // create code highlighter enabled row
     this.enableProperties = createSwitchRow(
-      _('Code Highlighter Enabled'),
+      _('Enable Code Highlighter'),
       _('When enabled, Code will be highlighted'),
       this.settings,
       PangoMarkdown.enabledKey,
@@ -274,6 +274,8 @@ export class CodeItemStyleRow extends ItemExpanderRow {
         title,
         subtitle,
       });
+
+      //TODO: searchEnabled doesn't work atm, fix this
 
       const dropDown = new Gtk4.DropDown({
         valign: Gtk4.Align.CENTER,

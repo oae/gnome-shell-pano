@@ -241,14 +241,20 @@ export const createScaleRow = (
 
   const scale = new Gtk4.Scale({
     adjustment: new Gtk4.Adjustment({ stepIncrement: increment, lower, upper }),
-    valuePos: initialValue,
     drawValue: true,
+    valuePos: Gtk4.PositionType.BOTTOM,
+    digits: 2,
     orientation: Gtk4.Orientation.HORIZONTAL,
     valign: Gtk4.Align.CENTER,
     halign: Gtk4.Align.CENTER,
   });
 
-  settings.bind(schemaKey, scale, 'valuePos', Gio.SettingsBindFlags.DEFAULT);
+  scale.set_value(initialValue);
+
+  scale.connect('value-changed', () => {
+    const value = scale.get_value();
+    settings.set_double(schemaKey, value);
+  });
 
   row.add_suffix(scale);
   row.set_activatable_widget(scale);
@@ -266,7 +272,7 @@ export const createScaleRow = (
   }
 
   settings.connect(`changed::${schemaKey}`, () => {
-    const value = settings.get_int(schemaKey);
+    const value = settings.get_double(schemaKey);
     if (defaultValue === value) {
       clearButton.sensitive = false;
     } else {

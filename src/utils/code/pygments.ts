@@ -130,7 +130,13 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
           return undefined;
         }
 
-        return { language: content, relevance: 1.0 };
+        // this is hardcoded, but it's only done, since pygments can't report tha heuristic
+
+        const relevanceBorder = 200;
+
+        const relevance = text.length > relevanceBorder ? 1.0 : text.length / relevanceBorder;
+
+        return { language: content, relevance };
       } else {
         throw new Error(`Process exited with exit code: ${proc.get_exit_status()} and output:  ${stderr}`);
       }
