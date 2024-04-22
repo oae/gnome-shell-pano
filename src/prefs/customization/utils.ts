@@ -72,6 +72,8 @@ export const createSwitchRow = (
       clearButton.sensitive = true;
     }
 
+    switch_.active = value;
+
     if (changeCallback) {
       Promise.resolve(changeCallback(value))
         .then(() => {
@@ -212,6 +214,8 @@ export const createSpinRow = (
     } else {
       clearButton.sensitive = true;
     }
+
+    spinButton.value = value;
   });
 
   clearButton.connect('clicked', () => {
@@ -278,6 +282,8 @@ export const createScaleRow = (
     } else {
       clearButton.sensitive = true;
     }
+
+    scale.set_value(value);
   });
 
   clearButton.connect('clicked', () => {

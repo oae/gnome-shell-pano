@@ -295,6 +295,8 @@ function handleCodePanoItemAsynchronously(
           metaData: stringify<CodeMetaData>(finalMetaData),
         })!;
       }
+    } else {
+      finalMetaData = metaData as CodeMetaData;
     }
 
     const characterLength = codeSettings.get_int('char-length');
@@ -349,10 +351,7 @@ export const createPanoItemFromDb = (
 
       // here we treat them as Code item, even if something fails at the highlight process, we just set un-highlighted markdown, the process of making such failures to TextPanoItems and also updating that in the db is async and we offer an option to rescan all items, in the settings, since that may take some time (we display them as CodeItem, without highlighting, if the highlighter is disabled)
 
-      const codePanoItem = new CodePanoItem(ext, clipboardManager, dbItem, {
-        text: dbItem.content.trim(),
-        type: 'text',
-      });
+      const codePanoItem = new CodePanoItem(ext, clipboardManager, dbItem);
 
       handleCodePanoItemAsynchronously(metaData, dbItem, ext)
         .then((result: PanoItemAsynchronouslyReturnType) => {
@@ -373,7 +372,8 @@ export const createPanoItemFromDb = (
             codePanoItem.setDBItem(newDbItem);
           }
 
-          codePanoItem.setMarkDown({ text: markdown, type: 'markup' });
+          codePanoItem.type = 'code';
+          codePanoItem.setMarkDown(markdown);
         })
         .catch((err) => {
           debug(`error in getting markdown from code item: ${err}`);
