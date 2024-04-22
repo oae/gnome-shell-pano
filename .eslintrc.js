@@ -30,9 +30,9 @@ module.exports = {
     // For Gjs
     camelcase: 'off',
     '@typescript-eslint/camelcase': 'off',
-    "eqeqeq": "error",
-    "require-await": "error",
-    "@typescript-eslint/no-floating-promises": "error",
+    eqeqeq: 'error',
+    'require-await': 'error',
+    '@typescript-eslint/no-floating-promises': 'error',
     //See: https://gitlab.gnome.org/ewlsh/gjs-guide/blob/main/src/guides/gjs/style-guide/eslint.config.js
     // See: https://eslint.org/docs/latest/rules/#possible-problems
     'array-callback-return': 'error',
@@ -56,12 +56,15 @@ module.exports = {
     ],
     // See: https://eslint.org/docs/latest/rules/#suggestions
     'block-scoped-var': 'error',
-    'complexity': ['warn', {
-      max: 40
-    }],
+    complexity: [
+      'warn',
+      {
+        max: 40,
+      },
+    ],
     'consistent-return': 'error',
     'default-param-last': 'error',
-    'eqeqeq': 'error',
+    eqeqeq: 'error',
     'no-array-constructor': 'error',
     'no-caller': 'error',
     'no-extend-native': 'error',
@@ -128,10 +131,10 @@ module.exports = {
     'no-restricted-syntax': [
       'error',
       {
-        selector: 'MethodDefinition[key.name="_init"] CallExpression[arguments.length<=1][callee.object.type="Super"][callee.property.name="_init"]',
+        selector:
+          'MethodDefinition[key.name="_init"] CallExpression[arguments.length<=1][callee.object.type="Super"][callee.property.name="_init"]',
         message: 'Use constructor() and super()',
       },
     ],
-
   },
 };
