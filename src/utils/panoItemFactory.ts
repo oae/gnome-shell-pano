@@ -254,7 +254,7 @@ export const removeItemResources = (ext: ExtensionBase, dbItem: DBItem) => {
   }
 };
 
-type PanoItemAsynchronouslyReturnType = undefined | [string, DBItem | undefined];
+type PanoItemAsynchronouslyReturnType = undefined | null | [string, DBItem | undefined];
 
 function handleCodePanoItemAsynchronously(
   metaData: Partial<CodeMetaData>,
@@ -268,7 +268,7 @@ function handleCodePanoItemAsynchronously(
   if (!markdownDetector) {
     // he is disabled
     return new Promise((resolve) => {
-      resolve(undefined);
+      resolve(null);
     });
   }
 
@@ -356,15 +356,21 @@ export const createPanoItemFromDb = (
 
       handleCodePanoItemAsynchronously(metaData, dbItem, ext)
         .then((result: PanoItemAsynchronouslyReturnType) => {
-          if (!result) {
+          // the code highlighting is disabled
+          if (result === null) {
+            return;
+          }
+
+          // a real error occurred
+          if (result === undefined) {
             debug('Failed to get markdown from code item, using not highlighted text');
             return;
           }
 
-          const [markdown, dbItem] = result;
+          const [markdown, newDbItem] = result;
 
-          if (dbItem) {
-            codePanoItem.setDBItem(dbItem);
+          if (newDbItem) {
+            codePanoItem.setDBItem(newDbItem);
           }
 
           codePanoItem.setMarkDown({ text: markdown, type: 'markup' });
