@@ -15,8 +15,17 @@ import { PanoItem } from '@pano/components/panoItem';
 import { TextPanoItem } from '@pano/components/textPanoItem';
 import type PanoExtension from '@pano/extension';
 import { ClipboardContent, ClipboardManager, ContentType, FileOperation } from '@pano/utils/clipboardManager';
-import { ClipboardQueryBuilder, db, DBItem } from '@pano/utils/db';
+import {
+  ClipboardQueryBuilder,
+  type CodeMetaData,
+  db,
+  DBItem,
+  type FileContentList,
+  type ImageMetaData,
+  type LinkMetaData,
+} from '@pano/utils/db';
 import { getDocument, getImage } from '@pano/utils/linkParser';
+import type { PangoMarkdown } from '@pano/utils/pango';
 import {
   getCachePath,
   getCurrentExtensionSettings,
@@ -24,6 +33,9 @@ import {
   gettext,
   logger,
   playAudio,
+  safeParse,
+  safeParse2,
+  stringify,
 } from '@pano/utils/shell';
 import { notify } from '@pano/utils/ui';
 import convert from 'hex-color-converter';
@@ -79,7 +91,7 @@ const findOrCreateDbItem = async (ext: PanoExtension, clip: ClipboardContent): P
   switch (type) {
     case ContentType.FILE:
       return db.save({
-        content: JSON.stringify(value.fileList),
+        content: stringify<FileContentList>(value.fileList),
         copyDate: new Date(),
         isFavorite: false,
         itemType: 'FILE',
@@ -108,7 +120,7 @@ const findOrCreateDbItem = async (ext: PanoExtension, clip: ClipboardContent): P
         isFavorite: false,
         itemType: 'IMAGE',
         matchValue: checksum,
-        metaData: JSON.stringify({
+        metaData: stringify<ImageMetaData>({
           width,
           height,
           size: value.length,
@@ -134,7 +146,7 @@ const findOrCreateDbItem = async (ext: PanoExtension, clip: ClipboardContent): P
           itemType: 'LINK',
           matchValue: trimmedValue,
           searchValue: `${title}${description}${trimmedValue}`,
-          metaData: JSON.stringify({
+          metaData: stringify<LinkMetaData>({
             title: title ? encodeURI(title) : '',
             description: description ? encodeURI(description) : '',
             image: checksum ?? '',
@@ -155,7 +167,7 @@ const findOrCreateDbItem = async (ext: PanoExtension, clip: ClipboardContent): P
             itemType: 'LINK',
             matchValue: trimmedValue,
             searchValue: `${title}${description}${trimmedValue}`,
-            metaData: JSON.stringify({
+            metaData: stringify<LinkMetaData>({
               title: title ? encodeURI(title) : '',
               description: description ? encodeURI(description) : '',
               image: checksum ?? '',
@@ -193,7 +205,7 @@ const findOrCreateDbItem = async (ext: PanoExtension, clip: ClipboardContent): P
 
       const detectedLanguage = await ext.markdownDetector?.detectLanguage(trimmedValue);
 
-      if (detectedLanguage && detectedLanguage.relevance >= MINIMUM_LANGUAGE_RELEVANCE) {
+      if (ext.markdownDetector && detectedLanguage && detectedLanguage.relevance >= MINIMUM_LANGUAGE_RELEVANCE) {
         return db.save({
           content: value,
           copyDate: new Date(),
@@ -201,8 +213,9 @@ const findOrCreateDbItem = async (ext: PanoExtension, clip: ClipboardContent): P
           itemType: 'CODE',
           matchValue: value,
           searchValue: value,
-          metaData: JSON.stringify({
+          metaData: stringify<CodeMetaData>({
             language: detectedLanguage.language,
+            highlighter: ext.markdownDetector.currentHighlighter!.name,
           }),
         });
       }
@@ -224,7 +237,11 @@ const findOrCreateDbItem = async (ext: PanoExtension, clip: ClipboardContent): P
 export const removeItemResources = (ext: ExtensionBase, dbItem: DBItem) => {
   db.delete(dbItem.id);
   if (dbItem.itemType === 'LINK') {
-    const { image } = JSON.parse(dbItem.metaData || '{}');
+    const { image } = safeParse<LinkMetaData>(dbItem.metaData || '{"title": "", "description": ""}', {
+      title: '',
+      description: '',
+      image: undefined,
+    });
     if (image && Gio.File.new_for_uri(`file://${getCachePath(ext)}/${image}.png`).query_exists(null)) {
       Gio.File.new_for_uri(`file://${getCachePath(ext)}/${image}.png`).delete(null);
     }
@@ -237,11 +254,47 @@ export const removeItemResources = (ext: ExtensionBase, dbItem: DBItem) => {
   }
 };
 
-export const createPanoItemFromDb = async (
+async function handleCodePanoItem(
+  panoItem: CodePanoItem,
+  metaData: Partial<CodeMetaData>,
+  characterLength: number,
+  markdownDetector: PangoMarkdown,
+): Promise<string | undefined> {
+  let finalMetaData: CodeMetaData;
+
+  if (!metaData.language || !metaData.highlighter) {
+    const language = await markdownDetector.detectLanguage(panoItem.dbItem.content.trim());
+    if (!language) {
+      return undefined;
+    }
+
+    finalMetaData = {
+      language: language.language,
+      highlighter: markdownDetector.currentHighlighter!.name,
+    };
+
+    db.update({
+      ...panoItem.dbItem,
+      metaData: stringify<CodeMetaData>(finalMetaData),
+    });
+  } else {
+    finalMetaData = metaData as CodeMetaData;
+  }
+
+  const markup = await markdownDetector.markupCode(
+    finalMetaData.language,
+    panoItem.dbItem.content.trim(),
+    characterLength,
+  );
+
+  return markup;
+}
+
+export const createPanoItemFromDb = (
   ext: PanoExtension,
   clipboardManager: ClipboardManager,
   dbItem: DBItem | null,
-): Promise<PanoItem | null> => {
+): PanoItem | null => {
   if (!dbItem) {
     return null;
   }
@@ -253,42 +306,34 @@ export const createPanoItemFromDb = async (
       panoItem = new TextPanoItem(ext, clipboardManager, dbItem);
       break;
     case 'CODE': {
-      let language: string | undefined;
+      // this is migration stuff, since it is never undefined (or "") but older items can be, after scanning, the language they are updated in db too,
+      const metaData: Partial<CodeMetaData> = safeParse<CodeMetaData>(
+        dbItem.metaData || '{"language": "", "highlighter": ""}',
+        {
+          language: '',
+          highlighter: '',
+        },
+      );
 
-      if (dbItem.metaData && dbItem.metaData !== '') {
-        const metaData: { language: string | undefined } = JSON.parse(dbItem.metaData);
-        language = metaData.language;
-      }
+      // here we treat them as Code item, even if something fails at the highlight process, we just set un-highlighted markdvown, the process of making such failures to TextPanoItems and also updating that in the db is async and we offer an option to rescan all items, in the settings, since that may take some time (we display them as textItem, if the highlighter is disabled)
 
-      if (!language) {
-        const detectedLanguage = await ext.markdownDetector?.detectLanguage(dbItem.content.trim());
-        if (detectedLanguage && detectedLanguage.relevance >= MINIMUM_LANGUAGE_RELEVANCE) {
-          language = detectedLanguage.language;
-        }
-      }
-
-      const createTextPanoItem = () => {
-        const textDbItem = dbItem;
-        textDbItem.itemType = 'TEXT';
-        textDbItem.metaData = undefined;
-
-        return new TextPanoItem(ext, clipboardManager, textDbItem);
-      };
-
-      if (language && ext.markdownDetector) {
+      if (ext.markdownDetector) {
         const characterLength = getCurrentExtensionSettings(ext).get_child('code-item').get_int('char-length');
 
-        const markup = await ext.markdownDetector?.markupCode(language, dbItem.content.trim(), characterLength);
+        const codePanoItem = new CodePanoItem(ext, clipboardManager, dbItem, dbItem.content.trim());
 
-        // this might return undefined in some really rare cases
-        if (!markup) {
-          debug("Couldn't create a code item: Couldn't generate markup");
-          panoItem = createTextPanoItem();
-        } else {
-          panoItem = new CodePanoItem(ext, clipboardManager, dbItem, markup);
-        }
+        void handleCodePanoItem(codePanoItem, metaData, characterLength, ext.markdownDetector).then((markdown) => {
+          if (markdown) {
+            codePanoItem.setMarkDown(markdown);
+          } else {
+            debug('Failed to get markdown from code item, using not highlighted text');
+          }
+        });
+
+        panoItem = codePanoItem;
       } else {
-        panoItem = createTextPanoItem();
+        // this display "Code" in the header bar, but that is intended, the style is of a text item, but we can't change the itemType, since it may written incorrectly to db later!
+        panoItem = new TextPanoItem(ext, clipboardManager, dbItem);
       }
 
       break;
@@ -315,12 +360,12 @@ export const createPanoItemFromDb = async (
   }
 
   panoItem.connect('on-remove', (_, dbItemStr: string) => {
-    const removeDbItem: DBItem = JSON.parse(dbItemStr);
+    const removeDbItem: DBItem = safeParse2<DBItem>(dbItemStr)!;
     removeItemResources(ext, removeDbItem);
   });
 
   panoItem.connect('on-favorite', (_, dbItemStr: string) => {
-    const favoriteDbItem: DBItem = JSON.parse(dbItemStr);
+    const favoriteDbItem: DBItem = safeParse2<DBItem>(dbItemStr)!;
     db.update({
       ...favoriteDbItem,
       copyDate: new Date(favoriteDbItem.copyDate),
@@ -341,13 +386,15 @@ function converter(color: string): string | null {
 const sendNotification = (ext: ExtensionBase, dbItem: DBItem) => {
   const _ = gettext(ext);
   if (dbItem.itemType === 'IMAGE') {
-    const { width, height, size }: { width: number; height: number; size: number } = JSON.parse(
-      dbItem.metaData || '{}',
-    );
+    const { width, height, size } = safeParse<ImageMetaData>(dbItem.metaData || '{}', {
+      width: undefined,
+      height: undefined,
+      size: undefined,
+    });
     notify(
       ext,
       _('Image Copied'),
-      _('Width: %spx, Height: %spx, Size: %s').format(width, height, prettyBytes(size)),
+      _('Width: %spx, Height: %spx, Size: %s').format(width, height, prettyBytes(size ?? 0)),
       GdkPixbuf.Pixbuf.new_from_file(`${getImagesPath(ext)}/${dbItem.content}.png`),
     );
   } else if (dbItem.itemType === 'TEXT') {
@@ -357,8 +404,9 @@ const sendNotification = (ext: ExtensionBase, dbItem: DBItem) => {
   } else if (dbItem.itemType === 'EMOJI') {
     notify(ext, _('Emoji Copied'), dbItem.content);
   } else if (dbItem.itemType === 'LINK') {
-    const { title, description, image }: { title: string; description: string; image: string } = JSON.parse(
-      dbItem.metaData || '{}',
+    const { title, description, image } = safeParse<LinkMetaData>(
+      dbItem.metaData || '{"title": "", "description": ""}',
+      { title: '', description: '', image: undefined },
     );
     const pixbuf = image ? GdkPixbuf.Pixbuf.new_from_file(`${getCachePath(ext)}/${image}.png`) : undefined;
     notify(
@@ -387,7 +435,7 @@ const sendNotification = (ext: ExtensionBase, dbItem: DBItem) => {
     }
   } else if (dbItem.itemType === 'FILE') {
     const operation = dbItem.metaData;
-    const fileListSize = JSON.parse(dbItem.content).length;
+    const fileListSize = safeParse<FileContentList>(dbItem.content, []).length;
     notify(
       ext,
       _('File %s').format(operation === FileOperation.CUT ? 'cut' : 'copied'),

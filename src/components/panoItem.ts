@@ -12,7 +12,7 @@ import { ClipboardManager } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { getPanoItemTypes } from '@pano/utils/panoItemType';
-import { getCurrentExtensionSettings } from '@pano/utils/shell';
+import { getCurrentExtensionSettings, stringify } from '@pano/utils/shell';
 import { getVirtualKeyboard, WINDOW_POSITIONS } from '@pano/utils/ui';
 
 export type PanoItemSignalType = 'on-remove' | 'on-favorite' | 'activated';
@@ -122,13 +122,13 @@ export class PanoItem extends St.BoxLayout {
     this.header = new PanoItemHeader(ext, getPanoItemTypes(ext)[dbItem.itemType], dbItem.copyDate);
     this.header.setFavorite(this.dbItem.isFavorite);
     this.header.connect('on-remove', () => {
-      this.emit('on-remove', JSON.stringify(this.dbItem));
+      this.emit('on-remove', stringify<DBItem>(this.dbItem));
       return Clutter.EVENT_PROPAGATE;
     });
 
     this.header.connect('on-favorite', () => {
       this.dbItem = { ...this.dbItem, isFavorite: !this.dbItem.isFavorite };
-      this.emit('on-favorite', JSON.stringify(this.dbItem));
+      this.emit('on-favorite', stringify<DBItem>(this.dbItem));
       return Clutter.EVENT_PROPAGATE;
     });
 
@@ -199,7 +199,7 @@ export class PanoItem extends St.BoxLayout {
       return Clutter.EVENT_STOP;
     }
     if (event.get_key_symbol() === Clutter.KEY_Delete || event.get_key_symbol() === Clutter.KEY_KP_Delete) {
-      this.emit('on-remove', JSON.stringify(this.dbItem));
+      this.emit('on-remove', stringify<DBItem>(this.dbItem));
       return Clutter.EVENT_STOP;
     }
     if (
@@ -207,7 +207,7 @@ export class PanoItem extends St.BoxLayout {
       event.get_state() === Clutter.ModifierType.CONTROL_MASK
     ) {
       this.dbItem = { ...this.dbItem, isFavorite: !this.dbItem.isFavorite };
-      this.emit('on-favorite', JSON.stringify(this.dbItem));
+      this.emit('on-favorite', stringify<DBItem>(this.dbItem));
       return Clutter.EVENT_STOP;
     }
     return Clutter.EVENT_PROPAGATE;

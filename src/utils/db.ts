@@ -18,6 +18,25 @@ export type DBItem = {
   metaData?: string | undefined;
 };
 
+export type ImageMetaData = {
+  width: number | undefined;
+  height: number | undefined;
+  size: number | undefined;
+};
+
+export type LinkMetaData = {
+  title: string;
+  description: string;
+  image: string | undefined;
+};
+
+export type CodeMetaData = {
+  language: string;
+  highlighter: string;
+};
+
+export type FileContentList = string[];
+
 class ClipboardQuery {
   readonly statement: Gda5.Statement;
 

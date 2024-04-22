@@ -6,7 +6,6 @@ import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInte
 import GObject from '@girs/gobject-2.0';
 import Shell from '@girs/shell-14';
 import St from '@girs/st-14';
-import { LoadingPanoItem } from '@pano/components/loadingPanoItem';
 import { PanoItem } from '@pano/components/panoItem';
 import { SearchBox } from '@pano/components/searchBox';
 import type PanoExtension from '@pano/extension';
@@ -37,8 +36,6 @@ interface PanoScrollViewSignals extends SignalsDefinition<PanoScrollViewSignalTy
 
 //TODO: the list member of St.BoxLayout are of type Clutter.Actor and we have to cast constantly from PanoItem to Clutter.Actor and reverse, fix that somehow
 
-type Child = PanoItem | LoadingPanoItem;
-
 @registerGObjectClass
 export class PanoScrollView extends St.ScrollView {
   static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, PanoScrollViewSignals> = {
@@ -61,7 +58,7 @@ export class PanoScrollView extends St.ScrollView {
 
   private list: St.BoxLayout;
   private settings: Gio.Settings;
-  private currentFocus: Child | null = null;
+  private currentFocus: PanoItem | null = null;
   private currentFilter: string | null = null;
   private currentItemTypeFilter: ItemType | null = null;
   private showFavorites: boolean | null = null;
@@ -149,30 +146,21 @@ export class PanoScrollView extends St.ScrollView {
       return Clutter.EVENT_STOP;
     });
 
-    const items = db.query(new ClipboardQueryBuilder().build());
+    db.query(new ClipboardQueryBuilder().build()).forEach((dbItem) => {
+      const panoItem = createPanoItemFromDb(ext, this.clipboardManager, dbItem);
+      if (panoItem) {
+        panoItem.connect('motion-event', () => {
+          if (this.isHovering(this.searchBox)) {
+            this.searchBox.focus();
+          }
+        });
+        this.connectOnRemove(panoItem);
+        this.connectOnFavorite(panoItem);
+        this.list.add_child(panoItem);
+      }
+    });
 
-    for (let index = 0; index < items.length; ++index) {
-      const dbItem = items[index]!;
-      const panoItem = new LoadingPanoItem(dbItem);
-
-      this.list.add_child(panoItem);
-
-      //TODO: this doesn't work atm, fix it!
-      void createPanoItemFromDb(ext, this.clipboardManager, dbItem).then((newItem) => {
-        if (newItem) {
-          panoItem.connect('motion-event', () => {
-            if (this.isHovering(this.searchBox)) {
-              this.searchBox.focus();
-            }
-          });
-          this.connectOnRemove(newItem);
-          this.connectOnFavorite(newItem);
-          this.list.set_child_at_index(newItem, index);
-        }
-      });
-    }
-
-    const firstItem = this.list.get_first_child() as Child | null;
+    const firstItem = this.list.get_first_child() as PanoItem | null;
     if (firstItem !== null) {
       firstItem.emit('activated');
     }
@@ -252,20 +240,20 @@ export class PanoScrollView extends St.ScrollView {
     });
   }
 
-  private removeItem(item: Child) {
+  private removeItem(item: PanoItem) {
     item.hide();
     this.list.remove_child(item);
   }
 
-  private getItem(panoItem: Child): Child | undefined {
+  private getItem(panoItem: PanoItem): PanoItem | undefined {
     return this.getItems().find((item) => item.dbItem.id === panoItem.dbItem.id);
   }
 
-  private getItems(): Child[] {
-    return this.list.get_children() as Child[];
+  private getItems(): PanoItem[] {
+    return this.list.get_children() as PanoItem[];
   }
 
-  private getVisibleItems(): Child[] {
+  private getVisibleItems(): PanoItem[] {
     return this.getItems().filter((item) => item.is_visible());
   }
 
@@ -425,7 +413,7 @@ export class PanoScrollView extends St.ScrollView {
     this.emit('scroll-focus-out');
   }
 
-  private scrollToItem(item: Child) {
+  private scrollToItem(item: PanoItem) {
     const box = item.get_allocation_box();
 
     let adjustment: St.Adjustment | undefined;

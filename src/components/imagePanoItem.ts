@@ -4,9 +4,9 @@ import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInte
 import St from '@girs/st-14';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
-import { DBItem } from '@pano/utils/db';
+import { DBItem, type ImageMetaData } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { getImagesPath } from '@pano/utils/shell';
+import { getImagesPath, safeParse } from '@pano/utils/shell';
 import prettyBytes from 'pretty-bytes';
 
 const NO_IMAGE_FOUND_FILE_NAME = 'no-image-found.svg';
@@ -30,9 +30,11 @@ export class ImagePanoItem extends PanoItem {
 
     this.imageItemSettings = this.settings.get_child('image-item');
 
-    const { width, height, size }: { width: number; height: number; size: number } = JSON.parse(
-      dbItem.metaData || '{}',
-    );
+    const { width, height, size } = safeParse<ImageMetaData>(dbItem.metaData || '{}', {
+      width: undefined,
+      height: undefined,
+      size: undefined,
+    });
 
     this.metaContainer = new St.BoxLayout({
       styleClass: 'pano-item-body-meta-container',
@@ -81,7 +83,7 @@ export class ImagePanoItem extends PanoItem {
       styleClass: 'pano-item-body-image-meta-title',
     });
     this.sizeValue = new St.Label({
-      text: prettyBytes(size),
+      text: prettyBytes(size ?? 0),
       xAlign: Clutter.ActorAlign.END,
       xExpand: false,
       styleClass: 'pano-item-body-image-meta-value',

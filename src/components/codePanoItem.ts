@@ -12,7 +12,7 @@ export class CodePanoItem extends PanoItem {
   private codeItemSettings: Gio.Settings;
   private label: St.Label;
 
-  constructor(ext: PanoExtension, clipboardManager: ClipboardManager, dbItem: DBItem, markup: string) {
+  constructor(ext: PanoExtension, clipboardManager: ClipboardManager, dbItem: DBItem, markdown: string) {
     super(ext, clipboardManager, dbItem);
     this.codeItemSettings = this.settings.get_child('code-item');
 
@@ -24,16 +24,16 @@ export class CodePanoItem extends PanoItem {
     this.label.clutterText.ellipsize = Pango.EllipsizeMode.END;
     this.body.add_child(this.label);
     this.connect('activated', this.setClipboardContent.bind(this));
-    this.setStyle(markup);
+    this.setMarkDown(markdown);
     this.codeItemSettings.connect('changed', () => {
       //TODO: do this is the scrollview, so that code items can be replaced by text items, if we disable the formatter
 
       //TODO:debug if this get's fired when changing style of the highlighter, what happens here, if we change the selected highlighter
-      this.setStyle.call(this, 'TODO');
+      this.setMarkDown.call(this, 'TODO');
     });
   }
 
-  private setStyle(markup: string) {
+  public setMarkDown(markup: string) {
     const headerBgColor = this.codeItemSettings.get_string('header-bg-color');
     const headerColor = this.codeItemSettings.get_string('header-color');
     const bodyBgColor = this.codeItemSettings.get_string('body-bg-color');

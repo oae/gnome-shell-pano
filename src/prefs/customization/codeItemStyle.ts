@@ -13,7 +13,7 @@ import {
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { PangoMarkdown } from '@pano/utils/pango';
 import { getPanoItemTypes } from '@pano/utils/panoItemType';
-import { getCurrentExtensionSettings, gettext, logger } from '@pano/utils/shell';
+import { getCurrentExtensionSettings, gettext, logger, safeParse, stringify } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class CodeItemStyleRow extends ItemExpanderRow {
@@ -203,7 +203,7 @@ export class CodeItemStyleRow extends ItemExpanderRow {
     }
 
     //TODO: disable all items, that are not in  this.markdownDetector.detectedHighlighter
-    logger('TEST')(JSON.stringify(this.codeHighlighterDropDown.model.get_item(0)));
+    logger('TEST')(this.codeHighlighterDropDown.model.get_item(0)?.get_property(''));
 
     // make all rows sensitive, so that things can be changed
     this.enableProperties[0].sensitive = true;
@@ -229,19 +229,19 @@ export class CodeItemStyleRow extends ItemExpanderRow {
         currentHighlighter!.options = this.settings.get_string(schemaKey);
       }
 
-      const record: Record<string, T> = JSON.parse(currentHighlighter!.options);
+      const record = safeParse<Record<string, T | undefined>>(currentHighlighter!.options, { [key]: undefined });
       return record[key];
     };
 
     const setValueFor = <T>(key: string, val: T | undefined): void => {
-      const record: Record<string, T> = JSON.parse(currentHighlighter!.options);
+      const record = safeParse<Record<string, T>>(currentHighlighter!.options, {});
       if (val === undefined) {
         delete record[key];
       } else {
         record[key] = val;
       }
 
-      const stringified = JSON.stringify(record);
+      const stringified = stringify<Record<string, T>>(record);
 
       currentHighlighter!.options = stringified;
       this.settings.set_string(schemaKey, stringified);

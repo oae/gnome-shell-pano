@@ -5,8 +5,9 @@ import Pango from '@girs/pango-1.0';
 import St from '@girs/st-14';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType, FileOperation } from '@pano/utils/clipboardManager';
-import { DBItem } from '@pano/utils/db';
+import { DBItem, type FileContentList } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
+import { safeParse } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class FilePanoItem extends PanoItem {
@@ -17,7 +18,7 @@ export class FilePanoItem extends PanoItem {
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
     super(ext, clipboardManager, dbItem);
 
-    this.fileList = JSON.parse(this.dbItem.content);
+    this.fileList = safeParse<FileContentList>(this.dbItem.content, []);
     this.operation = this.dbItem.metaData || 'copy';
 
     this.body.add_style_class_name('pano-item-body-file');

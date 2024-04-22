@@ -233,3 +233,19 @@ export const openLinkInBrowser = (url: string) => {
 export function gettext(ext: ExtensionBase): (str: string) => string {
   return ext.gettext.bind(ext);
 }
+
+export function stringify<T>(value: T) {
+  return JSON.stringify(value);
+}
+
+export function safeParse2<T>(str: string): T | undefined {
+  try {
+    return JSON.parse(str);
+  } catch (_err) {
+    return undefined;
+  }
+}
+
+export function safeParse<T>(str: string, defaultValue: T): T {
+  return safeParse2(str) ?? defaultValue;
+}

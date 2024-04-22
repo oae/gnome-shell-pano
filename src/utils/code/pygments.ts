@@ -1,7 +1,7 @@
 import type { Promisified2 } from '@girs/gio-2.0';
 import { CancellableCollection, type CancellableWrapper } from '@pano/utils/code/cancellables';
 import { CodeHighlighter, type Language, type OptionsForSettings } from '@pano/utils/code/highlight';
-import { logger } from '@pano/utils/shell';
+import { logger, safeParse, stringify } from '@pano/utils/shell';
 import Gio from 'gi://Gio?version=2.0';
 
 // from https://gjs.guide/guides/gio/subprocesses.html
@@ -196,14 +196,14 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
 
   override set options(options: string) {
     try {
-      this._options = JSON.parse(options);
+      this._options = safeParse<PygmentsOptions>(options, { style: undefined });
     } catch (_err) {
       this._options = { style: undefined };
     }
   }
 
   get options(): string {
-    return JSON.stringify(this._options);
+    return stringify<PygmentsOptions>(this._options);
   }
 
   override async getOptionsForSettings(_: (str: string) => string): Promise<OptionsForSettings> {
@@ -260,7 +260,12 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
       if (proc.get_successful()) {
         const content = stdout.trim();
 
-        const parsed = JSON.parse(content) as PygmentsFeatures;
+        const parsed: PygmentsFeatures = safeParse<PygmentsFeatures>(content, {
+          lexers: {},
+          filters: {},
+          formatters: {},
+          styles: {},
+        });
 
         return parsed;
       } else {
