@@ -1,6 +1,7 @@
 import Gio from '@girs/gio-2.0';
 import type { CodeHighlighter, Language } from '@pano/utils/code/highlight';
 import { PygmentsCodeHighlighter } from '@pano/utils/code/pygments';
+import { logger } from '@pano/utils/shell';
 
 //TODO:
 // add highlight.js back, if it is installed and can be found via require()
@@ -11,19 +12,48 @@ import { PygmentsCodeHighlighter } from '@pano/utils/code/pygments';
 // button to recheck tools
 // customs settings per highlighter
 
+const debug = logger('pango');
+
+type LoadCallback = () => void | Promise<void>;
+
 export class PangoMarkdown {
   private _detectedHighlighter: CodeHighlighter[] = [];
   private _currentHighlighter: CodeHighlighter | null = null;
+
+  private loadCallbacks: LoadCallback[] = [];
+  private _loaded: boolean = false;
 
   public static readonly availableCodeHighlighter: CodeHighlighter[] = [new PygmentsCodeHighlighter()];
 
   constructor(preferredHighlighter: string | null = null, settings: Gio.Settings | null = null) {
     // this is fine, since the properties this sets are async safe, alias they are set at the end, so that everything is set when it's needed, and when something uses this class, before it is ready, it will behave correctly
-    void this.detectHighlighter(preferredHighlighter, settings).then(() => {
-      if (settings) {
-        this.enableWatch(settings);
-      }
-    });
+    this.detectHighlighter(preferredHighlighter, settings)
+      .then(async () => {
+        if (settings) {
+          this.enableWatch(settings);
+        }
+        this._loaded = true;
+        for (const callback of this.loadCallbacks) {
+          await callback();
+        }
+        this.loadCallbacks = [];
+      })
+      .catch((err) => {
+        debug(`An error occurred in detecting the highlighter: ${err}`);
+      });
+  }
+
+  onLoad(callback: LoadCallback): void {
+    if (this._loaded) {
+      void callback();
+      return;
+    }
+
+    this.loadCallbacks.push(callback);
+  }
+
+  get loaded(): boolean {
+    return this._loaded;
   }
 
   get detectedHighlighter() {

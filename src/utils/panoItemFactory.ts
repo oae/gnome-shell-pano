@@ -326,17 +326,21 @@ export const createPanoItemFromDb = (
 
         const codePanoItem = new CodePanoItem(ext, clipboardManager, dbItem, dbItem.content.trim(), undefined);
 
-        void handleCodePanoItem(codePanoItem, metaData, characterLength, ext.markdownDetector).then((result) => {
-          if (!result) {
-            debug('Failed to get markdown from code item, using not highlighted text');
-            return;
-          }
+        handleCodePanoItem(codePanoItem, metaData, characterLength, ext.markdownDetector)
+          .then((result) => {
+            if (!result) {
+              debug('Failed to get markdown from code item, using not highlighted text');
+              return;
+            }
 
-          const [markdown, language] = result;
+            const [markdown, language] = result;
 
-          codePanoItem.language = language;
-          codePanoItem.setMarkDown(markdown);
-        });
+            codePanoItem.language = language;
+            codePanoItem.setMarkDown(markdown);
+          })
+          .catch((err) => {
+            debug(`error in getting markdown from code item: ${err}`);
+          });
 
         panoItem = codePanoItem;
       } else {

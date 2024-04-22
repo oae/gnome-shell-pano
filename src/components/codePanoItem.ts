@@ -6,6 +6,9 @@ import type PanoExtension from '@pano/extension';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
+import { logger } from '@pano/utils/shell';
+
+const debug = logger('code-pano-item');
 
 @registerGObjectClass
 export class CodePanoItem extends PanoItem {
@@ -41,12 +44,15 @@ export class CodePanoItem extends PanoItem {
         return;
       }
 
-      void ext.markdownDetector
+      ext.markdownDetector
         ?.markupCode(this._language, this.dbItem.content.trim(), characterLength)
         .then((markdown) => {
           if (markdown) {
             this.setMarkDown.call(this, markdown);
           }
+        })
+        .catch((err) => {
+          debug(`an error occured while trying to markup Code: ${err}`);
         });
     });
   }

@@ -280,6 +280,10 @@ export default class PanoExtension extends Extension {
       return null;
     }
 
+    if (!this._markdownDetector?.loaded) {
+      return null;
+    }
+
     return this._markdownDetector;
   }
 }

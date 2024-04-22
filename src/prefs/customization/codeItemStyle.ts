@@ -13,7 +13,7 @@ import {
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { PangoMarkdown } from '@pano/utils/pango';
 import { getPanoItemTypes } from '@pano/utils/panoItemType';
-import { getCurrentExtensionSettings, gettext, logger, safeParse, stringify } from '@pano/utils/shell';
+import { getCurrentExtensionSettings, gettext, safeParse, stringify } from '@pano/utils/shell';
 
 @registerGObjectClass
 export class CodeItemStyleRow extends ItemExpanderRow {
@@ -151,6 +151,9 @@ export class CodeItemStyleRow extends ItemExpanderRow {
 
     if (!this.markdownDetector) {
       this.markdownDetector = new PangoMarkdown(initialCodeHighlighterValue);
+      this.markdownDetector.onLoad(() => {
+        this.scan();
+      });
     }
 
     let enablingPossible = true;
@@ -203,7 +206,7 @@ export class CodeItemStyleRow extends ItemExpanderRow {
     }
 
     //TODO: disable all items, that are not in  this.markdownDetector.detectedHighlighter
-    logger('TEST')(this.codeHighlighterDropDown.model.get_item(0)?.get_property(''));
+    void this.codeHighlighterDropDown;
 
     // make all rows sensitive, so that things can be changed
     this.enableProperties[0].sensitive = true;

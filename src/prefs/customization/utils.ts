@@ -3,14 +3,11 @@ import Gdk4 from '@girs/gdk-4.0';
 import Gio from '@girs/gio-2.0';
 import Gtk4 from '@girs/gtk-4.0';
 import Pango from '@girs/pango-1.0';
+import { logger } from '@pano/utils/shell';
 
-// const switchMenuItem = new PopupSwitchMenuItem(_('Incognito Mode'), this.settings.get_boolean('is-in-incognito'));
+const debug = logger('utils');
 
-// switchMenuItem.connect('toggled', (value) => {
-//   this.settings.set_boolean('code-highlighter-enabled', value.state);
-// });
-
-export type ChangeCallback<T> = (value: T) => void;
+export type ChangeCallback<T> = (value: T) => void | Promise<void>;
 
 export const createSwitchRow = (
   title: string,
@@ -73,8 +70,17 @@ export const createSwitchRow = (
     } else {
       clearButton.sensitive = true;
     }
-    changeCallback?.(value);
-    switch_.state = value;
+
+    if (changeCallback) {
+      Promise.resolve(changeCallback(value))
+        .then(() => {
+          switch_.state = value;
+          row.changed();
+        })
+        .catch((err) => {
+          debug(`An error occurred in the changeCallback: ${err}`);
+        });
+    }
   });
 
   clearButton.connect('clicked', () => {
@@ -335,7 +341,13 @@ export const createDropdownRow = (
     dropDown.set_selected(value);
     const stringValue = options[value];
     if (stringValue) {
-      changeCallback?.(stringValue);
+      if (changeCallback) {
+        Promise.resolve(changeCallback(stringValue))
+          .then(() => {})
+          .catch((err) => {
+            debug(`An error occurred in the changeCallback: ${err}`);
+          });
+      }
     }
   });
 
