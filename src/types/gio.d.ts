@@ -23,15 +23,27 @@ declare module '@girs/gio-2.0' {
       ? T
       : never;
 
-  export type Promisified<Func> = Func extends (...args: infer Args) => void
-    ? LastOfArray<Args> extends Gio.AsyncReadyCallback<infer FinalType> | infer R
-      ? (...args: FlattenArray<AllExceptLastOfArray<Args>>) => Promise<FinalType | R>
+  export type Promisified<AsyncFunc, FinishFunc> = AsyncFunc extends (...args: infer Args) => void
+    ? LastOfArray<Args> extends Gio.AsyncReadyCallback<infer _FinalType> | infer R
+      ? FinishFunc extends (result: Gio.AsyncResult) => infer Result
+        ? (...args: FlattenArray<AllExceptLastOfArray<Args>>) => Promise<Result | R>
+        : never
       : never
     : never;
 
-  export type Promisified2<Func, Result> = Func extends (...args: infer Args) => void
+  export type PromisifiedWithReturnType<AsyncFunc, Result> = AsyncFunc extends (...args: infer Args) => void
     ? LastOfArray<Args> extends Gio.AsyncReadyCallback<infer _FinalType> | infer R
       ? (...args: FlattenArray<AllExceptLastOfArray<Args>>) => Promise<Result | R>
+      : never
+    : never;
+
+  export type PromisifiedWithArrayReturnType<AsyncFunc, FinishFunc> = AsyncFunc extends (...args: infer Args) => void
+    ? LastOfArray<Args> extends Gio.AsyncReadyCallback<infer _FinalType> | infer R
+      ? FinishFunc extends (result: Gio.AsyncResult) => infer ArrayResult
+        ? ArrayResult extends [success, ...infer Result]
+          ? (...args: FlattenArray<AllExceptLastOfArray<Args>>) => Promise<Result | R>
+          : never
+        : never
       : never
     : never;
 }

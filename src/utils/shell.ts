@@ -3,10 +3,40 @@ import GLib from '@girs/glib-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import GSound from '@girs/gsound-1.0';
 
-export const logger =
-  (prefix: string) =>
-  (content: string): void =>
-    console.log(`[pano] [${prefix}] ${content}`);
+export type LoggerType = 'warn' | 'error' | 'log' | 'trace';
+
+export const loggerBase = (type: LoggerType, prefix: string) => {
+  switch (type) {
+    case 'error': {
+      return (content: string): void => {
+        console.error(`[pano] [${prefix}] ${content}`);
+      };
+    }
+
+    case 'warn': {
+      return (content: string): void => {
+        console.warn(`[pano] [${prefix}] ${content}`);
+      };
+    }
+
+    case 'trace': {
+      return (content: string): void => {
+        console.trace(`[pano] [${prefix}] ${content}`);
+      };
+    }
+
+    case 'log':
+    default: {
+      return (content: string): void => {
+        console.log(`[pano] [${prefix}] ${content}`);
+      };
+    }
+  }
+};
+
+export const logger = (prefix: string) => loggerBase('log', prefix);
+export const errorLogger = (prefix: string) => loggerBase('error', prefix);
+export const warnLogger = (prefix: string) => loggerBase('warn', prefix);
 
 const debug = logger('shell-utils');
 
@@ -180,9 +210,8 @@ export const playAudio = () => {
 
     const attr_event_id = GSound.ATTR_EVENT_ID;
 
-    //TODO: log this in a better way!
     if (attr_event_id === null) {
-      console.error("Can't use GSound.ATTR_EVENT_ID since it's null!");
+      errorLogger('playaudio')("Can't use GSound.ATTR_EVENT_ID since it's null!");
       return;
     }
     soundContext.play_simple(
@@ -242,6 +271,7 @@ export function safeParse2<T>(str: string): T | undefined {
   try {
     return JSON.parse(str);
   } catch (_err) {
+    console.log(_err);
     return undefined;
   }
 }

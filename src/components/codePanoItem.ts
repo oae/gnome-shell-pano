@@ -4,9 +4,9 @@ import St from '@girs/st-14';
 import { PanoItem } from '@pano/components/panoItem';
 import type PanoExtension from '@pano/extension';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
-import { DBItem } from '@pano/utils/db';
+import { type CodeMetaData, DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { logger } from '@pano/utils/shell';
+import { logger, safeParse } from '@pano/utils/shell';
 
 const debug = logger('code-pano-item');
 
@@ -14,15 +14,9 @@ const debug = logger('code-pano-item');
 export class CodePanoItem extends PanoItem {
   private codeItemSettings: Gio.Settings;
   private label: St.Label;
-  private _language: string | undefined;
+  private metaData: CodeMetaData;
 
-  constructor(
-    ext: PanoExtension,
-    clipboardManager: ClipboardManager,
-    dbItem: DBItem,
-    initialMarkdown: string,
-    language: undefined | string,
-  ) {
+  constructor(ext: PanoExtension, clipboardManager: ClipboardManager, dbItem: DBItem, initialMarkdown: string) {
     super(ext, clipboardManager, dbItem);
     this.codeItemSettings = this.settings.get_child('code-item');
 
@@ -31,7 +25,8 @@ export class CodePanoItem extends PanoItem {
       clipToAllocation: true,
     });
 
-    this._language = language;
+    this.metaData = this.extractMetadata();
+
     this.label.clutterText.useMarkup = true;
     this.label.clutterText.ellipsize = Pango.EllipsizeMode.END;
     this.body.add_child(this.label);
@@ -39,13 +34,8 @@ export class CodePanoItem extends PanoItem {
     this.setMarkDown(initialMarkdown);
     this.codeItemSettings.connect('changed', () => {
       const characterLength = this.codeItemSettings.get_int('char-length');
-
-      if (!this._language) {
-        return;
-      }
-
       ext.markdownDetector
-        ?.markupCode(this._language, this.dbItem.content.trim(), characterLength)
+        ?.markupCode(this.metaData.language, this.dbItem.content.trim(), characterLength)
         .then((markdown) => {
           if (markdown) {
             this.setMarkDown.call(this, markdown);
@@ -57,8 +47,16 @@ export class CodePanoItem extends PanoItem {
     });
   }
 
-  public set language(language: string | undefined) {
-    this._language = language;
+  private extractMetadata(): CodeMetaData {
+    return safeParse<CodeMetaData>(this.dbItem.metaData || '{"language": "", "highlighter": ""}', {
+      language: '',
+      highlighter: '',
+    });
+  }
+
+  public setDBItem(dbItem: DBItem) {
+    this.dbItem = dbItem;
+    this.metaData = this.extractMetadata();
   }
 
   public setMarkDown(markup: string) {

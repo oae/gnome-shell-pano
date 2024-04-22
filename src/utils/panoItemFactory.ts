@@ -45,9 +45,6 @@ import { validateHTMLColorHex, validateHTMLColorName, validateHTMLColorRgb } fro
 
 const debug = logger('pano-item-factory');
 
-//TODO: make configurable
-const MINIMUM_LANGUAGE_RELEVANCE = 0.1;
-
 const isValidUrl = (text: string) => {
   try {
     return isUrl(text) && GLib.uri_parse(text, GLib.UriFlags.NONE) !== null;
@@ -205,7 +202,11 @@ const findOrCreateDbItem = async (ext: PanoExtension, clip: ClipboardContent): P
 
       const detectedLanguage = await ext.markdownDetector?.detectLanguage(trimmedValue);
 
-      if (ext.markdownDetector && detectedLanguage && detectedLanguage.relevance >= MINIMUM_LANGUAGE_RELEVANCE) {
+      const minimumLanguageRelevance = getCurrentExtensionSettings(ext)
+        .get_child('code-item')
+        .get_double('highlighter-detection-relevance');
+
+      if (ext.markdownDetector && detectedLanguage && detectedLanguage.relevance >= minimumLanguageRelevance) {
         return db.save({
           content: value,
           copyDate: new Date(),
@@ -255,43 +256,47 @@ export const removeItemResources = (ext: ExtensionBase, dbItem: DBItem) => {
 };
 
 async function handleCodePanoItem(
-  panoItem: CodePanoItem,
   metaData: Partial<CodeMetaData>,
-  characterLength: number,
+  dbItem: DBItem,
+  codeSettings: Gio.Settings,
   markdownDetector: PangoMarkdown,
-): Promise<undefined | [string, string]> {
-  let finalMetaData: CodeMetaData;
+): Promise<undefined | [string, DBItem | undefined]> {
+  let finalMetaData: CodeMetaData | undefined;
+  let newDBItem: DBItem | undefined;
 
   if (!metaData.language || !metaData.highlighter) {
-    const language = await markdownDetector.detectLanguage(panoItem.dbItem.content.trim());
+    const language = await markdownDetector.detectLanguage(dbItem.content.trim());
     if (!language) {
       return undefined;
     }
 
-    finalMetaData = {
-      language: language.language,
-      highlighter: markdownDetector.currentHighlighter!.name,
-    };
+    const minimumLanguageRelevance = codeSettings.get_double('highlighter-detection-relevance');
 
-    db.update({
-      ...panoItem.dbItem,
-      metaData: stringify<CodeMetaData>(finalMetaData),
-    });
-  } else {
-    finalMetaData = metaData as CodeMetaData;
+    if (language.relevance >= minimumLanguageRelevance) {
+      finalMetaData = {
+        language: language.language,
+        highlighter: markdownDetector.currentHighlighter!.name,
+      };
+
+      newDBItem = db.update({
+        ...dbItem,
+        metaData: stringify<CodeMetaData>(finalMetaData),
+      })!;
+    }
   }
 
-  const markup = await markdownDetector.markupCode(
-    finalMetaData.language,
-    panoItem.dbItem.content.trim(),
-    characterLength,
-  );
+  const characterLength = codeSettings.get_int('char-length');
+
+  let markup;
+  if (finalMetaData) {
+    markup = await markdownDetector.markupCode(finalMetaData.language, dbItem.content.trim(), characterLength);
+  }
 
   if (!markup) {
     return undefined;
   }
 
-  return [markup, finalMetaData.language];
+  return [markup, newDBItem];
 }
 
 export const createPanoItemFromDb = (
@@ -322,20 +327,23 @@ export const createPanoItemFromDb = (
       // here we treat them as Code item, even if something fails at the highlight process, we just set un-highlighted markdvown, the process of making such failures to TextPanoItems and also updating that in the db is async and we offer an option to rescan all items, in the settings, since that may take some time (we display them as textItem, if the highlighter is disabled)
 
       if (ext.markdownDetector) {
-        const characterLength = getCurrentExtensionSettings(ext).get_child('code-item').get_int('char-length');
+        const codeSettings = getCurrentExtensionSettings(ext).get_child('code-item');
 
-        const codePanoItem = new CodePanoItem(ext, clipboardManager, dbItem, dbItem.content.trim(), undefined);
+        const codePanoItem = new CodePanoItem(ext, clipboardManager, dbItem, dbItem.content.trim());
 
-        handleCodePanoItem(codePanoItem, metaData, characterLength, ext.markdownDetector)
+        handleCodePanoItem(metaData, dbItem, codeSettings, ext.markdownDetector)
           .then((result) => {
             if (!result) {
               debug('Failed to get markdown from code item, using not highlighted text');
               return;
             }
 
-            const [markdown, language] = result;
+            const [markdown, dbItem] = result;
 
-            codePanoItem.language = language;
+            if (dbItem) {
+              codePanoItem.setDBItem(dbItem);
+            }
+
             codePanoItem.setMarkDown(markdown);
           })
           .catch((err) => {

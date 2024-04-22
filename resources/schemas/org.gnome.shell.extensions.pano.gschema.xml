@@ -96,7 +96,7 @@
         Excludes clipboard tracking for windows that has class name listed in here.
       </description>
     </key>
-    <key type="u" name="icon-pack">
+    <key name="icon-pack" type="u">
       <range min="0" max="1"/>
       <default>0</default>
       <summary>icon pack: 0-default 1-legacy</summary>
@@ -107,7 +107,7 @@
       <summary>Item Size</summary>
       <description>Controls size of the clipboard item.</description>
     </key>
-    <key type="u" name="window-position">
+    <key name="window-position" type="u">
       <range min="0" max="3"/>
       <default>2</default>
       <summary>icon pack: 0-top 1-right 2-bottom 3-left</summary>
@@ -406,20 +406,27 @@
       <summary>char-length</summary>
       <description>char-length</description>
     </key>
+    <key name="highlighter-detection-relevance" type="d">
+      <range min="0.0" max="1.0" />
+      <default>0.1</default>
+      <summary>highlighter-detection-relevance</summary>
+      <description>highlighter-detection-relevance</description>
+    </key>
     <key name="code-highlighter-enabled" type="b">
       <default>false</default>
-      <summary>Enabled Code Highlighter</summary>
-      <description>Enabled the Code Highlighter.</description>
+      <summary>code-highlighter-enable</summary>
+      <description>code-highlighter-enable</description>
     </key>
-    <key type="u" name="code-highlighter">
+    <key name="code-highlighter" type="u">
       <range min="0" max="0"/>
       <default>0</default>
-      <summary>code-highlighter: which code highlighter to use </summary>
+      <summary>code-highlighter</summary>
+      <description>code-highlighter</description>
     </key>
     <key name="pygments-options" type="s">
       <default>'{}'</default>
-      <summary>options for pygments</summary>
-      <description>set pygments options</description>
+      <summary>pygments-options</summary>
+      <description>pygments-options</description>
     </key>
   </schema>
 

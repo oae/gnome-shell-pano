@@ -1,4 +1,4 @@
-import Gio, { type Promisified2 } from '@girs/gio-2.0';
+import Gio, { type Promisified } from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import Soup from '@girs/soup-3.0';
@@ -30,7 +30,10 @@ export const getDocument = async (url: string): Promise<DocumentMetadata> => {
     message.requestHeaders.append('User-Agent', DEFAULT_USER_AGENT);
     //note: casting required, since this is a gjs convention, to return an promise, instead of accepting a 4. value as callback (thats a C convention, since there's no Promise out of the box, but a callback works)
     const response = await (
-      session.send_and_read_async as Promisified2<typeof session.send_and_read_async, GLib.Bytes>
+      session.send_and_read_async as Promisified<
+        typeof session.send_and_read_async,
+        typeof session.send_and_read_finish
+      >
     )(message, GLib.PRIORITY_DEFAULT, null);
 
     if (!response) {
@@ -147,7 +150,10 @@ export const getImage = async (
       message.requestHeaders.append('User-Agent', DEFAULT_USER_AGENT);
       //note: casting required, since this is a gjs convention, to return an promise, instead of accepting a 4. value as callback (thats a C convention, since there's no Promise out of the box, but a callback works)
       const response = await (
-        session.send_and_read_async as Promisified2<typeof session.send_and_read_async, GLib.Bytes>
+        session.send_and_read_async as Promisified<
+          typeof session.send_and_read_async,
+          typeof session.send_and_read_finish
+        >
       )(message, GLib.PRIORITY_DEFAULT, null);
 
       if (!response) {

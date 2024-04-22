@@ -3,14 +3,9 @@ import type { CodeHighlighter, Language } from '@pano/utils/code/highlight';
 import { PygmentsCodeHighlighter } from '@pano/utils/code/pygments';
 import { logger } from '@pano/utils/shell';
 
-//TODO:
-// add highlight.js back, if it is installed and can be found via require()
-// add settings, that might change theses things:
-// which doe formatter to use, which style to use
-// enable, disable formatting, change the threshold (event if its always 1.0 in e.g pygmentize)
-// only make these count, if enabled is set, so if at least one formatter is found
-// button to recheck tools
-// customs settings per highlighter
+//TODO: add highlight.js back, if it is installed and can be found via "require()"" or dynamic "await import()""
+
+//TODO: things to do, after more highlighter are added, just add to availableCodeHighlighter, than on changing of one, reevaluate every text item and rescanning it and resetting the metadata. This might take some time, so maybe do it in two steps, and in some places the metadata.highlighter has to be checked, so that we don't use invalid language in one highlighter, other than the one, detecting that language
 
 const debug = logger('pango');
 
@@ -26,7 +21,7 @@ export class PangoMarkdown {
   public static readonly availableCodeHighlighter: CodeHighlighter[] = [new PygmentsCodeHighlighter()];
 
   constructor(preferredHighlighter: string | null = null, settings: Gio.Settings | null = null) {
-    // this is fine, since the properties this sets are async safe, alias they are set at the end, so that everything is set when it's needed, and when something uses this class, before it is ready, it will behave correctly
+    // this is fine, since the properties this sets are async safe, alias they are set at the end, so that everything is set when it's needed, and when something uses this class, before it is ready, it will behave correctly and it has a mechanism to add callbacks, after it is finished
     this.detectHighlighter(preferredHighlighter, settings)
       .then(async () => {
         if (settings) {

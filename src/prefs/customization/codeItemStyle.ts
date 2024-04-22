@@ -7,6 +7,7 @@ import {
   createColorRow,
   createDropdownRow,
   createFontRow,
+  createScaleRow,
   createSpinRow,
   createSwitchRow,
 } from '@pano/prefs/customization/utils';
@@ -92,6 +93,17 @@ export class CodeItemStyleRow extends ItemExpanderRow {
       5000,
     );
 
+    // create character length row
+    const languageRelevanceRow = createScaleRow(
+      _('Highlighter Detection Relevance'),
+      _('You can change the percentage of the threshold for code item detection'),
+      this.settings,
+      'highlighter-detection-relevance',
+      0.05,
+      0.0,
+      1.0,
+    );
+
     this.codeHighlighterOptions = PangoMarkdown.availableCodeHighlighter.map((highlighter) => highlighter.name);
 
     // create code highlighter row
@@ -110,6 +122,7 @@ export class CodeItemStyleRow extends ItemExpanderRow {
       bodyBackgroundRow,
       bodyFontRow,
       characterLengthRow,
+      languageRelevanceRow,
       codeHighlighterRow,
     ];
 
@@ -124,21 +137,20 @@ export class CodeItemStyleRow extends ItemExpanderRow {
     }
   }
 
-  private onEnabledChanged(_enabled: boolean): void {
-    this.scan();
-    //TODOD: recreate those items, which where classified as text previously (check if the were created with the correct highlighter)
+  private async onEnabledChanged(_enabled: boolean): Promise<void> {
+    await this.scan();
   }
 
-  private refreshCallback(): void {
-    this.scan();
+  private async refreshCallback(): Promise<void> {
+    await this.scan();
   }
 
   private async onCodeHighlighterChanged(name: string): Promise<void> {
     await this.markdownDetector?.detectHighlighter(name);
-    this.scan();
+    await this.scan();
   }
 
-  public scan() {
+  public async scan(): Promise<void> {
     const resetRows = () => {
       const removedRows = this.rows.splice(this.rowCount);
       for (const removedRow of removedRows) {
@@ -151,8 +163,8 @@ export class CodeItemStyleRow extends ItemExpanderRow {
 
     if (!this.markdownDetector) {
       this.markdownDetector = new PangoMarkdown(initialCodeHighlighterValue);
-      this.markdownDetector.onLoad(() => {
-        this.scan();
+      this.markdownDetector.onLoad(async () => {
+        await this.scan();
       });
     }
 
@@ -221,7 +233,7 @@ export class CodeItemStyleRow extends ItemExpanderRow {
 
     resetRows();
 
-    const optionsForSettings = currentHighlighter!.getOptionsForSettings(gettext(this.ext));
+    const optionsForSettings = await currentHighlighter!.getOptionsForSettings(gettext(this.ext));
 
     const schemaKey = PangoMarkdown.getSchemaKeyForOptions(currentHighlighter!);
 

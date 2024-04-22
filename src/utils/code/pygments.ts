@@ -1,4 +1,4 @@
-import type { Promisified2 } from '@girs/gio-2.0';
+import type { PromisifiedWithArrayReturnType, PromisifiedWithReturnType } from '@girs/gio-2.0';
 import { CancellableCollection, type CancellableWrapper } from '@pano/utils/code/cancellables';
 import { CodeHighlighter, type Language, type OptionsForSettings } from '@pano/utils/code/highlight';
 import { logger, safeParse, stringify } from '@pano/utils/shell';
@@ -70,14 +70,14 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
 
       cancellable = this.cancellableCollection.getNew();
 
-      const success = await (proc.wait_async as Promisified2<typeof proc.wait_async, boolean>)(cancellable.value);
+      await (proc.wait_async as PromisifiedWithReturnType<typeof proc.wait_async, void>)(cancellable.value);
+
+      if (cancellable.value.is_cancelled()) {
+        throw new Error('Process was cancelled');
+      }
 
       this.cancellableCollection.remove(cancellable);
       cancellable = undefined;
-
-      if (!success) {
-        throw new Error('Process was cancelled');
-      }
 
       this.installed = proc.get_successful();
       return this.installed;
@@ -104,8 +104,15 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
       cancellable = this.cancellableCollection.getNew();
 
       const result = await (
-        proc.communicate_utf8_async as Promisified2<typeof proc.communicate_utf8_async, [boolean, string, string]>
+        proc.communicate_utf8_async as PromisifiedWithArrayReturnType<
+          typeof proc.communicate_utf8_async,
+          typeof proc.communicate_utf8_finish
+        >
       )(text, cancellable.value);
+
+      if (cancellable.value.is_cancelled()) {
+        throw new Error('Process was cancelled');
+      }
 
       this.cancellableCollection.remove(cancellable);
       cancellable = undefined;
@@ -114,11 +121,7 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
         throw new Error('Process result was undefined');
       }
 
-      const [success, stdout, stderr] = result;
-
-      if (!success) {
-        throw new Error('Process was cancelled');
-      }
+      const [stdout, stderr] = result;
 
       if (proc.get_successful()) {
         const content = stdout.trim();
@@ -156,8 +159,15 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
       cancellable = this.cancellableCollection.getNew();
 
       const result = await (
-        proc.communicate_utf8_async as Promisified2<typeof proc.communicate_utf8_async, [boolean, string, string]>
+        proc.communicate_utf8_async as PromisifiedWithArrayReturnType<
+          typeof proc.communicate_utf8_async,
+          typeof proc.communicate_utf8_finish
+        >
       )(finalText, cancellable.value);
+
+      if (cancellable.value.is_cancelled()) {
+        throw new Error('Process was cancelled');
+      }
 
       this.cancellableCollection.remove(cancellable);
       cancellable = undefined;
@@ -166,11 +176,7 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
         throw new Error('Process result was undefined');
       }
 
-      const [success, stdout, stderr] = result;
-
-      if (!success) {
-        throw new Error('Process was cancelled');
-      }
+      const [stdout, stderr] = result;
 
       if (proc.get_successful()) {
         return stdout;
@@ -241,8 +247,15 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
       cancellable = this.cancellableCollection.getNew();
 
       const result = await (
-        proc.communicate_utf8_async as Promisified2<typeof proc.communicate_utf8_async, [boolean, string, string]>
+        proc.communicate_utf8_async as PromisifiedWithArrayReturnType<
+          typeof proc.communicate_utf8_async,
+          typeof proc.communicate_utf8_finish
+        >
       )(null, cancellable.value);
+
+      if (cancellable.value.is_cancelled()) {
+        throw new Error('Process was cancelled');
+      }
 
       this.cancellableCollection.remove(cancellable);
       cancellable = undefined;
@@ -251,11 +264,7 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
         throw new Error('Process result was undefined');
       }
 
-      const [success, stdout, stderr] = result;
-
-      if (!success) {
-        throw new Error('Process was cancelled');
-      }
+      const [stdout, stderr] = result;
 
       if (proc.get_successful()) {
         const content = stdout.trim();

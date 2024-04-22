@@ -42,6 +42,7 @@ export const createSwitchRow = (
 
   const switch_ = new Gtk4.Switch({
     active: initialValue,
+    state: initialValue,
     valign: Gtk4.Align.CENTER,
     halign: Gtk4.Align.CENTER,
   });
@@ -199,6 +200,66 @@ export const createSpinRow = (
   });
 
   const defaultValue = settings.get_default_value(schemaKey)?.get_int32();
+
+  if (defaultValue === initialValue) {
+    clearButton.sensitive = false;
+  }
+
+  settings.connect(`changed::${schemaKey}`, () => {
+    const value = settings.get_int(schemaKey);
+    if (defaultValue === value) {
+      clearButton.sensitive = false;
+    } else {
+      clearButton.sensitive = true;
+    }
+  });
+
+  clearButton.connect('clicked', () => {
+    settings.reset(schemaKey);
+  });
+
+  row.add_suffix(clearButton);
+
+  return row;
+};
+
+export const createScaleRow = (
+  title: string,
+  subtitle: string,
+  settings: Gio.Settings,
+  schemaKey: string,
+  increment: number,
+  lower: number,
+  upper: number,
+) => {
+  const row = new Adw.ActionRow({
+    title,
+    subtitle,
+  });
+
+  const initialValue = settings.get_double(schemaKey);
+
+  const scale = new Gtk4.Scale({
+    adjustment: new Gtk4.Adjustment({ stepIncrement: increment, lower, upper }),
+    valuePos: initialValue,
+    drawValue: true,
+    orientation: Gtk4.Orientation.HORIZONTAL,
+    valign: Gtk4.Align.CENTER,
+    halign: Gtk4.Align.CENTER,
+  });
+
+  settings.bind(schemaKey, scale, 'valuePos', Gio.SettingsBindFlags.DEFAULT);
+
+  row.add_suffix(scale);
+  row.set_activatable_widget(scale);
+
+  const clearButton = new Gtk4.Button({
+    iconName: 'edit-clear-symbolic',
+    valign: Gtk4.Align.CENTER,
+    halign: Gtk4.Align.CENTER,
+  });
+
+  const defaultValue = settings.get_default_value(schemaKey)?.get_double();
 
   if (defaultValue === initialValue) {
     clearButton.sensitive = false;
