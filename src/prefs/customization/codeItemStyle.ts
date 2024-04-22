@@ -217,7 +217,7 @@ export class CodeItemStyleRow extends ItemExpanderRow {
       return;
     }
 
-    //TODO: disable all items, that are not in  this.markdownDetector.detectedHighlighter
+    //TODO: disable all items, that are not in  this.markdownDetector.detectedHighlighter, for that we need a custom listFactory that can handle that
     void this.codeHighlighterDropDown;
 
     // make all rows sensitive, so that things can be changed

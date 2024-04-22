@@ -10,13 +10,22 @@ import { logger, safeParse } from '@pano/utils/shell';
 
 const debug = logger('code-pano-item');
 
+export type MarkupType = 'text' | 'markup';
+
+export type MarkupContent = {
+  text: string;
+  type: MarkupType;
+};
+
+//TODO: display the language and maybe icons in the header
+
 @registerGObjectClass
 export class CodePanoItem extends PanoItem {
   private codeItemSettings: Gio.Settings;
   private label: St.Label;
   private metaData: CodeMetaData;
 
-  constructor(ext: PanoExtension, clipboardManager: ClipboardManager, dbItem: DBItem, initialMarkdown: string) {
+  constructor(ext: PanoExtension, clipboardManager: ClipboardManager, dbItem: DBItem, initialMarkdown: MarkupContent) {
     super(ext, clipboardManager, dbItem);
     this.codeItemSettings = this.settings.get_child('code-item');
 
@@ -38,11 +47,11 @@ export class CodePanoItem extends PanoItem {
         ?.markupCode(this.metaData.language, this.dbItem.content.trim(), characterLength)
         .then((markdown) => {
           if (markdown) {
-            this.setMarkDown.call(this, markdown);
+            this.setMarkDown.call(this, { text: markdown, type: 'markup' });
           }
         })
         .catch((err) => {
-          debug(`an error occured while trying to markup Code: ${err}`);
+          debug(`an error occurred while trying to markup Code: ${err}`);
         });
     });
   }
@@ -59,7 +68,7 @@ export class CodePanoItem extends PanoItem {
     this.metaData = this.extractMetadata();
   }
 
-  public setMarkDown(markup: string) {
+  public setMarkDown(content: MarkupContent) {
     const headerBgColor = this.codeItemSettings.get_string('header-bg-color');
     const headerColor = this.codeItemSettings.get_string('header-color');
     const bodyBgColor = this.codeItemSettings.get_string('body-bg-color');
@@ -70,7 +79,12 @@ export class CodePanoItem extends PanoItem {
     this.body.set_style(`background-color: ${bodyBgColor}`);
     this.label.set_style(`font-size: ${bodyFontSize}px; font-family: ${bodyFontFamily};`);
 
-    this.label.clutterText.set_markup(markup);
+    if (content.type === 'markup') {
+      this.label.clutterText.set_markup(content.text);
+    } else {
+      //TODO: use text style and als connect to "changed", when doing that
+      this.label.clutterText.set_text(content.text);
+    }
   }
 
   private setClipboardContent(): void {

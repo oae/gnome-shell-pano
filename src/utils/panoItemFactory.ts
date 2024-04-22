@@ -25,7 +25,6 @@ import {
   type LinkMetaData,
 } from '@pano/utils/db';
 import { getDocument, getImage } from '@pano/utils/linkParser';
-import type { PangoMarkdown } from '@pano/utils/pango';
 import {
   getCachePath,
   getCurrentExtensionSettings,
@@ -255,48 +254,72 @@ export const removeItemResources = (ext: ExtensionBase, dbItem: DBItem) => {
   }
 };
 
-async function handleCodePanoItem(
+type PanoItemAsynchronouslyReturnType = undefined | [string, DBItem | undefined];
+
+function handleCodePanoItemAsynchronously(
   metaData: Partial<CodeMetaData>,
   dbItem: DBItem,
-  codeSettings: Gio.Settings,
-  markdownDetector: PangoMarkdown,
-): Promise<undefined | [string, DBItem | undefined]> {
-  let finalMetaData: CodeMetaData | undefined;
-  let newDBItem: DBItem | undefined;
+  ext: PanoExtension,
+): Promise<PanoItemAsynchronouslyReturnType> {
+  const codeSettings = getCurrentExtensionSettings(ext).get_child('code-item');
 
-  if (!metaData.language || !metaData.highlighter) {
-    const language = await markdownDetector.detectLanguage(dbItem.content.trim());
-    if (!language) {
+  const markdownDetector = ext.getMarkdownDetectorRaw();
+
+  if (!markdownDetector) {
+    // he is disabled
+    return new Promise((resolve) => {
+      resolve(undefined);
+    });
+  }
+
+  const impl = async (): Promise<PanoItemAsynchronouslyReturnType> => {
+    let finalMetaData: CodeMetaData | undefined;
+    let newDBItem: DBItem | undefined;
+
+    if (!metaData.language || !metaData.highlighter) {
+      const language = await markdownDetector.detectLanguage(dbItem.content.trim());
+      if (!language) {
+        return undefined;
+      }
+
+      const minimumLanguageRelevance = codeSettings.get_double('highlighter-detection-relevance');
+
+      if (language.relevance >= minimumLanguageRelevance) {
+        finalMetaData = {
+          language: language.language,
+          highlighter: markdownDetector.currentHighlighter!.name,
+        };
+
+        newDBItem = db.update({
+          ...dbItem,
+          metaData: stringify<CodeMetaData>(finalMetaData),
+        })!;
+      }
+    }
+
+    const characterLength = codeSettings.get_int('char-length');
+
+    let markup;
+    if (finalMetaData) {
+      markup = await markdownDetector.markupCode(finalMetaData.language, dbItem.content.trim(), characterLength);
+    }
+
+    if (!markup) {
       return undefined;
     }
 
-    const minimumLanguageRelevance = codeSettings.get_double('highlighter-detection-relevance');
+    return [markup, newDBItem];
+  };
 
-    if (language.relevance >= minimumLanguageRelevance) {
-      finalMetaData = {
-        language: language.language,
-        highlighter: markdownDetector.currentHighlighter!.name,
-      };
-
-      newDBItem = db.update({
-        ...dbItem,
-        metaData: stringify<CodeMetaData>(finalMetaData),
-      })!;
-    }
+  if (!markdownDetector.loaded) {
+    return new Promise((resolve, reject) => {
+      markdownDetector.onLoad(() => {
+        impl().then(resolve).catch(reject);
+      });
+    });
   }
 
-  const characterLength = codeSettings.get_int('char-length');
-
-  let markup;
-  if (finalMetaData) {
-    markup = await markdownDetector.markupCode(finalMetaData.language, dbItem.content.trim(), characterLength);
-  }
-
-  if (!markup) {
-    return undefined;
-  }
-
-  return [markup, newDBItem];
+  return impl();
 }
 
 export const createPanoItemFromDb = (
@@ -324,37 +347,33 @@ export const createPanoItemFromDb = (
         },
       );
 
-      // here we treat them as Code item, even if something fails at the highlight process, we just set un-highlighted markdvown, the process of making such failures to TextPanoItems and also updating that in the db is async and we offer an option to rescan all items, in the settings, since that may take some time (we display them as textItem, if the highlighter is disabled)
+      // here we treat them as Code item, even if something fails at the highlight process, we just set un-highlighted markdown, the process of making such failures to TextPanoItems and also updating that in the db is async and we offer an option to rescan all items, in the settings, since that may take some time (we display them as CodeItem, without highlighting, if the highlighter is disabled)
 
-      if (ext.markdownDetector) {
-        const codeSettings = getCurrentExtensionSettings(ext).get_child('code-item');
+      const codePanoItem = new CodePanoItem(ext, clipboardManager, dbItem, {
+        text: dbItem.content.trim(),
+        type: 'text',
+      });
 
-        const codePanoItem = new CodePanoItem(ext, clipboardManager, dbItem, dbItem.content.trim());
+      handleCodePanoItemAsynchronously(metaData, dbItem, ext)
+        .then((result: PanoItemAsynchronouslyReturnType) => {
+          if (!result) {
+            debug('Failed to get markdown from code item, using not highlighted text');
+            return;
+          }
 
-        handleCodePanoItem(metaData, dbItem, codeSettings, ext.markdownDetector)
-          .then((result) => {
-            if (!result) {
-              debug('Failed to get markdown from code item, using not highlighted text');
-              return;
-            }
+          const [markdown, dbItem] = result;
 
-            const [markdown, dbItem] = result;
+          if (dbItem) {
+            codePanoItem.setDBItem(dbItem);
+          }
 
-            if (dbItem) {
-              codePanoItem.setDBItem(dbItem);
-            }
+          codePanoItem.setMarkDown({ text: markdown, type: 'markup' });
+        })
+        .catch((err) => {
+          debug(`error in getting markdown from code item: ${err}`);
+        });
 
-            codePanoItem.setMarkDown(markdown);
-          })
-          .catch((err) => {
-            debug(`error in getting markdown from code item: ${err}`);
-          });
-
-        panoItem = codePanoItem;
-      } else {
-        // this display "Code" in the header bar, but that is intended, the style is of a text item, but we can't change the itemType, since it may written incorrectly to db later!
-        panoItem = new TextPanoItem(ext, clipboardManager, dbItem);
-      }
+      panoItem = codePanoItem;
 
       break;
     }

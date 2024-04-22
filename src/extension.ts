@@ -275,12 +275,21 @@ export default class PanoExtension extends Extension {
       this.timeoutId = null;
     }
   }
+
   public get markdownDetector(): PangoMarkdown | null {
     if (!this.settings?.get_child('code-item').get_boolean('code-highlighter-enabled')) {
       return null;
     }
 
     if (!this._markdownDetector?.loaded) {
+      return null;
+    }
+
+    return this._markdownDetector;
+  }
+
+  public getMarkdownDetectorRaw(): PangoMarkdown | null {
+    if (!this.settings?.get_child('code-item').get_boolean('code-highlighter-enabled')) {
       return null;
     }
 
