@@ -81,7 +81,7 @@
     "@tsconfig/strictest": "^2.0.5"
   },
   "dependencies": {
-    "date-fns": "^2.30.0",
+    "date-fns": "^3.6.0",
     "hex-color-converter": "^0.2.1",
     "htmlparser2": "^9.1.0",
     "is-url": "^1.2.4",
