@@ -83,11 +83,14 @@ export class CodePanoItem extends PanoItem {
       ) {
         const characterLength = this.codeItemSettings.get_int('char-length');
         ext.markdownDetector
-          ?.markupCode(this.metaData.language, this.dbItem.content.trim(), characterLength)
+          ?.scheduleMarkupCode(this.metaData.language, this.dbItem.content.trim(), characterLength)
           .then((markdown) => {
-            if (markdown) {
-              this.setCodeStyle(markdown);
+            if (!markdown) {
+              debug('Failed to get markdown from code item, using not highlighted text');
+              return;
             }
+
+            this.setCodeStyle(markdown);
           })
           .catch((err) => {
             debug(`an error occurred while trying to markup Code: ${err}`);

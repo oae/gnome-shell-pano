@@ -303,7 +303,11 @@ function handleCodePanoItemAsynchronously(
 
     let markup;
     if (finalMetaData) {
-      markup = await markdownDetector.markupCode(finalMetaData.language, dbItem.content.trim(), characterLength);
+      markup = await markdownDetector.scheduleMarkupCode(
+        finalMetaData.language,
+        dbItem.content.trim(),
+        characterLength,
+      );
     }
 
     if (!markup) {

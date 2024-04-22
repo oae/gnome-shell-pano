@@ -9,6 +9,48 @@ import { logger } from '@pano/utils/shell';
 
 const debug = logger('pango');
 
+// not concurrent. can only run in one thread
+// from https://stackoverflow.com/questions/51850236/javascript-scheduler-implementation-using-promises
+// but modified to suit our needs
+
+class TaskScheduler {
+  private limit: number;
+  private active: number;
+  private pool: Array<() => Promise<void>>;
+
+  constructor(concurrency: number) {
+    this.limit = concurrency;
+    this.active = 0;
+    this.pool = [];
+  }
+
+  push<T>(task: () => Promise<T>): Promise<T> {
+    return new Promise((resolve) => {
+      this._push(async () => {
+        const result = await task();
+        resolve(result);
+      });
+    });
+  }
+
+  private _push(task: () => Promise<void>): void {
+    this.pool.push(task);
+    if (this.active < this.limit) {
+      void this._execute(this.pool.shift()!);
+    }
+  }
+
+  private _execute(task: () => Promise<void>): Promise<void> {
+    this.active += 1;
+    return task().then(() => {
+      this.active -= 1;
+      if (this.pool.length > 0 && this.active < this.limit) {
+        void this._execute(this.pool.shift()!);
+      }
+    });
+  }
+}
+
 type LoadCallback = () => void | Promise<void>;
 
 export class PangoMarkdown {
@@ -17,10 +59,17 @@ export class PangoMarkdown {
 
   private loadCallbacks: LoadCallback[] = [];
   private _loaded: boolean = false;
+  private _scheduler: TaskScheduler;
 
   public static readonly availableCodeHighlighter: CodeHighlighter[] = [new PygmentsCodeHighlighter()];
 
-  constructor(preferredHighlighter: string | null = null, settings: Gio.Settings | null = null) {
+  constructor(
+    preferredHighlighter: string | null = null,
+    settings: Gio.Settings | null = null,
+    schedulerConcurrency: number = 4,
+  ) {
+    this._scheduler = new TaskScheduler(schedulerConcurrency);
+
     // this is fine, since the properties this sets are async safe, alias they are set at the end, so that everything is set when it's needed, and when something uses this class, before it is ready, it will behave correctly and it has a mechanism to add callbacks, after it is finished
     this.detectHighlighter(preferredHighlighter, settings)
       .then(async () => {
@@ -100,12 +149,18 @@ export class PangoMarkdown {
     return await this._currentHighlighter.detectLanguage(text);
   }
 
-  public async markupCode(language: string, text: string, characterLength: number): Promise<string | undefined> {
+  public async scheduleMarkupCode(
+    language: string,
+    text: string,
+    characterLength: number,
+  ): Promise<string | undefined> {
     if (this._currentHighlighter === null) {
       return undefined;
     }
 
-    return await this._currentHighlighter.markupCode(language, text, characterLength);
+    return await this._scheduler.push(async () => {
+      return await this._currentHighlighter?.markupCode(language, text, characterLength);
+    });
   }
 
   public static getSchemaKeyForOptions(highlighter: CodeHighlighter): string {
