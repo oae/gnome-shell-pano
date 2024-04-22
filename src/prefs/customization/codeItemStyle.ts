@@ -22,7 +22,7 @@ export class CodeItemStyleRow extends ItemExpanderRow {
   private enableProperties: [Adw.ActionRow, Gtk4.Switch, Gtk4.Button, Gtk4.Button | null];
   private rows: Adw.ActionRow[];
   private readonly rowCount: number;
-  private markdownDetector: PangoMarkdown | null = null;
+  private markdownDetector: PangoMarkdown;
   private codeHighlighterOptions: string[];
   private codeHighlighterDropDown: Gtk4.DropDown;
 
@@ -135,6 +135,14 @@ export class CodeItemStyleRow extends ItemExpanderRow {
       row.sensitive = false;
       this.add_row(row);
     }
+
+    const initialCodeHighlighter = this.settings.get_uint(PangoMarkdown.codeHighlighterKey);
+    const initialCodeHighlighterValue = this.codeHighlighterOptions[initialCodeHighlighter];
+
+    this.markdownDetector = new PangoMarkdown(initialCodeHighlighterValue);
+    this.markdownDetector.onLoad(async () => {
+      await this.scan();
+    });
   }
 
   private async onEnabledChanged(_enabled: boolean): Promise<void> {
@@ -157,16 +165,6 @@ export class CodeItemStyleRow extends ItemExpanderRow {
         this.remove(removedRow);
       }
     };
-
-    const initialCodeHighlighter = this.settings.get_uint(PangoMarkdown.codeHighlighterKey);
-    const initialCodeHighlighterValue = this.codeHighlighterOptions[initialCodeHighlighter];
-
-    if (!this.markdownDetector) {
-      this.markdownDetector = new PangoMarkdown(initialCodeHighlighterValue);
-      this.markdownDetector.onLoad(async () => {
-        await this.scan();
-      });
-    }
 
     let enablingPossible = true;
 
@@ -266,7 +264,7 @@ export class CodeItemStyleRow extends ItemExpanderRow {
       title: string,
       subtitle: string,
       options: string[],
-      defaultValue: string | number,
+      _defaultValue: string | number,
       key: string,
       searchEnabled: boolean,
     ): [Adw.ActionRow, Gtk4.DropDown] => {
@@ -284,6 +282,15 @@ export class CodeItemStyleRow extends ItemExpanderRow {
         enableSearch: searchEnabled,
       });
 
+      let defaultValue: number = 0;
+
+      if (typeof _defaultValue === 'number') {
+        defaultValue = _defaultValue >= 0 && _defaultValue < options.length ? _defaultValue : 0;
+      } else {
+        const index = options.indexOf(_defaultValue);
+        defaultValue = index >= 0 ? index : 0;
+      }
+
       const getIndexFor = (val: string | undefined): number => {
         if (val) {
           const index = options.indexOf(val);
@@ -292,13 +299,7 @@ export class CodeItemStyleRow extends ItemExpanderRow {
           }
         }
 
-        if (typeof defaultValue === 'number') {
-          return defaultValue >= 0 && defaultValue < options.length ? defaultValue : 0;
-        }
-
-        const index = options.indexOf(defaultValue);
-
-        return index >= 0 ? index : 0;
+        return defaultValue;
       };
 
       const initialValue = getValueFor<string>(key);
@@ -318,14 +319,14 @@ export class CodeItemStyleRow extends ItemExpanderRow {
         halign: Gtk4.Align.CENTER,
       });
 
-      if (defaultValue === initialCodeHighlighterValue) {
+      if (defaultValue === getIndexFor(initialValue)) {
         clearButton.sensitive = false;
       }
 
       this.settings.connect(`changed::${schemaKey}`, () => {
         const value = getValueFor<string>(key, true);
 
-        if (defaultValue === value) {
+        if (defaultValue === getIndexFor(value)) {
           clearButton.sensitive = false;
         } else {
           clearButton.sensitive = true;
@@ -335,17 +336,9 @@ export class CodeItemStyleRow extends ItemExpanderRow {
       });
 
       clearButton.connect('clicked', () => {
-        if (typeof defaultValue === 'number') {
-          const finalIndex = defaultValue >= 0 && defaultValue < options.length ? defaultValue : 0;
-          setValueFor<string>(key, options[finalIndex]);
+        setValueFor<string>(key, options[defaultValue]);
 
-          dropDown.set_selected(finalIndex);
-        } else {
-          const finalIndex = getIndexFor(defaultValue);
-          setValueFor<string>(key, defaultValue);
-
-          dropDown.set_selected(finalIndex);
-        }
+        dropDown.set_selected(defaultValue);
       });
 
       row.add_suffix(clearButton);

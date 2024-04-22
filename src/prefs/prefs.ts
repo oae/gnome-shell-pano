@@ -20,7 +20,5 @@ export default class PanoExtensionPreferences extends ExtensionPreferences {
     if (display) {
       Gtk4.IconTheme.get_for_display(display).add_search_path(`${this.path}/icons/`);
     }
-
-    customizationPage.scan();
   }
 }
