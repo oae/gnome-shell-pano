@@ -259,7 +259,7 @@ async function handleCodePanoItem(
   metaData: Partial<CodeMetaData>,
   characterLength: number,
   markdownDetector: PangoMarkdown,
-): Promise<string | undefined> {
+): Promise<undefined | [string, string]> {
   let finalMetaData: CodeMetaData;
 
   if (!metaData.language || !metaData.highlighter) {
@@ -287,7 +287,11 @@ async function handleCodePanoItem(
     characterLength,
   );
 
-  return markup;
+  if (!markup) {
+    return undefined;
+  }
+
+  return [markup, finalMetaData.language];
 }
 
 export const createPanoItemFromDb = (
@@ -320,14 +324,18 @@ export const createPanoItemFromDb = (
       if (ext.markdownDetector) {
         const characterLength = getCurrentExtensionSettings(ext).get_child('code-item').get_int('char-length');
 
-        const codePanoItem = new CodePanoItem(ext, clipboardManager, dbItem, dbItem.content.trim());
+        const codePanoItem = new CodePanoItem(ext, clipboardManager, dbItem, dbItem.content.trim(), undefined);
 
-        void handleCodePanoItem(codePanoItem, metaData, characterLength, ext.markdownDetector).then((markdown) => {
-          if (markdown) {
-            codePanoItem.setMarkDown(markdown);
-          } else {
+        void handleCodePanoItem(codePanoItem, metaData, characterLength, ext.markdownDetector).then((result) => {
+          if (!result) {
             debug('Failed to get markdown from code item, using not highlighted text');
+            return;
           }
+
+          const [markdown, language] = result;
+
+          codePanoItem.language = language;
+          codePanoItem.setMarkDown(markdown);
         });
 
         panoItem = codePanoItem;

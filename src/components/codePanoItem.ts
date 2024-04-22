@@ -11,8 +11,15 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 export class CodePanoItem extends PanoItem {
   private codeItemSettings: Gio.Settings;
   private label: St.Label;
+  private _language: string | undefined;
 
-  constructor(ext: PanoExtension, clipboardManager: ClipboardManager, dbItem: DBItem, markdown: string) {
+  constructor(
+    ext: PanoExtension,
+    clipboardManager: ClipboardManager,
+    dbItem: DBItem,
+    initialMarkdown: string,
+    language: undefined | string,
+  ) {
     super(ext, clipboardManager, dbItem);
     this.codeItemSettings = this.settings.get_child('code-item');
 
@@ -20,17 +27,32 @@ export class CodePanoItem extends PanoItem {
       styleClass: 'pano-item-body-code-content',
       clipToAllocation: true,
     });
+
+    this._language = language;
     this.label.clutterText.useMarkup = true;
     this.label.clutterText.ellipsize = Pango.EllipsizeMode.END;
     this.body.add_child(this.label);
     this.connect('activated', this.setClipboardContent.bind(this));
-    this.setMarkDown(markdown);
+    this.setMarkDown(initialMarkdown);
     this.codeItemSettings.connect('changed', () => {
-      //TODO: do this is the scrollview, so that code items can be replaced by text items, if we disable the formatter
+      const characterLength = this.codeItemSettings.get_int('char-length');
 
-      //TODO:debug if this get's fired when changing style of the highlighter, what happens here, if we change the selected highlighter
-      this.setMarkDown.call(this, 'TODO');
+      if (!this._language) {
+        return;
+      }
+
+      void ext.markdownDetector
+        ?.markupCode(this._language, this.dbItem.content.trim(), characterLength)
+        .then((markdown) => {
+          if (markdown) {
+            this.setMarkDown.call(this, markdown);
+          }
+        });
     });
+  }
+
+  public set language(language: string | undefined) {
+    this._language = language;
   }
 
   public setMarkDown(markup: string) {
