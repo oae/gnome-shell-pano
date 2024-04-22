@@ -18,9 +18,9 @@ export class ItemExpanderRow extends Adw.ExpanderRow {
 
     this.extensionSettings = getCurrentExtensionSettings(ext);
 
-    const iconPack = this.extensionSettings.get_uint('icon-pack');
+    const initialIconPack = this.extensionSettings.get_uint('icon-pack');
 
-    const image = Gtk4.Image.new_from_icon_name(`${ICON_PACKS[iconPack]}-${iconName}`);
+    const image = Gtk4.Image.new_from_icon_name(`${ICON_PACKS[initialIconPack]}-${iconName}`);
 
     this.extensionSettings.connect('changed::icon-pack', () => {
       const iconPack = this.extensionSettings.get_uint('icon-pack');

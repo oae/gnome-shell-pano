@@ -11,11 +11,9 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 export class CodePanoItem extends PanoItem {
   private codeItemSettings: Gio.Settings;
   private label: St.Label;
-  private language: string;
 
-  constructor(ext: PanoExtension, clipboardManager: ClipboardManager, dbItem: DBItem, language: string) {
+  constructor(ext: PanoExtension, clipboardManager: ClipboardManager, dbItem: DBItem, markup: string) {
     super(ext, clipboardManager, dbItem);
-    this.language = language;
     this.codeItemSettings = this.settings.get_child('code-item');
 
     this.label = new St.Label({
@@ -26,29 +24,25 @@ export class CodePanoItem extends PanoItem {
     this.label.clutterText.ellipsize = Pango.EllipsizeMode.END;
     this.body.add_child(this.label);
     this.connect('activated', this.setClipboardContent.bind(this));
-    this.setStyle(ext);
+    this.setStyle(markup);
     this.codeItemSettings.connect('changed', () => {
-      this.setStyle.call(this, ext);
+      //TODO: do this is the scrollview, so that code items can be replaced by text items, if we disable the formatter
+
+      //TODO:debug if this get's fired when changing style of the highlighter, what happens here, if we change the selected highlighter
+      this.setStyle.call(this, 'TODO');
     });
   }
 
-  private setStyle(ext: PanoExtension) {
+  private setStyle(markup: string) {
     const headerBgColor = this.codeItemSettings.get_string('header-bg-color');
     const headerColor = this.codeItemSettings.get_string('header-color');
     const bodyBgColor = this.codeItemSettings.get_string('body-bg-color');
     const bodyFontFamily = this.codeItemSettings.get_string('body-font-family');
     const bodyFontSize = this.codeItemSettings.get_int('body-font-size');
-    const characterLength = this.codeItemSettings.get_int('char-length');
 
     this.header.set_style(`background-color: ${headerBgColor}; color: ${headerColor};`);
     this.body.set_style(`background-color: ${bodyBgColor}`);
     this.label.set_style(`font-size: ${bodyFontSize}px; font-family: ${bodyFontFamily};`);
-
-    const markup = ext.markdownDetector?.markupCode(this.language, this.dbItem.content.trim(), characterLength);
-
-    if (!markup) {
-      throw new Error("Couldn't generate markup");
-    }
 
     this.label.clutterText.set_markup(markup);
   }

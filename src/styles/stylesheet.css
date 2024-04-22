@@ -27,7 +27,7 @@
   color: #f6d32d;
 }
 
-.pano-item {
+.pano-item .loading-pano-item{
   border-radius: 11px;
   margin: 6px;
   border: 4px solid transparent;

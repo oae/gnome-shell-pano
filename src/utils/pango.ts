@@ -13,16 +13,17 @@ import { PygmentsCodeHighlighter } from '@pano/utils/code/pygments';
 
 export class PangoMarkdown {
   private _detectedHighlighter: CodeHighlighter[] = [];
-
   private _currentHighlighter: CodeHighlighter | null = null;
 
   public static readonly availableCodeHighlighter: CodeHighlighter[] = [new PygmentsCodeHighlighter()];
 
   constructor(preferredHighlighter: string | null = null, settings: Gio.Settings | null = null) {
-    this.detectHighlighter(preferredHighlighter, settings);
-    if (settings) {
-      this.enableWatch(settings);
-    }
+    // this is fine, since the properties this sets are async safe, alias they are set at the end, so that everything is set when it's needed, and when something uses this class, before it is ready, it will behave correctly
+    void this.detectHighlighter(preferredHighlighter, settings).then(() => {
+      if (settings) {
+        this.enableWatch(settings);
+      }
+    });
   }
 
   get detectedHighlighter() {
@@ -34,42 +35,52 @@ export class PangoMarkdown {
   }
 
   // this is called in the constructor and can be called at any moment later by settings etc.
-  public detectHighlighter(preferredHighlighter: string | null = null, settings: Gio.Settings | null = null) {
+  public async detectHighlighter(
+    preferredHighlighter: string | null = null,
+    settings: Gio.Settings | null = null,
+  ): Promise<void> {
+    // this is to be async safe
     this._detectedHighlighter = [];
+    const localDetectedHighlighter = [];
+    let currentHighlighter: CodeHighlighter | null = this._currentHighlighter;
+    this._currentHighlighter = null;
 
     for (const codeHighlighter of PangoMarkdown.availableCodeHighlighter) {
-      if (codeHighlighter.isInstalled()) {
+      if (await codeHighlighter.isInstalled()) {
         if (settings) {
           codeHighlighter.options = settings.get_string(PangoMarkdown.getSchemaKeyForOptions(codeHighlighter));
         }
 
-        this._detectedHighlighter.push(codeHighlighter);
+        localDetectedHighlighter.push(codeHighlighter);
 
         if (preferredHighlighter === null) {
-          if (this._currentHighlighter === null) {
-            this._currentHighlighter = codeHighlighter;
+          if (currentHighlighter === null) {
+            currentHighlighter = codeHighlighter;
           }
-        } else if (codeHighlighter.name == preferredHighlighter) {
-          this._currentHighlighter = codeHighlighter;
+        } else if (codeHighlighter.name === preferredHighlighter) {
+          currentHighlighter = codeHighlighter;
         }
       }
     }
+
+    this._detectedHighlighter = localDetectedHighlighter;
+    this._currentHighlighter = currentHighlighter;
   }
 
-  public detectLanguage(text: string): Language | undefined {
+  public async detectLanguage(text: string): Promise<Language | undefined> {
     if (this._currentHighlighter === null) {
       return undefined;
     }
 
-    return this._currentHighlighter.detectLanguage(text);
+    return await this._currentHighlighter.detectLanguage(text);
   }
 
-  public markupCode(language: string, text: string, characterLength: number): string | undefined {
+  public async markupCode(language: string, text: string, characterLength: number): Promise<string | undefined> {
     if (this._currentHighlighter === null) {
       return undefined;
     }
 
-    return this._currentHighlighter.markupCode(language, text, characterLength);
+    return await this._currentHighlighter.markupCode(language, text, characterLength);
   }
 
   public static getSchemaKeyForOptions(highlighter: CodeHighlighter): string {
@@ -80,7 +91,7 @@ export class PangoMarkdown {
   public static readonly enabledKey = 'code-highlighter-enabled';
 
   private enableWatch(settings: Gio.Settings) {
-    const settingsChanged = () => {
+    const settingsChanged = async () => {
       const isEnabled = settings.get_boolean(PangoMarkdown.enabledKey);
       if (!isEnabled) {
         this._currentHighlighter = null;
@@ -89,7 +100,7 @@ export class PangoMarkdown {
 
       const highlighterValue = settings.get_uint(PangoMarkdown.codeHighlighterKey);
 
-      this.detectHighlighter(PangoMarkdown.availableCodeHighlighter[highlighterValue]!.name);
+      await this.detectHighlighter(PangoMarkdown.availableCodeHighlighter[highlighterValue]!.name);
     };
 
     settings.connect(`changed::${PangoMarkdown.enabledKey}`, settingsChanged);
@@ -99,12 +110,18 @@ export class PangoMarkdown {
     for (const codeHighlighter of PangoMarkdown.availableCodeHighlighter) {
       const schemaKey = `changed::${PangoMarkdown.getSchemaKeyForOptions(codeHighlighter)}`;
       settings.connect(schemaKey, () => {
-        if (this._currentHighlighter?.name == codeHighlighter.name) {
+        if (this._currentHighlighter?.name === codeHighlighter.name) {
           this._currentHighlighter.options = settings.get_string(schemaKey);
         }
       });
 
       codeHighlighter;
+    }
+  }
+
+  public stopProcesses() {
+    for (const highlighter of this._detectedHighlighter) {
+      highlighter.stopProcesses();
     }
   }
 }

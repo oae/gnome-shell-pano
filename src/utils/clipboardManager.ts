@@ -19,6 +19,7 @@ const MimeType = {
   SENSITIVE: ['x-kde-passwordManagerHint'],
 } as const;
 
+// eslint-disable-next-line no-shadow
 export const enum ContentType {
   IMAGE,
   FILE,
@@ -244,7 +245,7 @@ export class ClipboardManager extends GObject.Object {
     return clipboardMimeTypes.find((m) => targetMimeTypes.indexOf(m) >= 0);
   }
 
-  private async getContent(clipboardType: St.ClipboardType): Promise<ClipboardContent | null> {
+  private getContent(clipboardType: St.ClipboardType): Promise<ClipboardContent | null> {
     return new Promise((resolve) => {
       const cbMimeTypes = this.clipboard.get_mimetypes(clipboardType);
       if (this.haveMimeType(cbMimeTypes, MimeType.SENSITIVE)) {

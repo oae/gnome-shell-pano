@@ -93,7 +93,7 @@ export class SearchBox extends St.BoxLayout {
       this.emitSearchTextChange();
     });
 
-    this.search.clutterText.connect('key-press-event', (_: St.Entry, event: Clutter.Event) => {
+    this.search.clutterText.connect('key-press-event', (_entry: St.Entry, event: Clutter.Event) => {
       if (
         event.get_key_symbol() === Clutter.KEY_Down ||
         (event.get_key_symbol() === Clutter.KEY_Right &&
@@ -190,7 +190,7 @@ export class SearchBox extends St.BoxLayout {
     }
 
     this.settings.connect('changed::icon-pack', () => {
-      if (null == this.currentIndex) {
+      if (this.currentIndex === null) {
         this.search.set_primary_icon(this.createSearchEntryIcon('edit-find-symbolic', 'search-entry-icon'));
       } else {
         this.search.set_primary_icon(

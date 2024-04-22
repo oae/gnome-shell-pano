@@ -51,12 +51,12 @@ export class SettingsMenu extends PanelMenuButton {
     this.ext = ext;
     this.onToggle = onToggle;
     this.settings = getCurrentExtensionSettings(this.ext);
-    const isInIncognito = this.settings.get_boolean('is-in-incognito');
+    const initialIsInIncognito = this.settings.get_boolean('is-in-incognito');
 
     this.icon = new St.Icon({
       gicon: Gio.icon_new_for_string(
         `${this.ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-indicator${
-          isInIncognito ? '-incognito-symbolic' : '-symbolic'
+          initialIsInIncognito ? '-incognito-symbolic' : '-symbolic'
         }.svg`,
       ),
       styleClass: 'system-status-icon indicator-icon',

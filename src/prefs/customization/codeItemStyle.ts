@@ -126,15 +126,15 @@ export class CodeItemStyleRow extends ItemExpanderRow {
 
   private onEnabledChanged(_enabled: boolean): void {
     this.scan();
-    //TODOD: recreate those items, which where classified as text previosuly (check if the were created with the correct highliter)
+    //TODOD: recreate those items, which where classified as text previously (check if the were created with the correct highlighter)
   }
 
   private refreshCallback(): void {
     this.scan();
   }
 
-  private onCodeHighlighterChanged(name: string): void {
-    this.markdownDetector?.detectHighlighter(name);
+  private async onCodeHighlighterChanged(name: string): Promise<void> {
+    await this.markdownDetector?.detectHighlighter(name);
     this.scan();
   }
 
@@ -146,18 +146,18 @@ export class CodeItemStyleRow extends ItemExpanderRow {
       }
     };
 
-    const value = this.settings.get_uint(PangoMarkdown.codeHighlighterKey);
-    const stringValue = this.codeHighlighterOptions[value];
+    const initialCodeHighlighter = this.settings.get_uint(PangoMarkdown.codeHighlighterKey);
+    const initialCodeHighlighterValue = this.codeHighlighterOptions[initialCodeHighlighter];
 
     if (!this.markdownDetector) {
-      this.markdownDetector = new PangoMarkdown(stringValue);
+      this.markdownDetector = new PangoMarkdown(initialCodeHighlighterValue);
     }
 
     let enablingPossible = true;
 
     const currentHighlighter = this.markdownDetector.currentHighlighter;
 
-    if (this.markdownDetector.detectedHighlighter.length == 0 || currentHighlighter === null) {
+    if (this.markdownDetector.detectedHighlighter.length === 0 || currentHighlighter === null) {
       enablingPossible = false;
     }
 
@@ -169,7 +169,7 @@ export class CodeItemStyleRow extends ItemExpanderRow {
       // make all rows in-sensitive, except the enable row, if enabling is possible
       this.enableProperties[0].sensitive = true;
       this.enableProperties[1].sensitive = enablingPossible;
-      this.enableProperties[2].sensitive = enablingPossible && defaultValueForEnabled != isEnabled;
+      this.enableProperties[2].sensitive = enablingPossible && defaultValueForEnabled !== isEnabled;
       this.enableProperties[3]?.set_sensitive(true);
 
       for (const row of this.rows) {
@@ -208,7 +208,7 @@ export class CodeItemStyleRow extends ItemExpanderRow {
     // make all rows sensitive, so that things can be changed
     this.enableProperties[0].sensitive = true;
     this.enableProperties[1].sensitive = true;
-    this.enableProperties[2].sensitive = defaultValueForEnabled != isEnabled;
+    this.enableProperties[2].sensitive = defaultValueForEnabled !== isEnabled;
     this.enableProperties[3]?.set_sensitive(true);
 
     for (const row of this.rows) {
@@ -233,12 +233,12 @@ export class CodeItemStyleRow extends ItemExpanderRow {
       return record[key];
     };
 
-    const setValueFor = <T>(key: string, value: T | undefined): void => {
+    const setValueFor = <T>(key: string, val: T | undefined): void => {
       const record: Record<string, T> = JSON.parse(currentHighlighter!.options);
-      if (value === undefined) {
+      if (val === undefined) {
         delete record[key];
       } else {
-        record[key] = value;
+        record[key] = val;
       }
 
       const stringified = JSON.stringify(record);
@@ -284,9 +284,9 @@ export class CodeItemStyleRow extends ItemExpanderRow {
         return index >= 0 ? index : 0;
       };
 
-      const value = getValueFor<string>(key);
+      const initialValue = getValueFor<string>(key);
 
-      dropDown.set_selected(getIndexFor(value));
+      dropDown.set_selected(getIndexFor(initialValue));
 
       dropDown.connect('notify::selected', () => {
         setValueFor<string>(key, options[dropDown.get_selected()]!);
@@ -301,7 +301,7 @@ export class CodeItemStyleRow extends ItemExpanderRow {
         halign: Gtk4.Align.CENTER,
       });
 
-      if (defaultValue === value) {
+      if (defaultValue === initialCodeHighlighterValue) {
         clearButton.sensitive = false;
       }
 

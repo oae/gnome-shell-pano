@@ -93,7 +93,7 @@ const findOrCreateDbItem = async (ext: PanoExtension, clip: ClipboardContent): P
         metaData: value.operation,
       });
 
-    case ContentType.IMAGE:
+    case ContentType.IMAGE: {
       const checksum = GLib.compute_checksum_for_bytes(GLib.ChecksumType.MD5, new GLib.Bytes(value));
       if (!checksum) {
         return null;
@@ -114,8 +114,9 @@ const findOrCreateDbItem = async (ext: PanoExtension, clip: ClipboardContent): P
           size: value.length,
         }),
       });
+    }
 
-    case ContentType.TEXT:
+    case ContentType.TEXT: {
       const trimmedValue = value.trim();
 
       if (trimmedValue.toLowerCase().startsWith('http') && isValidUrl(trimmedValue)) {
@@ -190,7 +191,7 @@ const findOrCreateDbItem = async (ext: PanoExtension, clip: ClipboardContent): P
         });
       }
 
-      const detectedLanguage = ext.markdownDetector?.detectLanguage(trimmedValue);
+      const detectedLanguage = await ext.markdownDetector?.detectLanguage(trimmedValue);
 
       if (detectedLanguage && detectedLanguage.relevance >= MINIMUM_LANGUAGE_RELEVANCE) {
         return db.save({
@@ -214,42 +215,33 @@ const findOrCreateDbItem = async (ext: PanoExtension, clip: ClipboardContent): P
         matchValue: value,
         searchValue: value,
       });
-
+    }
     default:
       return null;
   }
 };
 
-export const createPanoItem = async (
-  ext: PanoExtension,
-  clipboardManager: ClipboardManager,
-  clip: ClipboardContent,
-): Promise<PanoItem | null> => {
-  let dbItem: DBItem | null = null;
-
-  try {
-    dbItem = await findOrCreateDbItem(ext, clip);
-  } catch (err) {
-    debug(`err: ${err}`);
-    return null;
-  }
-
-  if (dbItem) {
-    if (getCurrentExtensionSettings(ext).get_boolean('send-notification-on-copy')) {
-      sendNotification(ext, dbItem);
+export const removeItemResources = (ext: ExtensionBase, dbItem: DBItem) => {
+  db.delete(dbItem.id);
+  if (dbItem.itemType === 'LINK') {
+    const { image } = JSON.parse(dbItem.metaData || '{}');
+    if (image && Gio.File.new_for_uri(`file://${getCachePath(ext)}/${image}.png`).query_exists(null)) {
+      Gio.File.new_for_uri(`file://${getCachePath(ext)}/${image}.png`).delete(null);
     }
-
-    return createPanoItemFromDb(ext, clipboardManager, dbItem);
+  } else if (dbItem.itemType === 'IMAGE') {
+    const imageFilePath = `file://${getImagesPath(ext)}/${dbItem.content}.png`;
+    const imageFile = Gio.File.new_for_uri(imageFilePath);
+    if (imageFile.query_exists(null)) {
+      imageFile.delete(null);
+    }
   }
-
-  return null;
 };
 
-export const createPanoItemFromDb = (
+export const createPanoItemFromDb = async (
   ext: PanoExtension,
   clipboardManager: ClipboardManager,
   dbItem: DBItem | null,
-): PanoItem | null => {
+): Promise<PanoItem | null> => {
   if (!dbItem) {
     return null;
   }
@@ -269,7 +261,7 @@ export const createPanoItemFromDb = (
       }
 
       if (!language) {
-        const detectedLanguage = ext.markdownDetector?.detectLanguage(dbItem.content.trim());
+        const detectedLanguage = await ext.markdownDetector?.detectLanguage(dbItem.content.trim());
         if (detectedLanguage && detectedLanguage.relevance >= MINIMUM_LANGUAGE_RELEVANCE) {
           language = detectedLanguage.language;
         }
@@ -284,12 +276,16 @@ export const createPanoItemFromDb = (
       };
 
       if (language && ext.markdownDetector) {
-        try {
-          panoItem = new CodePanoItem(ext, clipboardManager, dbItem, language);
-          // this might fail in some really rare cases
-        } catch (err) {
-          debug(`Couldn't create a code item: ${err}`);
+        const characterLength = getCurrentExtensionSettings(ext).get_child('code-item').get_int('char-length');
+
+        const markup = await ext.markdownDetector?.markupCode(language, dbItem.content.trim(), characterLength);
+
+        // this might return undefined in some really rare cases
+        if (!markup) {
+          debug("Couldn't create a code item: Couldn't generate markup");
           panoItem = createTextPanoItem();
+        } else {
+          panoItem = new CodePanoItem(ext, clipboardManager, dbItem, markup);
         }
       } else {
         panoItem = createTextPanoItem();
@@ -319,15 +315,15 @@ export const createPanoItemFromDb = (
   }
 
   panoItem.connect('on-remove', (_, dbItemStr: string) => {
-    const dbItem: DBItem = JSON.parse(dbItemStr);
-    removeItemResources(ext, dbItem);
+    const removeDbItem: DBItem = JSON.parse(dbItemStr);
+    removeItemResources(ext, removeDbItem);
   });
 
   panoItem.connect('on-favorite', (_, dbItemStr: string) => {
-    const dbItem: DBItem = JSON.parse(dbItemStr);
+    const favoriteDbItem: DBItem = JSON.parse(dbItemStr);
     db.update({
-      ...dbItem,
-      copyDate: new Date(dbItem.copyDate),
+      ...favoriteDbItem,
+      copyDate: new Date(favoriteDbItem.copyDate),
     });
   });
 
@@ -341,22 +337,6 @@ function converter(color: string): string | null {
     return null;
   }
 }
-
-export const removeItemResources = (ext: ExtensionBase, dbItem: DBItem) => {
-  db.delete(dbItem.id);
-  if (dbItem.itemType === 'LINK') {
-    const { image } = JSON.parse(dbItem.metaData || '{}');
-    if (image && Gio.File.new_for_uri(`file://${getCachePath(ext)}/${image}.png`).query_exists(null)) {
-      Gio.File.new_for_uri(`file://${getCachePath(ext)}/${image}.png`).delete(null);
-    }
-  } else if (dbItem.itemType === 'IMAGE') {
-    const imageFilePath = `file://${getImagesPath(ext)}/${dbItem.content}.png`;
-    const imageFile = Gio.File.new_for_uri(imageFilePath);
-    if (imageFile.query_exists(null)) {
-      imageFile.delete(null);
-    }
-  }
-};
 
 const sendNotification = (ext: ExtensionBase, dbItem: DBItem) => {
   const _ = gettext(ext);
@@ -414,4 +394,29 @@ const sendNotification = (ext: ExtensionBase, dbItem: DBItem) => {
       _('There are %s file(s)').format(fileListSize),
     );
   }
+};
+
+export const createPanoItem = async (
+  ext: PanoExtension,
+  clipboardManager: ClipboardManager,
+  clip: ClipboardContent,
+): Promise<PanoItem | null> => {
+  let dbItem: DBItem | null = null;
+
+  try {
+    dbItem = await findOrCreateDbItem(ext, clip);
+  } catch (err) {
+    debug(`err: ${err}`);
+    return null;
+  }
+
+  if (dbItem) {
+    if (getCurrentExtensionSettings(ext).get_boolean('send-notification-on-copy')) {
+      sendNotification(ext, dbItem);
+    }
+
+    return createPanoItemFromDb(ext, clipboardManager, dbItem);
+  }
+
+  return null;
 };

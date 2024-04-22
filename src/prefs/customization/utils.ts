@@ -41,10 +41,10 @@ export const createSwitchRow = (
     row.add_suffix(refreshButton);
   }
 
-  const value = settings.get_boolean(schemaKey);
+  const initialValue = settings.get_boolean(schemaKey);
 
   const switch_ = new Gtk4.Switch({
-    active: value,
+    active: initialValue,
     valign: Gtk4.Align.CENTER,
     halign: Gtk4.Align.CENTER,
   });
@@ -62,7 +62,7 @@ export const createSwitchRow = (
 
   const defaultValue = settings.get_default_value(schemaKey)?.get_boolean();
 
-  if (defaultValue === value) {
+  if (defaultValue === initialValue) {
     clearButton.sensitive = false;
   }
 
@@ -125,10 +125,10 @@ export const createColorRow = (title: string, subtitle: string, settings: Gio.Se
     halign: Gtk4.Align.CENTER,
   });
 
-  const value = settings.get_string(schemaKey);
+  const initialValue = settings.get_string(schemaKey);
   const defaultValue = settings.get_default_value(schemaKey)?.get_string()[0];
 
-  if (defaultValue === value) {
+  if (defaultValue === initialValue) {
     clearButton.sensitive = false;
   }
 
@@ -144,9 +144,9 @@ export const createColorRow = (title: string, subtitle: string, settings: Gio.Se
       clearButton.sensitive = true;
     }
 
-    const rgba = new Gdk4.RGBA();
-    rgba.parse(value);
-    colorButton.set_rgba(rgba);
+    const newRgba = new Gdk4.RGBA();
+    newRgba.parse(value);
+    colorButton.set_rgba(newRgba);
   });
 
   clearButton.connect('clicked', () => {
@@ -172,11 +172,11 @@ export const createSpinRow = (
     subtitle,
   });
 
-  const value = settings.get_int(schemaKey);
+  const initialValue = settings.get_int(schemaKey);
 
   const spinButton = new Gtk4.SpinButton({
     adjustment: new Gtk4.Adjustment({ stepIncrement: increment, lower, upper }),
-    value,
+    value: initialValue,
     valign: Gtk4.Align.CENTER,
     halign: Gtk4.Align.CENTER,
   });
@@ -194,7 +194,7 @@ export const createSpinRow = (
 
   const defaultValue = settings.get_default_value(schemaKey)?.get_int32();
 
-  if (defaultValue === value) {
+  if (defaultValue === initialValue) {
     clearButton.sensitive = false;
   }
 
@@ -253,10 +253,10 @@ export const createFontRow = (title: string, subtitle: string, settings: Gio.Set
     halign: Gtk4.Align.CENTER,
   });
 
-  const value = getFont();
+  const initialValue = getFont();
   const defaultValue = getDefaultFont();
 
-  if (defaultValue === value) {
+  if (defaultValue === initialValue) {
     clearButton.sensitive = false;
   }
 
@@ -296,7 +296,7 @@ export const createDropdownRow = (
     subtitle,
   });
 
-  const value = settings.get_uint(schemaKey);
+  const initialValue = settings.get_uint(schemaKey);
 
   const dropDown = new Gtk4.DropDown({
     valign: Gtk4.Align.CENTER,
@@ -304,7 +304,7 @@ export const createDropdownRow = (
     model: Gtk4.StringList.new(options),
   });
 
-  dropDown.set_selected(value);
+  dropDown.set_selected(initialValue);
 
   dropDown.connect('notify::selected', () => {
     settings.set_uint(schemaKey, dropDown.get_selected());
@@ -321,7 +321,7 @@ export const createDropdownRow = (
 
   const defaultValue = settings.get_default_value(schemaKey)?.get_uint32();
 
-  if (defaultValue === value) {
+  if (defaultValue === initialValue) {
     clearButton.sensitive = false;
   }
 
