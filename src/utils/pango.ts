@@ -1,4 +1,5 @@
 import Gio from '@girs/gio-2.0';
+import GLib from '@girs/glib-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import { ActiveCollection } from '@pano/utils/code/active';
 import type { CodeHighlighter, CodeHighlighterMetaData, Language } from '@pano/utils/code/highlight';
@@ -18,10 +19,22 @@ class PromiseCollection extends ActiveCollection<() => Promise<void>> {
   }
 }
 
-const sleep = (ms: number) =>
-  new Promise<void>((resolve) => {
-    setTimeout(resolve, ms);
+const sleep = (ms: number) => {
+  let sourceId: null | number;
+
+  return new Promise<void>((resolve) => {
+    const callback = () => {
+      if (sourceId) {
+        GLib.Source.remove(sourceId);
+      }
+
+      resolve();
+      return GLib.SOURCE_REMOVE;
+    };
+
+    sourceId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, ms, callback);
   });
+};
 
 // not concurrent. can only run in one thread
 // from https://stackoverflow.com/questions/51850236/javascript-scheduler-implementation-using-promises
