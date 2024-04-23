@@ -36,3 +36,8 @@ jobs:
 
       - name: Lint Extension
         run: yarn run lint
+
+      - name: Build pygments style plugin
+        run: |
+          sudo apt-get install python3 python3-pip pipenv
+          yarn run build:python

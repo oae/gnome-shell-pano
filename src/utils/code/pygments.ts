@@ -74,7 +74,7 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
     this._launcher = new Gio.SubprocessLauncher({
       flags: Gio.SubprocessFlags.STDIN_PIPE | Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_PIPE,
     });
-    this._launcher.setenv('PYTHONPATH', `${ext.path}/python/`, true);
+    this._launcher.setenv('PYTHONPATH', `${ext.path}/highlighter/pygments/`, true);
   }
 
   override async isInstalled(): Promise<boolean> {
