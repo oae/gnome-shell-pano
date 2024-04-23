@@ -2,3 +2,4 @@
 node_modules/
 *.md
 .*
+resources/highlighter/pygments/
