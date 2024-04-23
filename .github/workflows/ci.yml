@@ -39,6 +39,6 @@ jobs:
 
       - name: Build pygments style plugin
         run: |
-          sudo apt-get install python3 python3-pip pipenv
-          pip install --upgrade pip wheel setuptools
+          sudo apt-get install python3 python3-pip
+          pip install --upgrade pip wheel setuptools pipenv
           yarn run build:python
