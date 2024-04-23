@@ -16,4 +16,6 @@ pano = "gnome_shell_pano_pygments.styles:PanoStyle"
 
 [tool.poetry.dependencies]
 python = "^3.10.0"
+
+[tool.poetry.dev-dependencies]
 pygments = "^2.16.0"

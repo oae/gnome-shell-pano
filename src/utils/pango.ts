@@ -1,5 +1,6 @@
 import Gio from '@girs/gio-2.0';
-import type { CodeHighlighter, Language } from '@pano/utils/code/highlight';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
+import type { CodeHighlighter, CodeHighlighterMetaData, Language } from '@pano/utils/code/highlight';
 import { PygmentsCodeHighlighter } from '@pano/utils/code/pygments';
 import { logger } from '@pano/utils/shell';
 
@@ -61,14 +62,18 @@ export class PangoMarkdown {
   private _loaded: boolean = false;
   private _scheduler: TaskScheduler;
 
-  public static readonly availableCodeHighlighter: CodeHighlighter[] = [new PygmentsCodeHighlighter()];
+  public static readonly availableCodeHighlighter: CodeHighlighterMetaData[] = [PygmentsCodeHighlighter.MetaData];
+
+  private readonly _availableCodeHighlighter: CodeHighlighter[];
 
   constructor(
+    ext: ExtensionBase,
     preferredHighlighter: string | null = null,
     settings: Gio.Settings | null = null,
     schedulerConcurrency: number = 4,
   ) {
     this._scheduler = new TaskScheduler(schedulerConcurrency);
+    this._availableCodeHighlighter = [new PygmentsCodeHighlighter(ext)];
 
     // this is fine, since the properties this sets are async safe, alias they are set at the end, so that everything is set when it's needed, and when something uses this class, before it is ready, it will behave correctly and it has a mechanism to add callbacks, after it is finished
     this.detectHighlighter(preferredHighlighter, settings)
@@ -119,7 +124,7 @@ export class PangoMarkdown {
     let currentHighlighter: CodeHighlighter | null = this._currentHighlighter;
     this._currentHighlighter = null;
 
-    for (const codeHighlighter of PangoMarkdown.availableCodeHighlighter) {
+    for (const codeHighlighter of this._availableCodeHighlighter) {
       if (await codeHighlighter.isInstalled()) {
         if (settings) {
           codeHighlighter.options = settings.get_string(PangoMarkdown.getSchemaKeyForOptions(codeHighlighter));
@@ -187,7 +192,7 @@ export class PangoMarkdown {
 
     settings.connect(`changed::${PangoMarkdown.codeHighlighterKey}`, settingsChanged);
 
-    for (const codeHighlighter of PangoMarkdown.availableCodeHighlighter) {
+    for (const codeHighlighter of this._availableCodeHighlighter) {
       const schemaKey = `changed::${PangoMarkdown.getSchemaKeyForOptions(codeHighlighter)}`;
       settings.connect(schemaKey, () => {
         if (this._currentHighlighter?.name === codeHighlighter.name) {

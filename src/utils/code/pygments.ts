@@ -1,6 +1,12 @@
 import type { PromisifiedWithArrayReturnType, PromisifiedWithReturnType } from '@girs/gio-2.0';
+import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import { CancellableCollection, type CancellableWrapper } from '@pano/utils/code/cancellables';
-import { CodeHighlighter, type Language, type OptionsForSettings } from '@pano/utils/code/highlight';
+import {
+  CodeHighlighter,
+  type CodeHighlighterMetaData,
+  type Language,
+  type OptionsForSettings,
+} from '@pano/utils/code/highlight';
 import { logger, safeParse, stringify } from '@pano/utils/shell';
 import Gio from 'gi://Gio?version=2.0';
 
@@ -49,14 +55,26 @@ type PygmentsOptions = {
 };
 
 export class PygmentsCodeHighlighter extends CodeHighlighter {
+  public static MetaData: CodeHighlighterMetaData = {
+    name: 'pygments',
+    type: 'CommandLine',
+  };
+
   private cliName = 'pygmentize';
   private _options: PygmentsOptions;
   private cancellableCollection: CancellableCollection;
 
-  constructor() {
-    super('pygments', 'CommandLine');
+  private _launcher: Gio.SubprocessLauncher;
+
+  constructor(ext: ExtensionBase) {
+    super(PygmentsCodeHighlighter.MetaData);
     this._options = { style: undefined };
     this.cancellableCollection = new CancellableCollection();
+
+    this._launcher = new Gio.SubprocessLauncher({
+      flags: Gio.SubprocessFlags.STDIN_PIPE | Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_PIPE,
+    });
+    this._launcher.setenv('PYTHONPATH', `${ext.path}/python/`, true);
   }
 
   override async isInstalled(): Promise<boolean> {
@@ -96,10 +114,7 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
     let cancellable: CancellableWrapper | undefined;
 
     try {
-      const proc = Gio.Subprocess.new(
-        [this.cliName, '-C'],
-        Gio.SubprocessFlags.STDERR_PIPE | Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDIN_PIPE,
-      );
+      const proc = this._launcher.spawnv([this.cliName, '-C']);
 
       cancellable = this.cancellableCollection.getNew();
 
@@ -157,10 +172,7 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
     let cancellable: CancellableWrapper | undefined;
 
     try {
-      const proc = Gio.Subprocess.new(
-        [this.cliName, '-l', language, '-f', 'pango', ...this.getOptionsForCLI()],
-        Gio.SubprocessFlags.STDERR_PIPE | Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDIN_PIPE,
-      );
+      const proc = this._launcher.spawnv([this.cliName, '-l', language, '-f', 'pango', ...this.getOptionsForCLI()]);
 
       cancellable = this.cancellableCollection.getNew();
 
@@ -218,20 +230,31 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
     return stringify<PygmentsOptions>(this._options);
   }
 
-  override async getOptionsForSettings(_: (str: string) => string): Promise<OptionsForSettings> {
-    const features = await this.getFeatures();
+  private _features: PygmentsFeatures | undefined;
 
-    if (!features) {
+  override async getOptionsForSettings(_: (str: string) => string, forceRefresh = false): Promise<OptionsForSettings> {
+    if (!this._features || forceRefresh) {
+      this._features = await this.getFeatures();
+    }
+
+    if (!this._features) {
       return {};
+    }
+
+    const styles = Object.keys(this._features.styles);
+
+    let defaultStyleValue: string | number = 0;
+    if (styles.includes('pano')) {
+      defaultStyleValue = 'pano';
     }
 
     return {
       style: {
         type: 'dropdown',
-        values: Object.keys(features.styles),
+        values: styles,
         title: _('Style to Use'),
         subtitle: _('Choose the style, you want to use'),
-        defaultValue: 0,
+        defaultValue: defaultStyleValue,
         searchEnabled: true,
       },
     };
@@ -245,10 +268,7 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
     let cancellable: CancellableWrapper | undefined;
 
     try {
-      const proc = Gio.Subprocess.new(
-        [this.cliName, '-L', '--json'],
-        Gio.SubprocessFlags.STDERR_PIPE | Gio.SubprocessFlags.STDOUT_PIPE,
-      );
+      const proc = this._launcher.spawnv([this.cliName, '-L', '--json']);
 
       cancellable = this.cancellableCollection.getNew();
 

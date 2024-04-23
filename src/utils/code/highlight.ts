@@ -18,14 +18,19 @@ export type OptionForSettings = DropDownOption;
 
 export type OptionsForSettings = Record<string, OptionForSettings>;
 
+export type CodeHighlighterMetaData = {
+  name: string;
+  type: CodeHighlighterType;
+};
+
 export abstract class CodeHighlighter {
   readonly name: string;
   readonly type: CodeHighlighterType;
   protected installed: boolean;
 
-  constructor(name: string, type: CodeHighlighterType, installed = false) {
-    this.name = name;
-    this.type = type;
+  constructor(metaData: CodeHighlighterMetaData, installed = false) {
+    this.name = metaData.name;
+    this.type = metaData.type;
     this.installed = installed;
   }
 

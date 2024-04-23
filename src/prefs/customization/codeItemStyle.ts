@@ -139,7 +139,7 @@ export class CodeItemStyleRow extends ItemExpanderRow {
     const initialCodeHighlighter = this.settings.get_uint(PangoMarkdown.codeHighlighterKey);
     const initialCodeHighlighterValue = this.codeHighlighterOptions[initialCodeHighlighter];
 
-    this.markdownDetector = new PangoMarkdown(initialCodeHighlighterValue);
+    this.markdownDetector = new PangoMarkdown(ext, initialCodeHighlighterValue);
     this.markdownDetector.onLoad(async () => {
       await this.scan();
     });
