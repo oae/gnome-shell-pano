@@ -107,7 +107,11 @@ export class SettingsMenu extends PanelMenuButton {
       this.menu.addMenuItem(new PopupSeparatorMenuItem());
       const settingsItem = new PopupMenuItem(_('Settings'));
       settingsItem.connect('activate', () => {
-        openExtensionPreferences(this.ext);
+        try {
+          openExtensionPreferences(this.ext);
+        } catch (err) {
+          debug(`an error occurred while trying to open the extension settings: ${err}`);
+        }
       });
       this.menu.addMenuItem(settingsItem);
     }
