@@ -52,7 +52,10 @@ type PygmentsFeatures = {
 
 type PygmentsOptions = {
   style: string | undefined;
+  relevanceLength: number | undefined;
 };
+
+const defaultRelevanceLength = 200;
 
 export class PygmentsCodeHighlighter extends CodeHighlighter {
   public static MetaData: CodeHighlighterMetaData = {
@@ -68,7 +71,7 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
 
   constructor(ext: ExtensionBase) {
     super(PygmentsCodeHighlighter.MetaData);
-    this._options = { style: undefined };
+    this._options = { style: undefined, relevanceLength: undefined };
     this.cancellableCollection = new CancellableCollection();
 
     this._launcher = new Gio.SubprocessLauncher({
@@ -145,11 +148,9 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
           return undefined;
         }
 
-        // this is hardcoded, but it's only done, since pygments can't report tha heuristic
+        const relevanevBorder = this._options.relevanceLength ?? defaultRelevanceLength;
 
-        const relevanceBorder = 200;
-
-        const relevance = text.length > relevanceBorder ? 1.0 : text.length / relevanceBorder;
+        const relevance = text.length > relevanevBorder ? 1.0 : text.length / relevanevBorder;
 
         return { language: content, relevance };
       } else {
@@ -219,11 +220,7 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
   }
 
   override set options(options: string) {
-    try {
-      this._options = safeParse<PygmentsOptions>(options, { style: undefined });
-    } catch (_err) {
-      this._options = { style: undefined };
-    }
+    this._options = safeParse<PygmentsOptions>(options, { style: undefined, relevanceLength: undefined });
   }
 
   get options(): string {
@@ -232,7 +229,10 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
 
   private _features: PygmentsFeatures | undefined;
 
-  override async getOptionsForSettings(_: (str: string) => string, forceRefresh = false): Promise<OptionsForSettings> {
+  override async getOptionsForSettings(
+    _: (str: string) => string,
+    forceRefresh = false,
+  ): Promise<OptionsForSettings<PygmentsOptions> | Record<string, never>> {
     if (!this._features || forceRefresh) {
       this._features = await this.getFeatures();
     }
@@ -261,6 +261,15 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
         subtitle: _('Choose the style, you want to use'),
         defaultValue: defaultStyleValue,
         searchEnabled: true,
+      },
+      relevanceLength: {
+        type: 'spinButton',
+        title: _('Relevance Setting'),
+        subtitle: _("Chose the character length, at which it's guaranteed to be code"),
+        min: 20,
+        max: 2000,
+        increment: 10,
+        defaultValue: defaultRelevanceLength,
       },
     };
   }

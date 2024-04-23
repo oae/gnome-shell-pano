@@ -5,18 +5,29 @@ export type Language = {
 
 export type CodeHighlighterType = 'CommandLine' | 'JSModule';
 
-export type DropDownOption = {
-  type: 'dropdown';
-  values: string[];
+export interface RowOptions {
   title: string;
   subtitle: string;
+}
+
+export interface DropDownOption extends RowOptions {
+  type: 'dropdown';
+  values: string[];
   defaultValue: string | number;
   searchEnabled?: boolean;
-};
+}
 
-export type OptionForSettings = DropDownOption;
+export interface SpinButtonOption extends RowOptions {
+  type: 'spinButton';
+  defaultValue: number;
+  min: number;
+  max: number;
+  increment: number;
+}
 
-export type OptionsForSettings = Record<string, OptionForSettings>;
+export type OptionForSettings = DropDownOption | SpinButtonOption;
+
+export type OptionsForSettings<T> = Record<keyof T, OptionForSettings>;
 
 export type CodeHighlighterMetaData = {
   name: string;
@@ -40,7 +51,7 @@ export abstract class CodeHighlighter {
 
   abstract markupCode(language: string, text: string, characterLength: number): Promise<string | undefined>;
 
-  abstract getOptionsForSettings(_: (str: string) => string): Promise<OptionsForSettings>;
+  abstract getOptionsForSettings(_: (str: string) => string): Promise<OptionsForSettings<Record<string, any>>>;
 
   abstract set options(options: string);
 

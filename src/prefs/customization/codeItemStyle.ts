@@ -14,7 +14,11 @@ import {
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { PangoMarkdown } from '@pano/utils/pango';
 import { getPanoItemTypes } from '@pano/utils/panoItemType';
-import { getCurrentExtensionSettings, gettext, safeParse, stringify } from '@pano/utils/shell';
+import { getCurrentExtensionSettings, gettext, logger, safeParse, stringify } from '@pano/utils/shell';
+
+const debug = logger('CodeItemStyleRow');
+
+type Assert<Expected, _Actual extends Expected> = void;
 
 @registerGObjectClass
 export class CodeItemStyleRow extends ItemExpanderRow {
@@ -139,7 +143,7 @@ export class CodeItemStyleRow extends ItemExpanderRow {
     const initialCodeHighlighter = this.settings.get_uint(PangoMarkdown.codeHighlighterKey);
     const initialCodeHighlighterValue = this.codeHighlighterOptions[initialCodeHighlighter];
 
-    this.markdownDetector = new PangoMarkdown(ext, initialCodeHighlighterValue);
+    this.markdownDetector = new PangoMarkdown(ext, this.settings, initialCodeHighlighterValue, false);
     this.markdownDetector.onLoad(async () => {
       await this.scan();
     });
@@ -229,8 +233,6 @@ export class CodeItemStyleRow extends ItemExpanderRow {
       row.sensitive = true;
     }
 
-    resetRows();
-
     const optionsForSettings = await currentHighlighter!.getOptionsForSettings(gettext(this.ext));
 
     const schemaKey = PangoMarkdown.getSchemaKeyForOptions(currentHighlighter!);
@@ -265,8 +267,8 @@ export class CodeItemStyleRow extends ItemExpanderRow {
       subtitle: string,
       options: string[],
       _defaultValue: string | number,
-      key: string,
       searchEnabled: boolean,
+      key: string,
     ): [Adw.ActionRow, Gtk4.DropDown] => {
       const row = new Adw.ActionRow({
         title,
@@ -346,6 +348,70 @@ export class CodeItemStyleRow extends ItemExpanderRow {
       return [row, dropDown];
     };
 
+    const createSpinRowForHighlighter = (
+      title: string,
+      subtitle: string,
+      increment: number,
+      lower: number,
+      upper: number,
+      defaultValue: number,
+      key: string,
+    ) => {
+      const row = new Adw.ActionRow({
+        title,
+        subtitle,
+      });
+
+      const initialValue = getValueFor<number>(key) ?? defaultValue;
+
+      const spinButton = new Gtk4.SpinButton({
+        adjustment: new Gtk4.Adjustment({ stepIncrement: increment, lower, upper }),
+        value: initialValue,
+        valign: Gtk4.Align.CENTER,
+        halign: Gtk4.Align.CENTER,
+      });
+
+      spinButton.connect('value-changed', () => {
+        setValueFor<number>(key, spinButton.value);
+      });
+
+      row.add_suffix(spinButton);
+      row.set_activatable_widget(spinButton);
+
+      const clearButton = new Gtk4.Button({
+        iconName: 'edit-clear-symbolic',
+        valign: Gtk4.Align.CENTER,
+        halign: Gtk4.Align.CENTER,
+      });
+
+      if (defaultValue === initialValue) {
+        clearButton.sensitive = false;
+      }
+
+      this.settings.connect(`changed::${schemaKey}`, () => {
+        const value = getValueFor<number>(key, true);
+
+        if (defaultValue === value) {
+          clearButton.sensitive = false;
+        } else {
+          clearButton.sensitive = true;
+        }
+
+        spinButton.value = value ?? defaultValue;
+      });
+
+      clearButton.connect('clicked', () => {
+        setValueFor<number>(key, defaultValue);
+        spinButton.value = defaultValue;
+      });
+
+      row.add_suffix(clearButton);
+
+      return row;
+    };
+
+    const newRows: Adw.ActionRow[] = [];
+
     for (const [key, value] of Object.entries(optionsForSettings)) {
       switch (value.type) {
         case 'dropdown': {
@@ -354,21 +420,47 @@ export class CodeItemStyleRow extends ItemExpanderRow {
             value.subtitle,
             value.values,
             value.defaultValue,
-            key,
             value.searchEnabled ?? false,
+            key,
           );
 
           row.sensitive = true;
-          this.add_row(row);
+          newRows.push(row);
 
-          this.rows.push(row);
+          break;
+        }
+        case 'spinButton': {
+          const row = createSpinRowForHighlighter(
+            value.title,
+            value.subtitle,
+            value.increment,
+            value.min,
+            value.max,
+            value.defaultValue,
+            key,
+          );
+
+          row.sensitive = true;
+          newRows.push(row);
 
           break;
         }
 
         default:
+          // if this fails at transpile time, you missed a case
+          type Unreachable = Assert<never, typeof value>;
+          debug(
+            `Unimplemented type: ${(value as any as Unreachable as any as { type: string }).type} with options: ${value}`,
+          );
           break;
       }
+    }
+
+    resetRows();
+
+    for (const row of newRows) {
+      this.add_row(row);
+      this.rows.push(row);
     }
 
     this.changed();

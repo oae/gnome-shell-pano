@@ -52,7 +52,7 @@ export default class PanoExtension extends Extension {
 
   override enable() {
     this.settings = getCurrentExtensionSettings(this);
-    this._markdownDetector = new PangoMarkdown(this, null, this.settings.get_child('code-item'));
+    this._markdownDetector = new PangoMarkdown(this, this.settings.get_child('code-item'), null, true);
     this.setupResources();
     this.keyManager = new KeyManager(this);
     this.clipboardManager = new ClipboardManager(this);

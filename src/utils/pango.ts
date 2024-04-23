@@ -131,17 +131,24 @@ export class PangoMarkdown {
 
   constructor(
     ext: ExtensionBase,
+    settings: Gio.Settings,
     preferredHighlighter: string | null = null,
-    settings: Gio.Settings | null = null,
+    enableWatch = false,
     schedulerConcurrency: number = 4,
   ) {
     this._scheduler = new TaskScheduler(schedulerConcurrency);
+
     this._availableCodeHighlighter = [new PygmentsCodeHighlighter(ext)];
+
+    for (const highlighter of this._availableCodeHighlighter) {
+      const schemaKey = PangoMarkdown.getSchemaKeyForOptions(highlighter);
+      highlighter.options = settings.get_string(schemaKey);
+    }
 
     // this is fine, since the properties this sets are async safe, alias they are set at the end, so that everything is set when it's needed, and when something uses this class, before it is ready, it will behave correctly and it has a mechanism to add callbacks, after it is finished
     this.detectHighlighter(preferredHighlighter, settings)
       .then(async () => {
-        if (settings) {
+        if (enableWatch) {
           this.enableWatch(settings);
         }
         this._loaded = true;
@@ -218,6 +225,7 @@ export class PangoMarkdown {
   }
 
   public async cancelAllScheduled() {
+    await this.currentHighlighter?.stopProcesses();
     await this._scheduler.cancelAll();
   }
 
