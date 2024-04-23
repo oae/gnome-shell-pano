@@ -69,6 +69,9 @@ const thirdParty = [
   'hex-color-converter',
   'is-url',
   'pretty-bytes',
+  // a note on this package:
+  // if we would use the normal package ("2.24" instead of "https://gitpkg.now.sh/dreamyguy/validate-color/src/validate-color")
+  // it doesn't work, since it gets incorrectly modified by rollup, since it's already shipped modified, so we have to use this package for the moment
   'validate-color',
 ];
 
