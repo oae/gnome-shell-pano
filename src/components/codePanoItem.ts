@@ -88,7 +88,7 @@ export class CodePanoItem extends PanoItem {
           ?.scheduleMarkupCode(this.metaData.language, this.dbItem.content.trim(), characterLength)
           .then((markdown) => {
             // if our style changed, after the initial call, after all this might take some time (Since it's scheduled)
-            if ((this._type = 'text')) {
+            if (this._type === 'text') {
               return;
             }
 
@@ -101,7 +101,7 @@ export class CodePanoItem extends PanoItem {
           })
           .catch((err) => {
             // if our style changed, after the initial call, after all this might take some time (since it's scheduled)
-            if ((this._type = 'text')) {
+            if (this._type === 'text') {
               return;
             }
 
