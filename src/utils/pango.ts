@@ -1,5 +1,6 @@
 import Gio from '@girs/gio-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
+import { ActiveCollection } from '@pano/utils/code/active';
 import type { CodeHighlighter, CodeHighlighterMetaData, Language } from '@pano/utils/code/highlight';
 import { PygmentsCodeHighlighter } from '@pano/utils/code/pygments';
 import { logger } from '@pano/utils/shell';
@@ -10,45 +11,94 @@ import { logger } from '@pano/utils/shell';
 
 const debug = logger('pango');
 
+class PromiseCollection extends ActiveCollection<() => Promise<void>> {
+  _cancel(promise: () => Promise<void>) {
+    // this call results in the cancelled check, so it's like being cancelled
+    void promise();
+  }
+}
+
+const sleep = (ms: number) =>
+  new Promise<void>((resolve) => {
+    setTimeout(resolve, ms);
+  });
+
 // not concurrent. can only run in one thread
 // from https://stackoverflow.com/questions/51850236/javascript-scheduler-implementation-using-promises
 // but modified to suit our needs
 
+export class PromiseCancelError extends Error {
+  constructor(msg: string) {
+    super(msg);
+  }
+}
+
 class TaskScheduler {
   private limit: number;
   private active: number;
-  private pool: Array<() => Promise<void>>;
+  private waiting: PromiseCollection;
+  private cancelled: boolean;
+  private pool: Array<[() => Promise<void>, string]>;
 
   constructor(concurrency: number) {
     this.limit = concurrency;
     this.active = 0;
+    this.waiting = new PromiseCollection();
+    this.cancelled = false;
     this.pool = [];
   }
 
   push<T>(task: () => Promise<T>): Promise<T> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       this._push(async () => {
+        if (this.cancelled) {
+          this.active -= 1;
+          reject(new PromiseCancelError('Cancelled Promise before starting'));
+        }
+
         const result = await task();
+
+        if (this.cancelled) {
+          this.active -= 1;
+          reject(new PromiseCancelError('Cancelled Promise after it was run'));
+        }
         resolve(result);
       });
     });
   }
 
+  async cancelAll(): Promise<void> {
+    this.cancelled = true;
+    this.waiting.cancelAll();
+
+    while (this.active !== 0) {
+      await sleep(100);
+    }
+
+    this.pool = [];
+    this.cancelled = false;
+  }
+
   private _push(task: () => Promise<void>): void {
-    this.pool.push(task);
+    const { uuid } = this.waiting.add(task);
+    this.pool.push([task, uuid]);
     if (this.active < this.limit) {
       void this._execute(this.pool.shift()!);
     }
   }
 
-  private _execute(task: () => Promise<void>): Promise<void> {
+  private _execute(value: [() => Promise<void>, string]) {
     this.active += 1;
-    return task().then(() => {
+    const [task, uuid] = value;
+    const res = task().then(() => {
       this.active -= 1;
       if (this.pool.length > 0 && this.active < this.limit) {
         void this._execute(this.pool.shift()!);
       }
     });
+
+    this.waiting.remove({ value: task, uuid });
+    return res;
   }
 }
 
@@ -154,6 +204,10 @@ export class PangoMarkdown {
     return await this._currentHighlighter.detectLanguage(text);
   }
 
+  public async cancelAllScheduled() {
+    await this._scheduler.cancelAll();
+  }
+
   public async scheduleMarkupCode(
     language: string,
     text: string,
@@ -208,5 +262,7 @@ export class PangoMarkdown {
     for (const highlighter of this._detectedHighlighter) {
       highlighter.stopProcesses();
     }
+
+    void this._scheduler.cancelAll();
   }
 }

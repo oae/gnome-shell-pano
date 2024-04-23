@@ -1,31 +1,11 @@
 import Gio from 'gi://Gio?version=2.0';
 
-export type CancellableWrapper = {
-  value: Gio.Cancellable;
-  id: string;
-};
+import { ActiveCollection, type ActiveWrapper } from './active';
 
-export class CancellableCollection {
-  private cancellables: Record<string, Gio.Cancellable> = {};
+export type CancellableWrapper = ActiveWrapper<Gio.Cancellable>;
 
-  getNew(): CancellableWrapper {
-    const id = new Date().getUTCMilliseconds().toString();
-    const cancellable = new Gio.Cancellable();
-
-    this.cancellables[id] = cancellable;
-
-    return { id, value: cancellable };
-  }
-
-  remove(cancellable: CancellableWrapper | undefined) {
-    if (cancellable) {
-      delete this.cancellables[cancellable.id];
-    }
-  }
-
-  removeAll() {
-    for (const cancellable of Object.values(this.cancellables)) {
-      cancellable.cancel();
-    }
+export class CancellableCollection extends ActiveCollection<Gio.Cancellable> {
+  _cancel(cancellable: Gio.Cancellable) {
+    cancellable.cancel();
   }
 }

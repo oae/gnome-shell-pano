@@ -86,7 +86,7 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
         Gio.SubprocessFlags.STDOUT_SILENCE | Gio.SubprocessFlags.STDERR_SILENCE,
       );
 
-      cancellable = this.cancellableCollection.getNew();
+      cancellable = this.cancellableCollection.add(new Gio.Cancellable());
 
       await (proc.wait_async as PromisifiedWithReturnType<typeof proc.wait_async, void>)(cancellable.value);
 
@@ -116,7 +116,7 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
     try {
       const proc = this._launcher.spawnv([this.cliName, '-C']);
 
-      cancellable = this.cancellableCollection.getNew();
+      cancellable = this.cancellableCollection.add(new Gio.Cancellable());
 
       const result = await (
         proc.communicate_utf8_async as PromisifiedWithArrayReturnType<
@@ -174,7 +174,7 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
     try {
       const proc = this._launcher.spawnv([this.cliName, '-l', language, '-f', 'pango', ...this.getOptionsForCLI()]);
 
-      cancellable = this.cancellableCollection.getNew();
+      cancellable = this.cancellableCollection.add(new Gio.Cancellable());
 
       const result = await (
         proc.communicate_utf8_async as PromisifiedWithArrayReturnType<
@@ -212,7 +212,7 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
     const options: string[] = [];
 
     for (const [name, value] of Object.entries(this._options)) {
-      options.push(`-P="${name}=${value}`);
+      options.push(`-P=${name}=${value}`);
     }
 
     return options;
@@ -242,8 +242,13 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
     }
 
     const styles = Object.keys(this._features.styles);
+    styles.sort();
 
     let defaultStyleValue: string | number = 0;
+    if (styles.includes('default')) {
+      defaultStyleValue = 'default';
+    }
+
     if (styles.includes('pano')) {
       defaultStyleValue = 'pano';
     }
@@ -270,7 +275,7 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
     try {
       const proc = this._launcher.spawnv([this.cliName, '-L', '--json']);
 
-      cancellable = this.cancellableCollection.getNew();
+      cancellable = this.cancellableCollection.add(new Gio.Cancellable());
 
       const result = await (
         proc.communicate_utf8_async as PromisifiedWithArrayReturnType<
@@ -314,6 +319,7 @@ export class PygmentsCodeHighlighter extends CodeHighlighter {
   }
 
   override stopProcesses() {
-    this.cancellableCollection.removeAll();
+    this.cancellableCollection.cancelAll();
+    this._launcher.close();
   }
 }

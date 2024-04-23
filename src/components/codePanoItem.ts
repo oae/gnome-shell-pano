@@ -55,6 +55,7 @@ export class CodePanoItem extends PanoItem {
 
         if (!isEnabled) {
           this._type = 'text';
+          void ext.markdownDetector?.cancelAllScheduled();
           this.setTextStyle();
           return;
         }
@@ -79,12 +80,18 @@ export class CodePanoItem extends PanoItem {
 
       if (
         key === 'char-length' ||
-        key === PangoMarkdown.getSchemaKeyForOptions(ext.markdownDetector.currentHighlighter!)
+        key === PangoMarkdown.getSchemaKeyForOptions(ext.markdownDetector.currentHighlighter!) ||
+        key === 'code-highlighter-enabled'
       ) {
         const characterLength = this.codeItemSettings.get_int('char-length');
         ext.markdownDetector
           ?.scheduleMarkupCode(this.metaData.language, this.dbItem.content.trim(), characterLength)
           .then((markdown) => {
+            // if our style changed, after the initial call, after all this might take some time (Since it's scheduled)
+            if ((this._type = 'text')) {
+              return;
+            }
+
             if (!markdown) {
               debug('Failed to get markdown from code item, using not highlighted text');
               return;
@@ -93,6 +100,11 @@ export class CodePanoItem extends PanoItem {
             this.setCodeStyle(markdown);
           })
           .catch((err) => {
+            // if our style changed, after the initial call, after all this might take some time (since it's scheduled)
+            if ((this._type = 'text')) {
+              return;
+            }
+
             debug(`an error occurred while trying to markup Code: ${err}`);
           });
 
