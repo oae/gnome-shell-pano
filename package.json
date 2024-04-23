@@ -22,7 +22,7 @@
     "prettier:fix": "prettier --write .",
     "build:python": "yarn run package:python && yarn run install:python",
     "package:python": "cd ./resources/highlighter/pygments && pipenv run build",
-    "install:python": "pip install ./resources/highlighter/pygments/dist/pano_pygments-0.1.1-py3-none-any.whl -t ./dist/highlighter/pygments/"
+    "install:python": "pip install ./resources/highlighter/pygments/dist/pano_pygments-0.1.2-py3-none-any.whl -t ./dist/highlighter/pygments/"
   },
   "commitlint": {
     "extends": [

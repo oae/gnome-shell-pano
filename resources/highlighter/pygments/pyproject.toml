@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "pano-pygments"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Totto16"]
 description = "Pano pygments plugin"
 license = "GPLv2"
