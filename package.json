@@ -9,7 +9,7 @@
     "gen:locale": "yarn run ts-node scripts/generateLocale.ts",
     "build:ts": "yarn run clean:ts && rollup -c --failAfterWarnings && sed -i 's/var\\ /let\\ /g' dist/extension.js dist/prefs.js",
     "clean:ts": "rm -rf ./dist",
-    "build:extension": "yarn run build:schema && yarn run build:python",
+    "build:extension": "yarn run build:schema",
     "build:schema": "yarn run clean:schema && glib-compile-schemas ./resources/schemas --targetdir=./dist/schemas/",
     "clean:schema": "rm -rf ./dist/schemas/*.compiled",
     "build:package": "yarn run build && rm -rf './dist/pano@elhan.io.zip' && cd ./dist && zip -qr 'pano@elhan.io.zip' .",
@@ -21,8 +21,8 @@
     "prettier:check": "prettier --check .",
     "prettier:fix": "prettier --write .",
     "build:python": "yarn run package:python && yarn run install:python",
-    "package:python": "cd ./resources/highligther/pygments && poetry build --format wheel",
-    "install:python": "pip install ./resources/highligther/pygments/dist/pano_pygments-0.1.1-py3-none-any.whl -t ./dist/python"
+    "package:python": "cd ./resources/highlighter/pygments && pipenv run build",
+    "install:python": "pip install ./resources/highlighter/pygments/dist/pano_pygments-0.1.1-py3-none-any.whl -t ./dist/highlighter/pygments/"
   },
   "commitlint": {
     "extends": [
