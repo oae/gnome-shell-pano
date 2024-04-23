@@ -1,0 +1,12 @@
+
+[project]
+name = "pano-pygments-style" # change this to a package name for your plugin
+version = "0.0.1"
+dependencies = ["pygments"]
+
+
+# Declare plugin styles in this table. The key *is* significant: it is the name
+# the style will be recognized as.
+
+[pygments.styles]
+pano = "style:PanoStyle"
