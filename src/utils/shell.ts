@@ -231,12 +231,16 @@ export const removeSoundContext = () => {
 
 export let debounceIds: number[] = [];
 
-export function debounce<T extends any[], S = unknown>(func: (...args: T) => void | Promise<void>, wait: number) {
+export function debounce<T extends any[], S = unknown>(
+  func: (this: S, ...args: T) => void | Promise<void>,
+  wait: number,
+) {
   let sourceId: null | number;
   return function (...args: T) {
     const debouncedFunc = function (this: S) {
       debounceIds = debounceIds.filter((id) => id !== sourceId);
       sourceId = null;
+
       void func.apply(this, args);
 
       return GLib.SOURCE_REMOVE;

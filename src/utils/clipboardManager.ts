@@ -152,7 +152,8 @@ export class ClipboardManager extends GObject.Object {
       }
 
       this.lastCopiedContent = result;
-      this.emit('changed', result);
+
+      void this.emit('changed', result);
     }, 500);
 
     this.selectionChangedId = this.selection.connect(
