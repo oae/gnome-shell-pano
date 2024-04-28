@@ -16,8 +16,6 @@ export class EmojiPanoItem extends PanoItem {
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
     super(ext, clipboardManager, dbItem);
 
-    this.body.add_style_class_name('pano-item-body-emoji');
-
     this.emojiItemSettings = this.settings.get_child('emoji-item');
 
     const emojiContainer = new St.BoxLayout({
@@ -46,17 +44,16 @@ export class EmojiPanoItem extends PanoItem {
     this.connect('activated', this.setClipboardContent.bind(this));
     this.setStyle();
     this.emojiItemSettings.connect('changed', this.setStyle.bind(this));
+    this.settings.connect('changed::compact-mode', this.setStyle.bind(this));
+    this.settings.connect('changed::item-size', this.setStyle.bind(this));
   }
 
   private setStyle() {
-    const headerBgColor = this.emojiItemSettings.get_string('header-bg-color');
-    const headerColor = this.emojiItemSettings.get_string('header-color');
     const bodyBgColor = this.emojiItemSettings.get_string('body-bg-color');
     const emojiSize = this.emojiItemSettings.get_int('emoji-size');
 
-    this.header.set_style(`background-color: ${headerBgColor}; color: ${headerColor};`);
     this.body.set_style(`background-color: ${bodyBgColor};`);
-    this.label.set_style(`font-size: ${emojiSize}px;`);
+    this.label.set_style(`font-size: ${Math.min(emojiSize, this.body.height - 24)}px;`);
   }
 
   private setClipboardContent(): void {

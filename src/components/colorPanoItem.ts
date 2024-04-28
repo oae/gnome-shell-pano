@@ -7,40 +7,47 @@ import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/cli
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { orientationCompatibility } from '@pano/utils/shell_compatibility';
+import * as colorString from 'color-string';
+
 @registerGObjectClass
 export class ColorPanoItem extends PanoItem {
   private colorItemSettings: Gio.Settings;
+  private container: St.BoxLayout;
+  private icon: St.Icon;
   private label: St.Label;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
     super(ext, clipboardManager, dbItem);
 
-    this.body.add_style_class_name('pano-item-body-color');
-
     this.colorItemSettings = this.settings.get_child('color-item');
 
-    const colorContainer = new St.BoxLayout({
-      ...orientationCompatibility(false),
+    this.container = new St.BoxLayout({
+      ...orientationCompatibility(true),
       xExpand: true,
       yExpand: true,
-      yAlign: Clutter.ActorAlign.FILL,
+      yAlign: Clutter.ActorAlign.CENTER,
       xAlign: Clutter.ActorAlign.FILL,
       styleClass: 'color-container',
-      style: `background-color: ${this.dbItem.content};`,
+    });
+
+    this.icon = new St.Icon({
+      xAlign: Clutter.ActorAlign.CENTER,
+      yAlign: Clutter.ActorAlign.CENTER,
+      styleClass: 'color-icon',
+      gicon: Gio.icon_new_for_string(`${ext.path}/icons/hicolor/scalable/actions/blend-tool-symbolic.svg`),
     });
 
     this.label = new St.Label({
       xAlign: Clutter.ActorAlign.CENTER,
       yAlign: Clutter.ActorAlign.CENTER,
-      xExpand: true,
-      yExpand: true,
       text: this.dbItem.content,
       styleClass: 'color-label',
     });
 
-    colorContainer.add_child(this.label);
+    this.container.add_child(this.icon);
+    this.container.add_child(this.label);
 
-    colorContainer.add_constraint(
+    this.container.add_constraint(
       new Clutter.AlignConstraint({
         source: this,
         alignAxis: Clutter.AlignAxis.Y_AXIS,
@@ -48,24 +55,49 @@ export class ColorPanoItem extends PanoItem {
       }),
     );
 
-    this.body.add_child(colorContainer);
+    this.body.add_child(this.container);
     this.connect('activated', this.setClipboardContent.bind(this));
+    this.setCompactMode();
+    this.settings.connect('changed::compact-mode', this.setCompactMode.bind(this));
     this.setStyle();
     this.colorItemSettings.connect('changed', this.setStyle.bind(this));
   }
 
+  private setCompactMode() {
+    if (this.settings.get_boolean('compact-mode')) {
+      this.container.vertical = false;
+    } else {
+      this.container.vertical = true;
+    }
+  }
+
   private setStyle() {
-    const headerBgColor = this.colorItemSettings.get_string('header-bg-color');
-    const headerColor = this.colorItemSettings.get_string('header-color');
-    const metadataBgColor = this.colorItemSettings.get_string('metadata-bg-color');
-    const metadataColor = this.colorItemSettings.get_string('metadata-color');
     const metadataFontFamily = this.colorItemSettings.get_string('metadata-font-family');
     const metadataFontSize = this.colorItemSettings.get_int('metadata-font-size');
 
-    this.header.set_style(`background-color: ${headerBgColor}; color: ${headerColor};`);
-    this.label.set_style(
-      `background-color: ${metadataBgColor}; color: ${metadataColor}; font-family: ${metadataFontFamily}; font-size: ${metadataFontSize}px;`,
-    );
+    // Calculate the luminance to determine the icon and text color with sufficient contrast
+    const rgb = colorString.get.rgb(this.dbItem.content) ?? [0, 0, 0, 0];
+    const L =
+      0.2126 * this.calculateChannel(rgb[0]) +
+      0.7152 * this.calculateChannel(rgb[1]) +
+      0.0722 * this.calculateChannel(rgb[2]);
+
+    const delta = L > 0.179 ? -30 : 30;
+    const iconColor = `rgb(${Math.clamp(rgb[0] + delta, 0, 255)}, ${Math.clamp(rgb[1] + delta, 0, 255)}, ${Math.clamp(rgb[2] + delta, 0, 255)})`;
+    const textColor = L > 0.179 ? '#000000' : '#ffffff';
+
+    this.body.set_style(`background-color: ${this.dbItem.content};`);
+    this.icon.set_style(`color: ${iconColor};`);
+    this.label.set_style(`color: ${textColor}; font-family: ${metadataFontFamily}; font-size: ${metadataFontSize}px;`);
+  }
+
+  private calculateChannel(c: number) {
+    c /= 255.0;
+    if (c <= 0.04045) {
+      return c / 12.92;
+    } else {
+      return Math.pow((c + 0.055) / 1.055, 2.4);
+    }
   }
 
   private setClipboardContent(): void {

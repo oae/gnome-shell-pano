@@ -32,16 +32,11 @@ export class TextPanoItem extends PanoItem {
   }
 
   private setStyle() {
-    const headerBgColor = this.textItemSettings.get_string('header-bg-color');
-    const headerColor = this.textItemSettings.get_string('header-color');
     const bodyBgColor = this.textItemSettings.get_string('body-bg-color');
     const bodyColor = this.textItemSettings.get_string('body-color');
     const bodyFontFamily = this.textItemSettings.get_string('body-font-family');
     const bodyFontSize = this.textItemSettings.get_int('body-font-size');
     const characterLength = this.textItemSettings.get_int('char-length');
-
-    // Set header styles
-    this.header.set_style(`background-color: ${headerBgColor}; color: ${headerColor};`);
 
     // Set body styles
     this.body.set_style(`background-color: ${bodyBgColor}`);

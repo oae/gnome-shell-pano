@@ -61,6 +61,7 @@
     "@types/eslint": "^9.6.1",
     "@types/eslint__js": "^8.42.3",
     "@types/eslint__eslintrc": "^2.1.2",
+    "@types/color-string": "^1.5.5",
     "@types/events": "^3.0.3",
     "@types/gettext-parser": "^8.0.0",
     "@types/highlight.js": "^10.1.0",
@@ -90,8 +91,8 @@
     "chalk": "4.1.2"
   },
   "dependencies": {
+    "color-string": "^1.9.1",
     "date-fns": "^2.30.0",
-    "hex-color-converter": "^0.2.1",
     "highlight.js": "^11.9.0",
     "htmlparser2": "^9.1.0",
     "is-url": "^1.2.4",

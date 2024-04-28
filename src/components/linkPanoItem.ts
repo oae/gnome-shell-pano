@@ -16,6 +16,7 @@ const DEFAULT_LINK_PREVIEW_IMAGE_NAME = 'link-preview.svg';
 export class LinkPanoItem extends PanoItem {
   private linkItemSettings: Gio.Settings;
   private metaContainer: St.BoxLayout;
+  private imageContainer: St.BoxLayout;
   private titleLabel: St.Label;
   private descriptionLabel: St.Label;
   private linkLabel: St.Label;
@@ -41,10 +42,8 @@ export class LinkPanoItem extends PanoItem {
       descriptionText = decodeURI(description);
     }
 
-    this.body.add_style_class_name('pano-item-body-link');
-
     this.metaContainer = new St.BoxLayout({
-      styleClass: 'pano-item-body-meta-container',
+      styleClass: 'meta-container',
       ...orientationCompatibility(true),
       xExpand: true,
       yExpand: false,
@@ -52,28 +51,19 @@ export class LinkPanoItem extends PanoItem {
       xAlign: Clutter.ActorAlign.FILL,
     });
 
-    this.titleLabel = new St.Label({
-      text: titleText,
-      styleClass: 'link-title-label',
-    });
+    this.titleLabel = new St.Label({ text: titleText, styleClass: 'link-title-label' });
 
-    this.descriptionLabel = new St.Label({
-      text: descriptionText,
-      styleClass: 'link-description-label',
-    });
+    this.descriptionLabel = new St.Label({ text: descriptionText, styleClass: 'link-description-label' });
     this.descriptionLabel.clutterText.singleLineMode = true;
 
-    this.linkLabel = new St.Label({
-      text: this.dbItem.content,
-      styleClass: 'link-label',
-    });
+    this.linkLabel = new St.Label({ text: this.dbItem.content, styleClass: 'link-label' });
 
     let imageFilePath = `file:///${ext.path}/images/${DEFAULT_LINK_PREVIEW_IMAGE_NAME}`;
     if (image && Gio.File.new_for_uri(`file://${getCachePath(ext)}/${image}.png`).query_exists(null)) {
       imageFilePath = `file://${getCachePath(ext)}/${image}.png`;
     }
 
-    const imageContainer = new St.BoxLayout({
+    this.imageContainer = new St.BoxLayout({
       ...orientationCompatibility(true),
       xExpand: true,
       yExpand: true,
@@ -87,17 +77,22 @@ export class LinkPanoItem extends PanoItem {
     this.metaContainer.add_child(this.descriptionLabel);
     this.metaContainer.add_child(this.linkLabel);
 
-    this.body.add_child(imageContainer);
+    if (this.settings.get_boolean('compact-mode')) {
+      this.body.vertical = false;
+      this.imageContainer.width = this.body.height * 1.618;
+    }
+
+    this.body.add_child(this.imageContainer);
     this.body.add_child(this.metaContainer);
 
     this.connect('activated', this.setClipboardContent.bind(this));
+    this.setCompactMode();
+    this.settings.connect('changed::compact-mode', this.setCompactMode.bind(this));
+    this.settings.connect('changed::item-size', this.setCompactMode.bind(this));
     this.setStyle();
     this.linkItemSettings.connect('changed', this.setStyle.bind(this));
 
-    const openLinkIcon = new St.Icon({
-      iconName: 'web-browser-symbolic',
-      styleClass: 'pano-item-action-button-icon',
-    });
+    const openLinkIcon = new St.Icon({ iconName: 'web-browser-symbolic', styleClass: 'pano-item-action-button-icon' });
 
     const openLinkButton = new St.Button({
       styleClass: 'pano-item-action-button pano-item-open-link-button',
@@ -111,23 +106,31 @@ export class LinkPanoItem extends PanoItem {
     });
 
     if (this.settings.get_boolean('open-links-in-browser')) {
-      this.header.actionContainer.insert_child_at_index(openLinkButton, 0);
+      this.overlay.actionContainer.insert_child_at_index(openLinkButton, 0);
     }
 
     this.settings.connect('changed::open-links-in-browser', () => {
-      if (this.header.actionContainer.get_child_at_index(0) === openLinkButton) {
-        this.header.actionContainer.remove_child(openLinkButton);
+      if (this.overlay.actionContainer.get_child_at_index(0) === openLinkButton) {
+        this.overlay.actionContainer.remove_child(openLinkButton);
       }
 
       if (this.settings.get_boolean('open-links-in-browser')) {
-        this.header.actionContainer.insert_child_at_index(openLinkButton, 0);
+        this.overlay.actionContainer.insert_child_at_index(openLinkButton, 0);
       }
     });
   }
 
+  private setCompactMode() {
+    if (this.settings.get_boolean('compact-mode')) {
+      this.body.vertical = false;
+      this.imageContainer.width = this.body.height * 1.618;
+    } else {
+      this.body.vertical = true;
+      this.imageContainer.width = -1;
+    }
+  }
+
   private setStyle() {
-    const headerBgColor = this.linkItemSettings.get_string('header-bg-color');
-    const headerColor = this.linkItemSettings.get_string('header-color');
     const bodyBgColor = this.linkItemSettings.get_string('body-bg-color');
     const metadataBgColor = this.linkItemSettings.get_string('metadata-bg-color');
     const metadataTitleColor = this.linkItemSettings.get_string('metadata-title-color');
@@ -140,7 +143,6 @@ export class LinkPanoItem extends PanoItem {
     const metadataDescriptionFontSize = this.linkItemSettings.get_int('metadata-description-font-size');
     const metadataLinkFontSize = this.linkItemSettings.get_int('metadata-link-font-size');
 
-    this.header.set_style(`background-color: ${headerBgColor}; color: ${headerColor};`);
     this.body.set_style(`background-color: ${bodyBgColor};`);
     this.metaContainer.set_style(`background-color: ${metadataBgColor};`);
     this.titleLabel.set_style(
@@ -155,12 +157,7 @@ export class LinkPanoItem extends PanoItem {
   }
 
   private setClipboardContent(): void {
-    this.clipboardManager.setContent(
-      new ClipboardContent({
-        type: ContentType.TEXT,
-        value: this.dbItem.content,
-      }),
-    );
+    this.clipboardManager.setContent(new ClipboardContent({ type: ContentType.TEXT, value: this.dbItem.content }));
   }
 
   override vfunc_key_press_event(event: Clutter.Event): boolean {

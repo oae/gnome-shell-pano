@@ -16,26 +16,6 @@ export class FileItemStyleRow extends ItemExpanderRow {
 
     this.settings = getCurrentExtensionSettings(ext).get_child('file-item');
 
-    // create header background color row
-    this.add_row(
-      createColorRow(
-        _('Header Background Color'),
-        _('You can change the background color of the header'),
-        this.settings,
-        'header-bg-color',
-      ),
-    );
-
-    // create header text color row
-    this.add_row(
-      createColorRow(
-        _('Header Text Color'),
-        _('You can change the text color of the header'),
-        this.settings,
-        'header-color',
-      ),
-    );
-
     // create body background color row
     this.add_row(
       createColorRow(
@@ -44,6 +24,21 @@ export class FileItemStyleRow extends ItemExpanderRow {
         this.settings,
         'body-bg-color',
       ),
+    );
+
+    // create title text color row
+    this.add_row(
+      createColorRow(
+        _('Title Text Color'),
+        _('You can change the text color of the title'),
+        this.settings,
+        'title-color',
+      ),
+    );
+
+    // create title font row
+    this.add_row(
+      createFontRow(_('Title Font'), _('You can change the font of the title'), this.settings, 'title-font'),
     );
 
     // create body text color row

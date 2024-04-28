@@ -79,7 +79,6 @@ const thirdParty = [
   'prismjs',
   'date-fns/formatDistanceToNow',
   'date-fns/locale',
-  'hex-color-converter',
   'is-url',
   'pretty-bytes',
   'validate-color',
