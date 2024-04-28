@@ -42,14 +42,13 @@ msgstr ""
 #: src/prefs/customization/codeItemStyle.ts:22
 #: src/prefs/customization/emojiItemStyle.ts:22
 #: src/prefs/customization/fileItemStyle.ts:22
-#: src/prefs/customization/imageItemStyle.ts:21
 #: src/prefs/customization/linkItemStyle.ts:22
 #: src/prefs/customization/textItemStyle.ts:22
 msgid "Body Background Color"
 msgstr ""
 
 #: src/prefs/customization/codeItemStyle.ts:30
-#: src/prefs/customization/colorItemStyle.ts:41
+#: src/prefs/customization/colorItemStyle.ts:21
 #: src/prefs/customization/fileItemStyle.ts:50
 #: src/prefs/customization/textItemStyle.ts:35
 msgid "Body Font"
@@ -82,10 +81,6 @@ msgstr ""
 
 #: src/prefs/customization/fileItemStyle.ts:15
 msgid "Change the style of the file item"
-msgstr ""
-
-#: src/prefs/customization/imageItemStyle.ts:14
-msgid "Change the style of the image item"
 msgstr ""
 
 #: src/prefs/customization/linkItemStyle.ts:15
@@ -240,10 +235,6 @@ msgstr ""
 msgid "Image Copied"
 msgstr ""
 
-#: src/prefs/customization/imageItemStyle.ts:14
-msgid "Image Item Style"
-msgstr ""
-
 #: src/components/indicator/settingsMenu.ts:67
 msgid "Incognito Mode"
 msgstr ""
@@ -260,7 +251,7 @@ msgstr ""
 msgid "Item Size"
 msgstr ""
 
-#: src/prefs/customization/itemStyleGroup.ts:18
+#: src/prefs/customization/itemStyleGroup.ts:17
 msgid "Item Style"
 msgstr ""
 
@@ -300,8 +291,6 @@ msgstr ""
 msgid "Manage Exclusions"
 msgstr ""
 
-#: src/prefs/customization/colorItemStyle.ts:22
-#: src/prefs/customization/imageItemStyle.ts:31
 #: src/prefs/customization/linkItemStyle.ts:32
 msgid "Metadata Background Color"
 msgstr ""
@@ -314,21 +303,12 @@ msgstr ""
 msgid "Metadata Description Font"
 msgstr ""
 
-#: src/prefs/customization/imageItemStyle.ts:50
-msgid "Metadata Font"
-msgstr ""
-
 #: src/prefs/customization/linkItemStyle.ts:82
 msgid "Metadata Link Color"
 msgstr ""
 
 #: src/prefs/customization/linkItemStyle.ts:92
 msgid "Metadata Link Font"
-msgstr ""
-
-#: src/prefs/customization/colorItemStyle.ts:32
-#: src/prefs/customization/imageItemStyle.ts:41
-msgid "Metadata Text Color"
 msgstr ""
 
 #: src/prefs/customization/linkItemStyle.ts:42
@@ -496,14 +476,11 @@ msgstr ""
 #: src/prefs/customization/codeItemStyle.ts:23
 #: src/prefs/customization/emojiItemStyle.ts:23
 #: src/prefs/customization/fileItemStyle.ts:23
-#: src/prefs/customization/imageItemStyle.ts:22
 #: src/prefs/customization/linkItemStyle.ts:23
 #: src/prefs/customization/textItemStyle.ts:23
 msgid "You can change the background color of the body"
 msgstr ""
 
-#: src/prefs/customization/colorItemStyle.ts:23
-#: src/prefs/customization/imageItemStyle.ts:32
 #: src/prefs/customization/linkItemStyle.ts:33
 msgid "You can change the background color of the metadata"
 msgstr ""
@@ -527,8 +504,7 @@ msgstr ""
 msgid "You can change the font of the body"
 msgstr ""
 
-#: src/prefs/customization/colorItemStyle.ts:41
-#: src/prefs/customization/imageItemStyle.ts:50
+#: src/prefs/customization/colorItemStyle.ts:21
 msgid "You can change the font of the metadata"
 msgstr ""
 
@@ -575,11 +551,6 @@ msgstr ""
 #: src/prefs/customization/fileItemStyle.ts:46
 #: src/prefs/customization/textItemStyle.ts:31
 msgid "You can change the text color of the body"
-msgstr ""
-
-#: src/prefs/customization/colorItemStyle.ts:33
-#: src/prefs/customization/imageItemStyle.ts:42
-msgid "You can change the text color of the metadata"
 msgstr ""
 
 #: src/prefs/customization/fileItemStyle.ts:33

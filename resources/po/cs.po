@@ -50,7 +50,6 @@ msgstr "Kód - nastavení stylů"
 #: src/prefs/customization/codeItemStyle.ts:22
 #: src/prefs/customization/emojiItemStyle.ts:22
 #: src/prefs/customization/fileItemStyle.ts:22
-#: src/prefs/customization/imageItemStyle.ts:21
 #: src/prefs/customization/linkItemStyle.ts:22
 #: src/prefs/customization/textItemStyle.ts:22
 msgid "Body Background Color"
@@ -59,14 +58,13 @@ msgstr "Barva pozadí těla"
 #: src/prefs/customization/codeItemStyle.ts:23
 #: src/prefs/customization/emojiItemStyle.ts:23
 #: src/prefs/customization/fileItemStyle.ts:23
-#: src/prefs/customization/imageItemStyle.ts:22
 #: src/prefs/customization/linkItemStyle.ts:23
 #: src/prefs/customization/textItemStyle.ts:23
 msgid "You can change the background color of the body"
 msgstr "Můžete změnit barvu pozadí těla"
 
 #: src/prefs/customization/codeItemStyle.ts:30
-#: src/prefs/customization/colorItemStyle.ts:41
+#: src/prefs/customization/colorItemStyle.ts:21
 #: src/prefs/customization/fileItemStyle.ts:50
 #: src/prefs/customization/textItemStyle.ts:35
 msgid "Body Font"
@@ -96,30 +94,7 @@ msgstr "Změňte styly barvy"
 msgid "Color Item Style"
 msgstr "Barva - nastavení stylů"
 
-#: src/prefs/customization/colorItemStyle.ts:22
-#: src/prefs/customization/imageItemStyle.ts:31
-#: src/prefs/customization/linkItemStyle.ts:32
-msgid "Metadata Background Color"
-msgstr "Barva pozadí metadat"
-
-#: src/prefs/customization/colorItemStyle.ts:23
-#: src/prefs/customization/imageItemStyle.ts:32
-#: src/prefs/customization/linkItemStyle.ts:33
-msgid "You can change the background color of the metadata"
-msgstr "Můžete změnit barvu pozadí metadat"
-
-#: src/prefs/customization/colorItemStyle.ts:32
-#: src/prefs/customization/imageItemStyle.ts:41
-msgid "Metadata Text Color"
-msgstr "Barva textu metadat"
-
-#: src/prefs/customization/colorItemStyle.ts:33
-#: src/prefs/customization/imageItemStyle.ts:42
-msgid "You can change the text color of the metadata"
-msgstr "Můžete změnit barvu textu metadat"
-
-#: src/prefs/customization/colorItemStyle.ts:41
-#: src/prefs/customization/imageItemStyle.ts:50
+#: src/prefs/customization/colorItemStyle.ts:21
 msgid "You can change the font of the metadata"
 msgstr "Můžete změnit písmo metadat"
 
@@ -281,23 +256,11 @@ msgstr "Barva textu těla"
 msgid "You can change the text color of the body"
 msgstr "Můžete změnit barvu textu těla"
 
-#: src/prefs/customization/imageItemStyle.ts:14
-msgid "Change the style of the image item"
-msgstr "Změňte styly obrázku"
-
-#: src/prefs/customization/imageItemStyle.ts:14
-msgid "Image Item Style"
-msgstr "Obrázek - nastavení stylů"
-
-#: src/prefs/customization/imageItemStyle.ts:50
-msgid "Metadata Font"
-msgstr "Písmo metadat"
-
 #: src/prefs/customization/index.ts:13
 msgid "Customization"
 msgstr "Přizpůsobení"
 
-#: src/prefs/customization/itemStyleGroup.ts:18
+#: src/prefs/customization/itemStyleGroup.ts:17
 msgid "Item Style"
 msgstr "Styly položky"
 
@@ -308,6 +271,14 @@ msgstr "Změňte styly odkazu"
 #: src/prefs/customization/linkItemStyle.ts:15
 msgid "Link Item Style"
 msgstr "Odkaz - nastavení stylů"
+
+#: src/prefs/customization/linkItemStyle.ts:32
+msgid "Metadata Background Color"
+msgstr "Barva pozadí metadat"
+
+#: src/prefs/customization/linkItemStyle.ts:33
+msgid "You can change the background color of the metadata"
+msgstr "Můžete změnit barvu pozadí metadat"
 
 #: src/prefs/customization/linkItemStyle.ts:42
 msgid "Metadata Title Color"

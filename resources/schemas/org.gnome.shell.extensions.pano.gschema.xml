@@ -157,7 +157,6 @@
     <child name="text-item" schema="org.gnome.shell.extensions.pano.text-item" />
     <child name="emoji-item" schema="org.gnome.shell.extensions.pano.emoji-item" />
     <child name="file-item" schema="org.gnome.shell.extensions.pano.file-item" />
-    <child name="image-item" schema="org.gnome.shell.extensions.pano.image-item" />
     <child name="code-item" schema="org.gnome.shell.extensions.pano.code-item" />
     <child name="color-item" schema="org.gnome.shell.extensions.pano.color-item" />
   </schema>
@@ -301,34 +300,6 @@
     </key>
   </schema>
 
-  <schema path="/org/gnome/shell/extensions/pano/image-item/" id="org.gnome.shell.extensions.pano.image-item">
-    <key name="body-bg-color" type="s">
-      <default>'rgb(48, 48, 48)'</default>
-      <summary>body-bg-color</summary>
-      <description>body-bg-color</description>
-    </key>
-    <key name="metadata-bg-color" type="s">
-      <default>'rgba(0, 0, 0, 0.7)'</default>
-      <summary>metadata-bg-color</summary>
-      <description>metadata-bg-color</description>
-    </key>
-    <key name="metadata-color" type="s">
-      <default>'rgb(255, 255, 255)'</default>
-      <summary>metadata-color</summary>
-      <description>metadata-color</description>
-    </key>
-    <key name="metadata-font-family" type="s">
-      <default>'Cantarell Regular'</default>
-      <summary>metadata-font-family</summary>
-      <description>metadata-font-family</description>
-    </key>
-    <key name="metadata-font-size" type="i">
-      <default>12</default>
-      <summary>metadata-font-size</summary>
-      <description>metadata-font-size</description>
-    </key>
-  </schema>
-
   <schema path="/org/gnome/shell/extensions/pano/code-item/" id="org.gnome.shell.extensions.pano.code-item">
     <key name="body-bg-color" type="s">
       <default>'rgb(48, 48, 48)'</default>
@@ -354,16 +325,6 @@
   </schema>
 
   <schema path="/org/gnome/shell/extensions/pano/color-item/" id="org.gnome.shell.extensions.pano.color-item">
-    <key name="metadata-bg-color" type="s">
-      <default>'rgb(0, 0, 0)'</default>
-      <summary>metadata-bg-color</summary>
-      <description>metadata-bg-color</description>
-    </key>
-    <key name="metadata-color" type="s">
-      <default>'rgb(255, 255, 255)'</default>
-      <summary>metadata-color</summary>
-      <description>metadata-color</description>
-    </key>
     <key name="metadata-font-family" type="s">
       <default>'Cantarell Regular'</default>
       <summary>metadata-font-family</summary>

@@ -10,7 +10,6 @@ const NO_IMAGE_FOUND_FILE_NAME = 'no-image-found.svg';
 
 @registerGObjectClass
 export class ImagePanoItem extends PanoItem {
-  private imageItemSettings: Gio.Settings;
   private ext: ExtensionBase;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
@@ -18,25 +17,18 @@ export class ImagePanoItem extends PanoItem {
 
     this.ext = ext;
 
-    this.imageItemSettings = this.settings.get_child('image-item');
-
     this.connect('activated', this.setClipboardContent.bind(this));
     this.setStyle();
-    this.imageItemSettings.connect('changed', this.setStyle.bind(this));
   }
 
   private setStyle() {
-    const bodyBgColor = this.imageItemSettings.get_string('body-bg-color');
-
     let imageFilePath = `file://${getImagesPath(this.ext)}/${this.dbItem.content}.png`;
     const imageFile = Gio.File.new_for_uri(imageFilePath);
     if (!imageFile.query_exists(null)) {
       imageFilePath = `file://${this.ext.path}/images/${NO_IMAGE_FOUND_FILE_NAME}`;
     }
 
-    this.body.set_style(
-      `background-color: ${bodyBgColor}; background-image: url(${imageFilePath}); background-size: cover;`,
-    );
+    this.body.set_style(`background-image: url(${imageFilePath}); background-size: cover;`);
   }
 
   private setClipboardContent(): void {
