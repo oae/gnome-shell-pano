@@ -50,7 +50,6 @@ msgstr "Style de l’élément de code"
 #: src/prefs/customization/codeItemStyle.ts:22
 #: src/prefs/customization/emojiItemStyle.ts:22
 #: src/prefs/customization/fileItemStyle.ts:22
-#: src/prefs/customization/imageItemStyle.ts:21
 #: src/prefs/customization/linkItemStyle.ts:22
 #: src/prefs/customization/textItemStyle.ts:22
 msgid "Body Background Color"
@@ -59,14 +58,13 @@ msgstr "Couleur de fond du contenu"
 #: src/prefs/customization/codeItemStyle.ts:23
 #: src/prefs/customization/emojiItemStyle.ts:23
 #: src/prefs/customization/fileItemStyle.ts:23
-#: src/prefs/customization/imageItemStyle.ts:22
 #: src/prefs/customization/linkItemStyle.ts:23
 #: src/prefs/customization/textItemStyle.ts:23
 msgid "You can change the background color of the body"
 msgstr "Vous pouvez modifier la couleur d’arrière-plan du contenu"
 
 #: src/prefs/customization/codeItemStyle.ts:30
-#: src/prefs/customization/colorItemStyle.ts:41
+#: src/prefs/customization/colorItemStyle.ts:21
 #: src/prefs/customization/fileItemStyle.ts:50
 #: src/prefs/customization/textItemStyle.ts:35
 msgid "Body Font"
@@ -96,30 +94,7 @@ msgstr "Changer le style de l’élément de couleur"
 msgid "Color Item Style"
 msgstr "Style de l’élément de couleur"
 
-#: src/prefs/customization/colorItemStyle.ts:22
-#: src/prefs/customization/imageItemStyle.ts:31
-#: src/prefs/customization/linkItemStyle.ts:32
-msgid "Metadata Background Color"
-msgstr "Couleur de fond des métadonnées"
-
-#: src/prefs/customization/colorItemStyle.ts:23
-#: src/prefs/customization/imageItemStyle.ts:32
-#: src/prefs/customization/linkItemStyle.ts:33
-msgid "You can change the background color of the metadata"
-msgstr "Vous pouvez modifier la couleur d’arrière-plan des métadonnées"
-
-#: src/prefs/customization/colorItemStyle.ts:32
-#: src/prefs/customization/imageItemStyle.ts:41
-msgid "Metadata Text Color"
-msgstr "Couleur du texte des métadonnées"
-
-#: src/prefs/customization/colorItemStyle.ts:33
-#: src/prefs/customization/imageItemStyle.ts:42
-msgid "You can change the text color of the metadata"
-msgstr "Vous pouvez modifier la couleur du texte des métadonnées"
-
-#: src/prefs/customization/colorItemStyle.ts:41
-#: src/prefs/customization/imageItemStyle.ts:50
+#: src/prefs/customization/colorItemStyle.ts:21
 msgid "You can change the font of the metadata"
 msgstr "Vous pouvez modifier la police des métadonnées"
 
@@ -281,23 +256,11 @@ msgstr "Couleur du texte du corpus"
 msgid "You can change the text color of the body"
 msgstr "Vous pouvez modifier la couleur du texte du corpus"
 
-#: src/prefs/customization/imageItemStyle.ts:14
-msgid "Change the style of the image item"
-msgstr "Changer le style de l’élément d’image"
-
-#: src/prefs/customization/imageItemStyle.ts:14
-msgid "Image Item Style"
-msgstr "Style de l’élément d’image"
-
-#: src/prefs/customization/imageItemStyle.ts:50
-msgid "Metadata Font"
-msgstr "Police des métadonnées"
-
 #: src/prefs/customization/index.ts:13
 msgid "Customization"
 msgstr "Personnalisation"
 
-#: src/prefs/customization/itemStyleGroup.ts:18
+#: src/prefs/customization/itemStyleGroup.ts:17
 msgid "Item Style"
 msgstr "Style de l’élément"
 
@@ -308,6 +271,14 @@ msgstr "Changer le style de l’élément de lien"
 #: src/prefs/customization/linkItemStyle.ts:15
 msgid "Link Item Style"
 msgstr "Style de l’élément de lien"
+
+#: src/prefs/customization/linkItemStyle.ts:32
+msgid "Metadata Background Color"
+msgstr "Couleur de fond des métadonnées"
+
+#: src/prefs/customization/linkItemStyle.ts:33
+msgid "You can change the background color of the metadata"
+msgstr "Vous pouvez modifier la couleur d’arrière-plan des métadonnées"
 
 #: src/prefs/customization/linkItemStyle.ts:42
 msgid "Metadata Title Color"
