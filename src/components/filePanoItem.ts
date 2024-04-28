@@ -1,5 +1,6 @@
 import Clutter from '@girs/clutter-16';
 import Gio from '@girs/gio-2.0';
+import GLib from '@girs/glib-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import Pango from '@girs/pango-1.0';
 import St from '@girs/st-16';
@@ -63,6 +64,7 @@ export class FilePanoItem extends PanoItem {
     });
 
     // Check for the common parent directory for all files
+    const homeDir = GLib.get_home_dir();
     const commonDirectory = this.fileList
       .map((f) => {
         const items = f.split('://').filter((c) => !!c);
@@ -87,7 +89,7 @@ export class FilePanoItem extends PanoItem {
 
     if (this.fileList.length > 1) {
       const directoryLabel = new St.Label({
-        text: commonDirectory,
+        text: commonDirectory.replace(homeDir, '~'),
         styleClass: 'top-level-directory',
         xAlign: Clutter.ActorAlign.FILL,
         xExpand: true,
@@ -121,7 +123,10 @@ export class FilePanoItem extends PanoItem {
         });
 
         const uriLabel = new St.Label({
-          text: this.fileList.length == 1 ? uri : uri.substring(commonDirectory.length + 1),
+          text:
+            this.fileList.length == 1
+              ? uri.replace(homeDir, '~')
+              : uri.substring(commonDirectory.length + 1).replace(homeDir, '~'),
           styleClass: 'file-label',
           xAlign: Clutter.ActorAlign.FILL,
           yAlign: Clutter.ActorAlign.CENTER,
