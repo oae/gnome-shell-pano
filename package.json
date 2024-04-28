@@ -56,6 +56,8 @@
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.6",
+    "@tsconfig/strictest": "^2.0.5",
+    "@types/color-string": "^1.5.5",
     "@types/events": "^3.0.3",
     "@types/gettext-parser": "^4.0.4",
     "@types/highlight.js": "^10.1.0",
@@ -79,12 +81,11 @@
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-styles": "^4.0.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.5",
-    "@tsconfig/strictest": "^2.0.5"
+    "typescript": "^5.4.5"
   },
   "dependencies": {
+    "color-string": "^1.9.1",
     "date-fns": "^2.30.0",
-    "hex-color-converter": "^0.2.1",
     "highlight.js": "^11.9.0",
     "htmlparser2": "^9.1.0",
     "is-url": "^1.2.4",

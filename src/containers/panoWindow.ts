@@ -45,6 +45,9 @@ export class PanoWindow extends St.BoxLayout {
     this.settings.connect('changed::item-size', () => {
       this.setWindowDimensions(themeContext.scaleFactor);
     });
+    this.settings.connect('changed::compact-mode', () => {
+      this.setWindowDimensions(themeContext.scaleFactor);
+    });
     this.settings.connect('changed::window-position', () => {
       this.setWindowDimensions(themeContext.scaleFactor);
       this.setAlignment();
@@ -105,7 +108,8 @@ export class PanoWindow extends St.BoxLayout {
       this.add_style_class_name('vertical');
       this.set_width((this.settings.get_int('item-size') + 20) * scaleFactor);
     } else {
-      this.set_height((this.settings.get_int('item-size') + 90) * scaleFactor);
+      const mult = this.settings.get_boolean('compact-mode') ? 0.3 : 0.7;
+      this.set_height((this.settings.get_int('item-size') * mult + 70) * scaleFactor);
     }
   }
 

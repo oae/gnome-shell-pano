@@ -30,14 +30,11 @@ export class CodePanoItem extends PanoItem {
   }
 
   private setStyle() {
-    const headerBgColor = this.codeItemSettings.get_string('header-bg-color');
-    const headerColor = this.codeItemSettings.get_string('header-color');
     const bodyBgColor = this.codeItemSettings.get_string('body-bg-color');
     const bodyFontFamily = this.codeItemSettings.get_string('body-font-family');
     const bodyFontSize = this.codeItemSettings.get_int('body-font-size');
     const characterLength = this.codeItemSettings.get_int('char-length');
 
-    this.header.set_style(`background-color: ${headerBgColor}; color: ${headerColor};`);
     this.body.set_style(`background-color: ${bodyBgColor}`);
     this.label.set_style(`font-size: ${bodyFontSize}px; font-family: ${bodyFontFamily};`);
 

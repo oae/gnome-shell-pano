@@ -1,7 +1,13 @@
 import Adw from '@girs/adw-1';
 import Gio from '@girs/gio-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
-import { createColorRow, createDropdownRow, createFontRow, createSpinRow } from '@pano/prefs/customization/utils';
+import {
+  createColorRow,
+  createDropdownRow,
+  createFontRow,
+  createSpinRow,
+  createSwitchRow,
+} from '@pano/prefs/customization/utils';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
 
@@ -25,6 +31,15 @@ export class CommonStyleGroup extends Adw.PreferencesGroup {
 
     this.add(
       createSpinRow(_('Item Size'), _('You can change the item size'), this.settings, 'item-size', 5, 200, 1000),
+    );
+
+    this.add(
+      createSwitchRow(
+        _('Compact Mode'),
+        _('Controls the compactness of the clipboard item.'),
+        this.settings,
+        'compact-mode',
+      ),
     );
 
     this.add(
@@ -62,12 +77,6 @@ export class CommonStyleGroup extends Adw.PreferencesGroup {
       ),
     );
     this.add(
-      createFontRow(_('Item Title Font'), _('You can change the font of the title'), this.settings, 'item-title-font'),
-    );
-    this.add(
-      createFontRow(_('Item Date Font'), _('You can change the font of the date'), this.settings, 'item-date-font'),
-    );
-    this.add(
       createColorRow(
         _('Active Item Border Color'),
         _('You can change the active item border color'),
@@ -81,6 +90,14 @@ export class CommonStyleGroup extends Adw.PreferencesGroup {
         _('You can change the hovered item border color'),
         this.settings,
         'hovered-item-border-color',
+      ),
+    );
+    this.add(
+      createSwitchRow(
+        _('Show Controls on Hover'),
+        _('When enabled, the controls will only show on hover'),
+        this.settings,
+        'show-controls-on-hover',
       ),
     );
   }

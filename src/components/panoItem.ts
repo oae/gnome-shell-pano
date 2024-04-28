@@ -7,7 +7,7 @@ import Graphene from '@girs/graphene-1.0';
 import Meta from '@girs/meta-14';
 import Shell from '@girs/shell-14';
 import St from '@girs/st-14';
-import { PanoItemHeader } from '@pano/components/panoItemHeader';
+import { PanoItemOverlay } from '@pano/components/panoItemOverlay';
 import { ClipboardManager } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
@@ -40,9 +40,9 @@ export class PanoItem extends St.BoxLayout {
     },
   };
 
-  protected header: PanoItemHeader;
   private timeoutId: number | undefined;
   protected body: St.BoxLayout;
+  protected overlay: PanoItemOverlay;
   protected clipboardManager: ClipboardManager;
   public dbItem: DBItem;
   protected settings: Gio.Settings;
@@ -57,6 +57,8 @@ export class PanoItem extends St.BoxLayout {
       styleClass: 'pano-item',
       vertical: true,
       trackHover: true,
+      xExpand: false,
+      yExpand: false,
     });
 
     this.clipboardManager = clipboardManager;
@@ -119,23 +121,7 @@ export class PanoItem extends St.BoxLayout {
       }
     });
 
-    this.header = new PanoItemHeader(ext, getPanoItemTypes(ext)[dbItem.itemType], dbItem.copyDate);
-    this.header.setFavorite(this.dbItem.isFavorite);
-    this.header.connect('on-remove', () => {
-      this.emit('on-remove', JSON.stringify(this.dbItem));
-      return Clutter.EVENT_PROPAGATE;
-    });
-
-    this.header.connect('on-favorite', () => {
-      this.dbItem = { ...this.dbItem, isFavorite: !this.dbItem.isFavorite };
-      this.emit('on-favorite', JSON.stringify(this.dbItem));
-      return Clutter.EVENT_PROPAGATE;
-    });
-
-    this.connect('on-favorite', () => {
-      this.header.setFavorite(this.dbItem.isFavorite);
-      return Clutter.EVENT_PROPAGATE;
-    });
+    this.add_style_class_name(`pano-item-${this.dbItem.itemType.toLowerCase()}`);
 
     this.body = new St.BoxLayout({
       styleClass: 'pano-item-body',
@@ -147,10 +133,39 @@ export class PanoItem extends St.BoxLayout {
       yExpand: true,
     });
 
-    this.add_child(this.header);
+    this.overlay = new PanoItemOverlay(getPanoItemTypes(ext)[dbItem.itemType]);
+    this.overlay.setFavorite(this.dbItem.isFavorite);
+    this.overlay.connect('on-remove', () => {
+      this.emit('on-remove', JSON.stringify(this.dbItem));
+      return Clutter.EVENT_PROPAGATE;
+    });
+
+    this.overlay.connect('on-favorite', () => {
+      this.dbItem = { ...this.dbItem, isFavorite: !this.dbItem.isFavorite };
+      this.emit('on-favorite', JSON.stringify(this.dbItem));
+      return Clutter.EVENT_PROPAGATE;
+    });
+
+    this.connect('on-favorite', () => {
+      this.overlay.setFavorite(this.dbItem.isFavorite);
+      return Clutter.EVENT_PROPAGATE;
+    });
+
     this.add_child(this.body);
+    this.add_child(this.overlay);
+
+    this.overlay.add_constraint(
+      new Clutter.BindConstraint({
+        source: this.body,
+        coordinate: Clutter.BindCoordinate.Y,
+      }),
+    );
 
     const themeContext = St.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
+
+    if (this.settings.get_boolean('compact-mode')) {
+      this.add_style_class_name('compact');
+    }
 
     themeContext.connect('notify::scale-factor', () => {
       this.setBodyDimensions();
@@ -158,11 +173,23 @@ export class PanoItem extends St.BoxLayout {
     this.settings.connect('changed::item-size', () => {
       this.setBodyDimensions();
     });
+    this.settings.connect('changed::compact-mode', () => {
+      if (this.settings.get_boolean('compact-mode')) {
+        this.add_style_class_name('compact');
+      } else {
+        this.remove_style_class_name('compact');
+      }
+      this.setBodyDimensions();
+    });
     this.settings.connect('changed::window-position', () => {
       this.setBodyDimensions();
     });
 
     this.setBodyDimensions();
+
+    this.setVisible();
+    this.connect('style-changed', this.setVisible.bind(this));
+    this.settings.connect('changed::show-controls-on-hover', this.setVisible.bind(this));
   }
 
   private setBodyDimensions() {
@@ -175,8 +202,21 @@ export class PanoItem extends St.BoxLayout {
       this.set_y_align(Clutter.ActorAlign.FILL);
     }
     const { scaleFactor } = St.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
-    this.body.set_height(this.settings.get_int('item-size') * scaleFactor - this.header.get_height());
+    const mult = this.settings.get_boolean('compact-mode') ? 0.3 : 0.7;
+    const height = this.settings.get_int('item-size') * mult;
+
+    this.set_height(height * scaleFactor);
     this.body.set_width(this.settings.get_int('item-size') * scaleFactor);
+    this.body.set_height((height - 8) * scaleFactor);
+    this.overlay.set_height((height - 8) * scaleFactor);
+  }
+
+  private setVisible() {
+    if (this.hover || this.selected) {
+      this.overlay.setVisibility(true);
+    } else {
+      this.overlay.setVisibility(!this.settings.get_boolean('show-controls-on-hover'));
+    }
   }
 
   private setSelected(selected: boolean) {
@@ -189,6 +229,7 @@ export class PanoItem extends St.BoxLayout {
     }
     this.selected = selected;
   }
+
   override vfunc_key_press_event(event: Clutter.Event): boolean {
     if (
       event.get_key_symbol() === Clutter.KEY_Return ||
@@ -235,7 +276,7 @@ export class PanoItem extends St.BoxLayout {
       GLib.Source.remove(this.timeoutId);
       this.timeoutId = undefined;
     }
-    this.header.destroy();
+    this.overlay.destroy();
     super.destroy();
   }
 }
