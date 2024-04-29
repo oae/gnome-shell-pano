@@ -45,6 +45,9 @@ export class PanoWindow extends St.BoxLayout {
     this.settings.connect('changed::item-size', () => {
       this.setWindowDimensions(themeContext.scaleFactor);
     });
+    this.settings.connect('changed::enable-headers', () => {
+      this.setWindowDimensions(themeContext.scaleFactor);
+    });
     this.settings.connect('changed::compact-mode', () => {
       this.setWindowDimensions(themeContext.scaleFactor);
     });
@@ -109,7 +112,8 @@ export class PanoWindow extends St.BoxLayout {
       this.set_width((this.settings.get_int('item-size') + 20) * scaleFactor);
     } else {
       const mult = this.settings.get_boolean('compact-mode') ? 0.3 : 0.7;
-      this.set_height((this.settings.get_int('item-size') * mult + 70) * scaleFactor);
+      const header = this.settings.get_boolean('enable-headers') ? 48 : 0;
+      this.set_height((this.settings.get_int('item-size') * mult + 70 + header) * scaleFactor);
     }
   }
 

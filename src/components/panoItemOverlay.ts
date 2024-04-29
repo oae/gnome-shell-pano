@@ -1,28 +1,13 @@
 import Clutter from '@girs/clutter-14';
-import GLib from '@girs/glib-2.0';
 import GObject from '@girs/gobject-2.0';
 import St from '@girs/st-14';
 import { registerGObjectClass, SignalsDefinition } from '@pano/utils/gjs';
-import { IPanoItemType } from '@pano/utils/panoItemType';
-import { Locale } from 'date-fns';
-import * as dateLocale from 'date-fns/locale';
-
-const langs = GLib.get_language_names_with_category('LC_MESSAGES').map(
-  (l) => l.replaceAll('_', '').replaceAll('-', '').split('.')[0],
-);
-const localeKey = Object.keys(dateLocale).find((key) => langs.includes(key));
 
 export type PanoItemOverlaySignalType = 'on-remove' | 'on-favorite';
 interface PanoItemOverlaySignals extends SignalsDefinition<PanoItemOverlaySignalType> {
   'on-remove': Record<string, never>;
   'on-favorite': Record<string, never>;
 }
-
-type FormatOptions = {
-  includeSeconds?: boolean;
-  addSuffix?: boolean;
-  locale?: Locale;
-};
 
 @registerGObjectClass
 export class PanoItemOverlay extends St.BoxLayout {
@@ -36,25 +21,12 @@ export class PanoItemOverlay extends St.BoxLayout {
 
   private favoriteButton: St.Button;
   actionContainer: St.BoxLayout;
-  itemType: IPanoItemType;
 
-  constructor(itemType: IPanoItemType) {
+  constructor() {
     super({
-      styleClass: `pano-item-overlay pano-item-overlay-${itemType.classSuffix}`,
+      styleClass: 'pano-item-overlay',
       vertical: false,
     });
-    this.itemType = itemType;
-
-    const options: FormatOptions = {
-      addSuffix: true,
-    };
-
-    if (localeKey !== undefined) {
-      const locale = (dateLocale as Record<string, Locale | undefined>)[localeKey];
-      if (locale) {
-        options.locale = locale;
-      }
-    }
 
     this.actionContainer = new St.BoxLayout({
       styleClass: 'pano-item-actions',

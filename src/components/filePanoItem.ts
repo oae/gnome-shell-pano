@@ -148,10 +148,13 @@ export class FilePanoItem extends PanoItem {
 
     this.connect('activated', this.setClipboardContent.bind(this));
     this.setStyle();
+    this.settings.connect('changed::enable-headers', this.setStyle.bind(this));
     this.fileItemSettings.connect('changed', this.setStyle.bind(this));
   }
 
   private setStyle() {
+    const headerBgColor = this.fileItemSettings.get_string('header-bg-color');
+    const headerColor = this.fileItemSettings.get_string('header-color');
     const bodyBgColor = this.fileItemSettings.get_string('body-bg-color');
     const titleColor = this.fileItemSettings.get_string('title-color');
     const titleFontFamily = this.fileItemSettings.get_string('title-font-family');
@@ -160,8 +163,10 @@ export class FilePanoItem extends PanoItem {
     const bodyFontFamily = this.fileItemSettings.get_string('body-font-family');
     const bodyFontSize = this.fileItemSettings.get_int('body-font-size');
 
-    this.body.set_style(`background-color: ${bodyBgColor};`);
+    this.header.set_style(`background-color: ${headerBgColor}; color: ${headerColor};`);
+    this.container.set_style(`background-color: ${bodyBgColor};`);
 
+    this.titleContainer.visible = !this.settings.get_boolean('enable-headers');
     this.titleContainer.set_style(
       `color: ${titleColor}; font-family: ${titleFontFamily}; font-size: ${titleFontSize}px;`,
     );

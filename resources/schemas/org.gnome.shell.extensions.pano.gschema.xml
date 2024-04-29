@@ -107,6 +107,11 @@
       <summary>Item Size</summary>
       <description>Controls size of the clipboard item.</description>
     </key>
+    <key name="enable-headers" type="b">
+      <default>false</default>
+      <summary>Enable Headers</summary>
+      <description>Controls the visibility of the clipboard item headers.</description>
+    </key>
     <key name="compact-mode" type="b">
       <default>false</default>
       <summary>Compact Mode</summary>
@@ -137,6 +142,26 @@
       <summary>search-bar-font-size</summary>
       <description>search-bar-font-size</description>
     </key>
+    <key name="item-title-font-family" type="s">
+      <default>'Cantarell Regular'</default>
+      <summary>item-title-font-family</summary>
+      <description>item-title-font-family</description>
+    </key>
+    <key name="item-title-font-size" type="i">
+      <default>20</default>
+      <summary>item-title-font-size</summary>
+      <description>item-title-font-size</description>
+    </key>
+    <key name="item-date-font-family" type="s">
+      <default>'Cantarell Regular'</default>
+      <summary>item-date-font-family</summary>
+      <description>item-date-font-family</description>
+    </key>
+    <key name="item-date-font-size" type="i">
+      <default>11</default>
+      <summary>item-date-font-size</summary>
+      <description>item-date-font-size</description>
+    </key>
     <key name="active-item-border-color" type="s">
       <default>'rgb(53, 132, 228)'</default>
       <summary>active-item-border-color</summary>
@@ -157,11 +182,22 @@
     <child name="text-item" schema="org.gnome.shell.extensions.pano.text-item" />
     <child name="emoji-item" schema="org.gnome.shell.extensions.pano.emoji-item" />
     <child name="file-item" schema="org.gnome.shell.extensions.pano.file-item" />
+    <child name="image-item" schema="org.gnome.shell.extensions.pano.image-item" />
     <child name="code-item" schema="org.gnome.shell.extensions.pano.code-item" />
     <child name="color-item" schema="org.gnome.shell.extensions.pano.color-item" />
   </schema>
 
   <schema path="/org/gnome/shell/extensions/pano/link-item/" id="org.gnome.shell.extensions.pano.link-item">
+    <key name="header-bg-color" type="s">
+      <default>'rgb(98, 160, 234)'</default>
+      <summary>header-bg-color</summary>
+      <description>header-bg-color</description>
+    </key>
+    <key name="header-color" type="s">
+      <default>'rgb(255, 255, 255)'</default>
+      <summary>header-color</summary>
+      <description>header-color</description>
+    </key>
     <key name="body-bg-color" type="s">
       <default>'rgb(48, 48, 48)'</default>
       <summary>body-bg-color</summary>
@@ -220,6 +256,16 @@
   </schema>
 
   <schema path="/org/gnome/shell/extensions/pano/text-item/" id="org.gnome.shell.extensions.pano.text-item">
+    <key name="header-bg-color" type="s">
+      <default>'rgb(26, 95, 180)'</default>
+      <summary>header-bg-color</summary>
+      <description>header-bg-color</description>
+    </key>
+    <key name="header-color" type="s">
+      <default>'rgb(255, 255, 255)'</default>
+      <summary>header-color</summary>
+      <description>header-color</description>
+    </key>
     <key name="body-bg-color" type="s">
       <default>'rgb(48, 48, 48)'</default>
       <summary>body-bg-color</summary>
@@ -249,6 +295,16 @@
   </schema>
 
   <schema path="/org/gnome/shell/extensions/pano/emoji-item/" id="org.gnome.shell.extensions.pano.emoji-item">
+    <key name="header-bg-color" type="s">
+      <default>'rgb(255, 163, 72)'</default>
+      <summary>header-bg-color</summary>
+      <description>header-bg-color</description>
+    </key>
+    <key name="header-color" type="s">
+      <default>'rgb(255, 255, 255)'</default>
+      <summary>header-color</summary>
+      <description>header-color</description>
+    </key>
     <key name="body-bg-color" type="s">
       <default>'rgb(48, 48, 48)'</default>
       <summary>body-bg-color</summary>
@@ -263,6 +319,16 @@
   </schema>
 
   <schema path="/org/gnome/shell/extensions/pano/file-item/" id="org.gnome.shell.extensions.pano.file-item">
+    <key name="header-bg-color" type="s">
+      <default>'rgb(61, 56, 70)'</default>
+      <summary>header-bg-color</summary>
+      <description>header-bg-color</description>
+    </key>
+    <key name="header-color" type="s">
+      <default>'rgb(255, 255, 255)'</default>
+      <summary>header-color</summary>
+      <description>header-color</description>
+    </key>
     <key name="body-bg-color" type="s">
       <default>'rgb(48, 48, 48)'</default>
       <summary>body-bg-color</summary>
@@ -300,7 +366,30 @@
     </key>
   </schema>
 
+  <schema path="/org/gnome/shell/extensions/pano/image-item/" id="org.gnome.shell.extensions.pano.image-item">
+    <key name="header-bg-color" type="s">
+      <default>'rgb(237, 51, 59)'</default>
+      <summary>header-bg-color</summary>
+      <description>header-bg-color</description>
+    </key>
+    <key name="header-color" type="s">
+      <default>'rgb(255, 255, 255)'</default>
+      <summary>header-color</summary>
+      <description>header-color</description>
+    </key>
+  </schema>
+
   <schema path="/org/gnome/shell/extensions/pano/code-item/" id="org.gnome.shell.extensions.pano.code-item">
+    <key name="header-bg-color" type="s">
+      <default>'rgb(36, 31, 49)'</default>
+      <summary>header-bg-color</summary>
+      <description>header-bg-color</description>
+    </key>
+    <key name="header-color" type="s">
+      <default>'rgb(255, 255, 255)'</default>
+      <summary>header-color</summary>
+      <description>header-color</description>
+    </key>
     <key name="body-bg-color" type="s">
       <default>'rgb(48, 48, 48)'</default>
       <summary>body-bg-color</summary>
@@ -325,6 +414,16 @@
   </schema>
 
   <schema path="/org/gnome/shell/extensions/pano/color-item/" id="org.gnome.shell.extensions.pano.color-item">
+    <key name="header-bg-color" type="s">
+      <default>'rgb(145, 65, 172)'</default>
+      <summary>header-bg-color</summary>
+      <description>header-bg-color</description>
+    </key>
+    <key name="header-color" type="s">
+      <default>'rgb(255, 255, 255)'</default>
+      <summary>header-color</summary>
+      <description>header-color</description>
+    </key>
     <key name="metadata-font-family" type="s">
       <default>'Cantarell Regular'</default>
       <summary>metadata-font-family</summary>

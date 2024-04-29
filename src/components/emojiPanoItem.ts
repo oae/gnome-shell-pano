@@ -17,15 +17,6 @@ export class EmojiPanoItem extends PanoItem {
 
     this.emojiItemSettings = this.settings.get_child('emoji-item');
 
-    const emojiContainer = new St.BoxLayout({
-      vertical: false,
-      xExpand: true,
-      yExpand: true,
-      yAlign: Clutter.ActorAlign.FILL,
-      xAlign: Clutter.ActorAlign.FILL,
-      styleClass: 'emoji-container',
-    });
-
     this.label = new St.Label({
       xAlign: Clutter.ActorAlign.CENTER,
       yAlign: Clutter.ActorAlign.CENTER,
@@ -37,9 +28,8 @@ export class EmojiPanoItem extends PanoItem {
     this.label.clutterText.lineWrap = true;
     this.label.clutterText.lineWrapMode = Pango.WrapMode.WORD_CHAR;
     this.label.clutterText.ellipsize = Pango.EllipsizeMode.END;
-    emojiContainer.add_child(this.label);
 
-    this.body.add_child(emojiContainer);
+    this.body.add_child(this.label);
     this.connect('activated', this.setClipboardContent.bind(this));
     this.setStyle();
     this.emojiItemSettings.connect('changed', this.setStyle.bind(this));
@@ -48,10 +38,13 @@ export class EmojiPanoItem extends PanoItem {
   }
 
   private setStyle() {
+    const headerBgColor = this.emojiItemSettings.get_string('header-bg-color');
+    const headerColor = this.emojiItemSettings.get_string('header-color');
     const bodyBgColor = this.emojiItemSettings.get_string('body-bg-color');
     const emojiSize = this.emojiItemSettings.get_int('emoji-size');
 
-    this.body.set_style(`background-color: ${bodyBgColor};`);
+    this.header.set_style(`background-color: ${headerBgColor}; color: ${headerColor};`);
+    this.container.set_style(`background-color: ${bodyBgColor};`);
     this.label.set_style(`font-size: ${Math.min(emojiSize, this.body.height - 24)}px;`);
   }
 

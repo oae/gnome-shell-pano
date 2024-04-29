@@ -142,6 +142,8 @@ export class LinkPanoItem extends PanoItem {
   }
 
   private setStyle() {
+    const headerBgColor = this.linkItemSettings.get_string('header-bg-color');
+    const headerColor = this.linkItemSettings.get_string('header-color');
     const bodyBgColor = this.linkItemSettings.get_string('body-bg-color');
     const metadataBgColor = this.linkItemSettings.get_string('metadata-bg-color');
     const metadataTitleColor = this.linkItemSettings.get_string('metadata-title-color');
@@ -154,7 +156,8 @@ export class LinkPanoItem extends PanoItem {
     const metadataDescriptionFontSize = this.linkItemSettings.get_int('metadata-description-font-size');
     const metadataLinkFontSize = this.linkItemSettings.get_int('metadata-link-font-size');
 
-    this.body.set_style(`background-color: ${bodyBgColor};`);
+    this.header.set_style(`background-color: ${headerBgColor}; color: ${headerColor};`);
+    this.container.set_style(`background-color: ${bodyBgColor};`);
     this.metaContainer.set_style(`background-color: ${metadataBgColor};`);
     this.titleLabel.set_style(
       `color: ${metadataTitleColor}; font-family: ${metadataTitleFontFamily}; font-size: ${metadataTitleFontSize}px;`,

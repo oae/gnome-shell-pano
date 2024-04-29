@@ -11,7 +11,7 @@ import * as colorString from 'color-string';
 @registerGObjectClass
 export class ColorPanoItem extends PanoItem {
   private colorItemSettings: Gio.Settings;
-  private container: St.BoxLayout;
+  private colorContainer: St.BoxLayout;
   private icon: St.Icon;
   private label: St.Label;
 
@@ -20,7 +20,7 @@ export class ColorPanoItem extends PanoItem {
 
     this.colorItemSettings = this.settings.get_child('color-item');
 
-    this.container = new St.BoxLayout({
+    this.colorContainer = new St.BoxLayout({
       vertical: true,
       xExpand: true,
       yExpand: true,
@@ -43,10 +43,10 @@ export class ColorPanoItem extends PanoItem {
       styleClass: 'color-label',
     });
 
-    this.container.add_child(this.icon);
-    this.container.add_child(this.label);
+    this.colorContainer.add_child(this.icon);
+    this.colorContainer.add_child(this.label);
 
-    this.container.add_constraint(
+    this.colorContainer.add_constraint(
       new Clutter.AlignConstraint({
         source: this,
         alignAxis: Clutter.AlignAxis.Y_AXIS,
@@ -54,7 +54,7 @@ export class ColorPanoItem extends PanoItem {
       }),
     );
 
-    this.body.add_child(this.container);
+    this.body.add_child(this.colorContainer);
     this.connect('activated', this.setClipboardContent.bind(this));
     this.setCompactMode();
     this.settings.connect('changed::compact-mode', this.setCompactMode.bind(this));
@@ -64,13 +64,15 @@ export class ColorPanoItem extends PanoItem {
 
   private setCompactMode() {
     if (this.settings.get_boolean('compact-mode')) {
-      this.container.vertical = false;
+      this.colorContainer.vertical = false;
     } else {
-      this.container.vertical = true;
+      this.colorContainer.vertical = true;
     }
   }
 
   private setStyle() {
+    const headerBgColor = this.colorItemSettings.get_string('header-bg-color');
+    const headerColor = this.colorItemSettings.get_string('header-color');
     const metadataFontFamily = this.colorItemSettings.get_string('metadata-font-family');
     const metadataFontSize = this.colorItemSettings.get_int('metadata-font-size');
 
@@ -85,7 +87,8 @@ export class ColorPanoItem extends PanoItem {
     const iconColor = `rgb(${Math.clamp(rgb[0] + delta, 0, 255)}, ${Math.clamp(rgb[1] + delta, 0, 255)}, ${Math.clamp(rgb[2] + delta, 0, 255)})`;
     const textColor = L > 0.179 ? '#000000' : '#ffffff';
 
-    this.body.set_style(`background-color: ${this.dbItem.content};`);
+    this.header.set_style(`background-color: ${headerBgColor}; color: ${headerColor};`);
+    this.container.set_style(`background-color: ${this.dbItem.content};`);
     this.icon.set_style(`color: ${iconColor};`);
     this.label.set_style(`color: ${textColor}; font-family: ${metadataFontFamily}; font-size: ${metadataFontSize}px;`);
   }

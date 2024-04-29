@@ -35,6 +35,15 @@ export class CommonStyleGroup extends Adw.PreferencesGroup {
 
     this.add(
       createSwitchRow(
+        _('Enable Headers'),
+        _('Controls the visibility of the clipboard item headers'),
+        this.settings,
+        'enable-headers',
+      ),
+    );
+
+    this.add(
+      createSwitchRow(
         _('Compact Mode'),
         _('Controls the compactness of the clipboard item.'),
         this.settings,
@@ -75,6 +84,12 @@ export class CommonStyleGroup extends Adw.PreferencesGroup {
         this.settings,
         'search-bar-font',
       ),
+    );
+    this.add(
+      createFontRow(_('Item Title Font'), _('You can change the font of the title'), this.settings, 'item-title-font'),
+    );
+    this.add(
+      createFontRow(_('Item Date Font'), _('You can change the font of the date'), this.settings, 'item-date-font'),
     );
     this.add(
       createColorRow(
