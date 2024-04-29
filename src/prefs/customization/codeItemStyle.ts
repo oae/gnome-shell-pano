@@ -16,6 +16,26 @@ export class CodeItemStyleRow extends ItemExpanderRow {
 
     this.settings = getCurrentExtensionSettings(ext).get_child('code-item');
 
+    // create header background color row
+    this.add_row(
+      createColorRow(
+        _('Header Background Color'),
+        _('You can change the background color of the header'),
+        this.settings,
+        'header-bg-color',
+      ),
+    );
+
+    // create header text color row
+    this.add_row(
+      createColorRow(
+        _('Header Text Color'),
+        _('You can change the text color of the header'),
+        this.settings,
+        'header-color',
+      ),
+    );
+
     // create body background color row
     this.add_row(
       createColorRow(

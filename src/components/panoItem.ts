@@ -7,6 +7,7 @@ import Graphene from '@girs/graphene-1.0';
 import Meta from '@girs/meta-16';
 import Shell from '@girs/shell-16';
 import St from '@girs/st-16';
+import { PanoItemHeader } from '@pano/components/panoItemHeader';
 import { PanoItemOverlay } from '@pano/components/panoItemOverlay';
 import { ClipboardManager } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
@@ -42,6 +43,8 @@ export class PanoItem extends St.BoxLayout {
   };
 
   private timeoutId: number | undefined;
+  protected container: St.BoxLayout;
+  protected header: PanoItemHeader;
   protected body: St.BoxLayout;
   protected overlay: PanoItemOverlay;
   protected clipboardManager: ClipboardManager;
@@ -124,6 +127,18 @@ export class PanoItem extends St.BoxLayout {
 
     this.add_style_class_name(`pano-item-${this.dbItem.itemType.toLowerCase()}`);
 
+    this.container = new St.BoxLayout({
+      styleClass: 'pano-item-container',
+      clipToAllocation: true,
+      vertical: true,
+      xAlign: Clutter.ActorAlign.FILL,
+      yAlign: Clutter.ActorAlign.FILL,
+      xExpand: true,
+      yExpand: true,
+    });
+
+    this.header = new PanoItemHeader(ext, getPanoItemTypes(ext)[this.dbItem.itemType], this.dbItem.copyDate);
+
     this.body = new St.BoxLayout({
       styleClass: 'pano-item-body',
       clipToAllocation: true,
@@ -134,7 +149,10 @@ export class PanoItem extends St.BoxLayout {
       yExpand: true,
     });
 
-    this.overlay = new PanoItemOverlay(getPanoItemTypes(ext)[dbItem.itemType]);
+    this.container.add_child(this.header);
+    this.container.add_child(this.body);
+
+    this.overlay = new PanoItemOverlay();
     this.overlay.setFavorite(this.dbItem.isFavorite);
     this.overlay.connect('on-remove', () => {
       this.emit('on-remove', JSON.stringify(this.dbItem));
@@ -152,12 +170,12 @@ export class PanoItem extends St.BoxLayout {
       return Clutter.EVENT_PROPAGATE;
     });
 
-    this.add_child(this.body);
+    this.add_child(this.container);
     this.add_child(this.overlay);
 
     this.overlay.add_constraint(
       new Clutter.BindConstraint({
-        source: this.body,
+        source: this.container,
         coordinate: Clutter.BindCoordinate.Y,
       }),
     );
@@ -168,12 +186,9 @@ export class PanoItem extends St.BoxLayout {
       this.add_style_class_name('compact');
     }
 
-    themeContext.connect('notify::scale-factor', () => {
-      this.setBodyDimensions();
-    });
-    this.settings.connect('changed::item-size', () => {
-      this.setBodyDimensions();
-    });
+    themeContext.connect('notify::scale-factor', this.setBodyDimensions.bind(this));
+    this.settings.connect('changed::item-size', this.setBodyDimensions.bind(this));
+    this.settings.connect('changed::enable-headers', this.setBodyDimensions.bind(this));
     this.settings.connect('changed::compact-mode', () => {
       if (this.settings.get_boolean('compact-mode')) {
         this.add_style_class_name('compact');
@@ -182,9 +197,7 @@ export class PanoItem extends St.BoxLayout {
       }
       this.setBodyDimensions();
     });
-    this.settings.connect('changed::window-position', () => {
-      this.setBodyDimensions();
-    });
+    this.settings.connect('changed::window-position', this.setBodyDimensions.bind(this));
 
     this.setBodyDimensions();
 
@@ -204,12 +217,15 @@ export class PanoItem extends St.BoxLayout {
     }
     const { scaleFactor } = St.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
     const mult = this.settings.get_boolean('compact-mode') ? 0.3 : 0.7;
-    const height = this.settings.get_int('item-size') * mult;
+    const header = this.settings.get_boolean('enable-headers') ? 48 : 0;
+    const height = this.settings.get_int('item-size') * mult + header;
 
     this.set_height(height * scaleFactor);
-    this.body.set_width(this.settings.get_int('item-size') * scaleFactor);
-    this.body.set_height((height - 8) * scaleFactor);
+    this.container.set_width(this.settings.get_int('item-size') * scaleFactor);
+    this.container.set_height((height - 8) * scaleFactor);
+    this.body.set_height((height - 8 - header) * scaleFactor);
     this.overlay.set_height((height - 8) * scaleFactor);
+    this.header.visible = this.settings.get_boolean('enable-headers');
   }
 
   private setVisible() {
