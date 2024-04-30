@@ -449,7 +449,7 @@ msgstr "Pano prestane sledovať, ak je zaostrené ktorékoľvek okno zo zoznamu"
 msgid "Window class name"
 msgstr "Názov triedy okna"
 
-#: src/prefs/general/generalGroup.ts:25
+#: src/prefs/general/generalGroup.ts:26
 msgid "General Options"
 msgstr "Všeobecné možnosti"
 
@@ -522,6 +522,14 @@ msgstr "Prehrávanie zvuku v kópii"
 #: src/prefs/general/playAudioOnCopy.ts:15
 msgid "Allow Pano to play an audio when copying new content"
 msgstr "Povolenie prehrávania zvuku spoločnosťou Pano pri kopírovaní nového obsahu"
+
+#: src/prefs/general/removeOnMiddleClick.ts:15
+msgid "Remove on Middle Click"
+msgstr ""
+
+#: src/prefs/general/removeOnMiddleClick.ts:16
+msgid "Allow Pano to remove clipboard items on middle click"
+msgstr ""
 
 #: src/prefs/general/sendNotificationOnCopy.ts:16
 msgid "Send Notification on Copy"

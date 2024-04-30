@@ -449,7 +449,7 @@ msgstr "Pano dejará de rastrearte si alguna ventana de la lista está en primer
 msgid "Window class name"
 msgstr "Nombre de clase de ventana"
 
-#: src/prefs/general/generalGroup.ts:25
+#: src/prefs/general/generalGroup.ts:26
 msgid "General Options"
 msgstr "Opciones generales"
 
@@ -522,6 +522,14 @@ msgstr "Reproducir sonido al copiar"
 #: src/prefs/general/playAudioOnCopy.ts:15
 msgid "Allow Pano to play an audio when copying new content"
 msgstr "Permitir que Pano reproduzca un audio al copiar contenido nuevo"
+
+#: src/prefs/general/removeOnMiddleClick.ts:15
+msgid "Remove on Middle Click"
+msgstr ""
+
+#: src/prefs/general/removeOnMiddleClick.ts:16
+msgid "Allow Pano to remove clipboard items on middle click"
+msgstr ""
 
 #: src/prefs/general/sendNotificationOnCopy.ts:16
 msgid "Send Notification on Copy"

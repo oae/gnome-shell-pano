@@ -449,7 +449,7 @@ msgstr "Pano mun hætta að fylgjast með ef einhver gluggi af listanum er fóku
 msgid "Window class name"
 msgstr "Heiti gluggaflokks"
 
-#: src/prefs/general/generalGroup.ts:25
+#: src/prefs/general/generalGroup.ts:26
 msgid "General Options"
 msgstr "Almennir valkostir"
 
@@ -522,6 +522,14 @@ msgstr "Spilaðu hljóð á afriti"
 #: src/prefs/general/playAudioOnCopy.ts:15
 msgid "Allow Pano to play an audio when copying new content"
 msgstr "Leyfa Pano að spila hljóð þegar þú afritar nýtt efni"
+
+#: src/prefs/general/removeOnMiddleClick.ts:15
+msgid "Remove on Middle Click"
+msgstr ""
+
+#: src/prefs/general/removeOnMiddleClick.ts:16
+msgid "Allow Pano to remove clipboard items on middle click"
+msgstr ""
 
 #: src/prefs/general/sendNotificationOnCopy.ts:16
 msgid "Send Notification on Copy"

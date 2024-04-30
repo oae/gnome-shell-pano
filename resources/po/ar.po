@@ -449,7 +449,7 @@ msgstr "سيمتنع بانو عن التتبع إذا فُعلت نافذة م�
 msgid "Window class name"
 msgstr "اسم طراز النافذة"
 
-#: src/prefs/general/generalGroup.ts:25
+#: src/prefs/general/generalGroup.ts:26
 msgid "General Options"
 msgstr "خيارات عامة"
 
@@ -522,6 +522,14 @@ msgstr "تشغيل مقطع صوتي عند النسخ"
 #: src/prefs/general/playAudioOnCopy.ts:15
 msgid "Allow Pano to play an audio when copying new content"
 msgstr "يسمح لبانو بتشغيل مقطع صوتي عند نسخ محتوى جديد"
+
+#: src/prefs/general/removeOnMiddleClick.ts:15
+msgid "Remove on Middle Click"
+msgstr ""
+
+#: src/prefs/general/removeOnMiddleClick.ts:16
+msgid "Allow Pano to remove clipboard items on middle click"
+msgstr ""
 
 #: src/prefs/general/sendNotificationOnCopy.ts:16
 msgid "Send Notification on Copy"

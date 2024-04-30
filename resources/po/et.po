@@ -449,7 +449,7 @@ msgstr "Pano lõpetab jälgimise, kui mõni loendi aken on fokusseeritud"
 msgid "Window class name"
 msgstr "Aknaklassi nimi"
 
-#: src/prefs/general/generalGroup.ts:25
+#: src/prefs/general/generalGroup.ts:26
 msgid "General Options"
 msgstr "Üldised valikud"
 
@@ -522,6 +522,14 @@ msgstr "Heli esitamine kopeerimisel"
 #: src/prefs/general/playAudioOnCopy.ts:15
 msgid "Allow Pano to play an audio when copying new content"
 msgstr "Luba Panol uue sisu kopeerimisel heli esitada"
+
+#: src/prefs/general/removeOnMiddleClick.ts:15
+msgid "Remove on Middle Click"
+msgstr ""
+
+#: src/prefs/general/removeOnMiddleClick.ts:16
+msgid "Allow Pano to remove clipboard items on middle click"
+msgstr ""
 
 #: src/prefs/general/sendNotificationOnCopy.ts:16
 msgid "Send Notification on Copy"

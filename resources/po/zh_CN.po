@@ -449,7 +449,7 @@ msgstr "如果选中以下任意程序，Pano将停止监视剪切板"
 msgid "Window class name"
 msgstr "窗口类名"
 
-#: src/prefs/general/generalGroup.ts:25
+#: src/prefs/general/generalGroup.ts:26
 msgid "General Options"
 msgstr "常规选项"
 
@@ -522,6 +522,14 @@ msgstr "复制时播放提示音"
 #: src/prefs/general/playAudioOnCopy.ts:15
 msgid "Allow Pano to play an audio when copying new content"
 msgstr "允许Pano在复制新内容时播放声音提示"
+
+#: src/prefs/general/removeOnMiddleClick.ts:15
+msgid "Remove on Middle Click"
+msgstr ""
+
+#: src/prefs/general/removeOnMiddleClick.ts:16
+msgid "Allow Pano to remove clipboard items on middle click"
+msgstr ""
 
 #: src/prefs/general/sendNotificationOnCopy.ts:16
 msgid "Send Notification on Copy"
