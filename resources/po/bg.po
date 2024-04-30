@@ -449,7 +449,7 @@ msgstr "Pano ще спре проследяването, ако някой пр�
 msgid "Window class name"
 msgstr "Име на класа на прозореца"
 
-#: src/prefs/general/generalGroup.ts:25
+#: src/prefs/general/generalGroup.ts:26
 msgid "General Options"
 msgstr "Общи опции"
 
@@ -522,6 +522,14 @@ msgstr "Възпроизвеждане на аудио на копие"
 #: src/prefs/general/playAudioOnCopy.ts:15
 msgid "Allow Pano to play an audio when copying new content"
 msgstr "Позволяване на Pano да възпроизвежда аудио при копиране на ново съдържание"
+
+#: src/prefs/general/removeOnMiddleClick.ts:15
+msgid "Remove on Middle Click"
+msgstr ""
+
+#: src/prefs/general/removeOnMiddleClick.ts:16
+msgid "Allow Pano to remove clipboard items on middle click"
+msgstr ""
 
 #: src/prefs/general/sendNotificationOnCopy.ts:16
 msgid "Send Notification on Copy"

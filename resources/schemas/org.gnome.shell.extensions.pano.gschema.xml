@@ -37,6 +37,11 @@
       <summary>Paste item on select</summary>
       <description>Allow Pano to paste content on select.</description>
     </key>
+    <key name="remove-on-middle-click" type="b">
+      <default>false</default>
+      <summary>Remove item on middle click</summary>
+      <description>Allow Pano to remove clipboard items on middle click.</description>
+    </key>
     <key name="send-notification-on-copy" type="b">
       <default>true</default>
       <summary>Send Notification on Copy</summary>

@@ -449,7 +449,7 @@ msgstr "Pano는 목록의 창에 포커스가 있는 경우 추적을 중지합�
 msgid "Window class name"
 msgstr "창 클래스 이름"
 
-#: src/prefs/general/generalGroup.ts:25
+#: src/prefs/general/generalGroup.ts:26
 msgid "General Options"
 msgstr "일반 옵션"
 
@@ -522,6 +522,14 @@ msgstr "복사 시 오디오 재생"
 #: src/prefs/general/playAudioOnCopy.ts:15
 msgid "Allow Pano to play an audio when copying new content"
 msgstr "Pano가 새 콘텐츠를 복사할 때 오디오를 재생하도록 허용"
+
+#: src/prefs/general/removeOnMiddleClick.ts:15
+msgid "Remove on Middle Click"
+msgstr ""
+
+#: src/prefs/general/removeOnMiddleClick.ts:16
+msgid "Allow Pano to remove clipboard items on middle click"
+msgstr ""
 
 #: src/prefs/general/sendNotificationOnCopy.ts:16
 msgid "Send Notification on Copy"

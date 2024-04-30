@@ -271,9 +271,14 @@ export class PanoItem extends St.BoxLayout {
   }
 
   override vfunc_button_release_event(event: Clutter.Event): boolean {
-    if (event.get_button() === 1) {
+    if (event.get_button() === Clutter.BUTTON_PRIMARY) {
       this.emit('activated');
       return Clutter.EVENT_STOP;
+    }
+
+    // Delete item on middle click
+    if (this.settings.get_boolean('remove-on-middle-click') && event.get_button() === Clutter.BUTTON_MIDDLE) {
+      this.emit('on-remove', JSON.stringify(this.dbItem));
     }
 
     return Clutter.EVENT_PROPAGATE;

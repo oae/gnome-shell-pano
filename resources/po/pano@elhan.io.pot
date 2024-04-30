@@ -18,6 +18,10 @@ msgstr ""
 msgid "Allow Pano to play an audio when copying new content"
 msgstr ""
 
+#: src/prefs/general/removeOnMiddleClick.ts:16
+msgid "Allow Pano to remove clipboard items on middle click"
+msgstr ""
+
 #: src/prefs/general/sendNotificationOnCopy.ts:17
 msgid "Allow Pano to send notification when copying new content"
 msgstr ""
@@ -219,7 +223,7 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: src/prefs/general/generalGroup.ts:25
+#: src/prefs/general/generalGroup.ts:26
 msgid "General Options"
 msgstr ""
 
@@ -390,6 +394,10 @@ msgstr ""
 
 #: src/prefs/general/playAudioOnCopy.ts:14
 msgid "Play an Audio on Copy"
+msgstr ""
+
+#: src/prefs/general/removeOnMiddleClick.ts:15
+msgid "Remove on Middle Click"
 msgstr ""
 
 #: src/prefs/customization/commonStyleGroup.ts:60

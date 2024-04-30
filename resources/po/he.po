@@ -449,7 +449,7 @@ msgstr "Pano תפסיק את המעקב אם חלון כלשהו מהרשימה 
 msgid "Window class name"
 msgstr "שם כיתת חלון"
 
-#: src/prefs/general/generalGroup.ts:25
+#: src/prefs/general/generalGroup.ts:26
 msgid "General Options"
 msgstr "אפשרויות כלליות"
 
@@ -522,6 +522,14 @@ msgstr "הפעלת שמע בהעתקה"
 #: src/prefs/general/playAudioOnCopy.ts:15
 msgid "Allow Pano to play an audio when copying new content"
 msgstr "אפשר ל-Pano להשמיע שמע בעת העתקת תוכן חדש"
+
+#: src/prefs/general/removeOnMiddleClick.ts:15
+msgid "Remove on Middle Click"
+msgstr ""
+
+#: src/prefs/general/removeOnMiddleClick.ts:16
+msgid "Allow Pano to remove clipboard items on middle click"
+msgstr ""
 
 #: src/prefs/general/sendNotificationOnCopy.ts:16
 msgid "Send Notification on Copy"
