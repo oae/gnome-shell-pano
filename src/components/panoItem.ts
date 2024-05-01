@@ -223,7 +223,7 @@ export class PanoItem extends St.BoxLayout {
     this.set_height(height * scaleFactor);
     this.container.set_width(this.settings.get_int('item-size') * scaleFactor);
     this.container.set_height((height - 8) * scaleFactor);
-    this.body.set_height((height - 8 - header) * scaleFactor);
+    this.body.set_height((height - 10 - header) * scaleFactor);
     this.overlay.set_height((height - 8) * scaleFactor);
     this.header.visible = this.settings.get_boolean('enable-headers');
   }

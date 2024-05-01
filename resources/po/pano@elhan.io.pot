@@ -396,6 +396,18 @@ msgstr ""
 msgid "Play an Audio on Copy"
 msgstr ""
 
+#: src/prefs/customization/fileItemStyle.ts:75
+msgid "Preview Background Color"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:94
+msgid "Preview Font"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:85
+msgid "Preview Text Color"
+msgstr ""
+
 #: src/prefs/general/removeOnMiddleClick.ts:15
 msgid "Remove on Middle Click"
 msgstr ""
@@ -547,6 +559,10 @@ msgstr ""
 msgid "You can change the background color of the metadata"
 msgstr ""
 
+#: src/prefs/customization/fileItemStyle.ts:76
+msgid "You can change the background color of the preview"
+msgstr ""
+
 #: src/prefs/customization/codeItemStyle.ts:56
 #: src/prefs/customization/textItemStyle.ts:61
 msgid "You can change the character length of the visible text in the body"
@@ -584,6 +600,10 @@ msgstr ""
 
 #: src/prefs/customization/linkItemStyle.ts:73
 msgid "You can change the font of the metadata title"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:94
+msgid "You can change the font of the preview"
 msgstr ""
 
 #: src/prefs/customization/commonStyleGroup.ts:83
@@ -628,6 +648,10 @@ msgstr ""
 #: src/prefs/customization/linkItemStyle.ts:33
 #: src/prefs/customization/textItemStyle.ts:33
 msgid "You can change the text color of the header"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:86
+msgid "You can change the text color of the preview"
 msgstr ""
 
 #: src/prefs/customization/fileItemStyle.ts:53

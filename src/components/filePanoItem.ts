@@ -17,6 +17,7 @@ export class FilePanoItem extends PanoItem {
   private fileItemSettings: Gio.Settings;
   private titleContainer: St.BoxLayout;
   private copiedFilesContainer: St.BoxLayout;
+  private preview: St.BoxLayout | St.Label | null = null;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
     super(ext, clipboardManager, dbItem);
@@ -147,9 +148,95 @@ export class FilePanoItem extends PanoItem {
     this.body.add_child(this.titleContainer);
     this.body.add_child(this.copiedFilesContainer);
 
+    // Create file preview
+    if (this.fileList.length === 1) {
+      const file = Gio.File.new_for_uri(this.fileList[0]!);
+      if (file.query_exists(null)) {
+        const contentType = Gio.content_type_guess(this.fileList[0]!, null)[0];
+
+        if (Gio.content_type_is_a(contentType, 'text/plain')) {
+          // Text
+          let fileStream: Gio.FileInputStream | null = null;
+          try {
+            fileStream = file.read(null);
+            const stream = new Gio.DataInputStream({ baseStream: fileStream });
+
+            let text = '';
+            for (let i = 0; i < 30; i++) {
+              const line = stream.read_line_utf8(null)[0];
+              if (line) {
+                if (i > 0) text += '\n';
+                text += line;
+              } else {
+                break;
+              }
+            }
+
+            this.preview = new St.Label({
+              text: text,
+              styleClass: 'copied-file-preview copied-file-preview-text',
+              xExpand: true,
+              yExpand: true,
+              xAlign: Clutter.ActorAlign.FILL,
+              yAlign: Clutter.ActorAlign.FILL,
+              minHeight: 0,
+            });
+            this.preview.clutterText.lineWrap = false;
+            this.preview.clutterText.ellipsize = Pango.EllipsizeMode.END;
+          } catch (e) {
+            console.error(e);
+          } finally {
+            fileStream?.close(null);
+          }
+        } else if (Gio.content_type_is_a(contentType, 'image/*')) {
+          // Images
+          this.preview = new St.BoxLayout({
+            styleClass: 'copied-file-preview copied-file-preview-image',
+            xExpand: true,
+            yExpand: true,
+            xAlign: Clutter.ActorAlign.FILL,
+            yAlign: Clutter.ActorAlign.FILL,
+            style: `background-image: url(${this.fileList[0]!}); background-size: cover;`,
+          });
+        } else {
+          // Other files that might have a thumbnail available i.e. videos or pdf files
+          const md5 = GLib.compute_checksum_for_string(
+            GLib.ChecksumType.MD5,
+            this.fileList[0]!,
+            this.fileList[0]!.length,
+          );
+
+          const thumbnail1 = Gio.File.new_for_path(`${homeDir}/.thumbnails/${md5}.png`);
+          const thumbnail2 = Gio.File.new_for_path(`${homeDir}/.cache/thumbnails/large/${md5}.png`);
+          const uri = thumbnail1.query_exists(null)
+            ? thumbnail1.get_uri()
+            : thumbnail2.query_exists(null)
+              ? thumbnail2.get_uri()
+              : null;
+
+          if (uri) {
+            this.preview = new St.BoxLayout({
+              styleClass: 'copied-file-preview copied-file-preview-image',
+              xExpand: true,
+              yExpand: true,
+              xAlign: Clutter.ActorAlign.FILL,
+              yAlign: Clutter.ActorAlign.FILL,
+              style: `background-image: url(${uri}); background-size: cover;`,
+            });
+          }
+        }
+
+        if (this.preview) {
+          this.preview.visible = this.settings.get_boolean('compact-mode');
+          this.body.add_child(this.preview);
+        }
+      }
+    }
+
     this.connect('activated', this.setClipboardContent.bind(this));
     this.setStyle();
     this.settings.connect('changed::enable-headers', this.setStyle.bind(this));
+    this.settings.connect('changed::compact-mode', this.setStyle.bind(this));
     this.fileItemSettings.connect('changed', this.setStyle.bind(this));
   }
 
@@ -163,6 +250,10 @@ export class FilePanoItem extends PanoItem {
     const bodyColor = this.fileItemSettings.get_string('body-color');
     const bodyFontFamily = this.fileItemSettings.get_string('body-font-family');
     const bodyFontSize = this.fileItemSettings.get_int('body-font-size');
+    const previewBgColor = this.fileItemSettings.get_string('preview-bg-color');
+    const previewColor = this.fileItemSettings.get_string('preview-color');
+    const previewFontFamily = this.fileItemSettings.get_string('preview-font-family');
+    const previewFontSize = this.fileItemSettings.get_int('preview-font-size');
 
     this.header.set_style(`background-color: ${headerBgColor}; color: ${headerColor};`);
     this.container.set_style(`background-color: ${bodyBgColor};`);
@@ -174,6 +265,16 @@ export class FilePanoItem extends PanoItem {
     this.copiedFilesContainer.set_style(
       `color: ${bodyColor}; font-family: ${bodyFontFamily}; font-size: ${bodyFontSize}px`,
     );
+
+    if (this.preview) {
+      this.preview.visible = !this.settings.get_boolean('compact-mode');
+    }
+
+    if (this.preview?.styleClass.endsWith('copied-file-preview-text')) {
+      this.preview.set_style(
+        `background-color: ${previewBgColor}; color: ${previewColor}; font-family: ${previewFontFamily}; font-size: ${previewFontSize}px;`,
+      );
+    }
   }
 
   private setClipboardContent(): void {

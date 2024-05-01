@@ -317,6 +317,30 @@ msgstr "내용 텍스트 색상"
 msgid "You can change the text color of the body"
 msgstr "내용 텍스트 색상을 바꾸기"
 
+#: src/prefs/customization/fileItemStyle.ts:75
+msgid "Preview Background Color"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:76
+msgid "You can change the background color of the preview"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:85
+msgid "Preview Text Color"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:86
+msgid "You can change the text color of the preview"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:94
+msgid "Preview Font"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:94
+msgid "You can change the font of the preview"
+msgstr ""
+
 #: src/prefs/customization/imageItemStyle.ts:14
 msgid "Change the style of the image item"
 msgstr ""
