@@ -14,6 +14,10 @@
   padding-bottom: 5px;
 }
 
+.pano-window .search-entry-container StEntry {
+  border-radius: 999px;
+}
+
 .pano-window .search-entry-icon {
   padding: 0 4px;
   color: inherit;
@@ -41,6 +45,7 @@
 
 .pano-item-container {
   border-radius: 12px;
+  border: 1px inset rgba(255, 255, 255, 0.1);
 }
 
 /* Overlay */
@@ -127,12 +132,6 @@
   tab-size: 2;
 }
 
-/* .pano-item-code .pano-item-overlay {
-  background-gradient-start: transparent;
-  background-gradient-end: rgba(0, 0, 0, 0.3);
-  background-gradient-direction: vertical;
-} */
-
 /* Link Item */
 .pano-item-link {
   padding: 0px;
@@ -142,11 +141,15 @@
   background-size: cover;
 }
 
+.pano-item-link.compact .image-container {
+  border-radius: 0px 0px 0px 12px;
+}
+
 .pano-item-link .pano-item-body:first-child .image-container {
   border-radius: 12px 12px 0px 0px;
 }
 
-.pano-item-link.compact .image-container {
+.pano-item-link.compact .pano-item-body:first-child .image-container {
   border-radius: 12px 0px 0px 12px;
 }
 
@@ -204,12 +207,8 @@
   font-weight: 900;
 }
 
-.pano-item-file .top-level-directory {
-  margin-bottom: 0.3em;
-}
-
 .pano-item-file .copied-files-container {
-  margin-top: 10px;
+  margin-top: 5px;
   margin-right: 10px;
   margin-left: 10px;
 }
@@ -218,6 +217,13 @@
   width: 1.5em;
   height: 1.5em;
   color: rgb(255, 255, 255);
+}
+
+.pano-item-file .copied-file-preview {
+  margin: 10px;
+  padding: 5px 5px 0px 5px;
+  border-radius: 5px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
 /* Settings */

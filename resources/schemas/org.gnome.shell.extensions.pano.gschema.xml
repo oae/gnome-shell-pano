@@ -369,6 +369,26 @@
       <summary>body-font-size</summary>
       <description>body-font-size</description>
     </key>
+    <key name="preview-bg-color" type="s">
+      <default>'rgb(36, 36, 36)'</default>
+      <summary>preview-bg-color</summary>
+      <description>preview-bg-color</description>
+    </key>
+    <key name="preview-color" type="s">
+      <default>'rgb(255, 255, 255)'</default>
+      <summary>preview-color</summary>
+      <description>preview-color</description>
+    </key>
+    <key name="preview-font-family" type="s">
+      <default>'Source Code Pro'</default>
+      <summary>preview-font-family</summary>
+      <description>preview-font-family</description>
+    </key>
+    <key name="preview-font-size" type="i">
+      <default>10</default>
+      <summary>preview-font-size</summary>
+      <description>preview-font-size</description>
+    </key>
   </schema>
 
   <schema path="/org/gnome/shell/extensions/pano/image-item/" id="org.gnome.shell.extensions.pano.image-item">

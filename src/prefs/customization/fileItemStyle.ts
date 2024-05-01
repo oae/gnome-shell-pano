@@ -68,5 +68,30 @@ export class FileItemStyleRow extends ItemExpanderRow {
 
     // create body font row
     this.add_row(createFontRow(_('Body Font'), _('You can change the font of the body'), this.settings, 'body-font'));
+
+    // create preview background color row
+    this.add_row(
+      createColorRow(
+        _('Preview Background Color'),
+        _('You can change the background color of the preview'),
+        this.settings,
+        'preview-bg-color',
+      ),
+    );
+
+    // create preview text color row
+    this.add_row(
+      createColorRow(
+        _('Preview Text Color'),
+        _('You can change the text color of the preview'),
+        this.settings,
+        'preview-color',
+      ),
+    );
+
+    // create preview font row
+    this.add_row(
+      createFontRow(_('Preview Font'), _('You can change the font of the preview'), this.settings, 'preview-font'),
+    );
   }
 }
