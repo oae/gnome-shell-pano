@@ -125,7 +125,8 @@ export class PanoItem extends St.BoxLayout {
       }
     });
 
-    this.add_style_class_name(`pano-item-${this.dbItem.itemType.toLowerCase()}`);
+    const itemType = getPanoItemTypes(ext)[this.dbItem.itemType];
+    this.add_style_class_name(`pano-item-${itemType.classSuffix}`);
 
     this.container = new St.BoxLayout({
       styleClass: 'pano-item-container',
@@ -137,7 +138,7 @@ export class PanoItem extends St.BoxLayout {
       yExpand: true,
     });
 
-    this.header = new PanoItemHeader(ext, getPanoItemTypes(ext)[this.dbItem.itemType], this.dbItem.copyDate);
+    this.header = new PanoItemHeader(ext, itemType, this.dbItem.copyDate);
 
     this.body = new St.BoxLayout({
       styleClass: 'pano-item-body',
