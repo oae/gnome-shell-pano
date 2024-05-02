@@ -151,7 +151,19 @@ export class FilePanoItem extends PanoItem {
     if (this.fileList.length === 1) {
       const file = Gio.File.new_for_uri(this.fileList[0]!);
       if (file.query_exists(null)) {
-        const contentType = Gio.content_type_guess(this.fileList[0]!, null)[0];
+        // Read first 64 bytes of the file to guess the content type for files without an extension
+        let data: Uint8Array | null = null;
+        let fileStream: Gio.FileInputStream | null = null;
+        try {
+          if (file.query_file_type(Gio.FileQueryInfoFlags.NONE, null) === Gio.FileType.REGULAR) {
+            fileStream = file.read(null);
+            data = fileStream.read_bytes(64, null).toArray();
+          }
+        } finally {
+          fileStream?.close(null);
+        }
+
+        const contentType = Gio.content_type_guess(this.fileList[0]!, data)[0];
 
         if (Gio.content_type_is_a(contentType, 'text/plain')) {
           // Text
@@ -163,7 +175,7 @@ export class FilePanoItem extends PanoItem {
             let text = '';
             for (let i = 0; i < 30; i++) {
               const line = stream.read_line_utf8(null)[0];
-              if (line) {
+              if (line !== null) {
                 if (i > 0) text += '\n';
                 text += line;
               } else {
