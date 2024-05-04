@@ -46,7 +46,7 @@ export class LinkPanoItem extends PanoItem {
       vertical: true,
       xExpand: true,
       yExpand: false,
-      yAlign: Clutter.ActorAlign.END,
+      yAlign: Clutter.ActorAlign.CENTER,
       xAlign: Clutter.ActorAlign.FILL,
     });
 

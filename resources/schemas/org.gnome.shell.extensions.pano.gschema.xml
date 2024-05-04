@@ -178,7 +178,7 @@
       <description>hovered-item-border-color</description>
     </key>
     <key name="show-controls-on-hover" type="b">
-      <default>false</default>
+      <default>true</default>
       <summary>Show Controls on Hover</summary>
       <description>When enabled, the controls will only show on hover</description>
     </key>
@@ -350,7 +350,7 @@
       <description>title-font-family</description>
     </key>
     <key name="title-font-size" type="i">
-      <default>18</default>
+      <default>13</default>
       <summary>title-font-size</summary>
       <description>title-font-size</description>
     </key>

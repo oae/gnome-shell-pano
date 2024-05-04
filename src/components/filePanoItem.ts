@@ -15,7 +15,7 @@ export class FilePanoItem extends PanoItem {
   private operation: string;
   private fileItemSettings: Gio.Settings;
   private titleContainer: St.BoxLayout;
-  private copiedFilesContainer: St.BoxLayout;
+  private copiedFilesContainer: St.BoxLayout | null = null;
   private preview: St.BoxLayout | St.Label | null = null;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
@@ -31,11 +31,12 @@ export class FilePanoItem extends PanoItem {
       vertical: false,
       xExpand: true,
       yExpand: false,
-      yAlign: Clutter.ActorAlign.START,
+      yAlign: Clutter.ActorAlign.FILL,
     });
 
     const icon = new St.Icon({
       xAlign: Clutter.ActorAlign.START,
+      yAlign: Clutter.ActorAlign.START,
       styleClass: 'title-icon',
     });
 
@@ -46,109 +47,26 @@ export class FilePanoItem extends PanoItem {
     }
 
     const label = new St.Label({
-      text: this.fileList.length > 1 ? `${this.fileList.length} files` : `${this.fileList.length} file`,
       styleClass: 'title-label',
       xAlign: Clutter.ActorAlign.FILL,
+      yAlign: Clutter.ActorAlign.CENTER,
       xExpand: true,
     });
+    label.clutterText.lineWrap = true;
+    label.clutterText.ellipsize = Pango.EllipsizeMode.MIDDLE;
 
     this.titleContainer.add_child(icon);
-    this.titleContainer.add_child(label);
 
-    this.copiedFilesContainer = new St.BoxLayout({
-      styleClass: 'copied-files-container',
-      vertical: true,
-      xExpand: true,
-      yExpand: false,
-      yAlign: Clutter.ActorAlign.FILL,
-    });
-
-    // Check for the common parent directory for all files
     const homeDir = GLib.get_home_dir();
-    const commonDirectory = this.fileList
-      .map((f) => {
-        const items = f.split('://').filter((c) => !!c);
-        return decodeURIComponent(items[items.length - 1]!).split('/');
-      })
-      .reduce((prev, cur) => {
-        for (let i = 0; i < Math.min(prev.length, cur.length); i++) {
-          if (prev[i] !== cur[i]) {
-            return prev.slice(0, i);
-          }
-        }
 
-        // Two files are the same
-        if (prev.length === cur.length) {
-          return prev.slice(0, prev.length - 1);
-        }
-
-        // One file/directory is inside of the other directory
-        return prev.length < cur.length ? prev : cur;
-      })
-      .join('/');
-
-    if (this.fileList.length > 1) {
-      const directoryLabel = new St.Label({
-        text: commonDirectory.replace(homeDir, '~'),
-        styleClass: 'top-level-directory',
-        xAlign: Clutter.ActorAlign.FILL,
-        xExpand: true,
-      });
-      directoryLabel.clutterText.ellipsize = Pango.EllipsizeMode.MIDDLE;
-
-      this.copiedFilesContainer.add_child(directoryLabel);
-    }
-
-    this.fileList
-      .map((f) => {
-        const items = f.split('://').filter((c) => !!c);
-        return decodeURIComponent(items[items.length - 1]!);
-      })
-      .forEach((uri, i) => {
-        const bl = new St.BoxLayout({
-          vertical: false,
-          styleClass: 'copied-file-name',
-          xExpand: true,
-          xAlign: Clutter.ActorAlign.FILL,
-          clipToAllocation: true,
-          yAlign: Clutter.ActorAlign.FILL,
-        });
-
-        const iconName = i < this.fileList.length - 1 ? 'file-tree-middle' : 'file-tree-end';
-        const icon = new St.Icon({
-          gicon: Gio.icon_new_for_string(`${ext.path}/icons/hicolor/scalable/actions/${iconName}-symbolic.svg`),
-          styleClass: 'file-tree-icon',
-          xAlign: Clutter.ActorAlign.START,
-          xExpand: false,
-        });
-
-        const uriLabel = new St.Label({
-          text:
-            this.fileList.length == 1
-              ? uri.replace(homeDir, '~')
-              : uri.substring(commonDirectory.length + 1).replace(homeDir, '~'),
-          styleClass: 'file-label',
-          xAlign: Clutter.ActorAlign.FILL,
-          yAlign: Clutter.ActorAlign.CENTER,
-          xExpand: true,
-        });
-
-        uriLabel.clutterText.ellipsize = Pango.EllipsizeMode.MIDDLE;
-        if (this.fileList.length == 1) {
-          uriLabel.clutterText.lineWrap = true;
-        } else {
-          bl.add_child(icon);
-        }
-
-        bl.add_child(uriLabel);
-        this.copiedFilesContainer.add_child(bl);
-      });
-
-    this.body.add_child(this.titleContainer);
-    this.body.add_child(this.copiedFilesContainer);
-
-    // Create file preview
     if (this.fileList.length === 1) {
+      const items = this.fileList[0]!.split('://').filter((c) => !!c);
+      label.text = decodeURIComponent(items[items.length - 1]!).replace(homeDir, '~');
+
+      this.titleContainer.add_child(label);
+      this.body.add_child(this.titleContainer);
+
+      // Try to create file preview
       const file = Gio.File.new_for_uri(this.fileList[0]!);
       if (file.query_exists(null)) {
         // Read first 64 bytes of the file to guess the content type for files without an extension
@@ -234,6 +152,8 @@ export class FilePanoItem extends PanoItem {
               yAlign: Clutter.ActorAlign.FILL,
               style: `background-image: url(${uri}); background-size: cover;`,
             });
+          } else {
+            this.add_style_class_name('no-preview');
           }
         }
 
@@ -242,6 +162,78 @@ export class FilePanoItem extends PanoItem {
           this.body.add_child(this.preview);
         }
       }
+    } else {
+      // Check for the common parent directory for all files
+      const commonDirectory = this.fileList
+        .map((f) => {
+          const items = f.split('://').filter((c) => !!c);
+          return decodeURIComponent(items[items.length - 1]!).split('/');
+        })
+        .reduce((prev, cur) => {
+          for (let i = 0; i < Math.min(prev.length, cur.length); i++) {
+            if (prev[i] !== cur[i]) {
+              return prev.slice(0, i);
+            }
+          }
+
+          // Two files are the same
+          if (prev.length === cur.length) {
+            return prev.slice(0, prev.length - 1);
+          }
+
+          // One file/directory is inside of the other directory
+          return prev.length < cur.length ? prev : cur;
+        })
+        .join('/');
+
+      label.text = `${commonDirectory.replace(homeDir, '~')}`;
+
+      const labelContainer = new St.BoxLayout({
+        vertical: true,
+        xExpand: true,
+        yExpand: false,
+        xAlign: Clutter.ActorAlign.FILL,
+        yAlign: Clutter.ActorAlign.CENTER,
+      });
+      labelContainer.add_child(label);
+      labelContainer.add_child(
+        new St.Label({
+          text: `${this.fileList.length} items`,
+          styleClass: 'copied-files-count',
+        }),
+      );
+
+      this.titleContainer.add_child(labelContainer);
+      this.body.add_child(this.titleContainer);
+
+      this.copiedFilesContainer = new St.BoxLayout({
+        styleClass: 'copied-files-container',
+        clipToAllocation: true,
+        vertical: true,
+        xExpand: true,
+        yExpand: true,
+        yAlign: Clutter.ActorAlign.FILL,
+        minHeight: 0,
+      });
+
+      this.fileList
+        .map((f) => {
+          const items = f.split('://').filter((c) => !!c);
+          return decodeURIComponent(items[items.length - 1]!);
+        })
+        .forEach((uri) => {
+          const uriLabel = new St.Label({
+            text: uri.substring(commonDirectory.length + 1).replace(homeDir, '~'),
+            styleClass: 'copied-file-name',
+            xAlign: Clutter.ActorAlign.FILL,
+            xExpand: true,
+          });
+          uriLabel.clutterText.ellipsize = Pango.EllipsizeMode.MIDDLE;
+
+          this.copiedFilesContainer!.add_child(uriLabel);
+        });
+
+      this.body.add_child(this.copiedFilesContainer);
     }
 
     this.connect('activated', this.setClipboardContent.bind(this));
@@ -252,6 +244,7 @@ export class FilePanoItem extends PanoItem {
   }
 
   private setStyle() {
+    const compactMode = this.settings.get_boolean('compact-mode');
     const headerBgColor = this.fileItemSettings.get_string('header-bg-color');
     const headerColor = this.fileItemSettings.get_string('header-color');
     const bodyBgColor = this.fileItemSettings.get_string('body-bg-color');
@@ -269,16 +262,20 @@ export class FilePanoItem extends PanoItem {
     this.header.set_style(`background-color: ${headerBgColor}; color: ${headerColor};`);
     this.container.set_style(`background-color: ${bodyBgColor};`);
 
-    this.titleContainer.visible = !this.settings.get_boolean('enable-headers');
     this.titleContainer.set_style(
       `color: ${titleColor}; font-family: ${titleFontFamily}; font-size: ${titleFontSize}px;`,
     );
-    this.copiedFilesContainer.set_style(
-      `color: ${bodyColor}; font-family: ${bodyFontFamily}; font-size: ${bodyFontSize}px`,
-    );
 
+    if (this.copiedFilesContainer) {
+      this.copiedFilesContainer.visible = !compactMode;
+      this.copiedFilesContainer?.set_style(
+        `background-color: ${previewBgColor}; color: ${bodyColor}; font-family: ${bodyFontFamily}; font-size: ${bodyFontSize}px`,
+      );
+    }
+
+    this.titleContainer.vertical = this.preview === null && this.copiedFilesContainer === null && !compactMode;
     if (this.preview) {
-      this.preview.visible = !this.settings.get_boolean('compact-mode');
+      this.preview.visible = !compactMode;
     }
 
     if (this.preview?.styleClass.endsWith('copied-file-preview-text')) {
