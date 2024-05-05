@@ -370,7 +370,7 @@
       <description>body-font-size</description>
     </key>
     <key name="preview-bg-color" type="s">
-      <default>'rgb(36, 36, 36)'</default>
+      <default>'rgba(255, 255, 255, 0.08)'</default>
       <summary>preview-bg-color</summary>
       <description>preview-bg-color</description>
     </key>

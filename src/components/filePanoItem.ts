@@ -9,14 +9,21 @@ import { ClipboardContent, ClipboardManager, ContentType, FileOperation } from '
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 
+enum PreviewType {
+  NONE = 'none',
+  FILES = 'files',
+  IMAGE = 'image',
+  TEXT = 'text',
+}
+
 @registerGObjectClass
 export class FilePanoItem extends PanoItem {
   private fileList: string[];
   private operation: string;
   private fileItemSettings: Gio.Settings;
   private titleContainer: St.BoxLayout;
-  private copiedFilesContainer: St.BoxLayout | null = null;
   private preview: St.BoxLayout | St.Label | null = null;
+  private previewType: PreviewType = PreviewType.NONE;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
     super(ext, clipboardManager, dbItem);
@@ -112,6 +119,7 @@ export class FilePanoItem extends PanoItem {
             });
             this.preview.clutterText.lineWrap = false;
             this.preview.clutterText.ellipsize = Pango.EllipsizeMode.END;
+            this.previewType = PreviewType.TEXT;
           } catch (e) {
             console.error(e);
           } finally {
@@ -127,31 +135,20 @@ export class FilePanoItem extends PanoItem {
             yAlign: Clutter.ActorAlign.FILL,
             style: `background-image: url(${this.fileList[0]!}); background-size: cover;`,
           });
+          this.previewType = PreviewType.IMAGE;
         } else {
           // Other files that might have a thumbnail available i.e. videos or pdf files
-          const md5 = GLib.compute_checksum_for_string(
-            GLib.ChecksumType.MD5,
-            this.fileList[0]!,
-            this.fileList[0]!.length,
-          );
-
-          const thumbnail1 = Gio.File.new_for_path(`${homeDir}/.thumbnails/${md5}.png`);
-          const thumbnail2 = Gio.File.new_for_path(`${homeDir}/.cache/thumbnails/large/${md5}.png`);
-          const uri = thumbnail1.query_exists(null)
-            ? thumbnail1.get_uri()
-            : thumbnail2.query_exists(null)
-              ? thumbnail2.get_uri()
-              : null;
-
-          if (uri) {
+          const thumbnail = FilePanoItem.getThumbnail(homeDir, this.fileList[0]!);
+          if (thumbnail !== null) {
             this.preview = new St.BoxLayout({
               styleClass: 'copied-file-preview copied-file-preview-image',
               xExpand: true,
               yExpand: true,
               xAlign: Clutter.ActorAlign.FILL,
               yAlign: Clutter.ActorAlign.FILL,
-              style: `background-image: url(${uri}); background-size: cover;`,
+              style: `background-image: url(${thumbnail.get_uri()}); background-size: cover;`,
             });
+            this.previewType = PreviewType.IMAGE;
           } else {
             this.add_style_class_name('no-preview');
           }
@@ -206,8 +203,8 @@ export class FilePanoItem extends PanoItem {
       this.titleContainer.add_child(labelContainer);
       this.body.add_child(this.titleContainer);
 
-      this.copiedFilesContainer = new St.BoxLayout({
-        styleClass: 'copied-files-container',
+      this.preview = new St.BoxLayout({
+        styleClass: 'copied-file-preview copied-file-preview-files',
         clipToAllocation: true,
         vertical: true,
         xExpand: true,
@@ -215,6 +212,7 @@ export class FilePanoItem extends PanoItem {
         yAlign: Clutter.ActorAlign.FILL,
         minHeight: 0,
       });
+      this.previewType = PreviewType.FILES;
 
       this.fileList
         .map((f) => {
@@ -230,10 +228,10 @@ export class FilePanoItem extends PanoItem {
           });
           uriLabel.clutterText.ellipsize = Pango.EllipsizeMode.MIDDLE;
 
-          this.copiedFilesContainer!.add_child(uriLabel);
+          this.preview!.add_child(uriLabel);
         });
 
-      this.body.add_child(this.copiedFilesContainer);
+      this.body.add_child(this.preview);
     }
 
     this.connect('activated', this.setClipboardContent.bind(this));
@@ -266,22 +264,19 @@ export class FilePanoItem extends PanoItem {
       `color: ${titleColor}; font-family: ${titleFontFamily}; font-size: ${titleFontSize}px;`,
     );
 
-    if (this.copiedFilesContainer) {
-      this.copiedFilesContainer.visible = !compactMode;
-      this.copiedFilesContainer?.set_style(
-        `background-color: ${previewBgColor}; color: ${bodyColor}; font-family: ${bodyFontFamily}; font-size: ${bodyFontSize}px`,
-      );
-    }
-
-    this.titleContainer.vertical = this.preview === null && this.copiedFilesContainer === null && !compactMode;
+    this.titleContainer.vertical = this.preview === null && !compactMode;
     if (this.preview) {
       this.preview.visible = !compactMode;
-    }
 
-    if (this.preview?.styleClass.endsWith('copied-file-preview-text')) {
-      this.preview.set_style(
-        `background-color: ${previewBgColor}; color: ${previewColor}; font-family: ${previewFontFamily}; font-size: ${previewFontSize}px;`,
-      );
+      if (this.previewType == PreviewType.FILES) {
+        this.preview.set_style(
+          `background-color: ${previewBgColor}; color: ${bodyColor}; font-family: ${bodyFontFamily}; font-size: ${bodyFontSize}px;`,
+        );
+      } else if (this.previewType == PreviewType.TEXT) {
+        this.preview.set_style(
+          `background-color: ${previewBgColor}; color: ${previewColor}; font-family: ${previewFontFamily}; font-size: ${previewFontSize}px;`,
+        );
+      }
     }
   }
 
@@ -292,5 +287,28 @@ export class FilePanoItem extends PanoItem {
         value: { fileList: this.fileList, operation: this.operation },
       }),
     );
+  }
+
+  private static getThumbnail(homeDir: string, file: string): Gio.File | null {
+    const md5 = GLib.compute_checksum_for_string(GLib.ChecksumType.MD5, file, file.length);
+
+    try {
+      const thumbnailDir = Gio.File.new_for_path(`${homeDir}/.cache/thumbnails`);
+      const enumerator = thumbnailDir.enumerate_children('standard::*', 0, null);
+
+      let f: Gio.FileInfo | null = null;
+      while ((f = enumerator.next_file(null)) !== null) {
+        if (f.get_file_type() == Gio.FileType.DIRECTORY) {
+          const thumbnailFile = thumbnailDir.get_child(f.get_name()).get_child(`${md5}.png`);
+          if (thumbnailFile.query_exists(null)) {
+            return thumbnailFile;
+          }
+        }
+      }
+    } catch {
+      // ignore
+    }
+
+    return null;
   }
 }
