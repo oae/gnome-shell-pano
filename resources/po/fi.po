@@ -31,6 +31,10 @@ msgstr "Incognito-tila"
 msgid "Settings"
 msgstr "Asetukset"
 
+#: src/components/filePanoItem.ts:202
+msgid "items"
+msgstr ""
+
 #: src/components/linkPanoItem.ts:40
 msgid "No Description"
 msgstr ""
@@ -105,13 +109,11 @@ msgstr ""
 
 #: src/prefs/customization/codeItemStyle.ts:50
 #: src/prefs/customization/colorItemStyle.ts:41
-#: src/prefs/customization/fileItemStyle.ts:70
 #: src/prefs/customization/textItemStyle.ts:55
 msgid "Body Font"
 msgstr ""
 
 #: src/prefs/customization/codeItemStyle.ts:50
-#: src/prefs/customization/fileItemStyle.ts:70
 #: src/prefs/customization/textItemStyle.ts:55
 msgid "You can change the font of the body"
 msgstr ""
@@ -307,38 +309,52 @@ msgstr ""
 msgid "Title Font"
 msgstr ""
 
-#: src/prefs/customization/fileItemStyle.ts:66
-#: src/prefs/customization/textItemStyle.ts:51
-msgid "Body Text Color"
+#: src/prefs/customization/fileItemStyle.ts:67
+msgid "Files Preview Background Color"
 msgstr ""
 
-#: src/prefs/customization/fileItemStyle.ts:66
-#: src/prefs/customization/textItemStyle.ts:51
-msgid "You can change the text color of the body"
+#: src/prefs/customization/fileItemStyle.ts:68
+msgid "You can change the background color of the files preview"
 msgstr ""
 
-#: src/prefs/customization/fileItemStyle.ts:75
-msgid "Preview Background Color"
+#: src/prefs/customization/fileItemStyle.ts:77
+msgid "Files Preview Text Color"
 msgstr ""
 
-#: src/prefs/customization/fileItemStyle.ts:76
-msgid "You can change the background color of the preview"
+#: src/prefs/customization/fileItemStyle.ts:78
+msgid "You can change the text color of the files preview"
 msgstr ""
 
-#: src/prefs/customization/fileItemStyle.ts:85
-msgid "Preview Text Color"
+#: src/prefs/customization/fileItemStyle.ts:87
+msgid "Files Preview Font"
 msgstr ""
 
-#: src/prefs/customization/fileItemStyle.ts:86
-msgid "You can change the text color of the preview"
+#: src/prefs/customization/fileItemStyle.ts:88
+msgid "You can change the font of the files preview"
 msgstr ""
 
-#: src/prefs/customization/fileItemStyle.ts:94
-msgid "Preview Font"
+#: src/prefs/customization/fileItemStyle.ts:97
+msgid "Text Preview Background Color"
 msgstr ""
 
-#: src/prefs/customization/fileItemStyle.ts:94
-msgid "You can change the font of the preview"
+#: src/prefs/customization/fileItemStyle.ts:98
+msgid "You can change the background color of the text preview"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:107
+msgid "Text Preview Text Color"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:108
+msgid "You can change the text color of the text preview"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:117
+msgid "Text Preview Font"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:118
+msgid "You can change the font of the text preview"
 msgstr ""
 
 #: src/prefs/customization/imageItemStyle.ts:14
@@ -427,6 +443,14 @@ msgstr ""
 
 #: src/prefs/customization/textItemStyle.ts:15
 msgid "Text Item Style"
+msgstr ""
+
+#: src/prefs/customization/textItemStyle.ts:51
+msgid "Body Text Color"
+msgstr ""
+
+#: src/prefs/customization/textItemStyle.ts:51
+msgid "You can change the text color of the body"
 msgstr ""
 
 #: src/prefs/dangerZone/clearHistory.ts:15

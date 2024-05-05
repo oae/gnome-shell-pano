@@ -53,12 +53,10 @@ msgstr ""
 
 #: src/prefs/customization/codeItemStyle.ts:50
 #: src/prefs/customization/colorItemStyle.ts:41
-#: src/prefs/customization/fileItemStyle.ts:70
 #: src/prefs/customization/textItemStyle.ts:55
 msgid "Body Font"
 msgstr ""
 
-#: src/prefs/customization/fileItemStyle.ts:66
 #: src/prefs/customization/textItemStyle.ts:51
 msgid "Body Text Color"
 msgstr ""
@@ -219,6 +217,18 @@ msgstr ""
 msgid "File Item Style"
 msgstr ""
 
+#: src/prefs/customization/fileItemStyle.ts:67
+msgid "Files Preview Background Color"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:87
+msgid "Files Preview Font"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:77
+msgid "Files Preview Text Color"
+msgstr ""
+
 #: src/prefs/general/index.ts:13
 msgid "General"
 msgstr ""
@@ -301,6 +311,10 @@ msgstr ""
 
 #: src/prefs/customization/commonStyleGroup.ts:89
 msgid "Item Title Font"
+msgstr ""
+
+#: src/components/filePanoItem.ts:202
+msgid "items"
 msgstr ""
 
 #: src/prefs/general/keepSearchEntryOnHide.ts:15
@@ -396,18 +410,6 @@ msgstr ""
 msgid "Play an Audio on Copy"
 msgstr ""
 
-#: src/prefs/customization/fileItemStyle.ts:75
-msgid "Preview Background Color"
-msgstr ""
-
-#: src/prefs/customization/fileItemStyle.ts:94
-msgid "Preview Font"
-msgstr ""
-
-#: src/prefs/customization/fileItemStyle.ts:85
-msgid "Preview Text Color"
-msgstr ""
-
 #: src/prefs/general/removeOnMiddleClick.ts:15
 msgid "Remove on Middle Click"
 msgstr ""
@@ -467,6 +469,18 @@ msgstr ""
 
 #: src/prefs/customization/textItemStyle.ts:15
 msgid "Text Item Style"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:97
+msgid "Text Preview Background Color"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:117
+msgid "Text Preview Font"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:107
+msgid "Text Preview Text Color"
 msgstr ""
 
 #: src/utils/panoItemFactory.ts:436
@@ -545,6 +559,10 @@ msgstr ""
 msgid "You can change the background color of the body"
 msgstr ""
 
+#: src/prefs/customization/fileItemStyle.ts:68
+msgid "You can change the background color of the files preview"
+msgstr ""
+
 #: src/prefs/customization/codeItemStyle.ts:23
 #: src/prefs/customization/colorItemStyle.ts:23
 #: src/prefs/customization/emojiItemStyle.ts:23
@@ -559,8 +577,8 @@ msgstr ""
 msgid "You can change the background color of the metadata"
 msgstr ""
 
-#: src/prefs/customization/fileItemStyle.ts:76
-msgid "You can change the background color of the preview"
+#: src/prefs/customization/fileItemStyle.ts:98
+msgid "You can change the background color of the text preview"
 msgstr ""
 
 #: src/prefs/customization/codeItemStyle.ts:56
@@ -577,13 +595,16 @@ msgid "You can change the emoji size"
 msgstr ""
 
 #: src/prefs/customization/codeItemStyle.ts:50
-#: src/prefs/customization/fileItemStyle.ts:70
 #: src/prefs/customization/textItemStyle.ts:55
 msgid "You can change the font of the body"
 msgstr ""
 
 #: src/prefs/customization/commonStyleGroup.ts:92
 msgid "You can change the font of the date"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:88
+msgid "You can change the font of the files preview"
 msgstr ""
 
 #: src/prefs/customization/colorItemStyle.ts:41
@@ -602,12 +623,12 @@ msgstr ""
 msgid "You can change the font of the metadata title"
 msgstr ""
 
-#: src/prefs/customization/fileItemStyle.ts:94
-msgid "You can change the font of the preview"
-msgstr ""
-
 #: src/prefs/customization/commonStyleGroup.ts:83
 msgid "You can change the font of the search bar"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:118
+msgid "You can change the font of the text preview"
 msgstr ""
 
 #: src/prefs/customization/commonStyleGroup.ts:89
@@ -635,9 +656,12 @@ msgstr ""
 msgid "You can change the link color of the metadata"
 msgstr ""
 
-#: src/prefs/customization/fileItemStyle.ts:66
 #: src/prefs/customization/textItemStyle.ts:51
 msgid "You can change the text color of the body"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:78
+msgid "You can change the text color of the files preview"
 msgstr ""
 
 #: src/prefs/customization/codeItemStyle.ts:33
@@ -650,8 +674,8 @@ msgstr ""
 msgid "You can change the text color of the header"
 msgstr ""
 
-#: src/prefs/customization/fileItemStyle.ts:86
-msgid "You can change the text color of the preview"
+#: src/prefs/customization/fileItemStyle.ts:108
+msgid "You can change the text color of the text preview"
 msgstr ""
 
 #: src/prefs/customization/fileItemStyle.ts:53

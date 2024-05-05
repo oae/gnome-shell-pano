@@ -8,6 +8,7 @@ import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType, FileOperation } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
+import { gettext } from '@pano/utils/shell';
 
 enum PreviewType {
   NONE = 'none',
@@ -27,6 +28,7 @@ export class FilePanoItem extends PanoItem {
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
     super(ext, clipboardManager, dbItem);
+    const _ = gettext(ext);
 
     this.fileList = JSON.parse(this.dbItem.content);
     this.operation = this.dbItem.metaData || 'copy';
@@ -149,15 +151,17 @@ export class FilePanoItem extends PanoItem {
               style: `background-image: url(${thumbnail.get_uri()}); background-size: cover;`,
             });
             this.previewType = PreviewType.IMAGE;
-          } else {
-            this.add_style_class_name('no-preview');
           }
         }
 
         if (this.preview) {
           this.preview.visible = this.settings.get_boolean('compact-mode');
           this.body.add_child(this.preview);
+        } else {
+          this.add_style_class_name('no-preview');
         }
+      } else {
+        this.add_style_class_name('no-preview');
       }
     } else {
       // Check for the common parent directory for all files
@@ -195,7 +199,7 @@ export class FilePanoItem extends PanoItem {
       labelContainer.add_child(label);
       labelContainer.add_child(
         new St.Label({
-          text: `${this.fileList.length} items`,
+          text: `${this.fileList.length} ${_('items')}`,
           styleClass: 'copied-files-count',
         }),
       );
@@ -249,13 +253,14 @@ export class FilePanoItem extends PanoItem {
     const titleColor = this.fileItemSettings.get_string('title-color');
     const titleFontFamily = this.fileItemSettings.get_string('title-font-family');
     const titleFontSize = this.fileItemSettings.get_int('title-font-size');
-    const bodyColor = this.fileItemSettings.get_string('body-color');
-    const bodyFontFamily = this.fileItemSettings.get_string('body-font-family');
-    const bodyFontSize = this.fileItemSettings.get_int('body-font-size');
-    const previewBgColor = this.fileItemSettings.get_string('preview-bg-color');
-    const previewColor = this.fileItemSettings.get_string('preview-color');
-    const previewFontFamily = this.fileItemSettings.get_string('preview-font-family');
-    const previewFontSize = this.fileItemSettings.get_int('preview-font-size');
+    const filesPreviewBgColor = this.fileItemSettings.get_string('files-preview-bg-color');
+    const filesPreviewColor = this.fileItemSettings.get_string('files-preview-color');
+    const filesPreviewFontFamily = this.fileItemSettings.get_string('files-preview-font-family');
+    const filesPreviewFontSize = this.fileItemSettings.get_int('files-preview-font-size');
+    const textPreviewBgColor = this.fileItemSettings.get_string('text-preview-bg-color');
+    const textPreviewColor = this.fileItemSettings.get_string('text-preview-color');
+    const textPreviewFontFamily = this.fileItemSettings.get_string('text-preview-font-family');
+    const textPreviewFontSize = this.fileItemSettings.get_int('text-preview-font-size');
 
     this.header.set_style(`background-color: ${headerBgColor}; color: ${headerColor};`);
     this.container.set_style(`background-color: ${bodyBgColor};`);
@@ -270,11 +275,11 @@ export class FilePanoItem extends PanoItem {
 
       if (this.previewType == PreviewType.FILES) {
         this.preview.set_style(
-          `background-color: ${previewBgColor}; color: ${bodyColor}; font-family: ${bodyFontFamily}; font-size: ${bodyFontSize}px;`,
+          `background-color: ${filesPreviewBgColor}; color: ${filesPreviewColor}; font-family: ${filesPreviewFontFamily}; font-size: ${filesPreviewFontSize}px;`,
         );
       } else if (this.previewType == PreviewType.TEXT) {
         this.preview.set_style(
-          `background-color: ${previewBgColor}; color: ${previewColor}; font-family: ${previewFontFamily}; font-size: ${previewFontSize}px;`,
+          `background-color: ${textPreviewBgColor}; color: ${textPreviewColor}; font-family: ${textPreviewFontFamily}; font-size: ${textPreviewFontSize}px;`,
         );
       }
     }

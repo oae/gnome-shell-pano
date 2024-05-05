@@ -354,40 +354,45 @@
       <summary>title-font-size</summary>
       <description>title-font-size</description>
     </key>
-    <key name="body-color" type="s">
-      <default>'rgb(255, 255, 255)'</default>
-      <summary>body-color</summary>
-      <description>body-color</description>
-    </key>
-    <key name="body-font-family" type="s">
-      <default>'Cantarell Regular'</default>
-      <summary>body-font-family</summary>
-      <description>body-font-family</description>
-    </key>
-    <key name="body-font-size" type="i">
-      <default>13</default>
-      <summary>body-font-size</summary>
-      <description>body-font-size</description>
-    </key>
-    <key name="preview-bg-color" type="s">
+    <key name="files-preview-bg-color" type="s">
       <default>'rgba(255, 255, 255, 0.08)'</default>
-      <summary>preview-bg-color</summary>
-      <description>preview-bg-color</description>
+      <summary>files-preview-bg-color</summary>
+      <description>files-preview-bg-color</description>
     </key>
-    <key name="preview-color" type="s">
+    <key name="files-preview-color" type="s">
       <default>'rgb(255, 255, 255)'</default>
-      <summary>preview-color</summary>
-      <description>preview-color</description>
+      <summary>files-preview-color</summary>
+      <description>files-preview-color</description>
     </key>
-    <key name="preview-font-family" type="s">
+    <key name="files-preview-font-family" type="s">
+      <default>'Cantarell Regular'</default>
+      <summary>files-preview-font-family</summary>
+      <description>files-preview-font-family</description>
+    </key>
+    <key name="files-preview-font-size" type="i">
+      <default>13</default>
+      <summary>files-preview-font-size</summary>
+      <description>files-preview-font-size</description>
+    </key>
+    <key name="text-preview-bg-color" type="s">
+      <default>'rgb(36, 36, 36)'</default>
+      <summary>text-preview-bg-color</summary>
+      <description>text-preview-bg-color</description>
+    </key>
+    <key name="text-preview-color" type="s">
+      <default>'rgb(255, 255, 255)'</default>
+      <summary>text-preview-color</summary>
+      <description>text-preview-color</description>
+    </key>
+    <key name="text-preview-font-family" type="s">
       <default>'Source Code Pro'</default>
-      <summary>preview-font-family</summary>
-      <description>preview-font-family</description>
+      <summary>text-preview-font-family</summary>
+      <description>text-preview-font-family</description>
     </key>
-    <key name="preview-font-size" type="i">
+    <key name="text-preview-font-size" type="i">
       <default>10</default>
-      <summary>preview-font-size</summary>
-      <description>preview-font-size</description>
+      <summary>text-preview-font-size</summary>
+      <description>text-preview-font-size</description>
     </key>
   </schema>
 
