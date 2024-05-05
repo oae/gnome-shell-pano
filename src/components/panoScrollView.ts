@@ -233,8 +233,6 @@ export class PanoScrollView extends St.ScrollView {
       this.filter(this.currentFilter, this.currentItemTypeFilter, this.showFavorites);
       if (this.getVisibleItems().length === 0) {
         this.emit('scroll-focus-out');
-      } else {
-        this.focusOnClosest();
       }
     });
   }
