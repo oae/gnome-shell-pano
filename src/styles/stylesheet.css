@@ -44,6 +44,24 @@
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 }
 
+.pano-item.compact {
+  margin: 6px 3px;
+}
+
+.pano-window.vertical .pano-item.compact {
+  margin: 3px 6px;
+}
+
+.pano-item.compact:first-child {
+  margin-top: 6px!important;
+  margin-left: 6px!important;
+}
+
+.pano-item.compact:last-child {
+  margin-bottom: 6px!important;
+  margin-right: 6px!important;
+}
+
 .pano-item:hover {
   box-shadow: none;
 }
