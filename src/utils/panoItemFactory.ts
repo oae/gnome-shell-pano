@@ -25,7 +25,7 @@ import {
   playAudio,
 } from '@pano/utils/shell';
 import { notify } from '@pano/utils/ui';
-import * as colorString from 'color-string';
+import colorString from 'color-string';
 import hljs from 'highlight.js/lib/core';
 import bash from 'highlight.js/lib/languages/bash';
 import c from 'highlight.js/lib/languages/c';

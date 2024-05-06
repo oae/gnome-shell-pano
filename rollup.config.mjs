@@ -69,6 +69,7 @@ const thirdParty = [
   'date-fns/locale',
   'is-url',
   'pretty-bytes',
+  'color-string',
   'highlight.js/lib/core',
   'highlight.js/lib/languages/bash',
   'highlight.js/lib/languages/c',
