@@ -54,7 +54,6 @@ import typescript from 'highlight.js/lib/languages/typescript';
 import yaml from 'highlight.js/lib/languages/yaml';
 import isUrl from 'is-url';
 import prettyBytes from 'pretty-bytes';
-import { validateHTMLColorHex, validateHTMLColorName, validateHTMLColorRgb } from 'validate-color';
 
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('markdown', markdown);
@@ -238,11 +237,7 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
 
         return linkDbItem;
       }
-      if (
-        validateHTMLColorHex(trimmedValue) ||
-        validateHTMLColorRgb(trimmedValue) ||
-        validateHTMLColorName(trimmedValue)
-      ) {
+      if (colorString.get(trimmedValue) !== null) {
         return db.save({
           content: trimmedValue,
           copyDate: new Date(),
