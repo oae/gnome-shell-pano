@@ -125,7 +125,7 @@ msgstr ""
 msgid "Code"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:405
+#: src/utils/panoItemFactory.ts:400
 msgid "Code Copied"
 msgstr ""
 
@@ -137,7 +137,7 @@ msgstr ""
 msgid "Color"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:428
+#: src/utils/panoItemFactory.ts:423
 msgid "Color Copied"
 msgstr ""
 
@@ -181,7 +181,7 @@ msgstr ""
 msgid "Emoji"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:407
+#: src/utils/panoItemFactory.ts:402
 msgid "Emoji Copied"
 msgstr ""
 
@@ -209,7 +209,7 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:435
+#: src/utils/panoItemFactory.ts:430
 msgid "File %s"
 msgstr ""
 
@@ -277,7 +277,7 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:398
+#: src/utils/panoItemFactory.ts:393
 msgid "Image Copied"
 msgstr ""
 
@@ -337,7 +337,7 @@ msgstr ""
 msgid "Link"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:415
+#: src/utils/panoItemFactory.ts:410
 msgid "Link Copied"
 msgstr ""
 
@@ -463,7 +463,7 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:403
+#: src/utils/panoItemFactory.ts:398
 msgid "Text Copied"
 msgstr ""
 
@@ -483,7 +483,7 @@ msgstr ""
 msgid "Text Preview Text Color"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:436
+#: src/utils/panoItemFactory.ts:431
 msgid "There are %s file(s)"
 msgstr ""
 
@@ -519,7 +519,7 @@ msgstr ""
 msgid "When enabled, the controls will only show on hover"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:399
+#: src/utils/panoItemFactory.ts:394
 msgid "Width: %spx, Height: %spx, Size: %s"
 msgstr ""
 
