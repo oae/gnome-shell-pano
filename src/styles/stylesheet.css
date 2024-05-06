@@ -53,13 +53,13 @@
 }
 
 .pano-item.compact:first-child {
-  margin-top: 6px!important;
-  margin-left: 6px!important;
+  margin-top: 6px !important;
+  margin-left: 6px !important;
 }
 
 .pano-item.compact:last-child {
-  margin-bottom: 6px!important;
-  margin-right: 6px!important;
+  margin-bottom: 6px !important;
+  margin-right: 6px !important;
 }
 
 .pano-item:hover {
@@ -221,7 +221,8 @@
   height: 2.8em;
 }
 
-.pano-item-file.no-preview .title-container, .pano-item-file.compact .title-container {
+.pano-item-file.no-preview .title-container,
+.pano-item-file.compact .title-container {
   height: auto;
 }
 
