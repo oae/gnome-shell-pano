@@ -7,7 +7,7 @@ import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/cli
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { orientationCompatibility } from '@pano/utils/shell_compatibility';
-import { get as getColor } from 'color-string';
+import colorString from 'color-string';
 
 @registerGObjectClass
 export class ColorPanoItem extends PanoItem {
@@ -74,7 +74,7 @@ export class ColorPanoItem extends PanoItem {
     const metadataFontSize = this.colorItemSettings.get_int('metadata-font-size');
 
     // Calculate the luminance to determine the icon and text color with sufficient contrast
-    const rgb = getColor.rgb(this.dbItem.content) ?? [0, 0, 0, 0];
+    const rgb = colorString.get.rgb(this.dbItem.content) ?? [0, 0, 0, 0];
     const L =
       0.2126 * this.calculateChannel(rgb[0]) +
       0.7152 * this.calculateChannel(rgb[1]) +
