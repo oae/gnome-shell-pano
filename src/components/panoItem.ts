@@ -187,7 +187,8 @@ export class PanoItem extends St.BoxLayout {
     }
 
     themeContext.connect('notify::scale-factor', this.setBodyDimensions.bind(this));
-    this.settings.connect('changed::item-size', this.setBodyDimensions.bind(this));
+    this.settings.connect('changed::item-width', this.setBodyDimensions.bind(this));
+    this.settings.connect('changed::item-height', this.setBodyDimensions.bind(this));
     this.settings.connect('changed::enable-headers', this.setBodyDimensions.bind(this));
     this.settings.connect('changed::compact-mode', () => {
       if (this.settings.get_boolean('compact-mode')) {
@@ -216,12 +217,12 @@ export class PanoItem extends St.BoxLayout {
       this.set_y_align(Clutter.ActorAlign.FILL);
     }
     const { scaleFactor } = St.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
-    const mult = this.settings.get_boolean('compact-mode') ? 0.3 : 0.7;
+    const mult = this.settings.get_boolean('compact-mode') ? 0.5 : 1;
     const header = this.settings.get_boolean('enable-headers') ? 48 : 0;
-    const height = this.settings.get_int('item-size') * mult + header;
+    const height = this.settings.get_int('item-height') * mult + header;
 
     this.set_height(height * scaleFactor);
-    this.container.set_width(this.settings.get_int('item-size') * scaleFactor);
+    this.container.set_width(this.settings.get_int('item-width') * scaleFactor);
     this.container.set_height((height - 8) * scaleFactor);
     this.body.set_height((height - 10 - header) * scaleFactor);
     this.overlay.set_height((height - 8) * scaleFactor);

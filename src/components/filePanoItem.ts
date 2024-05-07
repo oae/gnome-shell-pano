@@ -194,13 +194,14 @@ export class FilePanoItem extends PanoItem {
         xExpand: true,
         yExpand: false,
         xAlign: Clutter.ActorAlign.FILL,
-        yAlign: Clutter.ActorAlign.CENTER,
+        yAlign: Clutter.ActorAlign.FILL,
       });
       labelContainer.add_child(label);
       labelContainer.add_child(
         new St.Label({
           text: `${this.fileList.length} ${_('items')}`,
           styleClass: 'copied-files-count',
+          yAlign: Clutter.ActorAlign.FILL,
         }),
       );
 

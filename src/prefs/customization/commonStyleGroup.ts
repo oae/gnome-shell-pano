@@ -30,7 +30,11 @@ export class CommonStyleGroup extends Adw.PreferencesGroup {
     );
 
     this.add(
-      createSpinRow(_('Item Size'), _('You can change the item size'), this.settings, 'item-size', 5, 200, 1000),
+      createSpinRow(_('Item Width'), _('You can change the item width'), this.settings, 'item-width', 5, 200, 1000),
+    );
+
+    this.add(
+      createSpinRow(_('Item Height'), _('You can change the item height'), this.settings, 'item-height', 5, 100, 1000),
     );
 
     this.add(

@@ -96,7 +96,7 @@ export class LinkPanoItem extends PanoItem {
     this.connect('activated', this.setClipboardContent.bind(this));
     this.setCompactMode();
     this.settings.connect('changed::compact-mode', this.setCompactMode.bind(this));
-    this.settings.connect('changed::item-size', this.setCompactMode.bind(this));
+    this.settings.connect('changed::item-height', this.setCompactMode.bind(this));
     this.setStyle();
     this.linkItemSettings.connect('changed', this.setStyle.bind(this));
 
@@ -134,7 +134,7 @@ export class LinkPanoItem extends PanoItem {
   private setCompactMode() {
     if (this.settings.get_boolean('compact-mode')) {
       this.body.vertical = false;
-      this.imageContainer.width = this.body.height * 1.618;
+      this.imageContainer.width = this.settings.get_int('item-height') * 1.618;
     } else {
       this.body.vertical = true;
       this.imageContainer.width = -1;

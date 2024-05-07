@@ -34,7 +34,7 @@ export class EmojiPanoItem extends PanoItem {
     this.setStyle();
     this.emojiItemSettings.connect('changed', this.setStyle.bind(this));
     this.settings.connect('changed::compact-mode', this.setStyle.bind(this));
-    this.settings.connect('changed::item-size', this.setStyle.bind(this));
+    this.settings.connect('changed::item-height', this.setStyle.bind(this));
   }
 
   private setStyle() {

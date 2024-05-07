@@ -161,115 +161,123 @@ msgid "Legacy Icons"
 msgstr "Iconos heredados"
 
 #: src/prefs/customization/commonStyleGroup.ts:33
-msgid "Item Size"
-msgstr "Tamaño de las notas"
+msgid "Item Width"
+msgstr ""
 
 #: src/prefs/customization/commonStyleGroup.ts:33
-msgid "You can change the item size"
-msgstr "Puedes cambiar el tamaño de las notas"
+msgid "You can change the item width"
+msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:38
+#: src/prefs/customization/commonStyleGroup.ts:37
+msgid "Item Height"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:37
+msgid "You can change the item height"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:42
 msgid "Enable Headers"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:39
+#: src/prefs/customization/commonStyleGroup.ts:43
 msgid "Controls the visibility of the clipboard item headers"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:47
+#: src/prefs/customization/commonStyleGroup.ts:51
 msgid "Compact Mode"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:48
+#: src/prefs/customization/commonStyleGroup.ts:52
 msgid "Controls the compactness of the clipboard item."
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:56
+#: src/prefs/customization/commonStyleGroup.ts:60
 msgid "Window Position"
 msgstr "Posición de la ventana"
 
-#: src/prefs/customization/commonStyleGroup.ts:57
+#: src/prefs/customization/commonStyleGroup.ts:61
 msgid "You can change position of the Pano"
 msgstr "Elige la posición de la ventana de Pano"
 
-#: src/prefs/customization/commonStyleGroup.ts:60
+#: src/prefs/customization/commonStyleGroup.ts:64
 msgid "Bottom"
 msgstr "Abajo"
 
-#: src/prefs/customization/commonStyleGroup.ts:60
+#: src/prefs/customization/commonStyleGroup.ts:64
 msgid "Left"
 msgstr "A la izquierda"
 
-#: src/prefs/customization/commonStyleGroup.ts:60
+#: src/prefs/customization/commonStyleGroup.ts:64
 msgid "Right"
 msgstr "A la derecha"
 
-#: src/prefs/customization/commonStyleGroup.ts:60
+#: src/prefs/customization/commonStyleGroup.ts:64
 msgid "Top"
 msgstr "Arriba"
 
-#: src/prefs/customization/commonStyleGroup.ts:66
+#: src/prefs/customization/commonStyleGroup.ts:70
 msgid "Window Background Color"
 msgstr "Color de fondo de la ventana"
 
-#: src/prefs/customization/commonStyleGroup.ts:67
+#: src/prefs/customization/commonStyleGroup.ts:71
 msgid "You can change the window background color"
 msgstr "Puedes cambiar el color de fondo de la ventana"
 
-#: src/prefs/customization/commonStyleGroup.ts:74
+#: src/prefs/customization/commonStyleGroup.ts:78
 msgid "Incognito Window Background Color"
 msgstr "Color de fondo de la ventana de incógnito"
 
-#: src/prefs/customization/commonStyleGroup.ts:75
+#: src/prefs/customization/commonStyleGroup.ts:79
 msgid "You can change the incognito window background color"
 msgstr "Puedes cambiar el color de fondo de la ventana cuando se ejecuta el modo incógnito"
 
-#: src/prefs/customization/commonStyleGroup.ts:82
+#: src/prefs/customization/commonStyleGroup.ts:86
 msgid "Search Bar Font"
 msgstr "Tipo de letra de la barra de búsqueda"
 
-#: src/prefs/customization/commonStyleGroup.ts:83
+#: src/prefs/customization/commonStyleGroup.ts:87
 msgid "You can change the font of the search bar"
 msgstr "Elige la tipografía de la barra de búsqueda"
 
-#: src/prefs/customization/commonStyleGroup.ts:89
+#: src/prefs/customization/commonStyleGroup.ts:93
 msgid "Item Title Font"
 msgstr "Tipo de letra de los títulos de las notas"
 
-#: src/prefs/customization/commonStyleGroup.ts:89
+#: src/prefs/customization/commonStyleGroup.ts:93
 #: src/prefs/customization/fileItemStyle.ts:61
 msgid "You can change the font of the title"
 msgstr "Puedes cambiar la tipografía de los títulos de las notas"
 
-#: src/prefs/customization/commonStyleGroup.ts:92
+#: src/prefs/customization/commonStyleGroup.ts:96
 msgid "Item Date Font"
 msgstr "Tipo de letra de la fecha de las notas"
 
-#: src/prefs/customization/commonStyleGroup.ts:92
+#: src/prefs/customization/commonStyleGroup.ts:96
 msgid "You can change the font of the date"
 msgstr "Puedes cambiar la tipografía de la fecha"
 
-#: src/prefs/customization/commonStyleGroup.ts:96
+#: src/prefs/customization/commonStyleGroup.ts:100
 msgid "Active Item Border Color"
 msgstr "Color del borde de la nota activa"
 
-#: src/prefs/customization/commonStyleGroup.ts:97
+#: src/prefs/customization/commonStyleGroup.ts:101
 msgid "You can change the active item border color"
 msgstr "Elige el color del borde de la nota activa"
 
-#: src/prefs/customization/commonStyleGroup.ts:104
+#: src/prefs/customization/commonStyleGroup.ts:108
 msgid "Hovered Item Border Color"
 msgstr "Color del borde de la nota al pasar el ratón"
 
-#: src/prefs/customization/commonStyleGroup.ts:105
+#: src/prefs/customization/commonStyleGroup.ts:109
 msgid "You can change the hovered item border color"
 msgstr "Elige el color del borde de las notas al pasar el ratón por encima"
 
-#: src/prefs/customization/commonStyleGroup.ts:112
+#: src/prefs/customization/commonStyleGroup.ts:116
 msgid "Show Controls on Hover"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:113
+#: src/prefs/customization/commonStyleGroup.ts:117
 msgid "When enabled, the controls will only show on hover"
 msgstr ""
 
