@@ -243,11 +243,11 @@ msgstr "Můžete změnit písmo nadpisu"
 
 #: src/prefs/customization/commonStyleGroup.ts:92
 msgid "Item Date Font"
-msgstr ""
+msgstr "Písmo položky Datum"
 
 #: src/prefs/customization/commonStyleGroup.ts:92
 msgid "You can change the font of the date"
-msgstr ""
+msgstr "Můžete změnit písmo data"
 
 #: src/prefs/customization/commonStyleGroup.ts:96
 msgid "Active Item Border Color"
