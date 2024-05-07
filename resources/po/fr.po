@@ -243,11 +243,11 @@ msgstr "Vous pouvez modifier la police du titre"
 
 #: src/prefs/customization/commonStyleGroup.ts:92
 msgid "Item Date Font"
-msgstr ""
+msgstr "Police de la date de l’élément"
 
 #: src/prefs/customization/commonStyleGroup.ts:92
 msgid "You can change the font of the date"
-msgstr ""
+msgstr "Vous pouvez modifier la police de la date"
 
 #: src/prefs/customization/commonStyleGroup.ts:96
 msgid "Active Item Border Color"

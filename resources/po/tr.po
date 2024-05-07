@@ -243,11 +243,11 @@ msgstr "Öğe başlığının yazı tipini değiştirebilirsiniz"
 
 #: src/prefs/customization/commonStyleGroup.ts:92
 msgid "Item Date Font"
-msgstr ""
+msgstr "Öğe Tarihi Yazı Tipi"
 
 #: src/prefs/customization/commonStyleGroup.ts:92
 msgid "You can change the font of the date"
-msgstr ""
+msgstr "Öğe tarihi yazı tipini değiştirebilirsiniz"
 
 #: src/prefs/customization/commonStyleGroup.ts:96
 msgid "Active Item Border Color"

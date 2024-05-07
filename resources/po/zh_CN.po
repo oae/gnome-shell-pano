@@ -243,11 +243,11 @@ msgstr "修改项目标题字体"
 
 #: src/prefs/customization/commonStyleGroup.ts:92
 msgid "Item Date Font"
-msgstr ""
+msgstr "项目日期字体"
 
 #: src/prefs/customization/commonStyleGroup.ts:92
 msgid "You can change the font of the date"
-msgstr ""
+msgstr "修改项目日期字体"
 
 #: src/prefs/customization/commonStyleGroup.ts:96
 msgid "Active Item Border Color"
