@@ -237,7 +237,7 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
 
         return linkDbItem;
       }
-      if (colorString.get(trimmedValue) !== null) {
+      if (colorString.get.rgb(trimmedValue) !== null) {
         return db.save({
           content: trimmedValue,
           copyDate: new Date(),
