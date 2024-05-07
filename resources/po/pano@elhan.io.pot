@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
-#: src/prefs/customization/commonStyleGroup.ts:96
+#: src/prefs/customization/commonStyleGroup.ts:100
 msgid "Active Item Border Color"
 msgstr ""
 
@@ -61,7 +61,7 @@ msgstr ""
 msgid "Body Text Color"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:60
+#: src/prefs/customization/commonStyleGroup.ts:64
 msgid "Bottom"
 msgstr ""
 
@@ -149,15 +149,15 @@ msgstr ""
 msgid "Common"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:47
+#: src/prefs/customization/commonStyleGroup.ts:51
 msgid "Compact Mode"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:48
+#: src/prefs/customization/commonStyleGroup.ts:52
 msgid "Controls the compactness of the clipboard item."
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:39
+#: src/prefs/customization/commonStyleGroup.ts:43
 msgid "Controls the visibility of the clipboard item headers"
 msgstr ""
 
@@ -193,7 +193,7 @@ msgstr ""
 msgid "Emoji Size"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:38
+#: src/prefs/customization/commonStyleGroup.ts:42
 msgid "Enable Headers"
 msgstr ""
 
@@ -265,7 +265,7 @@ msgstr ""
 msgid "History Length"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:104
+#: src/prefs/customization/commonStyleGroup.ts:108
 msgid "Hovered Item Border Color"
 msgstr ""
 
@@ -293,24 +293,28 @@ msgstr ""
 msgid "Incognito Mode Shortcut"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:74
+#: src/prefs/customization/commonStyleGroup.ts:78
 msgid "Incognito Window Background Color"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:92
+#: src/prefs/customization/commonStyleGroup.ts:96
 msgid "Item Date Font"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:33
-msgid "Item Size"
+#: src/prefs/customization/commonStyleGroup.ts:37
+msgid "Item Height"
 msgstr ""
 
 #: src/prefs/customization/itemStyleGroup.ts:18
 msgid "Item Style"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:89
+#: src/prefs/customization/commonStyleGroup.ts:93
 msgid "Item Title Font"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:33
+msgid "Item Width"
 msgstr ""
 
 #: src/components/filePanoItem.ts:202
@@ -325,7 +329,7 @@ msgstr ""
 msgid "Keep search entry when Pano hides"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:60
+#: src/prefs/customization/commonStyleGroup.ts:64
 msgid "Left"
 msgstr ""
 
@@ -414,11 +418,11 @@ msgstr ""
 msgid "Remove on Middle Click"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:60
+#: src/prefs/customization/commonStyleGroup.ts:64
 msgid "Right"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:82
+#: src/prefs/customization/commonStyleGroup.ts:86
 msgid "Search Bar Font"
 msgstr ""
 
@@ -439,7 +443,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:112
+#: src/prefs/customization/commonStyleGroup.ts:116
 msgid "Show Controls on Hover"
 msgstr ""
 
@@ -495,7 +499,7 @@ msgstr ""
 msgid "Title Text Color"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:60
+#: src/prefs/customization/commonStyleGroup.ts:64
 msgid "Top"
 msgstr ""
 
@@ -515,7 +519,7 @@ msgstr ""
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:113
+#: src/prefs/customization/commonStyleGroup.ts:117
 msgid "When enabled, the controls will only show on hover"
 msgstr ""
 
@@ -531,7 +535,7 @@ msgstr ""
 msgid "Wiggles the indicator on panel"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:66
+#: src/prefs/customization/commonStyleGroup.ts:70
 msgid "Window Background Color"
 msgstr ""
 
@@ -539,15 +543,15 @@ msgstr ""
 msgid "Window class name"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:56
+#: src/prefs/customization/commonStyleGroup.ts:60
 msgid "Window Position"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:57
+#: src/prefs/customization/commonStyleGroup.ts:61
 msgid "You can change position of the Pano"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:97
+#: src/prefs/customization/commonStyleGroup.ts:101
 msgid "You can change the active item border color"
 msgstr ""
 
@@ -599,7 +603,7 @@ msgstr ""
 msgid "You can change the font of the body"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:92
+#: src/prefs/customization/commonStyleGroup.ts:96
 msgid "You can change the font of the date"
 msgstr ""
 
@@ -623,7 +627,7 @@ msgstr ""
 msgid "You can change the font of the metadata title"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:83
+#: src/prefs/customization/commonStyleGroup.ts:87
 msgid "You can change the font of the search bar"
 msgstr ""
 
@@ -631,12 +635,12 @@ msgstr ""
 msgid "You can change the font of the text preview"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:89
+#: src/prefs/customization/commonStyleGroup.ts:93
 #: src/prefs/customization/fileItemStyle.ts:61
 msgid "You can change the font of the title"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:105
+#: src/prefs/customization/commonStyleGroup.ts:109
 msgid "You can change the hovered item border color"
 msgstr ""
 
@@ -644,12 +648,16 @@ msgstr ""
 msgid "You can change the icon pack"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:75
+#: src/prefs/customization/commonStyleGroup.ts:79
 msgid "You can change the incognito window background color"
 msgstr ""
 
+#: src/prefs/customization/commonStyleGroup.ts:37
+msgid "You can change the item height"
+msgstr ""
+
 #: src/prefs/customization/commonStyleGroup.ts:33
-msgid "You can change the item size"
+msgid "You can change the item width"
 msgstr ""
 
 #: src/prefs/customization/linkItemStyle.ts:103
@@ -686,7 +694,7 @@ msgstr ""
 msgid "You can change the title color of the metadata"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:67
+#: src/prefs/customization/commonStyleGroup.ts:71
 msgid "You can change the window background color"
 msgstr ""
 

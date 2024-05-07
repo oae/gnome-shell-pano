@@ -161,115 +161,123 @@ msgid "Legacy Icons"
 msgstr "Eski Simgeler"
 
 #: src/prefs/customization/commonStyleGroup.ts:33
-msgid "Item Size"
-msgstr "Simge Boyutu"
+msgid "Item Width"
+msgstr ""
 
 #: src/prefs/customization/commonStyleGroup.ts:33
-msgid "You can change the item size"
-msgstr "Öğe boyutunu değiştirebilirsiniz"
+msgid "You can change the item width"
+msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:38
+#: src/prefs/customization/commonStyleGroup.ts:37
+msgid "Item Height"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:37
+msgid "You can change the item height"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:42
 msgid "Enable Headers"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:39
+#: src/prefs/customization/commonStyleGroup.ts:43
 msgid "Controls the visibility of the clipboard item headers"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:47
+#: src/prefs/customization/commonStyleGroup.ts:51
 msgid "Compact Mode"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:48
+#: src/prefs/customization/commonStyleGroup.ts:52
 msgid "Controls the compactness of the clipboard item."
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:56
+#: src/prefs/customization/commonStyleGroup.ts:60
 msgid "Window Position"
 msgstr "Pencere Konumu"
 
-#: src/prefs/customization/commonStyleGroup.ts:57
+#: src/prefs/customization/commonStyleGroup.ts:61
 msgid "You can change position of the Pano"
 msgstr "Pencere konumunu değiştirebilirsiniz"
 
-#: src/prefs/customization/commonStyleGroup.ts:60
+#: src/prefs/customization/commonStyleGroup.ts:64
 msgid "Bottom"
 msgstr "Alt"
 
-#: src/prefs/customization/commonStyleGroup.ts:60
+#: src/prefs/customization/commonStyleGroup.ts:64
 msgid "Left"
 msgstr "Sol"
 
-#: src/prefs/customization/commonStyleGroup.ts:60
+#: src/prefs/customization/commonStyleGroup.ts:64
 msgid "Right"
 msgstr "Sağ"
 
-#: src/prefs/customization/commonStyleGroup.ts:60
+#: src/prefs/customization/commonStyleGroup.ts:64
 msgid "Top"
 msgstr "Üst"
 
-#: src/prefs/customization/commonStyleGroup.ts:66
+#: src/prefs/customization/commonStyleGroup.ts:70
 msgid "Window Background Color"
 msgstr "Pencere Arkaplan Rengi"
 
-#: src/prefs/customization/commonStyleGroup.ts:67
+#: src/prefs/customization/commonStyleGroup.ts:71
 msgid "You can change the window background color"
 msgstr "Pencere arkaplan rengini değiştirebilirsiniz"
 
-#: src/prefs/customization/commonStyleGroup.ts:74
+#: src/prefs/customization/commonStyleGroup.ts:78
 msgid "Incognito Window Background Color"
 msgstr "Gizli Pencere Arkaplan Rengi"
 
-#: src/prefs/customization/commonStyleGroup.ts:75
+#: src/prefs/customization/commonStyleGroup.ts:79
 msgid "You can change the incognito window background color"
 msgstr "Gizli pencere arkaplan rengini değiştirebilirsiniz"
 
-#: src/prefs/customization/commonStyleGroup.ts:82
+#: src/prefs/customization/commonStyleGroup.ts:86
 msgid "Search Bar Font"
 msgstr "Arama Çubuğu Yazı Tipi"
 
-#: src/prefs/customization/commonStyleGroup.ts:83
+#: src/prefs/customization/commonStyleGroup.ts:87
 msgid "You can change the font of the search bar"
 msgstr "Arama çubuğu yazı tipini değiştirebilirsiniz"
 
-#: src/prefs/customization/commonStyleGroup.ts:89
+#: src/prefs/customization/commonStyleGroup.ts:93
 msgid "Item Title Font"
 msgstr "Öğe Başlığı Yazı Tipi"
 
-#: src/prefs/customization/commonStyleGroup.ts:89
+#: src/prefs/customization/commonStyleGroup.ts:93
 #: src/prefs/customization/fileItemStyle.ts:61
 msgid "You can change the font of the title"
 msgstr "Öğe başlığının yazı tipini değiştirebilirsiniz"
 
-#: src/prefs/customization/commonStyleGroup.ts:92
+#: src/prefs/customization/commonStyleGroup.ts:96
 msgid "Item Date Font"
 msgstr "Öğe Tarihi Yazı Tipi"
 
-#: src/prefs/customization/commonStyleGroup.ts:92
+#: src/prefs/customization/commonStyleGroup.ts:96
 msgid "You can change the font of the date"
 msgstr "Öğe tarihi yazı tipini değiştirebilirsiniz"
 
-#: src/prefs/customization/commonStyleGroup.ts:96
+#: src/prefs/customization/commonStyleGroup.ts:100
 msgid "Active Item Border Color"
 msgstr "Etkin Öğe Çerçeve Rengi"
 
-#: src/prefs/customization/commonStyleGroup.ts:97
+#: src/prefs/customization/commonStyleGroup.ts:101
 msgid "You can change the active item border color"
 msgstr "Etkin öğenin çerçeve rengini değiştirebilirsiniz"
 
-#: src/prefs/customization/commonStyleGroup.ts:104
+#: src/prefs/customization/commonStyleGroup.ts:108
 msgid "Hovered Item Border Color"
 msgstr "Öğenin Üzerine Gelindiğindeki Çerçeve Rengi"
 
-#: src/prefs/customization/commonStyleGroup.ts:105
+#: src/prefs/customization/commonStyleGroup.ts:109
 msgid "You can change the hovered item border color"
 msgstr "Öğenin üzerine geldiğindeki çerçeve rengini değiştirebilirsiniz"
 
-#: src/prefs/customization/commonStyleGroup.ts:112
+#: src/prefs/customization/commonStyleGroup.ts:116
 msgid "Show Controls on Hover"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:113
+#: src/prefs/customization/commonStyleGroup.ts:117
 msgid "When enabled, the controls will only show on hover"
 msgstr ""
 

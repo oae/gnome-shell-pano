@@ -43,7 +43,10 @@ export class PanoWindow extends St.BoxLayout {
     themeContext.connect('notify::scale-factor', () => {
       this.setWindowDimensions(themeContext.scaleFactor);
     });
-    this.settings.connect('changed::item-size', () => {
+    this.settings.connect('changed::item-width', () => {
+      this.setWindowDimensions(themeContext.scaleFactor);
+    });
+    this.settings.connect('changed::item-height', () => {
       this.setWindowDimensions(themeContext.scaleFactor);
     });
     this.settings.connect('changed::enable-headers', () => {
@@ -110,11 +113,11 @@ export class PanoWindow extends St.BoxLayout {
     this.remove_style_class_name('vertical');
     if (isVertical(this.settings.get_uint('window-position'))) {
       this.add_style_class_name('vertical');
-      this.set_width((this.settings.get_int('item-size') + 20) * scaleFactor);
+      this.set_width((this.settings.get_int('item-width') + 20) * scaleFactor);
     } else {
-      const mult = this.settings.get_boolean('compact-mode') ? 0.3 : 0.7;
+      const mult = this.settings.get_boolean('compact-mode') ? 0.5 : 1;
       const header = this.settings.get_boolean('enable-headers') ? 48 : 0;
-      this.set_height((this.settings.get_int('item-size') * mult + 70 + header) * scaleFactor);
+      this.set_height((this.settings.get_int('item-height') * mult + 70 + header) * scaleFactor);
     }
   }
 

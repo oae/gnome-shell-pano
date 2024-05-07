@@ -161,115 +161,123 @@ msgid "Legacy Icons"
 msgstr "Starší ikony"
 
 #: src/prefs/customization/commonStyleGroup.ts:33
-msgid "Item Size"
-msgstr "Velikost položky"
+msgid "Item Width"
+msgstr ""
 
 #: src/prefs/customization/commonStyleGroup.ts:33
-msgid "You can change the item size"
-msgstr "Můžete změnit velikost položky"
+msgid "You can change the item width"
+msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:38
+#: src/prefs/customization/commonStyleGroup.ts:37
+msgid "Item Height"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:37
+msgid "You can change the item height"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:42
 msgid "Enable Headers"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:39
+#: src/prefs/customization/commonStyleGroup.ts:43
 msgid "Controls the visibility of the clipboard item headers"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:47
+#: src/prefs/customization/commonStyleGroup.ts:51
 msgid "Compact Mode"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:48
+#: src/prefs/customization/commonStyleGroup.ts:52
 msgid "Controls the compactness of the clipboard item."
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:56
+#: src/prefs/customization/commonStyleGroup.ts:60
 msgid "Window Position"
 msgstr "Poloha okna"
 
-#: src/prefs/customization/commonStyleGroup.ts:57
+#: src/prefs/customization/commonStyleGroup.ts:61
 msgid "You can change position of the Pano"
 msgstr "Můžete změnit pozici Pano"
 
-#: src/prefs/customization/commonStyleGroup.ts:60
+#: src/prefs/customization/commonStyleGroup.ts:64
 msgid "Bottom"
 msgstr "Dole"
 
-#: src/prefs/customization/commonStyleGroup.ts:60
+#: src/prefs/customization/commonStyleGroup.ts:64
 msgid "Left"
 msgstr "Vlevo"
 
-#: src/prefs/customization/commonStyleGroup.ts:60
+#: src/prefs/customization/commonStyleGroup.ts:64
 msgid "Right"
 msgstr "Vpravo"
 
-#: src/prefs/customization/commonStyleGroup.ts:60
+#: src/prefs/customization/commonStyleGroup.ts:64
 msgid "Top"
 msgstr "Nahoře"
 
-#: src/prefs/customization/commonStyleGroup.ts:66
+#: src/prefs/customization/commonStyleGroup.ts:70
 msgid "Window Background Color"
 msgstr "Barva pozadí okna"
 
-#: src/prefs/customization/commonStyleGroup.ts:67
+#: src/prefs/customization/commonStyleGroup.ts:71
 msgid "You can change the window background color"
 msgstr "Můžete změnit barvu pozadí okna"
 
-#: src/prefs/customization/commonStyleGroup.ts:74
+#: src/prefs/customization/commonStyleGroup.ts:78
 msgid "Incognito Window Background Color"
 msgstr "Barva pozadí anonymního okna"
 
-#: src/prefs/customization/commonStyleGroup.ts:75
+#: src/prefs/customization/commonStyleGroup.ts:79
 msgid "You can change the incognito window background color"
 msgstr "Můžete změnit barvu pozadí anonymního okna"
 
-#: src/prefs/customization/commonStyleGroup.ts:82
+#: src/prefs/customization/commonStyleGroup.ts:86
 msgid "Search Bar Font"
 msgstr "Písmo vyhledávací lišty"
 
-#: src/prefs/customization/commonStyleGroup.ts:83
+#: src/prefs/customization/commonStyleGroup.ts:87
 msgid "You can change the font of the search bar"
 msgstr "Můžete změnit písmo vyhledávání"
 
-#: src/prefs/customization/commonStyleGroup.ts:89
+#: src/prefs/customization/commonStyleGroup.ts:93
 msgid "Item Title Font"
 msgstr "Písmo názvu položky"
 
-#: src/prefs/customization/commonStyleGroup.ts:89
+#: src/prefs/customization/commonStyleGroup.ts:93
 #: src/prefs/customization/fileItemStyle.ts:61
 msgid "You can change the font of the title"
 msgstr "Můžete změnit písmo nadpisu"
 
-#: src/prefs/customization/commonStyleGroup.ts:92
+#: src/prefs/customization/commonStyleGroup.ts:96
 msgid "Item Date Font"
 msgstr "Písmo položky Datum"
 
-#: src/prefs/customization/commonStyleGroup.ts:92
+#: src/prefs/customization/commonStyleGroup.ts:96
 msgid "You can change the font of the date"
 msgstr "Můžete změnit písmo data"
 
-#: src/prefs/customization/commonStyleGroup.ts:96
+#: src/prefs/customization/commonStyleGroup.ts:100
 msgid "Active Item Border Color"
 msgstr "Barva ohraničení aktivní položky"
 
-#: src/prefs/customization/commonStyleGroup.ts:97
+#: src/prefs/customization/commonStyleGroup.ts:101
 msgid "You can change the active item border color"
 msgstr "Můžete změnit barvu okraje aktivní položky"
 
-#: src/prefs/customization/commonStyleGroup.ts:104
+#: src/prefs/customization/commonStyleGroup.ts:108
 msgid "Hovered Item Border Color"
 msgstr "Barva ohraničení při najetí na položku"
 
-#: src/prefs/customization/commonStyleGroup.ts:105
+#: src/prefs/customization/commonStyleGroup.ts:109
 msgid "You can change the hovered item border color"
 msgstr "Můžete změnit barvu ohraničení při najetí na položku"
 
-#: src/prefs/customization/commonStyleGroup.ts:112
+#: src/prefs/customization/commonStyleGroup.ts:116
 msgid "Show Controls on Hover"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:113
+#: src/prefs/customization/commonStyleGroup.ts:117
 msgid "When enabled, the controls will only show on hover"
 msgstr ""
 

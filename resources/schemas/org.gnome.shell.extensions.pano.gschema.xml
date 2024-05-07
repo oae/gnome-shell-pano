@@ -106,11 +106,17 @@
       <default>0</default>
       <summary>icon pack: 0-default 1-legacy</summary>
     </key>
-    <key name="item-size" type="i">
+    <key name="item-width" type="i">
       <range min="200" max="1000" />
       <default>250</default>
-      <summary>Item Size</summary>
-      <description>Controls size of the clipboard item.</description>
+      <summary>Item Width</summary>
+      <description>Controls width of the clipboard item.</description>
+    </key>
+    <key name="item-height" type="i">
+      <range min="100" max="1000" />
+      <default>175</default>
+      <summary>Item Height</summary>
+      <description>Controls height of the clipboard item.</description>
     </key>
     <key name="enable-headers" type="b">
       <default>false</default>
