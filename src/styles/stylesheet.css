@@ -195,8 +195,12 @@
 
 /* Text Item */
 .pano-item-text .pano-item-body-text-content {
-  margin: 12px;
+  margin: 22px;
   tab-size: 2;
+}
+
+.pano-item-text.compact .pano-item-body-text-content {
+  margin: 10px 12px;
 }
 
 /* Emoji Item */
