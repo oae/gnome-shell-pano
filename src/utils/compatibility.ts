@@ -35,7 +35,7 @@ export function newNotification(
   text: string,
   banner: string,
   transient_: boolean,
-  params: Notification.Params,
+  params: Notification.ConstructorProps,
 ): Notification {
   if (isGnome45Notifications()) {
     // @ts-expect-error gnome 45 type
