@@ -134,7 +134,7 @@ export class LinkPanoItem extends PanoItem {
   private setCompactMode() {
     if (this.settings.get_boolean('compact-mode')) {
       this.body.vertical = false;
-      this.imageContainer.width = this.settings.get_int('item-height') * 1.618;
+      this.imageContainer.width = this.settings.get_int('item-height') * 0.5;
     } else {
       this.body.vertical = true;
       this.imageContainer.width = -1;
