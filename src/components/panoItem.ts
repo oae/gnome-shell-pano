@@ -219,10 +219,11 @@ export class PanoItem extends St.BoxLayout {
     const { scaleFactor } = St.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
     const mult = this.settings.get_boolean('compact-mode') ? 0.5 : 1;
     const header = this.settings.get_boolean('enable-headers') ? 48 : 0;
-    const height = this.settings.get_int('item-height') * mult + header;
+    const height = Math.floor(this.settings.get_int('item-height') * mult) + header;
 
     this.set_height(height * scaleFactor);
     this.container.set_width(this.settings.get_int('item-width') * scaleFactor);
+    // -2*4 for the border
     this.container.set_height((height - 8) * scaleFactor);
     this.body.set_height((height - 10 - header) * scaleFactor);
     this.overlay.set_height((height - 8) * scaleFactor);

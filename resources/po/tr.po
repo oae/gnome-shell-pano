@@ -39,7 +39,7 @@ msgstr ""
 msgid "No Description"
 msgstr "Açıklama Yok"
 
-#: src/components/searchBox.ts:69
+#: src/components/searchBox.ts:72
 msgid "Type to search, Tab to cycle"
 msgstr "Aramak için yazın, gezinmek için Tab'a basın"
 
@@ -94,7 +94,6 @@ msgstr "Başlık yazı rengini değiştirebilirsiniz"
 #: src/prefs/customization/codeItemStyle.ts:42
 #: src/prefs/customization/emojiItemStyle.ts:42
 #: src/prefs/customization/fileItemStyle.ts:42
-#: src/prefs/customization/linkItemStyle.ts:42
 #: src/prefs/customization/textItemStyle.ts:42
 msgid "Body Background Color"
 msgstr "Gövde Arkaplan Rengi"
@@ -102,7 +101,6 @@ msgstr "Gövde Arkaplan Rengi"
 #: src/prefs/customization/codeItemStyle.ts:43
 #: src/prefs/customization/emojiItemStyle.ts:43
 #: src/prefs/customization/fileItemStyle.ts:43
-#: src/prefs/customization/linkItemStyle.ts:43
 #: src/prefs/customization/textItemStyle.ts:43
 msgid "You can change the background color of the body"
 msgstr "Gövde arkaplan rengini değiştirebilirsiniz"
@@ -140,144 +138,152 @@ msgstr "Renk Öğesi Tarzı"
 msgid "You can change the font of the metadata"
 msgstr "Metaveri yazı tipini değiştirebilirsiniz"
 
-#: src/prefs/customization/commonStyleGroup.ts:20
+#: src/prefs/customization/commonStyleGroup.ts:21
 msgid "Common"
 msgstr "Genel"
 
-#: src/prefs/customization/commonStyleGroup.ts:26
+#: src/prefs/customization/commonStyleGroup.ts:27
 msgid "Icon Pack"
 msgstr "Simge Paketi"
 
-#: src/prefs/customization/commonStyleGroup.ts:26
+#: src/prefs/customization/commonStyleGroup.ts:27
 msgid "You can change the icon pack"
 msgstr "Simge paketini değiştirebilirsiniz"
 
-#: src/prefs/customization/commonStyleGroup.ts:27
+#: src/prefs/customization/commonStyleGroup.ts:28
 msgid "Default Icons"
 msgstr "Varsayılan Simgeler"
 
-#: src/prefs/customization/commonStyleGroup.ts:28
+#: src/prefs/customization/commonStyleGroup.ts:29
 msgid "Legacy Icons"
 msgstr "Eski Simgeler"
 
-#: src/prefs/customization/commonStyleGroup.ts:33
+#: src/prefs/customization/commonStyleGroup.ts:34
 msgid "Item Width"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:33
+#: src/prefs/customization/commonStyleGroup.ts:34
 msgid "You can change the item width"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:37
+#: src/prefs/customization/commonStyleGroup.ts:38
 msgid "Item Height"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:37
+#: src/prefs/customization/commonStyleGroup.ts:38
 msgid "You can change the item height"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:42
+#: src/prefs/customization/commonStyleGroup.ts:43
 msgid "Enable Headers"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:43
+#: src/prefs/customization/commonStyleGroup.ts:44
 msgid "Controls the visibility of the clipboard item headers"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:51
+#: src/prefs/customization/commonStyleGroup.ts:52
 msgid "Compact Mode"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:52
+#: src/prefs/customization/commonStyleGroup.ts:53
 msgid "Controls the compactness of the clipboard item."
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:60
+#: src/prefs/customization/commonStyleGroup.ts:61
 msgid "Window Position"
 msgstr "Pencere Konumu"
 
-#: src/prefs/customization/commonStyleGroup.ts:61
+#: src/prefs/customization/commonStyleGroup.ts:62
 msgid "You can change position of the Pano"
 msgstr "Pencere konumunu değiştirebilirsiniz"
 
-#: src/prefs/customization/commonStyleGroup.ts:64
+#: src/prefs/customization/commonStyleGroup.ts:65
 msgid "Bottom"
 msgstr "Alt"
 
-#: src/prefs/customization/commonStyleGroup.ts:64
+#: src/prefs/customization/commonStyleGroup.ts:65
 msgid "Left"
 msgstr "Sol"
 
-#: src/prefs/customization/commonStyleGroup.ts:64
+#: src/prefs/customization/commonStyleGroup.ts:65
 msgid "Right"
 msgstr "Sağ"
 
-#: src/prefs/customization/commonStyleGroup.ts:64
+#: src/prefs/customization/commonStyleGroup.ts:65
 msgid "Top"
 msgstr "Üst"
 
-#: src/prefs/customization/commonStyleGroup.ts:70
+#: src/prefs/customization/commonStyleGroup.ts:73
 msgid "Window Background Color"
 msgstr "Pencere Arkaplan Rengi"
 
-#: src/prefs/customization/commonStyleGroup.ts:71
+#: src/prefs/customization/commonStyleGroup.ts:74
 msgid "You can change the window background color"
 msgstr "Pencere arkaplan rengini değiştirebilirsiniz"
 
-#: src/prefs/customization/commonStyleGroup.ts:78
+#: src/prefs/customization/commonStyleGroup.ts:81
 msgid "Incognito Window Background Color"
 msgstr "Gizli Pencere Arkaplan Rengi"
 
-#: src/prefs/customization/commonStyleGroup.ts:79
+#: src/prefs/customization/commonStyleGroup.ts:82
 msgid "You can change the incognito window background color"
 msgstr "Gizli pencere arkaplan rengini değiştirebilirsiniz"
 
-#: src/prefs/customization/commonStyleGroup.ts:86
+#: src/prefs/customization/commonStyleGroup.ts:89
+msgid "Search Bar Background Color"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:90
+msgid "You can change the background color of the search bar"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:97
 msgid "Search Bar Font"
 msgstr "Arama Çubuğu Yazı Tipi"
 
-#: src/prefs/customization/commonStyleGroup.ts:87
+#: src/prefs/customization/commonStyleGroup.ts:98
 msgid "You can change the font of the search bar"
 msgstr "Arama çubuğu yazı tipini değiştirebilirsiniz"
 
-#: src/prefs/customization/commonStyleGroup.ts:93
+#: src/prefs/customization/commonStyleGroup.ts:104
 msgid "Item Title Font"
 msgstr "Öğe Başlığı Yazı Tipi"
 
-#: src/prefs/customization/commonStyleGroup.ts:93
+#: src/prefs/customization/commonStyleGroup.ts:104
 #: src/prefs/customization/fileItemStyle.ts:61
 msgid "You can change the font of the title"
 msgstr "Öğe başlığının yazı tipini değiştirebilirsiniz"
 
-#: src/prefs/customization/commonStyleGroup.ts:96
+#: src/prefs/customization/commonStyleGroup.ts:107
 msgid "Item Date Font"
 msgstr "Öğe Tarihi Yazı Tipi"
 
-#: src/prefs/customization/commonStyleGroup.ts:96
+#: src/prefs/customization/commonStyleGroup.ts:107
 msgid "You can change the font of the date"
 msgstr "Öğe tarihi yazı tipini değiştirebilirsiniz"
 
-#: src/prefs/customization/commonStyleGroup.ts:100
+#: src/prefs/customization/commonStyleGroup.ts:111
 msgid "Active Item Border Color"
 msgstr "Etkin Öğe Çerçeve Rengi"
 
-#: src/prefs/customization/commonStyleGroup.ts:101
+#: src/prefs/customization/commonStyleGroup.ts:112
 msgid "You can change the active item border color"
 msgstr "Etkin öğenin çerçeve rengini değiştirebilirsiniz"
 
-#: src/prefs/customization/commonStyleGroup.ts:108
+#: src/prefs/customization/commonStyleGroup.ts:119
 msgid "Hovered Item Border Color"
 msgstr "Öğenin Üzerine Gelindiğindeki Çerçeve Rengi"
 
-#: src/prefs/customization/commonStyleGroup.ts:109
+#: src/prefs/customization/commonStyleGroup.ts:120
 msgid "You can change the hovered item border color"
 msgstr "Öğenin üzerine geldiğindeki çerçeve rengini değiştirebilirsiniz"
 
-#: src/prefs/customization/commonStyleGroup.ts:116
+#: src/prefs/customization/commonStyleGroup.ts:127
 msgid "Show Controls on Hover"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:117
+#: src/prefs/customization/commonStyleGroup.ts:128
 msgid "When enabled, the controls will only show on hover"
 msgstr ""
 
@@ -365,6 +371,46 @@ msgstr ""
 msgid "You can change the font of the text preview"
 msgstr ""
 
+#: src/prefs/customization/floatingStyleGroup.ts:14
+msgid "Floating"
+msgstr ""
+
+#: src/prefs/customization/floatingStyleGroup.ts:15
+msgid "You can change the floating style"
+msgstr ""
+
+#: src/prefs/customization/floatingStyleGroup.ts:26
+msgid "Left Margin"
+msgstr ""
+
+#: src/prefs/customization/floatingStyleGroup.ts:27
+msgid "You can change the left margin"
+msgstr ""
+
+#: src/prefs/customization/floatingStyleGroup.ts:38
+msgid "Right Margin"
+msgstr ""
+
+#: src/prefs/customization/floatingStyleGroup.ts:39
+msgid "You can change the right margin"
+msgstr ""
+
+#: src/prefs/customization/floatingStyleGroup.ts:50
+msgid "Top Margin"
+msgstr ""
+
+#: src/prefs/customization/floatingStyleGroup.ts:51
+msgid "You can change the top margin"
+msgstr ""
+
+#: src/prefs/customization/floatingStyleGroup.ts:62
+msgid "Bottom Margin"
+msgstr ""
+
+#: src/prefs/customization/floatingStyleGroup.ts:63
+msgid "You can change the bottom margin"
+msgstr ""
+
 #: src/prefs/customization/imageItemStyle.ts:14
 msgid "Change the style of the image item"
 msgstr "Resim öğesinin tarzını değiştirebilirsiniz"
@@ -389,59 +435,59 @@ msgstr "Bağlantı öğesinin tarzını değiştir"
 msgid "Link Item Style"
 msgstr "Bağlantı Öğe Tarzı"
 
-#: src/prefs/customization/linkItemStyle.ts:52
+#: src/prefs/customization/linkItemStyle.ts:42
 msgid "Metadata Background Color"
 msgstr "Metaveri Arkaplan Rengi"
 
-#: src/prefs/customization/linkItemStyle.ts:53
+#: src/prefs/customization/linkItemStyle.ts:43
 msgid "You can change the background color of the metadata"
 msgstr "Metaveri arkaplan rengini değiştirebilirsiniz"
 
-#: src/prefs/customization/linkItemStyle.ts:62
+#: src/prefs/customization/linkItemStyle.ts:52
 msgid "Metadata Title Color"
 msgstr "Metaveri Başlık Rengi"
 
-#: src/prefs/customization/linkItemStyle.ts:63
+#: src/prefs/customization/linkItemStyle.ts:53
 msgid "You can change the title color of the metadata"
 msgstr "Metaverinin başlık rengini değiştirebilirsiniz"
 
-#: src/prefs/customization/linkItemStyle.ts:72
+#: src/prefs/customization/linkItemStyle.ts:62
 msgid "Metadata Title Font"
 msgstr "Metaveri Başlık Yazı Tipi"
 
-#: src/prefs/customization/linkItemStyle.ts:73
+#: src/prefs/customization/linkItemStyle.ts:63
 msgid "You can change the font of the metadata title"
 msgstr "Metaverinin başlığının yazı tipini değiştirebilirsiniz"
 
-#: src/prefs/customization/linkItemStyle.ts:82
+#: src/prefs/customization/linkItemStyle.ts:72
 msgid "Metadata Description Color"
 msgstr "Metaveri Açıklama Rengi"
 
-#: src/prefs/customization/linkItemStyle.ts:83
+#: src/prefs/customization/linkItemStyle.ts:73
 msgid "You can change the description color of the metadata"
 msgstr "Metaverinin açıklama rengini değiştirebilirsiniz"
 
-#: src/prefs/customization/linkItemStyle.ts:92
+#: src/prefs/customization/linkItemStyle.ts:82
 msgid "Metadata Description Font"
 msgstr "Metaveri Açıklama Yazı Tipi"
 
-#: src/prefs/customization/linkItemStyle.ts:93
+#: src/prefs/customization/linkItemStyle.ts:83
 msgid "You can change the font of the metadata description"
 msgstr "Metaverinin açıklama yazı tipini değiştirebilirsiniz"
 
-#: src/prefs/customization/linkItemStyle.ts:102
+#: src/prefs/customization/linkItemStyle.ts:92
 msgid "Metadata Link Color"
 msgstr "Metaveri Bağlantı Rengi"
 
-#: src/prefs/customization/linkItemStyle.ts:103
+#: src/prefs/customization/linkItemStyle.ts:93
 msgid "You can change the link color of the metadata"
 msgstr "Metaverinin bağlantı rengini değiştirebilirsiniz"
 
-#: src/prefs/customization/linkItemStyle.ts:112
+#: src/prefs/customization/linkItemStyle.ts:102
 msgid "Metadata Link Font"
 msgstr "Metaveri Bağlantı Yazı Tipi"
 
-#: src/prefs/customization/linkItemStyle.ts:113
+#: src/prefs/customization/linkItemStyle.ts:103
 msgid "You can change the font of the metadata link"
 msgstr "Metaverinin bağlantı yazı tipini değiştirebilirsiniz"
 
