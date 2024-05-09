@@ -36,16 +36,6 @@ export class LinkItemStyleRow extends ItemExpanderRow {
       ),
     );
 
-    // create body background color row
-    this.add_row(
-      createColorRow(
-        _('Body Background Color'),
-        _('You can change the background color of the body'),
-        this.settings,
-        'body-bg-color',
-      ),
-    );
-
     // create metadata background color row
     this.add_row(
       createColorRow(

@@ -1,17 +1,25 @@
 /* Window */
-.pano-window.incognito {
-  background-image: url('./images/incognito-mode.svg');
-  background-size: 36px;
-  background-position: 15px 15px;
+.pano-window {
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.36);
 }
 
-.pano-window.incognito.vertical {
-  background-size: 0;
+.pano-window.floating {
+  border-radius: 16px;
 }
 
 .pano-window .search-entry-container {
   padding: 14px;
   padding-bottom: 5px;
+  background-size: 0;
+}
+
+.pano-window.incognito .search-entry-container {
+  background-size: 36px;
+  background-position: 15px 15px;
+}
+
+.pano-window.vertical.incognito .search-entry-container {
+  background-size: 0;
 }
 
 .pano-window .search-entry-container StEntry {
@@ -39,27 +47,29 @@
 /* Item */
 .pano-item {
   border-radius: 16px;
-  margin: 6px;
+  margin: 6px 3px 12px 3px;
   border: 4px solid transparent;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 }
 
-.pano-item.compact {
-  margin: 6px 3px;
+.pano-window.vertical .pano-item {
+  margin: 3px 12px;
 }
 
-.pano-window.vertical .pano-item.compact {
-  margin: 3px 6px;
+.pano-item:first-child {
+  margin-left: 12px;
 }
 
-.pano-item.compact:first-child {
-  margin-top: 6px !important;
-  margin-left: 6px !important;
+.pano-window.vertical .pano-item:first-child {
+  margin-top: 6px;
 }
 
-.pano-item.compact:last-child {
-  margin-bottom: 6px !important;
-  margin-right: 6px !important;
+.pano-item:last-child {
+  margin-right: 12px;
+}
+
+.pano-window.vertical .pano-item:last-child {
+  margin-bottom: 12px;
 }
 
 .pano-item:hover {
@@ -78,7 +88,7 @@
 
 .pano-item-actions {
   padding: 2px;
-  background-color: #303030;
+  background-color: #363636;
   border-radius: 999px;
 }
 
@@ -87,7 +97,7 @@
   width: 20px;
   height: 20px;
   border-radius: 999px;
-  background-color: #454545;
+  background-color: rgba(255, 255, 255, 0.15);
   color: white;
 }
 

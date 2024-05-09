@@ -1,6 +1,7 @@
 import Adw from '@girs/adw-1';
 import Gio from '@girs/gio-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
+import { FloatingStyleGroup } from '@pano/prefs/customization/floatingStyleGroup';
 import {
   createColorRow,
   createDropdownRow,
@@ -65,6 +66,8 @@ export class CommonStyleGroup extends Adw.PreferencesGroup {
       ),
     );
 
+    this.add(new FloatingStyleGroup(ext));
+
     this.add(
       createColorRow(
         _('Window Background Color'),
@@ -79,6 +82,14 @@ export class CommonStyleGroup extends Adw.PreferencesGroup {
         _('You can change the incognito window background color'),
         this.settings,
         'incognito-window-background-color',
+      ),
+    );
+    this.add(
+      createColorRow(
+        _('Search Bar Background Color'),
+        _('You can change the background color of the search bar'),
+        this.settings,
+        'search-bar-background-color',
       ),
     );
     this.add(

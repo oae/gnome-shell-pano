@@ -133,15 +133,45 @@
       <default>2</default>
       <summary>icon pack: 0-top 1-right 2-bottom 3-left</summary>
     </key>
+    <key name="window-floating" type="b">
+      <default>true</default>
+      <summary>window-floating</summary>
+      <description>window-floating</description>
+    </key>
+    <key name="window-margin-left" type="i">
+      <default>16</default>
+      <summary>window-margin-left</summary>
+      <description>window-margin-left</description>
+    </key>
+    <key name="window-margin-right" type="i">
+      <default>16</default>
+      <summary>window-margin-right</summary>
+      <description>window-margin-right</description>
+    </key>
+    <key name="window-margin-top" type="i">
+      <default>48</default>
+      <summary>window-margin-top</summary>
+      <description>window-margin-top</description>
+    </key>
+    <key name="window-margin-bottom" type="i">
+      <default>16</default>
+      <summary>window-margin-bottom</summary>
+      <description>window-margin-bottom</description>
+    </key>
     <key name="window-background-color" type="s">
-      <default>'rgba(35, 35, 35, 0.9)'</default>
+      <default>'rgb(36, 36, 36)'</default>
       <summary>window-background-color</summary>
       <description>window-background-color</description>
     </key>
     <key name="incognito-window-background-color" type="s">
-      <default>'rgba(36, 31, 49, 0.9)'</default>
+      <default>'rgb(36, 31, 49)'</default>
       <summary>incognito-window-background-color</summary>
       <description>incognito-window-background-color</description>
+    </key>
+    <key name="search-bar-background-color" type="s">
+      <default>'rgba(255, 255, 255, 0.155)'</default>
+      <summary>search-bar-background-color</summary>
+      <description>search-bar-background-color</description>
     </key>
     <key name="search-bar-font-family" type="s">
       <default>'Cantarell Regular'</default>
@@ -209,13 +239,8 @@
       <summary>header-color</summary>
       <description>header-color</description>
     </key>
-    <key name="body-bg-color" type="s">
-      <default>'rgb(48, 48, 48)'</default>
-      <summary>body-bg-color</summary>
-      <description>body-bg-color</description>
-    </key>
     <key name="metadata-bg-color" type="s">
-      <default>'rgb(48, 48, 48)'</default>
+      <default>'rgba(255, 255, 255, 0.08)'</default>
       <summary>metadata-bg-color</summary>
       <description>metadata-bg-color</description>
     </key>
@@ -278,7 +303,7 @@
       <description>header-color</description>
     </key>
     <key name="body-bg-color" type="s">
-      <default>'rgb(48, 48, 48)'</default>
+      <default>'rgba(255, 255, 255, 0.08)'</default>
       <summary>body-bg-color</summary>
       <description>body-bg-color</description>
     </key>
@@ -317,7 +342,7 @@
       <description>header-color</description>
     </key>
     <key name="body-bg-color" type="s">
-      <default>'rgb(48, 48, 48)'</default>
+      <default>'rgba(255, 255, 255, 0.08)'</default>
       <summary>body-bg-color</summary>
       <description>body-bg-color</description>
     </key>
@@ -341,7 +366,7 @@
       <description>header-color</description>
     </key>
     <key name="body-bg-color" type="s">
-      <default>'rgb(48, 48, 48)'</default>
+      <default>'rgba(255, 255, 255, 0.08)'</default>
       <summary>body-bg-color</summary>
       <description>body-bg-color</description>
     </key>
@@ -381,7 +406,7 @@
       <description>files-preview-font-size</description>
     </key>
     <key name="text-preview-bg-color" type="s">
-      <default>'rgb(36, 36, 36)'</default>
+      <default>'rgba(0, 0, 0, 0.25)'</default>
       <summary>text-preview-bg-color</summary>
       <description>text-preview-bg-color</description>
     </key>
@@ -427,7 +452,7 @@
       <description>header-color</description>
     </key>
     <key name="body-bg-color" type="s">
-      <default>'rgb(48, 48, 48)'</default>
+      <default>'rgba(255, 255, 255, 0.08)'</default>
       <summary>body-bg-color</summary>
       <description>body-bg-color</description>
     </key>
