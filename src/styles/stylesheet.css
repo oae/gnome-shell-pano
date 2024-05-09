@@ -47,13 +47,13 @@
 /* Item */
 .pano-item {
   border-radius: 16px;
-  margin: 6px 3px 12px 3px;
+  margin: 6px 0px 12px 6px;
   border: 4px solid transparent;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 }
 
 .pano-window.vertical .pano-item {
-  margin: 3px 12px;
+  margin: 6px 12px 0px 12px;
 }
 
 .pano-item:first-child {

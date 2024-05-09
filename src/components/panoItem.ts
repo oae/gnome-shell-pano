@@ -26,7 +26,7 @@ interface PanoItemSignals extends SignalsDefinition<PanoItemSignalType> {
 }
 
 @registerGObjectClass
-export class PanoItem extends St.BoxLayout {
+export class PanoItem extends St.Widget {
   static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, PanoItemSignals> = {
     GTypeName: 'PanoItem',
     Signals: {
@@ -55,14 +55,12 @@ export class PanoItem extends St.BoxLayout {
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
     super({
       name: 'pano-item',
+      styleClass: 'pano-item',
+      layoutManager: new Clutter.BinLayout(),
       visible: true,
       pivotPoint: Graphene.Point.alloc().init(0.5, 0.5),
       reactive: true,
-      styleClass: 'pano-item',
-      ...orientationCompatibility(true),
       trackHover: true,
-      xExpand: false,
-      yExpand: false,
     });
 
     this.clipboardManager = clipboardManager;
@@ -173,13 +171,6 @@ export class PanoItem extends St.BoxLayout {
 
     this.add_child(this.container);
     this.add_child(this.overlay);
-
-    this.overlay.add_constraint(
-      new Clutter.BindConstraint({
-        source: this.container,
-        coordinate: Clutter.BindCoordinate.Y,
-      }),
-    );
 
     const themeContext = St.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
 
