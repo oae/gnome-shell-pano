@@ -26,6 +26,10 @@ export class PanoItemOverlay extends St.BoxLayout {
     super({
       styleClass: 'pano-item-overlay',
       vertical: false,
+      yAlign: Clutter.ActorAlign.FILL,
+      xAlign: Clutter.ActorAlign.FILL,
+      xExpand: true,
+      yExpand: true,
     });
 
     this.actionContainer = new St.BoxLayout({
