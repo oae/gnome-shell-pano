@@ -128,10 +128,16 @@
       <summary>Compact Mode</summary>
       <description>Controls the compactness of the clipboard item.</description>
     </key>
-    <key type="u" name="window-position">
-      <range min="0" max="3"/>
+    <key name="window-position" type="u">
+      <range min="0" max="4"/>
       <default>2</default>
-      <summary>icon pack: 0-top 1-right 2-bottom 3-left</summary>
+      <summary>icon pack: 0-top 1-right 2-bottom 3-left 4-pointer</summary>
+    </key>
+    <key name="window-height" type="i">
+      <range min="100" max="4000"/>
+      <default>440</default>
+      <summary>window-height</summary>
+      <description>window-height</description>
     </key>
     <key name="window-floating" type="b">
       <default>true</default>
