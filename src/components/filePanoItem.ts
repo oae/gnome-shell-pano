@@ -238,19 +238,18 @@ export class FilePanoItem extends PanoItem {
         });
 
       this.body.add_child(this.preview);
-
-      // Settings for controls
-      this.settings.connect('changed::is-in-incognito', this.setStyle.bind(this));
-      this.settings.connect('changed::incognito-window-background-color', this.setStyle.bind(this));
-      this.settings.connect('changed::window-background-color', this.setStyle.bind(this));
-      this.settings.connect('changed::enable-headers', this.setStyle.bind(this));
     }
 
     this.connect('activated', this.setClipboardContent.bind(this));
     this.setStyle();
-    this.settings.connect('changed::enable-headers', this.setStyle.bind(this));
     this.settings.connect('changed::compact-mode', this.setStyle.bind(this));
     this.fileItemSettings.connect('changed', this.setStyle.bind(this));
+
+    // Settings for controls
+    this.settings.connect('changed::is-in-incognito', this.setStyle.bind(this));
+    this.settings.connect('changed::incognito-window-background-color', this.setStyle.bind(this));
+    this.settings.connect('changed::window-background-color', this.setStyle.bind(this));
+    this.settings.connect('changed::header-style', this.setStyle.bind(this));
   }
 
   private setStyle() {

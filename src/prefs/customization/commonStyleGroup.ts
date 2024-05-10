@@ -39,11 +39,12 @@ export class CommonStyleGroup extends Adw.PreferencesGroup {
     );
 
     this.add(
-      createSwitchRow(
-        _('Enable Headers'),
-        _('Controls the visibility of the clipboard item headers'),
+      createDropdownRow(
+        _('Header Style'),
+        _('Controls the style of the clipboard item headers'),
         this.settings,
-        'enable-headers',
+        'header-style',
+        [_('Hidden'), _('Visible'), _('Compact')],
       ),
     );
 

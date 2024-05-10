@@ -29,7 +29,7 @@ export class ImagePanoItem extends PanoItem {
     this.settings.connect('changed::is-in-incognito', this.setStyle.bind(this));
     this.settings.connect('changed::incognito-window-background-color', this.setStyle.bind(this));
     this.settings.connect('changed::window-background-color', this.setStyle.bind(this));
-    this.settings.connect('changed::enable-headers', this.setStyle.bind(this));
+    this.settings.connect('changed::header-style', this.setStyle.bind(this));
   }
 
   private setStyle() {

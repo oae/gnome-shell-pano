@@ -1,4 +1,5 @@
 import Gio from '@girs/gio-2.0';
+import { isVisible } from '@pano/utils/ui';
 import colorString from 'color-string';
 
 // Calculate luminance and determine whether the color is dark or light
@@ -30,7 +31,7 @@ export function getItemBackgroundColor(settings: Gio.Settings, headerColor: stri
     ? settings.get_string('incognito-window-background-color')
     : settings.get_string('window-background-color');
 
-  if (settings.get_boolean('enable-headers')) {
+  if (isVisible(settings.get_uint('header-style'))) {
     return mixColor(windowColor, headerColor);
   } else if (bodyColor === null) {
     return windowColor;

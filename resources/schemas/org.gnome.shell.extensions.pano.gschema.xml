@@ -118,10 +118,11 @@
       <summary>Item Height</summary>
       <description>Controls height of the clipboard item.</description>
     </key>
-    <key name="enable-headers" type="b">
-      <default>false</default>
-      <summary>Enable Headers</summary>
-      <description>Controls the visibility of the clipboard item headers.</description>
+    <key name="header-style" type="u">
+      <range min="0" max="2"/>
+      <default>0</default>
+      <summary>Header Style</summary>
+      <description>Controls the style of the clipboard item headers. 0-hidden 1-visible 2-compact</description>
     </key>
     <key name="compact-mode" type="b">
       <default>false</default>
