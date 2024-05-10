@@ -69,8 +69,8 @@ export class PanoScrollView extends St.ScrollView {
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, searchBox: SearchBox) {
     super({
       overlayScrollbars: true,
-      xExpand: true,
-      yExpand: true,
+      xExpand: false,
+      yExpand: false,
     });
     this.ext = ext;
     this.clipboardManager = clipboardManager;
