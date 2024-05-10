@@ -224,11 +224,11 @@ export class PanoWindow extends St.BoxLayout {
     });
   }
 
-  toggle(at_pointer: boolean = false): void {
-    this.is_visible() ? this.hide() : this._show(at_pointer);
+  toggle(at_pointer: boolean = true): void {
+    this.is_visible() ? this.hide() : this.show(at_pointer);
   }
 
-  private _show(at_pointer: boolean) {
+  override show(at_pointer: boolean = true) {
     this.clear_constraints();
     this.setAlignment();
     this.add_constraint(getMonitorConstraint());
@@ -247,10 +247,7 @@ export class PanoWindow extends St.BoxLayout {
       mode: Clutter.AnimationMode.EASE_OUT_QUAD,
     });
     this.monitorBox.open();
-  }
 
-  override show() {
-    this._show(false);
     return Clutter.EVENT_PROPAGATE;
   }
 
