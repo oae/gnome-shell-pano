@@ -5,6 +5,7 @@ import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInte
 import St from '@girs/st-14';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
+import { getItemBackgroundColor } from '@pano/utils/color';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCachePath, gettext, openLinkInBrowser } from '@pano/utils/shell';
@@ -95,10 +96,19 @@ export class LinkPanoItem extends PanoItem {
 
     this.connect('activated', this.setClipboardContent.bind(this));
     this.setCompactMode();
-    this.settings.connect('changed::compact-mode', this.setCompactMode.bind(this));
+    this.settings.connect('changed::compact-mode', () => {
+      this.setCompactMode();
+      this.setStyle();
+    });
     this.settings.connect('changed::item-height', this.setCompactMode.bind(this));
     this.setStyle();
     this.linkItemSettings.connect('changed', this.setStyle.bind(this));
+
+    // Settings for controls
+    this.settings.connect('changed::is-in-incognito', this.setStyle.bind(this));
+    this.settings.connect('changed::incognito-window-background-color', this.setStyle.bind(this));
+    this.settings.connect('changed::window-background-color', this.setStyle.bind(this));
+    this.settings.connect('changed::enable-headers', this.setStyle.bind(this));
 
     const openLinkIcon = new St.Icon({
       iconName: 'web-browser-symbolic',
@@ -142,6 +152,7 @@ export class LinkPanoItem extends PanoItem {
   }
 
   private setStyle() {
+    const compactMode = this.settings.get_boolean('compact-mode');
     const headerBgColor = this.linkItemSettings.get_string('header-bg-color');
     const headerColor = this.linkItemSettings.get_string('header-color');
     const metadataBgColor = this.linkItemSettings.get_string('metadata-bg-color');
@@ -155,6 +166,9 @@ export class LinkPanoItem extends PanoItem {
     const metadataDescriptionFontSize = this.linkItemSettings.get_int('metadata-description-font-size');
     const metadataLinkFontSize = this.linkItemSettings.get_int('metadata-link-font-size');
 
+    this.overlay.setControlsBackground(
+      getItemBackgroundColor(this.settings, headerBgColor, compactMode ? metadataBgColor : null),
+    );
     this.header.set_style(`background-color: ${headerBgColor}; color: ${headerColor};`);
     this.container.set_style(`background-color: ${metadataBgColor};`);
     this.titleLabel.set_style(

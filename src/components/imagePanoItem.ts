@@ -2,6 +2,7 @@ import Gio from '@girs/gio-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
+import { getItemBackgroundColor } from '@pano/utils/color';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getImagesPath } from '@pano/utils/shell';
@@ -22,6 +23,13 @@ export class ImagePanoItem extends PanoItem {
 
     this.connect('activated', this.setClipboardContent.bind(this));
     this.setStyle();
+    this.imageItemSettings.connect('changed', this.setStyle.bind(this));
+
+    // Settings for controls
+    this.settings.connect('changed::is-in-incognito', this.setStyle.bind(this));
+    this.settings.connect('changed::incognito-window-background-color', this.setStyle.bind(this));
+    this.settings.connect('changed::window-background-color', this.setStyle.bind(this));
+    this.settings.connect('changed::enable-headers', this.setStyle.bind(this));
   }
 
   private setStyle() {
@@ -34,7 +42,8 @@ export class ImagePanoItem extends PanoItem {
       imageFilePath = `file://${this.ext.path}/images/${NO_IMAGE_FOUND_FILE_NAME}`;
     }
 
-    this.header.style = `background-color: ${headerBgColor}; color: ${headerColor};`;
+    this.overlay.setControlsBackground(getItemBackgroundColor(this.settings, headerBgColor, null));
+    this.header.set_style(`background-color: ${headerBgColor}; color: ${headerColor};`);
     this.body.set_style(`background-image: url(${imageFilePath}); background-size: cover;`);
   }
 

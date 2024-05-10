@@ -4,6 +4,7 @@ import Pango from '@girs/pango-1.0';
 import St from '@girs/st-14';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
+import { getItemBackgroundColor } from '@pano/utils/color';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 
@@ -29,6 +30,12 @@ export class TextPanoItem extends PanoItem {
     this.connect('activated', this.setClipboardContent.bind(this));
     this.setStyle();
     this.textItemSettings.connect('changed', this.setStyle.bind(this));
+
+    // Settings for controls
+    this.settings.connect('changed::is-in-incognito', this.setStyle.bind(this));
+    this.settings.connect('changed::incognito-window-background-color', this.setStyle.bind(this));
+    this.settings.connect('changed::window-background-color', this.setStyle.bind(this));
+    this.settings.connect('changed::enable-headers', this.setStyle.bind(this));
   }
 
   private setStyle() {
@@ -39,6 +46,9 @@ export class TextPanoItem extends PanoItem {
     const bodyFontFamily = this.textItemSettings.get_string('body-font-family');
     const bodyFontSize = this.textItemSettings.get_int('body-font-size');
     const characterLength = this.textItemSettings.get_int('char-length');
+
+    // Set overlay styles
+    this.overlay.setControlsBackground(getItemBackgroundColor(this.settings, headerBgColor, bodyBgColor));
 
     // Set header styles
     this.header.set_style(`background-color: ${headerBgColor}; color: ${headerColor};`);
