@@ -4,10 +4,10 @@ import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInte
 import St from '@girs/st-16';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
+import { getItemBackgroundColor, isDark } from '@pano/utils/color';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { orientationCompatibility } from '@pano/utils/shell_compatibility';
-import colorString from 'color-string';
 
 @registerGObjectClass
 export class ColorPanoItem extends PanoItem {
@@ -57,6 +57,12 @@ export class ColorPanoItem extends PanoItem {
     this.settings.connect('changed::compact-mode', this.setCompactMode.bind(this));
     this.setStyle();
     this.colorItemSettings.connect('changed', this.setStyle.bind(this));
+
+    // Settings for controls
+    this.settings.connect('changed::is-in-incognito', this.setStyle.bind(this));
+    this.settings.connect('changed::incognito-window-background-color', this.setStyle.bind(this));
+    this.settings.connect('changed::window-background-color', this.setStyle.bind(this));
+    this.settings.connect('changed::enable-headers', this.setStyle.bind(this));
   }
 
   private setCompactMode() {
@@ -73,30 +79,15 @@ export class ColorPanoItem extends PanoItem {
     const metadataFontFamily = this.colorItemSettings.get_string('metadata-font-family');
     const metadataFontSize = this.colorItemSettings.get_int('metadata-font-size');
 
-    // Calculate the luminance to determine the icon and text color with sufficient contrast
-    const rgb = colorString.get.rgb(this.dbItem.content) ?? [0, 0, 0, 0];
-    const L =
-      0.2126 * this.calculateChannel(rgb[0]) +
-      0.7152 * this.calculateChannel(rgb[1]) +
-      0.0722 * this.calculateChannel(rgb[2]);
+    const dark = isDark(this.dbItem.content);
+    const iconColor = dark ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.3)';
+    const textColor = dark ? '#ffffff' : '#000000';
 
-    const delta = L > 0.179 ? -30 : 30;
-    const iconColor = `rgb(${Math.clamp(rgb[0] + delta, 0, 255)}, ${Math.clamp(rgb[1] + delta, 0, 255)}, ${Math.clamp(rgb[2] + delta, 0, 255)})`;
-    const textColor = L > 0.179 ? '#000000' : '#ffffff';
-
+    this.overlay.setControlsBackground(getItemBackgroundColor(this.settings, headerBgColor, null));
     this.header.set_style(`background-color: ${headerBgColor}; color: ${headerColor};`);
-    this.container.set_style(`background-color: rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]});`);
+    this.container.set_style(`background-color: ${this.dbItem.content};`);
     this.icon.set_style(`color: ${iconColor};`);
     this.label.set_style(`color: ${textColor}; font-family: ${metadataFontFamily}; font-size: ${metadataFontSize}px;`);
-  }
-
-  private calculateChannel(c: number) {
-    c /= 255.0;
-    if (c <= 0.04045) {
-      return c / 12.92;
-    } else {
-      return Math.pow((c + 0.055) / 1.055, 2.4);
-    }
   }
 
   private setClipboardContent(): void {

@@ -5,6 +5,7 @@ import Pango from '@girs/pango-1.0';
 import St from '@girs/st-16';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
+import { getItemBackgroundColor } from '@pano/utils/color';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 @registerGObjectClass
@@ -35,6 +36,12 @@ export class EmojiPanoItem extends PanoItem {
     this.emojiItemSettings.connect('changed', this.setStyle.bind(this));
     this.settings.connect('changed::compact-mode', this.setStyle.bind(this));
     this.settings.connect('changed::item-height', this.setStyle.bind(this));
+
+    // Settings for controls
+    this.settings.connect('changed::is-in-incognito', this.setStyle.bind(this));
+    this.settings.connect('changed::incognito-window-background-color', this.setStyle.bind(this));
+    this.settings.connect('changed::window-background-color', this.setStyle.bind(this));
+    this.settings.connect('changed::enable-headers', this.setStyle.bind(this));
   }
 
   private setStyle() {
@@ -43,6 +50,7 @@ export class EmojiPanoItem extends PanoItem {
     const bodyBgColor = this.emojiItemSettings.get_string('body-bg-color');
     const emojiSize = this.emojiItemSettings.get_int('emoji-size');
 
+    this.overlay.setControlsBackground(getItemBackgroundColor(this.settings, headerBgColor, bodyBgColor));
     this.header.set_style(`background-color: ${headerBgColor}; color: ${headerColor};`);
     this.container.set_style(`background-color: ${bodyBgColor};`);
     this.label.set_style(`font-size: ${Math.min(emojiSize, this.body.height - 24)}px;`);

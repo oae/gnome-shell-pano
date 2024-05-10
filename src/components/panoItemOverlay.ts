@@ -1,6 +1,7 @@
 import Clutter from '@girs/clutter-16';
 import GObject from '@girs/gobject-2.0';
 import St from '@girs/st-16';
+import { isDark } from '@pano/utils/color';
 import { registerGObjectClass, SignalsDefinition } from '@pano/utils/gjs';
 
 export type PanoItemOverlaySignalType = 'on-remove' | 'on-favorite';
@@ -68,6 +69,16 @@ export class PanoItemOverlay extends St.BoxLayout {
     this.actionContainer.add_child(removeButton);
 
     this.add_child(this.actionContainer);
+  }
+
+  setControlsBackground(color: string): void {
+    this.actionContainer.set_style(`background-color: ${color}`);
+    const buttonColor = isDark(color) ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.15)';
+    for (const child of this.actionContainer.get_children()) {
+      if (child instanceof St.Button) {
+        child.set_style(`background-color: ${buttonColor}`);
+      }
+    }
   }
 
   setVisibility(isVisible: boolean): void {
