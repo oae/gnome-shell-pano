@@ -7,6 +7,7 @@ import St from '@girs/st-14';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { ICON_PACKS, IPanoItemType } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
+import { getHeaderHeight, HEADER_STYLES } from '@pano/utils/ui';
 import { Locale } from 'date-fns';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import * as dateLocale from 'date-fns/locale';
@@ -38,14 +39,6 @@ export class PanoItemHeader extends St.BoxLayout {
 
     this.settings = getCurrentExtensionSettings(ext);
 
-    const themeContext = St.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
-
-    this.set_height(48 * themeContext.scaleFactor);
-
-    themeContext.connect('notify::scale-factor', () => {
-      this.set_height(48 * themeContext.scaleFactor);
-    });
-
     const icon = new St.Icon({
       styleClass: 'pano-item-title-icon',
       gicon: Gio.icon_new_for_string(
@@ -76,6 +69,7 @@ export class PanoItemHeader extends St.BoxLayout {
     this.titleLabel = new St.Label({
       text: itemType.title,
       styleClass: 'pano-item-title',
+      visible: this.settings.get_uint('header-style') !== HEADER_STYLES.COMPACT,
       xExpand: true,
       yExpand: false,
       xAlign: Clutter.ActorAlign.FILL,
@@ -113,6 +107,25 @@ export class PanoItemHeader extends St.BoxLayout {
 
     this.add_child(icon);
     this.add_child(this.titleContainer);
+
+    const themeContext = St.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
+
+    const size = getHeaderHeight(this.settings.get_uint('header-style'));
+    this.set_height(size * themeContext.scaleFactor);
+    icon.set_width(size * themeContext.scaleFactor);
+
+    themeContext.connect('notify::scale-factor', () => {
+      const size = getHeaderHeight(this.settings.get_uint('header-style'));
+      this.set_height(size * themeContext.scaleFactor);
+      icon.set_width(size * themeContext.scaleFactor);
+    });
+
+    this.settings.connect('changed::header-style', () => {
+      const size = getHeaderHeight(this.settings.get_uint('header-style'));
+      this.set_height(size * themeContext.scaleFactor);
+      icon.set_width(size * themeContext.scaleFactor);
+      this.titleLabel.visible = this.settings.get_uint('header-style') !== HEADER_STYLES.COMPACT;
+    });
 
     this.setStyle();
     this.settings.connect('changed::item-title-font-family', this.setStyle.bind(this));

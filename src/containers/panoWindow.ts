@@ -14,6 +14,7 @@ import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
 import {
   getAlignment,
+  getHeaderHeight,
   getMonitorConstraint,
   getMonitorIndexForPointer,
   getMonitors,
@@ -50,7 +51,7 @@ export class PanoWindow extends St.BoxLayout {
     themeContext.connect('notify::scale-factor', () => this.setWindowDimensions(themeContext.scaleFactor));
     this.settings.connect('changed::item-width', () => this.setWindowDimensions(themeContext.scaleFactor));
     this.settings.connect('changed::item-height', () => this.setWindowDimensions(themeContext.scaleFactor));
-    this.settings.connect('changed::enable-headers', () => this.setWindowDimensions(themeContext.scaleFactor));
+    this.settings.connect('changed::header-style', () => this.setWindowDimensions(themeContext.scaleFactor));
     this.settings.connect('changed::compact-mode', () => this.setWindowDimensions(themeContext.scaleFactor));
     this.settings.connect('changed::window-position', () => {
       this.setWindowDimensions(themeContext.scaleFactor);
@@ -95,7 +96,7 @@ export class PanoWindow extends St.BoxLayout {
       }
     } else {
       const mult = this.settings.get_boolean('compact-mode') ? 0.5 : 1;
-      const header = this.settings.get_boolean('enable-headers') ? 48 : 0;
+      const header = getHeaderHeight(this.settings.get_uint('header-style'));
       this.set_height((Math.floor(this.settings.get_int('item-height') * mult) + 76 + header) * scaleFactor);
     }
   }

@@ -31,11 +31,11 @@ msgstr "Modo anônimo"
 msgid "Settings"
 msgstr "Configurações"
 
-#: src/components/filePanoItem.ts:202
+#: src/components/filePanoItem.ts:203
 msgid "items"
 msgstr ""
 
-#: src/components/linkPanoItem.ts:39
+#: src/components/linkPanoItem.ts:40
 msgid "No Description"
 msgstr "Sem descrição"
 
@@ -175,127 +175,139 @@ msgid "You can change the item height"
 msgstr ""
 
 #: src/prefs/customization/commonStyleGroup.ts:43
-msgid "Enable Headers"
+msgid "Header Style"
 msgstr ""
 
 #: src/prefs/customization/commonStyleGroup.ts:44
-msgid "Controls the visibility of the clipboard item headers"
+msgid "Controls the style of the clipboard item headers"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:52
-msgid "Compact Mode"
+#: src/prefs/customization/commonStyleGroup.ts:47
+msgid "Compact"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:47
+msgid "Hidden"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:47
+msgid "Visible"
 msgstr ""
 
 #: src/prefs/customization/commonStyleGroup.ts:53
+msgid "Compact Mode"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:54
 msgid "Controls the compactness of the clipboard item."
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:61
+#: src/prefs/customization/commonStyleGroup.ts:62
 msgid "Window Position"
 msgstr "Posição da janela"
 
-#: src/prefs/customization/commonStyleGroup.ts:62
+#: src/prefs/customization/commonStyleGroup.ts:63
 msgid "You can change position of the Pano"
 msgstr "Você pode mudar a posição do Pano"
 
-#: src/prefs/customization/commonStyleGroup.ts:65
+#: src/prefs/customization/commonStyleGroup.ts:66
 msgid "Bottom"
 msgstr "Inferior"
 
-#: src/prefs/customization/commonStyleGroup.ts:65
+#: src/prefs/customization/commonStyleGroup.ts:66
 msgid "Left"
 msgstr "Esquerda"
 
-#: src/prefs/customization/commonStyleGroup.ts:65
+#: src/prefs/customization/commonStyleGroup.ts:66
 msgid "Pointer"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:65
+#: src/prefs/customization/commonStyleGroup.ts:66
 msgid "Right"
 msgstr "Direita"
 
-#: src/prefs/customization/commonStyleGroup.ts:65
+#: src/prefs/customization/commonStyleGroup.ts:66
 msgid "Top"
 msgstr "Superior"
 
-#: src/prefs/customization/commonStyleGroup.ts:71
+#: src/prefs/customization/commonStyleGroup.ts:72
 msgid "Window Height"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:72
+#: src/prefs/customization/commonStyleGroup.ts:73
 msgid "You can change the height of the window if the position is \"Pointer\""
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:85
+#: src/prefs/customization/commonStyleGroup.ts:86
 msgid "Window Background Color"
 msgstr "Cor de fundo da janela"
 
-#: src/prefs/customization/commonStyleGroup.ts:86
+#: src/prefs/customization/commonStyleGroup.ts:87
 msgid "You can change the window background color"
 msgstr "Você pode mudar a cor de fundo da janela"
 
-#: src/prefs/customization/commonStyleGroup.ts:93
+#: src/prefs/customization/commonStyleGroup.ts:94
 msgid "Incognito Window Background Color"
 msgstr "Cor de fundo da janela anônima"
 
-#: src/prefs/customization/commonStyleGroup.ts:94
+#: src/prefs/customization/commonStyleGroup.ts:95
 msgid "You can change the incognito window background color"
 msgstr "Você pode mudar a cor de fundo da janela anônima"
 
-#: src/prefs/customization/commonStyleGroup.ts:101
+#: src/prefs/customization/commonStyleGroup.ts:102
 msgid "Search Bar Background Color"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:102
+#: src/prefs/customization/commonStyleGroup.ts:103
 msgid "You can change the background color of the search bar"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:109
+#: src/prefs/customization/commonStyleGroup.ts:110
 msgid "Search Bar Font"
 msgstr "Fonte da barra de pesquisa"
 
-#: src/prefs/customization/commonStyleGroup.ts:110
+#: src/prefs/customization/commonStyleGroup.ts:111
 msgid "You can change the font of the search bar"
 msgstr "Você pode mudar a fonte da barra de pesquisa"
 
-#: src/prefs/customization/commonStyleGroup.ts:116
+#: src/prefs/customization/commonStyleGroup.ts:117
 msgid "Item Title Font"
 msgstr "Fonte do título do item"
 
-#: src/prefs/customization/commonStyleGroup.ts:116
+#: src/prefs/customization/commonStyleGroup.ts:117
 #: src/prefs/customization/fileItemStyle.ts:61
 msgid "You can change the font of the title"
 msgstr "Você pode mudar a fonte do título"
 
-#: src/prefs/customization/commonStyleGroup.ts:119
+#: src/prefs/customization/commonStyleGroup.ts:120
 msgid "Item Date Font"
 msgstr "Fonte da data do item"
 
-#: src/prefs/customization/commonStyleGroup.ts:119
+#: src/prefs/customization/commonStyleGroup.ts:120
 msgid "You can change the font of the date"
 msgstr "Você pode mudar a fonte da data"
 
-#: src/prefs/customization/commonStyleGroup.ts:123
+#: src/prefs/customization/commonStyleGroup.ts:124
 msgid "Active Item Border Color"
 msgstr "Cor da borda do item ativo"
 
-#: src/prefs/customization/commonStyleGroup.ts:124
+#: src/prefs/customization/commonStyleGroup.ts:125
 msgid "You can change the active item border color"
 msgstr "Você pode mudar a cor da borda do item ativo"
 
-#: src/prefs/customization/commonStyleGroup.ts:131
+#: src/prefs/customization/commonStyleGroup.ts:132
 msgid "Hovered Item Border Color"
 msgstr "Cor da borda do item destacado"
 
-#: src/prefs/customization/commonStyleGroup.ts:132
+#: src/prefs/customization/commonStyleGroup.ts:133
 msgid "You can change the hovered item border color"
 msgstr "Você pode mudar a cor da borda do item destacado"
 
-#: src/prefs/customization/commonStyleGroup.ts:139
+#: src/prefs/customization/commonStyleGroup.ts:140
 msgid "Show Controls on Hover"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:140
+#: src/prefs/customization/commonStyleGroup.ts:141
 msgid "When enabled, the controls will only show on hover"
 msgstr ""
 

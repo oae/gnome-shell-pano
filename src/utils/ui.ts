@@ -143,3 +143,22 @@ export const isVertical = (position: number) => {
     position === WINDOW_POSITIONS.LEFT || position === WINDOW_POSITIONS.RIGHT || position === WINDOW_POSITIONS.POINTER
   );
 };
+
+export const HEADER_STYLES = {
+  HIDDEN: 0,
+  VISIBLE: 1,
+  COMPACT: 2,
+};
+
+export const getHeaderHeight = (style: number) => {
+  switch (style) {
+    case HEADER_STYLES.VISIBLE:
+      return 48;
+    case HEADER_STYLES.COMPACT:
+      return 32;
+    default:
+      return 0;
+  }
+};
+
+export const isVisible = (style: number) => style !== HEADER_STYLES.HIDDEN;

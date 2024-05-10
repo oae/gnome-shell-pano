@@ -14,7 +14,7 @@ import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { getPanoItemTypes } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
-import { getVirtualKeyboard, WINDOW_POSITIONS } from '@pano/utils/ui';
+import { getHeaderHeight, getVirtualKeyboard, isVisible, WINDOW_POSITIONS } from '@pano/utils/ui';
 
 export type PanoItemSignalType = 'on-remove' | 'on-favorite' | 'activated';
 
@@ -180,7 +180,7 @@ export class PanoItem extends St.Widget {
     themeContext.connect('notify::scale-factor', this.setBodyDimensions.bind(this));
     this.settings.connect('changed::item-width', this.setBodyDimensions.bind(this));
     this.settings.connect('changed::item-height', this.setBodyDimensions.bind(this));
-    this.settings.connect('changed::enable-headers', this.setBodyDimensions.bind(this));
+    this.settings.connect('changed::header-style', this.setBodyDimensions.bind(this));
     this.settings.connect('changed::compact-mode', () => {
       if (this.settings.get_boolean('compact-mode')) {
         this.add_style_class_name('compact');
@@ -209,7 +209,7 @@ export class PanoItem extends St.Widget {
     }
     const { scaleFactor } = St.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
     const mult = this.settings.get_boolean('compact-mode') ? 0.5 : 1;
-    const header = this.settings.get_boolean('enable-headers') ? 48 : 0;
+    const header = getHeaderHeight(this.settings.get_uint('header-style'));
     const height = Math.floor(this.settings.get_int('item-height') * mult) + header;
 
     this.set_height(height * scaleFactor);
@@ -218,7 +218,7 @@ export class PanoItem extends St.Widget {
     this.container.set_height((height - 8) * scaleFactor);
     this.body.set_height((height - 10 - header) * scaleFactor);
     this.overlay.set_height((height - 8) * scaleFactor);
-    this.header.visible = this.settings.get_boolean('enable-headers');
+    this.header.visible = isVisible(this.settings.get_uint('header-style'));
   }
 
   private setVisible() {
