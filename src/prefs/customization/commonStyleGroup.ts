@@ -62,7 +62,19 @@ export class CommonStyleGroup extends Adw.PreferencesGroup {
         _('You can change position of the Pano'),
         this.settings,
         'window-position',
-        [_('Top'), _('Right'), _('Bottom'), _('Left')],
+        [_('Top'), _('Right'), _('Bottom'), _('Left'), _('Pointer')],
+      ),
+    );
+
+    this.add(
+      createSpinRow(
+        _('Window Height'),
+        _('You can change the height of the window if the position is "Pointer"'),
+        this.settings,
+        'window-height',
+        1,
+        100,
+        4000,
       ),
     );
 

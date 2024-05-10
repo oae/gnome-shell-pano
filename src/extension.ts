@@ -81,7 +81,7 @@ export default class PanoExtension extends Extension {
       this.panoWindow = new PanoWindow(this, this.clipboardManager);
       this.trackWindow();
       addTopChrome(this.panoWindow);
-      this.keyManager.listenFor('global-shortcut', () => this.panoWindow?.toggle());
+      this.keyManager.listenFor('global-shortcut', () => this.panoWindow?.toggle(true));
       this.keyManager.listenFor('incognito-shortcut', () => {
         this.settings?.set_boolean('is-in-incognito', !this.settings?.get_boolean('is-in-incognito'));
       });

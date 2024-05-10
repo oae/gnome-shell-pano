@@ -207,6 +207,10 @@ msgid "Left"
 msgstr "Sinistra"
 
 #: src/prefs/customization/commonStyleGroup.ts:65
+msgid "Pointer"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:65
 msgid "Right"
 msgstr "Destra"
 
@@ -214,76 +218,84 @@ msgstr "Destra"
 msgid "Top"
 msgstr "In alto"
 
-#: src/prefs/customization/commonStyleGroup.ts:73
+#: src/prefs/customization/commonStyleGroup.ts:71
+msgid "Window Height"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:72
+msgid "You can change the height of the window if the position is \"Pointer\""
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:85
 msgid "Window Background Color"
 msgstr "Colore di sfondo della finestra"
 
-#: src/prefs/customization/commonStyleGroup.ts:74
+#: src/prefs/customization/commonStyleGroup.ts:86
 msgid "You can change the window background color"
 msgstr "Puoi cambiare il colore di sfondo della finestra"
 
-#: src/prefs/customization/commonStyleGroup.ts:81
+#: src/prefs/customization/commonStyleGroup.ts:93
 msgid "Incognito Window Background Color"
 msgstr "Colore di sfondo della finestra di navigazione in incognito"
 
-#: src/prefs/customization/commonStyleGroup.ts:82
+#: src/prefs/customization/commonStyleGroup.ts:94
 msgid "You can change the incognito window background color"
 msgstr "Puoi cambiare il colore di sfondo della finestra di navigazione in incognito"
 
-#: src/prefs/customization/commonStyleGroup.ts:89
+#: src/prefs/customization/commonStyleGroup.ts:101
 msgid "Search Bar Background Color"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:90
+#: src/prefs/customization/commonStyleGroup.ts:102
 msgid "You can change the background color of the search bar"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:97
+#: src/prefs/customization/commonStyleGroup.ts:109
 msgid "Search Bar Font"
 msgstr "Carattere della barra di ricerca"
 
-#: src/prefs/customization/commonStyleGroup.ts:98
+#: src/prefs/customization/commonStyleGroup.ts:110
 msgid "You can change the font of the search bar"
 msgstr "Puoi cambiare il carattere della barra di ricerca"
 
-#: src/prefs/customization/commonStyleGroup.ts:104
+#: src/prefs/customization/commonStyleGroup.ts:116
 msgid "Item Title Font"
 msgstr "Font del titolo dell'elemento"
 
-#: src/prefs/customization/commonStyleGroup.ts:104
+#: src/prefs/customization/commonStyleGroup.ts:116
 #: src/prefs/customization/fileItemStyle.ts:61
 msgid "You can change the font of the title"
 msgstr "Puoi cambiare il font del titolo"
 
-#: src/prefs/customization/commonStyleGroup.ts:107
+#: src/prefs/customization/commonStyleGroup.ts:119
 msgid "Item Date Font"
 msgstr "Data font elemento"
 
-#: src/prefs/customization/commonStyleGroup.ts:107
+#: src/prefs/customization/commonStyleGroup.ts:119
 msgid "You can change the font of the date"
 msgstr "Puoi cambiare il font della data"
 
-#: src/prefs/customization/commonStyleGroup.ts:111
+#: src/prefs/customization/commonStyleGroup.ts:123
 msgid "Active Item Border Color"
 msgstr "Colore del bordo dell'elemento attivo"
 
-#: src/prefs/customization/commonStyleGroup.ts:112
+#: src/prefs/customization/commonStyleGroup.ts:124
 msgid "You can change the active item border color"
 msgstr "È possibile modificare il colore del bordo dell'elemento attivo"
 
-#: src/prefs/customization/commonStyleGroup.ts:119
+#: src/prefs/customization/commonStyleGroup.ts:131
 msgid "Hovered Item Border Color"
 msgstr "Colore del bordo dell'elemento al passaggio del mouse"
 
-#: src/prefs/customization/commonStyleGroup.ts:120
+#: src/prefs/customization/commonStyleGroup.ts:132
 msgid "You can change the hovered item border color"
 msgstr "Puoi cambiare il colore del bordo dell'elemento al passaggio del mouse"
 
-#: src/prefs/customization/commonStyleGroup.ts:127
+#: src/prefs/customization/commonStyleGroup.ts:139
 msgid "Show Controls on Hover"
 msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:128
+#: src/prefs/customization/commonStyleGroup.ts:140
 msgid "When enabled, the controls will only show on hover"
 msgstr ""
 

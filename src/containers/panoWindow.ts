@@ -13,7 +13,15 @@ import { ItemType } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
 import { orientationCompatibility } from '@pano/utils/shell_compatibility';
-import { getAlignment, getMonitorConstraint, isVertical } from '@pano/utils/ui';
+import {
+  getAlignment,
+  getMonitorConstraint,
+  getMonitorIndexForPointer,
+  getMonitors,
+  getPointer,
+  isVertical,
+  WINDOW_POSITIONS,
+} from '@pano/utils/ui';
 
 @registerGObjectClass
 export class PanoWindow extends St.BoxLayout {
@@ -48,6 +56,7 @@ export class PanoWindow extends St.BoxLayout {
     this.settings.connect('changed::window-position', () => {
       this.setWindowDimensions(themeContext.scaleFactor);
       this.setAlignment();
+      this.setStyle();
     });
     this.settings.connect('changed::window-floating', this.setStyle.bind(this));
     this.settings.connect('changed::window-margin-left', this.setStyle.bind(this));
@@ -81,6 +90,10 @@ export class PanoWindow extends St.BoxLayout {
     if (isVertical(this.settings.get_uint('window-position'))) {
       this.add_style_class_name('vertical');
       this.set_width((this.settings.get_int('item-width') + 32) * scaleFactor);
+
+      if (this.settings.get_uint('window-position') == WINDOW_POSITIONS.POINTER) {
+        this.set_height(this.settings.get_int('window-height') * scaleFactor);
+      }
     } else {
       const mult = this.settings.get_boolean('compact-mode') ? 0.5 : 1;
       const header = this.settings.get_boolean('enable-headers') ? 48 : 0;
@@ -105,7 +118,10 @@ export class PanoWindow extends St.BoxLayout {
     }
 
     let margins;
-    if (this.settings.get_boolean('window-floating')) {
+    if (this.settings.get_uint('window-position') == WINDOW_POSITIONS.POINTER) {
+      this.add_style_class_name('floating');
+      margins = '0px';
+    } else if (this.settings.get_boolean('window-floating')) {
       this.add_style_class_name('floating');
 
       const left = this.settings.get_int('window-margin-left');
@@ -120,6 +136,35 @@ export class PanoWindow extends St.BoxLayout {
     }
 
     this.set_style(`background-color: ${backgroundColor}; margin: ${margins}`);
+  }
+
+  private setPositionConstraints(at_pointer: boolean) {
+    if (this.settings.get_uint('window-position') == WINDOW_POSITIONS.POINTER) {
+      const [px, py, _] = getPointer();
+      const monitor = getMonitors()[getMonitorIndexForPointer()]!;
+
+      const left = this.settings.get_int('window-margin-left');
+      const top = this.settings.get_int('window-margin-top');
+
+      const x = Math.max(Math.min(at_pointer ? px + 1 : left, monitor.x + monitor.width - this.width), monitor.x);
+      const y = Math.max(Math.min(at_pointer ? py + 1 : top, monitor.y + monitor.height - this.height), monitor.y);
+
+      this.add_constraint(
+        new Clutter.BindConstraint({
+          source: Shell.Global.get().stage,
+          coordinate: Clutter.BindCoordinate.X,
+          offset: x,
+        }),
+      );
+
+      this.add_constraint(
+        new Clutter.BindConstraint({
+          source: Shell.Global.get().stage,
+          coordinate: Clutter.BindCoordinate.Y,
+          offset: y,
+        }),
+      );
+    }
   }
 
   private setupMonitorBox() {
@@ -179,14 +224,16 @@ export class PanoWindow extends St.BoxLayout {
     });
   }
 
-  toggle(): void {
-    this.is_visible() ? this.hide() : this.show();
+  toggle(at_pointer: boolean = false): void {
+    this.is_visible() ? this.hide() : this._show(at_pointer);
   }
 
-  override show() {
+  private _show(at_pointer: boolean) {
     this.clear_constraints();
     this.setAlignment();
     this.add_constraint(getMonitorConstraint());
+    this.setPositionConstraints(at_pointer);
+
     super.show();
     if (this.settings.get_boolean('keep-search-entry')) {
       this.searchBox.selectAll();
@@ -200,7 +247,10 @@ export class PanoWindow extends St.BoxLayout {
       mode: Clutter.AnimationMode.EASE_OUT_QUAD,
     });
     this.monitorBox.open();
+  }
 
+  override show() {
+    this._show(false);
     return Clutter.EVENT_PROPAGATE;
   }
 
