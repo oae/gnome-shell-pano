@@ -93,14 +93,6 @@ export class LinkPanoItem extends PanoItem {
       this.setStyle();
     });
     this.settings.connect('changed::item-height', this.setCompactMode.bind(this));
-    this.setStyle();
-    this.linkItemSettings.connect('changed', this.setStyle.bind(this));
-
-    // Settings for controls
-    this.settings.connect('changed::is-in-incognito', this.setStyle.bind(this));
-    this.settings.connect('changed::incognito-window-background-color', this.setStyle.bind(this));
-    this.settings.connect('changed::window-background-color', this.setStyle.bind(this));
-    this.settings.connect('changed::header-style', this.setStyle.bind(this));
 
     const openLinkIcon = new St.Icon({
       iconName: 'web-browser-symbolic',
@@ -131,6 +123,15 @@ export class LinkPanoItem extends PanoItem {
         this.overlay.actionContainer.insert_child_at_index(openLinkButton, 0);
       }
     });
+
+    this.setStyle();
+    this.linkItemSettings.connect('changed', this.setStyle.bind(this));
+
+    // Settings for controls
+    this.settings.connect('changed::is-in-incognito', this.setStyle.bind(this));
+    this.settings.connect('changed::incognito-window-background-color', this.setStyle.bind(this));
+    this.settings.connect('changed::window-background-color', this.setStyle.bind(this));
+    this.settings.connect('changed::header-style', this.setStyle.bind(this));
   }
 
   private setCompactMode() {
