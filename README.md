@@ -84,7 +84,7 @@
 
 ### Legacy versions
 
-Since Gnome 45 we had to break compatibility with previous Gnome versions, these only receive critical bug / security fixes and ar not maintained actively. See [here](https://github.com/oae/gnome-shell-pano/tree/legacy)
+Since Gnome 45 we had to break compatibility with previous Gnome versions, these only receive critical bug / security fixes and are not maintained actively. See [here](https://github.com/oae/gnome-shell-pano/tree/legacy)
 
 - Gnome Shell 42
 - Gnome Shell 43
