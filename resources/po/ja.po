@@ -31,7 +31,7 @@ msgstr "シークレットモード"
 msgid "Settings"
 msgstr "設定"
 
-#: src/components/filePanoItem.ts:203
+#: src/components/filePanoItem.ts:205
 msgid "items"
 msgstr ""
 

@@ -31,7 +31,7 @@ msgstr "Modalità di navigazione in incognito"
 msgid "Settings"
 msgstr "Impostazioni"
 
-#: src/components/filePanoItem.ts:203
+#: src/components/filePanoItem.ts:205
 msgid "items"
 msgstr ""
 
