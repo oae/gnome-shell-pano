@@ -10,6 +10,7 @@ import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCachePath, gettext, openLinkInBrowser } from '@pano/utils/shell';
 import { orientationCompatibility } from '@pano/utils/shell_compatibility';
+import { isVisible } from '@pano/utils/ui';
 
 const DEFAULT_LINK_PREVIEW_IMAGE_NAME = 'link-preview.svg';
 
@@ -43,29 +44,13 @@ export class LinkPanoItem extends PanoItem {
       descriptionText = decodeURI(description);
     }
 
-    this.metaContainer = new St.BoxLayout({
-      styleClass: 'meta-container',
-      ...orientationCompatibility(true),
-      xExpand: true,
-      yExpand: false,
-      yAlign: Clutter.ActorAlign.CENTER,
-      xAlign: Clutter.ActorAlign.FILL,
-    });
-
-    this.titleLabel = new St.Label({ text: titleText, styleClass: 'link-title-label' });
-
-    this.descriptionLabel = new St.Label({ text: descriptionText, styleClass: 'link-description-label' });
-    this.descriptionLabel.clutterText.singleLineMode = true;
-
-    this.linkLabel = new St.Label({ text: this.dbItem.content, styleClass: 'link-label' });
-
     let imageFilePath = `file:///${ext.path}/images/${DEFAULT_LINK_PREVIEW_IMAGE_NAME}`;
     if (image && Gio.File.new_for_uri(`file://${getCachePath(ext)}/${image}.png`).query_exists(null)) {
       imageFilePath = `file://${getCachePath(ext)}/${image}.png`;
     }
 
     this.imageContainer = new St.BoxLayout({
-      ...orientationCompatibility(true),
+      vertical: true,
       xExpand: true,
       yExpand: true,
       yAlign: Clutter.ActorAlign.FILL,
@@ -74,6 +59,24 @@ export class LinkPanoItem extends PanoItem {
       style: `background-image: url(${imageFilePath});`,
     });
 
+    this.metaContainer = new St.BoxLayout({
+      styleClass: 'meta-container',
+      ...orientationCompatibility(true),
+      xExpand: true,
+      yExpand: false,
+      yAlign: Clutter.ActorAlign.END,
+      xAlign: Clutter.ActorAlign.FILL,
+    });
+
+    this.titleLabel = new St.Label({ text: titleText, styleClass: 'link-title-label' });
+
+    this.descriptionLabel = new St.Label({ text: descriptionText, styleClass: 'link-description-label' });
+    this.descriptionLabel.clutterText.singleLineMode = true;
+
+    this.linkLabel = new St.Label({
+      text: this.dbItem.content,
+      styleClass: 'link-label',
+    });
     this.metaContainer.add_child(this.titleLabel);
     this.metaContainer.add_child(this.descriptionLabel);
     this.metaContainer.add_child(this.linkLabel);
@@ -92,6 +95,7 @@ export class LinkPanoItem extends PanoItem {
       this.setCompactMode();
       this.setStyle();
     });
+    this.settings.connect('changed::header-style', this.setCompactMode.bind(this));
     this.settings.connect('changed::item-height', this.setCompactMode.bind(this));
 
     const openLinkIcon = new St.Icon({
@@ -138,10 +142,14 @@ export class LinkPanoItem extends PanoItem {
     if (this.settings.get_boolean('compact-mode')) {
       this.body.vertical = false;
       this.imageContainer.width = this.settings.get_int('item-height') * 0.5;
+      this.metaContainer.yAlign = Clutter.ActorAlign.CENTER;
     } else {
       this.body.vertical = true;
       this.imageContainer.width = -1;
+      this.metaContainer.yAlign = Clutter.ActorAlign.END;
     }
+
+    this.metaContainer.yExpand = isVisible(this.settings.get_uint('header-style'));
   }
 
   private setStyle() {

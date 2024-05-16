@@ -31,11 +31,11 @@ msgstr "隐身模式"
 msgid "Settings"
 msgstr "设置"
 
-#: src/components/filePanoItem.ts:203
+#: src/components/filePanoItem.ts:205
 msgid "items"
 msgstr ""
 
-#: src/components/linkPanoItem.ts:41
+#: src/components/linkPanoItem.ts:42
 msgid "No Description"
 msgstr "无详情"
 
