@@ -60,6 +60,8 @@ export class PanoItem extends St.Widget {
       pivotPoint: Graphene.Point.alloc().init(0.5, 0.5),
       reactive: true,
       trackHover: true,
+      xExpand: false,
+      yExpand: false,
     });
 
     this.clipboardManager = clipboardManager;

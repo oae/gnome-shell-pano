@@ -60,10 +60,6 @@
   margin-left: 12px;
 }
 
-.pano-window.vertical .pano-item:first-child {
-  margin-top: 6px;
-}
-
 .pano-item:last-child {
   margin-right: 12px;
 }
