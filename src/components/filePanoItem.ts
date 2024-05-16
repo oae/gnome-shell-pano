@@ -10,6 +10,7 @@ import { getItemBackgroundColor } from '@pano/utils/color';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { gettext } from '@pano/utils/shell';
+import { isVisible } from '@pano/utils/ui';
 
 enum PreviewType {
   NONE = 'none',
@@ -24,6 +25,7 @@ export class FilePanoItem extends PanoItem {
   private operation: string;
   private fileItemSettings: Gio.Settings;
   private titleContainer: St.BoxLayout;
+  private icon: St.Icon;
   private preview: St.BoxLayout | St.Label | null = null;
   private previewType: PreviewType = PreviewType.NONE;
 
@@ -44,17 +46,17 @@ export class FilePanoItem extends PanoItem {
       yAlign: Clutter.ActorAlign.FILL,
     });
 
-    const icon = new St.Icon({
+    this.icon = new St.Icon({
+      gicon: Gio.icon_new_for_string(
+        this.operation === FileOperation.CUT
+          ? 'edit-cut-symbolic'
+          : `${ext.path}/icons/hicolor/scalable/actions/paper-filled-symbolic.svg`,
+      ),
       xAlign: Clutter.ActorAlign.START,
       yAlign: Clutter.ActorAlign.START,
       styleClass: 'title-icon',
     });
-
-    if (this.operation === FileOperation.CUT) {
-      icon.iconName = 'edit-cut-symbolic';
-    } else {
-      icon.gicon = Gio.icon_new_for_string(`${ext.path}/icons/hicolor/scalable/actions/paper-filled-symbolic.svg`);
-    }
+    this.header.setIcon(this.icon.gicon);
 
     const label = new St.Label({
       styleClass: 'title-label',
@@ -65,7 +67,7 @@ export class FilePanoItem extends PanoItem {
     label.clutterText.lineWrap = true;
     label.clutterText.ellipsize = Pango.EllipsizeMode.MIDDLE;
 
-    this.titleContainer.add_child(icon);
+    this.titleContainer.add_child(this.icon);
 
     const homeDir = GLib.get_home_dir();
 
@@ -243,17 +245,18 @@ export class FilePanoItem extends PanoItem {
     this.connect('activated', this.setClipboardContent.bind(this));
     this.setStyle();
     this.settings.connect('changed::compact-mode', this.setStyle.bind(this));
+    this.settings.connect('changed::header-style', this.setStyle.bind(this));
     this.fileItemSettings.connect('changed', this.setStyle.bind(this));
 
     // Settings for controls
     this.settings.connect('changed::is-in-incognito', this.setStyle.bind(this));
     this.settings.connect('changed::incognito-window-background-color', this.setStyle.bind(this));
     this.settings.connect('changed::window-background-color', this.setStyle.bind(this));
-    this.settings.connect('changed::header-style', this.setStyle.bind(this));
   }
 
   private setStyle() {
     const compactMode = this.settings.get_boolean('compact-mode');
+    const headerStyle = this.settings.get_uint('header-style');
     const headerBgColor = this.fileItemSettings.get_string('header-bg-color');
     const headerColor = this.fileItemSettings.get_string('header-color');
     const bodyBgColor = this.fileItemSettings.get_string('body-bg-color');
@@ -276,8 +279,10 @@ export class FilePanoItem extends PanoItem {
     this.titleContainer.set_style(
       `color: ${titleColor}; font-family: ${titleFontFamily}; font-size: ${titleFontSize}px;`,
     );
-
     this.titleContainer.vertical = this.preview === null && !compactMode;
+
+    this.icon.visible = !isVisible(headerStyle);
+
     if (this.preview) {
       this.preview.visible = !compactMode;
 

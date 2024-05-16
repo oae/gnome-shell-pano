@@ -27,9 +27,11 @@ type FormatOptions = {
 export class PanoItemHeader extends St.BoxLayout {
   private dateUpdateIntervalId: any;
   private settings: Gio.Settings;
+  private icon: St.Icon;
   private titleLabel: St.Label;
   private dateLabel: St.Label;
   private titleContainer: St.BoxLayout;
+  private hasCustomIcon: boolean = false;
 
   constructor(ext: ExtensionBase, itemType: IPanoItemType, date: Date) {
     super({
@@ -39,7 +41,7 @@ export class PanoItemHeader extends St.BoxLayout {
 
     this.settings = getCurrentExtensionSettings(ext);
 
-    const icon = new St.Icon({
+    this.icon = new St.Icon({
       styleClass: 'pano-item-title-icon',
       gicon: Gio.icon_new_for_string(
         `${ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${
@@ -49,7 +51,9 @@ export class PanoItemHeader extends St.BoxLayout {
     });
 
     this.settings.connect('changed::icon-pack', () => {
-      icon.set_gicon(
+      if (this.hasCustomIcon) return;
+
+      this.icon.set_gicon(
         Gio.icon_new_for_string(
           `${ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${
             itemType.iconPath
@@ -105,25 +109,25 @@ export class PanoItemHeader extends St.BoxLayout {
     this.titleContainer.add_child(this.titleLabel);
     this.titleContainer.add_child(this.dateLabel);
 
-    this.add_child(icon);
+    this.add_child(this.icon);
     this.add_child(this.titleContainer);
 
     const themeContext = St.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
 
     const size = getHeaderHeight(this.settings.get_uint('header-style'));
     this.set_height(size * themeContext.scaleFactor);
-    icon.set_width(size * themeContext.scaleFactor);
+    this.icon.set_width(size * themeContext.scaleFactor);
 
     themeContext.connect('notify::scale-factor', () => {
       const size = getHeaderHeight(this.settings.get_uint('header-style'));
       this.set_height(size * themeContext.scaleFactor);
-      icon.set_width(size * themeContext.scaleFactor);
+      this.icon.set_width(size * themeContext.scaleFactor);
     });
 
     this.settings.connect('changed::header-style', () => {
       const size = getHeaderHeight(this.settings.get_uint('header-style'));
       this.set_height(size * themeContext.scaleFactor);
-      icon.set_width(size * themeContext.scaleFactor);
+      this.icon.set_width(size * themeContext.scaleFactor);
       this.titleLabel.visible = this.settings.get_uint('header-style') !== HEADER_STYLES.COMPACT;
     });
 
@@ -141,6 +145,11 @@ export class PanoItemHeader extends St.BoxLayout {
     const itemDateFontSize = this.settings.get_int('item-date-font-size');
     this.titleLabel.set_style(`font-family: ${itemTitleFontFamily}; font-size: ${itemTitleFontSize}px;`);
     this.dateLabel.set_style(`font-family: ${itemDateFontFamily}; font-size: ${itemDateFontSize}px;`);
+  }
+
+  setIcon(icon: Gio.Icon) {
+    this.hasCustomIcon = true;
+    this.icon.set_gicon(icon);
   }
 
   override destroy(): void {
