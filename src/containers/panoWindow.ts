@@ -58,6 +58,7 @@ export class PanoWindow extends St.BoxLayout {
       this.setAlignment();
       this.setStyle();
     });
+    this.settings.connect('changed::window-height', () => this.setWindowDimensions(themeContext.scaleFactor));
     this.settings.connect('changed::window-floating', this.setStyle.bind(this));
     this.settings.connect('changed::window-margin-left', this.setStyle.bind(this));
     this.settings.connect('changed::window-margin-right', this.setStyle.bind(this));
