@@ -120,13 +120,16 @@ export class SettingsMenu extends PanelMenuButton {
   }
 
   override vfunc_event(event: Clutter.Event) {
-    if (
-      this.menu &&
-      event.type() === Clutter.EventType.BUTTON_PRESS &&
-      [Clutter.BUTTON_PRIMARY, Clutter.BUTTON_MIDDLE].includes(event.get_button())
-    ) {
-      this.onToggle();
+    if (event.type() === Clutter.EventType.BUTTON_PRESS) {
+      if ([Clutter.BUTTON_PRIMARY, Clutter.BUTTON_MIDDLE].includes(event.get_button())) {
+        this.onToggle();
+        return Clutter.EVENT_STOP;
+      } else if (this.menu && event.get_button() === Clutter.BUTTON_SECONDARY) {
+        this.menu.toggle();
+        return Clutter.EVENT_STOP;
+      }
     }
+
     return super.vfunc_event(event);
   }
 
