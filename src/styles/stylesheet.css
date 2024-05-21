@@ -49,7 +49,6 @@
   border-radius: 16px;
   margin: 6px 0px 12px 6px;
   border: 4px solid transparent;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 }
 
 .pano-window.vertical .pano-item {
@@ -68,12 +67,9 @@
   margin-bottom: 12px;
 }
 
-.pano-item:hover {
-  box-shadow: none;
-}
-
 .pano-item-container {
   border-radius: 12px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Overlay */
@@ -124,13 +120,21 @@
   background-color: #c01c28;
 }
 
+.pano-favorite-icon {
+  padding: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
 /* Header */
 .pano-item-header {
   border-radius: 12px 12px 0px 0px;
 }
 
 .pano-item-title-icon {
-  padding: 4px;
+  padding: 8px;
 }
 
 .pano-item-title {
@@ -148,8 +152,12 @@
 
 /* Code Item */
 .pano-item-code .pano-item-body-code-content {
-  margin: 12px;
+  margin: 12px 16px;
   tab-size: 2;
+}
+
+.pano-item-code.compact .pano-item-body-code-content {
+  margin: 8px 12px 2px 12px;
 }
 
 /* Link Item */
@@ -162,15 +170,12 @@
 }
 
 .pano-item-link.compact .image-container {
-  border-radius: 0px 0px 0px 12px;
+  margin: 4px;
+  border-radius: 7px !important;
 }
 
 .pano-item-link .pano-item-body:first-child .image-container {
   border-radius: 12px 12px 0px 0px;
-}
-
-.pano-item-link.compact .pano-item-body:first-child .image-container {
-  border-radius: 12px 0px 0px 12px;
 }
 
 .pano-item-link .meta-container {
@@ -179,7 +184,7 @@
 }
 
 .pano-item-link.compact .meta-container {
-  padding: 0 10px;
+  padding: 0 8px 0 4px;
   border-radius: 0px 12px 12px 0px;
 }
 
@@ -219,21 +224,34 @@
 
 /* File Item */
 .pano-item-file .title-container {
-  margin: 5px 10px 0 10px;
+  margin: 8px 12px 0 12px;
   height: 2.8em;
 }
 
-.pano-item-file.no-preview .title-container,
+.pano-item-file.no-preview .title-container {
+  height: auto;
+}
+
 .pano-item-file.compact .title-container {
+  margin-right: 8px;
   height: auto;
 }
 
 .pano-item-file .title-icon {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  margin-right: 10px;
-  width: 2em;
-  height: 2em;
+  margin: 5px 10px 5px 0;
+  width: 1.75em;
+  height: 1.75em;
+}
+
+.pano-item-file.no-preview .title-icon {
+  margin-bottom: 10px;
+}
+
+.pano-item-file.compact .title-icon {
+  margin: 0 0 2px 5px;
+  padding: 0;
+  width: 1.125em;
+  height: 1.125em;
 }
 
 .pano-item-file .title-label {
