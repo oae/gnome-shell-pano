@@ -20,7 +20,10 @@ export class PanoItemOverlay extends St.BoxLayout {
     },
   };
 
+  private isVisible = false;
+  private isFavorite = false;
   private favoriteButton: St.Button;
+  private favoriteIcon: St.Icon;
   actionContainer: St.BoxLayout;
 
   constructor() {
@@ -74,11 +77,22 @@ export class PanoItemOverlay extends St.BoxLayout {
     this.actionContainer.add_child(this.favoriteButton);
     this.actionContainer.add_child(removeButton);
 
+    this.favoriteIcon = new St.Icon({
+      styleClass: 'pano-favorite-icon',
+      iconName: 'view-pin-symbolic',
+      xExpand: true,
+      yExpand: true,
+      xAlign: Clutter.ActorAlign.END,
+      yAlign: Clutter.ActorAlign.START,
+    });
+
     this.add_child(this.actionContainer);
+    this.add_child(this.favoriteIcon);
   }
 
   setControlsBackground(color: string): void {
     this.actionContainer.set_style(`background-color: ${color}`);
+    this.favoriteIcon.set_style(`background-color: ${color};`);
     const buttonColor = isDark(color) ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.15)';
     for (const child of this.actionContainer.get_children()) {
       if (child instanceof St.Button) {
@@ -88,10 +102,14 @@ export class PanoItemOverlay extends St.BoxLayout {
   }
 
   setVisibility(isVisible: boolean): void {
+    this.isVisible = isVisible;
     this.actionContainer.visible = isVisible;
+    this.favoriteIcon.visible = !isVisible && this.isFavorite;
   }
 
   setFavorite(isFavorite: boolean): void {
+    this.isFavorite = isFavorite;
+    this.favoriteIcon.visible = !this.isVisible && isFavorite;
     if (isFavorite) {
       this.favoriteButton.add_style_pseudo_class('active');
     } else {

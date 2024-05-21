@@ -101,7 +101,6 @@ export class LinkPanoItem extends PanoItem {
       this.setStyle();
     });
     this.settings.connect('changed::header-style', this.setCompactMode.bind(this));
-    this.settings.connect('changed::item-height', this.setCompactMode.bind(this));
 
     const openLinkIcon = new St.Icon({
       iconName: 'web-browser-symbolic',
@@ -146,7 +145,7 @@ export class LinkPanoItem extends PanoItem {
   private setCompactMode() {
     if (this.settings.get_boolean('compact-mode')) {
       this.body.vertical = false;
-      this.imageContainer.width = this.settings.get_int('item-height') * 0.5;
+      this.imageContainer.width = this.settings.get_int('item-width') * 0.3;
       this.metaContainer.yAlign = Clutter.ActorAlign.CENTER;
     } else {
       this.body.vertical = true;

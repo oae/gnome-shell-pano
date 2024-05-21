@@ -31,11 +31,12 @@ export function getItemBackgroundColor(settings: Gio.Settings, headerColor: stri
     ? settings.get_string('incognito-window-background-color')
     : settings.get_string('window-background-color');
 
+  // rgba(0, 0, 0, 0.1) is the box-shadow color
   if (isVisible(settings.get_uint('header-style'))) {
-    return mixColor(windowColor, headerColor);
+    return mixColor(mixColor(windowColor, 'rgba(0, 0, 0, 0.1)'), headerColor);
   } else if (bodyColor === null) {
     return windowColor;
   } else {
-    return mixColor(windowColor, bodyColor);
+    return mixColor(mixColor(windowColor, 'rgba(0, 0, 0, 0.1)'), bodyColor);
   }
 }

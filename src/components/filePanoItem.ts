@@ -281,6 +281,14 @@ export class FilePanoItem extends PanoItem {
     );
     this.titleContainer.vertical = this.preview === null && !compactMode;
 
+    // Switch title and icon
+    if (compactMode !== (this.titleContainer.firstChild !== this.icon)) {
+      const children = this.titleContainer.get_children();
+      this.titleContainer.remove_all_children();
+      this.titleContainer.add_child(children[1]!);
+      this.titleContainer.add_child(children[0]!);
+    }
+
     this.icon.visible = !isVisible(headerStyle);
 
     if (this.preview) {
