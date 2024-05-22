@@ -325,7 +325,9 @@ class Database {
       const copyDate = iter.get_value_for_field('copyDate') as any as string;
       const isFavorite = iter.get_value_for_field('isFavorite') as any as number;
       const matchValue = iter.get_value_for_field('matchValue') as any as string;
+      const matchValue_unescaped = Gda5.default_unescape_string(matchValue) ?? matchValue;
       const searchValue = iter.get_value_for_field('searchValue') as any as string;
+      const searchValue_unescaped = Gda5.default_unescape_string(searchValue) ?? searchValue;
       const metaData = iter.get_value_for_field('metaData') as any as string;
 
       itemList.push({
@@ -334,8 +336,8 @@ class Database {
         content: content_unescaped,
         copyDate: new Date(copyDate),
         isFavorite: !!isFavorite,
-        matchValue,
-        searchValue,
+        matchValue: matchValue_unescaped,
+        searchValue: searchValue_unescaped,
         metaData,
       });
     }
