@@ -332,7 +332,7 @@ msgstr ""
 msgid "Item Width"
 msgstr ""
 
-#: src/components/filePanoItem.ts:205
+#: src/components/filePanoItem.ts:206
 msgid "items"
 msgstr ""
 
