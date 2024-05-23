@@ -87,10 +87,6 @@ export class PanoItem extends St.Widget {
     this.connect('activated', () => {
       this.get_parent()?.get_parent()?.get_parent()?.hide();
 
-      if (this.dbItem.itemType === 'LINK' && this.settings.get_boolean('open-links-in-browser')) {
-        return;
-      }
-
       if (this.settings.get_boolean('paste-on-select') && this.clipboardManager.isTracking) {
         // See https://github.com/SUPERCILEX/gnome-clipboard-history/blob/master/extension.js#L606
         this.timeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 250, () => {
@@ -243,38 +239,41 @@ export class PanoItem extends St.Widget {
   }
 
   override vfunc_key_press_event(event: Clutter.Event): boolean {
-    if (
-      event.get_key_symbol() === Clutter.KEY_Return ||
-      event.get_key_symbol() === Clutter.KEY_ISO_Enter ||
-      event.get_key_symbol() === Clutter.KEY_KP_Enter
-    ) {
-      this.emit('activated');
-      return Clutter.EVENT_STOP;
+    switch (event.get_key_symbol()) {
+      case Clutter.KEY_Return:
+      case Clutter.KEY_ISO_Enter:
+      case Clutter.KEY_KP_Enter:
+        this.emit('activated');
+        return Clutter.EVENT_STOP;
+
+      case Clutter.KEY_Delete:
+      case Clutter.KEY_KP_Delete:
+        this.emit('on-remove', JSON.stringify(this.dbItem));
+        return Clutter.EVENT_STOP;
+
+      case Clutter.KEY_S:
+      case Clutter.KEY_s:
+        if (event.has_control_modifier()) {
+          this.dbItem = { ...this.dbItem, isFavorite: !this.dbItem.isFavorite };
+          this.emit('on-favorite', JSON.stringify(this.dbItem));
+          return Clutter.EVENT_STOP;
+        }
+        break;
     }
-    if (event.get_key_symbol() === Clutter.KEY_Delete || event.get_key_symbol() === Clutter.KEY_KP_Delete) {
-      this.emit('on-remove', JSON.stringify(this.dbItem));
-      return Clutter.EVENT_STOP;
-    }
-    if (
-      (event.get_key_symbol() === Clutter.KEY_S || event.get_key_symbol() === Clutter.KEY_s) &&
-      event.get_state() === Clutter.ModifierType.CONTROL_MASK
-    ) {
-      this.dbItem = { ...this.dbItem, isFavorite: !this.dbItem.isFavorite };
-      this.emit('on-favorite', JSON.stringify(this.dbItem));
-      return Clutter.EVENT_STOP;
-    }
+
     return Clutter.EVENT_PROPAGATE;
   }
 
   override vfunc_button_release_event(event: Clutter.Event): boolean {
-    if (event.get_button() === Clutter.BUTTON_PRIMARY) {
-      this.emit('activated');
-      return Clutter.EVENT_STOP;
-    }
+    switch (event.get_button()) {
+      case Clutter.BUTTON_PRIMARY:
+        this.emit('activated');
+        return Clutter.EVENT_STOP;
 
-    // Delete item on middle click
-    if (this.settings.get_boolean('remove-on-middle-click') && event.get_button() === Clutter.BUTTON_MIDDLE) {
-      this.emit('on-remove', JSON.stringify(this.dbItem));
+      // Delete item on middle click
+      case Clutter.BUTTON_MIDDLE:
+        this.emit('on-remove', JSON.stringify(this.dbItem));
+        return Clutter.EVENT_STOP;
     }
 
     return Clutter.EVENT_PROPAGATE;

@@ -197,30 +197,30 @@ export class LinkPanoItem extends PanoItem {
   }
 
   override vfunc_key_press_event(event: Clutter.Event): boolean {
-    super.vfunc_key_press_event(event);
     if (
       this.settings.get_boolean('open-links-in-browser') &&
-      event.get_state() === Clutter.ModifierType.CONTROL_MASK &&
+      event.has_control_modifier() &&
       (event.get_key_symbol() === Clutter.KEY_Return ||
         event.get_key_symbol() === Clutter.KEY_ISO_Enter ||
         event.get_key_symbol() === Clutter.KEY_KP_Enter)
     ) {
       openLinkInBrowser(this.dbItem.content);
+      return Clutter.EVENT_STOP;
     }
 
-    return Clutter.EVENT_PROPAGATE;
+    return super.vfunc_key_press_event(event);
   }
 
   override vfunc_button_release_event(event: Clutter.Event): boolean {
-    super.vfunc_button_release_event(event);
     if (
-      event.get_button() === 1 &&
-      event.get_state() === Clutter.ModifierType.CONTROL_MASK &&
+      event.get_button() === Clutter.BUTTON_PRIMARY &&
+      event.has_control_modifier() &&
       this.settings.get_boolean('open-links-in-browser')
     ) {
       openLinkInBrowser(this.dbItem.content);
+      return Clutter.EVENT_STOP;
     }
 
-    return Clutter.EVENT_PROPAGATE;
+    return super.vfunc_button_release_event(event);
   }
 }
