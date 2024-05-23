@@ -31,7 +31,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: src/components/filePanoItem.ts:205
+#: src/components/filePanoItem.ts:206
 msgid "items"
 msgstr ""
 

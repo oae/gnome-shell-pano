@@ -120,6 +120,10 @@
   background-color: #c01c28;
 }
 
+.pano-item-paste-content-button:hover .pano-item-action-button-icon {
+  background-color: #26a269;
+}
+
 .pano-favorite-icon {
   padding: 6px;
   width: 12px;

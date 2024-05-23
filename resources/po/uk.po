@@ -31,7 +31,7 @@ msgstr "Режим анонімного перегляду"
 msgid "Settings"
 msgstr "Параметри"
 
-#: src/components/filePanoItem.ts:205
+#: src/components/filePanoItem.ts:206
 msgid "items"
 msgstr ""
 

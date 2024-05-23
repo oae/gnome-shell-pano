@@ -31,7 +31,7 @@ msgstr "시크릿 모드"
 msgid "Settings"
 msgstr "설정"
 
-#: src/components/filePanoItem.ts:205
+#: src/components/filePanoItem.ts:206
 msgid "items"
 msgstr ""
 

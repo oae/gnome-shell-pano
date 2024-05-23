@@ -31,7 +31,7 @@ msgstr "Modul incognito"
 msgid "Settings"
 msgstr "Setări"
 
-#: src/components/filePanoItem.ts:205
+#: src/components/filePanoItem.ts:206
 msgid "items"
 msgstr ""
 

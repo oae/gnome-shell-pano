@@ -28,6 +28,7 @@ export class FilePanoItem extends PanoItem {
   private icon: St.Icon;
   private preview: St.BoxLayout | St.Label | null = null;
   private previewType: PreviewType = PreviewType.NONE;
+  private pasteContent: boolean = false;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
     super(ext, clipboardManager, dbItem);
@@ -97,22 +98,8 @@ export class FilePanoItem extends PanoItem {
 
         if (Gio.content_type_is_a(contentType, 'text/plain')) {
           // Text
-          let fileStream: Gio.FileInputStream | null = null;
-          try {
-            fileStream = file.read(null);
-            const stream = new Gio.DataInputStream({ baseStream: fileStream });
-
-            let text = '';
-            for (let i = 0; i < 30; i++) {
-              const line = stream.read_line_utf8(null)[0];
-              if (line !== null) {
-                if (i > 0) text += '\n';
-                text += line;
-              } else {
-                break;
-              }
-            }
-
+          const text = FilePanoItem.getFileContents(file, 32);
+          if (text !== null) {
             this.preview = new St.Label({
               text: text,
               styleClass: 'copied-file-preview copied-file-preview-text',
@@ -125,10 +112,24 @@ export class FilePanoItem extends PanoItem {
             this.preview.clutterText.lineWrap = false;
             this.preview.clutterText.ellipsize = Pango.EllipsizeMode.END;
             this.previewType = PreviewType.TEXT;
-          } catch (e) {
-            console.error(e);
-          } finally {
-            fileStream?.close(null);
+
+            const pasteFileContentIcon = new St.Icon({
+              iconName: 'preferences-desktop-font-symbolic',
+              styleClass: 'pano-item-action-button-icon',
+            });
+
+            const pasteFileContentButton = new St.Button({
+              styleClass: 'pano-item-action-button pano-item-paste-content-button',
+              child: pasteFileContentIcon,
+            });
+
+            pasteFileContentButton.connect('clicked', () => {
+              this.pasteContent = true;
+              this.emit('activated');
+              return Clutter.EVENT_STOP;
+            });
+
+            this.overlay.actionContainer.insert_child_at_index(pasteFileContentButton, 0);
           }
         } else if (Gio.content_type_is_a(contentType, 'image/*')) {
           // Images
@@ -294,11 +295,11 @@ export class FilePanoItem extends PanoItem {
     if (this.preview) {
       this.preview.visible = !compactMode;
 
-      if (this.previewType == PreviewType.FILES) {
+      if (this.previewType === PreviewType.FILES) {
         this.preview.set_style(
           `background-color: ${filesPreviewBgColor}; color: ${filesPreviewColor}; font-family: ${filesPreviewFontFamily}; font-size: ${filesPreviewFontSize}px;`,
         );
-      } else if (this.previewType == PreviewType.TEXT) {
+      } else if (this.previewType === PreviewType.TEXT) {
         this.preview.set_style(
           `background-color: ${textPreviewBgColor}; color: ${textPreviewColor}; font-family: ${textPreviewFontFamily}; font-size: ${textPreviewFontSize}px;`,
         );
@@ -307,12 +308,104 @@ export class FilePanoItem extends PanoItem {
   }
 
   private setClipboardContent(): void {
+    if (this.pasteContent) {
+      const file = Gio.File.new_for_uri(this.fileList[0]!);
+      const text = FilePanoItem.getFileContents(file);
+
+      if (text !== null) {
+        this.clipboardManager.setContent(
+          new ClipboardContent({
+            type: ContentType.TEXT,
+            value: text,
+          }),
+          false,
+        );
+        return;
+      }
+
+      this.pasteContent = false;
+    }
+
     this.clipboardManager.setContent(
       new ClipboardContent({
         type: ContentType.FILE,
         value: { fileList: this.fileList, operation: this.operation },
       }),
     );
+  }
+
+  override vfunc_key_press_event(event: Clutter.Event): boolean {
+    if (
+      this.previewType === PreviewType.TEXT &&
+      (event.get_key_symbol() === Clutter.KEY_Return ||
+        event.get_key_symbol() === Clutter.KEY_ISO_Enter ||
+        event.get_key_symbol() === Clutter.KEY_KP_Enter) &&
+      event.has_control_modifier()
+    ) {
+      this.pasteContent = true;
+      this.emit('activated');
+      return Clutter.EVENT_STOP;
+    }
+
+    return super.vfunc_key_press_event(event);
+  }
+
+  override vfunc_button_release_event(event: Clutter.Event): boolean {
+    if (
+      this.previewType === PreviewType.TEXT &&
+      event.get_button() === Clutter.BUTTON_PRIMARY &&
+      event.has_control_modifier()
+    ) {
+      this.pasteContent = true;
+      this.emit('activated');
+      return Clutter.EVENT_STOP;
+    }
+
+    return super.vfunc_button_release_event(event);
+  }
+
+  private static getFileContents(file: Gio.File, n: number | null = null): string | null {
+    if (!file.query_exists(null)) {
+      return null;
+    }
+
+    if (n !== null) {
+      let fileStream: Gio.FileInputStream | undefined;
+      try {
+        fileStream = file.read(null);
+        const stream = new Gio.DataInputStream({ baseStream: fileStream });
+
+        let text = '';
+        for (let i = 0; i < n; i++) {
+          const line = stream.read_line_utf8(null)[0];
+          if (line !== null) {
+            if (i > 0) text += '\n';
+            text += line;
+          } else {
+            break;
+          }
+        }
+
+        return text;
+      } catch (e) {
+        console.error(e);
+      } finally {
+        fileStream?.close(null);
+      }
+    } else {
+      try {
+        const [success, text, _] = file.load_contents(null);
+        if (success) {
+          return new TextDecoder().decode(text);
+        } else {
+          throw new Error('failed to load file contents');
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    return null;
   }
 
   private static getThumbnail(homeDir: string, file: string): Gio.File | null {
