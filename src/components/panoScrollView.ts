@@ -118,10 +118,6 @@ export class PanoScrollView extends St.ScrollView {
         return Clutter.EVENT_STOP;
       }
 
-      if (event.get_state()) {
-        return Clutter.EVENT_PROPAGATE;
-      }
-
       if (shouldFocusOut(event.get_key_symbol())) {
         this.emit('scroll-focus-out');
         return Clutter.EVENT_STOP;
