@@ -217,7 +217,7 @@ export class FilePanoItem extends PanoItem {
         clipToAllocation: true,
         vertical: true,
         xExpand: true,
-        yExpand: true,
+        yExpand: false,
         yAlign: Clutter.ActorAlign.FILL,
         minHeight: 0,
       });
