@@ -85,7 +85,7 @@ export class ColorPanoItem extends PanoItem {
 
     this.overlay.setControlsBackground(getItemBackgroundColor(this.settings, headerBgColor, null));
     this.header.set_style(`background-color: ${headerBgColor}; color: ${headerColor};`);
-    this.container.set_style(`background-color: ${this.dbItem.content};`);
+    this.body.set_style(`background-color: ${this.dbItem.content};`);
     this.icon.set_style(`color: ${iconColor};`);
     this.label.set_style(`color: ${textColor}; font-family: ${metadataFontFamily}; font-size: ${metadataFontSize}px;`);
   }
