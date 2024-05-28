@@ -26,6 +26,7 @@ import {
 } from '@pano/utils/shell';
 import { notify } from '@pano/utils/ui';
 import colorString from 'color-string';
+import Graphemer from 'graphemer';
 import hljs from 'highlight.js/lib/core';
 import bash from 'highlight.js/lib/languages/bash';
 import c from 'highlight.js/lib/languages/c';
@@ -249,7 +250,8 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
       }
       const highlightResult = hljs.highlightAuto(trimmedValue.slice(0, 2000), SUPPORTED_LANGUAGES);
       if (highlightResult.relevance < 10) {
-        if (/^\p{Extended_Pictographic}*$/u.test(trimmedValue)) {
+        // Check if the text is a single grapheme
+        if (Graphemer.nextBreak(trimmedValue, 0) == trimmedValue.length) {
           return db.save({
             content: trimmedValue,
             copyDate: new Date(),

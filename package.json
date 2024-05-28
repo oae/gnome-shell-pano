@@ -93,6 +93,7 @@
   "dependencies": {
     "color-string": "^1.9.1",
     "date-fns": "^2.30.0",
+    "graphemer": "^1.4.0",
     "highlight.js": "^11.9.0",
     "htmlparser2": "^9.1.0",
     "is-url": "^1.2.4",

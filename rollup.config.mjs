@@ -82,6 +82,7 @@ const thirdParty = [
   'is-url',
   'pretty-bytes',
   'color-string',
+  'graphemer',
   'highlight.js/lib/core',
   'highlight.js/lib/languages/bash',
   'highlight.js/lib/languages/c',
