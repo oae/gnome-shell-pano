@@ -26,9 +26,8 @@ export class EmojiPanoItem extends PanoItem {
       text: this.dbItem.content,
       styleClass: 'pano-item-body-emoji-content',
     });
-    this.label.clutterText.lineWrap = true;
-    this.label.clutterText.lineWrapMode = Pango.WrapMode.WORD_CHAR;
-    this.label.clutterText.ellipsize = Pango.EllipsizeMode.END;
+    this.label.clutterText.lineAlignment = Pango.Alignment.CENTER;
+    this.label.clutterText.ellipsize = Pango.EllipsizeMode.NONE;
 
     this.body.add_child(this.label);
     this.connect('activated', this.setClipboardContent.bind(this));
