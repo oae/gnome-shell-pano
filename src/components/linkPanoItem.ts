@@ -175,7 +175,7 @@ export class LinkPanoItem extends PanoItem {
       getItemBackgroundColor(this.settings, headerBgColor, compactMode ? metadataBgColor : null),
     );
     this.header.set_style(`background-color: ${headerBgColor}; color: ${headerColor};`);
-    this.container.set_style(`background-color: ${metadataBgColor};`);
+    this.body.set_style(`background-color: ${metadataBgColor};`);
     this.titleLabel.set_style(
       `color: ${metadataTitleColor}; font-family: ${metadataTitleFontFamily}; font-size: ${metadataTitleFontSize}px;`,
     );

@@ -275,7 +275,7 @@ export class FilePanoItem extends PanoItem {
 
     this.overlay.setControlsBackground(getItemBackgroundColor(this.settings, headerBgColor, bodyBgColor));
     this.header.set_style(`background-color: ${headerBgColor}; color: ${headerColor};`);
-    this.container.set_style(`background-color: ${bodyBgColor};`);
+    this.body.set_style(`background-color: ${bodyBgColor};`);
 
     this.titleContainer.set_style(
       `color: ${titleColor}; font-family: ${titleFontFamily}; font-size: ${titleFontSize}px;`,

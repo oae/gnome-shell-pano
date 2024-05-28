@@ -46,7 +46,7 @@ export class CodePanoItem extends PanoItem {
 
     this.overlay.setControlsBackground(getItemBackgroundColor(this.settings, headerBgColor, bodyBgColor));
     this.header.set_style(`background-color: ${headerBgColor}; color: ${headerColor};`);
-    this.container.set_style(`background-color: ${bodyBgColor}`);
+    this.body.set_style(`background-color: ${bodyBgColor}`);
     this.label.set_style(`font-size: ${bodyFontSize}px; font-family: ${bodyFontFamily};`);
 
     this.label.clutterText.set_markup(markupCode(this.dbItem.content.trim(), characterLength));
