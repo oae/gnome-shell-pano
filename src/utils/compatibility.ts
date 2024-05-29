@@ -4,9 +4,24 @@ import GLib from '@girs/glib-2.0';
 import { Notification, Source as MessageTraySource } from '@girs/gnome-shell/dist/ui/messageTray';
 import St from '@girs/st-14';
 
+// better typed functions for GDA
+
+// we get /  have to store strings for dates and numbers for boolean
+type MapGDATypes<T> = T extends boolean ? number : T extends Date ? string : T;
+
+//@ts-expect-error: this extends the types, to be more specific, but the generic types don't like that extensions
+export interface DataModelIter<T> extends Gda5.DataModelIter {
+  get_value_for_field<K extends keyof T>(key: K): MapGDATypes<T[K]>;
+}
+
+//@ts-expect-error: this extends the types, to be more specific, but the generic types don't like that extensions
+export interface SqlBuilder<T> extends Gda5.SqlBuilder {
+  add_field_value_as_gvalue<K extends keyof T>(key: K, value: MapGDATypes<T[K]>): void;
+}
+
 // compatibility functions for Gda 5.0 and 6.0
 
-function isGda6Builder(builder: Gda5.SqlBuilder | Gda6.SqlBuilder): builder is Gda6.SqlBuilder {
+function isGda6Builder(builder: Gda5.SqlBuilder | Gda6.SqlBuilder | SqlBuilder<any>): builder is Gda6.SqlBuilder {
   return builder.add_expr_value.length === 1;
 }
 
@@ -16,7 +31,7 @@ function isGda6Builder(builder: Gda5.SqlBuilder | Gda6.SqlBuilder): builder is G
  * @param value any
  * @returns expr id
  */
-export function add_expr_value(builder: Gda5.SqlBuilder | Gda6.SqlBuilder, value: any): number {
+export function add_expr_value(builder: Gda5.SqlBuilder | Gda6.SqlBuilder | SqlBuilder<any>, value: any): number {
   if (isGda6Builder(builder)) {
     return builder.add_expr_value(value);
   }
