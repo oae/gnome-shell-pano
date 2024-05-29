@@ -293,7 +293,7 @@ export class PanoItem extends St.Widget {
       GLib.Source.remove(this.timeoutId);
       this.timeoutId = undefined;
     }
-    this.overlay.destroy();
+    this.header.destroy();
     super.destroy();
   }
 }
