@@ -34,7 +34,7 @@ export class ExclusionGroup extends Adw.PreferencesGroup {
 
     this.exclusionButton.connect('clicked', () => {
       this.exclusionRow.set_expanded(true);
-      this.exclusionButton.set_sensitive(false);
+      this.exclusionButton.sensitive = false;
       this.exclusionRow.add_row(this.createEntryRow(ext));
     });
 
@@ -73,7 +73,7 @@ export class ExclusionGroup extends Adw.PreferencesGroup {
       if (text !== null && text.trim() !== '') {
         this.exclusionRow.remove(entryRow);
         this.exclusionRow.add_row(this.createExcludedApp(text.trim()));
-        this.exclusionButton.set_sensitive(true);
+        this.exclusionButton.sensitive = true;
         this.settings.set_strv('exclusion-list', [...this.settings.get_strv('exclusion-list'), text.trim()]);
       }
     });
@@ -91,7 +91,7 @@ export class ExclusionGroup extends Adw.PreferencesGroup {
 
     cancelButton.connect('clicked', () => {
       this.exclusionRow.remove(entryRow);
-      this.exclusionButton.set_sensitive(true);
+      this.exclusionButton.sensitive = true;
     });
 
     entryRow.add_prefix(entry);

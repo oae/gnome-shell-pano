@@ -13,8 +13,17 @@ import { ImagePanoItem } from '@pano/components/imagePanoItem';
 import { LinkPanoItem } from '@pano/components/linkPanoItem';
 import { PanoItem } from '@pano/components/panoItem';
 import { TextPanoItem } from '@pano/components/textPanoItem';
+import type PanoExtension from '@pano/extension';
 import { ClipboardContent, ClipboardManager, ContentType, FileOperation } from '@pano/utils/clipboardManager';
-import { ClipboardQueryBuilder, db, DBItem } from '@pano/utils/db';
+import {
+  ClipboardQueryBuilder,
+  type CodeMetaData,
+  db,
+  DBItem,
+  type FileContentList,
+  type ImageMetaData,
+  type LinkMetaData,
+} from '@pano/utils/db';
 import { getDocument, getImage } from '@pano/utils/linkParser';
 import {
   getCachePath,
@@ -23,92 +32,15 @@ import {
   gettext,
   logger,
   playAudio,
+  safeParse,
+  safeParse2,
+  stringify,
 } from '@pano/utils/shell';
 import { notify } from '@pano/utils/ui';
 import convert from 'hex-color-converter';
-import hljs from 'highlight.js/lib/core';
-import bash from 'highlight.js/lib/languages/bash';
-import c from 'highlight.js/lib/languages/c';
-import cpp from 'highlight.js/lib/languages/cpp';
-import csharp from 'highlight.js/lib/languages/csharp';
-import dart from 'highlight.js/lib/languages/dart';
-import go from 'highlight.js/lib/languages/go';
-import groovy from 'highlight.js/lib/languages/groovy';
-import haskell from 'highlight.js/lib/languages/haskell';
-import java from 'highlight.js/lib/languages/java';
-import javascript from 'highlight.js/lib/languages/javascript';
-import julia from 'highlight.js/lib/languages/julia';
-import kotlin from 'highlight.js/lib/languages/kotlin';
-import lua from 'highlight.js/lib/languages/lua';
-import markdown from 'highlight.js/lib/languages/markdown';
-import perl from 'highlight.js/lib/languages/perl';
-import php from 'highlight.js/lib/languages/php';
-import python from 'highlight.js/lib/languages/python';
-import ruby from 'highlight.js/lib/languages/ruby';
-import rust from 'highlight.js/lib/languages/rust';
-import scala from 'highlight.js/lib/languages/scala';
-import shell from 'highlight.js/lib/languages/shell';
-import sql from 'highlight.js/lib/languages/sql';
-import swift from 'highlight.js/lib/languages/swift';
-import typescript from 'highlight.js/lib/languages/typescript';
-import yaml from 'highlight.js/lib/languages/yaml';
 import isUrl from 'is-url';
 import prettyBytes from 'pretty-bytes';
 import { validateHTMLColorHex, validateHTMLColorName, validateHTMLColorRgb } from 'validate-color';
-
-hljs.registerLanguage('python', python);
-hljs.registerLanguage('markdown', markdown);
-hljs.registerLanguage('yaml', yaml);
-hljs.registerLanguage('java', java);
-hljs.registerLanguage('javascript', javascript);
-hljs.registerLanguage('csharp', csharp);
-hljs.registerLanguage('cpp', cpp);
-hljs.registerLanguage('c', c);
-hljs.registerLanguage('php', php);
-hljs.registerLanguage('typescript', typescript);
-hljs.registerLanguage('swift', swift);
-hljs.registerLanguage('kotlin', kotlin);
-hljs.registerLanguage('go', go);
-hljs.registerLanguage('rust', rust);
-hljs.registerLanguage('ruby', ruby);
-hljs.registerLanguage('scala', scala);
-hljs.registerLanguage('dart', dart);
-hljs.registerLanguage('lua', lua);
-hljs.registerLanguage('groovy', groovy);
-hljs.registerLanguage('perl', perl);
-hljs.registerLanguage('julia', julia);
-hljs.registerLanguage('haskell', haskell);
-hljs.registerLanguage('sql', sql);
-hljs.registerLanguage('bash', bash);
-hljs.registerLanguage('shell', shell);
-
-const SUPPORTED_LANGUAGES = [
-  'python',
-  'markdown',
-  'yaml',
-  'java',
-  'javascript',
-  'csharp',
-  'cpp',
-  'c',
-  'php',
-  'typescript',
-  'swift',
-  'kotlin',
-  'go',
-  'rust',
-  'ruby',
-  'scala',
-  'dart',
-  'sql',
-  'lua',
-  'groovy',
-  'perl',
-  'julia',
-  'haskell',
-  'bash',
-  'shell',
-];
 
 const debug = logger('pano-item-factory');
 
@@ -120,7 +52,7 @@ const isValidUrl = (text: string) => {
   }
 };
 
-const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): Promise<DBItem | null> => {
+const findOrCreateDbItem = async (ext: PanoExtension, clip: ClipboardContent): Promise<DBItem | null> => {
   const { value, type } = clip.content;
   const queryBuilder = new ClipboardQueryBuilder();
   switch (type) {
@@ -155,7 +87,7 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
   switch (type) {
     case ContentType.FILE:
       return db.save({
-        content: JSON.stringify(value.fileList),
+        content: stringify<FileContentList>(value.fileList),
         copyDate: new Date(),
         isFavorite: false,
         itemType: 'FILE',
@@ -168,7 +100,8 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
           .join('')}`,
         metaData: value.operation,
       });
-    case ContentType.IMAGE:
+
+    case ContentType.IMAGE: {
       const checksum = GLib.compute_checksum_for_bytes(GLib.ChecksumType.MD5, new GLib.Bytes(value));
       if (!checksum) {
         return null;
@@ -183,13 +116,15 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
         isFavorite: false,
         itemType: 'IMAGE',
         matchValue: checksum,
-        metaData: JSON.stringify({
+        metaData: stringify<ImageMetaData>({
           width,
           height,
           size: value.length,
         }),
       });
-    case ContentType.TEXT:
+    }
+
+    case ContentType.TEXT: {
       const trimmedValue = value.trim();
 
       if (trimmedValue.toLowerCase().startsWith('http') && isValidUrl(trimmedValue)) {
@@ -207,7 +142,7 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
           itemType: 'LINK',
           matchValue: trimmedValue,
           searchValue: `${title}${description}${trimmedValue}`,
-          metaData: JSON.stringify({
+          metaData: stringify<LinkMetaData>({
             title: title ? encodeURI(title) : '',
             description: description ? encodeURI(description) : '',
             image: checksum ?? '',
@@ -228,7 +163,7 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
             itemType: 'LINK',
             matchValue: trimmedValue,
             searchValue: `${title}${description}${trimmedValue}`,
-            metaData: JSON.stringify({
+            metaData: stringify<LinkMetaData>({
               title: title ? encodeURI(title) : '',
               description: description ? encodeURI(description) : '',
               image: checksum ?? '',
@@ -252,28 +187,25 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
           searchValue: trimmedValue,
         });
       }
-      const highlightResult = hljs.highlightAuto(trimmedValue.slice(0, 2000), SUPPORTED_LANGUAGES);
-      if (highlightResult.relevance < 10) {
-        if (/^\p{Extended_Pictographic}*$/u.test(trimmedValue)) {
-          return db.save({
-            content: trimmedValue,
-            copyDate: new Date(),
-            isFavorite: false,
-            itemType: 'EMOJI',
-            matchValue: trimmedValue,
-            searchValue: trimmedValue,
-          });
-        } else {
-          return db.save({
-            content: value,
-            copyDate: new Date(),
-            isFavorite: false,
-            itemType: 'TEXT',
-            matchValue: value,
-            searchValue: value,
-          });
-        }
-      } else {
+
+      if (/^\p{Extended_Pictographic}*$/u.test(trimmedValue)) {
+        return db.save({
+          content: trimmedValue,
+          copyDate: new Date(),
+          isFavorite: false,
+          itemType: 'EMOJI',
+          matchValue: trimmedValue,
+          searchValue: trimmedValue,
+        });
+      }
+
+      const detectedLanguage = await ext.markdownDetector?.detectLanguage(trimmedValue);
+
+      const minimumLanguageRelevance = getCurrentExtensionSettings(ext)
+        .get_child('code-item')
+        .get_double('highlighter-detection-relevance');
+
+      if (ext.markdownDetector && detectedLanguage && detectedLanguage.relevance >= minimumLanguageRelevance) {
         return db.save({
           content: value,
           copyDate: new Date(),
@@ -281,44 +213,123 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
           itemType: 'CODE',
           matchValue: value,
           searchValue: value,
+          metaData: stringify<CodeMetaData>({
+            language: detectedLanguage.language,
+            highlighter: ext.markdownDetector.currentHighlighter!.name,
+          }),
         });
       }
+
+      return db.save({
+        content: value,
+        copyDate: new Date(),
+        isFavorite: false,
+        itemType: 'TEXT',
+        matchValue: value,
+        searchValue: value,
+      });
+    }
     default:
       return null;
   }
 };
 
-export const createPanoItem = async (
-  ext: ExtensionBase,
-  clipboardManager: ClipboardManager,
-  clip: ClipboardContent,
-): Promise<PanoItem | null> => {
-  let dbItem: DBItem | null = null;
-
-  try {
-    dbItem = await findOrCreateDbItem(ext, clip);
-  } catch (err) {
-    debug(`err: ${err}`);
-    return null;
-  }
-
-  if (dbItem) {
-    if (getCurrentExtensionSettings(ext).get_boolean('send-notification-on-copy')) {
-      try {
-        sendNotification(ext, dbItem);
-      } catch (err) {
-        console.error('PANO: ' + (err as Error).toString());
-      }
+export const removeItemResources = (ext: ExtensionBase, dbItem: DBItem) => {
+  db.delete(dbItem.id);
+  if (dbItem.itemType === 'LINK') {
+    const { image } = safeParse<LinkMetaData>(dbItem.metaData || '{"title": "", "description": ""}', {
+      title: '',
+      description: '',
+      image: undefined,
+    });
+    if (image && Gio.File.new_for_uri(`file://${getCachePath(ext)}/${image}.png`).query_exists(null)) {
+      Gio.File.new_for_uri(`file://${getCachePath(ext)}/${image}.png`).delete(null);
     }
-
-    return createPanoItemFromDb(ext, clipboardManager, dbItem);
+  } else if (dbItem.itemType === 'IMAGE') {
+    const imageFilePath = `file://${getImagesPath(ext)}/${dbItem.content}.png`;
+    const imageFile = Gio.File.new_for_uri(imageFilePath);
+    if (imageFile.query_exists(null)) {
+      imageFile.delete(null);
+    }
   }
-
-  return null;
 };
 
+type PanoItemAsynchronouslyReturnType = undefined | null | [string, DBItem | undefined];
+
+function handleCodePanoItemAsynchronously(
+  metaData: Partial<CodeMetaData>,
+  dbItem: DBItem,
+  ext: PanoExtension,
+): Promise<PanoItemAsynchronouslyReturnType> {
+  const codeSettings = getCurrentExtensionSettings(ext).get_child('code-item');
+
+  const markdownDetector = ext.getMarkdownDetectorRaw();
+
+  if (!markdownDetector) {
+    // he is disabled
+    return new Promise((resolve) => {
+      resolve(null);
+    });
+  }
+
+  const impl = async (): Promise<PanoItemAsynchronouslyReturnType> => {
+    let finalMetaData: CodeMetaData | undefined;
+    let newDBItem: DBItem | undefined;
+
+    if (!metaData.language || !metaData.highlighter) {
+      const language = await markdownDetector.detectLanguage(dbItem.content.trim());
+      if (!language) {
+        return undefined;
+      }
+
+      const minimumLanguageRelevance = codeSettings.get_double('highlighter-detection-relevance');
+
+      if (language.relevance >= minimumLanguageRelevance) {
+        finalMetaData = {
+          language: language.language,
+          highlighter: markdownDetector.currentHighlighter!.name,
+        };
+
+        newDBItem = db.update({
+          ...dbItem,
+          metaData: stringify<CodeMetaData>(finalMetaData),
+        })!;
+      }
+    } else {
+      finalMetaData = metaData as CodeMetaData;
+    }
+
+    const characterLength = codeSettings.get_int('char-length');
+
+    let markup;
+    if (finalMetaData) {
+      markup = await markdownDetector.scheduleMarkupCode(
+        finalMetaData.language,
+        dbItem.content.trim(),
+        characterLength,
+      );
+    }
+
+    if (!markup) {
+      return undefined;
+    }
+
+    return [markup, newDBItem];
+  };
+
+  if (!markdownDetector.loaded) {
+    return new Promise((resolve, reject) => {
+      markdownDetector.onLoad(() => {
+        impl().then(resolve).catch(reject);
+      });
+    });
+  }
+
+  return impl();
+}
+
 export const createPanoItemFromDb = (
-  ext: ExtensionBase,
+  ext: PanoExtension,
   clipboardManager: ClipboardManager,
   dbItem: DBItem | null,
 ): PanoItem | null => {
@@ -332,9 +343,51 @@ export const createPanoItemFromDb = (
     case 'TEXT':
       panoItem = new TextPanoItem(ext, clipboardManager, dbItem);
       break;
-    case 'CODE':
-      panoItem = new CodePanoItem(ext, clipboardManager, dbItem);
+    case 'CODE': {
+      // this is migration stuff, since it is never undefined (or "") but older items can be, after scanning, the language they are updated in db too,
+      const metaData: Partial<CodeMetaData> = safeParse<CodeMetaData>(
+        dbItem.metaData || '{"language": "", "highlighter": ""}',
+        {
+          language: '',
+          highlighter: '',
+        },
+      );
+
+      // here we treat them as Code item, even if something fails at the highlight process, we just set un-highlighted markdown, the process of making such failures to TextPanoItems and also updating that in the db is async and we offer an option to rescan all items, in the settings, since that may take some time (we display them as CodeItem, without highlighting, if the highlighter is disabled)
+
+      const codePanoItem = new CodePanoItem(ext, clipboardManager, dbItem);
+
+      handleCodePanoItemAsynchronously(metaData, dbItem, ext)
+        .then((result: PanoItemAsynchronouslyReturnType) => {
+          // the code highlighting is disabled
+          if (result === null) {
+            return;
+          }
+
+          // a real error occurred
+          if (result === undefined) {
+            debug('Failed to get markdown from code item, using not highlighted text');
+            return;
+          }
+
+          const [markdown, newDbItem] = result;
+
+          if (newDbItem) {
+            codePanoItem.setDBItem(newDbItem);
+          }
+
+          codePanoItem.type = 'code';
+          codePanoItem.setMarkDown(markdown);
+        })
+        .catch((err) => {
+          debug(`error in getting markdown from code item: ${err}`);
+        });
+
+      panoItem = codePanoItem;
+
       break;
+    }
+
     case 'LINK':
       panoItem = new LinkPanoItem(ext, clipboardManager, dbItem);
       break;
@@ -356,15 +409,15 @@ export const createPanoItemFromDb = (
   }
 
   panoItem.connect('on-remove', (_, dbItemStr: string) => {
-    const dbItem: DBItem = JSON.parse(dbItemStr);
-    removeItemResources(ext, dbItem);
+    const removeDbItem: DBItem = safeParse2<DBItem>(dbItemStr)!;
+    removeItemResources(ext, removeDbItem);
   });
 
   panoItem.connect('on-favorite', (_, dbItemStr: string) => {
-    const dbItem: DBItem = JSON.parse(dbItemStr);
+    const favoriteDbItem: DBItem = safeParse2<DBItem>(dbItemStr)!;
     db.update({
-      ...dbItem,
-      copyDate: new Date(dbItem.copyDate),
+      ...favoriteDbItem,
+      copyDate: new Date(favoriteDbItem.copyDate),
     });
   });
 
@@ -379,32 +432,18 @@ function converter(color: string): string | null {
   }
 }
 
-export const removeItemResources = (ext: ExtensionBase, dbItem: DBItem) => {
-  db.delete(dbItem.id);
-  if (dbItem.itemType === 'LINK') {
-    const { image } = JSON.parse(dbItem.metaData || '{}');
-    if (image && Gio.File.new_for_uri(`file://${getCachePath(ext)}/${image}.png`).query_exists(null)) {
-      Gio.File.new_for_uri(`file://${getCachePath(ext)}/${image}.png`).delete(null);
-    }
-  } else if (dbItem.itemType === 'IMAGE') {
-    const imageFilePath = `file://${getImagesPath(ext)}/${dbItem.content}.png`;
-    const imageFile = Gio.File.new_for_uri(imageFilePath);
-    if (imageFile.query_exists(null)) {
-      imageFile.delete(null);
-    }
-  }
-};
-
 const sendNotification = (ext: ExtensionBase, dbItem: DBItem) => {
   const _ = gettext(ext);
   if (dbItem.itemType === 'IMAGE') {
-    const { width, height, size }: { width: number; height: number; size: number } = JSON.parse(
-      dbItem.metaData || '{}',
-    );
+    const { width, height, size } = safeParse<ImageMetaData>(dbItem.metaData || '{}', {
+      width: undefined,
+      height: undefined,
+      size: undefined,
+    });
     notify(
       ext,
       _('Image Copied'),
-      _('Width: %spx, Height: %spx, Size: %s').format(width, height, prettyBytes(size)),
+      _('Width: %spx, Height: %spx, Size: %s').format(width, height, prettyBytes(size ?? 0)),
       GdkPixbuf.Pixbuf.new_from_file(`${getImagesPath(ext)}/${dbItem.content}.png`),
     );
   } else if (dbItem.itemType === 'TEXT') {
@@ -414,8 +453,9 @@ const sendNotification = (ext: ExtensionBase, dbItem: DBItem) => {
   } else if (dbItem.itemType === 'EMOJI') {
     notify(ext, _('Emoji Copied'), dbItem.content);
   } else if (dbItem.itemType === 'LINK') {
-    const { title, description, image }: { title: string; description: string; image: string } = JSON.parse(
-      dbItem.metaData || '{}',
+    const { title, description, image } = safeParse<LinkMetaData>(
+      dbItem.metaData || '{"title": "", "description": ""}',
+      { title: '', description: '', image: undefined },
     );
     const pixbuf = image ? GdkPixbuf.Pixbuf.new_from_file(`${getCachePath(ext)}/${image}.png`) : undefined;
     notify(
@@ -444,11 +484,36 @@ const sendNotification = (ext: ExtensionBase, dbItem: DBItem) => {
     }
   } else if (dbItem.itemType === 'FILE') {
     const operation = dbItem.metaData;
-    const fileListSize = JSON.parse(dbItem.content).length;
+    const fileListSize = safeParse<FileContentList>(dbItem.content, []).length;
     notify(
       ext,
       _('File %s').format(operation === FileOperation.CUT ? 'cut' : 'copied'),
       _('There are %s file(s)').format(fileListSize),
     );
   }
+};
+
+export const createPanoItem = async (
+  ext: PanoExtension,
+  clipboardManager: ClipboardManager,
+  clip: ClipboardContent,
+): Promise<PanoItem | null> => {
+  let dbItem: DBItem | null = null;
+
+  try {
+    dbItem = await findOrCreateDbItem(ext, clip);
+  } catch (err) {
+    debug(`err: ${err}`);
+    return null;
+  }
+
+  if (dbItem) {
+    if (getCurrentExtensionSettings(ext).get_boolean('send-notification-on-copy')) {
+      sendNotification(ext, dbItem);
+    }
+
+    return createPanoItemFromDb(ext, clipboardManager, dbItem);
+  }
+
+  return null;
 };

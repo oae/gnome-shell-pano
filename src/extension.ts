@@ -12,6 +12,7 @@ import { PanoWindow } from '@pano/containers/panoWindow';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { db } from '@pano/utils/db';
 import { KeyManager } from '@pano/utils/keyManager';
+import { PangoMarkdown } from '@pano/utils/pango';
 import {
   debounceIds,
   deleteAppDirs,
@@ -42,6 +43,7 @@ export default class PanoExtension extends Extension {
   private rebootSignalId: number | null = null;
   private systemdSignalId: number | null = null;
   private clipboardChangedSignalId: number | null = null;
+  private _markdownDetector: PangoMarkdown | null = null;
 
   constructor(props: ExtensionMetadata) {
     super(props);
@@ -50,6 +52,7 @@ export default class PanoExtension extends Extension {
 
   override enable() {
     this.settings = getCurrentExtensionSettings(this);
+    this._markdownDetector = new PangoMarkdown(this, this.settings.get_child('code-item'), null, true);
     this.setupResources();
     this.keyManager = new KeyManager(this);
     this.clipboardManager = new ClipboardManager(this);
@@ -66,6 +69,8 @@ export default class PanoExtension extends Extension {
     this.disableDbus();
     this.indicator?.disable();
     this.settings = null;
+    this._markdownDetector?.stopProcesses();
+    this._markdownDetector = null;
     this.keyManager = null;
     this.clipboardManager = null;
     this.indicator = null;
@@ -269,5 +274,25 @@ export default class PanoExtension extends Extension {
       GLib.Source.remove(this.timeoutId);
       this.timeoutId = null;
     }
+  }
+
+  public get markdownDetector(): PangoMarkdown | null {
+    if (!this.settings?.get_child('code-item').get_boolean('code-highlighter-enabled')) {
+      return null;
+    }
+
+    if (!this._markdownDetector?.loaded) {
+      return null;
+    }
+
+    return this._markdownDetector;
+  }
+
+  public getMarkdownDetectorRaw(): PangoMarkdown | null {
+    if (!this.settings?.get_child('code-item').get_boolean('code-highlighter-enabled')) {
+      return null;
+    }
+
+    return this._markdownDetector;
   }
 }

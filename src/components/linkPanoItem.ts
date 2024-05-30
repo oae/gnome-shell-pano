@@ -5,9 +5,9 @@ import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInte
 import St from '@girs/st-14';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
-import { DBItem } from '@pano/utils/db';
+import { DBItem, type LinkMetaData } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { getCachePath, gettext, openLinkInBrowser } from '@pano/utils/shell';
+import { getCachePath, gettext, openLinkInBrowser, safeParse } from '@pano/utils/shell';
 
 const DEFAULT_LINK_PREVIEW_IMAGE_NAME = 'link-preview.svg';
 
@@ -24,7 +24,10 @@ export class LinkPanoItem extends PanoItem {
     const _ = gettext(ext);
     this.linkItemSettings = this.settings.get_child('link-item');
 
-    const { title, description, image } = JSON.parse(dbItem.metaData || '{"title": "", "description": ""}');
+    const { title, description, image } = safeParse<LinkMetaData>(
+      dbItem.metaData || '{"title": "", "description": ""}',
+      { title: '', description: '', image: undefined },
+    );
     let titleText: string = title;
     let descriptionText: string = description;
 

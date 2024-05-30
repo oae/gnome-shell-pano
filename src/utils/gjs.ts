@@ -14,13 +14,10 @@ export function registerGObjectClass<
   // Note that we use 'hasOwnProperty' because otherwise we would get inherited meta infos.
   // This would be bad because we would inherit the GObjectName too, which is supposed to be unique.
   if (Object.prototype.hasOwnProperty.call(target, 'metaInfo')) {
-    // eslint-disable-next-line
-    // @ts-ignore
-    // eslint-disable-next-line
+    // @ts-expect-error this is heavily js inspired code, this is correct like this, but TS wan't get it
     return GObject.registerClass<K, T>(target.metaInfo!, target) as typeof target;
   } else {
-    // eslint-disable-next-line
-    // @ts-ignore
+    // @ts-expect-error this is heavily js inspired code, this is correct like this, but TS wan't get it
     return GObject.registerClass<K, T>(target) as typeof target;
   }
 }

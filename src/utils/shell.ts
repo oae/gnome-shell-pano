@@ -3,10 +3,40 @@ import GLib from '@girs/glib-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import GSound from '@girs/gsound-1.0';
 
-export const logger =
-  (prefix: string) =>
-  (content: string): void =>
-    console.log(`[pano] [${prefix}] ${content}`);
+export type LoggerType = 'warn' | 'error' | 'log' | 'trace';
+
+export const loggerBase = (type: LoggerType, prefix: string) => {
+  switch (type) {
+    case 'error': {
+      return (content: string): void => {
+        console.error(`[pano] [${prefix}] ${content}`);
+      };
+    }
+
+    case 'warn': {
+      return (content: string): void => {
+        console.warn(`[pano] [${prefix}] ${content}`);
+      };
+    }
+
+    case 'trace': {
+      return (content: string): void => {
+        console.trace(`[pano] [${prefix}] ${content}`);
+      };
+    }
+
+    case 'log':
+    default: {
+      return (content: string): void => {
+        console.log(`[pano] [${prefix}] ${content}`);
+      };
+    }
+  }
+};
+
+export const logger = (prefix: string) => loggerBase('log', prefix);
+export const errorLogger = (prefix: string) => loggerBase('error', prefix);
+export const warnLogger = (prefix: string) => loggerBase('warn', prefix);
 
 const debug = logger('shell-utils');
 
@@ -22,7 +52,7 @@ const deleteFile = (file: Gio.File) => {
   });
 };
 
-const deleteDirectory = async (file: Gio.File) => {
+const deleteDirectory = async (file: Gio.File): Promise<void> => {
   try {
     const iter: Gio.FileEnumerator | undefined = await new Promise((resolve, reject) => {
       file.enumerate_children_async(
@@ -30,9 +60,9 @@ const deleteDirectory = async (file: Gio.File) => {
         Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
         GLib.PRIORITY_DEFAULT,
         null,
-        (file, res) => {
+        (childFile, res) => {
           try {
-            resolve(file?.enumerate_children_finish(res));
+            resolve(childFile?.enumerate_children_finish(res));
           } catch (e) {
             reject(e);
           }
@@ -88,11 +118,22 @@ const deleteDirectory = async (file: Gio.File) => {
     await Promise.all(branches);
   } catch (e) {
   } finally {
-    return deleteFile(file);
+    await deleteFile(file);
   }
 };
 
 export const getAppDataPath = (ext: ExtensionBase): string => `${GLib.get_user_data_dir()}/${ext.uuid}`;
+
+export const getCurrentExtensionSettings = (ext: ExtensionBase): Gio.Settings => ext.getSettings();
+
+export const getDbPath = (ext: ExtensionBase): string => {
+  const path = getCurrentExtensionSettings(ext).get_string('database-location');
+  if (!path) {
+    return getAppDataPath(ext);
+  }
+
+  return path;
+};
 
 export const getImagesPath = (ext: ExtensionBase): string => `${getAppDataPath(ext)}/images`;
 
@@ -144,16 +185,6 @@ export const deleteAppDirs = async (ext: ExtensionBase): Promise<void> => {
   }
 };
 
-export const getDbPath = (ext: ExtensionBase): string => {
-  const path = getCurrentExtensionSettings(ext).get_string('database-location');
-  if (!path) {
-    return getAppDataPath(ext);
-  }
-
-  return path;
-};
-export const getCurrentExtensionSettings = (ext: ExtensionBase): Gio.Settings => ext.getSettings();
-
 export const loadInterfaceXML = (ext: ExtensionBase, iface: string): any => {
   const uri = `file:///${ext.path}/dbus/${iface}.xml`;
   const file = Gio.File.new_for_uri(uri);
@@ -179,9 +210,8 @@ export const playAudio = () => {
 
     const attr_event_id = GSound.ATTR_EVENT_ID;
 
-    //TODO: log this in a better way!
-    if (attr_event_id == null) {
-      console.error("Can't use GSound.ATTR_EVENT_ID since it's null!");
+    if (attr_event_id === null) {
+      errorLogger('playaudio')("Can't use GSound.ATTR_EVENT_ID since it's null!");
       return;
     }
     soundContext.play_simple(
@@ -201,13 +231,17 @@ export const removeSoundContext = () => {
 
 export let debounceIds: number[] = [];
 
-export function debounce<T extends any[]>(func: (...args: T) => void | Promise<void>, wait: number) {
+export function debounce<T extends any[], S = unknown>(
+  func: (this: S, ...args: T) => void | Promise<void>,
+  wait: number,
+) {
   let sourceId: null | number;
   return function (...args: T) {
-    const debouncedFunc = function (this: unknown) {
+    const debouncedFunc = function (this: S) {
       debounceIds = debounceIds.filter((id) => id !== sourceId);
       sourceId = null;
-      func.apply(this, args);
+
+      void func.apply(this, args);
 
       return GLib.SOURCE_REMOVE;
     };
@@ -231,4 +265,21 @@ export const openLinkInBrowser = (url: string) => {
 
 export function gettext(ext: ExtensionBase): (str: string) => string {
   return ext.gettext.bind(ext);
+}
+
+export function stringify<T>(value: T) {
+  return JSON.stringify(value);
+}
+
+export function safeParse2<T>(str: string): T | undefined {
+  try {
+    return JSON.parse(str);
+  } catch (_err) {
+    console.log(_err);
+    return undefined;
+  }
+}
+
+export function safeParse<T>(str: string, defaultValue: T): T {
+  return safeParse2(str) ?? defaultValue;
 }

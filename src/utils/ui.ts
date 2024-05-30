@@ -10,9 +10,8 @@ import * as main from '@girs/gnome-shell/dist/ui/main';
 import type { Notification, Source as MessageTraySource } from '@girs/gnome-shell/dist/ui/messageTray';
 import Shell from '@girs/shell-14';
 import St from '@girs/st-14';
+import { addNotification, newMessageTraySource, newNotification } from '@pano/utils/compatibility';
 import { gettext } from '@pano/utils/shell';
-
-import { addNotification, newMessageTraySource, newNotification } from './compatibility';
 
 const global = Shell.Global.get();
 

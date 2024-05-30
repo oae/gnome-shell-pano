@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+
+[dev-packages]
+pygments = ">=2.16.0"
+poetry = "*"
+
+[scripts]
+build = "poetry build --format wheel" 
+
+[requires]
+python_version = "3.10"

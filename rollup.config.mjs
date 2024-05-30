@@ -64,39 +64,15 @@ const PreferencesEntries = Object.fromEntries(
 
 const thirdParty = [
   'htmlparser2',
-  'prismjs',
   'date-fns/formatDistanceToNow',
   'date-fns/locale',
   'hex-color-converter',
   'is-url',
   'pretty-bytes',
+  // a note on this package:
+  // if we would use the normal package ("2.24" instead of "https://gitpkg.now.sh/dreamyguy/validate-color/src/validate-color")
+  // it doesn't work, since it gets incorrectly modified by rollup, since it's already shipped modified, so we have to use this package for the moment
   'validate-color',
-  'highlight.js/lib/core',
-  'highlight.js/lib/languages/bash',
-  'highlight.js/lib/languages/c',
-  'highlight.js/lib/languages/cpp',
-  'highlight.js/lib/languages/csharp',
-  'highlight.js/lib/languages/dart',
-  'highlight.js/lib/languages/go',
-  'highlight.js/lib/languages/groovy',
-  'highlight.js/lib/languages/haskell',
-  'highlight.js/lib/languages/java',
-  'highlight.js/lib/languages/javascript',
-  'highlight.js/lib/languages/julia',
-  'highlight.js/lib/languages/kotlin',
-  'highlight.js/lib/languages/lua',
-  'highlight.js/lib/languages/markdown',
-  'highlight.js/lib/languages/perl',
-  'highlight.js/lib/languages/php',
-  'highlight.js/lib/languages/python',
-  'highlight.js/lib/languages/ruby',
-  'highlight.js/lib/languages/rust',
-  'highlight.js/lib/languages/scala',
-  'highlight.js/lib/languages/shell',
-  'highlight.js/lib/languages/sql',
-  'highlight.js/lib/languages/swift',
-  'highlight.js/lib/languages/typescript',
-  'highlight.js/lib/languages/yaml',
 ];
 
 const gnomeShellExternalModules = [/^resource:\/\/\/org\/gnome\/(shell|Shell\/Extensions)\/.*/];

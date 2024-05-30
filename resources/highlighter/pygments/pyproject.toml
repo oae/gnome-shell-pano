@@ -1,0 +1,21 @@
+[build-system]
+requires = ["poetry-core>=1.0.7"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "pano-pygments"
+version = "0.1.2"
+authors = ["Totto16"]
+description = "Pano pygments plugin"
+license = "GPLv2"
+repository = "https://github.com/oae/gnome-shell-pano"
+packages = [{ include = "gnome_shell_pano_pygments", from = "src" }]
+
+[tool.poetry.plugins."pygments.styles"]
+pano = "gnome_shell_pano_pygments.styles:PanoStyle"
+
+[tool.poetry.dependencies]
+python = "^3.10.0"
+
+[tool.poetry.dev-dependencies]
+pygments = "^2.16.0"

@@ -31,7 +31,7 @@ export class ClearHistoryRow extends Adw.ActionRow {
         buttons: Gtk4.ButtonsType.OK_CANCEL,
       });
       md.get_widget_for_response(Gtk4.ResponseType.OK)?.add_css_class('destructive-action');
-      md.connect('response', async (_, response) => {
+      md.connect('response', async (_source, response) => {
         if (response === Gtk4.ResponseType.OK) {
           let isDbusRunning = true;
           try {

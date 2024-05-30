@@ -3,6 +3,97 @@ import Gdk4 from '@girs/gdk-4.0';
 import Gio from '@girs/gio-2.0';
 import Gtk4 from '@girs/gtk-4.0';
 import Pango from '@girs/pango-1.0';
+import { logger } from '@pano/utils/shell';
+
+const debug = logger('utils');
+
+export type ChangeCallback<T> = (value: T) => void | Promise<void>;
+
+export const createSwitchRow = (
+  title: string,
+  subtitle: string,
+  settings: Gio.Settings,
+  schemaKey: string,
+  changeCallback?: ChangeCallback<boolean>,
+  refreshButtonCallback?: () => void,
+): [Adw.ActionRow, Gtk4.Switch, Gtk4.Button, null | Gtk4.Button] => {
+  const row = new Adw.ActionRow({
+    title,
+    subtitle,
+  });
+
+  let refreshButton: null | Gtk4.Button = null;
+
+  if (refreshButtonCallback !== undefined) {
+    refreshButton = new Gtk4.Button({
+      iconName: 'view-refresh-symbolic',
+      valign: Gtk4.Align.CENTER,
+      halign: Gtk4.Align.CENTER,
+    });
+
+    refreshButton.connect('clicked', () => {
+      refreshButtonCallback();
+    });
+
+    row.add_suffix(refreshButton);
+  }
+
+  const initialValue = settings.get_boolean(schemaKey);
+
+  const switch_ = new Gtk4.Switch({
+    active: initialValue,
+    state: initialValue,
+    valign: Gtk4.Align.CENTER,
+    halign: Gtk4.Align.CENTER,
+  });
+
+  settings.bind(schemaKey, switch_, 'active', Gio.SettingsBindFlags.DEFAULT);
+
+  row.add_suffix(switch_);
+  row.set_activatable_widget(switch_);
+
+  const clearButton = new Gtk4.Button({
+    iconName: 'edit-clear-symbolic',
+    valign: Gtk4.Align.CENTER,
+    halign: Gtk4.Align.CENTER,
+  });
+
+  const defaultValue = settings.get_default_value(schemaKey)?.get_boolean();
+
+  if (defaultValue === initialValue) {
+    clearButton.sensitive = false;
+  }
+
+  settings.connect(`changed::${schemaKey}`, () => {
+    const value = settings.get_boolean(schemaKey);
+    if (defaultValue === value) {
+      clearButton.sensitive = false;
+    } else {
+      clearButton.sensitive = true;
+    }
+
+    switch_.active = value;
+
+    if (changeCallback) {
+      Promise.resolve(changeCallback(value))
+        .then(() => {
+          switch_.state = value;
+          row.changed();
+        })
+        .catch((err) => {
+          debug(`An error occurred in the changeCallback: ${err}`);
+        });
+    }
+  });
+
+  clearButton.connect('clicked', () => {
+    settings.reset(schemaKey);
+  });
+
+  row.add_suffix(clearButton);
+
+  return [row, switch_, clearButton, refreshButton];
+};
 
 export const createColorRow = (title: string, subtitle: string, settings: Gio.Settings, schemaKey: string) => {
   const colorRow = new Adw.ActionRow({
@@ -43,10 +134,10 @@ export const createColorRow = (title: string, subtitle: string, settings: Gio.Se
     halign: Gtk4.Align.CENTER,
   });
 
-  const value = settings.get_string(schemaKey);
+  const initialValue = settings.get_string(schemaKey);
   const defaultValue = settings.get_default_value(schemaKey)?.get_string()[0];
 
-  if (defaultValue === value) {
+  if (defaultValue === initialValue) {
     clearButton.sensitive = false;
   }
 
@@ -62,9 +153,9 @@ export const createColorRow = (title: string, subtitle: string, settings: Gio.Se
       clearButton.sensitive = true;
     }
 
-    const rgba = new Gdk4.RGBA();
-    rgba.parse(value);
-    colorButton.set_rgba(rgba);
+    const newRgba = new Gdk4.RGBA();
+    newRgba.parse(value);
+    colorButton.set_rgba(newRgba);
   });
 
   clearButton.connect('clicked', () => {
@@ -90,11 +181,11 @@ export const createSpinRow = (
     subtitle,
   });
 
-  const value = settings.get_int(schemaKey);
+  const initialValue = settings.get_int(schemaKey);
 
   const spinButton = new Gtk4.SpinButton({
     adjustment: new Gtk4.Adjustment({ stepIncrement: increment, lower, upper }),
-    value,
+    value: initialValue,
     valign: Gtk4.Align.CENTER,
     halign: Gtk4.Align.CENTER,
   });
@@ -112,7 +203,7 @@ export const createSpinRow = (
 
   const defaultValue = settings.get_default_value(schemaKey)?.get_int32();
 
-  if (defaultValue === value) {
+  if (defaultValue === initialValue) {
     clearButton.sensitive = false;
   }
 
@@ -123,6 +214,76 @@ export const createSpinRow = (
     } else {
       clearButton.sensitive = true;
     }
+
+    spinButton.value = value;
+  });
+
+  clearButton.connect('clicked', () => {
+    settings.reset(schemaKey);
+  });
+
+  row.add_suffix(clearButton);
+
+  return row;
+};
+
+export const createScaleRow = (
+  title: string,
+  subtitle: string,
+  settings: Gio.Settings,
+  schemaKey: string,
+  increment: number,
+  lower: number,
+  upper: number,
+) => {
+  const row = new Adw.ActionRow({
+    title,
+    subtitle,
+  });
+
+  const initialValue = settings.get_double(schemaKey);
+
+  const scale = new Gtk4.Scale({
+    adjustment: new Gtk4.Adjustment({ stepIncrement: increment, lower, upper }),
+    drawValue: true,
+    valuePos: Gtk4.PositionType.BOTTOM,
+    digits: 2,
+    orientation: Gtk4.Orientation.HORIZONTAL,
+    valign: Gtk4.Align.CENTER,
+    halign: Gtk4.Align.CENTER,
+  });
+
+  scale.set_value(initialValue);
+
+  scale.connect('value-changed', () => {
+    const value = scale.get_value();
+    settings.set_double(schemaKey, value);
+  });
+
+  row.add_suffix(scale);
+  row.set_activatable_widget(scale);
+
+  const clearButton = new Gtk4.Button({
+    iconName: 'edit-clear-symbolic',
+    valign: Gtk4.Align.CENTER,
+    halign: Gtk4.Align.CENTER,
+  });
+
+  const defaultValue = settings.get_default_value(schemaKey)?.get_double();
+
+  if (defaultValue === initialValue) {
+    clearButton.sensitive = false;
+  }
+
+  settings.connect(`changed::${schemaKey}`, () => {
+    const value = settings.get_double(schemaKey);
+    if (defaultValue === value) {
+      clearButton.sensitive = false;
+    } else {
+      clearButton.sensitive = true;
+    }
+
+    scale.set_value(value);
   });
 
   clearButton.connect('clicked', () => {
@@ -171,10 +332,10 @@ export const createFontRow = (title: string, subtitle: string, settings: Gio.Set
     halign: Gtk4.Align.CENTER,
   });
 
-  const value = getFont();
+  const initialValue = getFont();
   const defaultValue = getDefaultFont();
 
-  if (defaultValue === value) {
+  if (defaultValue === initialValue) {
     clearButton.sensitive = false;
   }
 
@@ -207,13 +368,14 @@ export const createDropdownRow = (
   settings: Gio.Settings,
   schemaKey: string,
   options: string[],
-) => {
+  changeCallback?: ChangeCallback<string>,
+): [Adw.ActionRow, Gtk4.DropDown] => {
   const row = new Adw.ActionRow({
     title,
     subtitle,
   });
 
-  const value = settings.get_uint(schemaKey);
+  const initialValue = settings.get_uint(schemaKey);
 
   const dropDown = new Gtk4.DropDown({
     valign: Gtk4.Align.CENTER,
@@ -221,7 +383,7 @@ export const createDropdownRow = (
     model: Gtk4.StringList.new(options),
   });
 
-  dropDown.set_selected(value);
+  dropDown.set_selected(initialValue);
 
   dropDown.connect('notify::selected', () => {
     settings.set_uint(schemaKey, dropDown.get_selected());
@@ -238,7 +400,7 @@ export const createDropdownRow = (
 
   const defaultValue = settings.get_default_value(schemaKey)?.get_uint32();
 
-  if (defaultValue === value) {
+  if (defaultValue === initialValue) {
     clearButton.sensitive = false;
   }
 
@@ -250,6 +412,16 @@ export const createDropdownRow = (
       clearButton.sensitive = true;
     }
     dropDown.set_selected(value);
+    const stringValue = options[value];
+    if (stringValue) {
+      if (changeCallback) {
+        Promise.resolve(changeCallback(stringValue))
+          .then(() => {})
+          .catch((err) => {
+            debug(`An error occurred in the changeCallback: ${err}`);
+          });
+      }
+    }
   });
 
   clearButton.connect('clicked', () => {
@@ -259,5 +431,5 @@ export const createDropdownRow = (
 
   row.add_suffix(clearButton);
 
-  return row;
+  return [row, dropDown];
 };

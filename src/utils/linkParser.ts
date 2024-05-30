@@ -1,4 +1,4 @@
-import Gio from '@girs/gio-2.0';
+import Gio, { type Promisified } from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import Soup from '@girs/soup-3.0';
@@ -29,20 +29,21 @@ export const getDocument = async (url: string): Promise<DocumentMetadata> => {
     const message = Soup.Message.new('GET', url);
     message.requestHeaders.append('User-Agent', DEFAULT_USER_AGENT);
     //note: casting required, since this is a gjs convention, to return an promise, instead of accepting a 4. value as callback (thats a C convention, since there's no Promise out of the box, but a callback works)
-    const response = (await session.send_and_read_async(
-      message,
-      GLib.PRIORITY_DEFAULT,
-      null,
-    )) as any as GLib.Bytes | null;
+    const response = await (
+      session.send_and_read_async as Promisified<
+        typeof session.send_and_read_async,
+        typeof session.send_and_read_finish
+      >
+    )(message, GLib.PRIORITY_DEFAULT, null);
 
-    if (response == null) {
+    if (!response) {
       debug(`no response from ${url}`);
       return defaultResult;
     }
 
     const bytes = response.get_data();
 
-    if (bytes == null) {
+    if (bytes === null) {
       debug(`no data from ${url}`);
       return defaultResult;
     }
@@ -98,9 +99,9 @@ export const getDocument = async (url: string): Promise<DocumentMetadata> => {
             titleMatch = true;
           }
         },
-        ontext(data) {
+        ontext(partialText) {
           if (titleMatch && !title) {
-            titleTag += data;
+            titleTag += partialText;
           }
         },
         onclosetag(name) {
@@ -148,17 +149,19 @@ export const getImage = async (
       const message = Soup.Message.new('GET', imageUrl);
       message.requestHeaders.append('User-Agent', DEFAULT_USER_AGENT);
       //note: casting required, since this is a gjs convention, to return an promise, instead of accepting a 4. value as callback (thats a C convention, since there's no Promise out of the box, but a callback works)
-      const response = (await session.send_and_read_async(
-        message,
-        GLib.PRIORITY_DEFAULT,
-        null,
-      )) as any as GLib.Bytes | null;
+      const response = await (
+        session.send_and_read_async as Promisified<
+          typeof session.send_and_read_async,
+          typeof session.send_and_read_finish
+        >
+      )(message, GLib.PRIORITY_DEFAULT, null);
+
       if (!response) {
         debug('no response while fetching the image');
         return [null, null];
       }
       const data = response.get_data();
-      if (!data || data.length == 0) {
+      if (!data || data.length === 0) {
         debug('empty response while fetching the image');
         return [null, null];
       }

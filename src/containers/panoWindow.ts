@@ -2,12 +2,12 @@ import '@girs/gnome-shell/dist/extensions/global';
 
 import Clutter from '@girs/clutter-14';
 import Gio from '@girs/gio-2.0';
-import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import Shell from '@girs/shell-14';
 import St from '@girs/st-14';
 import { MonitorBox } from '@pano/components/monitorBox';
 import { PanoScrollView } from '@pano/components/panoScrollView';
 import { SearchBox } from '@pano/components/searchBox';
+import type PanoExtension from '@pano/extension';
 import { ClipboardManager } from '@pano/utils/clipboardManager';
 import { ItemType } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
@@ -21,7 +21,7 @@ export class PanoWindow extends St.BoxLayout {
   private monitorBox: MonitorBox;
   private settings: Gio.Settings;
 
-  constructor(ext: ExtensionBase, clipboardManager: ClipboardManager) {
+  constructor(ext: PanoExtension, clipboardManager: ClipboardManager) {
     super({
       name: 'pano-window',
       constraints: getMonitorConstraint(),

@@ -9,7 +9,10 @@ import { GeneralPage } from '@pano/prefs/general';
 export default class PanoExtensionPreferences extends ExtensionPreferences {
   override fillPreferencesWindow(window: Adw.PreferencesWindow) {
     window.add(new GeneralPage(this));
-    window.add(new CustomizationPage(this));
+
+    const customizationPage = new CustomizationPage(this);
+
+    window.add(customizationPage);
     window.add(new DangerZonePage(this));
     window.searchEnabled = true;
 

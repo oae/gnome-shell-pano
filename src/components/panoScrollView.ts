@@ -8,6 +8,7 @@ import Shell from '@girs/shell-14';
 import St from '@girs/st-14';
 import { PanoItem } from '@pano/components/panoItem';
 import { SearchBox } from '@pano/components/searchBox';
+import type PanoExtension from '@pano/extension';
 import { ClipboardContent, ClipboardManager } from '@pano/utils/clipboardManager';
 import { getScrollViewAdjustment, scrollViewAddChild } from '@pano/utils/compatibility';
 import { ClipboardQueryBuilder, db, ItemType } from '@pano/utils/db';
@@ -66,7 +67,7 @@ export class PanoScrollView extends St.ScrollView {
   private clipboardChangedSignalId: number | null = null;
   private clipboardManager: ClipboardManager;
 
-  constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, searchBox: SearchBox) {
+  constructor(ext: PanoExtension, clipboardManager: ClipboardManager, searchBox: SearchBox) {
     super({
       overlayScrollbars: true,
       xExpand: true,
@@ -131,7 +132,7 @@ export class PanoScrollView extends St.ScrollView {
         return Clutter.EVENT_PROPAGATE;
       }
 
-      if (event.get_key_symbol() == Clutter.KEY_BackSpace) {
+      if (event.get_key_symbol() === Clutter.KEY_BackSpace) {
         this.emit('scroll-backspace-press');
         return Clutter.EVENT_STOP;
       }
