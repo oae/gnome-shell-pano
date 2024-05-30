@@ -1,5 +1,13 @@
 import { Settings } from '@gi-types/gio2';
-import { Config, Connection, SqlBuilder, SqlOperatorType, SqlStatementType, Statement } from '@imports/gda6';
+import {
+  Config,
+  Connection,
+  default_unescape_string,
+  SqlBuilder,
+  SqlOperatorType,
+  SqlStatementType,
+  Statement,
+} from '@imports/gda6';
 import { getCurrentExtensionSettings, getDbPath, logger } from '@pano/utils/shell';
 
 const debug = logger('database');
@@ -327,21 +335,22 @@ class Database {
     while (iter.move_next()) {
       const id = iter.get_value_for_field('id') as any as number;
       const itemType = iter.get_value_for_field('itemType') as any as string;
-      const content = iter.get_value_for_field('content') as any as string;
+      const contentUnescaped = default_unescape_string(iter.get_value_for_field('content')) as any as string;
       const copyDate = iter.get_value_for_field('copyDate') as any as string;
       const isFavorite = iter.get_value_for_field('isFavorite') as any as string;
-      const matchValue = iter.get_value_for_field('matchValue') as any as string;
+      const matchValueUnescaped = default_unescape_string(iter.get_value_for_field('matchValue')) as any as string;
       const searchValue = iter.get_value_for_field('searchValue') as any as string;
+      const searchValueUnescaped = searchValue ? default_unescape_string(searchValue) ?? searchValue : undefined;
       const metaData = iter.get_value_for_field('metaData') as any as string;
 
       itemList.push({
         id,
         itemType,
-        content,
+        content: contentUnescaped,
         copyDate: new Date(copyDate),
         isFavorite: !!isFavorite,
-        matchValue,
-        searchValue,
+        matchValue: matchValueUnescaped,
+        searchValue: searchValueUnescaped,
         metaData,
       });
     }
