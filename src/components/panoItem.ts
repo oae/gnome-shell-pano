@@ -49,7 +49,8 @@ export class PanoItem extends St.Widget {
   protected clipboardManager: ClipboardManager;
   public dbItem: DBItem;
   protected settings: Gio.Settings;
-  private selected: boolean | null = null;
+  private selected: boolean = false;
+  private showControlsOnHover: boolean;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, dbItem: DBItem) {
     super({
@@ -191,9 +192,12 @@ export class PanoItem extends St.Widget {
 
     this.setBodyDimensions();
 
-    this.setVisible();
-    this.connect('style-changed', this.setVisible.bind(this));
-    this.settings.connect('changed::show-controls-on-hover', this.setVisible.bind(this));
+    this.showControlsOnHover = this.settings.get_boolean('show-controls-on-hover');
+    this.overlay.setVisibility(!this.showControlsOnHover);
+    this.settings.connect('changed::show-controls-on-hover', () => {
+      this.showControlsOnHover = this.settings.get_boolean('show-controls-on-hover');
+      this.overlay.setVisibility(!this.showControlsOnHover);
+    });
   }
 
   private setBodyDimensions() {
@@ -219,14 +223,6 @@ export class PanoItem extends St.Widget {
     this.header.visible = isVisible(this.settings.get_uint('header-style'));
   }
 
-  private setVisible() {
-    if (this.hover || this.selected) {
-      this.overlay.setVisibility(true);
-    } else {
-      this.overlay.setVisibility(!this.settings.get_boolean('show-controls-on-hover'));
-    }
-  }
-
   private setSelected(selected: boolean) {
     if (selected) {
       const activeItemBorderColor = this.settings.get_string('active-item-border-color');
@@ -236,6 +232,14 @@ export class PanoItem extends St.Widget {
       this.set_style('');
     }
     this.selected = selected;
+  }
+
+  // The style-changed event is used here instead of the enter and leave events because those events
+  // retrigger when the pointer hovers over the buttons in the controls.
+  override vfunc_style_changed(): void {
+    if (this.showControlsOnHover) {
+      this.overlay.setVisibility(this.hover || this.selected);
+    }
   }
 
   override vfunc_key_press_event(event: Clutter.Event): boolean {
