@@ -1,6 +1,7 @@
 /* Window */
 .pano-window {
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.36);
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .pano-window.floating {
