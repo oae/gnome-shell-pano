@@ -118,10 +118,6 @@ export class PanoScrollView extends St.ScrollView {
         return Clutter.EVENT_STOP;
       }
 
-      if (event.get_state()) {
-        return Clutter.EVENT_PROPAGATE;
-      }
-
       if (shouldFocusOut(event.get_key_symbol())) {
         this.emit('scroll-focus-out');
         return Clutter.EVENT_STOP;
@@ -188,6 +184,26 @@ export class PanoScrollView extends St.ScrollView {
     }
   }
 
+  /**
+   * Removes first and last child pseudo classes quicker than the shell updates them.
+   * This ensures that there are no jumpy transitions between items when removing/filtering items.
+   */
+  private removePseudoClasses() {
+    const visibleItems = this.getVisibleItems();
+    visibleItems[0]?.remove_style_pseudo_class('first-child');
+    visibleItems[visibleItems.length - 1]?.remove_style_pseudo_class('last-child');
+  }
+
+  /**
+   * Adds first and last child pseudo classes quicker than the shell updates them.
+   * This ensures that there are no jumpy transitions between items when removing/filtering items.
+   */
+  private setPseudoClasses() {
+    const visibleItems = this.getVisibleItems();
+    visibleItems[0]?.add_style_pseudo_class('first-child');
+    visibleItems[visibleItems.length - 1]?.add_style_pseudo_class('last-child');
+  }
+
   private prependItem(panoItem: PanoItem) {
     const existingItem = this.getItem(panoItem);
 
@@ -233,8 +249,6 @@ export class PanoScrollView extends St.ScrollView {
       this.filter(this.currentFilter, this.currentItemTypeFilter, this.showFavorites);
       if (this.getVisibleItems().length === 0) {
         this.emit('scroll-focus-out');
-      } else {
-        this.focusOnClosest();
       }
     });
   }
@@ -242,6 +256,7 @@ export class PanoScrollView extends St.ScrollView {
   private removeItem(item: PanoItem) {
     item.hide();
     this.list.remove_child(item);
+    this.setPseudoClasses();
   }
 
   private getItem(panoItem: PanoItem): PanoItem | undefined {
@@ -308,11 +323,14 @@ export class PanoScrollView extends St.ScrollView {
   }
 
   filter(text: string | null, itemType: ItemType | null, showFavorites: boolean | null) {
+    this.removePseudoClasses();
+
     this.currentFilter = text;
     this.currentItemTypeFilter = itemType;
     this.showFavorites = showFavorites;
     if (!text && !itemType && null === showFavorites) {
       this.getItems().forEach((i) => i.show());
+      this.setPseudoClasses();
       return;
     }
 
@@ -333,6 +351,7 @@ export class PanoScrollView extends St.ScrollView {
     const result = db.query(builder.build()).map((dbItem) => dbItem.id);
 
     this.getItems().forEach((item) => (result.indexOf(item.dbItem.id) >= 0 ? item.show() : item.hide()));
+    this.setPseudoClasses();
   }
 
   focusOnClosest() {

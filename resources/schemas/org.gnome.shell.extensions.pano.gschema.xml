@@ -37,6 +37,11 @@
       <summary>Paste item on select</summary>
       <description>Allow Pano to paste content on select.</description>
     </key>
+    <key name="remove-on-middle-click" type="b">
+      <default>false</default>
+      <summary>Remove item on middle click</summary>
+      <description>Allow Pano to remove clipboard items on middle click.</description>
+    </key>
     <key name="send-notification-on-copy" type="b">
       <default>true</default>
       <summary>Send Notification on Copy</summary>
@@ -101,26 +106,79 @@
       <default>0</default>
       <summary>icon pack: 0-default 1-legacy</summary>
     </key>
-    <key name="item-size" type="i">
+    <key name="item-width" type="i">
       <range min="200" max="1000" />
       <default>250</default>
-      <summary>Item Size</summary>
-      <description>Controls size of the clipboard item.</description>
+      <summary>Item Width</summary>
+      <description>Controls width of the clipboard item.</description>
     </key>
-    <key type="u" name="window-position">
-      <range min="0" max="3"/>
+    <key name="item-height" type="i">
+      <range min="100" max="1000" />
+      <default>175</default>
+      <summary>Item Height</summary>
+      <description>Controls height of the clipboard item.</description>
+    </key>
+    <key name="header-style" type="u">
+      <range min="0" max="2"/>
+      <default>0</default>
+      <summary>Header Style</summary>
+      <description>Controls the style of the clipboard item headers. 0-hidden 1-visible 2-compact</description>
+    </key>
+    <key name="compact-mode" type="b">
+      <default>false</default>
+      <summary>Compact Mode</summary>
+      <description>Controls the compactness of the clipboard item.</description>
+    </key>
+    <key name="window-position" type="u">
+      <range min="0" max="4"/>
       <default>2</default>
-      <summary>icon pack: 0-top 1-right 2-bottom 3-left</summary>
+      <summary>icon pack: 0-top 1-right 2-bottom 3-left 4-pointer</summary>
+    </key>
+    <key name="window-height" type="i">
+      <range min="100" max="4000"/>
+      <default>440</default>
+      <summary>window-height</summary>
+      <description>window-height</description>
+    </key>
+    <key name="window-floating" type="b">
+      <default>true</default>
+      <summary>window-floating</summary>
+      <description>window-floating</description>
+    </key>
+    <key name="window-margin-left" type="i">
+      <default>16</default>
+      <summary>window-margin-left</summary>
+      <description>window-margin-left</description>
+    </key>
+    <key name="window-margin-right" type="i">
+      <default>16</default>
+      <summary>window-margin-right</summary>
+      <description>window-margin-right</description>
+    </key>
+    <key name="window-margin-top" type="i">
+      <default>48</default>
+      <summary>window-margin-top</summary>
+      <description>window-margin-top</description>
+    </key>
+    <key name="window-margin-bottom" type="i">
+      <default>16</default>
+      <summary>window-margin-bottom</summary>
+      <description>window-margin-bottom</description>
     </key>
     <key name="window-background-color" type="s">
-      <default>'rgba(35, 35, 35, 0.9)'</default>
+      <default>'rgb(36, 36, 36)'</default>
       <summary>window-background-color</summary>
       <description>window-background-color</description>
     </key>
     <key name="incognito-window-background-color" type="s">
-      <default>'rgba(36, 31, 49, 0.9)'</default>
+      <default>'rgb(36, 31, 49)'</default>
       <summary>incognito-window-background-color</summary>
       <description>incognito-window-background-color</description>
+    </key>
+    <key name="search-bar-background-color" type="s">
+      <default>'rgba(255, 255, 255, 0.155)'</default>
+      <summary>search-bar-background-color</summary>
+      <description>search-bar-background-color</description>
     </key>
     <key name="search-bar-font-family" type="s">
       <default>'Cantarell Regular'</default>
@@ -133,7 +191,7 @@
       <description>search-bar-font-size</description>
     </key>
     <key name="item-title-font-family" type="s">
-      <default>'Cantarell Bold'</default>
+      <default>'Cantarell Regular'</default>
       <summary>item-title-font-family</summary>
       <description>item-title-font-family</description>
     </key>
@@ -162,6 +220,11 @@
       <summary>hovered-item-border-color</summary>
       <description>hovered-item-border-color</description>
     </key>
+    <key name="show-controls-on-hover" type="b">
+      <default>true</default>
+      <summary>Show Controls on Hover</summary>
+      <description>When enabled, the controls will only show on hover</description>
+    </key>
 
     <child name="link-item" schema="org.gnome.shell.extensions.pano.link-item" />
     <child name="text-item" schema="org.gnome.shell.extensions.pano.text-item" />
@@ -183,13 +246,8 @@
       <summary>header-color</summary>
       <description>header-color</description>
     </key>
-    <key name="body-bg-color" type="s">
-      <default>'rgb(28, 113, 216)'</default>
-      <summary>body-bg-color</summary>
-      <description>body-bg-color</description>
-    </key>
     <key name="metadata-bg-color" type="s">
-      <default>'rgb(61, 56, 70)'</default>
+      <default>'rgba(255, 255, 255, 0.08)'</default>
       <summary>metadata-bg-color</summary>
       <description>metadata-bg-color</description>
     </key>
@@ -252,12 +310,12 @@
       <description>header-color</description>
     </key>
     <key name="body-bg-color" type="s">
-      <default>'rgb(181, 131, 90)'</default>
+      <default>'rgba(255, 255, 255, 0.08)'</default>
       <summary>body-bg-color</summary>
       <description>body-bg-color</description>
     </key>
     <key name="body-color" type="s">
-      <default>'rgb(0, 0, 0)'</default>
+      <default>'rgb(255, 255, 255)'</default>
       <summary>body-color</summary>
       <description>body-color</description>
     </key>
@@ -291,7 +349,7 @@
       <description>header-color</description>
     </key>
     <key name="body-bg-color" type="s">
-      <default>'rgb(255, 190, 111)'</default>
+      <default>'rgba(255, 255, 255, 0.08)'</default>
       <summary>body-bg-color</summary>
       <description>body-bg-color</description>
     </key>
@@ -315,24 +373,64 @@
       <description>header-color</description>
     </key>
     <key name="body-bg-color" type="s">
-      <default>'rgb(250, 250, 250)'</default>
+      <default>'rgba(255, 255, 255, 0.08)'</default>
       <summary>body-bg-color</summary>
       <description>body-bg-color</description>
     </key>
-    <key name="body-color" type="s">
-      <default>'rgb(0, 0, 0)'</default>
-      <summary>body-color</summary>
-      <description>body-color</description>
+    <key name="title-color" type="s">
+      <default>'rgb(255, 255, 255)'</default>
+      <summary>title-color</summary>
+      <description>title-color</description>
     </key>
-    <key name="body-font-family" type="s">
+    <key name="title-font-family" type="s">
       <default>'Cantarell Regular'</default>
-      <summary>body-font-family</summary>
-      <description>body-font-family</description>
+      <summary>title-font-family</summary>
+      <description>title-font-family</description>
     </key>
-    <key name="body-font-size" type="i">
+    <key name="title-font-size" type="i">
       <default>13</default>
-      <summary>body-font-size</summary>
-      <description>body-font-size</description>
+      <summary>title-font-size</summary>
+      <description>title-font-size</description>
+    </key>
+    <key name="files-preview-bg-color" type="s">
+      <default>'rgba(255, 255, 255, 0.08)'</default>
+      <summary>files-preview-bg-color</summary>
+      <description>files-preview-bg-color</description>
+    </key>
+    <key name="files-preview-color" type="s">
+      <default>'rgb(255, 255, 255)'</default>
+      <summary>files-preview-color</summary>
+      <description>files-preview-color</description>
+    </key>
+    <key name="files-preview-font-family" type="s">
+      <default>'Cantarell Regular'</default>
+      <summary>files-preview-font-family</summary>
+      <description>files-preview-font-family</description>
+    </key>
+    <key name="files-preview-font-size" type="i">
+      <default>13</default>
+      <summary>files-preview-font-size</summary>
+      <description>files-preview-font-size</description>
+    </key>
+    <key name="text-preview-bg-color" type="s">
+      <default>'rgba(0, 0, 0, 0.25)'</default>
+      <summary>text-preview-bg-color</summary>
+      <description>text-preview-bg-color</description>
+    </key>
+    <key name="text-preview-color" type="s">
+      <default>'rgb(255, 255, 255)'</default>
+      <summary>text-preview-color</summary>
+      <description>text-preview-color</description>
+    </key>
+    <key name="text-preview-font-family" type="s">
+      <default>'Source Code Pro'</default>
+      <summary>text-preview-font-family</summary>
+      <description>text-preview-font-family</description>
+    </key>
+    <key name="text-preview-font-size" type="i">
+      <default>10</default>
+      <summary>text-preview-font-size</summary>
+      <description>text-preview-font-size</description>
     </key>
   </schema>
 
@@ -346,31 +444,6 @@
       <default>'rgb(255, 255, 255)'</default>
       <summary>header-color</summary>
       <description>header-color</description>
-    </key>
-    <key name="body-bg-color" type="s">
-      <default>'rgb(61, 56, 70)'</default>
-      <summary>body-bg-color</summary>
-      <description>body-bg-color</description>
-    </key>
-    <key name="metadata-bg-color" type="s">
-      <default>'rgba(0, 0, 0, 0.7)'</default>
-      <summary>metadata-bg-color</summary>
-      <description>metadata-bg-color</description>
-    </key>
-    <key name="metadata-color" type="s">
-      <default>'rgb(255, 255, 255)'</default>
-      <summary>metadata-color</summary>
-      <description>metadata-color</description>
-    </key>
-    <key name="metadata-font-family" type="s">
-      <default>'Cantarell Regular'</default>
-      <summary>metadata-font-family</summary>
-      <description>metadata-font-family</description>
-    </key>
-    <key name="metadata-font-size" type="i">
-      <default>12</default>
-      <summary>metadata-font-size</summary>
-      <description>metadata-font-size</description>
     </key>
   </schema>
 
@@ -386,7 +459,7 @@
       <description>header-color</description>
     </key>
     <key name="body-bg-color" type="s">
-      <default>'rgb(61, 56, 70)'</default>
+      <default>'rgba(255, 255, 255, 0.08)'</default>
       <summary>body-bg-color</summary>
       <description>body-bg-color</description>
     </key>
@@ -419,23 +492,13 @@
       <summary>header-color</summary>
       <description>header-color</description>
     </key>
-    <key name="metadata-bg-color" type="s">
-      <default>'rgb(0, 0, 0)'</default>
-      <summary>metadata-bg-color</summary>
-      <description>metadata-bg-color</description>
-    </key>
-    <key name="metadata-color" type="s">
-      <default>'rgb(255, 255, 255)'</default>
-      <summary>metadata-color</summary>
-      <description>metadata-color</description>
-    </key>
     <key name="metadata-font-family" type="s">
       <default>'Cantarell Regular'</default>
       <summary>metadata-font-family</summary>
       <description>metadata-font-family</description>
     </key>
     <key name="metadata-font-size" type="i">
-      <default>16</default>
+      <default>20</default>
       <summary>metadata-font-size</summary>
       <description>metadata-font-size</description>
     </key>

@@ -208,7 +208,12 @@ export class ClipboardManager extends GObject.Object {
     this.lastCopiedContent = null;
   }
 
-  setContent({ content }: ClipboardContent): void {
+  setContent(clipboardContent: ClipboardContent, update = true): void {
+    if (!update) {
+      this.lastCopiedContent = clipboardContent;
+    }
+
+    const content = clipboardContent.content;
     const syncPrimary = this.settings.get_boolean('sync-primary');
     if (content.type === ContentType.TEXT) {
       if (syncPrimary) {

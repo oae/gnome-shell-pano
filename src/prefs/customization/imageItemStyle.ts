@@ -1,7 +1,7 @@
 import Gio from '@girs/gio-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import { ItemExpanderRow } from '@pano/prefs/customization/itemExpanderRow';
-import { createColorRow, createFontRow } from '@pano/prefs/customization/utils';
+import { createColorRow } from '@pano/prefs/customization/utils';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getPanoItemTypes } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
@@ -33,41 +33,6 @@ export class ImageItemStyleRow extends ItemExpanderRow {
         this.settings,
         'header-color',
       ),
-    );
-
-    // create body background color row
-    this.add_row(
-      createColorRow(
-        _('Body Background Color'),
-        _('You can change the background color of the body'),
-        this.settings,
-        'body-bg-color',
-      ),
-    );
-
-    // create metadata background color row
-    this.add_row(
-      createColorRow(
-        _('Metadata Background Color'),
-        _('You can change the background color of the metadata'),
-        this.settings,
-        'metadata-bg-color',
-      ),
-    );
-
-    // create metadata text color row
-    this.add_row(
-      createColorRow(
-        _('Metadata Text Color'),
-        _('You can change the text color of the metadata'),
-        this.settings,
-        'metadata-color',
-      ),
-    );
-
-    // create metadata font row
-    this.add_row(
-      createFontRow(_('Metadata Font'), _('You can change the font of the metadata'), this.settings, 'metadata-font'),
     );
   }
 }
