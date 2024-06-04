@@ -1,17 +1,10 @@
-import { expect } from '@jest/globals';
 import { ClipboardQueryBuilder, db, type SaveDBItem } from '@pano/utils/db';
 import fs from 'fs/promises';
 import path from 'path';
 
-function fail(reason: string = 'fail was called in a test.'): never {
-  throw new Error(reason);
-}
-
 function getDBpath() {
   return path.join(__dirname, 'test.db');
 }
-
-global.fail = fail;
 
 beforeAll(() => {
   db.setup(getDBpath());

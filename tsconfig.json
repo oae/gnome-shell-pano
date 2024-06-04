@@ -10,5 +10,5 @@
       "@pano/*": ["./*"]
     }
   },
-  "exclude": ["./dist"]
+  "exclude": ["./dist", "rollup.config.mjs", "./build", "./scripts/fix-jasmine-imports.js"]
 }
