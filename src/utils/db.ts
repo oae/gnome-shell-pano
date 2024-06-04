@@ -17,6 +17,8 @@ export type DBItem = {
   metaData?: string | undefined;
 };
 
+export type SaveDBItem = Omit<DBItem, 'id'>;
+
 class ClipboardQuery {
   readonly statement: Gda5.Statement;
 
@@ -205,7 +207,7 @@ class Database {
     `);
   }
 
-  save(dbItem: Omit<DBItem, 'id'>): DBItem | null {
+  save(dbItem: SaveDBItem): DBItem | null {
     if (!this.connection || !this.connection.is_opened()) {
       debug('connection is not opened');
       return null;

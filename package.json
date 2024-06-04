@@ -14,7 +14,7 @@
     "clean:schema": "rm -rf ./dist/schemas/*.compiled",
     "build:package": "yarn run build && rm -rf './dist/pano@elhan.io.zip' && cd ./dist && zip -qr 'pano@elhan.io.zip' .",
     "watch": "yarn run build && yarn run rollup -c --watch",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "yarn run jest",
     "lint": "eslint --ext .ts src/",
     "shell:restart": "busctl --user call org.gnome.Shell /io/elhan/Pano io.elhan.Pano restart",
     "build-and-restart": "yarn run build && yarn run shell:restart",
@@ -33,6 +33,7 @@
     }
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.24.6",
     "@commitlint/cli": "^19.2.2",
     "@commitlint/config-conventional": "^19.2.2",
     "@girs/adw-1": "1.5.0-4.0.0-beta.2",
@@ -56,10 +57,12 @@
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.6",
+    "@tsconfig/strictest": "^2.0.5",
     "@types/events": "^3.0.3",
     "@types/gettext-parser": "^4.0.4",
     "@types/highlight.js": "^10.1.0",
     "@types/is-url": "^1.2.32",
+    "@types/jest": "^29.5.12",
     "@types/prismjs": "^1.26.3",
     "@typescript-eslint/eslint-plugin": "^7.7.0",
     "@typescript-eslint/parser": "^7.7.0",
@@ -73,14 +76,15 @@
     "gettext-parser": "^7.0.1",
     "glob": "^10.3.12",
     "husky": "^9.0.11",
+    "jest": "^29.7.0",
     "prettier": "^3.2.5",
     "rollup": "^4.14.3",
     "rollup-plugin-cleanup": "^3.2.1",
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-styles": "^4.0.0",
+    "ts-jest": "^29.1.4",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.5",
-    "@tsconfig/strictest": "^2.0.5"
+    "typescript": "^5.4.5"
   },
   "dependencies": {
     "date-fns": "^2.30.0",
