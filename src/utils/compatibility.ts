@@ -46,19 +46,17 @@ export function add_expr_value(builder: Gda5.SqlBuilder | Gda6.SqlBuilder | SqlB
 /**
  * a faster unescape function for gda
  *
- * gda_default_unescape_string:
- * @string: string to unescape
- *
- * Does not the exact reverse of gda_default_escape_string(): that transforms any "''" into "'", we don#t do that, since this is incorrect in our usage, just unescape any
- * "\\" into "\" and any "\'" into "'".
- * @param input string
- * @returns unescaped string or the input, if an error can be found or nothing needs to be unescaped
+ * Does not the exact reverse of gda_default_escape_string(): that transforms any "''" into "'", we don't do that,
+ * since this is incorrect in our usage, just unescape any "\\" into "\" and any "\'" into "'".
+ * @param input string to unescape
+ * @returns unescaped string or the input, if an error was be found or nothing needs to be unescaped
  */
 export function unescape_string(input: string): string {
-  // check if we need to escape something, so we don't mutate strings unnecessary
+  // check if we need to escape something, so we don't mutate strings unnecessary, this speeds things up
   if (!input.includes('\\')) {
     return input;
   }
+
   try {
     return input.replaceAll(/\\(.)/g, (_all, captured) => {
       if (captured === '\\' || captured === "'") {
