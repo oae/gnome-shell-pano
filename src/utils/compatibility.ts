@@ -4,6 +4,10 @@ import GLib from '@girs/glib-2.0';
 import { Notification, Source as MessageTraySource } from '@girs/gnome-shell/dist/ui/messageTray';
 import St from '@girs/st-14';
 
+import { logger } from './shell';
+
+const debug = logger('compatibility');
+
 // better typed functions for GDA
 
 // we get /  have to store strings for dates and numbers for boolean
@@ -39,6 +43,35 @@ export function add_expr_value(builder: Gda5.SqlBuilder | Gda6.SqlBuilder | SqlB
   return builder.add_expr_value(null, value);
 }
 
+/**
+ * a faster unescape function for gda
+ *
+ * Does not the exact reverse of gda_default_escape_string(): that transforms any "''" into "'", we don't do that,
+ * since this is incorrect in our usage, just unescape any "\\" into "\" and any "\'" into "'".
+ * @param input string to unescape
+ * @returns unescaped string or the input, if an error was be found or nothing needs to be unescaped
+ */
+export function unescape_string(input: string): string {
+  // check if we need to escape something, so we don't mutate strings unnecessary, this speeds things up
+  if (!input.includes('\\')) {
+    return input;
+  }
+
+  try {
+    return input.replaceAll(/\\(.)/g, (_all, captured) => {
+      if (captured === '\\' || captured === "'") {
+        return captured;
+      }
+
+      throw new Error(`Unexpected escape character '${captured}'`);
+    });
+  } catch (error) {
+    debug(`Error in unescape: ${error}`);
+    // return the original string
+    return input;
+  }
+}
+
 // compatibility functions for gnome-shell 45 / 46
 
 function isGnome45Notifications(): boolean {
@@ -50,7 +83,7 @@ export function newNotification(
   text: string,
   banner: string,
   transient_: boolean,
-  params: Notification.Params,
+  params: Notification.ConstructorProps,
 ): Notification {
   if (isGnome45Notifications()) {
     // @ts-expect-error gnome 45 type

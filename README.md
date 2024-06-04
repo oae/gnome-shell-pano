@@ -106,10 +106,10 @@ Since Gnome 45 we had to break compatibility with previous Gnome versions, these
     sudo dnf install libgda libgda-sqlite
     ```
 
-  - Arch Linux (For gnome-43 or later, you need libgda6)
+  - Arch Linux
 
     ```bash
-    sudo pacman -S libgda
+    sudo pacman -S libgda6
     ```
 
   - Ubuntu/Debian
