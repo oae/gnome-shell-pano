@@ -10,7 +10,7 @@ export const logger =
 
 const debug = logger('shell-utils');
 
-const deleteFile = (file: Gio.File) => {
+export const deleteFile = (file: Gio.File) => {
   return new Promise((resolve, reject) => {
     file.delete_async(GLib.PRIORITY_DEFAULT, null, (_file, res) => {
       try {
@@ -22,7 +22,7 @@ const deleteFile = (file: Gio.File) => {
   });
 };
 
-const deleteDirectory = async (file: Gio.File) => {
+export const deleteDirectory = async (file: Gio.File) => {
   try {
     const iter: Gio.FileEnumerator | undefined = await new Promise((resolve, reject) => {
       file.enumerate_children_async(
