@@ -1,13 +1,5 @@
 import { Settings } from '@gi-types/gio2';
-import {
-  Config,
-  Connection,
-  default_unescape_string,
-  SqlBuilder,
-  SqlOperatorType,
-  SqlStatementType,
-  Statement,
-} from '@imports/gda6';
+import { Config, Connection, SqlBuilder, SqlOperatorType, SqlStatementType, Statement } from '@imports/gda6';
 import { getCurrentExtensionSettings, getDbPath, logger } from '@pano/utils/shell';
 
 const debug = logger('database');
@@ -28,6 +20,35 @@ class ClipboardQuery {
 
   constructor(statement: Statement) {
     this.statement = statement;
+  }
+}
+
+/**
+ * a faster unescape function for gda
+ *
+ * Does not the exact reverse of gda_default_escape_string(): that transforms any "''" into "'", we don't do that,
+ * since this is incorrect in our usage, just unescape any "\\" into "\" and any "\'" into "'".
+ * @param input string to unescape
+ * @returns unescaped string or the input, if an error was be found or nothing needs to be unescaped
+ */
+export function unescape_string(input: string): string {
+  // check if we need to escape something, so we don't mutate strings unnecessary, this speeds things up
+  if (!input.includes('\\')) {
+    return input;
+  }
+
+  try {
+    return input.replaceAll(/\\(.)/g, (_all, captured) => {
+      if (captured === '\\' || captured === "'") {
+        return captured;
+      }
+
+      throw new Error(`Unexpected escape character '${captured}'`);
+    });
+  } catch (error) {
+    debug(`Error in unescape: ${error}`);
+    // return the original string
+    return input;
   }
 }
 
@@ -335,12 +356,12 @@ class Database {
     while (iter.move_next()) {
       const id = iter.get_value_for_field('id') as any as number;
       const itemType = iter.get_value_for_field('itemType') as any as string;
-      const contentUnescaped = default_unescape_string(iter.get_value_for_field('content')) as any as string;
+      const contentUnescaped = unescape_string(iter.get_value_for_field('content') as any as string);
       const copyDate = iter.get_value_for_field('copyDate') as any as string;
       const isFavorite = iter.get_value_for_field('isFavorite') as any as string;
-      const matchValueUnescaped = default_unescape_string(iter.get_value_for_field('matchValue')) as any as string;
+      const matchValueUnescaped = unescape_string(iter.get_value_for_field('matchValue') as any as string);
       const searchValue = iter.get_value_for_field('searchValue') as any as string;
-      const searchValueUnescaped = searchValue ? default_unescape_string(searchValue) ?? searchValue : undefined;
+      const searchValueUnescaped = searchValue ? unescape_string(searchValue) ?? searchValue : undefined;
       const metaData = iter.get_value_for_field('metaData') as any as string;
 
       itemList.push({
