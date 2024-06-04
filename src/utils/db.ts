@@ -1,7 +1,6 @@
 import Gda5 from '@girs/gda-5.0';
-import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
-import { add_expr_value, type DataModelIter, type SqlBuilder } from '@pano/utils/compatibility';
-import { getDbPath, logger } from '@pano/utils/shell';
+import { add_expr_value, type DataModelIter, type SqlBuilder, unescape_string } from '@pano/utils/compatibility';
+import { logger } from '@pano/utils/shell';
 
 const debug = logger('database');
 
@@ -172,16 +171,16 @@ export class ClipboardQueryBuilder {
 class Database {
   private connection: Gda5.Connection | null = null;
 
-  private init(ext: ExtensionBase) {
+  private init(dbPath: string) {
     this.connection = new Gda5.Connection({
       provider: Gda5.Config.get_provider('SQLite'),
-      cncString: `DB_DIR=${getDbPath(ext)};DB_NAME=pano`,
+      cncString: `DB_DIR=${dbPath};DB_NAME=pano`,
     });
     this.connection.open();
   }
 
-  setup(ext: ExtensionBase) {
-    this.init(ext);
+  setup(dbPath: string) {
+    this.init(dbPath);
     if (!this.connection || !this.connection.is_opened()) {
       debug('connection is not opened');
       return;
@@ -321,13 +320,13 @@ class Database {
       const id = iter.get_value_for_field('id');
       const itemType = iter.get_value_for_field('itemType');
       const content = iter.get_value_for_field('content');
-      const contentUnescaped = Gda5.default_unescape_string(content) ?? content;
+      const contentUnescaped = unescape_string(content) ?? content;
       const copyDate = iter.get_value_for_field('copyDate');
       const isFavorite = iter.get_value_for_field('isFavorite');
       const matchValue = iter.get_value_for_field('matchValue');
-      const matchValueUnescaped = Gda5.default_unescape_string(matchValue) ?? matchValue;
+      const matchValueUnescaped = unescape_string(matchValue) ?? matchValue;
       const searchValue = iter.get_value_for_field('searchValue');
-      const searchValueUnescaped = searchValue ? Gda5.default_unescape_string(searchValue) ?? searchValue : undefined;
+      const searchValueUnescaped = searchValue ? unescape_string(searchValue) ?? searchValue : undefined;
       const metaData = iter.get_value_for_field('metaData');
 
       itemList.push({
@@ -345,9 +344,9 @@ class Database {
     return itemList;
   }
 
-  start(ext: ExtensionBase) {
-    if (!this.connection) {
-      this.init(ext);
+  start(dbPath: string) {
+    if (!this.connection && dbPath) {
+      this.init(dbPath);
     }
 
     if (this.connection && !this.connection.is_opened()) {

@@ -16,6 +16,7 @@ import {
   debounceIds,
   deleteAppDirs,
   getCurrentExtensionSettings,
+  getDbPath,
   loadInterfaceXML,
   logger,
   removeSoundContext,
@@ -134,7 +135,7 @@ export default class PanoExtension extends Extension {
 
   private setupResources() {
     setupAppDirs(this);
-    db.setup(this);
+    db.setup(getDbPath(this));
   }
 
   private async clearHistory() {
