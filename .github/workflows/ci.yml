@@ -26,13 +26,25 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install -D
 
       - name: Validate Formatting
         run: yarn run prettier:check
 
+      - name: Lint Extension
+        run: yarn run lint
+
       - name: Build Extension
         run: yarn run build
 
-      - name: Lint Extension
-        run: yarn run lint
+      - name: Prepare Test Runner
+        run: |
+          sudo apt-get install meson
+          git clone https://github.com/ptomato/jasmine-gjs
+          cd jasmine-gjs
+          meson setup build
+          meson compile -C build
+          sudo meson install -C build
+
+      - name: Run Tests
+        run: yarn run test
