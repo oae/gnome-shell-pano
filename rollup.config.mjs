@@ -133,6 +133,40 @@ const thirdPartyBuild = thirdParty.map((pkg) => {
   };
 });
 
+const testFiles = ['db.test'];
+
+const testBuilds = testFiles.map((file) => {
+  return {
+    input: `tests/${file}.ts`,
+    treeshake: {
+      moduleSideEffects: 'no-external',
+    },
+    output: {
+      file: `build/tests/${file}.js`,
+      format: 'esm',
+      name: 'init',
+      paths: { ...ExtensionEntries, ...GlobalEntries },
+      assetFileNames: '[name][extname]',
+      generatedCode: {
+        constBindings: true,
+      },
+    },
+    external: [...gjsModules, ...globalDefinitionImports],
+    plugins: [
+      commonjs(),
+      nodeResolve({
+        preferBuiltins: false,
+      }),
+      typescript({
+        tsconfig: './tsconfig.json',
+      }),
+      cleanup({
+        comments: 'none',
+      }),
+    ],
+  };
+});
+
 const builds = [
   ...thirdPartyBuild,
   {
@@ -209,35 +243,7 @@ const builds = [
       }),
     ],
   },
-  {
-    input: 'tests/db.test.ts',
-    treeshake: {
-      moduleSideEffects: 'no-external',
-    },
-    output: {
-      file: 'build/tests/db.test.js',
-      format: 'esm',
-      name: 'init',
-      paths: { ...ExtensionEntries, ...GlobalEntries },
-      assetFileNames: '[name][extname]',
-      generatedCode: {
-        constBindings: true,
-      },
-    },
-    external: [...gjsModules, ...globalDefinitionImports],
-    plugins: [
-      commonjs(),
-      nodeResolve({
-        preferBuiltins: false,
-      }),
-      typescript({
-        tsconfig: './tsconfig.json',
-      }),
-      cleanup({
-        comments: 'none',
-      }),
-    ],
-  },
+  ...testBuilds,
 ];
 
 export default builds;
