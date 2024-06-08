@@ -1,0 +1,16 @@
+{
+  "name": "Pano Development Container",
+  "mounts": [
+    "source=${localEnv:HOME}/.local/share/gnome-shell/extensions/,target=/root/.local/share/gnome-shell/extensions/,type=bind,consistency=cached"
+  ],
+  "build": {
+    "context": ".",
+    "dockerfile": "Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": ["johnpapa.vscode-peacock"]
+    }
+  },
+  "postCreateCommand": "bash -c 'yarn install -D'"
+}

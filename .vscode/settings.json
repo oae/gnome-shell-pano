@@ -24,6 +24,7 @@
       }
     ]
   },
+  "peacock.color": "#5b1943",
   "workbench.colorCustomizations": {
     "activityBar.activeBackground": "#832460",
     "activityBar.background": "#832460",
@@ -42,6 +43,5 @@
     "titleBar.activeForeground": "#e7e7e7",
     "titleBar.inactiveBackground": "#5b194399",
     "titleBar.inactiveForeground": "#e7e7e799"
-  },
-  "peacock.color": "#5b1943"
+  }
 }
