@@ -8,6 +8,7 @@ import { getItemBackgroundColor, isDark } from '@pano/utils/color';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { orientationCompatibility } from '@pano/utils/shell_compatibility';
+import colorString from 'color-string';
 
 @registerGObjectClass
 export class ColorPanoItem extends PanoItem {
@@ -20,6 +21,9 @@ export class ColorPanoItem extends PanoItem {
     super(ext, clipboardManager, dbItem);
 
     this.colorItemSettings = this.settings.get_child('color-item');
+
+    const color = colorString.to.rgb(colorString.get.rgb(this.dbItem.content) || [0, 0, 0]);
+    this.body.set_style(`background-color: ${color};`);
 
     this.colorContainer = new St.BoxLayout({
       ...orientationCompatibility(true),
@@ -85,7 +89,6 @@ export class ColorPanoItem extends PanoItem {
 
     this.overlay.setControlsBackground(getItemBackgroundColor(this.settings, headerBgColor, null));
     this.header.set_style(`background-color: ${headerBgColor}; color: ${headerColor};`);
-    this.body.set_style(`background-color: ${this.dbItem.content};`);
     this.icon.set_style(`color: ${iconColor};`);
     this.label.set_style(`color: ${textColor}; font-family: ${metadataFontFamily}; font-size: ${metadataFontSize}px;`);
   }

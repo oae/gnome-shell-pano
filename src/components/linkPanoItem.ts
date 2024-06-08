@@ -81,11 +81,6 @@ export class LinkPanoItem extends PanoItem {
     this.metaContainer.add_child(this.descriptionLabel);
     this.metaContainer.add_child(this.linkLabel);
 
-    if (this.settings.get_boolean('compact-mode')) {
-      this.body.vertical = false;
-      this.imageContainer.width = this.body.height * 1.618;
-    }
-
     this.body.add_child(this.imageContainer);
     this.body.add_child(this.metaContainer);
 
