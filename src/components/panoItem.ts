@@ -49,6 +49,7 @@ export class PanoItem extends St.Widget {
   protected clipboardManager: ClipboardManager;
   public dbItem: DBItem;
   protected settings: Gio.Settings;
+  private hovered: boolean = false;
   private selected: boolean = false;
   private showControlsOnHover: boolean;
 
@@ -72,18 +73,8 @@ export class PanoItem extends St.Widget {
 
     this.connect('key-focus-in', () => this.setSelected(true));
     this.connect('key-focus-out', () => this.setSelected(false));
-    this.connect('enter-event', () => {
-      Shell.Global.get().display.set_cursor(Meta.Cursor.POINTING_HAND);
-      if (!this.selected) {
-        this.set_style(`border: 4px solid ${this.settings.get_string('hovered-item-border-color')}`);
-      }
-    });
-    this.connect('leave-event', () => {
-      Shell.Global.get().display.set_cursor(Meta.Cursor.DEFAULT);
-      if (!this.selected) {
-        this.set_style('');
-      }
-    });
+    this.connect('enter-event', () => this.setHovered(true));
+    this.connect('leave-event', () => this.setHovered(false));
 
     this.connect('activated', () => {
       this.get_parent()?.get_parent()?.get_parent()?.hide();
@@ -225,13 +216,26 @@ export class PanoItem extends St.Widget {
 
   private setSelected(selected: boolean) {
     if (selected) {
-      const activeItemBorderColor = this.settings.get_string('active-item-border-color');
-      this.set_style(`border: 4px solid ${activeItemBorderColor} !important;`);
       this.grab_key_focus();
-    } else {
-      this.set_style('');
     }
     this.selected = selected;
+    this.updateActive();
+  }
+
+  private setHovered(hovered: boolean) {
+    Shell.Global.get().display.set_cursor(hovered ? Meta.Cursor.POINTING_HAND : Meta.Cursor.DEFAULT);
+    this.hovered = hovered;
+    this.updateActive();
+  }
+
+  private updateActive() {
+    if (this.hovered || this.selected) {
+      this.add_style_class_name('active');
+      this.set_style(`border: 4px solid ${this.settings.get_string('active-item-border-color')};`);
+    } else {
+      this.remove_style_class_name('active');
+      this.set_style('');
+    }
   }
 
   // The style-changed event is used here instead of the enter and leave events because those events
@@ -276,8 +280,10 @@ export class PanoItem extends St.Widget {
 
       // Delete item on middle click
       case Clutter.BUTTON_MIDDLE:
-        this.emit('on-remove', JSON.stringify(this.dbItem));
-        return Clutter.EVENT_STOP;
+        if (this.settings.get_boolean('remove-on-middle-click')) {
+          this.emit('on-remove', JSON.stringify(this.dbItem));
+          return Clutter.EVENT_STOP;
+        }
     }
 
     return Clutter.EVENT_PROPAGATE;
