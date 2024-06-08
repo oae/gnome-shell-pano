@@ -48,7 +48,7 @@
 /* Item */
 .pano-item {
   border-radius: 16px;
-  margin: 6px 0px 12px 6px;
+  margin: 5px 0px 12px 6px;
   border: 4px solid transparent;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 }
@@ -58,19 +58,19 @@
 }
 
 .pano-window.vertical .pano-item {
-  margin: 6px 12px 0px 12px;
+  margin: 6px 10px 0px 10px;
 }
 
 .pano-item:first-child {
-  margin-left: 12px;
+  margin-left: 10px;
 }
 
 .pano-item:last-child {
-  margin-right: 12px;
+  margin-right: 10px;
 }
 
 .pano-window.vertical .pano-item:last-child {
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .pano-item-container {

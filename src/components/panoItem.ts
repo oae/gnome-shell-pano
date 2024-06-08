@@ -206,7 +206,7 @@ export class PanoItem extends St.Widget {
     const height = Math.floor(this.settings.get_int('item-height') * mult) + header;
 
     this.set_height(height * scaleFactor);
-    this.container.set_width(this.settings.get_int('item-width') * scaleFactor);
+    this.container.set_width((this.settings.get_int('item-width') - 2) * scaleFactor);
     // -2*4 for the border
     this.container.set_height((height - 8) * scaleFactor);
     this.body.set_height((height - 10 - header) * scaleFactor);
