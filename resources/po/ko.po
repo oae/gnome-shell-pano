@@ -10,7 +10,7 @@ msgstr "취소"
 #: src/components/indicator/clearHistoryDialog.ts:30
 #: src/prefs/dangerZone/clearHistory.ts:20
 msgid "Clear"
-msgstr "맑다"
+msgstr "지우기"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
 #: src/components/indicator/settingsMenu.ts:101
@@ -21,7 +21,7 @@ msgstr "기록 지우기"
 #: src/components/indicator/clearHistoryDialog.ts:36
 #: src/prefs/dangerZone/clearHistory.ts:26
 msgid "Are you sure you want to clear history?"
-msgstr "기록을 지우고 싶습니까?"
+msgstr "기록을 지우시겠습니까?"
 
 #: src/components/indicator/settingsMenu.ts:67
 msgid "Incognito Mode"
@@ -33,19 +33,19 @@ msgstr "설정"
 
 #: src/components/linkPanoItem.ts:38
 msgid "No Description"
-msgstr ""
+msgstr "설명 없음"
 
 #: src/components/searchBox.ts:69
 msgid "Type to search, Tab to cycle"
-msgstr ""
+msgstr "검색하려면 입력, Tab으로 전환"
 
 #: src/prefs/customization/codeItemStyle.ts:15
 msgid "Change the style of the code item"
-msgstr ""
+msgstr "코드의 스타일을 바꾸기"
 
 #: src/prefs/customization/codeItemStyle.ts:15
 msgid "Code Item Style"
-msgstr ""
+msgstr "코드 스타일"
 
 #: src/prefs/customization/codeItemStyle.ts:22
 #: src/prefs/customization/colorItemStyle.ts:22
@@ -55,7 +55,7 @@ msgstr ""
 #: src/prefs/customization/linkItemStyle.ts:22
 #: src/prefs/customization/textItemStyle.ts:22
 msgid "Header Background Color"
-msgstr ""
+msgstr "제목 배경 색상"
 
 #: src/prefs/customization/codeItemStyle.ts:23
 #: src/prefs/customization/colorItemStyle.ts:23
@@ -65,7 +65,7 @@ msgstr ""
 #: src/prefs/customization/linkItemStyle.ts:23
 #: src/prefs/customization/textItemStyle.ts:23
 msgid "You can change the background color of the header"
-msgstr ""
+msgstr "제목 배경의 색상을 바꾸기"
 
 #: src/prefs/customization/codeItemStyle.ts:32
 #: src/prefs/customization/colorItemStyle.ts:32
@@ -75,7 +75,7 @@ msgstr ""
 #: src/prefs/customization/linkItemStyle.ts:32
 #: src/prefs/customization/textItemStyle.ts:32
 msgid "Header Text Color"
-msgstr ""
+msgstr "제목 텍스트 색상"
 
 #: src/prefs/customization/codeItemStyle.ts:33
 #: src/prefs/customization/colorItemStyle.ts:33
@@ -85,7 +85,7 @@ msgstr ""
 #: src/prefs/customization/linkItemStyle.ts:33
 #: src/prefs/customization/textItemStyle.ts:33
 msgid "You can change the text color of the header"
-msgstr ""
+msgstr "제목 텍스트의 색상을 바꾸기"
 
 #: src/prefs/customization/codeItemStyle.ts:42
 #: src/prefs/customization/emojiItemStyle.ts:42
@@ -94,7 +94,7 @@ msgstr ""
 #: src/prefs/customization/linkItemStyle.ts:42
 #: src/prefs/customization/textItemStyle.ts:42
 msgid "Body Background Color"
-msgstr ""
+msgstr "내용 배경 색상"
 
 #: src/prefs/customization/codeItemStyle.ts:43
 #: src/prefs/customization/emojiItemStyle.ts:43
@@ -103,14 +103,14 @@ msgstr ""
 #: src/prefs/customization/linkItemStyle.ts:43
 #: src/prefs/customization/textItemStyle.ts:43
 msgid "You can change the background color of the body"
-msgstr ""
+msgstr "내용 배경의 색상을 바꾸기"
 
 #: src/prefs/customization/codeItemStyle.ts:50
 #: src/prefs/customization/colorItemStyle.ts:61
 #: src/prefs/customization/fileItemStyle.ts:55
 #: src/prefs/customization/textItemStyle.ts:55
 msgid "Body Font"
-msgstr ""
+msgstr "내용 글꼴"
 
 #: src/prefs/customization/codeItemStyle.ts:50
 #: src/prefs/customization/fileItemStyle.ts:55
@@ -130,11 +130,11 @@ msgstr ""
 
 #: src/prefs/customization/colorItemStyle.ts:15
 msgid "Change the style of the color item"
-msgstr ""
+msgstr "색상 항목의 스타일을 바꾸기"
 
 #: src/prefs/customization/colorItemStyle.ts:15
 msgid "Color Item Style"
-msgstr ""
+msgstr "색상 항목 스타일"
 
 #: src/prefs/customization/colorItemStyle.ts:42
 #: src/prefs/customization/imageItemStyle.ts:51
@@ -165,15 +165,15 @@ msgstr ""
 
 #: src/prefs/customization/commonStyleGroup.ts:14
 msgid "Common"
-msgstr ""
+msgstr "일반"
 
 #: src/prefs/customization/commonStyleGroup.ts:20
 msgid "Icon Pack"
-msgstr ""
+msgstr "아이콘 팩"
 
 #: src/prefs/customization/commonStyleGroup.ts:20
 msgid "You can change the icon pack"
-msgstr ""
+msgstr "아이콘 팩을 바꾸기"
 
 #: src/prefs/customization/commonStyleGroup.ts:21
 msgid "Default Icons"
@@ -185,7 +185,7 @@ msgstr ""
 
 #: src/prefs/customization/commonStyleGroup.ts:27
 msgid "Item Size"
-msgstr ""
+msgstr "항목 크기"
 
 #: src/prefs/customization/commonStyleGroup.ts:27
 msgid "You can change the item size"
@@ -201,19 +201,19 @@ msgstr ""
 
 #: src/prefs/customization/commonStyleGroup.ts:36
 msgid "Bottom"
-msgstr ""
+msgstr "아래"
 
 #: src/prefs/customization/commonStyleGroup.ts:36
 msgid "Left"
-msgstr ""
+msgstr "왼쪽"
 
 #: src/prefs/customization/commonStyleGroup.ts:36
 msgid "Right"
-msgstr ""
+msgstr "오른쪽"
 
 #: src/prefs/customization/commonStyleGroup.ts:36
 msgid "Top"
-msgstr ""
+msgstr "위"
 
 #: src/prefs/customization/commonStyleGroup.ts:42
 msgid "Window Background Color"
@@ -233,11 +233,11 @@ msgstr ""
 
 #: src/prefs/customization/commonStyleGroup.ts:58
 msgid "Search Bar Font"
-msgstr ""
+msgstr "검색 창 글꼴"
 
 #: src/prefs/customization/commonStyleGroup.ts:59
 msgid "You can change the font of the search bar"
-msgstr ""
+msgstr "검색 창의 글꼴을 바꾸기"
 
 #: src/prefs/customization/commonStyleGroup.ts:65
 msgid "Item Title Font"
@@ -249,11 +249,11 @@ msgstr ""
 
 #: src/prefs/customization/commonStyleGroup.ts:68
 msgid "Item Date Font"
-msgstr ""
+msgstr "항목 날짜 글꼴"
 
 #: src/prefs/customization/commonStyleGroup.ts:68
 msgid "You can change the font of the date"
-msgstr ""
+msgstr "항목 날짜의 글꼴 바꾸기"
 
 #: src/prefs/customization/commonStyleGroup.ts:72
 msgid "Active Item Border Color"
@@ -277,121 +277,121 @@ msgstr ""
 
 #: src/prefs/customization/emojiItemStyle.ts:15
 msgid "Emoji Item Style"
-msgstr ""
+msgstr "이모티콘 항목 스타일"
 
 #: src/prefs/customization/emojiItemStyle.ts:51
 msgid "Emoji Size"
-msgstr ""
+msgstr "이모티콘 크기"
 
 #: src/prefs/customization/emojiItemStyle.ts:51
 msgid "You can change the emoji size"
-msgstr ""
+msgstr "이모티콘 크기를 바꾸기"
 
 #: src/prefs/customization/fileItemStyle.ts:15
 msgid "Change the style of the file item"
-msgstr ""
+msgstr "파일 항목의 스타일을 바꾸기"
 
 #: src/prefs/customization/fileItemStyle.ts:15
 msgid "File Item Style"
-msgstr ""
+msgstr "파일 항목 스타일"
 
 #: src/prefs/customization/fileItemStyle.ts:51
 #: src/prefs/customization/textItemStyle.ts:51
 msgid "Body Text Color"
-msgstr ""
+msgstr "내용 텍스트 색상"
 
 #: src/prefs/customization/fileItemStyle.ts:51
 #: src/prefs/customization/textItemStyle.ts:51
 msgid "You can change the text color of the body"
-msgstr ""
+msgstr "내용 텍스트 색상을 바꾸기"
 
 #: src/prefs/customization/imageItemStyle.ts:14
 msgid "Change the style of the image item"
-msgstr ""
+msgstr "이미지 항목의 스타일을 바꾸기"
 
 #: src/prefs/customization/imageItemStyle.ts:14
 msgid "Image Item Style"
-msgstr ""
+msgstr "이미지 항목 스타일"
 
 #: src/prefs/customization/imageItemStyle.ts:70
 msgid "Metadata Font"
-msgstr ""
+msgstr "메타데이터 글꼴"
 
 #: src/prefs/customization/index.ts:13
 msgid "Customization"
-msgstr ""
+msgstr "개인화"
 
 #: src/prefs/customization/itemStyleGroup.ts:18
 msgid "Item Style"
-msgstr ""
+msgstr "항목 스타일"
 
 #: src/prefs/customization/linkItemStyle.ts:15
 msgid "Change the style of the link item"
-msgstr ""
+msgstr "링크 항목의 스타일을 바꾸기"
 
 #: src/prefs/customization/linkItemStyle.ts:15
 msgid "Link Item Style"
-msgstr ""
+msgstr "링크 항목 스타일"
 
 #: src/prefs/customization/linkItemStyle.ts:62
 msgid "Metadata Title Color"
-msgstr ""
+msgstr "메타데이터 제목 색상"
 
 #: src/prefs/customization/linkItemStyle.ts:63
 msgid "You can change the title color of the metadata"
-msgstr ""
+msgstr "메타데이터 제목의 색상을 바꾸기"
 
 #: src/prefs/customization/linkItemStyle.ts:72
 msgid "Metadata Title Font"
-msgstr ""
+msgstr "메타데이터 제목 글꼴"
 
 #: src/prefs/customization/linkItemStyle.ts:73
 msgid "You can change the font of the metadata title"
-msgstr ""
+msgstr "메타데이터 제목의 글꼴을 바꾸기"
 
 #: src/prefs/customization/linkItemStyle.ts:82
 msgid "Metadata Description Color"
-msgstr ""
+msgstr "메타데이터 설명 색상"
 
 #: src/prefs/customization/linkItemStyle.ts:83
 msgid "You can change the description color of the metadata"
-msgstr ""
+msgstr "메타데이터 설명의 색상을 바꾸기"
 
 #: src/prefs/customization/linkItemStyle.ts:92
 msgid "Metadata Description Font"
-msgstr ""
+msgstr "메타데이터 설명 글꼴"
 
 #: src/prefs/customization/linkItemStyle.ts:93
 msgid "You can change the font of the metadata description"
-msgstr ""
+msgstr "메타데이터 설명의 글꼴을 바꾸기"
 
 #: src/prefs/customization/linkItemStyle.ts:102
 msgid "Metadata Link Color"
-msgstr ""
+msgstr "메타데이터 링크 색상"
 
 #: src/prefs/customization/linkItemStyle.ts:103
 msgid "You can change the link color of the metadata"
-msgstr ""
+msgstr "메타데이터 링크의 색상을 바꾸기"
 
 #: src/prefs/customization/linkItemStyle.ts:112
 msgid "Metadata Link Font"
-msgstr ""
+msgstr "메타데이터 링크 글꼴"
 
 #: src/prefs/customization/linkItemStyle.ts:113
 msgid "You can change the font of the metadata link"
-msgstr ""
+msgstr "메타데이터 링크의 글꼴을 바꾸기"
 
 #: src/prefs/customization/textItemStyle.ts:15
 msgid "Change the style of the text item"
-msgstr ""
+msgstr "텍스트 항목의 스타일을 바꾸기"
 
 #: src/prefs/customization/textItemStyle.ts:15
 msgid "Text Item Style"
-msgstr ""
+msgstr "텍스트 항목 스타일"
 
 #: src/prefs/dangerZone/clearHistory.ts:15
 msgid "Clears the clipboard database and cache"
-msgstr "클립보드 데이터베이스 및 캐시를 지웁니다."
+msgstr "클립보드 데이터베이스 및 캐시를 삭제"
 
 #: src/prefs/dangerZone/index.ts:12
 msgid "Danger Zone"
@@ -415,7 +415,7 @@ msgstr "파노라마 데이터베이스 위치 선택"
 
 #: src/prefs/general/dbLocation.ts:79
 msgid "Failed to select directory"
-msgstr "디렉터리를 선택하지 못했습니다."
+msgstr "경로를 선택하지 못했습니다"
 
 #: src/prefs/general/exclusionGroup.ts:17
 msgid "Manage Exclusions"
@@ -427,7 +427,7 @@ msgstr "제외된 앱"
 
 #: src/prefs/general/exclusionGroup.ts:25
 msgid "Pano will stop tracking if any window from the list is focussed"
-msgstr "Pano는 목록의 창에 포커스가 있는 경우 추적을 중지합니다."
+msgstr "Pano는 목록의 창에 포커스가 있는 경우 추적을 중지"
 
 #: src/prefs/general/exclusionGroup.ts:54
 msgid "Window class name"
@@ -443,7 +443,7 @@ msgstr "역사 길이"
 
 #: src/prefs/general/historyLength.ts:16
 msgid "You can limit your clipboard history length between 10 - 500"
-msgstr "클립 보드 기록 길이를 10-500 사이로 제한 할 수 있습니다."
+msgstr "클립 보드 기록 길이를 10-500 사이로 제한"
 
 #: src/prefs/general/incognitoShortcutRow.ts:16
 msgid "Incognito Mode Shortcut"
@@ -451,7 +451,7 @@ msgstr "시크릿 모드 단축키"
 
 #: src/prefs/general/incognitoShortcutRow.ts:17
 msgid "Allows you to toggle incognito mode"
-msgstr "시크릿 모드를 전환 할 수 있습니다."
+msgstr "시크릿 모드로 전환"
 
 #: src/prefs/general/incognitoShortcutRow.ts:23
 #: src/prefs/general/shortcutRow.ts:23
@@ -485,11 +485,11 @@ msgstr "Pano가 클립보드의 링크를 방문하여 링크 미리 보기를 �
 
 #: src/prefs/general/openLinksInBrowser.ts:15
 msgid "Open Links in Browser"
-msgstr ""
+msgstr "브라우저에서 링크 열기"
 
 #: src/prefs/general/openLinksInBrowser.ts:16
 msgid "Allow Pano to open links on your default browser"
-msgstr ""
+msgstr "Pano가 브라우저에서 링크를 열도록 허용"
 
 #: src/prefs/general/pasteOnSelect.ts:15
 msgid "Paste on Select"
@@ -509,11 +509,11 @@ msgstr "Pano가 새 콘텐츠를 복사할 때 오디오를 재생하도록 허�
 
 #: src/prefs/general/sendNotificationOnCopy.ts:16
 msgid "Send Notification on Copy"
-msgstr ""
+msgstr "복사 시 알림 보내기"
 
 #: src/prefs/general/sendNotificationOnCopy.ts:17
 msgid "Allow Pano to send notification when copying new content"
-msgstr ""
+msgstr "Pano가 새 콘텐츠를 복사할 때 알림을 보내도록 허용"
 
 #: src/prefs/general/shortcutRow.ts:16
 msgid "Global Shortcut"
@@ -521,7 +521,7 @@ msgstr "전역 단축키"
 
 #: src/prefs/general/shortcutRow.ts:17
 msgid "Allows you to toggle visibility of the clipboard manager"
-msgstr "클립 보드 관리자의 가시성을 전환 할 수 있습니다."
+msgstr "클립 보드 관리자의 가시성을 전환"
 
 #: src/prefs/general/showIndicator.ts:15
 msgid "Show Indicator"
@@ -529,7 +529,7 @@ msgstr "표시기 표시"
 
 #: src/prefs/general/showIndicator.ts:16
 msgid "Shows an indicator on top panel"
-msgstr "상단 패널에 표시기를 표시합니다."
+msgstr "상단 패널에 표시기를 표시"
 
 #: src/prefs/general/syncPrimary.ts:15
 msgid "Sync Primary"
@@ -545,80 +545,80 @@ msgstr "제외 항목 보기"
 
 #: src/prefs/general/watchExclusions.ts:16
 msgid "When enabled, Pano will not track clipboard from excluded apps"
-msgstr "활성화되면 Pano는 제외 된 앱의 클립 보드를 추적하지 않습니다."
+msgstr "활성화되면 Pano는 제외 된 앱의 클립 보드를 추적하지 않습니다"
 
 #: src/prefs/general/wiggleIndicator.ts:15
 msgid "Wiggle Indicator"
-msgstr ""
+msgstr "표시기 흔들기"
 
 #: src/prefs/general/wiggleIndicator.ts:16
 msgid "Wiggles the indicator on panel"
-msgstr ""
+msgstr "패널의 표시기를 흔들기"
 
 #: src/utils/panoItemFactory.ts:406
 msgid "Image Copied"
-msgstr ""
+msgstr "이미지 복사됨"
 
 #: src/utils/panoItemFactory.ts:407
 msgid "Width: %spx, Height: %spx, Size: %s"
-msgstr ""
+msgstr "너비: %spx, 높이: %spx, 크기: %s"
 
 #: src/utils/panoItemFactory.ts:411
 msgid "Text Copied"
-msgstr ""
+msgstr "텍스트 복사됨"
 
 #: src/utils/panoItemFactory.ts:413
 msgid "Code Copied"
-msgstr ""
+msgstr "코드 복사됨"
 
 #: src/utils/panoItemFactory.ts:415
 msgid "Emoji Copied"
-msgstr ""
+msgstr "이모티콘 복사됨"
 
 #: src/utils/panoItemFactory.ts:423
 msgid "Link Copied"
-msgstr ""
+msgstr "링크 복사됨"
 
 #: src/utils/panoItemFactory.ts:443
 msgid "Color Copied"
-msgstr ""
+msgstr "색상 복사됨"
 
 #: src/utils/panoItemFactory.ts:450
 msgid "File %s"
-msgstr ""
+msgstr "파일 %s"
 
 #: src/utils/panoItemFactory.ts:451
 msgid "There are %s file(s)"
-msgstr ""
+msgstr "%s 개의 파일이 있음"
 
 #: src/utils/panoItemType.ts:7
 msgid "Link"
-msgstr ""
+msgstr "링크"
 
 #: src/utils/panoItemType.ts:8
 msgid "Text"
-msgstr ""
+msgstr "텍스트"
 
 #: src/utils/panoItemType.ts:9
 msgid "Emoji"
-msgstr ""
+msgstr "이모티콘"
 
 #: src/utils/panoItemType.ts:10
 msgid "File"
-msgstr ""
+msgstr "파일"
 
 #: src/utils/panoItemType.ts:11
 msgid "Image"
-msgstr ""
+msgstr "이미지"
 
 #: src/utils/panoItemType.ts:12
 msgid "Code"
-msgstr ""
+msgstr "코드"
 
 #: src/utils/panoItemType.ts:13
 msgid "Color"
-msgstr ""
+msgstr "색상"
 
 #: src/utils/ui.ts:27
 msgid "Pano"
-msgstr ""
+msgstr "Pano"
