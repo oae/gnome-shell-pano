@@ -319,7 +319,7 @@ msgstr "Шрифт метаданих"
 
 #: src/prefs/customization/index.ts:13
 msgid "Customization"
-msgstr "Налаштування"
+msgstr "Персоналізація"
 
 #: src/prefs/customization/itemStyleGroup.ts:18
 msgid "Item Style"
