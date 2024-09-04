@@ -54,7 +54,7 @@ export class DBLocationRow extends Adw.ActionRow {
               -1,
               null,
             );
-          } catch (err) {
+          } catch (_) {
             isDbusRunning = false;
             debug('Extension is not enabled. Moving db file without stopping the extension.');
           }
