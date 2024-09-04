@@ -1,9 +1,13 @@
 import * as fillPotPo from 'fill-pot-po';
-import * as fs from 'fs';
 import { GettextExtractor, JsExtractors } from 'gettext-extractor';
 import * as gettextParser from 'gettext-parser';
 import * as glob from 'glob';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import * as url from 'node:url';
+
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const extractStrings = () => {
   const extractor = new GettextExtractor();
