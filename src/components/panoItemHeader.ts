@@ -9,7 +9,7 @@ import { registerGObjectClass, SignalsDefinition } from '@pano/utils/gjs';
 import { ICON_PACKS, IPanoItemType } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
 import { Locale } from 'date-fns';
-import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import { formatDistanceToNow } from 'date-fns/formatDistanceToNow';
 import * as dateLocale from 'date-fns/locale';
 
 const langs = GLib.get_language_names_with_category('LC_MESSAGES').map(

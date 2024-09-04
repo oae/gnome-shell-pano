@@ -115,7 +115,7 @@ const debug = logger('pano-item-factory');
 const isValidUrl = (text: string) => {
   try {
     return isUrl(text) && GLib.uri_parse(text, GLib.UriFlags.NONE) !== null;
-  } catch (err) {
+  } catch (_) {
     return false;
   }
 };
