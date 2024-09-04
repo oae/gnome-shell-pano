@@ -1,11 +1,15 @@
 {
   "extends": "@tsconfig/strictest/tsconfig.json",
   "compilerOptions": {
-    "lib": ["ES2021"],
-    "target": "ES2021",
-    "baseUrl": "./src/",
-    "moduleResolution": "Node",
+    "module": "ES2022",
+    "moduleResolution": "Node10",
     "experimentalDecorators": true,
+    "baseUrl": "./src",
+    "outDir": "./dist",
+    "sourceMap": false,
+    "strict": true,
+    "target": "ES2022",
+    "lib": ["ES2022"],
     "paths": {
       "@pano/*": ["./*"]
     }
