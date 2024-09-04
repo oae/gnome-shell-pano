@@ -86,7 +86,7 @@ export const deleteDirectory = async (file: Gio.File) => {
     }
 
     await Promise.all(branches);
-  } catch (e) {
+  } catch (_err) {
   } finally {
     return deleteFile(file);
   }
@@ -161,7 +161,7 @@ export const loadInterfaceXML = (ext: ExtensionBase, iface: string): any => {
   try {
     const [, bytes] = file.load_contents(null);
     return new TextDecoder().decode(bytes);
-  } catch (e) {
+  } catch (_err) {
     debug(`Failed to load D-Bus interface ${iface}`);
   }
 
@@ -224,7 +224,7 @@ export function debounce<T extends any[]>(func: (...args: T) => void | Promise<v
 export const openLinkInBrowser = (url: string) => {
   try {
     Gio.app_info_launch_default_for_uri(url, null);
-  } catch (e) {
+  } catch (_err) {
     debug(`Failed to open url ${url}`);
   }
 };

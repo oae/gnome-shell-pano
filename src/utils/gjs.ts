@@ -16,7 +16,6 @@ export function registerGObjectClass<
   if (Object.prototype.hasOwnProperty.call(target, 'metaInfo')) {
     // eslint-disable-next-line
     // @ts-ignore
-    // eslint-disable-next-line
     return GObject.registerClass<K, T>(target.metaInfo!, target) as typeof target;
   } else {
     // eslint-disable-next-line
