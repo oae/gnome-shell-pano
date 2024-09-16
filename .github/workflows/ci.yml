@@ -31,6 +31,9 @@ jobs:
       - name: Validate Formatting
         run: yarn run prettier:check
 
+      - name: Validate Locale
+        run: yarn run check:locale
+
       - name: Lint Extension
         run: yarn run lint
 

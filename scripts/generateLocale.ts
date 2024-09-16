@@ -5,7 +5,7 @@ import * as gettextParser from 'gettext-parser';
 import * as glob from 'glob';
 import * as path from 'path';
 
-const extractStrings = () => {
+const extractStrings = (dryRun: boolean) => {
   const extractor = new GettextExtractor();
 
   extractor
@@ -28,16 +28,18 @@ const extractStrings = () => {
 
   extractor.savePotFile(`${path.resolve(__dirname)}/../resources/po/pano@elhan.io.pot`);
 
-  extractor.printStats();
+  if (!dryRun) {
+    extractor.printStats();
+  }
 };
 
-const mergeStrings = () => {
-  fillPotPo.sync({
+const mergeStrings = (dryRun: boolean) => {
+  return fillPotPo.sync({
     potSources: [`${path.resolve(__dirname)}/../resources/po/*.pot`],
     poSources: [`${path.resolve(__dirname)}/../resources/po/*.po`],
-    writeFiles: true,
+    writeFiles: !dryRun,
     destDir: `${path.resolve(__dirname)}/../resources/po/`,
-    logResults: true,
+    logResults: !dryRun,
     wrapLength: 1000,
   });
 };
@@ -53,6 +55,44 @@ const compileStrings = () => {
   });
 };
 
-extractStrings();
-mergeStrings();
-compileStrings();
+function main() {
+  let dryRun = false;
+
+  const lastArg = process.argv.at(-1);
+
+  if (lastArg && ['--dry-run', '--dryRun', '-d'].includes(lastArg)) {
+    dryRun = true;
+  }
+
+  extractStrings(dryRun);
+  const result = mergeStrings(dryRun);
+
+  if (dryRun) {
+    let errors = 0;
+    for (const vinyl of result) {
+      const file = `${path.resolve(__dirname)}/../resources/po/${vinyl.path}`;
+
+      if (!fs.existsSync(file)) {
+        console.error(`FATAL ERROR: File ${file} doesn't exist, but was reported as existing, this is a bug!`);
+        process.exit(1);
+      }
+
+      const actualContent = fs.readFileSync(file);
+      if (!actualContent.equals(vinyl.contents)) {
+        console.error(`File ${file} isn't valid, please update it!`);
+        errors++;
+      }
+    }
+    if (errors > 0) {
+      process.exit(1);
+    } else {
+      console.log('Checked every locales files: No updates necessary');
+    }
+  }
+
+  if (!dryRun) {
+    compileStrings();
+  }
+}
+
+main();
