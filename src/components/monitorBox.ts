@@ -60,7 +60,7 @@ export class MonitorBox extends St.BoxLayout {
 
     const _eventBlocker = new Clutter.Actor({ reactive: true });
     backgroundStack.add_child(_eventBlocker);
-    main.uiGroup.add_child(this);
+    main.layoutManager.uiGroup.add_child(this);
   }
 
   open() {
