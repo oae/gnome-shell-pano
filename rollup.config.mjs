@@ -15,11 +15,11 @@ const importsGeneral = {
   'gi://Graphene?version=1.0': { name: 'gi://Graphene' },
   'gi://Pango?version=1.0': { name: 'gi://Pango' },
   'gi://Soup?version=3.0': { name: 'gi://Soup' },
-  'gi://Meta?version=14': { name: 'gi://Meta' },
-  'gi://Clutter?version=14': { name: 'gi://Clutter' },
-  'gi://Cogl?version=14': { name: 'gi://Cogl' },
-  'gi://Shell?version=14': { name: 'gi://Shell' },
-  'gi://St?version=14': { name: 'gi://St' },
+  'gi://Meta?version=15': { name: 'gi://Meta' },
+  'gi://Clutter?version=15': { name: 'gi://Clutter' },
+  'gi://Cogl?version=15': { name: 'gi://Cogl' },
+  'gi://Shell?version=15': { name: 'gi://Shell' },
+  'gi://St?version=15': { name: 'gi://St' },
 
   // non core dependencies (can have version specifier!)
   'gi://Gda?version=5.0': { name: 'gi://Gda?version>=5.0' }, // We officially support (it's also typed!) both 5.0 and 6.0

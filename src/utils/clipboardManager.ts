@@ -2,9 +2,9 @@ import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import GObject from '@girs/gobject-2.0';
-import Meta from '@girs/meta-14';
-import Shell from '@girs/shell-14';
-import St from '@girs/st-14';
+import Meta from '@girs/meta-15';
+import Shell from '@girs/shell-15';
+import St from '@girs/st-15';
 import { registerGObjectClass, SignalRepresentationType } from '@pano/utils/gjs';
 import { debounce, getCurrentExtensionSettings, logger } from '@pano/utils/shell';
 

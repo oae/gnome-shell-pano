@@ -2,7 +2,7 @@ import type Gda5 from '@girs/gda-5.0';
 import type Gda6 from '@girs/gda-6.0';
 import GLib from '@girs/glib-2.0';
 import { Notification, Source as MessageTraySource } from '@girs/gnome-shell/dist/ui/messageTray';
-import St from '@girs/st-14';
+import St from '@girs/st-15';
 
 import { logger } from './shell';
 
