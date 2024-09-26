@@ -40,6 +40,7 @@ const importsGeneral = {
   '@girs/gnome-shell/dist/ui/modalDialog': { name: 'resource://EXT_ROOT/ui/modalDialog.js' },
   '@girs/gnome-shell/dist/ui/popupMenu': { name: 'resource://EXT_ROOT/ui/popupMenu.js' },
   '@girs/gnome-shell/dist/ui/panelMenu': { name: 'resource://EXT_ROOT/ui/panelMenu.js' },
+  '@girs/gnome-shell/dist/misc/config': { name: 'resource://EXT_ROOT/misc/config.js' },
   //compatibility imports
   '@girs/gnome-shell-45/dist/ui/messageTray': { name: 'resource://EXT_ROOT/ui/messageTray.js' },
 };
@@ -133,16 +134,16 @@ const thirdPartyBuild = thirdParty.map((pkg) => {
   };
 });
 
-const testFiles = ['db.test'];
+const testFiles = ['db', 'version'];
 
 const testBuilds = testFiles.map((file) => {
   return {
-    input: `tests/${file}.ts`,
+    input: `tests/${file}.test.ts`,
     treeshake: {
       moduleSideEffects: 'no-external',
     },
     output: {
-      file: `build/tests/${file}.js`,
+      file: `build/tests/${file}.test.js`,
       format: 'esm',
       name: 'init',
       paths: { ...ExtensionEntries, ...GlobalEntries },

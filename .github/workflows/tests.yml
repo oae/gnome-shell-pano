@@ -53,4 +53,4 @@ jobs:
           meson install -C build
 
       - name: Run Tests
-        run: yarn run test
+        run: CI_EXPECT_GNOME_VERSION=${{ matrix.config.version }} yarn run test
