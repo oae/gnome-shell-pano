@@ -1,6 +1,7 @@
 import type Gda5 from '@girs/gda-5.0';
 import type Gda6 from '@girs/gda-6.0';
 import GLib from '@girs/glib-2.0';
+import { PACKAGE_VERSION } from '@girs/gnome-shell/dist/misc/config';
 import { Notification, Source as MessageTraySource } from '@girs/gnome-shell/dist/ui/messageTray';
 import St from '@girs/st-15';
 
@@ -70,6 +71,29 @@ export function unescape_string(input: string): string {
     // return the original string
     return input;
   }
+}
+
+// compatibility functions to check if a specific gnome-shell is used
+export function isGnomeVersion(version: number): boolean {
+  const [major, _minor, _patch, ..._rest]: Array<number | undefined> = PACKAGE_VERSION.split('.').map((num) => {
+    const result = parseInt(num);
+    if (isNaN(result)) {
+      return undefined;
+    }
+    return result;
+  });
+
+  if (major === undefined) {
+    return PACKAGE_VERSION.includes(version.toString());
+  }
+
+  return major === version;
+}
+
+// compatibility functions for gnome-shell 47
+
+export function isGnome47(): boolean {
+  return isGnomeVersion(47);
 }
 
 // compatibility functions for gnome-shell 45 / 46

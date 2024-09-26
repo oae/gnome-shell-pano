@@ -40,6 +40,7 @@ const importsGeneral = {
   '@girs/gnome-shell/dist/ui/modalDialog': { name: 'resource://EXT_ROOT/ui/modalDialog.js' },
   '@girs/gnome-shell/dist/ui/popupMenu': { name: 'resource://EXT_ROOT/ui/popupMenu.js' },
   '@girs/gnome-shell/dist/ui/panelMenu': { name: 'resource://EXT_ROOT/ui/panelMenu.js' },
+  '@girs/gnome-shell/dist/misc/config': { name: 'resource://EXT_ROOT/misc/config.js' },
   //compatibility imports
   '@girs/gnome-shell-45/dist/ui/messageTray': { name: 'resource://EXT_ROOT/ui/messageTray.js' },
 };
@@ -48,6 +49,7 @@ const importsGeneral = {
 const importsPrefs = {
   ...importsGeneral,
   '@girs/gnome-shell/dist/extensions/prefs': { name: 'resource://EXT_ROOT/extensions/prefs.js' },
+  '@custom_types/gnome-shell/dist/extensions/prefs': { name: 'resource://EXT_ROOT/extensions/prefs.js' },
 };
 
 const ExtensionEntries = Object.fromEntries(

@@ -7,7 +7,8 @@
     "moduleResolution": "Node",
     "experimentalDecorators": true,
     "paths": {
-      "@pano/*": ["./*"]
+      "@pano/*": ["./*"],
+      "@custom_types/gnome-shell/dist/extensions/prefs": ["./prefs/prefs.d.ts"]
     }
   },
   "exclude": ["./dist", "rollup.config.mjs", "./build", "./scripts/fix-jasmine-imports.js"]
