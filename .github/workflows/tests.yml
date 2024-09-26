@@ -1,0 +1,56 @@
+name: Tests CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  build:
+    name: Tests for Gnome ${{ matrix.config.version }} on ${{ matrix.config.image }}
+    runs-on: ubuntu-24.04
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version:
+          - 20.x
+        config:
+          - version: 45
+            image: fedora:39
+          - version: 46
+            image: fedora:40
+          - version: 47
+            image: fedora:41
+
+    container:
+      image: ${{ matrix.config.image }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: yarn install -D
+
+      - name: Build Extension
+        run: yarn run build
+
+      - name: Prepare Test Runner
+        run: |
+          dnf update -y
+          dnf install meson git gjs libgda libgda-sqlite -y
+          git clone https://github.com/ptomato/jasmine-gjs
+          cd jasmine-gjs
+          meson setup build
+          meson compile -C build
+          meson install -C build
+
+      - name: Run Tests
+        run: yarn run test

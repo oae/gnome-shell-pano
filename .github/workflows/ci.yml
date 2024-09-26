@@ -39,15 +39,3 @@ jobs:
 
       - name: Build Extension
         run: yarn run build
-
-      - name: Prepare Test Runner
-        run: |
-          sudo apt-get install meson gjs gir1.2-gda-5.0 gir1.2-gsound-1.0 -y
-          git clone https://github.com/ptomato/jasmine-gjs
-          cd jasmine-gjs
-          meson setup build
-          meson compile -C build
-          sudo meson install -C build
-
-      - name: Run Tests
-        run: yarn run test
