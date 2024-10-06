@@ -141,6 +141,7 @@ export default class PanoExtension extends Extension {
   private async clearHistory() {
     this.stop();
     await deleteAppDirs(this);
+    this.setupResources();
     this.start();
   }
 
