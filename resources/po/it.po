@@ -10,13 +10,13 @@ msgstr "Annulla"
 #: src/components/indicator/clearHistoryDialog.ts:30
 #: src/prefs/dangerZone/clearHistory.ts:20
 msgid "Clear"
-msgstr "Chiaro"
+msgstr "Cancella"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
 #: src/components/indicator/settingsMenu.ts:101
 #: src/prefs/dangerZone/clearHistory.ts:14
 msgid "Clear History"
-msgstr "Cancella cronologia"
+msgstr "Cancella la cronologia"
 
 #: src/components/indicator/clearHistoryDialog.ts:36
 #: src/prefs/dangerZone/clearHistory.ts:26
@@ -41,11 +41,11 @@ msgstr "Digita per cercare, Tab per scorrere"
 
 #: src/prefs/customization/codeItemStyle.ts:15
 msgid "Change the style of the code item"
-msgstr "Cambia lo stile dell'elemento di codice"
+msgstr "Cambia lo stile dell'elemento Codice"
 
 #: src/prefs/customization/codeItemStyle.ts:15
 msgid "Code Item Style"
-msgstr "Codice Voce Stile"
+msgstr "Stile dell'elemento Codice"
 
 #: src/prefs/customization/codeItemStyle.ts:22
 #: src/prefs/customization/colorItemStyle.ts:22
@@ -130,11 +130,11 @@ msgstr "Puoi modificare la lunghezza dei caratteri del testo visibile nel corpo"
 
 #: src/prefs/customization/colorItemStyle.ts:15
 msgid "Change the style of the color item"
-msgstr "Cambia lo stile del colore dell'elemento"
+msgstr "Cambia lo stile dell'elemento Colore"
 
 #: src/prefs/customization/colorItemStyle.ts:15
 msgid "Color Item Style"
-msgstr "Stile colore elemento"
+msgstr "Stile dell'elemento Colore"
 
 #: src/prefs/customization/colorItemStyle.ts:42
 #: src/prefs/customization/imageItemStyle.ts:51
@@ -233,23 +233,23 @@ msgstr "Puoi cambiare il colore di sfondo della finestra di navigazione in incog
 
 #: src/prefs/customization/commonStyleGroup.ts:58
 msgid "Search Bar Font"
-msgstr "Font della barra di ricerca"
+msgstr "Carattere della barra di ricerca"
 
 #: src/prefs/customization/commonStyleGroup.ts:59
 msgid "You can change the font of the search bar"
-msgstr "Puoi cambiare il font della barra di ricerca"
+msgstr "Puoi cambiare il carattere della barra di ricerca"
 
 #: src/prefs/customization/commonStyleGroup.ts:65
 msgid "Item Title Font"
-msgstr "Font del titolo dell'elemento"
+msgstr "Carattere del titolo dell'elemento"
 
 #: src/prefs/customization/commonStyleGroup.ts:65
 msgid "You can change the font of the title"
-msgstr "Puoi cambiare il font del titolo"
+msgstr "Puoi cambiare il carattere del titolo"
 
 #: src/prefs/customization/commonStyleGroup.ts:68
 msgid "Item Date Font"
-msgstr "Data font elemento"
+msgstr "Carattere dell'elemento data"
 
 #: src/prefs/customization/commonStyleGroup.ts:68
 msgid "You can change the font of the date"
@@ -439,7 +439,7 @@ msgstr "Opzioni generali"
 
 #: src/prefs/general/historyLength.ts:15
 msgid "History Length"
-msgstr "Lunghezza della storia"
+msgstr "Lunghezza della cronologia"
 
 #: src/prefs/general/historyLength.ts:16
 msgid "You can limit your clipboard history length between 10 - 500"
@@ -541,7 +541,7 @@ msgstr "Sincronizzare la selezione principale con la selezione degli Appunti"
 
 #: src/prefs/general/watchExclusions.ts:15
 msgid "Watch Exclusions"
-msgstr "Guarda le esclusioni"
+msgstr "Vedi le esclusioni"
 
 #: src/prefs/general/watchExclusions.ts:16
 msgid "When enabled, Pano will not track clipboard from excluded apps"
@@ -549,11 +549,11 @@ msgstr "Se abilitato, Pano non tiene traccia degli appunti dalle app escluse"
 
 #: src/prefs/general/wiggleIndicator.ts:15
 msgid "Wiggle Indicator"
-msgstr ""
+msgstr "Scuoti l'indicatore"
 
 #: src/prefs/general/wiggleIndicator.ts:16
 msgid "Wiggles the indicator on panel"
-msgstr ""
+msgstr "Scuoti l'indicatore sul pannello"
 
 #: src/utils/panoItemFactory.ts:406
 msgid "Image Copied"
