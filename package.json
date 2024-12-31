@@ -82,7 +82,8 @@
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-styles": "^4.0.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "chalk": "4.1.2"
   },
   "dependencies": {
     "date-fns": "^2.30.0",
