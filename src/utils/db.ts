@@ -328,7 +328,7 @@ class Database {
       const matchValue = iter.get_value_for_field('matchValue');
       const matchValueUnescaped = unescape_string(matchValue) ?? matchValue;
       const searchValue = iter.get_value_for_field('searchValue');
-      const searchValueUnescaped = searchValue ? unescape_string(searchValue) ?? searchValue : undefined;
+      const searchValueUnescaped = searchValue ? (unescape_string(searchValue) ?? searchValue) : undefined;
       const metaData = iter.get_value_for_field('metaData');
 
       itemList.push({
