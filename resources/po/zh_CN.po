@@ -533,11 +533,11 @@ msgstr "在顶栏显示程序指示器"
 
 #: src/prefs/general/syncPrimary.ts:15
 msgid "Sync Primary"
-msgstr "同步主数据库"
+msgstr "同步"
 
 #: src/prefs/general/syncPrimary.ts:16
 msgid "Sync primary selection with clipboard selection"
-msgstr "将剪切板内容同步到数据库中"
+msgstr "将最近的选区与剪贴板同步"
 
 #: src/prefs/general/watchExclusions.ts:15
 msgid "Watch Exclusions"
