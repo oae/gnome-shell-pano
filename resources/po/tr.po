@@ -555,39 +555,39 @@ msgstr "Göstergeyi Oynat"
 msgid "Wiggles the indicator on panel"
 msgstr "Paneldeki göstergeyi oynatır"
 
-#: src/utils/panoItemFactory.ts:406
+#: src/utils/panoItemFactory.ts:305
 msgid "Image Copied"
 msgstr "Resim Kopyalandı"
 
-#: src/utils/panoItemFactory.ts:407
+#: src/utils/panoItemFactory.ts:306
 msgid "Width: %spx, Height: %spx, Size: %s"
 msgstr "Genişlik: %spx, Yükseklik: %spx, Boyut: %s"
 
-#: src/utils/panoItemFactory.ts:411
+#: src/utils/panoItemFactory.ts:310
 msgid "Text Copied"
 msgstr "Yazı Kopyalandı"
 
-#: src/utils/panoItemFactory.ts:413
+#: src/utils/panoItemFactory.ts:312
 msgid "Code Copied"
 msgstr "Kod Kopyalandı"
 
-#: src/utils/panoItemFactory.ts:415
+#: src/utils/panoItemFactory.ts:314
 msgid "Emoji Copied"
 msgstr "İfade Kopyalandı"
 
-#: src/utils/panoItemFactory.ts:423
+#: src/utils/panoItemFactory.ts:322
 msgid "Link Copied"
 msgstr "Bağlantı Kopyalandı"
 
-#: src/utils/panoItemFactory.ts:443
+#: src/utils/panoItemFactory.ts:342
 msgid "Color Copied"
 msgstr "Renk Kopyalandı"
 
-#: src/utils/panoItemFactory.ts:450
+#: src/utils/panoItemFactory.ts:349
 msgid "File %s"
 msgstr "Dosya %s"
 
-#: src/utils/panoItemFactory.ts:451
+#: src/utils/panoItemFactory.ts:350
 msgid "There are %s file(s)"
 msgstr "%s kadar dosya var"
 

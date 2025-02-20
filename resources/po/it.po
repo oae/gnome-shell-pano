@@ -555,39 +555,39 @@ msgstr "Scuoti l'indicatore"
 msgid "Wiggles the indicator on panel"
 msgstr "Scuoti l'indicatore sul pannello"
 
-#: src/utils/panoItemFactory.ts:406
+#: src/utils/panoItemFactory.ts:305
 msgid "Image Copied"
 msgstr "Immagine copiata"
 
-#: src/utils/panoItemFactory.ts:407
+#: src/utils/panoItemFactory.ts:306
 msgid "Width: %spx, Height: %spx, Size: %s"
 msgstr "Larghezza: %spx, Altezza: %spx, Dimensione: %s"
 
-#: src/utils/panoItemFactory.ts:411
+#: src/utils/panoItemFactory.ts:310
 msgid "Text Copied"
 msgstr "Testo copiato"
 
-#: src/utils/panoItemFactory.ts:413
+#: src/utils/panoItemFactory.ts:312
 msgid "Code Copied"
 msgstr "Codice copiato"
 
-#: src/utils/panoItemFactory.ts:415
+#: src/utils/panoItemFactory.ts:314
 msgid "Emoji Copied"
 msgstr "Emoji Copiata"
 
-#: src/utils/panoItemFactory.ts:423
+#: src/utils/panoItemFactory.ts:322
 msgid "Link Copied"
 msgstr "Link copiato"
 
-#: src/utils/panoItemFactory.ts:443
+#: src/utils/panoItemFactory.ts:342
 msgid "Color Copied"
 msgstr "Colore copiato"
 
-#: src/utils/panoItemFactory.ts:450
+#: src/utils/panoItemFactory.ts:349
 msgid "File %s"
 msgstr "File %s"
 
-#: src/utils/panoItemFactory.ts:451
+#: src/utils/panoItemFactory.ts:350
 msgid "There are %s file(s)"
 msgstr "Ci sono %s file(s)"
 
