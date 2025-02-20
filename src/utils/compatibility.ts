@@ -91,15 +91,33 @@ export function isGnomeVersion(version: number): boolean {
   return major === version;
 }
 
+export function isOneGnomeVersion(versions: number[]): boolean {
+  for (const version of versions) {
+    const isVersion = isGnomeVersion(version);
+    if (isVersion) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+// compatibility functions for gnome-shell 48
+
+function stOrientationIsSupported(): boolean {
+  return St.BoxLayout.prototype.get_orientation !== undefined;
+}
+
 // compatibility functions for gnome-shell 47
 
-export function isGnome47(): boolean {
-  return isGnomeVersion(47);
+// this check if it is gnome 47 or higher, which includes all supported versions above and inclusive gnome 47
+export function isGnome47OrHigher(): boolean {
+  return isOneGnomeVersion([47, 48]);
 }
 
 // compatibility functions for gnome-shell 45 / 46
 
-function isGnome45Notifications(): boolean {
+function hasGnome45LikeNotifications(): boolean {
   return MessageTraySource.prototype.addNotification === undefined;
 }
 
@@ -110,7 +128,7 @@ export function newNotification(
   transient_: boolean,
   params: Notification.ConstructorProps,
 ): Notification {
-  if (isGnome45Notifications()) {
+  if (hasGnome45LikeNotifications()) {
     // @ts-expect-error gnome 45 type
     const notification = new Notification(source, text, banner, {
       datetime: GLib.DateTime.new_now_local(),
@@ -132,7 +150,7 @@ export function newNotification(
 }
 
 export function newMessageTraySource(title: string, iconName: string): MessageTraySource {
-  if (isGnome45Notifications()) {
+  if (hasGnome45LikeNotifications()) {
     // @ts-expect-error gnome 45 type
     return new MessageTraySource(title, iconName);
   }
@@ -184,18 +202,12 @@ export function getScrollViewAdjustment(scrollView: St.ScrollView, type: Adjustm
   }
 }
 
-function stSupportVerticalProperty(): boolean {
-  //NOTE: this is deprecated in the near future, see https://gjs.guide/extensions/upgrading/gnome-shell-48.html#st-widgets-orientation
-  // atm this is hard coded, but it can be determined dynamically at any point in the future
-  return true;
-}
-
 export type OrientationReturnType = { vertical: boolean } | { orientation: Clutter.Orientation };
 
 export function orientationCompatibility(vertical: boolean): OrientationReturnType {
-  if (stSupportVerticalProperty()) {
-    return { vertical: vertical };
+  if (stOrientationIsSupported()) {
+    return { orientation: vertical ? Clutter.Orientation.VERTICAL : Clutter.Orientation.HORIZONTAL };
   }
 
-  return { orientation: vertical ? Clutter.Orientation.VERTICAL : Clutter.Orientation.HORIZONTAL };
+  return { vertical: vertical };
 }
