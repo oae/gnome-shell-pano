@@ -92,11 +92,9 @@
   "dependencies": {
     "date-fns": "^2.30.0",
     "hex-color-converter": "^0.2.1",
-    "highlight.js": "^11.9.0",
     "htmlparser2": "^9.1.0",
     "is-url": "^1.2.4",
     "pretty-bytes": "^6.1.1",
-    "prismjs": "^1.29.0",
     "validate-color": "https://gitpkg.now.sh/dreamyguy/validate-color/src/validate-color"
   },
   "packageManager": "yarn@1.22.22"
