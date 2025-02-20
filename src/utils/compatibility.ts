@@ -197,7 +197,24 @@ interface OldScrollView {
 
 export type AdjustmentType = 'v' | 'h';
 
-export function getScrollViewAdjustment(scrollView: St.ScrollView, type: AdjustmentType): St.Adjustment {
+export function getScrollViewAdjustment(
+  scrollView: St.ScrollView,
+  type_or_vertical: AdjustmentType | boolean,
+): St.Adjustment {
+  if (scrollView.vadjustment !== undefined) {
+    if (type_or_vertical === 'v' || type_or_vertical == true) {
+      return scrollView.vadjustment;
+    }
+    return scrollView.hadjustment;
+  } else {
+    if (type_or_vertical === 'v' || type_or_vertical == true) {
+      return (scrollView as any as OldScrollView).vscroll.adjustment;
+    }
+    return (scrollView as any as OldScrollView).hscroll.adjustment;
+  }
+}
+
+export function setScrollViewAdjustment(scrollView: St.ScrollView, type: AdjustmentType): St.Adjustment {
   if (scrollView.vadjustment !== undefined) {
     if (type === 'v') {
       return scrollView.vadjustment;
