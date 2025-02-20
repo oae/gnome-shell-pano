@@ -12,7 +12,12 @@ export class CodeItemStyleRow extends ItemExpanderRow {
 
   constructor(ext: ExtensionBase) {
     const _ = gettext(ext);
-    super(ext, _('Code Item Style'), _('Change the style of the code item'), getPanoItemTypes(ext).CODE.iconName);
+    super(
+      ext,
+      _('Code Item Style'),
+      _('Change the style of the code item\nDisabled for the extension that is shipped on EGO, see GitHub for more'),
+      getPanoItemTypes(ext).CODE.iconName,
+    );
 
     this.settings = getCurrentExtensionSettings(ext).get_child('code-item');
 
@@ -61,5 +66,7 @@ export class CodeItemStyleRow extends ItemExpanderRow {
         5000,
       ),
     );
+
+    this.set_enable_expansion(false);
   }
 }
