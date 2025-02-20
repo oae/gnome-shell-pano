@@ -3,7 +3,7 @@ import type Gda6 from '@girs/gda-6.0';
 import GLib from '@girs/glib-2.0';
 import { PACKAGE_VERSION } from '@girs/gnome-shell/dist/misc/config';
 import { Notification, Source as MessageTraySource } from '@girs/gnome-shell/dist/ui/messageTray';
-import St from '@girs/st-15';
+import St from '@girs/st-16';
 
 import { logger } from './shell';
 

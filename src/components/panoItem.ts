@@ -1,12 +1,12 @@
-import Clutter from '@girs/clutter-15';
+import Clutter from '@girs/clutter-16';
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import GObject from '@girs/gobject-2.0';
 import Graphene from '@girs/graphene-1.0';
-import Meta from '@girs/meta-15';
-import Shell from '@girs/shell-15';
-import St from '@girs/st-15';
+import Meta from '@girs/meta-16';
+import Shell from '@girs/shell-16';
+import St from '@girs/st-16';
 import { PanoItemHeader } from '@pano/components/panoItemHeader';
 import { ClipboardManager } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
