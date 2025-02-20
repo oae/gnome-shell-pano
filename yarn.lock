@@ -2292,14 +2292,14 @@ file-entry-cache@^8.0.0:
   dependencies:
     flat-cache "^4.0.0"
 
-fill-pot-po@^3.0.5:
-  version "3.0.5"
-  resolved "https://registry.yarnpkg.com/fill-pot-po/-/fill-pot-po-3.0.5.tgz#46e3faf099c5928a4a6587cf40d274f238b8431f"
-  integrity sha512-NWIWpLUXSWEC9sca0Cg7MZHoe44Gx148+VvlsrtQTQfD9chPh3KWg4ANM9TTI4srL3cpuMXF3WtYYVfmd+MBPw==
+fill-pot-po@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/fill-pot-po/-/fill-pot-po-4.0.2.tgz#d3783bdf0d35d5147ec1814525b3307c3cae51ad"
+  integrity sha512-ZBa5T832dWzetvkaPKuiG6wky4sghPY2o+baGf2h2r0YbIV2DxUUHO2ME9L1vH+hYcZXwXYgG0cS6pKHpNZ17Q==
   dependencies:
     ansi-colors "^4.1.3"
     color-support "^1.1.3"
-    gettext-parser "^7.0.1"
+    gettext-parser "^8.0.0"
     matched "^5.0.1"
     vinyl "^3.0.0"
 
@@ -2403,16 +2403,6 @@ gettext-extractor@^3.8.0:
     parse5 "5 - 6"
     pofile "1.0.x"
     typescript "4 - 5"
-
-gettext-parser@^7.0.1:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/gettext-parser/-/gettext-parser-7.0.1.tgz#1d0308b6d7b0ac2250cafddb988d03ce170c2a3b"
-  integrity sha512-LU+ieGH3L9HmKEArTlX816/iiAlyA0fx/n/QSeQpkAaH/+jxMk/5UtDkAzcVvW+KlY25/U+IE6dnfkJ8ynt8pQ==
-  dependencies:
-    content-type "^1.0.5"
-    encoding "^0.1.13"
-    readable-stream "^4.3.0"
-    safe-buffer "^5.2.1"
 
 gettext-parser@^8.0.0:
   version "8.0.0"
@@ -3662,17 +3652,6 @@ queue-tick@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/queue-tick/-/queue-tick-1.0.1.tgz#f6f07ac82c1fd60f82e098b417a80e52f1f4c142"
   integrity sha512-kJt5qhMxoszgU/62PLP1CJytzd2NKetjSRnyuj31fDd3Rlcz3fzlFdFLD1SItunPwyqEOkca6GbV612BWfaBag==
-
-readable-stream@^4.3.0:
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-4.6.0.tgz#ce412dfb19c04efde1c5936d99c27f37a1ff94c9"
-  integrity sha512-cbAdYt0VcnpN2Bekq7PU+k363ZRsPwJoEEJOEtSJQlJXzwaxt3FIo/uL+KeDSGIjJqtkwyge4KQgD2S2kd+CQw==
-  dependencies:
-    abort-controller "^3.0.0"
-    buffer "^6.0.3"
-    events "^3.3.0"
-    process "^0.11.10"
-    string_decoder "^1.3.0"
 
 readable-stream@^4.5.2:
   version "4.7.0"

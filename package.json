@@ -74,7 +74,7 @@
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.3",
     "eslint-plugin-simple-import-sort": "^12.1.1",
-    "fill-pot-po": "^3.0.5",
+    "fill-pot-po": "^4.0.2",
     "gettext-extractor": "^3.8.0",
     "gettext-parser": "^8.0.0",
     "glob": "^11.0.1",

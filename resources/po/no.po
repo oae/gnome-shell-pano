@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"X-Generator: fill-pot-po/3.0.5\n"
+"X-Generator: fill-pot-po/4.0.2\n"
 
 #: src/components/indicator/clearHistoryDialog.ts:23
 msgid "Cancel"
