@@ -1,3 +1,4 @@
+import Clutter from '@girs/clutter-16';
 import type Gda5 from '@girs/gda-5.0';
 import type Gda6 from '@girs/gda-6.0';
 import GLib from '@girs/glib-2.0';
@@ -157,6 +158,16 @@ export function scrollViewAddChild(scrollView: St.ScrollView, actor: St.Scrollab
   }
 }
 
+interface HasAdjustment {
+  adjustment: St.Adjustment;
+}
+
+// GNOME < 48 version used to have these scroll view properties, but instead of importing all types for that, just type that one manually
+interface OldScrollView {
+  vscroll: HasAdjustment;
+  hscroll: HasAdjustment;
+}
+
 export type AdjustmentType = 'v' | 'h';
 
 export function getScrollViewAdjustment(scrollView: St.ScrollView, type: AdjustmentType): St.Adjustment {
@@ -167,8 +178,24 @@ export function getScrollViewAdjustment(scrollView: St.ScrollView, type: Adjustm
     return scrollView.hadjustment;
   } else {
     if (type === 'v') {
-      return scrollView.vscroll.adjustment;
+      return (scrollView as any as OldScrollView).vscroll.adjustment;
     }
-    return scrollView.hscroll.adjustment;
+    return (scrollView as any as OldScrollView).hscroll.adjustment;
   }
+}
+
+function stSupportVerticalProperty(): boolean {
+  //NOTE: this is deprecated in the near future, see https://gjs.guide/extensions/upgrading/gnome-shell-48.html#st-widgets-orientation
+  // atm this is hard coded, but it can be determined dynamically at any point in the future
+  return true;
+}
+
+export type OrientationReturnType = { vertical: boolean } | { orientation: Clutter.Orientation };
+
+export function orientationCompatibility(vertical: boolean): OrientationReturnType {
+  if (stSupportVerticalProperty()) {
+    return { vertical: vertical };
+  }
+
+  return { orientation: vertical ? Clutter.Orientation.VERTICAL : Clutter.Orientation.HORIZONTAL };
 }

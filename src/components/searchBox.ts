@@ -5,6 +5,7 @@ import GObject from '@girs/gobject-2.0';
 import Meta from '@girs/meta-16';
 import Shell from '@girs/shell-16';
 import St from '@girs/st-16';
+import { orientationCompatibility } from '@pano/utils/compatibility';
 import { ItemType } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { getPanoItemTypes, ICON_PACKS } from '@pano/utils/panoItemType';
@@ -52,7 +53,7 @@ export class SearchBox extends St.BoxLayout {
     super({
       xAlign: Clutter.ActorAlign.CENTER,
       styleClass: 'search-entry-container',
-      vertical: false,
+      ...orientationCompatibility(false),
       trackHover: true,
       reactive: true,
     });

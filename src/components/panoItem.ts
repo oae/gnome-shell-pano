@@ -9,6 +9,7 @@ import Shell from '@girs/shell-16';
 import St from '@girs/st-16';
 import { PanoItemHeader } from '@pano/components/panoItemHeader';
 import { ClipboardManager } from '@pano/utils/clipboardManager';
+import { orientationCompatibility } from '@pano/utils/compatibility';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { getPanoItemTypes } from '@pano/utils/panoItemType';
@@ -55,7 +56,7 @@ export class PanoItem extends St.BoxLayout {
       pivotPoint: Graphene.Point.alloc().init(0.5, 0.5),
       reactive: true,
       styleClass: 'pano-item',
-      vertical: true,
+      ...orientationCompatibility(true),
       trackHover: true,
     });
 
@@ -140,7 +141,7 @@ export class PanoItem extends St.BoxLayout {
     this.body = new St.BoxLayout({
       styleClass: 'pano-item-body',
       clipToAllocation: true,
-      vertical: true,
+      ...orientationCompatibility(true),
       xAlign: Clutter.ActorAlign.FILL,
       yAlign: Clutter.ActorAlign.FILL,
       xExpand: true,

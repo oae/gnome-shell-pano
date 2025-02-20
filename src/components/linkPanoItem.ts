@@ -5,6 +5,7 @@ import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInte
 import St from '@girs/st-16';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
+import { orientationCompatibility } from '@pano/utils/compatibility';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCachePath, gettext, openLinkInBrowser } from '@pano/utils/shell';
@@ -44,7 +45,7 @@ export class LinkPanoItem extends PanoItem {
 
     this.metaContainer = new St.BoxLayout({
       styleClass: 'pano-item-body-meta-container',
-      vertical: true,
+      ...orientationCompatibility(true),
       xExpand: true,
       yExpand: false,
       yAlign: Clutter.ActorAlign.END,
@@ -73,7 +74,7 @@ export class LinkPanoItem extends PanoItem {
     }
 
     const imageContainer = new St.BoxLayout({
-      vertical: true,
+      ...orientationCompatibility(true),
       xExpand: true,
       yExpand: true,
       yAlign: Clutter.ActorAlign.FILL,

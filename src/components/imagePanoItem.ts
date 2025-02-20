@@ -4,6 +4,7 @@ import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInte
 import St from '@girs/st-16';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
+import { orientationCompatibility } from '@pano/utils/compatibility';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getImagesPath } from '@pano/utils/shell';
@@ -36,7 +37,7 @@ export class ImagePanoItem extends PanoItem {
 
     this.metaContainer = new St.BoxLayout({
       styleClass: 'pano-item-body-meta-container',
-      vertical: true,
+      ...orientationCompatibility(true),
       xExpand: true,
       yExpand: true,
       yAlign: Clutter.ActorAlign.END,
@@ -44,7 +45,7 @@ export class ImagePanoItem extends PanoItem {
     });
 
     const resolutionContainer = new St.BoxLayout({
-      vertical: false,
+      ...orientationCompatibility(false),
       xExpand: true,
       yAlign: Clutter.ActorAlign.FILL,
       xAlign: Clutter.ActorAlign.FILL,
@@ -67,7 +68,7 @@ export class ImagePanoItem extends PanoItem {
     resolutionContainer.add_child(this.resolutionValue);
 
     const sizeContainer = new St.BoxLayout({
-      vertical: false,
+      ...orientationCompatibility(false),
       xExpand: true,
       yAlign: Clutter.ActorAlign.FILL,
       xAlign: Clutter.ActorAlign.FILL,

@@ -5,6 +5,7 @@ import Pango from '@girs/pango-1.0';
 import St from '@girs/st-16';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
+import { orientationCompatibility } from '@pano/utils/compatibility';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 @registerGObjectClass
@@ -20,7 +21,7 @@ export class EmojiPanoItem extends PanoItem {
     this.emojiItemSettings = this.settings.get_child('emoji-item');
 
     const emojiContainer = new St.BoxLayout({
-      vertical: false,
+      ...orientationCompatibility(false),
       xExpand: true,
       yExpand: true,
       yAlign: Clutter.ActorAlign.FILL,

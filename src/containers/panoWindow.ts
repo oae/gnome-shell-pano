@@ -9,6 +9,7 @@ import { MonitorBox } from '@pano/components/monitorBox';
 import { PanoScrollView } from '@pano/components/panoScrollView';
 import { SearchBox } from '@pano/components/searchBox';
 import { ClipboardManager } from '@pano/utils/clipboardManager';
+import { orientationCompatibility } from '@pano/utils/compatibility';
 import { ItemType } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
@@ -27,7 +28,7 @@ export class PanoWindow extends St.BoxLayout {
       constraints: getMonitorConstraint(),
       styleClass: 'pano-window',
       visible: false,
-      vertical: true,
+      ...orientationCompatibility(true),
       reactive: true,
       opacity: 0,
       canFocus: true,
