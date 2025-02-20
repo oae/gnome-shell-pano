@@ -6,7 +6,6 @@ import { Extensions } from '@girs/gnome-shell';
 import type { ExtensionMetadata } from '@girs/gnome-shell/dist/types/extension-metadata';
 import Shell from '@girs/shell-16';
 const { Extension } = Extensions.extension;
-import Meta from '@girs/meta-16';
 import PanoIndicator from '@pano/components/indicator';
 import { PanoWindow } from '@pano/containers/panoWindow';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
@@ -24,9 +23,9 @@ import {
 } from '@pano/utils/shell';
 import { addTopChrome, removeChrome, removeVirtualKeyboard } from '@pano/utils/ui';
 
-const debug = logger('extension');
+import { setUnidirectForDisplay } from './utils/compatibility';
 
-const global = Shell.Global.get();
+const debug = logger('extension');
 
 export default class PanoExtension extends Extension {
   private keyManager: KeyManager | null = null;
@@ -58,7 +57,7 @@ export default class PanoExtension extends Extension {
     this.start();
     this.indicator.enable();
     this.enableDbus();
-    Meta.disable_unredirect_for_display(global.display);
+    setUnidirectForDisplay(false);
     debug('extension is enabled');
   }
 
@@ -70,7 +69,7 @@ export default class PanoExtension extends Extension {
     this.keyManager = null;
     this.clipboardManager = null;
     this.indicator = null;
-    Meta.enable_unredirect_for_display(global.display);
+    setUnidirectForDisplay(true);
     debug('extension is disabled');
   }
 

@@ -4,6 +4,8 @@ import type Gda6 from '@girs/gda-6.0';
 import GLib from '@girs/glib-2.0';
 import { PACKAGE_VERSION } from '@girs/gnome-shell/dist/misc/config';
 import { Notification, Source as MessageTraySource } from '@girs/gnome-shell/dist/ui/messageTray';
+import Meta from '@girs/meta-16';
+import Shell from '@girs/shell-16';
 import St from '@girs/st-16';
 
 import { logger } from './shell';
@@ -108,6 +110,13 @@ function stOrientationIsSupported(): boolean {
   return St.BoxLayout.prototype.get_orientation !== undefined;
 }
 
+function metaSupportsUnidirectForDisplay() {
+  return (
+    (Meta as any as { enable_unredirect_for_display?: undefined | (() => void) }).enable_unredirect_for_display !==
+    undefined
+  );
+}
+
 // compatibility functions for gnome-shell 47
 
 // this check if it is gnome 47 or higher, which includes all supported versions above and inclusive gnome 47
@@ -210,4 +219,29 @@ export function orientationCompatibility(vertical: boolean): OrientationReturnTy
   }
 
   return { vertical: vertical };
+}
+
+const global = Shell.Global.get();
+
+// GNOME < 48 version used to have this function, but instead of importing all types for that, just type that one manually
+interface OldMetaObject {
+  enable_unredirect_for_display(display: Meta.Display): void;
+  disable_unredirect_for_display(display: Meta.Display): void;
+}
+
+export function setUnidirectForDisplay(enable: boolean): void {
+  if (metaSupportsUnidirectForDisplay()) {
+    if (enable) {
+      (Meta as any as OldMetaObject).enable_unredirect_for_display(global.display);
+    } else {
+      (Meta as any as OldMetaObject).disable_unredirect_for_display(global.display);
+    }
+    return;
+  }
+
+  if (enable) {
+    global.compositor.enable_unredirect();
+  } else {
+    global.compositor.disable_unredirect();
+  }
 }
