@@ -1,15 +1,16 @@
 {
   "extends": "@tsconfig/strictest/tsconfig.json",
   "compilerOptions": {
-    "lib": ["ES2021"],
-    "target": "ES2021",
-    "baseUrl": "./src/",
-    "moduleResolution": "Node",
+    "moduleResolution": "Node10",
     "experimentalDecorators": true,
+    "baseUrl": "./src",
+    "sourceMap": false,
+    "target": "ES2022",
+    "lib": ["ES2022"],
     "paths": {
       "@pano/*": ["./*"],
       "@custom_types/gnome-shell/dist/extensions/prefs": ["./prefs/prefs.d.ts"]
     }
   },
-  "exclude": ["./dist", "rollup.config.mjs", "./build", "./scripts/fix-jasmine-imports.js"]
+  "exclude": ["./dist", "rollup.config.mjs", "./build", "./scripts/fix-jasmine-imports.js", "eslint.config.ts"]
 }

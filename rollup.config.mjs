@@ -3,7 +3,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import cleanup from 'rollup-plugin-cleanup';
 import copy from 'rollup-plugin-copy';
-import styles from 'rollup-plugin-styles';
+import styles from 'rollup-plugin-styler';
 
 const buildPath = 'dist';
 

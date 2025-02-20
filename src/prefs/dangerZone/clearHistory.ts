@@ -46,7 +46,7 @@ export class ClearHistoryRow extends Adw.ActionRow {
               -1,
               null,
             );
-          } catch (err) {
+          } catch (_err) {
             isDbusRunning = false;
             debug('Extension is not enabled. Clearing db file without stopping the extension.');
           }
