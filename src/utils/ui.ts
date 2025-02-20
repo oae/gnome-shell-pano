@@ -12,7 +12,7 @@ import Shell from '@girs/shell-16';
 import St from '@girs/st-16';
 import { gettext } from '@pano/utils/shell';
 
-import { addNotification, newMessageTraySource, newNotification } from './compatibility';
+import { addNotification, newMessageTraySource, newNotification, setBytesCompat } from './compatibility';
 
 const global = Shell.Global.get();
 
@@ -33,7 +33,8 @@ export const notify = (
         iconOrPixbuf.width,
         iconOrPixbuf.height,
       ) as St.ImageContent;
-      content.set_bytes(
+      setBytesCompat(
+        content,
         iconOrPixbuf.read_pixel_bytes(),
         pixelFormat || Cogl.PixelFormat.RGBA_8888,
         iconOrPixbuf.width,

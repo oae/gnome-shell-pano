@@ -1,4 +1,5 @@
 import Clutter from '@girs/clutter-16';
+import Cogl from '@girs/cogl-16';
 import type Gda5 from '@girs/gda-5.0';
 import type Gda6 from '@girs/gda-6.0';
 import GLib from '@girs/glib-2.0';
@@ -108,6 +109,10 @@ export function isOneGnomeVersion(versions: number[]): boolean {
 
 function stOrientationIsSupported(): boolean {
   return St.BoxLayout.prototype.get_orientation !== undefined;
+}
+
+function stSetBytesNeedsContext(): boolean {
+  return St.ImageContent.prototype.set_bytes.length === 6;
 }
 
 function metaSupportsUnidirectForDisplay() {
@@ -260,5 +265,32 @@ export function setUnidirectForDisplay(enable: boolean): void {
     global.compositor.enable_unredirect();
   } else {
     global.compositor.disable_unredirect();
+  }
+}
+
+interface OldImageContent {
+  set_bytes(
+    data: GLib.Bytes | Uint8Array,
+    pixel_format: Cogl.PixelFormat | null,
+    width: number,
+    height: number,
+    row_stride: number,
+  ): boolean;
+}
+
+export function setBytesCompat(
+  content: St.ImageContent,
+  data: GLib.Bytes | Uint8Array,
+  pixel_format: Cogl.PixelFormat | null,
+  width: number,
+  height: number,
+  row_stride: number,
+) {
+  if (stSetBytesNeedsContext()) {
+    const context = global.stage.context.get_backend().get_cogl_context();
+
+    content.set_bytes(context, data, pixel_format, width, height, row_stride);
+  } else {
+    (content as any as OldImageContent).set_bytes(data, pixel_format, width, height, row_stride);
   }
 }
