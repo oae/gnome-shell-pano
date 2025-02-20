@@ -156,7 +156,7 @@ export class ClipboardManager extends GObject.Object {
 
     this.selectionChangedId = this.selection.connect(
       'owner-changed',
-      async (_selection: Selection, selectionType: Meta.SelectionType, _selectionSource: Meta.SelectionSource) => {
+      async (_selection: Meta.Selection, selectionType: Meta.SelectionType, _selectionSource: Meta.SelectionSource) => {
         if (this.settings.get_boolean('is-in-incognito')) {
           return;
         }
