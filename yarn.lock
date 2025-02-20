@@ -1234,10 +1234,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/gettext-parser@^4.0.4":
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/@types/gettext-parser/-/gettext-parser-4.0.4.tgz#7ec5e37c3e3b0ef43bfbda7230919c1b9786fdb8"
-  integrity sha512-/r+YfxWZjPwt4HMAO3ay+2e3/IWJxBJxISqKFsWJW/87XllM+r5wHvioVrD45mduQ0UR7OnzMUbMe1PZfukswg==
+"@types/gettext-parser@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@types/gettext-parser/-/gettext-parser-8.0.0.tgz#98fa6ed717b1b4a4636002bd76696a5bdc067557"
+  integrity sha512-oBBIahfWKqAC8LsIw+uFwhXfwlF8GhWDUhyEjoP7Pl9g5bFLhYA/2SiXPkE4oKhDX9fL091qCAyPVZtIkd5X6Q==
   dependencies:
     "@types/node" "*"
     "@types/readable-stream" "*"
@@ -2412,6 +2412,16 @@ gettext-parser@^7.0.1:
     content-type "^1.0.5"
     encoding "^0.1.13"
     readable-stream "^4.3.0"
+    safe-buffer "^5.2.1"
+
+gettext-parser@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/gettext-parser/-/gettext-parser-8.0.0.tgz#2c47676ac2817d4fbb30fadf5b95450d52b804bc"
+  integrity sha512-eFmhDi2xQ+2reMRY2AbJ2oa10uFOl1oyGbAKdCZiNOk94NJHi7aN0OBELSC9v35ZAPQdr+uRBi93/Gu4SlBdrA==
+  dependencies:
+    content-type "^1.0.5"
+    encoding "^0.1.13"
+    readable-stream "^4.5.2"
     safe-buffer "^5.2.1"
 
 git-raw-commits@^4.0.0:
@@ -3657,6 +3667,17 @@ readable-stream@^4.3.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-4.6.0.tgz#ce412dfb19c04efde1c5936d99c27f37a1ff94c9"
   integrity sha512-cbAdYt0VcnpN2Bekq7PU+k363ZRsPwJoEEJOEtSJQlJXzwaxt3FIo/uL+KeDSGIjJqtkwyge4KQgD2S2kd+CQw==
+  dependencies:
+    abort-controller "^3.0.0"
+    buffer "^6.0.3"
+    events "^3.3.0"
+    process "^0.11.10"
+    string_decoder "^1.3.0"
+
+readable-stream@^4.5.2:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-4.7.0.tgz#cedbd8a1146c13dfff8dab14068028d58c15ac91"
+  integrity sha512-oIGGmcpTLwPga8Bn6/Z75SVaH1z5dUut2ibSyAMVhmUggWpmDn2dapB0n7f8nwaSiRtepAsfJyfXIO5DCVAODg==
   dependencies:
     abort-controller "^3.0.0"
     buffer "^6.0.3"
