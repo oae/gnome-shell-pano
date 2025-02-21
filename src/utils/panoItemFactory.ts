@@ -5,7 +5,6 @@ import GdkPixbuf from '@girs/gdkpixbuf-2.0';
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
-import { CodePanoItem } from '@pano/components/codePanoItem';
 import { ColorPanoItem } from '@pano/components/colorPanoItem';
 import { EmojiPanoItem } from '@pano/components/emojiPanoItem';
 import { FilePanoItem } from '@pano/components/filePanoItem';
@@ -26,89 +25,9 @@ import {
 } from '@pano/utils/shell';
 import { notify } from '@pano/utils/ui';
 import convert from 'hex-color-converter';
-import hljs from 'highlight.js/lib/core';
-import bash from 'highlight.js/lib/languages/bash';
-import c from 'highlight.js/lib/languages/c';
-import cpp from 'highlight.js/lib/languages/cpp';
-import csharp from 'highlight.js/lib/languages/csharp';
-import dart from 'highlight.js/lib/languages/dart';
-import go from 'highlight.js/lib/languages/go';
-import groovy from 'highlight.js/lib/languages/groovy';
-import haskell from 'highlight.js/lib/languages/haskell';
-import java from 'highlight.js/lib/languages/java';
-import javascript from 'highlight.js/lib/languages/javascript';
-import julia from 'highlight.js/lib/languages/julia';
-import kotlin from 'highlight.js/lib/languages/kotlin';
-import lua from 'highlight.js/lib/languages/lua';
-import markdown from 'highlight.js/lib/languages/markdown';
-import perl from 'highlight.js/lib/languages/perl';
-import php from 'highlight.js/lib/languages/php';
-import python from 'highlight.js/lib/languages/python';
-import ruby from 'highlight.js/lib/languages/ruby';
-import rust from 'highlight.js/lib/languages/rust';
-import scala from 'highlight.js/lib/languages/scala';
-import shell from 'highlight.js/lib/languages/shell';
-import sql from 'highlight.js/lib/languages/sql';
-import swift from 'highlight.js/lib/languages/swift';
-import typescript from 'highlight.js/lib/languages/typescript';
-import yaml from 'highlight.js/lib/languages/yaml';
 import isUrl from 'is-url';
 import prettyBytes from 'pretty-bytes';
 import { validateHTMLColorHex, validateHTMLColorName, validateHTMLColorRgb } from 'validate-color';
-
-hljs.registerLanguage('python', python);
-hljs.registerLanguage('markdown', markdown);
-hljs.registerLanguage('yaml', yaml);
-hljs.registerLanguage('java', java);
-hljs.registerLanguage('javascript', javascript);
-hljs.registerLanguage('csharp', csharp);
-hljs.registerLanguage('cpp', cpp);
-hljs.registerLanguage('c', c);
-hljs.registerLanguage('php', php);
-hljs.registerLanguage('typescript', typescript);
-hljs.registerLanguage('swift', swift);
-hljs.registerLanguage('kotlin', kotlin);
-hljs.registerLanguage('go', go);
-hljs.registerLanguage('rust', rust);
-hljs.registerLanguage('ruby', ruby);
-hljs.registerLanguage('scala', scala);
-hljs.registerLanguage('dart', dart);
-hljs.registerLanguage('lua', lua);
-hljs.registerLanguage('groovy', groovy);
-hljs.registerLanguage('perl', perl);
-hljs.registerLanguage('julia', julia);
-hljs.registerLanguage('haskell', haskell);
-hljs.registerLanguage('sql', sql);
-hljs.registerLanguage('bash', bash);
-hljs.registerLanguage('shell', shell);
-
-const SUPPORTED_LANGUAGES = [
-  'python',
-  'markdown',
-  'yaml',
-  'java',
-  'javascript',
-  'csharp',
-  'cpp',
-  'c',
-  'php',
-  'typescript',
-  'swift',
-  'kotlin',
-  'go',
-  'rust',
-  'ruby',
-  'scala',
-  'dart',
-  'sql',
-  'lua',
-  'groovy',
-  'perl',
-  'julia',
-  'haskell',
-  'bash',
-  'shell',
-];
 
 const debug = logger('pano-item-factory');
 
@@ -146,10 +65,7 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
   }
 
   if (result.length > 0) {
-    return db.update({
-      ...(result[0] as DBItem),
-      copyDate: new Date(),
-    });
+    return db.update({ ...(result[0] as DBItem), copyDate: new Date() });
   }
 
   switch (type) {
@@ -183,11 +99,7 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
         isFavorite: false,
         itemType: 'IMAGE',
         matchValue: checksum,
-        metaData: JSON.stringify({
-          width,
-          height,
-          size: value.length,
-        }),
+        metaData: JSON.stringify({ width, height, size: value.length }),
       });
     case ContentType.TEXT:
       const trimmedValue = value.trim();
@@ -252,37 +164,27 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
           searchValue: trimmedValue,
         });
       }
-      const highlightResult = hljs.highlightAuto(trimmedValue.slice(0, 2000), SUPPORTED_LANGUAGES);
-      if (highlightResult.relevance < 10) {
-        if (/^\p{Extended_Pictographic}*$/u.test(trimmedValue)) {
-          return db.save({
-            content: trimmedValue,
-            copyDate: new Date(),
-            isFavorite: false,
-            itemType: 'EMOJI',
-            matchValue: trimmedValue,
-            searchValue: trimmedValue,
-          });
-        } else {
-          return db.save({
-            content: value,
-            copyDate: new Date(),
-            isFavorite: false,
-            itemType: 'TEXT',
-            matchValue: value,
-            searchValue: value,
-          });
-        }
+
+      if (/^\p{Extended_Pictographic}*$/u.test(trimmedValue)) {
+        return db.save({
+          content: trimmedValue,
+          copyDate: new Date(),
+          isFavorite: false,
+          itemType: 'EMOJI',
+          matchValue: trimmedValue,
+          searchValue: trimmedValue,
+        });
       } else {
         return db.save({
           content: value,
           copyDate: new Date(),
           isFavorite: false,
-          itemType: 'CODE',
+          itemType: 'TEXT',
           matchValue: value,
           searchValue: value,
         });
       }
+
     default:
       return null;
   }
@@ -333,7 +235,7 @@ export const createPanoItemFromDb = (
       panoItem = new TextPanoItem(ext, clipboardManager, dbItem);
       break;
     case 'CODE':
-      panoItem = new CodePanoItem(ext, clipboardManager, dbItem);
+      panoItem = new TextPanoItem(ext, clipboardManager, dbItem);
       break;
     case 'LINK':
       panoItem = new LinkPanoItem(ext, clipboardManager, dbItem);
@@ -362,10 +264,7 @@ export const createPanoItemFromDb = (
 
   panoItem.connect('on-favorite', (_, dbItemStr: string) => {
     const dbItem: DBItem = JSON.parse(dbItemStr);
-    db.update({
-      ...dbItem,
-      copyDate: new Date(dbItem.copyDate),
-    });
+    db.update({ ...dbItem, copyDate: new Date(dbItem.copyDate) });
   });
 
   return panoItem;

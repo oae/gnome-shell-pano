@@ -39,7 +39,7 @@ msgstr ""
 msgid "Are you sure you want to clear history?"
 msgstr ""
 
-#: src/prefs/customization/codeItemStyle.ts:42
+#: src/prefs/customization/codeItemStyle.ts:47
 #: src/prefs/customization/emojiItemStyle.ts:42
 #: src/prefs/customization/fileItemStyle.ts:42
 #: src/prefs/customization/imageItemStyle.ts:41
@@ -48,7 +48,7 @@ msgstr ""
 msgid "Body Background Color"
 msgstr ""
 
-#: src/prefs/customization/codeItemStyle.ts:50
+#: src/prefs/customization/codeItemStyle.ts:55
 #: src/prefs/customization/colorItemStyle.ts:61
 #: src/prefs/customization/fileItemStyle.ts:55
 #: src/prefs/customization/textItemStyle.ts:55
@@ -68,8 +68,10 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: src/prefs/customization/codeItemStyle.ts:15
-msgid "Change the style of the code item"
+#: src/prefs/customization/codeItemStyle.ts:18
+msgid ""
+"Change the style of the code item\n"
+"Disabled for the extension that is shipped on EGO, see GitHub for more"
 msgstr ""
 
 #: src/prefs/customization/colorItemStyle.ts:15
@@ -96,7 +98,7 @@ msgstr ""
 msgid "Change the style of the text item"
 msgstr ""
 
-#: src/prefs/customization/codeItemStyle.ts:55
+#: src/prefs/customization/codeItemStyle.ts:60
 #: src/prefs/customization/textItemStyle.ts:60
 msgid "Character Length"
 msgstr ""
@@ -124,11 +126,11 @@ msgstr ""
 msgid "Code"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:413
+#: src/utils/panoItemFactory.ts:312
 msgid "Code Copied"
 msgstr ""
 
-#: src/prefs/customization/codeItemStyle.ts:15
+#: src/prefs/customization/codeItemStyle.ts:17
 msgid "Code Item Style"
 msgstr ""
 
@@ -136,7 +138,7 @@ msgstr ""
 msgid "Color"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:443
+#: src/utils/panoItemFactory.ts:342
 msgid "Color Copied"
 msgstr ""
 
@@ -168,7 +170,7 @@ msgstr ""
 msgid "Emoji"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:415
+#: src/utils/panoItemFactory.ts:314
 msgid "Emoji Copied"
 msgstr ""
 
@@ -192,7 +194,7 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:450
+#: src/utils/panoItemFactory.ts:349
 msgid "File %s"
 msgstr ""
 
@@ -212,7 +214,7 @@ msgstr ""
 msgid "Global Shortcut"
 msgstr ""
 
-#: src/prefs/customization/codeItemStyle.ts:22
+#: src/prefs/customization/codeItemStyle.ts:27
 #: src/prefs/customization/colorItemStyle.ts:22
 #: src/prefs/customization/emojiItemStyle.ts:22
 #: src/prefs/customization/fileItemStyle.ts:22
@@ -222,7 +224,7 @@ msgstr ""
 msgid "Header Background Color"
 msgstr ""
 
-#: src/prefs/customization/codeItemStyle.ts:32
+#: src/prefs/customization/codeItemStyle.ts:37
 #: src/prefs/customization/colorItemStyle.ts:32
 #: src/prefs/customization/emojiItemStyle.ts:32
 #: src/prefs/customization/fileItemStyle.ts:32
@@ -248,7 +250,7 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:406
+#: src/utils/panoItemFactory.ts:305
 msgid "Image Copied"
 msgstr ""
 
@@ -304,7 +306,7 @@ msgstr ""
 msgid "Link"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:423
+#: src/utils/panoItemFactory.ts:322
 msgid "Link Copied"
 msgstr ""
 
@@ -433,7 +435,7 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:411
+#: src/utils/panoItemFactory.ts:310
 msgid "Text Copied"
 msgstr ""
 
@@ -441,7 +443,7 @@ msgstr ""
 msgid "Text Item Style"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:451
+#: src/utils/panoItemFactory.ts:350
 msgid "There are %s file(s)"
 msgstr ""
 
@@ -465,7 +467,7 @@ msgstr ""
 msgid "When enabled, Pano will not track clipboard from excluded apps"
 msgstr ""
 
-#: src/utils/panoItemFactory.ts:407
+#: src/utils/panoItemFactory.ts:306
 msgid "Width: %spx, Height: %spx, Size: %s"
 msgstr ""
 
@@ -497,7 +499,7 @@ msgstr ""
 msgid "You can change the active item border color"
 msgstr ""
 
-#: src/prefs/customization/codeItemStyle.ts:43
+#: src/prefs/customization/codeItemStyle.ts:48
 #: src/prefs/customization/emojiItemStyle.ts:43
 #: src/prefs/customization/fileItemStyle.ts:43
 #: src/prefs/customization/imageItemStyle.ts:42
@@ -506,7 +508,7 @@ msgstr ""
 msgid "You can change the background color of the body"
 msgstr ""
 
-#: src/prefs/customization/codeItemStyle.ts:23
+#: src/prefs/customization/codeItemStyle.ts:28
 #: src/prefs/customization/colorItemStyle.ts:23
 #: src/prefs/customization/emojiItemStyle.ts:23
 #: src/prefs/customization/fileItemStyle.ts:23
@@ -522,7 +524,7 @@ msgstr ""
 msgid "You can change the background color of the metadata"
 msgstr ""
 
-#: src/prefs/customization/codeItemStyle.ts:56
+#: src/prefs/customization/codeItemStyle.ts:61
 #: src/prefs/customization/textItemStyle.ts:61
 msgid "You can change the character length of the visible text in the body"
 msgstr ""
@@ -535,7 +537,7 @@ msgstr ""
 msgid "You can change the emoji size"
 msgstr ""
 
-#: src/prefs/customization/codeItemStyle.ts:50
+#: src/prefs/customization/codeItemStyle.ts:55
 #: src/prefs/customization/fileItemStyle.ts:55
 #: src/prefs/customization/textItemStyle.ts:55
 msgid "You can change the font of the body"
@@ -595,7 +597,7 @@ msgstr ""
 msgid "You can change the text color of the body"
 msgstr ""
 
-#: src/prefs/customization/codeItemStyle.ts:33
+#: src/prefs/customization/codeItemStyle.ts:38
 #: src/prefs/customization/colorItemStyle.ts:33
 #: src/prefs/customization/emojiItemStyle.ts:33
 #: src/prefs/customization/fileItemStyle.ts:33
