@@ -1,12 +1,13 @@
-import Clutter from '@girs/clutter-15';
+import Clutter from '@girs/clutter-16';
 import Gio from '@girs/gio-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import Pango from '@girs/pango-1.0';
-import St from '@girs/st-15';
+import St from '@girs/st-16';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType, FileOperation } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
+import { orientationCompatibility } from '@pano/utils/shell_compatibility';
 
 @registerGObjectClass
 export class FilePanoItem extends PanoItem {
@@ -26,7 +27,7 @@ export class FilePanoItem extends PanoItem {
 
     const container = new St.BoxLayout({
       styleClass: 'copied-files-container',
-      vertical: true,
+      ...orientationCompatibility(true),
       xExpand: true,
       yExpand: false,
       yAlign: Clutter.ActorAlign.FILL,
@@ -39,7 +40,7 @@ export class FilePanoItem extends PanoItem {
       })
       .forEach((uri) => {
         const bl = new St.BoxLayout({
-          vertical: false,
+          ...orientationCompatibility(false),
           styleClass: 'copied-file-name',
           xExpand: true,
           xAlign: Clutter.ActorAlign.FILL,

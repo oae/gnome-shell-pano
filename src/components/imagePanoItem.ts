@@ -1,12 +1,13 @@
-import Clutter from '@girs/clutter-15';
+import Clutter from '@girs/clutter-16';
 import Gio from '@girs/gio-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
-import St from '@girs/st-15';
+import St from '@girs/st-16';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getImagesPath } from '@pano/utils/shell';
+import { orientationCompatibility } from '@pano/utils/shell_compatibility';
 import prettyBytes from 'pretty-bytes';
 
 const NO_IMAGE_FOUND_FILE_NAME = 'no-image-found.svg';
@@ -36,7 +37,7 @@ export class ImagePanoItem extends PanoItem {
 
     this.metaContainer = new St.BoxLayout({
       styleClass: 'pano-item-body-meta-container',
-      vertical: true,
+      ...orientationCompatibility(true),
       xExpand: true,
       yExpand: true,
       yAlign: Clutter.ActorAlign.END,
@@ -44,7 +45,7 @@ export class ImagePanoItem extends PanoItem {
     });
 
     const resolutionContainer = new St.BoxLayout({
-      vertical: false,
+      ...orientationCompatibility(false),
       xExpand: true,
       yAlign: Clutter.ActorAlign.FILL,
       xAlign: Clutter.ActorAlign.FILL,
@@ -67,7 +68,7 @@ export class ImagePanoItem extends PanoItem {
     resolutionContainer.add_child(this.resolutionValue);
 
     const sizeContainer = new St.BoxLayout({
-      vertical: false,
+      ...orientationCompatibility(false),
       xExpand: true,
       yAlign: Clutter.ActorAlign.FILL,
       xAlign: Clutter.ActorAlign.FILL,

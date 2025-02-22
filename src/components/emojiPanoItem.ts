@@ -1,12 +1,13 @@
-import Clutter from '@girs/clutter-15';
+import Clutter from '@girs/clutter-16';
 import Gio from '@girs/gio-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import Pango from '@girs/pango-1.0';
-import St from '@girs/st-15';
+import St from '@girs/st-16';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
+import { orientationCompatibility } from '@pano/utils/shell_compatibility';
 @registerGObjectClass
 export class EmojiPanoItem extends PanoItem {
   private emojiItemSettings: Gio.Settings;
@@ -20,7 +21,7 @@ export class EmojiPanoItem extends PanoItem {
     this.emojiItemSettings = this.settings.get_child('emoji-item');
 
     const emojiContainer = new St.BoxLayout({
-      vertical: false,
+      ...orientationCompatibility(false),
       xExpand: true,
       yExpand: true,
       yAlign: Clutter.ActorAlign.FILL,

@@ -1,13 +1,14 @@
-import Clutter from '@girs/clutter-15';
+import Clutter from '@girs/clutter-16';
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import GObject from '@girs/gobject-2.0';
-import Shell from '@girs/shell-15';
-import St from '@girs/st-15';
+import Shell from '@girs/shell-16';
+import St from '@girs/st-16';
 import { registerGObjectClass, SignalsDefinition } from '@pano/utils/gjs';
 import { ICON_PACKS, IPanoItemType } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
+import { orientationCompatibility } from '@pano/utils/shell_compatibility';
 import { Locale } from 'date-fns';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import * as dateLocale from 'date-fns/locale';
@@ -52,12 +53,12 @@ export class PanoItemHeader extends St.BoxLayout {
   constructor(ext: ExtensionBase, itemType: IPanoItemType, date: Date) {
     super({
       styleClass: `pano-item-header pano-item-header-${itemType.classSuffix}`,
-      vertical: false,
+      ...orientationCompatibility(false),
     });
     this.itemType = itemType;
     this.titleContainer = new St.BoxLayout({
       styleClass: 'pano-item-title-container',
-      vertical: true,
+      ...orientationCompatibility(true),
       xExpand: true,
     });
     this.iconContainer = new St.BoxLayout({

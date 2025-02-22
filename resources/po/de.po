@@ -31,11 +31,11 @@ msgstr "Inkognito-Modus"
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: src/components/linkPanoItem.ts:38
+#: src/components/linkPanoItem.ts:39
 msgid "No Description"
 msgstr "Keine Beschreibung"
 
-#: src/components/searchBox.ts:69
+#: src/components/searchBox.ts:70
 msgid "Type to search, Tab to cycle"
 msgstr "Tippen zum Suchen, Tab zum Wechseln"
 
@@ -619,6 +619,6 @@ msgstr "Code"
 msgid "Color"
 msgstr "Farbe"
 
-#: src/utils/ui.ts:27
+#: src/utils/ui.ts:28
 msgid "Pano"
 msgstr "Pano"

@@ -1,11 +1,11 @@
 import '@girs/gnome-shell/dist/extensions/global';
 
-import Clutter from '@girs/clutter-15';
+import Clutter from '@girs/clutter-16';
 import Gio from '@girs/gio-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import GObject from '@girs/gobject-2.0';
-import Shell from '@girs/shell-15';
-import St from '@girs/st-15';
+import Shell from '@girs/shell-16';
+import St from '@girs/st-16';
 import { PanoItem } from '@pano/components/panoItem';
 import { SearchBox } from '@pano/components/searchBox';
 import { ClipboardContent, ClipboardManager } from '@pano/utils/clipboardManager';
@@ -399,11 +399,11 @@ export class PanoScrollView extends St.ScrollView {
 
     this.currentFocus = items[0]!;
     this.currentFocus.grab_key_focus();
-    if (isVertical(this.settings.get_uint('window-position'))) {
-      this.vscroll.adjustment.set_value(this.get_allocation_box().y1);
-    } else {
-      this.hscroll.adjustment.set_value(this.get_allocation_box().x1);
-    }
+    const isVerticalScrollView = isVertical(this.settings.get_uint('window-position'));
+
+    getScrollViewAdjustment(this, isVerticalScrollView).set_value(
+      isVerticalScrollView ? this.get_allocation_box().y1 : this.get_allocation_box().x1,
+    );
   }
 
   beforeHide() {
@@ -472,13 +472,11 @@ export class PanoScrollView extends St.ScrollView {
   }
 
   override vfunc_scroll_event(event: Clutter.Event): boolean {
-    let adjustment: St.Adjustment | undefined;
+    const adjustment: St.Adjustment = getScrollViewAdjustment(
+      this,
+      isVertical(this.settings.get_uint('window-position')),
+    );
 
-    if (isVertical(this.settings.get_uint('window-position'))) {
-      adjustment = this.vscroll.adjustment;
-    } else {
-      adjustment = this.hscroll.adjustment;
-    }
     let value = adjustment.value;
 
     if (event.get_scroll_direction() === Clutter.ScrollDirection.SMOOTH) {

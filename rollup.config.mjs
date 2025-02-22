@@ -9,29 +9,21 @@ const buildPath = 'dist';
 
 const importsGeneral = {
   // CORE Gnome dependencies
-  'gi://Gdk?version=4.0': { name: 'gi://Gdk' },
   'gi://Gio?version=2.0': { name: 'gi://Gio' },
   'gi://GdkPixbuf?version=2.0': { name: 'gi://GdkPixbuf' },
   'gi://Graphene?version=1.0': { name: 'gi://Graphene' },
   'gi://Pango?version=1.0': { name: 'gi://Pango' },
   'gi://Soup?version=3.0': { name: 'gi://Soup' },
-  'gi://Meta?version=15': { name: 'gi://Meta' },
-  'gi://Clutter?version=15': { name: 'gi://Clutter' },
-  'gi://Cogl?version=15': { name: 'gi://Cogl' },
-  'gi://Shell?version=15': { name: 'gi://Shell' },
-  'gi://St?version=15': { name: 'gi://St' },
+  'gi://St?version=16': { name: 'gi://St' },
 
   // non core dependencies (can have version specifier!)
   'gi://Gda?version=5.0': { name: 'gi://Gda?version>=5.0' }, // We officially support (it's also typed!) both 5.0 and 6.0
   'gi://GSound?version=1.0': { name: 'gi://GSound' },
   'gi://GObject?version=2.0': { name: 'gi://GObject' },
   'gi://GLib?version=2.0': { name: 'gi://GLib' },
-  'gi://Gtk?version=4.0': { name: 'gi://Gtk' },
-  'gi://Adw?version=1': { name: 'gi://Adw' },
 
   // extension.js + prefs.js resources
   '@girs/gnome-shell/dist/misc/animationUtils': { name: 'resource://EXT_ROOT/misc/animationUtils.js' },
-  '@girs/gnome-shell/dist/extensions/extension': { name: 'resource://EXT_ROOT/extensions/extension.js' },
   '@girs/gnome-shell/dist/ui/layout': { name: 'resource://EXT_ROOT/ui/layout.js' },
   '@girs/gnome-shell/dist/ui/main': { name: 'resource://EXT_ROOT/ui/main.js' },
   '@girs/gnome-shell/dist/ui/messageTray': { name: 'resource://EXT_ROOT/ui/messageTray.js' },
@@ -41,24 +33,42 @@ const importsGeneral = {
   '@girs/gnome-shell/dist/ui/popupMenu': { name: 'resource://EXT_ROOT/ui/popupMenu.js' },
   '@girs/gnome-shell/dist/ui/panelMenu': { name: 'resource://EXT_ROOT/ui/panelMenu.js' },
   '@girs/gnome-shell/dist/misc/config': { name: 'resource://EXT_ROOT/misc/config.js' },
-  //compatibility imports
-  '@girs/gnome-shell-45/dist/ui/messageTray': { name: 'resource://EXT_ROOT/ui/messageTray.js' },
+};
+
+//  extension.js specific resources
+const importsExtension = {
+  ...importsGeneral,
+
+  // only allowed in extension.js
+  'gi://Meta?version=16': { name: 'gi://Meta' },
+  'gi://Clutter?version=16': { name: 'gi://Clutter' },
+  'gi://Cogl?version=16': { name: 'gi://Cogl' },
+  'gi://Shell?version=16': { name: 'gi://Shell' },
+
+  // special extension resources
+  '@girs/gnome-shell/dist/extensions/extension': { name: 'resource://EXT_ROOT/extensions/extension.js' },
 };
 
 // prefs.js specific resources
 const importsPrefs = {
   ...importsGeneral,
+  // only allowed in prefs.js
+  'gi://Gdk?version=4.0': { name: 'gi://Gdk' },
+  'gi://Gtk?version=4.0': { name: 'gi://Gtk' },
+  'gi://Adw?version=1': { name: 'gi://Adw' },
+
+  // special preference resources
   '@girs/gnome-shell/dist/extensions/prefs': { name: 'resource://EXT_ROOT/extensions/prefs.js' },
   '@custom_types/gnome-shell/dist/extensions/prefs': { name: 'resource://EXT_ROOT/extensions/prefs.js' },
 };
 
-const ExtensionEntries = Object.fromEntries(
-  Object.entries(importsGeneral).map(([name, { name: mapping }]) => {
+const extensionEntries = Object.fromEntries(
+  Object.entries(importsExtension).map(([name, { name: mapping }]) => {
     return [name, mapping.replaceAll(/EXT_ROOT/g, '/org/gnome/shell')];
   }),
 );
 
-const PreferencesEntries = Object.fromEntries(
+const preferencesEntries = Object.fromEntries(
   Object.entries(importsPrefs).map(([name, { name: mapping }]) => {
     return [name, mapping.replaceAll(/EXT_ROOT/g, '/org/gnome/Shell/Extensions/js')];
   }),
@@ -103,15 +113,23 @@ const thirdParty = [
 
 const gnomeShellExternalModules = [/^resource:\/\/\/org\/gnome\/(shell|Shell\/Extensions)\/.*/];
 
-const gjsModules = [...Object.keys(importsGeneral), ...Object.keys(importsPrefs), ...gnomeShellExternalModules];
+const extensionModules = [
+  ...Object.keys(importsGeneral),
+  ...Object.keys(importsExtension),
+  ...gnomeShellExternalModules,
+];
+
+const preferenceModules = [...Object.keys(importsGeneral), ...Object.keys(importsPrefs)];
+
+const testModules = [...Object.keys(importsGeneral), ...Object.keys(importsPrefs)];
 
 const globalDefinitionImports = ['@girs/gnome-shell/dist/extensions/global'];
 
-const GlobalEntries = {};
+const globalEntries = {};
 
 const thirdPartyBuild = thirdParty.map((pkg) => {
   const sanitizedPkg = pkg.split('/').join('_').replaceAll('-', '_').replaceAll('.', '_').replaceAll('@', '');
-  GlobalEntries[pkg] = `./thirdparty/${sanitizedPkg}.js`;
+  globalEntries[pkg] = `./thirdparty/${sanitizedPkg}.js`;
 
   return {
     input: `node_modules/${pkg}`,
@@ -147,13 +165,13 @@ const testBuilds = testFiles.map((file) => {
       file: `build/tests/${file}.js`,
       format: 'esm',
       name: 'init',
-      paths: { ...ExtensionEntries, ...GlobalEntries },
+      paths: { ...extensionEntries, ...globalEntries },
       assetFileNames: '[name][extname]',
       generatedCode: {
         constBindings: true,
       },
     },
-    external: [...gjsModules, ...globalDefinitionImports],
+    external: [...testModules, ...globalDefinitionImports],
     plugins: [
       commonjs(),
       nodeResolve({
@@ -181,13 +199,13 @@ const builds = [
       format: 'esm',
       name: 'init',
       exports: 'default',
-      paths: { ...ExtensionEntries, ...GlobalEntries },
+      paths: { ...extensionEntries, ...globalEntries },
       assetFileNames: '[name][extname]',
       generatedCode: {
         constBindings: true,
       },
     },
-    external: [...thirdParty, ...gjsModules, ...globalDefinitionImports],
+    external: [...thirdParty, ...extensionModules, ...globalDefinitionImports],
     plugins: [
       commonjs(),
       nodeResolve({
@@ -223,7 +241,7 @@ const builds = [
       format: 'esm',
       exports: 'default',
       name: 'prefs',
-      paths: { ...PreferencesEntries, ...GlobalEntries },
+      paths: { ...preferencesEntries, ...globalEntries },
       generatedCode: {
         constBindings: true,
       },
@@ -231,7 +249,7 @@ const builds = [
     treeshake: {
       moduleSideEffects: 'no-external',
     },
-    external: [...thirdParty, ...gjsModules],
+    external: [...thirdParty, ...preferenceModules],
     plugins: [
       commonjs(),
       nodeResolve({

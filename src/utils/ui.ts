@@ -1,5 +1,5 @@
-import Clutter from '@girs/clutter-15';
-import Cogl from '@girs/cogl-15';
+import Clutter from '@girs/clutter-16';
+import Cogl from '@girs/cogl-16';
 import GdkPixbuf from '@girs/gdkpixbuf-2.0';
 import Gio from '@girs/gio-2.0';
 import type { Extension } from '@girs/gnome-shell/dist/extensions/extension';
@@ -8,11 +8,12 @@ import * as animationUtils from '@girs/gnome-shell/dist/misc/animationUtils';
 import { Monitor, MonitorConstraint } from '@girs/gnome-shell/dist/ui/layout';
 import * as main from '@girs/gnome-shell/dist/ui/main';
 import type { Notification, Source as MessageTraySource } from '@girs/gnome-shell/dist/ui/messageTray';
-import Shell from '@girs/shell-15';
-import St from '@girs/st-15';
+import Shell from '@girs/shell-16';
+import St from '@girs/st-16';
 import { gettext } from '@pano/utils/shell';
 
 import { addNotification, newMessageTraySource, newNotification } from './compatibility';
+import { setBytesCompat } from './shell_compatibility';
 
 const global = Shell.Global.get();
 
@@ -33,7 +34,8 @@ export const notify = (
         iconOrPixbuf.width,
         iconOrPixbuf.height,
       ) as St.ImageContent;
-      content.set_bytes(
+      setBytesCompat(
+        content,
         iconOrPixbuf.read_pixel_bytes(),
         pixelFormat || Cogl.PixelFormat.RGBA_8888,
         iconOrPixbuf.width,

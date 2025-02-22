@@ -95,7 +95,8 @@ Since Gnome 45 we had to break compatibility with previous Gnome versions, these
 - Gnome Shell 45
 - Gnome Shell 46
 - Gnome Shell 47
-
+- Gnome Shell 48
+- 
 ## Installation
 
 - You need `libgda` and `gsound` for this extension to work.

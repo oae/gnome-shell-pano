@@ -1,13 +1,14 @@
-import Clutter from '@girs/clutter-15';
+import Clutter from '@girs/clutter-16';
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
-import St from '@girs/st-15';
+import St from '@girs/st-16';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/clipboardManager';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCachePath, gettext, openLinkInBrowser } from '@pano/utils/shell';
+import { orientationCompatibility } from '@pano/utils/shell_compatibility';
 
 const DEFAULT_LINK_PREVIEW_IMAGE_NAME = 'link-preview.svg';
 
@@ -44,7 +45,7 @@ export class LinkPanoItem extends PanoItem {
 
     this.metaContainer = new St.BoxLayout({
       styleClass: 'pano-item-body-meta-container',
-      vertical: true,
+      ...orientationCompatibility(true),
       xExpand: true,
       yExpand: false,
       yAlign: Clutter.ActorAlign.END,
@@ -73,7 +74,7 @@ export class LinkPanoItem extends PanoItem {
     }
 
     const imageContainer = new St.BoxLayout({
-      vertical: true,
+      ...orientationCompatibility(true),
       xExpand: true,
       yExpand: true,
       yAlign: Clutter.ActorAlign.FILL,

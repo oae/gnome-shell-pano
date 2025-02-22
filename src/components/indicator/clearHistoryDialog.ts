@@ -1,8 +1,8 @@
-import Clutter from '@girs/clutter-15';
+import Clutter from '@girs/clutter-16';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import { MessageDialogContent } from '@girs/gnome-shell/dist/ui/dialog';
 import { ModalDialog } from '@girs/gnome-shell/dist/ui/modalDialog';
-import type St from '@girs/st-15';
+import type St from '@girs/st-16';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { gettext, logger } from '@pano/utils/shell';
 const debug = logger('clear-history-dialog');

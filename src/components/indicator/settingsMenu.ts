@@ -1,4 +1,4 @@
-import Clutter from '@girs/clutter-15';
+import Clutter from '@girs/clutter-16';
 import Gio from '@girs/gio-2.0';
 import type { Extension } from '@girs/gnome-shell/dist/extensions/extension';
 import { Button as PanelMenuButton } from '@girs/gnome-shell/dist/ui/panelMenu';
@@ -9,7 +9,7 @@ import {
   PopupSwitchMenuItem,
 } from '@girs/gnome-shell/dist/ui/popupMenu';
 import GObject from '@girs/gobject-2.0';
-import St from '@girs/st-15';
+import St from '@girs/st-16';
 import { ClearHistoryDialog } from '@pano/components/indicator/clearHistoryDialog';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { ICON_PACKS } from '@pano/utils/panoItemType';

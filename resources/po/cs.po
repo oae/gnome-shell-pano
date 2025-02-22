@@ -31,11 +31,11 @@ msgstr "Anonymní režim"
 msgid "Settings"
 msgstr "Nastavení"
 
-#: src/components/linkPanoItem.ts:38
+#: src/components/linkPanoItem.ts:39
 msgid "No Description"
 msgstr "Bez popisu"
 
-#: src/components/searchBox.ts:69
+#: src/components/searchBox.ts:70
 msgid "Type to search, Tab to cycle"
 msgstr "Pište pro vyhledávání, Tab pro cyklování mezi kategoriemi"
 
@@ -619,6 +619,6 @@ msgstr "Kód"
 msgid "Color"
 msgstr "Barva"
 
-#: src/utils/ui.ts:27
+#: src/utils/ui.ts:28
 msgid "Pano"
 msgstr "Pano"

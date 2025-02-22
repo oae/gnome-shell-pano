@@ -31,11 +31,11 @@ msgstr "隐身模式"
 msgid "Settings"
 msgstr "设置"
 
-#: src/components/linkPanoItem.ts:38
+#: src/components/linkPanoItem.ts:39
 msgid "No Description"
 msgstr "无详情"
 
-#: src/components/searchBox.ts:69
+#: src/components/searchBox.ts:70
 msgid "Type to search, Tab to cycle"
 msgstr "输入即搜索，Tab键循环"
 
@@ -619,6 +619,6 @@ msgstr "代码"
 msgid "Color"
 msgstr "颜色"
 
-#: src/utils/ui.ts:27
+#: src/utils/ui.ts:28
 msgid "Pano"
 msgstr "Pano"
