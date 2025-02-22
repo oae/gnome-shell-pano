@@ -31,11 +31,11 @@ msgstr "Gizli Mod"
 msgid "Settings"
 msgstr "Ayarlar"
 
-#: src/components/linkPanoItem.ts:38
+#: src/components/linkPanoItem.ts:39
 msgid "No Description"
 msgstr "Açıklama Yok"
 
-#: src/components/searchBox.ts:69
+#: src/components/searchBox.ts:70
 msgid "Type to search, Tab to cycle"
 msgstr "Aramak için yazın, gezinmek için Tab'a basın"
 
@@ -619,6 +619,6 @@ msgstr "Kod"
 msgid "Color"
 msgstr "Renk"
 
-#: src/utils/ui.ts:27
+#: src/utils/ui.ts:28
 msgid "Pano"
 msgstr "Pano"

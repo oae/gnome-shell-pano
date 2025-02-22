@@ -31,11 +31,11 @@ msgstr "Режим інкогніто"
 msgid "Settings"
 msgstr "Параметри"
 
-#: src/components/linkPanoItem.ts:38
+#: src/components/linkPanoItem.ts:39
 msgid "No Description"
 msgstr "Без опису"
 
-#: src/components/searchBox.ts:69
+#: src/components/searchBox.ts:70
 msgid "Type to search, Tab to cycle"
 msgstr "Введіть для пошуку, Tab для перемикання"
 
@@ -619,6 +619,6 @@ msgstr "Код"
 msgid "Color"
 msgstr "Колір"
 
-#: src/utils/ui.ts:27
+#: src/utils/ui.ts:28
 msgid "Pano"
 msgstr "Pano"

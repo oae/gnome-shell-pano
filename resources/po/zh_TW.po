@@ -31,11 +31,11 @@ msgstr "無痕模式"
 msgid "Settings"
 msgstr "設定"
 
-#: src/components/linkPanoItem.ts:38
+#: src/components/linkPanoItem.ts:39
 msgid "No Description"
 msgstr "無說明"
 
-#: src/components/searchBox.ts:69
+#: src/components/searchBox.ts:70
 msgid "Type to search, Tab to cycle"
 msgstr "輸入以搜尋，按 Tab 循環"
 
@@ -619,6 +619,6 @@ msgstr "程式碼"
 msgid "Color"
 msgstr "顏色"
 
-#: src/utils/ui.ts:27
+#: src/utils/ui.ts:28
 msgid "Pano"
 msgstr "Pano"
