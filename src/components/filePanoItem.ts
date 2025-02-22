@@ -10,6 +10,7 @@ import { getItemBackgroundColor } from '@pano/utils/color';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { gettext } from '@pano/utils/shell';
+import { orientationCompatibility, setOrientationCompatibility } from '@pano/utils/shell_compatibility';
 import { isVisible } from '@pano/utils/ui';
 
 enum PreviewType {
@@ -41,7 +42,7 @@ export class FilePanoItem extends PanoItem {
 
     this.titleContainer = new St.BoxLayout({
       styleClass: 'title-container',
-      vertical: false,
+      ...orientationCompatibility(false),
       xExpand: true,
       yExpand: false,
       yAlign: Clutter.ActorAlign.FILL,
@@ -194,7 +195,7 @@ export class FilePanoItem extends PanoItem {
       label.text = `${commonDirectory.replace(homeDir, '~')}`;
 
       const labelContainer = new St.BoxLayout({
-        vertical: true,
+        ...orientationCompatibility(true),
         xExpand: true,
         yExpand: false,
         xAlign: Clutter.ActorAlign.FILL,
@@ -215,7 +216,7 @@ export class FilePanoItem extends PanoItem {
       this.preview = new St.BoxLayout({
         styleClass: 'copied-file-preview copied-file-preview-files',
         clipToAllocation: true,
-        vertical: true,
+        ...orientationCompatibility(true),
         xExpand: true,
         yExpand: false,
         yAlign: Clutter.ActorAlign.FILL,
@@ -280,7 +281,7 @@ export class FilePanoItem extends PanoItem {
     this.titleContainer.set_style(
       `color: ${titleColor}; font-family: ${titleFontFamily}; font-size: ${titleFontSize}px;`,
     );
-    this.titleContainer.vertical = this.preview === null && !compactMode;
+    setOrientationCompatibility(this.titleContainer, this.preview === null && !compactMode);
 
     // Switch title and icon
     if (compactMode !== (this.titleContainer.firstChild !== this.icon)) {
@@ -313,13 +314,7 @@ export class FilePanoItem extends PanoItem {
       const text = FilePanoItem.getFileContents(file);
 
       if (text !== null) {
-        this.clipboardManager.setContent(
-          new ClipboardContent({
-            type: ContentType.TEXT,
-            value: text,
-          }),
-          false,
-        );
+        this.clipboardManager.setContent(new ClipboardContent({ type: ContentType.TEXT, value: text }), false);
         return;
       }
 
@@ -327,10 +322,7 @@ export class FilePanoItem extends PanoItem {
     }
 
     this.clipboardManager.setContent(
-      new ClipboardContent({
-        type: ContentType.FILE,
-        value: { fileList: this.fileList, operation: this.operation },
-      }),
+      new ClipboardContent({ type: ContentType.FILE, value: { fileList: this.fileList, operation: this.operation } }),
     );
   }
 

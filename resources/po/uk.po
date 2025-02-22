@@ -31,7 +31,7 @@ msgstr "Режим інкогніто"
 msgid "Settings"
 msgstr "Параметри"
 
-#: src/components/filePanoItem.ts:206
+#: src/components/filePanoItem.ts:207
 msgid "items"
 msgstr ""
 

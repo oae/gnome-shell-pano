@@ -3,6 +3,7 @@ import GObject from '@girs/gobject-2.0';
 import St from '@girs/st-16';
 import { isDark } from '@pano/utils/color';
 import { registerGObjectClass, SignalsDefinition } from '@pano/utils/gjs';
+import { orientationCompatibility } from '@pano/utils/shell_compatibility';
 
 export type PanoItemOverlaySignalType = 'on-remove' | 'on-favorite';
 interface PanoItemOverlaySignals extends SignalsDefinition<PanoItemOverlaySignalType> {
@@ -26,7 +27,7 @@ export class PanoItemOverlay extends St.BoxLayout {
   constructor() {
     super({
       styleClass: 'pano-item-overlay',
-      vertical: false,
+      ...orientationCompatibility(false),
       yAlign: Clutter.ActorAlign.FILL,
       xAlign: Clutter.ActorAlign.FILL,
       xExpand: true,

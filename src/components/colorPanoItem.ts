@@ -7,7 +7,7 @@ import { ClipboardContent, ClipboardManager, ContentType } from '@pano/utils/cli
 import { getItemBackgroundColor, isDark } from '@pano/utils/color';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
-import { orientationCompatibility } from '@pano/utils/shell_compatibility';
+import { orientationCompatibility, setOrientationCompatibility } from '@pano/utils/shell_compatibility';
 import colorString from 'color-string';
 
 @registerGObjectClass
@@ -70,11 +70,7 @@ export class ColorPanoItem extends PanoItem {
   }
 
   private setCompactMode() {
-    if (this.settings.get_boolean('compact-mode')) {
-      this.colorContainer.vertical = false;
-    } else {
-      this.colorContainer.vertical = true;
-    }
+    setOrientationCompatibility(this.colorContainer, !this.settings.get_boolean('compact-mode'));
   }
 
   private setStyle() {

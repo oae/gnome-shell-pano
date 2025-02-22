@@ -14,6 +14,7 @@ import { ClipboardQueryBuilder, db, ItemType } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { createPanoItem, createPanoItemFromDb, removeItemResources } from '@pano/utils/panoItemFactory';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
+import { orientationCompatibility, setOrientationCompatibility } from '@pano/utils/shell_compatibility';
 import { isVertical } from '@pano/utils/ui';
 
 export type PanoScrollViewSignalType =
@@ -43,15 +44,9 @@ export class PanoScrollView extends St.ScrollView {
       'scroll-focus-out': {},
       'scroll-update-list': {},
       'scroll-alt-press': {},
-      'scroll-tab-press': {
-        param_types: [GObject.TYPE_BOOLEAN],
-        accumulator: 0,
-      },
+      'scroll-tab-press': { param_types: [GObject.TYPE_BOOLEAN], accumulator: 0 },
       'scroll-backspace-press': {},
-      'scroll-key-press': {
-        param_types: [GObject.TYPE_STRING],
-        accumulator: 0,
-      },
+      'scroll-key-press': { param_types: [GObject.TYPE_STRING], accumulator: 0 },
     },
   };
 
@@ -67,11 +62,7 @@ export class PanoScrollView extends St.ScrollView {
   private clipboardManager: ClipboardManager;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, searchBox: SearchBox) {
-    super({
-      overlayScrollbars: true,
-      xExpand: true,
-      yExpand: true,
-    });
+    super({ overlayScrollbars: true, xExpand: true, yExpand: true });
     this.ext = ext;
     this.clipboardManager = clipboardManager;
     this.searchBox = searchBox;
@@ -80,14 +71,14 @@ export class PanoScrollView extends St.ScrollView {
     this.setScrollbarPolicy();
 
     this.list = new St.BoxLayout({
-      vertical: isVertical(this.settings.get_uint('window-position')),
+      ...orientationCompatibility(isVertical(this.settings.get_uint('window-position'))),
       xExpand: true,
       yExpand: true,
     });
 
     this.settings.connect('changed::window-position', () => {
       this.setScrollbarPolicy();
-      this.list.set_vertical(isVertical(this.settings.get_uint('window-position')));
+      setOrientationCompatibility(this.list, isVertical(this.settings.get_uint('window-position')));
     });
     scrollViewAddChild(this, this.list);
 
@@ -449,10 +440,7 @@ export class PanoScrollView extends St.ScrollView {
       return;
     }
 
-    adjustment.ease(value, {
-      duration: 150,
-      mode: Clutter.AnimationMode.EASE_OUT_QUAD,
-    });
+    adjustment.ease(value, { duration: 150, mode: Clutter.AnimationMode.EASE_OUT_QUAD });
   }
 
   selectFirstItem() {
@@ -516,10 +504,7 @@ export class PanoScrollView extends St.ScrollView {
 
     adjustment.remove_transition('value');
 
-    adjustment.ease(value, {
-      duration: 150,
-      mode: Clutter.AnimationMode.EASE_OUT_QUAD,
-    });
+    adjustment.ease(value, { duration: 150, mode: Clutter.AnimationMode.EASE_OUT_QUAD });
 
     return Clutter.EVENT_STOP;
   }

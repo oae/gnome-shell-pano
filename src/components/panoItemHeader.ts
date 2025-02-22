@@ -7,6 +7,7 @@ import St from '@girs/st-16';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { ICON_PACKS, IPanoItemType } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
+import { orientationCompatibility } from '@pano/utils/shell_compatibility';
 import { getHeaderHeight, HEADER_STYLES } from '@pano/utils/ui';
 import { Locale } from 'date-fns';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
@@ -36,7 +37,7 @@ export class PanoItemHeader extends St.BoxLayout {
   constructor(ext: ExtensionBase, itemType: IPanoItemType, date: Date) {
     super({
       styleClass: 'pano-item-header',
-      vertical: false,
+      ...orientationCompatibility(false),
     });
 
     this.settings = getCurrentExtensionSettings(ext);
@@ -64,7 +65,7 @@ export class PanoItemHeader extends St.BoxLayout {
 
     this.titleContainer = new St.BoxLayout({
       styleClass: 'pano-item-title-container',
-      vertical: true,
+      ...orientationCompatibility(true),
       xExpand: true,
       xAlign: Clutter.ActorAlign.FILL,
       yAlign: Clutter.ActorAlign.CENTER,

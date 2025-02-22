@@ -9,7 +9,7 @@ import { getItemBackgroundColor } from '@pano/utils/color';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCachePath, gettext, openLinkInBrowser } from '@pano/utils/shell';
-import { orientationCompatibility } from '@pano/utils/shell_compatibility';
+import { orientationCompatibility, setOrientationCompatibility } from '@pano/utils/shell_compatibility';
 import { isVisible } from '@pano/utils/ui';
 
 const DEFAULT_LINK_PREVIEW_IMAGE_NAME = 'link-preview.svg';
@@ -50,7 +50,7 @@ export class LinkPanoItem extends PanoItem {
     }
 
     this.imageContainer = new St.BoxLayout({
-      vertical: true,
+      ...orientationCompatibility(true),
       xExpand: true,
       yExpand: true,
       yAlign: Clutter.ActorAlign.FILL,
@@ -73,10 +73,7 @@ export class LinkPanoItem extends PanoItem {
     this.descriptionLabel = new St.Label({ text: descriptionText, styleClass: 'link-description-label' });
     this.descriptionLabel.clutterText.singleLineMode = true;
 
-    this.linkLabel = new St.Label({
-      text: this.dbItem.content,
-      styleClass: 'link-label',
-    });
+    this.linkLabel = new St.Label({ text: this.dbItem.content, styleClass: 'link-label' });
     this.metaContainer.add_child(this.titleLabel);
     this.metaContainer.add_child(this.descriptionLabel);
     this.metaContainer.add_child(this.linkLabel);
@@ -92,10 +89,7 @@ export class LinkPanoItem extends PanoItem {
     });
     this.settings.connect('changed::header-style', this.setCompactMode.bind(this));
 
-    const openLinkIcon = new St.Icon({
-      iconName: 'web-browser-symbolic',
-      styleClass: 'pano-item-action-button-icon',
-    });
+    const openLinkIcon = new St.Icon({ iconName: 'web-browser-symbolic', styleClass: 'pano-item-action-button-icon' });
 
     const openLinkButton = new St.Button({
       styleClass: 'pano-item-action-button pano-item-open-link-button',
@@ -134,11 +128,11 @@ export class LinkPanoItem extends PanoItem {
 
   private setCompactMode() {
     if (this.settings.get_boolean('compact-mode')) {
-      this.body.vertical = false;
+      setOrientationCompatibility(this.body, false);
       this.imageContainer.width = this.settings.get_int('item-width') * 0.3;
       this.metaContainer.yAlign = Clutter.ActorAlign.CENTER;
     } else {
-      this.body.vertical = true;
+      setOrientationCompatibility(this.body, true);
       this.imageContainer.width = -1;
       this.metaContainer.yAlign = Clutter.ActorAlign.END;
     }

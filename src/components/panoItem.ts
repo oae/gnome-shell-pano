@@ -119,7 +119,7 @@ export class PanoItem extends St.Widget {
     this.container = new St.BoxLayout({
       styleClass: 'pano-item-container',
       clipToAllocation: true,
-      vertical: true,
+      ...orientationCompatibility(true),
       xAlign: Clutter.ActorAlign.FILL,
       yAlign: Clutter.ActorAlign.FILL,
       xExpand: true,

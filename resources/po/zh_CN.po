@@ -31,7 +31,7 @@ msgstr "隐身模式"
 msgid "Settings"
 msgstr "设置"
 
-#: src/components/filePanoItem.ts:206
+#: src/components/filePanoItem.ts:207
 msgid "items"
 msgstr ""
 
