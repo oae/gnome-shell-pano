@@ -1,0 +1,44 @@
+name: Release CI
+
+on:
+  release:
+    types: published
+
+env:
+  node-version: 22.x
+
+jobs:
+  release:
+    name: Release CI
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ env.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.node-version }}
+
+      - name: Install dependencies
+        run: yarn install -D
+
+      - name: Validate Formatting
+        run: yarn run prettier:check
+
+      - name: Validate Locale
+        run: yarn run check:locale
+
+      - name: Lint Extension
+        run: yarn run lint
+
+      - name: Build an Package Extension
+        run: |
+          yarn run build:package
+          mv dist/pano@elhan.io.zip .
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: pano@elhan.io.zip
