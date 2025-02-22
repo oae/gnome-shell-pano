@@ -12,7 +12,8 @@ import Shell from '@girs/shell-16';
 import St from '@girs/st-16';
 import { gettext } from '@pano/utils/shell';
 
-import { addNotification, newMessageTraySource, newNotification, setBytesCompat } from './compatibility';
+import { addNotification, newMessageTraySource, newNotification } from './compatibility';
+import { setBytesCompat } from './shell_compatibility';
 
 const global = Shell.Global.get();
 

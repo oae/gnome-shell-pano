@@ -5,10 +5,10 @@ import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInte
 import GObject from '@girs/gobject-2.0';
 import Shell from '@girs/shell-16';
 import St from '@girs/st-16';
-import { orientationCompatibility } from '@pano/utils/compatibility';
 import { registerGObjectClass, SignalsDefinition } from '@pano/utils/gjs';
 import { ICON_PACKS, IPanoItemType } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
+import { orientationCompatibility } from '@pano/utils/shell_compatibility';
 import { Locale } from 'date-fns';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import * as dateLocale from 'date-fns/locale';

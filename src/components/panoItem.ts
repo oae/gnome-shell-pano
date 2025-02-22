@@ -9,11 +9,11 @@ import Shell from '@girs/shell-16';
 import St from '@girs/st-16';
 import { PanoItemHeader } from '@pano/components/panoItemHeader';
 import { ClipboardManager } from '@pano/utils/clipboardManager';
-import { orientationCompatibility } from '@pano/utils/compatibility';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { getPanoItemTypes } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
+import { orientationCompatibility } from '@pano/utils/shell_compatibility';
 import { getVirtualKeyboard, WINDOW_POSITIONS } from '@pano/utils/ui';
 
 export type PanoItemSignalType = 'on-remove' | 'on-favorite' | 'activated';

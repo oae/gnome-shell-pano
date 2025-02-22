@@ -23,7 +23,7 @@ import {
 } from '@pano/utils/shell';
 import { addTopChrome, removeChrome, removeVirtualKeyboard } from '@pano/utils/ui';
 
-import { setUnidirectForDisplay } from './utils/compatibility';
+import { setUnidirectForDisplay } from './utils/shell_compatibility';
 
 const debug = logger('extension');
 

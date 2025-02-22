@@ -5,9 +5,9 @@ import Pango from '@girs/pango-1.0';
 import St from '@girs/st-16';
 import { PanoItem } from '@pano/components/panoItem';
 import { ClipboardContent, ClipboardManager, ContentType, FileOperation } from '@pano/utils/clipboardManager';
-import { orientationCompatibility } from '@pano/utils/compatibility';
 import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
+import { orientationCompatibility } from '@pano/utils/shell_compatibility';
 
 @registerGObjectClass
 export class FilePanoItem extends PanoItem {
