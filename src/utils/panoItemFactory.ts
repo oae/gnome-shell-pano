@@ -25,7 +25,8 @@ import {
   playAudio,
 } from '@pano/utils/shell';
 import { notify } from '@pano/utils/ui';
-import convert from 'hex-color-converter';
+import colorString from 'color-string';
+import Graphemer from 'graphemer';
 import hljs from 'highlight.js/lib/core';
 import bash from 'highlight.js/lib/languages/bash';
 import c from 'highlight.js/lib/languages/c';
@@ -54,7 +55,6 @@ import typescript from 'highlight.js/lib/languages/typescript';
 import yaml from 'highlight.js/lib/languages/yaml';
 import isUrl from 'is-url';
 import prettyBytes from 'pretty-bytes';
-import { validateHTMLColorHex, validateHTMLColorName, validateHTMLColorRgb } from 'validate-color';
 
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('markdown', markdown);
@@ -238,11 +238,7 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
 
         return linkDbItem;
       }
-      if (
-        validateHTMLColorHex(trimmedValue) ||
-        validateHTMLColorRgb(trimmedValue) ||
-        validateHTMLColorName(trimmedValue)
-      ) {
+      if (colorString.get.rgb(trimmedValue) !== null) {
         return db.save({
           content: trimmedValue,
           copyDate: new Date(),
@@ -254,7 +250,8 @@ const findOrCreateDbItem = async (ext: ExtensionBase, clip: ClipboardContent): P
       }
       const highlightResult = hljs.highlightAuto(trimmedValue.slice(0, 2000), SUPPORTED_LANGUAGES);
       if (highlightResult.relevance < 10) {
-        if (/^\p{Extended_Pictographic}*$/u.test(trimmedValue)) {
+        // Check if the text is a single grapheme
+        if (Graphemer.nextBreak(trimmedValue, 0) == trimmedValue.length) {
           return db.save({
             content: trimmedValue,
             copyDate: new Date(),
@@ -371,14 +368,6 @@ export const createPanoItemFromDb = (
   return panoItem;
 };
 
-function converter(color: string): string | null {
-  try {
-    return convert(color);
-  } catch (_err) {
-    return null;
-  }
-}
-
 export const removeItemResources = (ext: ExtensionBase, dbItem: DBItem) => {
   db.delete(dbItem.id);
   if (dbItem.itemType === 'LINK') {
@@ -428,18 +417,11 @@ const sendNotification = (ext: ExtensionBase, dbItem: DBItem) => {
   } else if (dbItem.itemType === 'COLOR') {
     // Create pixbuf from color
     const pixbuf = GdkPixbuf.Pixbuf.new(GdkPixbuf.Colorspace.RGB, true, 8, 1, 1);
-    let color: string | null = null;
-    // check if content has alpha
-    if (dbItem.content.includes('rgba')) {
-      color = converter(dbItem.content);
-    } else if (validateHTMLColorRgb(dbItem.content)) {
-      color = `${converter(dbItem.content)}ff`;
-    } else if (validateHTMLColorHex(dbItem.content)) {
-      color = `${dbItem.content}ff`;
-    }
 
+    // Parse the color
+    const color = colorString.get.rgb(dbItem.content);
     if (color) {
-      pixbuf.fill(parseInt(color.replace('#', '0x'), 16));
+      pixbuf.fill((color[0] << 24) | (color[1] << 16) | (color[2] << 8) | color[3]);
       notify(ext, _('Color Copied'), dbItem.content, pixbuf);
     }
   } else if (dbItem.itemType === 'FILE') {

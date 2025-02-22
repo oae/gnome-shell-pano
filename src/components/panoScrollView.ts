@@ -14,6 +14,7 @@ import { ClipboardQueryBuilder, db, ItemType } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { createPanoItem, createPanoItemFromDb, removeItemResources } from '@pano/utils/panoItemFactory';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
+import { orientationCompatibility, setOrientationCompatibility } from '@pano/utils/shell_compatibility';
 import { isVertical } from '@pano/utils/ui';
 
 export type PanoScrollViewSignalType =
@@ -43,15 +44,9 @@ export class PanoScrollView extends St.ScrollView {
       'scroll-focus-out': {},
       'scroll-update-list': {},
       'scroll-alt-press': {},
-      'scroll-tab-press': {
-        param_types: [GObject.TYPE_BOOLEAN],
-        accumulator: 0,
-      },
+      'scroll-tab-press': { param_types: [GObject.TYPE_BOOLEAN], accumulator: 0 },
       'scroll-backspace-press': {},
-      'scroll-key-press': {
-        param_types: [GObject.TYPE_STRING],
-        accumulator: 0,
-      },
+      'scroll-key-press': { param_types: [GObject.TYPE_STRING], accumulator: 0 },
     },
   };
 
@@ -67,11 +62,7 @@ export class PanoScrollView extends St.ScrollView {
   private clipboardManager: ClipboardManager;
 
   constructor(ext: ExtensionBase, clipboardManager: ClipboardManager, searchBox: SearchBox) {
-    super({
-      overlayScrollbars: true,
-      xExpand: true,
-      yExpand: true,
-    });
+    super({ overlayScrollbars: true, xExpand: true, yExpand: true });
     this.ext = ext;
     this.clipboardManager = clipboardManager;
     this.searchBox = searchBox;
@@ -80,14 +71,14 @@ export class PanoScrollView extends St.ScrollView {
     this.setScrollbarPolicy();
 
     this.list = new St.BoxLayout({
-      vertical: isVertical(this.settings.get_uint('window-position')),
+      ...orientationCompatibility(isVertical(this.settings.get_uint('window-position'))),
       xExpand: true,
       yExpand: true,
     });
 
     this.settings.connect('changed::window-position', () => {
       this.setScrollbarPolicy();
-      this.list.set_vertical(isVertical(this.settings.get_uint('window-position')));
+      setOrientationCompatibility(this.list, isVertical(this.settings.get_uint('window-position')));
     });
     scrollViewAddChild(this, this.list);
 
@@ -116,10 +107,6 @@ export class PanoScrollView extends St.ScrollView {
       if (event.has_control_modifier() && event.get_key_symbol() >= 49 && event.get_key_symbol() <= 57) {
         this.selectItemByIndex(event.get_key_symbol() - 49);
         return Clutter.EVENT_STOP;
-      }
-
-      if (event.get_state()) {
-        return Clutter.EVENT_PROPAGATE;
       }
 
       if (shouldFocusOut(event.get_key_symbol())) {
@@ -188,6 +175,26 @@ export class PanoScrollView extends St.ScrollView {
     }
   }
 
+  /**
+   * Removes first and last child pseudo classes quicker than the shell updates them.
+   * This ensures that there are no jumpy transitions between items when removing/filtering items.
+   */
+  private removePseudoClasses() {
+    const visibleItems = this.getVisibleItems();
+    visibleItems[0]?.remove_style_pseudo_class('first-child');
+    visibleItems[visibleItems.length - 1]?.remove_style_pseudo_class('last-child');
+  }
+
+  /**
+   * Adds first and last child pseudo classes quicker than the shell updates them.
+   * This ensures that there are no jumpy transitions between items when removing/filtering items.
+   */
+  private setPseudoClasses() {
+    const visibleItems = this.getVisibleItems();
+    visibleItems[0]?.add_style_pseudo_class('first-child');
+    visibleItems[visibleItems.length - 1]?.add_style_pseudo_class('last-child');
+  }
+
   private prependItem(panoItem: PanoItem) {
     const existingItem = this.getItem(panoItem);
 
@@ -233,8 +240,6 @@ export class PanoScrollView extends St.ScrollView {
       this.filter(this.currentFilter, this.currentItemTypeFilter, this.showFavorites);
       if (this.getVisibleItems().length === 0) {
         this.emit('scroll-focus-out');
-      } else {
-        this.focusOnClosest();
       }
     });
   }
@@ -242,6 +247,7 @@ export class PanoScrollView extends St.ScrollView {
   private removeItem(item: PanoItem) {
     item.hide();
     this.list.remove_child(item);
+    this.setPseudoClasses();
   }
 
   private getItem(panoItem: PanoItem): PanoItem | undefined {
@@ -308,11 +314,14 @@ export class PanoScrollView extends St.ScrollView {
   }
 
   filter(text: string | null, itemType: ItemType | null, showFavorites: boolean | null) {
+    this.removePseudoClasses();
+
     this.currentFilter = text;
     this.currentItemTypeFilter = itemType;
     this.showFavorites = showFavorites;
     if (!text && !itemType && null === showFavorites) {
       this.getItems().forEach((i) => i.show());
+      this.setPseudoClasses();
       return;
     }
 
@@ -333,6 +342,7 @@ export class PanoScrollView extends St.ScrollView {
     const result = db.query(builder.build()).map((dbItem) => dbItem.id);
 
     this.getItems().forEach((item) => (result.indexOf(item.dbItem.id) >= 0 ? item.show() : item.hide()));
+    this.setPseudoClasses();
   }
 
   focusOnClosest() {
@@ -430,10 +440,7 @@ export class PanoScrollView extends St.ScrollView {
       return;
     }
 
-    adjustment.ease(value, {
-      duration: 150,
-      mode: Clutter.AnimationMode.EASE_OUT_QUAD,
-    });
+    adjustment.ease(value, { duration: 150, mode: Clutter.AnimationMode.EASE_OUT_QUAD });
   }
 
   selectFirstItem() {
@@ -497,10 +504,7 @@ export class PanoScrollView extends St.ScrollView {
 
     adjustment.remove_transition('value');
 
-    adjustment.ease(value, {
-      duration: 150,
-      mode: Clutter.AnimationMode.EASE_OUT_QUAD,
-    });
+    adjustment.ease(value, { duration: 150, mode: Clutter.AnimationMode.EASE_OUT_QUAD });
 
     return Clutter.EVENT_STOP;
   }

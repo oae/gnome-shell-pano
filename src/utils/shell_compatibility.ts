@@ -34,6 +34,14 @@ export function orientationCompatibility(vertical: boolean): OrientationReturnTy
   return { vertical: vertical };
 }
 
+export function setOrientationCompatibility(container: St.BoxLayout, vertical: boolean): void {
+  if (stOrientationIsSupported()) {
+    container.vertical = vertical;
+  } else {
+    container.orientation = vertical ? Clutter.Orientation.VERTICAL : Clutter.Orientation.HORIZONTAL;
+  }
+}
+
 const global = Shell.Global.get();
 
 // GNOME < 48 version used to have this function, but instead of importing all types for that, just type that one manually

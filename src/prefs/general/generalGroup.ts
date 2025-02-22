@@ -8,6 +8,7 @@ import { LinkPreviewsRow } from '@pano/prefs/general/linkPreviews';
 import { OpenLinksInBrowserRow } from '@pano/prefs/general/openLinksInBrowser';
 import { PasteOnSelectRow } from '@pano/prefs/general/pasteOnSelect';
 import { PlayAudioOnCopyRow } from '@pano/prefs/general/playAudioOnCopy';
+import { RemoveOnMiddleClickRow } from '@pano/prefs/general/removeOnMiddleClick';
 import { SendNotificationOnCopyRow } from '@pano/prefs/general/sendNotificationOnCopy';
 import { ShortcutRow } from '@pano/prefs/general/shortcutRow';
 import { ShowIndicatorRow } from '@pano/prefs/general/showIndicator';
@@ -31,6 +32,7 @@ export class GeneralGroup extends Adw.PreferencesGroup {
     this.add(new IncognitoShortcutRow(ext));
     this.add(new SyncPrimaryRow(ext));
     this.add(new PasteOnSelectRow(ext));
+    this.add(new RemoveOnMiddleClickRow(ext));
     this.add(new SendNotificationOnCopyRow(ext));
     this.add(new PlayAudioOnCopyRow(ext));
     this.add(new KeepSearchEntryRow(ext));
