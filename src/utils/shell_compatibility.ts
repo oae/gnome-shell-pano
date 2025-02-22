@@ -15,7 +15,7 @@ function stSetBytesNeedsContext(): boolean {
   return St.ImageContent.prototype.set_bytes.length === 6;
 }
 
-function metaSupportsUnidirectForDisplay() {
+function metaSupportsUnredirectForDisplay() {
   return (
     (Meta as any as { enable_unredirect_for_display?: undefined | (() => void) }).enable_unredirect_for_display !==
     undefined
@@ -42,8 +42,8 @@ interface OldMetaObject {
   disable_unredirect_for_display(display: Meta.Display): void;
 }
 
-export function setUnidirectForDisplay(enable: boolean): void {
-  if (metaSupportsUnidirectForDisplay()) {
+export function setUnredirectForDisplay(enable: boolean): void {
+  if (metaSupportsUnredirectForDisplay()) {
     if (enable) {
       (Meta as any as OldMetaObject).enable_unredirect_for_display(global.display);
     } else {

@@ -23,7 +23,7 @@ import {
 } from '@pano/utils/shell';
 import { addTopChrome, removeChrome, removeVirtualKeyboard } from '@pano/utils/ui';
 
-import { setUnidirectForDisplay } from './utils/shell_compatibility';
+import { setUnredirectForDisplay } from './utils/shell_compatibility';
 
 const debug = logger('extension');
 
@@ -57,7 +57,7 @@ export default class PanoExtension extends Extension {
     this.start();
     this.indicator.enable();
     this.enableDbus();
-    setUnidirectForDisplay(false);
+    setUnredirectForDisplay(false);
     debug('extension is enabled');
   }
 
@@ -69,7 +69,7 @@ export default class PanoExtension extends Extension {
     this.keyManager = null;
     this.clipboardManager = null;
     this.indicator = null;
-    setUnidirectForDisplay(true);
+    setUnredirectForDisplay(true);
     debug('extension is disabled');
   }
 
