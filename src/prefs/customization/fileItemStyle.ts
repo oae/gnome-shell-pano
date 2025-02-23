@@ -46,12 +46,79 @@ export class FileItemStyleRow extends ItemExpanderRow {
       ),
     );
 
-    // create body text color row
+    // create title text color row
     this.add_row(
-      createColorRow(_('Body Text Color'), _('You can change the text color of the body'), this.settings, 'body-color'),
+      createColorRow(
+        _('Title Text Color'),
+        _('You can change the text color of the title'),
+        this.settings,
+        'title-color',
+      ),
     );
 
-    // create body font row
-    this.add_row(createFontRow(_('Body Font'), _('You can change the font of the body'), this.settings, 'body-font'));
+    // create title font row
+    this.add_row(
+      createFontRow(_('Title Font'), _('You can change the font of the title'), this.settings, 'title-font'),
+    );
+
+    // create files preview background color row
+    this.add_row(
+      createColorRow(
+        _('Files Preview Background Color'),
+        _('You can change the background color of the files preview'),
+        this.settings,
+        'files-preview-bg-color',
+      ),
+    );
+
+    // create files preview text color row
+    this.add_row(
+      createColorRow(
+        _('Files Preview Text Color'),
+        _('You can change the text color of the files preview'),
+        this.settings,
+        'files-preview-color',
+      ),
+    );
+
+    // create files preview font row
+    this.add_row(
+      createFontRow(
+        _('Files Preview Font'),
+        _('You can change the font of the files preview'),
+        this.settings,
+        'files-preview-font',
+      ),
+    );
+
+    // create text preview background color row
+    this.add_row(
+      createColorRow(
+        _('Text Preview Background Color'),
+        _('You can change the background color of the text preview'),
+        this.settings,
+        'text-preview-bg-color',
+      ),
+    );
+
+    // create text preview text color row
+    this.add_row(
+      createColorRow(
+        _('Text Preview Text Color'),
+        _('You can change the text color of the text preview'),
+        this.settings,
+        'text-preview-color',
+      ),
+    );
+
+    // create text preview font row
+    this.add_row(
+      createFontRow(
+        _('Text Preview Font'),
+        _('You can change the font of the text preview'),
+        this.settings,
+        'text-preview-font',
+      ),
+    );
   }
 }

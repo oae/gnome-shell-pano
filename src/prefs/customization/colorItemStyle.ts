@@ -36,26 +36,6 @@ export class ColorItemStyleRow extends ItemExpanderRow {
       ),
     );
 
-    // create metadata background color row
-    this.add_row(
-      createColorRow(
-        _('Metadata Background Color'),
-        _('You can change the background color of the metadata'),
-        this.settings,
-        'metadata-bg-color',
-      ),
-    );
-
-    // create metadata text color row
-    this.add_row(
-      createColorRow(
-        _('Metadata Text Color'),
-        _('You can change the text color of the metadata'),
-        this.settings,
-        'metadata-color',
-      ),
-    );
-
     // create metadata font row
     this.add_row(
       createFontRow(_('Body Font'), _('You can change the font of the metadata'), this.settings, 'metadata-font'),

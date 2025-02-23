@@ -65,6 +65,7 @@
     "@types/eslint": "^9.6.1",
     "@types/eslint__js": "^8.42.3",
     "@types/eslint__eslintrc": "^2.1.2",
+    "@types/color-string": "^1.5.5",
     "@types/events": "^3.0.3",
     "@types/gettext-parser": "^8.0.0",
     "@types/highlight.js": "^10.1.0",
@@ -94,14 +95,14 @@
     "chalk": "4.1.2"
   },
   "dependencies": {
+    "color-string": "^1.9.1",
     "date-fns": "^2.30.0",
-    "hex-color-converter": "^0.2.1",
+    "graphemer": "^1.4.0",
     "highlight.js": "^11.9.0",
     "htmlparser2": "^9.1.0",
     "is-url": "^1.2.4",
     "pretty-bytes": "^6.1.1",
-    "prismjs": "^1.29.0",
-    "validate-color": "https://gitpkg.now.sh/dreamyguy/validate-color/src/validate-color"
+    "prismjs": "^1.29.0"
   },
-  "packageManager": "yarn@1.22.22"
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

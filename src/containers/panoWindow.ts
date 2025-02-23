@@ -13,7 +13,16 @@ import { ItemType } from '@pano/utils/db';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
 import { orientationCompatibility } from '@pano/utils/shell_compatibility';
-import { getAlignment, getMonitorConstraint, isVertical } from '@pano/utils/ui';
+import {
+  getAlignment,
+  getHeaderHeight,
+  getMonitorConstraint,
+  getMonitorIndexForPointer,
+  getMonitors,
+  getPointer,
+  isVertical,
+  WINDOW_POSITIONS,
+} from '@pano/utils/ui';
 
 @registerGObjectClass
 export class PanoWindow extends St.BoxLayout {
@@ -40,38 +49,35 @@ export class PanoWindow extends St.BoxLayout {
     const themeContext = St.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
 
     this.setWindowDimensions(themeContext.scaleFactor);
-    themeContext.connect('notify::scale-factor', () => {
-      this.setWindowDimensions(themeContext.scaleFactor);
-    });
-    this.settings.connect('changed::item-size', () => {
-      this.setWindowDimensions(themeContext.scaleFactor);
-    });
+    themeContext.connect('notify::scale-factor', () => this.setWindowDimensions(themeContext.scaleFactor));
+    this.settings.connect('changed::item-width', () => this.setWindowDimensions(themeContext.scaleFactor));
+    this.settings.connect('changed::item-height', () => this.setWindowDimensions(themeContext.scaleFactor));
+    this.settings.connect('changed::header-style', () => this.setWindowDimensions(themeContext.scaleFactor));
+    this.settings.connect('changed::compact-mode', () => this.setWindowDimensions(themeContext.scaleFactor));
     this.settings.connect('changed::window-position', () => {
       this.setWindowDimensions(themeContext.scaleFactor);
       this.setAlignment();
+      this.setStyle();
     });
+    this.settings.connect('changed::window-height', () => this.setWindowDimensions(themeContext.scaleFactor));
+    this.settings.connect('changed::window-floating', this.setStyle.bind(this));
+    this.settings.connect('changed::window-margin-left', this.setStyle.bind(this));
+    this.settings.connect('changed::window-margin-right', this.setStyle.bind(this));
+    this.settings.connect('changed::window-margin-top', this.setStyle.bind(this));
+    this.settings.connect('changed::window-margin-bottom', this.setStyle.bind(this));
 
-    this.settings.connect('changed::window-background-color', () => {
-      if (this.settings.get_boolean('is-in-incognito')) {
-        this.set_style(
-          `background-color: ${this.settings.get_string('incognito-window-background-color')} !important;`,
-        );
-      } else {
-        this.set_style(`background-color: ${this.settings.get_string('window-background-color')}`);
-      }
-    });
-    this.settings.connect('changed::incognito-window-background-color', () => {
-      if (this.settings.get_boolean('is-in-incognito')) {
-        this.set_style(
-          `background-color: ${this.settings.get_string('incognito-window-background-color')} !important;`,
-        );
-      } else {
-        this.set_style(`background-color: ${this.settings.get_string('window-background-color')}`);
-      }
-    });
+    this.settings.connect('changed::window-background-color', this.setStyle.bind(this));
+    this.settings.connect('changed::incognito-window-background-color', this.setStyle.bind(this));
+    this.settings.connect('changed::is-in-incognito', this.setStyle.bind(this));
+
+    this.setStyle();
+
     this.monitorBox = new MonitorBox();
     this.searchBox = new SearchBox(ext);
     this.scrollView = new PanoScrollView(ext, clipboardManager, this.searchBox);
+
+    // Add incognito mode icon
+    this.searchBox.set_style(`background-image: url(file:///${ext.path}/images/incognito-mode.svg);`);
 
     this.setupMonitorBox();
     this.setupScrollView();
@@ -79,34 +85,21 @@ export class PanoWindow extends St.BoxLayout {
 
     this.add_child(this.searchBox);
     this.add_child(this.scrollView);
-
-    this.settings.connect('changed::is-in-incognito', () => {
-      if (this.settings.get_boolean('is-in-incognito')) {
-        this.add_style_class_name('incognito');
-        this.set_style(
-          `background-color: ${this.settings.get_string('incognito-window-background-color')} !important;`,
-        );
-      } else {
-        this.remove_style_class_name('incognito');
-        this.set_style(`background-color: ${this.settings.get_string('window-background-color')}`);
-      }
-    });
-
-    if (this.settings.get_boolean('is-in-incognito')) {
-      this.add_style_class_name('incognito');
-      this.set_style(`background-color: ${this.settings.get_string('incognito-window-background-color')} !important;`);
-    } else {
-      this.set_style(`background-color: ${this.settings.get_string('window-background-color')}`);
-    }
   }
 
   private setWindowDimensions(scaleFactor: number) {
     this.remove_style_class_name('vertical');
     if (isVertical(this.settings.get_uint('window-position'))) {
       this.add_style_class_name('vertical');
-      this.set_width((this.settings.get_int('item-size') + 20) * scaleFactor);
+      this.set_width((this.settings.get_int('item-width') + 32) * scaleFactor);
+
+      if (this.settings.get_uint('window-position') == WINDOW_POSITIONS.POINTER) {
+        this.set_height(this.settings.get_int('window-height') * scaleFactor);
+      }
     } else {
-      this.set_height((this.settings.get_int('item-size') + 90) * scaleFactor);
+      const mult = this.settings.get_boolean('compact-mode') ? 0.5 : 1;
+      const header = getHeaderHeight(this.settings.get_uint('header-style'));
+      this.set_height((Math.floor(this.settings.get_int('item-height') * mult) + 76 + header) * scaleFactor);
     }
   }
 
@@ -114,6 +107,66 @@ export class PanoWindow extends St.BoxLayout {
     const [x_align, y_align] = getAlignment(this.settings.get_uint('window-position'));
     this.set_x_align(x_align);
     this.set_y_align(y_align);
+  }
+
+  private setStyle() {
+    let backgroundColor;
+    if (this.settings.get_boolean('is-in-incognito')) {
+      this.add_style_class_name('incognito');
+      backgroundColor = this.settings.get_string('incognito-window-background-color');
+    } else {
+      this.remove_style_class_name('incognito');
+      backgroundColor = this.settings.get_string('window-background-color');
+    }
+
+    let margins;
+    if (this.settings.get_uint('window-position') == WINDOW_POSITIONS.POINTER) {
+      this.add_style_class_name('floating');
+      margins = '0px';
+    } else if (this.settings.get_boolean('window-floating')) {
+      this.add_style_class_name('floating');
+
+      const left = this.settings.get_int('window-margin-left');
+      const right = this.settings.get_int('window-margin-right');
+      const top = this.settings.get_int('window-margin-top');
+      const bottom = this.settings.get_int('window-margin-bottom');
+
+      margins = `${top}px ${right}px ${bottom}px ${left}px`;
+    } else {
+      this.remove_style_class_name('floating');
+      margins = '0px';
+    }
+
+    this.set_style(`background-color: ${backgroundColor}; margin: ${margins}`);
+  }
+
+  private setPositionConstraints(at_pointer: boolean) {
+    if (this.settings.get_uint('window-position') == WINDOW_POSITIONS.POINTER) {
+      const [px, py, _] = getPointer();
+      const monitor = getMonitors()[getMonitorIndexForPointer()]!;
+
+      const left = this.settings.get_int('window-margin-left');
+      const top = this.settings.get_int('window-margin-top');
+
+      const x = Math.max(Math.min(at_pointer ? px + 1 : left, monitor.x + monitor.width - this.width), monitor.x);
+      const y = Math.max(Math.min(at_pointer ? py + 1 : top, monitor.y + monitor.height - this.height), monitor.y);
+
+      this.add_constraint(
+        new Clutter.BindConstraint({
+          source: Shell.Global.get().stage,
+          coordinate: Clutter.BindCoordinate.X,
+          offset: x,
+        }),
+      );
+
+      this.add_constraint(
+        new Clutter.BindConstraint({
+          source: Shell.Global.get().stage,
+          coordinate: Clutter.BindCoordinate.Y,
+          offset: y,
+        }),
+      );
+    }
   }
 
   private setupMonitorBox() {
@@ -173,14 +226,16 @@ export class PanoWindow extends St.BoxLayout {
     });
   }
 
-  toggle(): void {
-    this.is_visible() ? this.hide() : this.show();
+  toggle(at_pointer: boolean = true): void {
+    this.is_visible() ? this.hide() : this.show(at_pointer);
   }
 
-  override show() {
+  override show(at_pointer: boolean = true) {
     this.clear_constraints();
     this.setAlignment();
     this.add_constraint(getMonitorConstraint());
+    this.setPositionConstraints(at_pointer);
+
     super.show();
     if (this.settings.get_boolean('keep-search-entry')) {
       this.searchBox.selectAll();

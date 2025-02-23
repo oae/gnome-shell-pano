@@ -31,11 +31,15 @@ msgstr "無痕模式"
 msgid "Settings"
 msgstr "設定"
 
-#: src/components/linkPanoItem.ts:39
+#: src/components/filePanoItem.ts:207
+msgid "items"
+msgstr ""
+
+#: src/components/linkPanoItem.ts:42
 msgid "No Description"
 msgstr "無說明"
 
-#: src/components/searchBox.ts:70
+#: src/components/searchBox.ts:73
 msgid "Type to search, Tab to cycle"
 msgstr "輸入以搜尋，按 Tab 循環"
 
@@ -90,8 +94,6 @@ msgstr "你可以更換視窗標頭字體顏色"
 #: src/prefs/customization/codeItemStyle.ts:42
 #: src/prefs/customization/emojiItemStyle.ts:42
 #: src/prefs/customization/fileItemStyle.ts:42
-#: src/prefs/customization/imageItemStyle.ts:41
-#: src/prefs/customization/linkItemStyle.ts:42
 #: src/prefs/customization/textItemStyle.ts:42
 msgid "Body Background Color"
 msgstr "內容背景顏色"
@@ -99,21 +101,17 @@ msgstr "內容背景顏色"
 #: src/prefs/customization/codeItemStyle.ts:43
 #: src/prefs/customization/emojiItemStyle.ts:43
 #: src/prefs/customization/fileItemStyle.ts:43
-#: src/prefs/customization/imageItemStyle.ts:42
-#: src/prefs/customization/linkItemStyle.ts:43
 #: src/prefs/customization/textItemStyle.ts:43
 msgid "You can change the background color of the body"
 msgstr "你可以更換內容的背景顏色"
 
 #: src/prefs/customization/codeItemStyle.ts:50
-#: src/prefs/customization/colorItemStyle.ts:61
-#: src/prefs/customization/fileItemStyle.ts:55
+#: src/prefs/customization/colorItemStyle.ts:41
 #: src/prefs/customization/textItemStyle.ts:55
 msgid "Body Font"
 msgstr "內容字體"
 
 #: src/prefs/customization/codeItemStyle.ts:50
-#: src/prefs/customization/fileItemStyle.ts:55
 #: src/prefs/customization/textItemStyle.ts:55
 msgid "You can change the font of the body"
 msgstr "你可以更換內容的字體"
@@ -136,140 +134,182 @@ msgstr "切換顏色物件主題"
 msgid "Color Item Style"
 msgstr "顏色物件主題"
 
-#: src/prefs/customization/colorItemStyle.ts:42
-#: src/prefs/customization/imageItemStyle.ts:51
-#: src/prefs/customization/linkItemStyle.ts:52
-msgid "Metadata Background Color"
-msgstr "詮釋資料背景顏色"
-
-#: src/prefs/customization/colorItemStyle.ts:43
-#: src/prefs/customization/imageItemStyle.ts:52
-#: src/prefs/customization/linkItemStyle.ts:53
-msgid "You can change the background color of the metadata"
-msgstr "你可以更換詮釋資料的背景顏色"
-
-#: src/prefs/customization/colorItemStyle.ts:52
-#: src/prefs/customization/imageItemStyle.ts:61
-msgid "Metadata Text Color"
-msgstr "詮釋資料字體顏色"
-
-#: src/prefs/customization/colorItemStyle.ts:53
-#: src/prefs/customization/imageItemStyle.ts:62
-msgid "You can change the text color of the metadata"
-msgstr "你可以更換詮釋資料的字體顏色"
-
-#: src/prefs/customization/colorItemStyle.ts:61
-#: src/prefs/customization/imageItemStyle.ts:70
+#: src/prefs/customization/colorItemStyle.ts:41
 msgid "You can change the font of the metadata"
 msgstr "你可以更換詮釋資料的字體"
 
-#: src/prefs/customization/commonStyleGroup.ts:14
+#: src/prefs/customization/commonStyleGroup.ts:21
 msgid "Common"
 msgstr "一般"
 
-#: src/prefs/customization/commonStyleGroup.ts:20
+#: src/prefs/customization/commonStyleGroup.ts:27
 msgid "Icon Pack"
 msgstr "圖示包"
 
-#: src/prefs/customization/commonStyleGroup.ts:20
+#: src/prefs/customization/commonStyleGroup.ts:27
 msgid "You can change the icon pack"
 msgstr "你可以更換圖示包"
 
-#: src/prefs/customization/commonStyleGroup.ts:21
+#: src/prefs/customization/commonStyleGroup.ts:28
 msgid "Default Icons"
 msgstr "預設圖示"
 
-#: src/prefs/customization/commonStyleGroup.ts:22
+#: src/prefs/customization/commonStyleGroup.ts:29
 msgid "Legacy Icons"
 msgstr "復古圖示"
 
-#: src/prefs/customization/commonStyleGroup.ts:27
-msgid "Item Size"
-msgstr "物件大小"
+#: src/prefs/customization/commonStyleGroup.ts:34
+msgid "Item Width"
+msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:27
-msgid "You can change the item size"
-msgstr "你可以更換物件大小"
+#: src/prefs/customization/commonStyleGroup.ts:34
+msgid "You can change the item width"
+msgstr ""
 
-#: src/prefs/customization/commonStyleGroup.ts:32
+#: src/prefs/customization/commonStyleGroup.ts:38
+msgid "Item Height"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:38
+msgid "You can change the item height"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:43
+msgid "Header Style"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:44
+msgid "Controls the style of the clipboard item headers"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:47
+msgid "Compact"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:47
+msgid "Hidden"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:47
+msgid "Visible"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:53
+msgid "Compact Mode"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:54
+msgid "Controls the compactness of the clipboard item."
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:62
 msgid "Window Position"
 msgstr "視窗位置"
 
-#: src/prefs/customization/commonStyleGroup.ts:33
+#: src/prefs/customization/commonStyleGroup.ts:63
 msgid "You can change position of the Pano"
 msgstr "你可以更換 Pano 的位置"
 
-#: src/prefs/customization/commonStyleGroup.ts:36
+#: src/prefs/customization/commonStyleGroup.ts:66
 msgid "Bottom"
 msgstr "底部"
 
-#: src/prefs/customization/commonStyleGroup.ts:36
+#: src/prefs/customization/commonStyleGroup.ts:66
 msgid "Left"
 msgstr "左邊"
 
-#: src/prefs/customization/commonStyleGroup.ts:36
+#: src/prefs/customization/commonStyleGroup.ts:66
+msgid "Pointer"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:66
 msgid "Right"
 msgstr "右邊"
 
-#: src/prefs/customization/commonStyleGroup.ts:36
+#: src/prefs/customization/commonStyleGroup.ts:66
 msgid "Top"
 msgstr "頂部"
 
-#: src/prefs/customization/commonStyleGroup.ts:42
+#: src/prefs/customization/commonStyleGroup.ts:72
+msgid "Window Height"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:73
+msgid "You can change the height of the window if the position is \"Pointer\""
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:86
 msgid "Window Background Color"
 msgstr "視窗背景顏色"
 
-#: src/prefs/customization/commonStyleGroup.ts:43
+#: src/prefs/customization/commonStyleGroup.ts:87
 msgid "You can change the window background color"
 msgstr "你可以更換視窗背景顏色"
 
-#: src/prefs/customization/commonStyleGroup.ts:50
+#: src/prefs/customization/commonStyleGroup.ts:94
 msgid "Incognito Window Background Color"
 msgstr "無痕模式視窗背景顏色"
 
-#: src/prefs/customization/commonStyleGroup.ts:51
+#: src/prefs/customization/commonStyleGroup.ts:95
 msgid "You can change the incognito window background color"
 msgstr "你可以更換無痕模式視窗背景顏色"
 
-#: src/prefs/customization/commonStyleGroup.ts:58
+#: src/prefs/customization/commonStyleGroup.ts:102
+msgid "Search Bar Background Color"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:103
+msgid "You can change the background color of the search bar"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:110
 msgid "Search Bar Font"
 msgstr "搜尋欄字體"
 
-#: src/prefs/customization/commonStyleGroup.ts:59
+#: src/prefs/customization/commonStyleGroup.ts:111
 msgid "You can change the font of the search bar"
 msgstr "你可以更換搜尋欄的字體"
 
-#: src/prefs/customization/commonStyleGroup.ts:65
+#: src/prefs/customization/commonStyleGroup.ts:117
 msgid "Item Title Font"
 msgstr "物件標題字體"
 
-#: src/prefs/customization/commonStyleGroup.ts:65
+#: src/prefs/customization/commonStyleGroup.ts:117
+#: src/prefs/customization/fileItemStyle.ts:61
 msgid "You can change the font of the title"
 msgstr "你可以更換標題的字體"
 
-#: src/prefs/customization/commonStyleGroup.ts:68
+#: src/prefs/customization/commonStyleGroup.ts:120
 msgid "Item Date Font"
 msgstr "物件日期字體"
 
-#: src/prefs/customization/commonStyleGroup.ts:68
+#: src/prefs/customization/commonStyleGroup.ts:120
 msgid "You can change the font of the date"
 msgstr "你可以更換日期的字體"
 
-#: src/prefs/customization/commonStyleGroup.ts:72
+#: src/prefs/customization/commonStyleGroup.ts:124
 msgid "Active Item Border Color"
 msgstr "選取物件邊界顏色"
 
-#: src/prefs/customization/commonStyleGroup.ts:73
+#: src/prefs/customization/commonStyleGroup.ts:125
 msgid "You can change the active item border color"
 msgstr "你可以更換活躍的物件邊界顏色"
 
-#: src/prefs/customization/commonStyleGroup.ts:80
+#: src/prefs/customization/commonStyleGroup.ts:132
 msgid "Hovered Item Border Color"
 msgstr "被游標覆蓋物件邊界顏色"
 
-#: src/prefs/customization/commonStyleGroup.ts:81
+#: src/prefs/customization/commonStyleGroup.ts:133
 msgid "You can change the hovered item border color"
 msgstr "你可以更換被覆蓋物件邊界顏色"
+
+#: src/prefs/customization/commonStyleGroup.ts:140
+msgid "Show Controls on Hover"
+msgstr ""
+
+#: src/prefs/customization/commonStyleGroup.ts:141
+msgid "When enabled, the controls will only show on hover"
+msgstr ""
 
 #: src/prefs/customization/emojiItemStyle.ts:15
 msgid "Change the style of the emoji item"
@@ -295,15 +335,105 @@ msgstr "切換檔案物件主題"
 msgid "File Item Style"
 msgstr "檔案物件風格"
 
-#: src/prefs/customization/fileItemStyle.ts:51
-#: src/prefs/customization/textItemStyle.ts:51
-msgid "Body Text Color"
-msgstr "內容字體顏色"
+#: src/prefs/customization/fileItemStyle.ts:52
+msgid "Title Text Color"
+msgstr ""
 
-#: src/prefs/customization/fileItemStyle.ts:51
-#: src/prefs/customization/textItemStyle.ts:51
-msgid "You can change the text color of the body"
-msgstr "你可以更換內容的字體顏色"
+#: src/prefs/customization/fileItemStyle.ts:53
+msgid "You can change the text color of the title"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:61
+msgid "Title Font"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:67
+msgid "Files Preview Background Color"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:68
+msgid "You can change the background color of the files preview"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:77
+msgid "Files Preview Text Color"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:78
+msgid "You can change the text color of the files preview"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:87
+msgid "Files Preview Font"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:88
+msgid "You can change the font of the files preview"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:97
+msgid "Text Preview Background Color"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:98
+msgid "You can change the background color of the text preview"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:107
+msgid "Text Preview Text Color"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:108
+msgid "You can change the text color of the text preview"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:117
+msgid "Text Preview Font"
+msgstr ""
+
+#: src/prefs/customization/fileItemStyle.ts:118
+msgid "You can change the font of the text preview"
+msgstr ""
+
+#: src/prefs/customization/floatingStyleGroup.ts:14
+msgid "Floating"
+msgstr ""
+
+#: src/prefs/customization/floatingStyleGroup.ts:15
+msgid "You can change the floating style"
+msgstr ""
+
+#: src/prefs/customization/floatingStyleGroup.ts:26
+msgid "Left Margin"
+msgstr ""
+
+#: src/prefs/customization/floatingStyleGroup.ts:27
+msgid "You can change the left margin"
+msgstr ""
+
+#: src/prefs/customization/floatingStyleGroup.ts:38
+msgid "Right Margin"
+msgstr ""
+
+#: src/prefs/customization/floatingStyleGroup.ts:39
+msgid "You can change the right margin"
+msgstr ""
+
+#: src/prefs/customization/floatingStyleGroup.ts:50
+msgid "Top Margin"
+msgstr ""
+
+#: src/prefs/customization/floatingStyleGroup.ts:51
+msgid "You can change the top margin"
+msgstr ""
+
+#: src/prefs/customization/floatingStyleGroup.ts:62
+msgid "Bottom Margin"
+msgstr ""
+
+#: src/prefs/customization/floatingStyleGroup.ts:63
+msgid "You can change the bottom margin"
+msgstr ""
 
 #: src/prefs/customization/imageItemStyle.ts:14
 msgid "Change the style of the image item"
@@ -312,10 +442,6 @@ msgstr "切換圖片物件主題"
 #: src/prefs/customization/imageItemStyle.ts:14
 msgid "Image Item Style"
 msgstr "圖片物件風格"
-
-#: src/prefs/customization/imageItemStyle.ts:70
-msgid "Metadata Font"
-msgstr "詮釋資料字體"
 
 #: src/prefs/customization/index.ts:13
 msgid "Customization"
@@ -333,51 +459,59 @@ msgstr "切換連結物件主題"
 msgid "Link Item Style"
 msgstr "連結物件風格"
 
-#: src/prefs/customization/linkItemStyle.ts:62
+#: src/prefs/customization/linkItemStyle.ts:42
+msgid "Metadata Background Color"
+msgstr "詮釋資料背景顏色"
+
+#: src/prefs/customization/linkItemStyle.ts:43
+msgid "You can change the background color of the metadata"
+msgstr "你可以更換詮釋資料的背景顏色"
+
+#: src/prefs/customization/linkItemStyle.ts:52
 msgid "Metadata Title Color"
 msgstr "詮釋資料標題顏色"
 
-#: src/prefs/customization/linkItemStyle.ts:63
+#: src/prefs/customization/linkItemStyle.ts:53
 msgid "You can change the title color of the metadata"
 msgstr "你可以更換詮釋資料的標題顏色"
 
-#: src/prefs/customization/linkItemStyle.ts:72
+#: src/prefs/customization/linkItemStyle.ts:62
 msgid "Metadata Title Font"
 msgstr "詮釋資料標題字體"
 
-#: src/prefs/customization/linkItemStyle.ts:73
+#: src/prefs/customization/linkItemStyle.ts:63
 msgid "You can change the font of the metadata title"
 msgstr "你可以更換詮釋資料標題的字體"
 
-#: src/prefs/customization/linkItemStyle.ts:82
+#: src/prefs/customization/linkItemStyle.ts:72
 msgid "Metadata Description Color"
 msgstr "詮釋資料說明顏色"
 
-#: src/prefs/customization/linkItemStyle.ts:83
+#: src/prefs/customization/linkItemStyle.ts:73
 msgid "You can change the description color of the metadata"
 msgstr "你可以更換詮釋資料的說明顏色"
 
-#: src/prefs/customization/linkItemStyle.ts:92
+#: src/prefs/customization/linkItemStyle.ts:82
 msgid "Metadata Description Font"
 msgstr "詮釋資料說明字體"
 
-#: src/prefs/customization/linkItemStyle.ts:93
+#: src/prefs/customization/linkItemStyle.ts:83
 msgid "You can change the font of the metadata description"
 msgstr "你可以更換詮釋資料說明的字體"
 
-#: src/prefs/customization/linkItemStyle.ts:102
+#: src/prefs/customization/linkItemStyle.ts:92
 msgid "Metadata Link Color"
 msgstr "詮釋資料連結顏色"
 
-#: src/prefs/customization/linkItemStyle.ts:103
+#: src/prefs/customization/linkItemStyle.ts:93
 msgid "You can change the link color of the metadata"
 msgstr "你可以更換詮釋資料的連結顏色"
 
-#: src/prefs/customization/linkItemStyle.ts:112
+#: src/prefs/customization/linkItemStyle.ts:102
 msgid "Metadata Link Font"
 msgstr "詮釋資料連結字體"
 
-#: src/prefs/customization/linkItemStyle.ts:113
+#: src/prefs/customization/linkItemStyle.ts:103
 msgid "You can change the font of the metadata link"
 msgstr "你可以更換詮釋資料連結的字體"
 
@@ -388,6 +522,14 @@ msgstr "切換文字物件主題"
 #: src/prefs/customization/textItemStyle.ts:15
 msgid "Text Item Style"
 msgstr "文字物件風格"
+
+#: src/prefs/customization/textItemStyle.ts:51
+msgid "Body Text Color"
+msgstr "內容字體顏色"
+
+#: src/prefs/customization/textItemStyle.ts:51
+msgid "You can change the text color of the body"
+msgstr "你可以更換內容的字體顏色"
 
 #: src/prefs/dangerZone/clearHistory.ts:15
 msgid "Clears the clipboard database and cache"
@@ -433,7 +575,7 @@ msgstr "Pano 會在開啟以下應用程式時停止追蹤"
 msgid "Window class name"
 msgstr "視窗類別名稱"
 
-#: src/prefs/general/generalGroup.ts:25
+#: src/prefs/general/generalGroup.ts:26
 msgid "General Options"
 msgstr "一般設定"
 
@@ -507,6 +649,14 @@ msgstr "在複製時播放音效"
 msgid "Allow Pano to play an audio when copying new content"
 msgstr "允許 Pano 在複製新物件時播放音效"
 
+#: src/prefs/general/removeOnMiddleClick.ts:15
+msgid "Remove on Middle Click"
+msgstr ""
+
+#: src/prefs/general/removeOnMiddleClick.ts:16
+msgid "Allow Pano to remove clipboard items on middle click"
+msgstr ""
+
 #: src/prefs/general/sendNotificationOnCopy.ts:16
 msgid "Send Notification on Copy"
 msgstr "複製時傳送訊息"
@@ -555,39 +705,39 @@ msgstr "振動圖示"
 msgid "Wiggles the indicator on panel"
 msgstr "在頂欄中振動圖示"
 
-#: src/utils/panoItemFactory.ts:406
+#: src/utils/panoItemFactory.ts:395
 msgid "Image Copied"
 msgstr "已複製圖片"
 
-#: src/utils/panoItemFactory.ts:407
+#: src/utils/panoItemFactory.ts:396
 msgid "Width: %spx, Height: %spx, Size: %s"
 msgstr "寬度：%s個像素，高度：%s個像素，大小：%s"
 
-#: src/utils/panoItemFactory.ts:411
+#: src/utils/panoItemFactory.ts:400
 msgid "Text Copied"
 msgstr "已複製文字"
 
-#: src/utils/panoItemFactory.ts:413
+#: src/utils/panoItemFactory.ts:402
 msgid "Code Copied"
 msgstr "已複製程式碼"
 
-#: src/utils/panoItemFactory.ts:415
+#: src/utils/panoItemFactory.ts:404
 msgid "Emoji Copied"
 msgstr "已複製表情符號"
 
-#: src/utils/panoItemFactory.ts:423
+#: src/utils/panoItemFactory.ts:412
 msgid "Link Copied"
 msgstr "已複製連結"
 
-#: src/utils/panoItemFactory.ts:443
+#: src/utils/panoItemFactory.ts:425
 msgid "Color Copied"
 msgstr "已複製顏色"
 
-#: src/utils/panoItemFactory.ts:450
+#: src/utils/panoItemFactory.ts:432
 msgid "File %s"
 msgstr "檔案 %s"
 
-#: src/utils/panoItemFactory.ts:451
+#: src/utils/panoItemFactory.ts:433
 msgid "There are %s file(s)"
 msgstr "這裡有 %s 個檔案"
 

@@ -53,7 +53,7 @@ export default class PanoExtension extends Extension {
     this.setupResources();
     this.keyManager = new KeyManager(this);
     this.clipboardManager = new ClipboardManager(this);
-    this.indicator = new PanoIndicator(this, this.clearHistory.bind(this), () => this.panoWindow?.toggle());
+    this.indicator = new PanoIndicator(this, this.clearHistory.bind(this), () => this.panoWindow?.toggle(false));
     this.start();
     this.indicator.enable();
     this.enableDbus();

@@ -59,6 +59,8 @@ export const wiggle = (actor: Clutter.Actor, { offset, duration, wiggleCount }: 
 
 export const wm = main.wm;
 
+export const getPointer = () => global.get_pointer();
+
 export const getMonitors = (): Monitor[] => main.layoutManager.monitors;
 
 export const getMonitorIndexForPointer = () => {
@@ -118,6 +120,7 @@ export const WINDOW_POSITIONS = {
   RIGHT: 1,
   BOTTOM: 2,
   LEFT: 3,
+  POINTER: 4,
 };
 
 export const getAlignment = (position: number): [Clutter.ActorAlign, Clutter.ActorAlign] => {
@@ -130,11 +133,34 @@ export const getAlignment = (position: number): [Clutter.ActorAlign, Clutter.Act
       return [Clutter.ActorAlign.FILL, Clutter.ActorAlign.END];
     case WINDOW_POSITIONS.LEFT:
       return [Clutter.ActorAlign.START, Clutter.ActorAlign.FILL];
+    case WINDOW_POSITIONS.POINTER:
+      return [Clutter.ActorAlign.START, Clutter.ActorAlign.START];
   }
 
   return [Clutter.ActorAlign.FILL, Clutter.ActorAlign.END];
 };
 
 export const isVertical = (position: number) => {
-  return position === WINDOW_POSITIONS.LEFT || position === WINDOW_POSITIONS.RIGHT;
+  return (
+    position === WINDOW_POSITIONS.LEFT || position === WINDOW_POSITIONS.RIGHT || position === WINDOW_POSITIONS.POINTER
+  );
 };
+
+export const HEADER_STYLES = {
+  HIDDEN: 0,
+  VISIBLE: 1,
+  COMPACT: 2,
+};
+
+export const getHeaderHeight = (style: number) => {
+  switch (style) {
+    case HEADER_STYLES.VISIBLE:
+      return 48;
+    case HEADER_STYLES.COMPACT:
+      return 32;
+    default:
+      return 0;
+  }
+};
+
+export const isVisible = (style: number) => style !== HEADER_STYLES.HIDDEN;

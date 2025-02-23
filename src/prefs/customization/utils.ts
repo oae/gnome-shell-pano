@@ -4,6 +4,26 @@ import Gio from '@girs/gio-2.0';
 import Gtk4 from '@girs/gtk-4.0';
 import Pango from '@girs/pango-1.0';
 
+export const createSwitchRow = (title: string, subtitle: string, settings: Gio.Settings, schemaKey: string) => {
+  const switchRow = new Adw.ActionRow({
+    title,
+    subtitle,
+  });
+
+  const switchControl = new Gtk4.Switch({
+    active: settings.get_boolean(schemaKey),
+    valign: Gtk4.Align.CENTER,
+    halign: Gtk4.Align.CENTER,
+  });
+
+  settings.bind(schemaKey, switchControl, 'active', Gio.SettingsBindFlags.DEFAULT);
+
+  switchRow.add_suffix(switchControl);
+  switchRow.set_activatable_widget(switchControl);
+
+  return switchRow;
+};
+
 export const createColorRow = (title: string, subtitle: string, settings: Gio.Settings, schemaKey: string) => {
   const colorRow = new Adw.ActionRow({
     title,

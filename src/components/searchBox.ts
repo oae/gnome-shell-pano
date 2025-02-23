@@ -51,7 +51,8 @@ export class SearchBox extends St.BoxLayout {
 
   constructor(ext: ExtensionBase) {
     super({
-      xAlign: Clutter.ActorAlign.CENTER,
+      xAlign: Clutter.ActorAlign.FILL,
+      xExpand: true,
       styleClass: 'search-entry-container',
       ...orientationCompatibility(false),
       trackHover: true,
@@ -66,13 +67,15 @@ export class SearchBox extends St.BoxLayout {
     const themeContext = St.ThemeContext.get_for_stage(Shell.Global.get().get_stage());
 
     this.search = new St.Entry({
+      xAlign: Clutter.ActorAlign.CENTER,
+      xExpand: true,
       canFocus: true,
       hintText: _('Type to search, Tab to cycle'),
       naturalWidth: 300 * themeContext.scaleFactor,
       height: 40 * themeContext.scaleFactor,
       trackHover: true,
       primaryIcon: this.createSearchEntryIcon('edit-find-symbolic', 'search-entry-icon'),
-      secondaryIcon: this.createSearchEntryIcon('starred-symbolic', 'search-entry-fav-icon'),
+      secondaryIcon: this.createSearchEntryIcon('view-pin-symbolic', 'search-entry-fav-icon'),
     });
 
     themeContext.connect('notify::scale-factor', () => {
@@ -157,9 +160,12 @@ export class SearchBox extends St.BoxLayout {
   }
 
   private setStyle() {
+    const searchBarBackgroundColor = this.settings.get_string('search-bar-background-color');
     const searchBarFontFamily = this.settings.get_string('search-bar-font-family');
     const searchBarFontSize = this.settings.get_int('search-bar-font-size');
-    this.search.set_style(`font-family: ${searchBarFontFamily}; font-size: ${searchBarFontSize}px;`);
+    this.search.set_style(
+      `background-color: ${searchBarBackgroundColor}; font-family: ${searchBarFontFamily}; font-size: ${searchBarFontSize}px;`,
+    );
   }
 
   toggleItemType(hasShift: boolean) {

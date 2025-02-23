@@ -1,7 +1,14 @@
 import Adw from '@girs/adw-1';
 import Gio from '@girs/gio-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
-import { createColorRow, createDropdownRow, createFontRow, createSpinRow } from '@pano/prefs/customization/utils';
+import { FloatingStyleGroup } from '@pano/prefs/customization/floatingStyleGroup';
+import {
+  createColorRow,
+  createDropdownRow,
+  createFontRow,
+  createSpinRow,
+  createSwitchRow,
+} from '@pano/prefs/customization/utils';
 import { registerGObjectClass } from '@pano/utils/gjs';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
 
@@ -24,7 +31,30 @@ export class CommonStyleGroup extends Adw.PreferencesGroup {
     );
 
     this.add(
-      createSpinRow(_('Item Size'), _('You can change the item size'), this.settings, 'item-size', 5, 200, 1000),
+      createSpinRow(_('Item Width'), _('You can change the item width'), this.settings, 'item-width', 5, 200, 1000),
+    );
+
+    this.add(
+      createSpinRow(_('Item Height'), _('You can change the item height'), this.settings, 'item-height', 5, 100, 1000),
+    );
+
+    this.add(
+      createDropdownRow(
+        _('Header Style'),
+        _('Controls the style of the clipboard item headers'),
+        this.settings,
+        'header-style',
+        [_('Hidden'), _('Visible'), _('Compact')],
+      ),
+    );
+
+    this.add(
+      createSwitchRow(
+        _('Compact Mode'),
+        _('Controls the compactness of the clipboard item.'),
+        this.settings,
+        'compact-mode',
+      ),
     );
 
     this.add(
@@ -33,9 +63,23 @@ export class CommonStyleGroup extends Adw.PreferencesGroup {
         _('You can change position of the Pano'),
         this.settings,
         'window-position',
-        [_('Top'), _('Right'), _('Bottom'), _('Left')],
+        [_('Top'), _('Right'), _('Bottom'), _('Left'), _('Pointer')],
       ),
     );
+
+    this.add(
+      createSpinRow(
+        _('Window Height'),
+        _('You can change the height of the window if the position is "Pointer"'),
+        this.settings,
+        'window-height',
+        1,
+        100,
+        4000,
+      ),
+    );
+
+    this.add(new FloatingStyleGroup(ext));
 
     this.add(
       createColorRow(
@@ -51,6 +95,14 @@ export class CommonStyleGroup extends Adw.PreferencesGroup {
         _('You can change the incognito window background color'),
         this.settings,
         'incognito-window-background-color',
+      ),
+    );
+    this.add(
+      createColorRow(
+        _('Search Bar Background Color'),
+        _('You can change the background color of the search bar'),
+        this.settings,
+        'search-bar-background-color',
       ),
     );
     this.add(
@@ -81,6 +133,14 @@ export class CommonStyleGroup extends Adw.PreferencesGroup {
         _('You can change the hovered item border color'),
         this.settings,
         'hovered-item-border-color',
+      ),
+    );
+    this.add(
+      createSwitchRow(
+        _('Show Controls on Hover'),
+        _('When enabled, the controls will only show on hover'),
+        this.settings,
+        'show-controls-on-hover',
       ),
     );
   }
