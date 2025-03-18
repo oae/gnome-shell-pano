@@ -5,7 +5,7 @@ import Gtk4 from '@girs/gtk-4.0';
 import { CustomizationPage } from '@pano/prefs/customization';
 import { DangerZonePage } from '@pano/prefs/dangerZone';
 import { GeneralPage } from '@pano/prefs/general';
-import { isGnome47OrHigher } from '@pano/utils/compatibility';
+import { isGnomeVersionOrHigher } from '@pano/utils/compatibility';
 
 export default class PanoExtensionPreferences extends ExtensionPreferences {
   override fillPreferencesWindow(window: Adw.PreferencesWindow): Promise<void> | void {
@@ -23,7 +23,7 @@ export default class PanoExtensionPreferences extends ExtensionPreferences {
      * gnome 47 explicitly states, that we need to return a Promise, so we check the version at runtime and decide what to return, to support older versions of gnome shell, that don't expected a promise here
      * @see https://gitlab.gnome.org/GNOME/gnome-shell/-/blob/main/js/extensions/prefs.js#L34
      */
-    if (isGnome47OrHigher()) {
+    if (isGnomeVersionOrHigher(47)) {
       return Promise.resolve();
     }
     return;

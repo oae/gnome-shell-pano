@@ -4,38 +4,29 @@ import { Notification, Source as MessageTraySource } from '@girs/gnome-shell/dis
 import St from '@girs/st-16';
 
 // compatibility functions to check if a specific gnome-shell is used
-export function isGnomeVersion(version: number): boolean {
-  const [major, _minor, _patch, ..._rest]: Array<number | undefined> = PACKAGE_VERSION.split('.').map((num) => {
-    const result = parseInt(num);
-    if (isNaN(result)) {
-      return undefined;
-    }
-    return result;
-  });
+const GNOME_VERSION = PACKAGE_VERSION.split('.').reduce((acc, str): number[] => {
+  const result = parseInt(str);
+  if (isNaN(result)) {
+    return acc;
+  }
+
+  return [...acc, result];
+}, [] as number[]);
+
+export function isGnomeVersionOrHigher(version: number): boolean {
+  if (GNOME_VERSION.length < 1) {
+    console.error('[pano] FATAL ERROR: gnome version not correctly detected (case 1)');
+    return false;
+  }
+
+  const major = GNOME_VERSION[0];
 
   if (major === undefined) {
-    return PACKAGE_VERSION.includes(version.toString());
+    console.error('[pano] FATAL ERROR: gnome version not correctly detected (case 2)');
+    return false;
   }
 
-  return major === version;
-}
-
-export function isOneGnomeVersion(versions: number[]): boolean {
-  for (const version of versions) {
-    const isVersion = isGnomeVersion(version);
-    if (isVersion) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-// compatibility check functions for gnome-shell 47
-
-// this check if it is gnome 47 or higher, which includes all supported versions above and inclusive gnome 47
-export function isGnome47OrHigher(): boolean {
-  return isOneGnomeVersion([47, 48]);
+  return major >= version;
 }
 
 // compatibility check functions for gnome-shell 45 / 46
