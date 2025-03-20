@@ -9,7 +9,7 @@ import { ItemType } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { getPanoItemTypes, ICON_PACKS } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
-import { orientationCompatibility } from '@pano/utils/shell_compatibility';
+import { MetaCursorPointer, orientationCompatibility } from '@pano/utils/shell_compatibility';
 
 export type SearchBoxSignalType =
   | 'search-text-changed'
@@ -224,10 +224,10 @@ export class SearchBox extends St.BoxLayout {
     }
 
     icon.connect('enter-event', () => {
-      Shell.Global.get().display.set_cursor(Meta.Cursor.POINTING_HAND);
+      Shell.Global.get().display.set_cursor(MetaCursorPointer);
     });
     icon.connect('motion-event', () => {
-      Shell.Global.get().display.set_cursor(Meta.Cursor.POINTING_HAND);
+      Shell.Global.get().display.set_cursor(MetaCursorPointer);
     });
     icon.connect('leave-event', () => {
       Shell.Global.get().display.set_cursor(Meta.Cursor.DEFAULT);

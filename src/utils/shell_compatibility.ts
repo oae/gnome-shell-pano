@@ -22,6 +22,22 @@ function metaSupportsUnredirectForDisplay() {
   );
 }
 
+// Meta.Cursor.POINTING_HAND was renamed to Meta.Cursor.POINTER in GNOME 48 (Meta 16)
+
+interface NewMetaCursor {
+  POINTER: Meta.Cursor | null | undefined;
+}
+
+export const MetaCursorPointer: Meta.Cursor = (() => {
+  const pointer = (Meta.Cursor as unknown as NewMetaCursor).POINTER;
+
+  if (pointer !== undefined && pointer !== null) {
+    return pointer;
+  }
+
+  return Meta.Cursor.POINTING_HAND;
+})();
+
 // actual compatibility functions
 
 export type OrientationReturnType = { vertical: boolean } | { orientation: Clutter.Orientation };

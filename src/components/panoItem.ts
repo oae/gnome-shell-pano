@@ -13,7 +13,7 @@ import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { getPanoItemTypes } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
-import { orientationCompatibility } from '@pano/utils/shell_compatibility';
+import { MetaCursorPointer, orientationCompatibility } from '@pano/utils/shell_compatibility';
 import { getVirtualKeyboard, WINDOW_POSITIONS } from '@pano/utils/ui';
 
 export type PanoItemSignalType = 'on-remove' | 'on-favorite' | 'activated';
@@ -68,7 +68,7 @@ export class PanoItem extends St.BoxLayout {
     this.connect('key-focus-in', () => this.setSelected(true));
     this.connect('key-focus-out', () => this.setSelected(false));
     this.connect('enter-event', () => {
-      Shell.Global.get().display.set_cursor(Meta.Cursor.POINTING_HAND);
+      Shell.Global.get().display.set_cursor(MetaCursorPointer);
       if (!this.selected) {
         this.set_style(`border: 4px solid ${this.settings.get_string('hovered-item-border-color')}`);
       }
