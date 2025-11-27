@@ -54,7 +54,7 @@ import typescript from 'highlight.js/lib/languages/typescript';
 import yaml from 'highlight.js/lib/languages/yaml';
 import isUrl from 'is-url';
 import prettyBytes from 'pretty-bytes';
-import { validateHTMLColorHex, validateHTMLColorName, validateHTMLColorRgb } from 'validate-color';
+import { validateHTMLColorHex, validateHTMLColorName, validateHTMLColorRgb } from '@pano/utils/validators/colorValidator';
 
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('markdown', markdown);

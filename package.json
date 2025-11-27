@@ -72,6 +72,7 @@
     "@typescript-eslint/eslint-plugin": "^8.44.1",
     "@typescript-eslint/parser": "^8.44.1",
     "@types/node": "^24.5.2",
+    "chalk": "4.1.2",
     "cross-env": "^10.0.0",
     "eslint": "^9.36.0",
     "eslint-config-prettier": "^10.1.8",
@@ -98,8 +99,7 @@
     "htmlparser2": "^9.1.0",
     "is-url": "^1.2.4",
     "pretty-bytes": "^6.1.1",
-    "prismjs": "^1.30.0",
-    "validate-color": "https://gitpkg.now.sh/dreamyguy/validate-color/src/validate-color"
+    "prismjs": "^1.30.0"
   },
   "packageManager": "yarn@1.22.22"
 }
