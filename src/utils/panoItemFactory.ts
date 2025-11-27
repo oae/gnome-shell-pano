@@ -25,6 +25,11 @@ import {
   playAudio,
 } from '@pano/utils/shell';
 import { notify } from '@pano/utils/ui';
+import {
+  validateHTMLColorHex,
+  validateHTMLColorName,
+  validateHTMLColorRgb,
+} from '@pano/utils/validators/colorValidator';
 import convert from 'hex-color-converter';
 import hljs from 'highlight.js/lib/core';
 import bash from 'highlight.js/lib/languages/bash';
@@ -54,7 +59,6 @@ import typescript from 'highlight.js/lib/languages/typescript';
 import yaml from 'highlight.js/lib/languages/yaml';
 import isUrl from 'is-url';
 import prettyBytes from 'pretty-bytes';
-import { validateHTMLColorHex, validateHTMLColorName, validateHTMLColorRgb } from '@pano/utils/validators/colorValidator';
 
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('markdown', markdown);
