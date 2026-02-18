@@ -21,7 +21,13 @@ import {
   removeSoundContext,
   setupAppDirs,
 } from '@pano/utils/shell';
-import { addTopChrome, removeChrome, removeVirtualKeyboard } from '@pano/utils/ui';
+import {
+  addTopChrome,
+  destroyNotifications,
+  initNotifications,
+  removeChrome,
+  removeVirtualKeyboard,
+} from '@pano/utils/ui';
 
 import { setUnredirectForDisplay } from './utils/shell_compatibility';
 
@@ -51,6 +57,7 @@ export default class PanoExtension extends Extension {
   override enable() {
     this.settings = getCurrentExtensionSettings(this);
     this.setupResources();
+    initNotifications(this);
     this.keyManager = new KeyManager(this);
     this.clipboardManager = new ClipboardManager(this);
     this.indicator = new PanoIndicator(this, this.clearHistory.bind(this), () => this.panoWindow?.toggle());
@@ -65,6 +72,7 @@ export default class PanoExtension extends Extension {
     this.stop();
     this.disableDbus();
     this.indicator?.disable();
+    destroyNotifications();
     this.settings = null;
     this.keyManager = null;
     this.clipboardManager = null;

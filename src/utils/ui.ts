@@ -17,6 +17,19 @@ import { setBytesCompat } from './shell_compatibility';
 
 const global = Shell.Global.get();
 
+// Shared MessageTraySource for notification grouping
+let messageSource: MessageTraySource | null = null;
+
+export const initNotifications = (ext: ExtensionBase): void => {
+  const _ = gettext(ext);
+  messageSource = newMessageTraySource(_('Pano'), 'edit-copy-symbolic');
+  main.messageTray.add(messageSource as MessageTraySource);
+};
+
+export const destroyNotifications = (): void => {
+  messageSource = null;
+};
+
 export const notify = (
   ext: ExtensionBase,
   text: string,
@@ -24,9 +37,11 @@ export const notify = (
   iconOrPixbuf?: GdkPixbuf.Pixbuf | Gio.Icon,
   pixelFormat?: Cogl.PixelFormat,
 ): void => {
-  const _ = gettext(ext);
-  const source = newMessageTraySource(_('Pano'), 'edit-copy-symbolic');
-  main.messageTray.add(source as MessageTraySource);
+  if (!messageSource) {
+    initNotifications(ext);
+  }
+
+  const source = messageSource!;
   let notification: Notification;
   if (iconOrPixbuf) {
     if (iconOrPixbuf instanceof GdkPixbuf.Pixbuf) {
