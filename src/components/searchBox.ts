@@ -1,10 +1,10 @@
-import Clutter from '@girs/clutter-17';
+import Clutter from '@girs/clutter-18';
 import Gio from '@girs/gio-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import GObject from '@girs/gobject-2.0';
-import Meta from '@girs/meta-17';
-import Shell from '@girs/shell-17';
-import St from '@girs/st-17';
+import Meta from '@girs/meta-18';
+import Shell from '@girs/shell-18';
+import St from '@girs/st-18';
 import { ItemType } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { getPanoItemTypes, ICON_PACKS } from '@pano/utils/panoItemType';
