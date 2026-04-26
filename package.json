@@ -5,20 +5,20 @@
   "private": true,
   "license": "GPL-2.0-or-later",
   "scripts": {
-    "build": "yarn run build:ts && yarn run gen:locale && yarn run build:extension",
-    "gen:locale": "NODE_OPTIONS='--experimental-require-module' yarn run ts-node scripts/generateLocale.ts",
-    "check:locale": "NODE_OPTIONS='--experimental-require-module' yarn run ts-node scripts/generateLocale.ts --dry-run",
-    "build:ts": "yarn run clean:ts && rollup -c --failAfterWarnings && sed -i '/setTimeout/d' dist/thirdparty/prismjs.js && sed -i 's/var\\ /let\\ /g' dist/extension.js dist/prefs.js",
+    "build": "pnpm run build:ts && pnpm run gen:locale && pnpm run build:extension",
+    "gen:locale": "NODE_OPTIONS='--experimental-require-module' pnpm run ts-node scripts/generateLocale.ts",
+    "check:locale": "NODE_OPTIONS='--experimental-require-module' pnpm run ts-node scripts/generateLocale.ts --dry-run",
+    "build:ts": "pnpm run clean:ts && rollup -c --failAfterWarnings && sed -i '/setTimeout/d' dist/thirdparty/prismjs.js && sed -i 's/var\\ /let\\ /g' dist/extension.js dist/prefs.js",
     "clean:ts": "rm -rf ./dist",
-    "build:extension": "yarn run build:schema",
-    "build:schema": "yarn run clean:schema && glib-compile-schemas ./resources/schemas --targetdir=./dist/schemas/",
+    "build:extension": "pnpm run build:schema",
+    "build:schema": "pnpm run clean:schema && glib-compile-schemas ./resources/schemas --targetdir=./dist/schemas/",
     "clean:schema": "rm -rf ./dist/schemas/*.compiled",
-    "build:package": "yarn run build && rm -rf './dist/pano@elhan.io.zip' && cd ./dist && zip -qr 'pano@elhan.io.zip' .",
-    "watch": "yarn run build && yarn run rollup -c --watch",
+    "build:package": "pnpm run build && rm -rf './dist/pano@elhan.io.zip' && cd ./dist && zip -qr 'pano@elhan.io.zip' .",
+    "watch": "pnpm run build && pnpm run rollup -c --watch",
     "test": "jasmine --module --no-config build/tests/",
     "lint": "eslint src/",
     "shell:restart": "busctl --user call org.gnome.Shell /io/elhan/Pano io.elhan.Pano restart",
-    "build-and-restart": "yarn run build && yarn run shell:restart",
+    "build-and-restart": "pnpm run build && pnpm run shell:restart",
     "prettier:check": "prettier --check .",
     "prettier:fix": "prettier --write ."
   },
@@ -29,7 +29,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn run lint",
+      "pre-commit": "pnpm run lint",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
@@ -101,8 +101,32 @@
     "prismjs": "^1.30.0",
     "validate-color": "^2.2.4"
   },
-  "packageManager": "yarn@1.22.22",
-  "resolutions": {
-    "@girs/adw-1@": "1.10.0-4.0.0-rc.1"
+  "packageManager": "pnpm@10.33.2",
+  "pnpm": {
+    "overrides": {
+      "@girs/gnomebg-4.0@^4.0.0-4.0.0-rc.1": "4.0.0-4.0.0-rc.1",
+      "@girs/atk-1.0@^2.60.0-4.0.0-rc.1": "2.60.0-4.0.0-rc.1",
+      "@girs/cogl-2.0@^2.0.0-4.0.0-rc.1":"2.0.0-4.0.0-rc.1",
+      "@girs/gcr-4@^4.4.0-4.0.0-rc.1":"4.4.0-4.0.0-rc.1",
+      "@girs/gdm-1.0@^1.0.0-4.0.0-rc.1":"1.0.0-4.0.0-rc.1",
+      "@girs/gio-2.0@^2.88.0-4.0.0-rc.1":"2.88.0-4.0.0-rc.1",
+      "@girs/giounix-2.0@^2.0.0-4.0.0-rc.1":"2.0.0-4.0.0-rc.1",
+      "@girs/gjs@^4.0.0-rc.1":"4.0.0-rc.1",
+      "@girs/glib-2.0@^2.88.0-4.0.0-rc.1":"2.88.0-4.0.0-rc.1",
+      "@girs/gnomebg-4.0@^4.0.0-4.0.0-rc.1":"4.0.0-4.0.0-rc.1",
+      "@girs/gnomebluetooth-3.0@^3.0.0-4.0.0-rc.1":"3.0.0-4.0.0-rc.1",
+      "@girs/gnomedesktop-4.0@^4.0.0-4.0.0-rc.1":"4.0.0-4.0.0-rc.1",
+      "@girs/gobject-2.0@^2.88.0-4.0.0-rc.1":"2.88.0-4.0.0-rc.1",
+      "@girs/gtk-4.0@^4.23.0-4.0.0-rc.1":"4.23.0-4.0.0-rc.1",
+      "@girs/gvc-1.0@^1.0.0-4.0.0-rc.1":"1.0.0-4.0.0-rc.1",
+      "@girs/meta-18@^18.0.0-4.0.0-rc.1":"18.0.0-4.0.0-rc.1",
+      "@girs/mtk-18@^18.0.0-4.0.0-rc.1":"18.0.0-4.0.0-rc.1",
+      "@girs/polkit-1.0@^1.0.0-4.0.0-rc.1":"1.0.0-4.0.0-rc.1",
+      "@girs/shell-18@^18.0.0-4.0.0-rc.1":"18.0.0-4.0.0-rc.1",
+      "@girs/shew-0@^0.0.0-4.0.0-rc.1":"0.0.0-4.0.0-rc.1",
+      "@girs/st-18@^18.0.0-4.0.0-rc.1":"18.0.0-4.0.0-rc.1",
+      "@girs/upowerglib-1.0@^1.91.1-4.0.0-rc.1":"1.91.1-4.0.0-rc.1"
+    }
+
   }
 }
