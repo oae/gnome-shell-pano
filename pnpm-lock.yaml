@@ -68,6 +68,9 @@ importers:
       '@girs/clutter-18':
         specifier: 18.0.0-4.0.0-rc.1
         version: 18.0.0-4.0.0-rc.1
+      '@girs/cogl-18':
+        specifier: 18.0.0-4.0.0-rc.1
+        version: 18.0.0-4.0.0-rc.1
       '@girs/gda-5.0':
         specifier: 5.0.0-4.0.0-rc.1
         version: 5.0.0-4.0.0-rc.1
