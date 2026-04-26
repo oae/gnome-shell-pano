@@ -101,5 +101,8 @@
     "prismjs": "^1.30.0",
     "validate-color": "^2.2.4"
   },
-  "packageManager": "yarn@1.22.22"
+  "packageManager": "yarn@1.22.22",
+  "resolutions": {
+    "@girs/adw-1@": "1.10.0-4.0.0-rc.1"
+  }
 }
