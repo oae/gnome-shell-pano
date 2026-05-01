@@ -2,14 +2,13 @@ import Clutter from '@girs/clutter-18';
 import Gio from '@girs/gio-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import GObject from '@girs/gobject-2.0';
-import Meta from '@girs/meta-18';
 import Shell from '@girs/shell-18';
 import St from '@girs/st-18';
 import { ItemType } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { getPanoItemTypes, ICON_PACKS } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
-import { MetaCursorPointer, orientationCompatibility } from '@pano/utils/shell_compatibility';
+import { MetaCursorDefault, MetaCursorPointer, orientationCompatibility, setCursorType } from '@pano/utils/shell_compatibility';
 
 export type SearchBoxSignalType =
   | 'search-text-changed'
@@ -181,8 +180,7 @@ export class SearchBox extends St.BoxLayout {
       this.search.set_primary_icon(
         this.createSearchEntryIcon(
           Gio.icon_new_for_string(
-            `${this.ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${
-              panoItemTypes[Object.keys(panoItemTypes)[this.currentIndex] as ItemType].iconPath
+            `${this.ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${panoItemTypes[Object.keys(panoItemTypes)[this.currentIndex] as ItemType].iconPath
             }`,
           ),
           'search-entry-icon',
@@ -197,8 +195,7 @@ export class SearchBox extends St.BoxLayout {
         this.search.set_primary_icon(
           this.createSearchEntryIcon(
             Gio.icon_new_for_string(
-              `${this.ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${
-                panoItemTypes[Object.keys(panoItemTypes)[this.currentIndex] as ItemType].iconPath
+              `${this.ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${panoItemTypes[Object.keys(panoItemTypes)[this.currentIndex] as ItemType].iconPath
               }`,
             ),
             'search-entry-icon',
@@ -224,13 +221,13 @@ export class SearchBox extends St.BoxLayout {
     }
 
     icon.connect('enter-event', () => {
-      Shell.Global.get().display.set_cursor(MetaCursorPointer);
+      setCursorType(this, MetaCursorPointer);
     });
     icon.connect('motion-event', () => {
-      Shell.Global.get().display.set_cursor(MetaCursorPointer);
+      setCursorType(this, MetaCursorPointer);
     });
     icon.connect('leave-event', () => {
-      Shell.Global.get().display.set_cursor(Meta.Cursor.DEFAULT);
+      setCursorType(this, MetaCursorDefault);
     });
 
     return icon;
