@@ -155,7 +155,7 @@ interface OldImageContent {
 export function setBytesCompat(
   content: St.ImageContent,
   data: GLib.Bytes | Uint8Array,
-  pixel_format: Cogl.PixelFormat | null,
+  pixel_format: Cogl.PixelFormat,
   width: number,
   height: number,
   row_stride: number,
