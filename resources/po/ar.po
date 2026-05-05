@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "إزالة"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:101
+#: src/components/indicator/settingsMenu.ts:98
 #: src/prefs/dangerZone/clearHistory.ts:14
 msgid "Clear History"
 msgstr "إزالة السجل"
@@ -23,11 +23,11 @@ msgstr "إزالة السجل"
 msgid "Are you sure you want to clear history?"
 msgstr "هل أنت متأكد من رغبتك بإزالة السجل؟"
 
-#: src/components/indicator/settingsMenu.ts:67
+#: src/components/indicator/settingsMenu.ts:66
 msgid "Incognito Mode"
 msgstr "الوضع المخفي"
 
-#: src/components/indicator/settingsMenu.ts:108
+#: src/components/indicator/settingsMenu.ts:105
 msgid "Settings"
 msgstr "الإعدادات"
 
@@ -35,7 +35,7 @@ msgstr "الإعدادات"
 msgid "No Description"
 msgstr ""
 
-#: src/components/searchBox.ts:70
+#: src/components/searchBox.ts:74
 msgid "Type to search, Tab to cycle"
 msgstr ""
 

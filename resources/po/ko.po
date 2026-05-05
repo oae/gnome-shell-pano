@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "지우기"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:101
+#: src/components/indicator/settingsMenu.ts:98
 #: src/prefs/dangerZone/clearHistory.ts:14
 msgid "Clear History"
 msgstr "기록 지우기"
@@ -23,11 +23,11 @@ msgstr "기록 지우기"
 msgid "Are you sure you want to clear history?"
 msgstr "기록을 지우시겠습니까?"
 
-#: src/components/indicator/settingsMenu.ts:67
+#: src/components/indicator/settingsMenu.ts:66
 msgid "Incognito Mode"
 msgstr "시크릿 모드"
 
-#: src/components/indicator/settingsMenu.ts:108
+#: src/components/indicator/settingsMenu.ts:105
 msgid "Settings"
 msgstr "설정"
 
@@ -35,7 +35,7 @@ msgstr "설정"
 msgid "No Description"
 msgstr "설명 없음"
 
-#: src/components/searchBox.ts:70
+#: src/components/searchBox.ts:74
 msgid "Type to search, Tab to cycle"
 msgstr "검색하려면 입력, Tab으로 전환"
 

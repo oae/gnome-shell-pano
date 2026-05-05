@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "Selvä"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:101
+#: src/components/indicator/settingsMenu.ts:98
 #: src/prefs/dangerZone/clearHistory.ts:14
 msgid "Clear History"
 msgstr "Tyhjennä historia"
@@ -23,11 +23,11 @@ msgstr "Tyhjennä historia"
 msgid "Are you sure you want to clear history?"
 msgstr "Oletko varma, että haluat tyhjentää historian?"
 
-#: src/components/indicator/settingsMenu.ts:67
+#: src/components/indicator/settingsMenu.ts:66
 msgid "Incognito Mode"
 msgstr "Incognito-tila"
 
-#: src/components/indicator/settingsMenu.ts:108
+#: src/components/indicator/settingsMenu.ts:105
 msgid "Settings"
 msgstr "Asetukset"
 
@@ -35,7 +35,7 @@ msgstr "Asetukset"
 msgid "No Description"
 msgstr ""
 
-#: src/components/searchBox.ts:70
+#: src/components/searchBox.ts:74
 msgid "Type to search, Tab to cycle"
 msgstr ""
 
