@@ -22,17 +22,15 @@ function metaSupportsUnredirectForDisplay() {
   );
 }
 
-
 // Meta.Cursor was removed and Cursor lives in Clutter since Gnome 50 (Meta 18 / Clutter 18), it was renamed to CursorType (at least the thing we expect)
 
-export type MetaCursorType = typeof Clutter.CursorType
+export type MetaCursorType = typeof Clutter.CursorType;
 
 interface LegacyMetaWithCursor {
   Cursor: MetaCursorType | null | undefined;
 }
 
 const usesOldMetaCursor: boolean = (() => {
-
   const cursor = (Meta as unknown as LegacyMetaWithCursor).Cursor;
 
   if (cursor !== undefined && cursor !== null) {
@@ -40,18 +38,15 @@ const usesOldMetaCursor: boolean = (() => {
   }
 
   return false;
-
-})()
+})();
 
 export const MetaCursor: MetaCursorType = (() => {
-
   if (usesOldMetaCursor) {
     return (Meta as unknown as LegacyMetaWithCursor).Cursor!;
   }
 
   return Clutter.CursorType;
-
-})()
+})();
 
 // Meta.Cursor.POINTING_HAND was renamed to Meta.Cursor.POINTER in GNOME 48 (Meta 16)
 
@@ -59,10 +54,8 @@ interface LegacyMetaCursor {
   POINTING_HAND: Clutter.CursorType | null | undefined;
 }
 
-
 export const MetaCursorPointer: Clutter.CursorType = (() => {
   if (usesOldMetaCursor) {
-
     const pointer = ((Meta as unknown as LegacyMetaWithCursor).Cursor as unknown as LegacyMetaCursor).POINTING_HAND;
 
     if (pointer !== undefined && pointer !== null) {
@@ -82,8 +75,6 @@ export const MetaCursorDefault: Clutter.CursorType = (() => {
   return Clutter.CursorType.DEFAULT;
 })();
 
-
-
 // changing CursorType, (previously Cursor) was moved since Gnome 50 (Meta 18 / Clutter 18), previously it was in the global shell display, now it is a method on Clutter.Actor
 
 interface LegacyMetaDisplay {
@@ -91,19 +82,15 @@ interface LegacyMetaDisplay {
 }
 
 export function setCursorType(actor: Clutter.Actor, cursor_type: Clutter.CursorType): void {
-
-
   const set_cursor_fn = (Shell.Global.get().display as LegacyMetaDisplay).set_cursor;
-
 
   if (set_cursor_fn !== undefined) {
     set_cursor_fn(MetaCursorDefault);
     return;
   }
 
-  actor.set_cursor_type(cursor_type)
+  actor.set_cursor_type(cursor_type);
 }
-
 
 // actual compatibility functions
 

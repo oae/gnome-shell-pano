@@ -8,7 +8,12 @@ import { ItemType } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { getPanoItemTypes, ICON_PACKS } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
-import { MetaCursorDefault, MetaCursorPointer, orientationCompatibility, setCursorType } from '@pano/utils/shell_compatibility';
+import {
+  MetaCursorDefault,
+  MetaCursorPointer,
+  orientationCompatibility,
+  setCursorType,
+} from '@pano/utils/shell_compatibility';
 
 export type SearchBoxSignalType =
   | 'search-text-changed'
@@ -180,7 +185,8 @@ export class SearchBox extends St.BoxLayout {
       this.search.set_primary_icon(
         this.createSearchEntryIcon(
           Gio.icon_new_for_string(
-            `${this.ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${panoItemTypes[Object.keys(panoItemTypes)[this.currentIndex] as ItemType].iconPath
+            `${this.ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${
+              panoItemTypes[Object.keys(panoItemTypes)[this.currentIndex] as ItemType].iconPath
             }`,
           ),
           'search-entry-icon',
@@ -195,7 +201,8 @@ export class SearchBox extends St.BoxLayout {
         this.search.set_primary_icon(
           this.createSearchEntryIcon(
             Gio.icon_new_for_string(
-              `${this.ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${panoItemTypes[Object.keys(panoItemTypes)[this.currentIndex] as ItemType].iconPath
+              `${this.ext.path}/icons/hicolor/scalable/actions/${ICON_PACKS[this.settings.get_uint('icon-pack')]}-${
+                panoItemTypes[Object.keys(panoItemTypes)[this.currentIndex] as ItemType].iconPath
               }`,
             ),
             'search-entry-icon',

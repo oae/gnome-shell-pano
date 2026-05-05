@@ -186,10 +186,7 @@ const thirdPartyBuild = thirdParty.map((pkg) => {
                   .map((name) => `export const ${name} = libExports.${name};`)
                   .join('\n');
                 // Match the export pattern - rollup may use different variable names
-                return code.replace(
-                  /export \{ (\w+) as default \};/,
-                  `export { $1 as default };\n${exportStatements}`,
-                );
+                return code.replace(/export \{ (\w+) as default \};/, `export { $1 as default };\n${exportStatements}`);
               },
             },
           ]

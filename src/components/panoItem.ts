@@ -12,7 +12,12 @@ import { DBItem } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { getPanoItemTypes } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
-import { MetaCursorDefault, MetaCursorPointer, orientationCompatibility, setCursorType } from '@pano/utils/shell_compatibility';
+import {
+  MetaCursorDefault,
+  MetaCursorPointer,
+  orientationCompatibility,
+  setCursorType,
+} from '@pano/utils/shell_compatibility';
 import { getVirtualKeyboard, WINDOW_POSITIONS } from '@pano/utils/ui';
 
 export type PanoItemSignalType = 'on-remove' | 'on-favorite' | 'activated';
@@ -73,7 +78,7 @@ export class PanoItem extends St.BoxLayout {
       }
     });
     this.connect('leave-event', () => {
-      setCursorType(this, MetaCursorDefault)
+      setCursorType(this, MetaCursorDefault);
       if (!this.selected) {
         this.set_style('');
       }
