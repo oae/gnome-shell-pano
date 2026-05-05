@@ -6,8 +6,8 @@
   "license": "GPL-2.0-or-later",
   "scripts": {
     "build": "pnpm run build:ts && pnpm run gen:locale && pnpm run build:extension",
-    "gen:locale": "NODE_OPTIONS='--experimental-require-module' pnpm run ts-node scripts/generateLocale.ts",
-    "check:locale": "NODE_OPTIONS='--experimental-require-module' pnpm run ts-node scripts/generateLocale.ts --dry-run",
+    "gen:locale": "NODE_OPTIONS='--experimental-require-module' pnpm exec ts-node scripts/generateLocale.ts",
+    "check:locale": "NODE_OPTIONS='--experimental-require-module' pnpm exec ts-node scripts/generateLocale.ts --dry-run",
     "build:ts": "pnpm run clean:ts && rollup -c --failAfterWarnings && sed -i '/setTimeout/d' dist/thirdparty/prismjs.js && sed -i 's/var\\ /let\\ /g' dist/extension.js dist/prefs.js",
     "clean:ts": "rm -rf ./dist",
     "build:extension": "pnpm run build:schema",
