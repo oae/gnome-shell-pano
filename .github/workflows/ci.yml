@@ -1,4 +1,4 @@
-name: Yarn CI
+name: Build CI
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Yarn CI with Node ${{ matrix.node-version }}
+    name: Build CI with Node ${{ matrix.node-version }}
     runs-on: ubuntu-24.04
 
     strategy:
@@ -18,27 +18,30 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Use Pnpm
+        uses: pnpm/action-setup@v6
+
       - name: Install dependencies
-        run: yarn install -D
+        run: pnpm install --frozen-lockfile
 
       - name: Validate Formatting
-        run: yarn run prettier:check
+        run: pnpm run prettier:check
 
       - name: Validate Locale
-        run: yarn run check:locale
+        run: pnpm run check:locale
 
       - name: Lint Extension
-        run: yarn run lint
+        run: pnpm run lint
 
       - name: Build Extension
-        run: yarn run build
+        run: pnpm run build
 
       - name: Prepare Test Runner
         run: |
@@ -50,4 +53,4 @@ jobs:
           sudo meson install -C build
 
       - name: Run Tests
-        run: yarn run test
+        run: pnpm run test
