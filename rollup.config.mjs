@@ -127,9 +127,27 @@ const globalDefinitionImports = ['@girs/gnome-shell/dist/extensions/global'];
 
 const globalEntries = {};
 
+// Named exports for packages that need explicit configuration
+const namedExportsConfig = {
+  'validate-color': [
+    'validateHTMLColorName',
+    'validateHTMLColorSpecialName',
+    'validateHTMLColorHex',
+    'validateHTMLColorRgb',
+    'validateHTMLColorHsl',
+    'validateHTMLColorHwb',
+    'validateHTMLColorLab',
+    'validateHTMLColorLch',
+    'validateHTMLColor',
+  ],
+};
+
 const thirdPartyBuild = thirdParty.map((pkg) => {
   const sanitizedPkg = pkg.split('/').join('_').replaceAll('-', '_').replaceAll('.', '_').replaceAll('@', '');
   globalEntries[pkg] = `./thirdparty/${sanitizedPkg}.js`;
+
+  // Check if this package needs explicit named exports
+  const namedExports = namedExportsConfig[pkg];
 
   return {
     input: `node_modules/${pkg}`,
@@ -140,15 +158,40 @@ const thirdPartyBuild = thirdParty.map((pkg) => {
       generatedCode: {
         constBindings: true,
       },
+      // Re-export named exports if configured
+      ...(namedExports && {
+        exports: 'named',
+      }),
     },
     treeshake: {
       moduleSideEffects: 'no-external',
     },
     plugins: [
-      commonjs(),
+      commonjs({
+        requireReturnsDefault: 'auto',
+        defaultIsModuleExports: namedExports ? false : true,
+      }),
       nodeResolve({
         preferBuiltins: false,
       }),
+      // Add a custom plugin to re-export named exports for webpack bundles
+      ...(namedExports
+        ? [
+            {
+              name: 'export-named',
+              renderChunk(code) {
+                const exportStatements = namedExports
+                  .map((name) => `export const ${name} = libExports.${name};`)
+                  .join('\n');
+                // Match the export pattern - rollup may use different variable names
+                return code.replace(
+                  /export \{ (\w+) as default \};/,
+                  `export { $1 as default };\n${exportStatements}`,
+                );
+              },
+            },
+          ]
+        : []),
     ],
   };
 });

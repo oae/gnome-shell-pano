@@ -186,5 +186,11 @@ busctl --user call org.gnome.Shell /io/elhan/Pano io.elhan.Pano show # shows pan
     yarn build
     ln -s "$PWD/dist" "$HOME/.local/share/gnome-shell/extensions/pano@elhan.io"
     ```
+  
+  - Restart Gnome UI to load extension
+
+    log out from you current Gnome session, next to system restart button press "Log-Out" all programs will be closed, you need to log in again
+
+   ![alt text](resources/images/log_out.png)
 
   - During development you can use `yarn watch` command to keep generated code up-to-date.
