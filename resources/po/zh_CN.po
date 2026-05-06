@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "清除"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:101
+#: src/components/indicator/settingsMenu.ts:98
 #: src/prefs/dangerZone/clearHistory.ts:14
 msgid "Clear History"
 msgstr "清除历史记录"
@@ -23,11 +23,11 @@ msgstr "清除历史记录"
 msgid "Are you sure you want to clear history?"
 msgstr "确定要清除历史记录吗？"
 
-#: src/components/indicator/settingsMenu.ts:67
+#: src/components/indicator/settingsMenu.ts:66
 msgid "Incognito Mode"
 msgstr "隐身模式"
 
-#: src/components/indicator/settingsMenu.ts:108
+#: src/components/indicator/settingsMenu.ts:105
 msgid "Settings"
 msgstr "设置"
 
@@ -35,7 +35,7 @@ msgstr "设置"
 msgid "No Description"
 msgstr "无详情"
 
-#: src/components/searchBox.ts:70
+#: src/components/searchBox.ts:74
 msgid "Type to search, Tab to cycle"
 msgstr "输入即搜索，Tab键循环"
 

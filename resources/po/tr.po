@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "Temizle"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:101
+#: src/components/indicator/settingsMenu.ts:98
 #: src/prefs/dangerZone/clearHistory.ts:14
 msgid "Clear History"
 msgstr "Geçmişi Temizle"
@@ -23,11 +23,11 @@ msgstr "Geçmişi Temizle"
 msgid "Are you sure you want to clear history?"
 msgstr "Geçmişi temizlemek istediğine emin misiniz?"
 
-#: src/components/indicator/settingsMenu.ts:67
+#: src/components/indicator/settingsMenu.ts:66
 msgid "Incognito Mode"
 msgstr "Gizli Mod"
 
-#: src/components/indicator/settingsMenu.ts:108
+#: src/components/indicator/settingsMenu.ts:105
 msgid "Settings"
 msgstr "Ayarlar"
 
@@ -35,7 +35,7 @@ msgstr "Ayarlar"
 msgid "No Description"
 msgstr "Açıklama Yok"
 
-#: src/components/searchBox.ts:70
+#: src/components/searchBox.ts:74
 msgid "Type to search, Tab to cycle"
 msgstr "Aramak için yazın, gezinmek için Tab'a basın"
 

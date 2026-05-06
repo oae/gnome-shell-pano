@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "Очистити"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:101
+#: src/components/indicator/settingsMenu.ts:98
 #: src/prefs/dangerZone/clearHistory.ts:14
 msgid "Clear History"
 msgstr "Очистити історію"
@@ -23,11 +23,11 @@ msgstr "Очистити історію"
 msgid "Are you sure you want to clear history?"
 msgstr "Ви впевнені, що хочете очистити історію?"
 
-#: src/components/indicator/settingsMenu.ts:67
+#: src/components/indicator/settingsMenu.ts:66
 msgid "Incognito Mode"
 msgstr "Режим інкогніто"
 
-#: src/components/indicator/settingsMenu.ts:108
+#: src/components/indicator/settingsMenu.ts:105
 msgid "Settings"
 msgstr "Параметри"
 
@@ -35,7 +35,7 @@ msgstr "Параметри"
 msgid "No Description"
 msgstr "Без опису"
 
-#: src/components/searchBox.ts:70
+#: src/components/searchBox.ts:74
 msgid "Type to search, Tab to cycle"
 msgstr "Введіть для пошуку, Tab для перемикання"
 

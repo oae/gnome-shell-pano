@@ -111,7 +111,7 @@ msgid "Clear"
 msgstr ""
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:101
+#: src/components/indicator/settingsMenu.ts:98
 #: src/prefs/dangerZone/clearHistory.ts:14
 msgid "Clear History"
 msgstr ""
@@ -256,7 +256,7 @@ msgstr ""
 msgid "Image Item Style"
 msgstr ""
 
-#: src/components/indicator/settingsMenu.ts:67
+#: src/components/indicator/settingsMenu.ts:66
 msgid "Incognito Mode"
 msgstr ""
 
@@ -409,7 +409,7 @@ msgstr ""
 msgid "Session Only Mode"
 msgstr ""
 
-#: src/components/indicator/settingsMenu.ts:108
+#: src/components/indicator/settingsMenu.ts:105
 msgid "Settings"
 msgstr ""
 
@@ -449,7 +449,7 @@ msgstr ""
 msgid "Top"
 msgstr ""
 
-#: src/components/searchBox.ts:70
+#: src/components/searchBox.ts:74
 msgid "Type to search, Tab to cycle"
 msgstr ""
 

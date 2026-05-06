@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "Vider"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:101
+#: src/components/indicator/settingsMenu.ts:98
 #: src/prefs/dangerZone/clearHistory.ts:14
 msgid "Clear History"
 msgstr "Vider l’historique"
@@ -23,11 +23,11 @@ msgstr "Vider l’historique"
 msgid "Are you sure you want to clear history?"
 msgstr "Êtes-vous sûr de vouloir vider l’historique ?"
 
-#: src/components/indicator/settingsMenu.ts:67
+#: src/components/indicator/settingsMenu.ts:66
 msgid "Incognito Mode"
 msgstr "Mode incognito"
 
-#: src/components/indicator/settingsMenu.ts:108
+#: src/components/indicator/settingsMenu.ts:105
 msgid "Settings"
 msgstr "Paramètres"
 
@@ -35,7 +35,7 @@ msgstr "Paramètres"
 msgid "No Description"
 msgstr "Aucune description"
 
-#: src/components/searchBox.ts:70
+#: src/components/searchBox.ts:74
 msgid "Type to search, Tab to cycle"
 msgstr "Taper pour rechercher, Tabulation pour trier"
 
