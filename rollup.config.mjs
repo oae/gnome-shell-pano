@@ -82,7 +82,6 @@ const thirdParty = [
   'hex-color-converter',
   'is-url',
   'pretty-bytes',
-  'validate-color',
   'highlight.js/lib/core',
   'highlight.js/lib/languages/bash',
   'highlight.js/lib/languages/c',
@@ -153,6 +152,48 @@ const thirdPartyBuild = thirdParty.map((pkg) => {
   };
 });
 
+// validate-color ships a webpack-bundled CJS module whose named exports are defined
+// via Object.defineProperty at runtime, which rollup cannot detect statically.
+// We build it separately and append explicit named re-exports.
+const validateColorNamedExports = [
+  'validateHTMLColorName',
+  'validateHTMLColorSpecialName',
+  'validateHTMLColorHex',
+  'validateHTMLColorRgb',
+  'validateHTMLColorHsl',
+  'validateHTMLColorHwb',
+  'validateHTMLColorLab',
+  'validateHTMLColorLch',
+  'validateHTMLColor',
+];
+globalEntries['validate-color'] = `./thirdparty/validate_color.js`;
+const validateColorBuild = {
+  input: `node_modules/validate-color`,
+  output: {
+    file: `${buildPath}/thirdparty/validate_color.js`,
+    format: 'esm',
+    name: 'lib',
+    generatedCode: { constBindings: true },
+  },
+  treeshake: { moduleSideEffects: 'no-external' },
+  plugins: [
+    commonjs(),
+    nodeResolve({ preferBuiltins: false }),
+    {
+      name: 'validate-color-named-exports',
+      generateBundle(_, bundle) {
+        const chunk = bundle['validate_color.js'];
+        if (chunk) {
+          const names = validateColorNamedExports.join(', ');
+          chunk.code +=
+            `\nconst { ${names} } = libExports;\n` +
+            `export { ${names} };\n`;
+        }
+      },
+    },
+  ],
+};
+
 const testFiles = ['db.test'];
 
 const testBuilds = testFiles.map((file) => {
@@ -189,6 +230,7 @@ const testBuilds = testFiles.map((file) => {
 
 const builds = [
   ...thirdPartyBuild,
+  validateColorBuild,
   {
     input: 'src/extension.ts',
     treeshake: {

@@ -224,13 +224,13 @@ export class SearchBox extends St.BoxLayout {
     }
 
     icon.connect('enter-event', () => {
-      Shell.Global.get().display.set_cursor(MetaCursorPointer);
+      if (MetaCursorPointer !== null) Shell.Global.get().display.set_cursor(MetaCursorPointer);
     });
     icon.connect('motion-event', () => {
-      Shell.Global.get().display.set_cursor(MetaCursorPointer);
+      if (MetaCursorPointer !== null) Shell.Global.get().display.set_cursor(MetaCursorPointer);
     });
     icon.connect('leave-event', () => {
-      Shell.Global.get().display.set_cursor(Meta.Cursor.DEFAULT);
+      if (Meta.Cursor) Shell.Global.get().display.set_cursor(Meta.Cursor.DEFAULT);
     });
 
     return icon;
