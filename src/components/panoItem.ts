@@ -68,13 +68,13 @@ export class PanoItem extends St.BoxLayout {
     this.connect('key-focus-in', () => this.setSelected(true));
     this.connect('key-focus-out', () => this.setSelected(false));
     this.connect('enter-event', () => {
-      Shell.Global.get().display.set_cursor(MetaCursorPointer);
+      if (MetaCursorPointer !== null) Shell.Global.get().display.set_cursor(MetaCursorPointer);
       if (!this.selected) {
         this.set_style(`border: 4px solid ${this.settings.get_string('hovered-item-border-color')}`);
       }
     });
     this.connect('leave-event', () => {
-      Shell.Global.get().display.set_cursor(Meta.Cursor.DEFAULT);
+      if (Meta.Cursor) Shell.Global.get().display.set_cursor(Meta.Cursor.DEFAULT);
       if (!this.selected) {
         this.set_style('');
       }

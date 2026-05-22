@@ -23,12 +23,17 @@ function metaSupportsUnredirectForDisplay() {
 }
 
 // Meta.Cursor.POINTING_HAND was renamed to Meta.Cursor.POINTER in GNOME 48 (Meta 16)
+// Meta.Cursor may be undefined in GNOME 50+
 
 interface LegacyMetaCursor {
   POINTING_HAND: Meta.Cursor | null | undefined;
 }
 
-export const MetaCursorPointer: Meta.Cursor = (() => {
+export const MetaCursorPointer: Meta.Cursor | null = (() => {
+  if (!Meta.Cursor) {
+    return null;
+  }
+
   const pointer = (Meta.Cursor as unknown as LegacyMetaCursor).POINTING_HAND;
 
   if (pointer !== undefined && pointer !== null) {
