@@ -1,4 +1,4 @@
-name: Build CI
+name: Yarn CI
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build CI with Node ${{ matrix.node-version }}
+    name: Yarn CI with Node ${{ matrix.node-version }}
     runs-on: ubuntu-24.04
 
     strategy:
