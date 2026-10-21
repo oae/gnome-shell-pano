@@ -114,6 +114,8 @@ export const isValidBinding = (mask: number, keycode: number, keyval: number) =>
         (keyval >= Gdk4.KEY_hebrew_doublelowline && keyval <= Gdk4.KEY_hebrew_taf) ||
         (keyval >= Gdk4.KEY_Thai_kokai && keyval <= Gdk4.KEY_Thai_lekkao) ||
         (keyval >= Gdk4.KEY_Hangul_Kiyeog && keyval <= Gdk4.KEY_Hangul_J_YeorinHieuh) ||
+        //TODO: debug this, mask is NEVER 0 here, so is this expected behavior or a bug
+        //@ts-expect-error debug this
         (keyval === Gdk4.KEY_space && mask === 0) ||
         keyvalIsForbidden(keyval)))
   );
