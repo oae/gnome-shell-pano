@@ -16,10 +16,7 @@ import {
 } from '@pano/utils/shell_compatibility';
 
 export type SearchBoxSignalType =
-  | 'search-text-changed'
-  | 'search-item-select-shortcut'
-  | 'search-focus-out'
-  | 'search-submit';
+  'search-text-changed' | 'search-item-select-shortcut' | 'search-focus-out' | 'search-submit';
 
 interface SearchBoxSignals extends SignalsDefinition<SearchBoxSignalType> {
   'search-text-changed': SignalRepresentationType<
