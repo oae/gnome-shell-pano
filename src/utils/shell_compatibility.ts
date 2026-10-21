@@ -1,9 +1,9 @@
-import Clutter from '@girs/clutter-18';
-import Cogl from '@girs/cogl-18';
+import Clutter from '@girs/clutter-51';
+import Cogl from '@girs/cogl-51';
 import GLib from '@girs/glib-2.0';
-import Meta from '@girs/meta-18';
-import Shell from '@girs/shell-18';
-import St from '@girs/st-18';
+import Meta from '@girs/meta-51';
+import Shell from '@girs/shell-51';
+import St from '@girs/st-51';
 
 // compatibility check functions for gnome-shell 48
 

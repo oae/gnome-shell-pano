@@ -1,10 +1,10 @@
-import Clutter from '@girs/clutter-18';
+import Clutter from '@girs/clutter-51';
 import { MonitorConstraint } from '@girs/gnome-shell/dist/ui/layout';
 import { Lightbox } from '@girs/gnome-shell/dist/ui/lightbox';
 import * as main from '@girs/gnome-shell/dist/ui/main';
 import GObject from '@girs/gobject-2.0';
-import Shell from '@girs/shell-18';
-import St from '@girs/st-18';
+import Shell from '@girs/shell-51';
+import St from '@girs/st-51';
 import { registerGObjectClass } from '@pano/utils/gjs';
 
 interface MonitorBoxSignals {

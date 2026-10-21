@@ -42,10 +42,10 @@ const importsExtension = {
   //NOTE. this is the same version as here: https://gitlab.gnome.org/GNOME/gnome-shell/-/blob/main/meson.build?ref_type=heads#L13
 
   // only allowed in extension.js
-  'gi://Meta?version=18': { name: 'gi://Meta' },
-  'gi://Clutter?version=18': { name: 'gi://Clutter' },
-  'gi://Cogl?version=18': { name: 'gi://Cogl' },
-  'gi://Shell?version=18': { name: 'gi://Shell' },
+  'gi://Meta?version=51': { name: 'gi://Meta' },
+  'gi://Clutter?version=51': { name: 'gi://Clutter' },
+  'gi://Cogl?version=51': { name: 'gi://Cogl' },
+  'gi://Shell?version=51': { name: 'gi://Shell' },
 
   // special extension resources
   '@girs/gnome-shell/dist/extensions/extension': { name: 'resource://EXT_ROOT/extensions/extension.js' },
@@ -127,9 +127,11 @@ const testModules = [...Object.keys(importsGeneral), ...Object.keys(importsPrefs
 
 const globalDefinitionImports = ['@girs/gnome-shell/dist/extensions/global'];
 
+/**@type {Record<string, string> } */
 const globalEntries = {};
 
 // Named exports for packages that need explicit configuration
+/**@type {Record<string, Array<string>> } */
 const namedExportsConfig = {
   'validate-color': [
     'validateHTMLColorName',
@@ -181,7 +183,8 @@ const thirdPartyBuild = thirdParty.map((pkg) => {
         ? [
             {
               name: 'export-named',
-              renderChunk(code) {
+              /**@type {(code: string)=>string} */
+              renderChunk: (code) => {
                 const exportStatements = namedExports
                   .map((name) => `export const ${name} = libExports.${name};`)
                   .join('\n');

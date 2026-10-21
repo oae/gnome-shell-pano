@@ -1,10 +1,10 @@
 import '@girs/gnome-shell/dist/extensions/global';
 
-import Clutter from '@girs/clutter-18';
+import Clutter from '@girs/clutter-51';
 import Gio from '@girs/gio-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
-import Shell from '@girs/shell-18';
-import St from '@girs/st-18';
+import Shell from '@girs/shell-51';
+import St from '@girs/st-51';
 import { MonitorBox } from '@pano/components/monitorBox';
 import { PanoScrollView } from '@pano/components/panoScrollView';
 import { SearchBox } from '@pano/components/searchBox';
