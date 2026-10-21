@@ -130,7 +130,7 @@ export class PanoWindow extends St.BoxLayout {
     });
     this.searchBox.connect(
       'search-text-changed',
-      (_: any, text: string, itemType: ItemType, showFavorites: boolean) => {
+      (_: unknown, text: string, itemType: ItemType | '', showFavorites: boolean) => {
         this.scrollView.filter(text, itemType, showFavorites);
       },
     );

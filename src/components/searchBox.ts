@@ -30,7 +30,7 @@ interface SearchBoxSignals extends SignalsDefinition<SearchBoxSignalType> {
 namespace SearchBox {
   // Signal signatures
   export interface SignalSignatures extends St.BoxLayout.SignalSignatures {
-    'search-text-changed': (arg0: string, arg1: string, arg2: boolean) => void;
+    'search-text-changed': (arg0: string, arg1: ItemType | '', arg2: boolean) => void;
     'search-item-select-shortcut': (arg0: number) => void;
     'search-focus-out': () => void;
     'search-submit': () => void;
@@ -127,7 +127,7 @@ export class SearchBox extends St.BoxLayout {
       this.emitSearchTextChange();
     });
 
-    this.search.clutterText.connect('key-press-event', (_: St.Entry, event: Clutter.Event) => {
+    this.search.clutterText.connect('key-press-event', (_: unknown, event: Clutter.Event) => {
       if (
         event.get_key_symbol() === Clutter.KEY_Down ||
         (event.get_key_symbol() === Clutter.KEY_Right &&
@@ -282,9 +282,9 @@ export class SearchBox extends St.BoxLayout {
 
   emitSearchTextChange() {
     const panoItemTypes = getPanoItemTypes(this.ext);
-    let itemType: string | null = null;
+    let itemType: ItemType | null = null;
     if (this.currentIndex !== null) {
-      itemType = Object.keys(panoItemTypes)[this.currentIndex] ?? null;
+      itemType = (Object.keys(panoItemTypes) as ItemType[])[this.currentIndex] ?? null;
     }
     this.emit('search-text-changed', this.search.text, itemType || '', this.showFavorites);
   }

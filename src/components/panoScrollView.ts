@@ -340,9 +340,9 @@ export class PanoScrollView extends St.ScrollView {
     return false;
   }
 
-  filter(text: string | null, itemType: ItemType | null, showFavorites: boolean | null) {
+  filter(text: string | null, itemType: ItemType | null | '', showFavorites: boolean | null) {
     this.currentFilter = text;
-    this.currentItemTypeFilter = itemType;
+    this.currentItemTypeFilter = itemType === '' ? null : itemType;
     this.showFavorites = showFavorites;
     if (!text && !itemType && null === showFavorites) {
       this.getItems().forEach((i) => i.show());

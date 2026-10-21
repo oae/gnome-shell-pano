@@ -14,7 +14,7 @@ const importsGeneral = {
   'gi://Graphene?version=1.0': { name: 'gi://Graphene' },
   'gi://Pango?version=1.0': { name: 'gi://Pango' },
   'gi://Soup?version=3.0': { name: 'gi://Soup' },
-  'gi://St?version=18': { name: 'gi://St' },
+  'gi://St?version=51': { name: 'gi://St' },
 
   // non core dependencies (can have version specifier!)
   'gi://Gda?version=5.0': { name: 'gi://Gda?version>=5.0' }, // We officially support (it's also typed!) both 5.0 and 6.0
