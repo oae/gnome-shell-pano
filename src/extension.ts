@@ -4,7 +4,7 @@ import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
 import { Extensions } from '@girs/gnome-shell';
 import type { ExtensionMetadata } from '@girs/gnome-shell/dist/types/extension-metadata';
-import Shell from '@girs/shell-17';
+import Shell from '@girs/shell-18';
 const { Extension } = Extensions.extension;
 import PanoIndicator from '@pano/components/indicator';
 import { PanoWindow } from '@pano/containers/panoWindow';

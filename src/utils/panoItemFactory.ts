@@ -1,6 +1,6 @@
 import '@girs/gnome-shell/dist/extensions/global';
 
-import Cogl from '@girs/cogl-17';
+import Cogl from '@girs/cogl-18';
 import GdkPixbuf from '@girs/gdkpixbuf-2.0';
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';

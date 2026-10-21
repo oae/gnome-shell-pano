@@ -1,4 +1,4 @@
-import Clutter from '@girs/clutter-17';
+import Clutter from '@girs/clutter-18';
 import Gio from '@girs/gio-2.0';
 import type { Extension } from '@girs/gnome-shell/dist/extensions/extension';
 import { Button as PanelMenuButton } from '@girs/gnome-shell/dist/ui/panelMenu';
@@ -9,7 +9,7 @@ import {
   PopupSwitchMenuItem,
 } from '@girs/gnome-shell/dist/ui/popupMenu';
 import GObject from '@girs/gobject-2.0';
-import St from '@girs/st-17';
+import St from '@girs/st-18';
 import { ClearHistoryDialog } from '@pano/components/indicator/clearHistoryDialog';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { ICON_PACKS } from '@pano/utils/panoItemType';
@@ -119,7 +119,7 @@ export class SettingsMenu extends PanelMenuButton {
     }
   }
 
-  override vfunc_event(event: Clutter.Event) {
+  override vfunc_event(event: Clutter.Event): boolean {
     if (event.type() === Clutter.EventType.BUTTON_PRESS) {
       if ([Clutter.BUTTON_PRIMARY, Clutter.BUTTON_MIDDLE].includes(event.get_button())) {
         this.onToggle();
@@ -130,7 +130,15 @@ export class SettingsMenu extends PanelMenuButton {
       }
     }
 
-    return super.vfunc_event(event);
+    try {
+      if (super.vfunc_event !== undefined) {
+        return super.vfunc_event(event);
+      }
+    } catch (_err) {
+      // ignore, is expected after GNOME >= 50
+    }
+
+    return Clutter.EVENT_PROPAGATE;
   }
 
   override destroy() {

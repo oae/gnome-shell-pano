@@ -1,7 +1,7 @@
 import GLib from '@girs/glib-2.0';
 import { PACKAGE_VERSION } from '@girs/gnome-shell/dist/misc/config';
 import { Notification, Source as MessageTraySource } from '@girs/gnome-shell/dist/ui/messageTray';
-import St from '@girs/st-17';
+import St from '@girs/st-18';
 
 // compatibility functions to check if a specific gnome-shell is used
 const GNOME_VERSION = PACKAGE_VERSION.split('.').reduce((acc, str): number[] => {

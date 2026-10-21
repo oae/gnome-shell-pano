@@ -35,7 +35,7 @@ msgstr "Cài Đặt"
 msgid "No Description"
 msgstr ""
 
-#: src/components/searchBox.ts:70
+#: src/components/searchBox.ts:74
 msgid "Type to search, Tab to cycle"
 msgstr ""
 
