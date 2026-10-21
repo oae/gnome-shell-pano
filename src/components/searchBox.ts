@@ -26,6 +26,38 @@ interface SearchBoxSignals extends SignalsDefinition<SearchBoxSignalType> {
   'search-focus-out': Record<string, never>;
   'search-submit': Record<string, never>;
 }
+
+namespace SearchBox {
+  // Signal signatures
+  export interface SignalSignatures extends St.BoxLayout.SignalSignatures {
+    'search-text-changed': (arg0: string, arg1: string, arg2: boolean) => void;
+    'search-item-select-shortcut': (arg0: number) => void;
+    'search-focus-out': () => void;
+    'search-submit': () => void;
+  }
+}
+
+export interface SearchBox extends St.BoxLayout {
+  // Signals
+  /** @signal */
+  connect<K extends keyof SearchBox.SignalSignatures>(
+    signal: K,
+    callback: GObject.SignalCallback<this, SearchBox.SignalSignatures[K]>,
+  ): number;
+
+  /** @signal */
+  connect_after<K extends keyof SearchBox.SignalSignatures>(
+    signal: K,
+    callback: GObject.SignalCallback<this, SearchBox.SignalSignatures[K]>,
+  ): number;
+
+  /** @signal */
+  emit<K extends keyof SearchBox.SignalSignatures>(
+    signal: K,
+    ...args: GObject.GjsParameters<SearchBox.SignalSignatures[K]>
+  ): void;
+}
+
 @registerGObjectClass
 export class SearchBox extends St.BoxLayout {
   static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, SearchBoxSignals> = {

@@ -25,6 +25,35 @@ interface SettingsMenuSignals extends SignalsDefinition<SettingsMenuSignalType> 
 
 const debug = logger('settings-menu');
 
+namespace SettingsMenu {
+  // Signal signatures
+  export interface SignalSignatures extends PanelMenuButton.SignalSignatures {
+    'item-selected': () => void;
+    'menu-state-changed': (arg0: boolean) => void;
+  }
+}
+
+export interface SettingsMenu extends PanelMenuButton {
+  // Signals
+  /** @signal */
+  connect<K extends keyof SettingsMenu.SignalSignatures>(
+    signal: K,
+    callback: GObject.SignalCallback<this, SettingsMenu.SignalSignatures[K]>,
+  ): number;
+
+  /** @signal */
+  connect_after<K extends keyof SettingsMenu.SignalSignatures>(
+    signal: K,
+    callback: GObject.SignalCallback<this, SettingsMenu.SignalSignatures[K]>,
+  ): number;
+
+  /** @signal */
+  emit<K extends keyof SettingsMenu.SignalSignatures>(
+    signal: K,
+    ...args: GObject.GjsParameters<SettingsMenu.SignalSignatures[K]>
+  ): void;
+}
+
 @registerGObjectClass
 export class SettingsMenu extends PanelMenuButton {
   static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, SettingsMenuSignals> = {

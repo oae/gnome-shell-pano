@@ -28,6 +28,36 @@ interface PanoItemSignals extends SignalsDefinition<PanoItemSignalType> {
   'on-favorite': SignalRepresentationType<[GObject.GType<string>]>;
 }
 
+namespace PanoItem {
+  // Signal signatures
+  export interface SignalSignatures extends St.BoxLayout.SignalSignatures {
+    activated: () => void;
+    'on-remove': (arg0: string) => void;
+    'on-favorite': (arg0: string) => void;
+  }
+}
+
+export interface PanoItem extends St.BoxLayout {
+  // Signals
+  /** @signal */
+  connect<K extends keyof PanoItem.SignalSignatures>(
+    signal: K,
+    callback: GObject.SignalCallback<this, PanoItem.SignalSignatures[K]>,
+  ): number;
+
+  /** @signal */
+  connect_after<K extends keyof PanoItem.SignalSignatures>(
+    signal: K,
+    callback: GObject.SignalCallback<this, PanoItem.SignalSignatures[K]>,
+  ): number;
+
+  /** @signal */
+  emit<K extends keyof PanoItem.SignalSignatures>(
+    signal: K,
+    ...args: GObject.GjsParameters<PanoItem.SignalSignatures[K]>
+  ): void;
+}
+
 @registerGObjectClass
 export class PanoItem extends St.BoxLayout {
   static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, PanoItemSignals> = {
