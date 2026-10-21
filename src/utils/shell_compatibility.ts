@@ -155,3 +155,32 @@ export function setBytesCompat(
     (content as any as OldImageContent).set_bytes(data, pixel_format, width, height, row_stride);
   }
 }
+
+// The vertical property of St widgets has been removed in v51 (deprecated in GNOME Shell 48).
+
+function stHasOrientation(box: St.BoxLayout): boolean {
+  return box.set_orientation !== undefined;
+}
+
+type BoxOrientationCompatType = { vertical: boolean } | { orientation: Clutter.Orientation };
+
+export function getStBoxOrientationCompat(vertical: boolean): BoxOrientationCompatType {
+  const box = new St.BoxLayout();
+
+  if (stHasOrientation(box)) {
+    return { orientation: vertical ? Clutter.Orientation.VERTICAL : Clutter.Orientation.HORIZONTAL };
+  }
+
+  return {
+    vertical,
+  };
+}
+
+export function stBoxSetVertical(box: St.BoxLayout, vertical: boolean): void {
+  if (stHasOrientation(box)) {
+    box.set_orientation(vertical ? Clutter.Orientation.VERTICAL : Clutter.Orientation.HORIZONTAL);
+    return;
+  }
+
+  box.set_vertical(vertical);
+}

@@ -15,6 +15,7 @@ import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } fro
 import { createPanoItem, createPanoItemFromDb, removeItemResources } from '@pano/utils/panoItemFactory';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
 import { isVertical } from '@pano/utils/ui';
+import { getStBoxOrientationCompat, stBoxSetVertical } from '@pano/utils/shell_compatibility';
 
 export type PanoScrollViewSignalType =
   | 'scroll-focus-out'
@@ -113,14 +114,14 @@ export class PanoScrollView extends St.ScrollView {
     this.setScrollbarPolicy();
 
     this.list = new St.BoxLayout({
-      vertical: isVertical(this.settings.get_uint('window-position')),
+      ...getStBoxOrientationCompat(isVertical(this.settings.get_uint('window-position'))),
       xExpand: true,
       yExpand: true,
     });
 
     this.settings.connect('changed::window-position', () => {
       this.setScrollbarPolicy();
-      this.list.set_vertical(isVertical(this.settings.get_uint('window-position')));
+      stBoxSetVertical(this.list, isVertical(this.settings.get_uint('window-position')));
     });
     scrollViewAddChild(this, this.list);
 
