@@ -35,7 +35,7 @@ msgstr "설정"
 msgid "No Description"
 msgstr "설명 없음"
 
-#: src/components/searchBox.ts:70
+#: src/components/searchBox.ts:74
 msgid "Type to search, Tab to cycle"
 msgstr "검색하려면 입력, Tab으로 전환"
 
