@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "Cancella"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:101
+#: src/components/indicator/settingsMenu.ts:130
 #: src/prefs/dangerZone/clearHistory.ts:14
 msgid "Clear History"
 msgstr "Cancella la cronologia"
@@ -23,11 +23,11 @@ msgstr "Cancella la cronologia"
 msgid "Are you sure you want to clear history?"
 msgstr "Sei sicuro di voler cancellare la cronologia?"
 
-#: src/components/indicator/settingsMenu.ts:67
+#: src/components/indicator/settingsMenu.ts:96
 msgid "Incognito Mode"
 msgstr "Modalità di navigazione in incognito"
 
-#: src/components/indicator/settingsMenu.ts:108
+#: src/components/indicator/settingsMenu.ts:137
 msgid "Settings"
 msgstr "Impostazioni"
 
@@ -35,7 +35,7 @@ msgstr "Impostazioni"
 msgid "No Description"
 msgstr "Nessuna descrizione"
 
-#: src/components/searchBox.ts:74
+#: src/components/searchBox.ts:103
 msgid "Type to search, Tab to cycle"
 msgstr "Digita per cercare, Tab per scorrere"
 
@@ -591,31 +591,31 @@ msgstr "File %s"
 msgid "There are %s file(s)"
 msgstr "Ci sono %s file(s)"
 
-#: src/utils/panoItemType.ts:7
+#: src/utils/panoItemType.ts:8
 msgid "Link"
 msgstr "Link"
 
-#: src/utils/panoItemType.ts:8
+#: src/utils/panoItemType.ts:9
 msgid "Text"
 msgstr "Testo"
 
-#: src/utils/panoItemType.ts:9
+#: src/utils/panoItemType.ts:10
 msgid "Emoji"
 msgstr "Emoji"
 
-#: src/utils/panoItemType.ts:10
+#: src/utils/panoItemType.ts:11
 msgid "File"
 msgstr "File"
 
-#: src/utils/panoItemType.ts:11
+#: src/utils/panoItemType.ts:12
 msgid "Image"
 msgstr "Immagine"
 
-#: src/utils/panoItemType.ts:12
+#: src/utils/panoItemType.ts:13
 msgid "Code"
 msgstr "Codice"
 
-#: src/utils/panoItemType.ts:13
+#: src/utils/panoItemType.ts:14
 msgid "Color"
 msgstr "Colore"
 

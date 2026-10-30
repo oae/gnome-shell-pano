@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "Temizle"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:101
+#: src/components/indicator/settingsMenu.ts:130
 #: src/prefs/dangerZone/clearHistory.ts:14
 msgid "Clear History"
 msgstr "Geçmişi Temizle"
@@ -23,11 +23,11 @@ msgstr "Geçmişi Temizle"
 msgid "Are you sure you want to clear history?"
 msgstr "Geçmişi temizlemek istediğine emin misiniz?"
 
-#: src/components/indicator/settingsMenu.ts:67
+#: src/components/indicator/settingsMenu.ts:96
 msgid "Incognito Mode"
 msgstr "Gizli Mod"
 
-#: src/components/indicator/settingsMenu.ts:108
+#: src/components/indicator/settingsMenu.ts:137
 msgid "Settings"
 msgstr "Ayarlar"
 
@@ -35,7 +35,7 @@ msgstr "Ayarlar"
 msgid "No Description"
 msgstr "Açıklama Yok"
 
-#: src/components/searchBox.ts:74
+#: src/components/searchBox.ts:103
 msgid "Type to search, Tab to cycle"
 msgstr "Aramak için yazın, gezinmek için Tab'a basın"
 
@@ -591,31 +591,31 @@ msgstr "Dosya %s"
 msgid "There are %s file(s)"
 msgstr "%s kadar dosya var"
 
-#: src/utils/panoItemType.ts:7
+#: src/utils/panoItemType.ts:8
 msgid "Link"
 msgstr "Bağlantı"
 
-#: src/utils/panoItemType.ts:8
+#: src/utils/panoItemType.ts:9
 msgid "Text"
 msgstr "Yazı"
 
-#: src/utils/panoItemType.ts:9
+#: src/utils/panoItemType.ts:10
 msgid "Emoji"
 msgstr "İfade"
 
-#: src/utils/panoItemType.ts:10
+#: src/utils/panoItemType.ts:11
 msgid "File"
 msgstr "Dosya"
 
-#: src/utils/panoItemType.ts:11
+#: src/utils/panoItemType.ts:12
 msgid "Image"
 msgstr "Resim"
 
-#: src/utils/panoItemType.ts:12
+#: src/utils/panoItemType.ts:13
 msgid "Code"
 msgstr "Kod"
 
-#: src/utils/panoItemType.ts:13
+#: src/utils/panoItemType.ts:14
 msgid "Color"
 msgstr "Renk"
 

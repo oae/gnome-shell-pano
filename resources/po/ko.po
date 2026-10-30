@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "지우기"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:101
+#: src/components/indicator/settingsMenu.ts:130
 #: src/prefs/dangerZone/clearHistory.ts:14
 msgid "Clear History"
 msgstr "기록 지우기"
@@ -23,11 +23,11 @@ msgstr "기록 지우기"
 msgid "Are you sure you want to clear history?"
 msgstr "기록을 지우시겠습니까?"
 
-#: src/components/indicator/settingsMenu.ts:67
+#: src/components/indicator/settingsMenu.ts:96
 msgid "Incognito Mode"
 msgstr "시크릿 모드"
 
-#: src/components/indicator/settingsMenu.ts:108
+#: src/components/indicator/settingsMenu.ts:137
 msgid "Settings"
 msgstr "설정"
 
@@ -35,7 +35,7 @@ msgstr "설정"
 msgid "No Description"
 msgstr "설명 없음"
 
-#: src/components/searchBox.ts:74
+#: src/components/searchBox.ts:103
 msgid "Type to search, Tab to cycle"
 msgstr "검색하려면 입력, Tab으로 전환"
 
@@ -591,31 +591,31 @@ msgstr "파일 %s"
 msgid "There are %s file(s)"
 msgstr "%s 개의 파일이 있음"
 
-#: src/utils/panoItemType.ts:7
+#: src/utils/panoItemType.ts:8
 msgid "Link"
 msgstr "링크"
 
-#: src/utils/panoItemType.ts:8
+#: src/utils/panoItemType.ts:9
 msgid "Text"
 msgstr "텍스트"
 
-#: src/utils/panoItemType.ts:9
+#: src/utils/panoItemType.ts:10
 msgid "Emoji"
 msgstr "이모티콘"
 
-#: src/utils/panoItemType.ts:10
+#: src/utils/panoItemType.ts:11
 msgid "File"
 msgstr "파일"
 
-#: src/utils/panoItemType.ts:11
+#: src/utils/panoItemType.ts:12
 msgid "Image"
 msgstr "이미지"
 
-#: src/utils/panoItemType.ts:12
+#: src/utils/panoItemType.ts:13
 msgid "Code"
 msgstr "코드"
 
-#: src/utils/panoItemType.ts:13
+#: src/utils/panoItemType.ts:14
 msgid "Color"
 msgstr "색상"
 

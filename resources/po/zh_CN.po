@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "清除"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:101
+#: src/components/indicator/settingsMenu.ts:130
 #: src/prefs/dangerZone/clearHistory.ts:14
 msgid "Clear History"
 msgstr "清除历史记录"
@@ -23,11 +23,11 @@ msgstr "清除历史记录"
 msgid "Are you sure you want to clear history?"
 msgstr "确定要清除历史记录吗？"
 
-#: src/components/indicator/settingsMenu.ts:67
+#: src/components/indicator/settingsMenu.ts:96
 msgid "Incognito Mode"
 msgstr "隐身模式"
 
-#: src/components/indicator/settingsMenu.ts:108
+#: src/components/indicator/settingsMenu.ts:137
 msgid "Settings"
 msgstr "设置"
 
@@ -35,7 +35,7 @@ msgstr "设置"
 msgid "No Description"
 msgstr "无详情"
 
-#: src/components/searchBox.ts:74
+#: src/components/searchBox.ts:103
 msgid "Type to search, Tab to cycle"
 msgstr "输入即搜索，Tab键循环"
 
@@ -591,31 +591,31 @@ msgstr "文件%s"
 msgid "There are %s file(s)"
 msgstr "%s个文件"
 
-#: src/utils/panoItemType.ts:7
+#: src/utils/panoItemType.ts:8
 msgid "Link"
 msgstr "链接"
 
-#: src/utils/panoItemType.ts:8
+#: src/utils/panoItemType.ts:9
 msgid "Text"
 msgstr "文本"
 
-#: src/utils/panoItemType.ts:9
+#: src/utils/panoItemType.ts:10
 msgid "Emoji"
 msgstr "表情符号"
 
-#: src/utils/panoItemType.ts:10
+#: src/utils/panoItemType.ts:11
 msgid "File"
 msgstr "文件"
 
-#: src/utils/panoItemType.ts:11
+#: src/utils/panoItemType.ts:12
 msgid "Image"
 msgstr "图像"
 
-#: src/utils/panoItemType.ts:12
+#: src/utils/panoItemType.ts:13
 msgid "Code"
 msgstr "代码"
 
-#: src/utils/panoItemType.ts:13
+#: src/utils/panoItemType.ts:14
 msgid "Color"
 msgstr "颜色"
 
