@@ -1,14 +1,42 @@
-import Clutter from '@girs/clutter-17';
+import Clutter from '@girs/clutter-51';
 import { MonitorConstraint } from '@girs/gnome-shell/dist/ui/layout';
 import { Lightbox } from '@girs/gnome-shell/dist/ui/lightbox';
 import * as main from '@girs/gnome-shell/dist/ui/main';
 import GObject from '@girs/gobject-2.0';
-import Shell from '@girs/shell-17';
-import St from '@girs/st-17';
+import Shell from '@girs/shell-51';
+import St from '@girs/st-51';
 import { registerGObjectClass } from '@pano/utils/gjs';
 
 interface MonitorBoxSignals {
   hide_window: Record<string, never>;
+}
+
+namespace MonitorBox {
+  // Signal signatures
+  export interface SignalSignatures extends St.BoxLayout.SignalSignatures {
+    hide_window: () => void;
+  }
+}
+
+export interface MonitorBox extends St.BoxLayout {
+  // Signals
+  /** @signal */
+  connect<K extends keyof MonitorBox.SignalSignatures>(
+    signal: K,
+    callback: GObject.SignalCallback<this, MonitorBox.SignalSignatures[K]>,
+  ): number;
+
+  /** @signal */
+  connect_after<K extends keyof MonitorBox.SignalSignatures>(
+    signal: K,
+    callback: GObject.SignalCallback<this, MonitorBox.SignalSignatures[K]>,
+  ): number;
+
+  /** @signal */
+  emit<K extends keyof MonitorBox.SignalSignatures>(
+    signal: K,
+    ...args: GObject.GjsParameters<MonitorBox.SignalSignatures[K]>
+  ): void;
 }
 
 @registerGObjectClass

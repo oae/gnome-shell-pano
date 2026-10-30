@@ -3,3 +3,4 @@
 .github/ISSUE_TEMPLATE/
 node_modules/
 *.md
+pnpm-lock.yaml

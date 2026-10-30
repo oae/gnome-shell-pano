@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "Wissen"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:101
+#: src/components/indicator/settingsMenu.ts:130
 #: src/prefs/dangerZone/clearHistory.ts:14
 msgid "Clear History"
 msgstr "Geschiedenis wissen"
@@ -23,11 +23,11 @@ msgstr "Geschiedenis wissen"
 msgid "Are you sure you want to clear history?"
 msgstr "Weet u zeker dat u de geschiedenis wilt wissen?"
 
-#: src/components/indicator/settingsMenu.ts:67
+#: src/components/indicator/settingsMenu.ts:96
 msgid "Incognito Mode"
 msgstr "Incognitomodus"
 
-#: src/components/indicator/settingsMenu.ts:108
+#: src/components/indicator/settingsMenu.ts:137
 msgid "Settings"
 msgstr "Voorkeuren"
 
@@ -35,7 +35,7 @@ msgstr "Voorkeuren"
 msgid "No Description"
 msgstr ""
 
-#: src/components/searchBox.ts:70
+#: src/components/searchBox.ts:103
 msgid "Type to search, Tab to cycle"
 msgstr ""
 
@@ -591,31 +591,31 @@ msgstr ""
 msgid "There are %s file(s)"
 msgstr ""
 
-#: src/utils/panoItemType.ts:7
+#: src/utils/panoItemType.ts:8
 msgid "Link"
 msgstr ""
 
-#: src/utils/panoItemType.ts:8
+#: src/utils/panoItemType.ts:9
 msgid "Text"
 msgstr ""
 
-#: src/utils/panoItemType.ts:9
+#: src/utils/panoItemType.ts:10
 msgid "Emoji"
 msgstr ""
 
-#: src/utils/panoItemType.ts:10
+#: src/utils/panoItemType.ts:11
 msgid "File"
 msgstr ""
 
-#: src/utils/panoItemType.ts:11
+#: src/utils/panoItemType.ts:12
 msgid "Image"
 msgstr ""
 
-#: src/utils/panoItemType.ts:12
+#: src/utils/panoItemType.ts:13
 msgid "Code"
 msgstr ""
 
-#: src/utils/panoItemType.ts:13
+#: src/utils/panoItemType.ts:14
 msgid "Color"
 msgstr ""
 

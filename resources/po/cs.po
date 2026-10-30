@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "Vymazat"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:101
+#: src/components/indicator/settingsMenu.ts:130
 #: src/prefs/dangerZone/clearHistory.ts:14
 msgid "Clear History"
 msgstr "Vymazat historii"
@@ -23,11 +23,11 @@ msgstr "Vymazat historii"
 msgid "Are you sure you want to clear history?"
 msgstr "Opravdu chcete vymazat historii?"
 
-#: src/components/indicator/settingsMenu.ts:67
+#: src/components/indicator/settingsMenu.ts:96
 msgid "Incognito Mode"
 msgstr "Anonymní režim"
 
-#: src/components/indicator/settingsMenu.ts:108
+#: src/components/indicator/settingsMenu.ts:137
 msgid "Settings"
 msgstr "Nastavení"
 
@@ -35,7 +35,7 @@ msgstr "Nastavení"
 msgid "No Description"
 msgstr "Bez popisu"
 
-#: src/components/searchBox.ts:70
+#: src/components/searchBox.ts:103
 msgid "Type to search, Tab to cycle"
 msgstr "Pište pro vyhledávání, Tab pro cyklování mezi kategoriemi"
 
@@ -591,31 +591,31 @@ msgstr "Soubor %s"
 msgid "There are %s file(s)"
 msgstr "Existuje %s souborů"
 
-#: src/utils/panoItemType.ts:7
+#: src/utils/panoItemType.ts:8
 msgid "Link"
 msgstr "Odkaz"
 
-#: src/utils/panoItemType.ts:8
+#: src/utils/panoItemType.ts:9
 msgid "Text"
 msgstr "Text"
 
-#: src/utils/panoItemType.ts:9
+#: src/utils/panoItemType.ts:10
 msgid "Emoji"
 msgstr "Emoji"
 
-#: src/utils/panoItemType.ts:10
+#: src/utils/panoItemType.ts:11
 msgid "File"
 msgstr "Soubor"
 
-#: src/utils/panoItemType.ts:11
+#: src/utils/panoItemType.ts:12
 msgid "Image"
 msgstr "Obrázek"
 
-#: src/utils/panoItemType.ts:12
+#: src/utils/panoItemType.ts:13
 msgid "Code"
 msgstr "Kód"
 
-#: src/utils/panoItemType.ts:13
+#: src/utils/panoItemType.ts:14
 msgid "Color"
 msgstr "Barva"
 

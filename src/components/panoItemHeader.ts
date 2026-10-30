@@ -1,10 +1,10 @@
-import Clutter from '@girs/clutter-17';
+import Clutter from '@girs/clutter-51';
 import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import GObject from '@girs/gobject-2.0';
-import Shell from '@girs/shell-17';
-import St from '@girs/st-17';
+import Shell from '@girs/shell-51';
+import St from '@girs/st-51';
 import { registerGObjectClass, SignalsDefinition } from '@pano/utils/gjs';
 import { ICON_PACKS, IPanoItemType } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
@@ -29,6 +29,35 @@ type FormatOptions = {
   addSuffix?: boolean;
   locale?: Locale;
 };
+
+namespace PanoItemHeader {
+  // Signal signatures
+  export interface SignalSignatures extends St.BoxLayout.SignalSignatures {
+    'on-remove': () => void;
+    'on-favorite': () => void;
+  }
+}
+
+export interface PanoItemHeader extends St.BoxLayout {
+  // Signals
+  /** @signal */
+  connect<K extends keyof PanoItemHeader.SignalSignatures>(
+    signal: K,
+    callback: GObject.SignalCallback<this, PanoItemHeader.SignalSignatures[K]>,
+  ): number;
+
+  /** @signal */
+  connect_after<K extends keyof PanoItemHeader.SignalSignatures>(
+    signal: K,
+    callback: GObject.SignalCallback<this, PanoItemHeader.SignalSignatures[K]>,
+  ): number;
+
+  /** @signal */
+  emit<K extends keyof PanoItemHeader.SignalSignatures>(
+    signal: K,
+    ...args: GObject.GjsParameters<PanoItemHeader.SignalSignatures[K]>
+  ): void;
+}
 
 @registerGObjectClass
 export class PanoItemHeader extends St.BoxLayout {

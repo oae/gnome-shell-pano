@@ -1,10 +1,10 @@
 import '@girs/gnome-shell/dist/extensions/global';
 
-import Clutter from '@girs/clutter-17';
+import Clutter from '@girs/clutter-51';
 import Gio from '@girs/gio-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
-import Shell from '@girs/shell-17';
-import St from '@girs/st-17';
+import Shell from '@girs/shell-51';
+import St from '@girs/st-51';
 import { MonitorBox } from '@pano/components/monitorBox';
 import { PanoScrollView } from '@pano/components/panoScrollView';
 import { SearchBox } from '@pano/components/searchBox';
@@ -130,7 +130,7 @@ export class PanoWindow extends St.BoxLayout {
     });
     this.searchBox.connect(
       'search-text-changed',
-      (_: any, text: string, itemType: ItemType, showFavorites: boolean) => {
+      (_: unknown, text: string, itemType: ItemType | '', showFavorites: boolean) => {
         this.scrollView.filter(text, itemType, showFavorites);
       },
     );

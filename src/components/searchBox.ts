@@ -1,21 +1,22 @@
-import Clutter from '@girs/clutter-17';
+import Clutter from '@girs/clutter-51';
 import Gio from '@girs/gio-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import GObject from '@girs/gobject-2.0';
-import Meta from '@girs/meta-17';
-import Shell from '@girs/shell-17';
-import St from '@girs/st-17';
+import Shell from '@girs/shell-51';
+import St from '@girs/st-51';
 import { ItemType } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { getPanoItemTypes, ICON_PACKS } from '@pano/utils/panoItemType';
 import { getCurrentExtensionSettings, gettext } from '@pano/utils/shell';
-import { MetaCursorPointer, orientationCompatibility } from '@pano/utils/shell_compatibility';
+import {
+  MetaCursorDefault,
+  MetaCursorPointer,
+  orientationCompatibility,
+  setCursorType,
+} from '@pano/utils/shell_compatibility';
 
 export type SearchBoxSignalType =
-  | 'search-text-changed'
-  | 'search-item-select-shortcut'
-  | 'search-focus-out'
-  | 'search-submit';
+  'search-text-changed' | 'search-item-select-shortcut' | 'search-focus-out' | 'search-submit';
 
 interface SearchBoxSignals extends SignalsDefinition<SearchBoxSignalType> {
   'search-text-changed': SignalRepresentationType<
@@ -25,6 +26,38 @@ interface SearchBoxSignals extends SignalsDefinition<SearchBoxSignalType> {
   'search-focus-out': Record<string, never>;
   'search-submit': Record<string, never>;
 }
+
+namespace SearchBox {
+  // Signal signatures
+  export interface SignalSignatures extends St.BoxLayout.SignalSignatures {
+    'search-text-changed': (arg0: string, arg1: ItemType | '', arg2: boolean) => void;
+    'search-item-select-shortcut': (arg0: number) => void;
+    'search-focus-out': () => void;
+    'search-submit': () => void;
+  }
+}
+
+export interface SearchBox extends St.BoxLayout {
+  // Signals
+  /** @signal */
+  connect<K extends keyof SearchBox.SignalSignatures>(
+    signal: K,
+    callback: GObject.SignalCallback<this, SearchBox.SignalSignatures[K]>,
+  ): number;
+
+  /** @signal */
+  connect_after<K extends keyof SearchBox.SignalSignatures>(
+    signal: K,
+    callback: GObject.SignalCallback<this, SearchBox.SignalSignatures[K]>,
+  ): number;
+
+  /** @signal */
+  emit<K extends keyof SearchBox.SignalSignatures>(
+    signal: K,
+    ...args: GObject.GjsParameters<SearchBox.SignalSignatures[K]>
+  ): void;
+}
+
 @registerGObjectClass
 export class SearchBox extends St.BoxLayout {
   static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, SearchBoxSignals> = {
@@ -94,7 +127,7 @@ export class SearchBox extends St.BoxLayout {
       this.emitSearchTextChange();
     });
 
-    this.search.clutterText.connect('key-press-event', (_: St.Entry, event: Clutter.Event) => {
+    this.search.clutterText.connect('key-press-event', (_: unknown, event: Clutter.Event) => {
       if (
         event.get_key_symbol() === Clutter.KEY_Down ||
         (event.get_key_symbol() === Clutter.KEY_Right &&
@@ -224,13 +257,13 @@ export class SearchBox extends St.BoxLayout {
     }
 
     icon.connect('enter-event', () => {
-      Shell.Global.get().display.set_cursor(MetaCursorPointer);
+      setCursorType(this, MetaCursorPointer);
     });
     icon.connect('motion-event', () => {
-      Shell.Global.get().display.set_cursor(MetaCursorPointer);
+      setCursorType(this, MetaCursorPointer);
     });
     icon.connect('leave-event', () => {
-      Shell.Global.get().display.set_cursor(Meta.Cursor.DEFAULT);
+      setCursorType(this, MetaCursorDefault);
     });
 
     return icon;
@@ -249,9 +282,9 @@ export class SearchBox extends St.BoxLayout {
 
   emitSearchTextChange() {
     const panoItemTypes = getPanoItemTypes(this.ext);
-    let itemType: string | null = null;
+    let itemType: ItemType | null = null;
     if (this.currentIndex !== null) {
-      itemType = Object.keys(panoItemTypes)[this.currentIndex] ?? null;
+      itemType = (Object.keys(panoItemTypes) as ItemType[])[this.currentIndex] ?? null;
     }
     this.emit('search-text-changed', this.search.text, itemType || '', this.showFavorites);
   }

@@ -2,9 +2,9 @@ import Gio from '@girs/gio-2.0';
 import GLib from '@girs/glib-2.0';
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import GObject from '@girs/gobject-2.0';
-import Meta from '@girs/meta-17';
-import Shell from '@girs/shell-17';
-import St from '@girs/st-17';
+import Meta from '@girs/meta-51';
+import Shell from '@girs/shell-51';
+import St from '@girs/st-51';
 import { registerGObjectClass, SignalRepresentationType } from '@pano/utils/gjs';
 import { debounce, getCurrentExtensionSettings, logger } from '@pano/utils/shell';
 
@@ -109,6 +109,34 @@ const compareClipboardContent = (content1: ClipboardContentType, content2: Clipb
 
 interface ClipboardManagerSignals {
   changed: SignalRepresentationType<[GObject.GType<GObject.Object>]>;
+}
+
+namespace ClipboardManager {
+  // Signal signatures
+  export interface SignalSignatures extends GObject.Object.SignalSignatures {
+    changed: (arg0: ClipboardContent) => void;
+  }
+}
+
+export interface ClipboardManager extends GObject.Object {
+  // Signals
+  /** @signal */
+  connect<K extends keyof ClipboardManager.SignalSignatures>(
+    signal: K,
+    callback: GObject.SignalCallback<this, ClipboardManager.SignalSignatures[K]>,
+  ): number;
+
+  /** @signal */
+  connect_after<K extends keyof ClipboardManager.SignalSignatures>(
+    signal: K,
+    callback: GObject.SignalCallback<this, ClipboardManager.SignalSignatures[K]>,
+  ): number;
+
+  /** @signal */
+  emit<K extends keyof ClipboardManager.SignalSignatures>(
+    signal: K,
+    ...args: GObject.GjsParameters<ClipboardManager.SignalSignatures[K]>
+  ): void;
 }
 
 @registerGObjectClass
