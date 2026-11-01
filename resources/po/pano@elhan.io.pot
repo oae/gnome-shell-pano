@@ -111,7 +111,7 @@ msgid "Clear"
 msgstr ""
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:130
+#: src/components/indicator/settingsMenu.ts:110
 #: src/prefs/dangerZone/clearHistory.ts:14
 msgid "Clear History"
 msgstr ""
@@ -120,7 +120,7 @@ msgstr ""
 msgid "Clears the clipboard database and cache"
 msgstr ""
 
-#: src/utils/panoItemType.ts:13
+#: src/utils/panoItemType.ts:14
 msgid "Code"
 msgstr ""
 
@@ -132,7 +132,7 @@ msgstr ""
 msgid "Code Item Style"
 msgstr ""
 
-#: src/utils/panoItemType.ts:14
+#: src/utils/panoItemType.ts:15
 msgid "Color"
 msgstr ""
 
@@ -164,7 +164,7 @@ msgstr ""
 msgid "Default Icons"
 msgstr ""
 
-#: src/utils/panoItemType.ts:10
+#: src/utils/panoItemType.ts:11
 msgid "Emoji"
 msgstr ""
 
@@ -188,7 +188,7 @@ msgstr ""
 msgid "Failed to select directory"
 msgstr ""
 
-#: src/utils/panoItemType.ts:11
+#: src/utils/panoItemType.ts:12
 msgid "File"
 msgstr ""
 
@@ -244,7 +244,7 @@ msgstr ""
 msgid "Icon Pack"
 msgstr ""
 
-#: src/utils/panoItemType.ts:12
+#: src/utils/panoItemType.ts:13
 msgid "Image"
 msgstr ""
 
@@ -256,7 +256,7 @@ msgstr ""
 msgid "Image Item Style"
 msgstr ""
 
-#: src/components/indicator/settingsMenu.ts:96
+#: src/components/indicator/settingsMenu.ts:76
 msgid "Incognito Mode"
 msgstr ""
 
@@ -300,7 +300,7 @@ msgstr ""
 msgid "Legacy Icons"
 msgstr ""
 
-#: src/utils/panoItemType.ts:8
+#: src/utils/panoItemType.ts:9
 msgid "Link"
 msgstr ""
 
@@ -409,7 +409,7 @@ msgstr ""
 msgid "Session Only Mode"
 msgstr ""
 
-#: src/components/indicator/settingsMenu.ts:137
+#: src/components/indicator/settingsMenu.ts:117
 msgid "Settings"
 msgstr ""
 
@@ -429,7 +429,7 @@ msgstr ""
 msgid "Sync primary selection with clipboard selection"
 msgstr ""
 
-#: src/utils/panoItemType.ts:9
+#: src/utils/panoItemType.ts:10
 msgid "Text"
 msgstr ""
 
@@ -449,7 +449,7 @@ msgstr ""
 msgid "Top"
 msgstr ""
 
-#: src/components/searchBox.ts:103
+#: src/components/searchBox.ts:83
 msgid "Type to search, Tab to cycle"
 msgstr ""
 

@@ -13,7 +13,7 @@ msgid "Clear"
 msgstr "Világos"
 
 #: src/components/indicator/clearHistoryDialog.ts:35
-#: src/components/indicator/settingsMenu.ts:130
+#: src/components/indicator/settingsMenu.ts:110
 #: src/prefs/dangerZone/clearHistory.ts:14
 msgid "Clear History"
 msgstr "Előzmények törlése"
@@ -23,11 +23,11 @@ msgstr "Előzmények törlése"
 msgid "Are you sure you want to clear history?"
 msgstr "Biztos benne, hogy törölni szeretné a történelmet?"
 
-#: src/components/indicator/settingsMenu.ts:96
+#: src/components/indicator/settingsMenu.ts:76
 msgid "Incognito Mode"
 msgstr "Inkognitómód"
 
-#: src/components/indicator/settingsMenu.ts:137
+#: src/components/indicator/settingsMenu.ts:117
 msgid "Settings"
 msgstr "Beállítások"
 
@@ -35,7 +35,7 @@ msgstr "Beállítások"
 msgid "No Description"
 msgstr ""
 
-#: src/components/searchBox.ts:103
+#: src/components/searchBox.ts:83
 msgid "Type to search, Tab to cycle"
 msgstr ""
 
@@ -591,31 +591,31 @@ msgstr ""
 msgid "There are %s file(s)"
 msgstr ""
 
-#: src/utils/panoItemType.ts:8
+#: src/utils/panoItemType.ts:9
 msgid "Link"
 msgstr ""
 
-#: src/utils/panoItemType.ts:9
+#: src/utils/panoItemType.ts:10
 msgid "Text"
 msgstr ""
 
-#: src/utils/panoItemType.ts:10
+#: src/utils/panoItemType.ts:11
 msgid "Emoji"
 msgstr ""
 
-#: src/utils/panoItemType.ts:11
+#: src/utils/panoItemType.ts:12
 msgid "File"
 msgstr ""
 
-#: src/utils/panoItemType.ts:12
+#: src/utils/panoItemType.ts:13
 msgid "Image"
 msgstr ""
 
-#: src/utils/panoItemType.ts:13
+#: src/utils/panoItemType.ts:14
 msgid "Code"
 msgstr ""
 
-#: src/utils/panoItemType.ts:14
+#: src/utils/panoItemType.ts:15
 msgid "Color"
 msgstr ""
 
