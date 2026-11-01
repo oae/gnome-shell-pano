@@ -14,7 +14,7 @@ import { ClipboardQueryBuilder, db, ItemType } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { createPanoItem, createPanoItemFromDb, removeItemResources } from '@pano/utils/panoItemFactory';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
-import { getStBoxOrientationCompat, stBoxSetVertical } from '@pano/utils/shell_compatibility';
+import { orientationCompatibility, setOrientationCompat } from '@pano/utils/shell_compatibility';
 import { isVertical } from '@pano/utils/ui';
 
 export type PanoScrollViewSignalType =
@@ -94,14 +94,14 @@ export class PanoScrollView extends St.ScrollView {
     this.setScrollbarPolicy();
 
     this.list = new St.BoxLayout({
-      ...getStBoxOrientationCompat(isVertical(this.settings.get_uint('window-position'))),
+      ...orientationCompatibility(isVertical(this.settings.get_uint('window-position'))),
       xExpand: true,
       yExpand: true,
     });
 
     this.settings.connect('changed::window-position', () => {
       this.setScrollbarPolicy();
-      stBoxSetVertical(this.list, isVertical(this.settings.get_uint('window-position')));
+      setOrientationCompat(this.list, isVertical(this.settings.get_uint('window-position')));
     });
     scrollViewAddChild(this, this.list);
 

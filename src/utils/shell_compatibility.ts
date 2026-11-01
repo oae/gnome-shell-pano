@@ -86,6 +86,8 @@ export function getClutterBackendCompat(): Clutter.Backend {
   return global.stage.context.get_backend();
 }
 
+// The vertical property of St widgets has been removed in GNOME 51 (deprecated in GNOME Shell 48).
+
 export type OrientationReturnType = { vertical: boolean } | { orientation: Clutter.Orientation };
 
 export function orientationCompatibility(vertical: boolean): OrientationReturnType {
@@ -94,6 +96,20 @@ export function orientationCompatibility(vertical: boolean): OrientationReturnTy
   }
 
   return { vertical: vertical };
+}
+
+// GNOME < 51 version used to have this function (only needed for GNOME < 48), but instead of importing all types for that, just type that one manually
+interface OldBoxLayout {
+  set_vertical(vertical: boolean): void;
+}
+
+export function setOrientationCompat(box: St.BoxLayout, vertical: boolean): void {
+  if (stOrientationIsSupported()) {
+    box.set_orientation(vertical ? Clutter.Orientation.VERTICAL : Clutter.Orientation.HORIZONTAL);
+    return;
+  }
+
+  (box as unknown as OldBoxLayout).set_vertical(vertical);
 }
 
 // GNOME < 48 version used to have this function, but instead of importing all types for that, just type that one manually
@@ -144,33 +160,4 @@ export function setBytesCompat(
   } else {
     (content as any as OldImageContent).set_bytes(data, pixel_format, width, height, row_stride);
   }
-}
-
-// The vertical property of St widgets has been removed in v51 (deprecated in GNOME Shell 48).
-
-function stHasOrientation(box: St.BoxLayout): boolean {
-  return box.set_orientation !== undefined;
-}
-
-type BoxOrientationCompatType = { vertical: boolean } | { orientation: Clutter.Orientation };
-
-export function getStBoxOrientationCompat(vertical: boolean): BoxOrientationCompatType {
-  const box = new St.BoxLayout();
-
-  if (stHasOrientation(box)) {
-    return { orientation: vertical ? Clutter.Orientation.VERTICAL : Clutter.Orientation.HORIZONTAL };
-  }
-
-  return {
-    vertical,
-  };
-}
-
-export function stBoxSetVertical(box: St.BoxLayout, vertical: boolean): void {
-  if (stHasOrientation(box)) {
-    box.set_orientation(vertical ? Clutter.Orientation.VERTICAL : Clutter.Orientation.HORIZONTAL);
-    return;
-  }
-
-  box.set_vertical(vertical);
 }
