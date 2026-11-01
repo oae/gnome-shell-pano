@@ -237,13 +237,13 @@ export class SearchBox extends St.BoxLayout {
     }
 
     icon.connect('enter-event', () => {
-      setCursorType(this, MetaCursorPointer);
+      setCursorType(icon, MetaCursorPointer);
     });
     icon.connect('motion-event', () => {
-      setCursorType(this, MetaCursorPointer);
+      setCursorType(icon, MetaCursorPointer);
     });
     icon.connect('leave-event', () => {
-      setCursorType(this, MetaCursorDefault);
+      setCursorType(icon, MetaCursorDefault);
     });
 
     return icon;
