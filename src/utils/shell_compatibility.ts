@@ -5,6 +5,8 @@ import Meta from '@girs/meta-51';
 import Shell from '@girs/shell-51';
 import St from '@girs/st-51';
 
+const global = Shell.Global.get();
+
 // compatibility check functions for gnome-shell 48
 
 function stOrientationIsSupported(): boolean {
@@ -22,77 +24,69 @@ function metaSupportsUnredirectForDisplay() {
   );
 }
 
-// Meta.Cursor was removed and Cursor lives in Clutter since Gnome 50 (Meta 18 / Clutter 18), it was renamed to CursorType (at least the thing we expect)
+// compatibility check functions for gnome-shell 50
 
-export type MetaCursorType = typeof Clutter.CursorType;
-
-interface LegacyMetaWithCursor {
-  Cursor: MetaCursorType | null | undefined;
-}
-
-const usesOldMetaCursor: boolean = (() => {
-  const cursor = (Meta as unknown as LegacyMetaWithCursor).Cursor;
-
-  if (cursor !== undefined && cursor !== null) {
-    return true;
-  }
-
-  return false;
-})();
-
-export const MetaCursor: MetaCursorType = (() => {
-  if (usesOldMetaCursor) {
-    return (Meta as unknown as LegacyMetaWithCursor).Cursor!;
-  }
-
-  return Clutter.CursorType;
-})();
-
-// Meta.Cursor.POINTING_HAND was renamed to Meta.Cursor.POINTER in GNOME 48 (Meta 16)
-
-interface LegacyMetaCursor {
-  POINTING_HAND: Clutter.CursorType | null | undefined;
-}
-
-export const MetaCursorPointer: Clutter.CursorType = (() => {
-  if (usesOldMetaCursor) {
-    const pointer = ((Meta as unknown as LegacyMetaWithCursor).Cursor as unknown as LegacyMetaCursor).POINTING_HAND;
-
-    if (pointer !== undefined && pointer !== null) {
-      return pointer;
-    }
-
-    return (Meta as unknown as LegacyMetaWithCursor).Cursor!.POINTER;
-  }
-  return Clutter.CursorType.POINTER;
-})();
-
-export const MetaCursorDefault: Clutter.CursorType = (() => {
-  if (usesOldMetaCursor) {
-    return (Meta as unknown as LegacyMetaWithCursor).Cursor!.DEFAULT;
-  }
-
-  return Clutter.CursorType.DEFAULT;
-})();
-
-// changing CursorType, (previously Cursor) was moved since Gnome 50 (Meta 18 / Clutter 18), previously it was in the global shell display, now it is a method on Clutter.Actor
-
+// GNOME < 50 version used to have this function, but instead of importing all types for that, just type that one manually
 interface LegacyMetaDisplay {
-  set_cursor?: undefined | ((cursor_type: Clutter.CursorType | null) => void);
+  set_cursor(cursor: Clutter.CursorType): void;
 }
 
-export function setCursorType(actor: Clutter.Actor, cursor_type: Clutter.CursorType): void {
-  const set_cursor_fn = (Shell.Global.get().display as LegacyMetaDisplay).set_cursor;
+// GNOME < 50 sets the cursor of the whole display with Meta.Display.set_cursor() and the Meta.Cursor enum, since GNOME 50
+// every actor has its own cursor (Clutter.Actor.set_cursor_type() and the Clutter.CursorType enum).
+// Meta.Cursor still exists, but it is an unrelated class now, so it can't be used to detect the old API.
+function metaDisplaySupportsSetCursor(): boolean {
+  return (global.display as unknown as Partial<LegacyMetaDisplay>).set_cursor !== undefined;
+}
 
-  if (set_cursor_fn !== undefined) {
-    set_cursor_fn(MetaCursorDefault);
-    return;
-  }
+// compatibility check functions for gnome-shell 51
 
-  actor.set_cursor_type(cursor_type);
+// GNOME < 51 version used to have this function, but instead of importing all types for that, just type that one manually
+interface LegacyClutter {
+  get_default_backend(): Clutter.Backend;
+}
+
+function clutterHasDefaultBackend(): boolean {
+  return (Clutter as unknown as Partial<LegacyClutter>).get_default_backend !== undefined;
 }
 
 // actual compatibility functions
+
+interface LegacyMetaCursor {
+  DEFAULT: Clutter.CursorType;
+  POINTER?: Clutter.CursorType;
+  // Meta.Cursor.POINTING_HAND was renamed to Meta.Cursor.POINTER in GNOME 48 (Meta 16)
+  POINTING_HAND?: Clutter.CursorType;
+}
+
+const legacyMetaCursor = (): LegacyMetaCursor => (Meta as unknown as { Cursor: LegacyMetaCursor }).Cursor;
+
+export const MetaCursorPointer: Clutter.CursorType = metaDisplaySupportsSetCursor()
+  ? (legacyMetaCursor().POINTING_HAND ?? legacyMetaCursor().POINTER!)
+  : Clutter.CursorType.POINTER;
+
+// with per actor cursors, resetting the cursor means inheriting the one of the parent again
+export const MetaCursorDefault: Clutter.CursorType = metaDisplaySupportsSetCursor()
+  ? legacyMetaCursor().DEFAULT
+  : Clutter.CursorType.INHERIT;
+
+export function setCursorType(actor: Clutter.Actor, cursorType: Clutter.CursorType): void {
+  if (metaDisplaySupportsSetCursor()) {
+    (global.display as unknown as LegacyMetaDisplay).set_cursor(cursorType);
+    return;
+  }
+
+  actor.set_cursor_type(cursorType);
+}
+
+export function getClutterBackendCompat(): Clutter.Backend {
+  if (clutterHasDefaultBackend()) {
+    return (Clutter as unknown as LegacyClutter).get_default_backend();
+  }
+
+  return global.stage.context.get_backend();
+}
+
+// The vertical property of St widgets has been removed in GNOME 51 (deprecated in GNOME Shell 48).
 
 export type OrientationReturnType = { vertical: boolean } | { orientation: Clutter.Orientation };
 
@@ -104,7 +98,19 @@ export function orientationCompatibility(vertical: boolean): OrientationReturnTy
   return { vertical: vertical };
 }
 
-const global = Shell.Global.get();
+// GNOME < 51 version used to have this function (only needed for GNOME < 48), but instead of importing all types for that, just type that one manually
+interface OldBoxLayout {
+  set_vertical(vertical: boolean): void;
+}
+
+export function setOrientationCompat(box: St.BoxLayout, vertical: boolean): void {
+  if (stOrientationIsSupported()) {
+    box.set_orientation(vertical ? Clutter.Orientation.VERTICAL : Clutter.Orientation.HORIZONTAL);
+    return;
+  }
+
+  (box as unknown as OldBoxLayout).set_vertical(vertical);
+}
 
 // GNOME < 48 version used to have this function, but instead of importing all types for that, just type that one manually
 interface OldMetaObject {
@@ -154,33 +160,4 @@ export function setBytesCompat(
   } else {
     (content as any as OldImageContent).set_bytes(data, pixel_format, width, height, row_stride);
   }
-}
-
-// The vertical property of St widgets has been removed in v51 (deprecated in GNOME Shell 48).
-
-function stHasOrientation(box: St.BoxLayout): boolean {
-  return box.set_orientation !== undefined;
-}
-
-type BoxOrientationCompatType = { vertical: boolean } | { orientation: Clutter.Orientation };
-
-export function getStBoxOrientationCompat(vertical: boolean): BoxOrientationCompatType {
-  const box = new St.BoxLayout();
-
-  if (stHasOrientation(box)) {
-    return { orientation: vertical ? Clutter.Orientation.VERTICAL : Clutter.Orientation.HORIZONTAL };
-  }
-
-  return {
-    vertical,
-  };
-}
-
-export function stBoxSetVertical(box: St.BoxLayout, vertical: boolean): void {
-  if (stHasOrientation(box)) {
-    box.set_orientation(vertical ? Clutter.Orientation.VERTICAL : Clutter.Orientation.HORIZONTAL);
-    return;
-  }
-
-  box.set_vertical(vertical);
 }

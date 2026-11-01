@@ -27,39 +27,19 @@ interface SearchBoxSignals extends SignalsDefinition<SearchBoxSignalType> {
   'search-submit': Record<string, never>;
 }
 
-namespace SearchBox {
-  // Signal signatures
-  export interface SignalSignatures extends St.BoxLayout.SignalSignatures {
-    'search-text-changed': (arg0: string, arg1: ItemType | '', arg2: boolean) => void;
-    'search-item-select-shortcut': (arg0: number) => void;
-    'search-focus-out': () => void;
-    'search-submit': () => void;
-  }
-}
-
-export interface SearchBox extends St.BoxLayout {
-  // Signals
-  /** @signal */
-  connect<K extends keyof SearchBox.SignalSignatures>(
-    signal: K,
-    callback: GObject.SignalCallback<this, SearchBox.SignalSignatures[K]>,
-  ): number;
-
-  /** @signal */
-  connect_after<K extends keyof SearchBox.SignalSignatures>(
-    signal: K,
-    callback: GObject.SignalCallback<this, SearchBox.SignalSignatures[K]>,
-  ): number;
-
-  /** @signal */
-  emit<K extends keyof SearchBox.SignalSignatures>(
-    signal: K,
-    ...args: GObject.GjsParameters<SearchBox.SignalSignatures[K]>
-  ): void;
+interface SearchBoxSignalSignatures extends St.BoxLayout.SignalSignatures {
+  'search-text-changed': (arg0: string, arg1: ItemType | '', arg2: boolean) => void;
+  'search-item-select-shortcut': (arg0: number) => void;
+  'search-focus-out': () => void;
+  'search-submit': () => void;
 }
 
 @registerGObjectClass
 export class SearchBox extends St.BoxLayout {
+  declare connect: GObject.SignalMethods<this, SearchBoxSignalSignatures>['connect'];
+  declare connect_after: GObject.SignalMethods<this, SearchBoxSignalSignatures>['connect_after'];
+  declare emit: GObject.SignalMethods<this, SearchBoxSignalSignatures>['emit'];
+
   static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, SearchBoxSignals> = {
     GTypeName: 'SearchBox',
     Signals: {
@@ -257,13 +237,13 @@ export class SearchBox extends St.BoxLayout {
     }
 
     icon.connect('enter-event', () => {
-      setCursorType(this, MetaCursorPointer);
+      setCursorType(icon, MetaCursorPointer);
     });
     icon.connect('motion-event', () => {
-      setCursorType(this, MetaCursorPointer);
+      setCursorType(icon, MetaCursorPointer);
     });
     icon.connect('leave-event', () => {
-      setCursorType(this, MetaCursorDefault);
+      setCursorType(icon, MetaCursorDefault);
     });
 
     return icon;

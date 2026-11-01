@@ -14,8 +14,8 @@ import { ClipboardQueryBuilder, db, ItemType } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { createPanoItem, createPanoItemFromDb, removeItemResources } from '@pano/utils/panoItemFactory';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
+import { orientationCompatibility, setOrientationCompat } from '@pano/utils/shell_compatibility';
 import { isVertical } from '@pano/utils/ui';
-import { getStBoxOrientationCompat, stBoxSetVertical } from '@pano/utils/shell_compatibility';
 
 export type PanoScrollViewSignalType =
   | 'scroll-focus-out'
@@ -34,43 +34,23 @@ interface PanoScrollViewSignals extends SignalsDefinition<PanoScrollViewSignalTy
   'scroll-key-press': SignalRepresentationType<[GObject.GType<string>]>;
 }
 
-namespace PanoScrollView {
-  // Signal signatures
-  export interface SignalSignatures extends St.ScrollView.SignalSignatures {
-    'scroll-focus-out': () => void;
-    'scroll-update-list': () => void;
-    'scroll-alt-press': () => void;
-    'scroll-tab-press': (arg0: boolean) => void;
-    'scroll-backspace-press': () => void;
-    'scroll-key-press': (arg0: string) => void;
-  }
-}
-
-export interface PanoScrollView extends St.ScrollView {
-  // Signals
-  /** @signal */
-  connect<K extends keyof PanoScrollView.SignalSignatures>(
-    signal: K,
-    callback: GObject.SignalCallback<this, PanoScrollView.SignalSignatures[K]>,
-  ): number;
-
-  /** @signal */
-  connect_after<K extends keyof PanoScrollView.SignalSignatures>(
-    signal: K,
-    callback: GObject.SignalCallback<this, PanoScrollView.SignalSignatures[K]>,
-  ): number;
-
-  /** @signal */
-  emit<K extends keyof PanoScrollView.SignalSignatures>(
-    signal: K,
-    ...args: GObject.GjsParameters<PanoScrollView.SignalSignatures[K]>
-  ): void;
+interface PanoScrollViewSignalSignatures extends St.ScrollView.SignalSignatures {
+  'scroll-focus-out': () => void;
+  'scroll-update-list': () => void;
+  'scroll-alt-press': () => void;
+  'scroll-tab-press': (arg0: boolean) => void;
+  'scroll-backspace-press': () => void;
+  'scroll-key-press': (arg0: string) => void;
 }
 
 //TODO: the list member of St.BoxLayout are of type Clutter.Actor and we have to cast constantly from PanoItem to Clutter.Actor and reverse, fix that somehow
 
 @registerGObjectClass
 export class PanoScrollView extends St.ScrollView {
+  declare connect: GObject.SignalMethods<this, PanoScrollViewSignalSignatures>['connect'];
+  declare connect_after: GObject.SignalMethods<this, PanoScrollViewSignalSignatures>['connect_after'];
+  declare emit: GObject.SignalMethods<this, PanoScrollViewSignalSignatures>['emit'];
+
   static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, PanoScrollViewSignals> = {
     GTypeName: 'PanoScrollView',
     Signals: {
@@ -114,14 +94,14 @@ export class PanoScrollView extends St.ScrollView {
     this.setScrollbarPolicy();
 
     this.list = new St.BoxLayout({
-      ...getStBoxOrientationCompat(isVertical(this.settings.get_uint('window-position'))),
+      ...orientationCompatibility(isVertical(this.settings.get_uint('window-position'))),
       xExpand: true,
       yExpand: true,
     });
 
     this.settings.connect('changed::window-position', () => {
       this.setScrollbarPolicy();
-      stBoxSetVertical(this.list, isVertical(this.settings.get_uint('window-position')));
+      setOrientationCompat(this.list, isVertical(this.settings.get_uint('window-position')));
     });
     scrollViewAddChild(this, this.list);
 

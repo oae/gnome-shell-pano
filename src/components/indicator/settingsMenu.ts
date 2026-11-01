@@ -25,37 +25,17 @@ interface SettingsMenuSignals extends SignalsDefinition<SettingsMenuSignalType> 
 
 const debug = logger('settings-menu');
 
-namespace SettingsMenu {
-  // Signal signatures
-  export interface SignalSignatures extends PanelMenuButton.SignalSignatures {
-    'item-selected': () => void;
-    'menu-state-changed': (arg0: boolean) => void;
-  }
-}
-
-export interface SettingsMenu extends PanelMenuButton {
-  // Signals
-  /** @signal */
-  connect<K extends keyof SettingsMenu.SignalSignatures>(
-    signal: K,
-    callback: GObject.SignalCallback<this, SettingsMenu.SignalSignatures[K]>,
-  ): number;
-
-  /** @signal */
-  connect_after<K extends keyof SettingsMenu.SignalSignatures>(
-    signal: K,
-    callback: GObject.SignalCallback<this, SettingsMenu.SignalSignatures[K]>,
-  ): number;
-
-  /** @signal */
-  emit<K extends keyof SettingsMenu.SignalSignatures>(
-    signal: K,
-    ...args: GObject.GjsParameters<SettingsMenu.SignalSignatures[K]>
-  ): void;
+interface SettingsMenuSignalSignatures extends PanelMenuButton.SignalSignatures {
+  'item-selected': () => void;
+  'menu-state-changed': (arg0: boolean) => void;
 }
 
 @registerGObjectClass
 export class SettingsMenu extends PanelMenuButton {
+  declare connect: GObject.SignalMethods<this, SettingsMenuSignalSignatures>['connect'];
+  declare connect_after: GObject.SignalMethods<this, SettingsMenuSignalSignatures>['connect_after'];
+  declare emit: GObject.SignalMethods<this, SettingsMenuSignalSignatures>['emit'];
+
   static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, SettingsMenuSignals> = {
     GTypeName: 'SettingsButton',
     Signals: {
@@ -148,23 +128,20 @@ export class SettingsMenu extends PanelMenuButton {
     }
   }
 
-  override vfunc_event(event: Clutter.Event): boolean {
-    if (event.type() === Clutter.EventType.BUTTON_PRESS) {
-      if ([Clutter.BUTTON_PRIMARY, Clutter.BUTTON_MIDDLE].includes(event.get_button())) {
+  // The primary and middle button toggle pano, the other buttons open the menu.
+  // PanelMenu.Button opens the menu for every button, in vfunc_event (GNOME < 50) or with a Clutter.ClickGesture
+  // (GNOME >= 50). Both only run after the capture phase, so the clicks that toggle pano are stopped here.
+  override vfunc_captured_event(event: Clutter.Event): boolean {
+    const type = event.type();
+    if (
+      (type === Clutter.EventType.BUTTON_PRESS || type === Clutter.EventType.BUTTON_RELEASE) &&
+      [Clutter.BUTTON_PRIMARY, Clutter.BUTTON_MIDDLE].includes(event.get_button())
+    ) {
+      if (type === Clutter.EventType.BUTTON_PRESS) {
         this.onToggle();
-        return Clutter.EVENT_STOP;
-      } else if (this.menu && event.get_button() === Clutter.BUTTON_SECONDARY) {
-        this.menu.toggle();
-        return Clutter.EVENT_STOP;
       }
-    }
 
-    try {
-      if (super.vfunc_event !== undefined) {
-        return super.vfunc_event(event);
-      }
-    } catch (_err) {
-      // ignore, is expected after GNOME >= 50
+      return Clutter.EVENT_STOP;
     }
 
     return Clutter.EVENT_PROPAGATE;

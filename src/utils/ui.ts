@@ -13,7 +13,7 @@ import St from '@girs/st-51';
 import { gettext } from '@pano/utils/shell';
 
 import { addNotification, newMessageTraySource, newNotification } from './compatibility';
-import { setBytesCompat } from './shell_compatibility';
+import { getClutterBackendCompat, setBytesCompat } from './shell_compatibility';
 
 const global = Shell.Global.get();
 
@@ -96,7 +96,7 @@ export const getVirtualKeyboard = () => {
     return virtualKeyboard;
   }
 
-  virtualKeyboard = Clutter.get_default_backend()
+  virtualKeyboard = getClutterBackendCompat()
     .get_default_seat()
     .create_virtual_device(Clutter.InputDeviceType.KEYBOARD_DEVICE);
 
