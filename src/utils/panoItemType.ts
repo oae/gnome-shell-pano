@@ -1,5 +1,6 @@
 import type { ExtensionBase } from '@girs/gnome-shell/dist/extensions/sharedInternals';
 import { gettext } from '@pano/utils/shell';
+
 import type { ItemType } from './db';
 
 export function getPanoItemTypes(ext: ExtensionBase): Record<ItemType, IPanoItemType> {

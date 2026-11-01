@@ -14,8 +14,8 @@ import { ClipboardQueryBuilder, db, ItemType } from '@pano/utils/db';
 import { registerGObjectClass, SignalRepresentationType, SignalsDefinition } from '@pano/utils/gjs';
 import { createPanoItem, createPanoItemFromDb, removeItemResources } from '@pano/utils/panoItemFactory';
 import { getCurrentExtensionSettings } from '@pano/utils/shell';
-import { isVertical } from '@pano/utils/ui';
 import { getStBoxOrientationCompat, stBoxSetVertical } from '@pano/utils/shell_compatibility';
+import { isVertical } from '@pano/utils/ui';
 
 export type PanoScrollViewSignalType =
   | 'scroll-focus-out'
