@@ -11,36 +11,16 @@ interface MonitorBoxSignals {
   hide_window: Record<string, never>;
 }
 
-namespace MonitorBox {
-  // Signal signatures
-  export interface SignalSignatures extends St.BoxLayout.SignalSignatures {
-    hide_window: () => void;
-  }
-}
-
-export interface MonitorBox extends St.BoxLayout {
-  // Signals
-  /** @signal */
-  connect<K extends keyof MonitorBox.SignalSignatures>(
-    signal: K,
-    callback: GObject.SignalCallback<this, MonitorBox.SignalSignatures[K]>,
-  ): number;
-
-  /** @signal */
-  connect_after<K extends keyof MonitorBox.SignalSignatures>(
-    signal: K,
-    callback: GObject.SignalCallback<this, MonitorBox.SignalSignatures[K]>,
-  ): number;
-
-  /** @signal */
-  emit<K extends keyof MonitorBox.SignalSignatures>(
-    signal: K,
-    ...args: GObject.GjsParameters<MonitorBox.SignalSignatures[K]>
-  ): void;
+interface MonitorBoxSignalSignatures extends St.BoxLayout.SignalSignatures {
+  hide_window: () => void;
 }
 
 @registerGObjectClass
 export class MonitorBox extends St.BoxLayout {
+  declare connect: GObject.SignalMethods<this, MonitorBoxSignalSignatures>['connect'];
+  declare connect_after: GObject.SignalMethods<this, MonitorBoxSignalSignatures>['connect_after'];
+  declare emit: GObject.SignalMethods<this, MonitorBoxSignalSignatures>['emit'];
+
   static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, MonitorBoxSignals> = {
     GTypeName: 'MonitorBox',
     Signals: {

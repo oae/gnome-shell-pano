@@ -30,37 +30,17 @@ type FormatOptions = {
   locale?: Locale;
 };
 
-namespace PanoItemHeader {
-  // Signal signatures
-  export interface SignalSignatures extends St.BoxLayout.SignalSignatures {
-    'on-remove': () => void;
-    'on-favorite': () => void;
-  }
-}
-
-export interface PanoItemHeader extends St.BoxLayout {
-  // Signals
-  /** @signal */
-  connect<K extends keyof PanoItemHeader.SignalSignatures>(
-    signal: K,
-    callback: GObject.SignalCallback<this, PanoItemHeader.SignalSignatures[K]>,
-  ): number;
-
-  /** @signal */
-  connect_after<K extends keyof PanoItemHeader.SignalSignatures>(
-    signal: K,
-    callback: GObject.SignalCallback<this, PanoItemHeader.SignalSignatures[K]>,
-  ): number;
-
-  /** @signal */
-  emit<K extends keyof PanoItemHeader.SignalSignatures>(
-    signal: K,
-    ...args: GObject.GjsParameters<PanoItemHeader.SignalSignatures[K]>
-  ): void;
+interface PanoItemHeaderSignalSignatures extends St.BoxLayout.SignalSignatures {
+  'on-remove': () => void;
+  'on-favorite': () => void;
 }
 
 @registerGObjectClass
 export class PanoItemHeader extends St.BoxLayout {
+  declare connect: GObject.SignalMethods<this, PanoItemHeaderSignalSignatures>['connect'];
+  declare connect_after: GObject.SignalMethods<this, PanoItemHeaderSignalSignatures>['connect_after'];
+  declare emit: GObject.SignalMethods<this, PanoItemHeaderSignalSignatures>['emit'];
+
   static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, PanoItemHeaderSignals> = {
     GTypeName: 'PanoItemHeader',
     Signals: {

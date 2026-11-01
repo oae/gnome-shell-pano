@@ -111,36 +111,16 @@ interface ClipboardManagerSignals {
   changed: SignalRepresentationType<[GObject.GType<GObject.Object>]>;
 }
 
-namespace ClipboardManager {
-  // Signal signatures
-  export interface SignalSignatures extends GObject.Object.SignalSignatures {
-    changed: (arg0: ClipboardContent) => void;
-  }
-}
-
-export interface ClipboardManager extends GObject.Object {
-  // Signals
-  /** @signal */
-  connect<K extends keyof ClipboardManager.SignalSignatures>(
-    signal: K,
-    callback: GObject.SignalCallback<this, ClipboardManager.SignalSignatures[K]>,
-  ): number;
-
-  /** @signal */
-  connect_after<K extends keyof ClipboardManager.SignalSignatures>(
-    signal: K,
-    callback: GObject.SignalCallback<this, ClipboardManager.SignalSignatures[K]>,
-  ): number;
-
-  /** @signal */
-  emit<K extends keyof ClipboardManager.SignalSignatures>(
-    signal: K,
-    ...args: GObject.GjsParameters<ClipboardManager.SignalSignatures[K]>
-  ): void;
+interface ClipboardManagerSignalSignatures extends GObject.Object.SignalSignatures {
+  changed: (arg0: ClipboardContent) => void;
 }
 
 @registerGObjectClass
 export class ClipboardManager extends GObject.Object {
+  declare connect: GObject.SignalMethods<this, ClipboardManagerSignalSignatures>['connect'];
+  declare connect_after: GObject.SignalMethods<this, ClipboardManagerSignalSignatures>['connect_after'];
+  declare emit: GObject.SignalMethods<this, ClipboardManagerSignalSignatures>['emit'];
+
   static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, ClipboardManagerSignals> = {
     GTypeName: 'PanoClipboardManager',
     Signals: {

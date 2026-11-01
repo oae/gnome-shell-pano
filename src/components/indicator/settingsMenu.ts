@@ -25,37 +25,17 @@ interface SettingsMenuSignals extends SignalsDefinition<SettingsMenuSignalType> 
 
 const debug = logger('settings-menu');
 
-namespace SettingsMenu {
-  // Signal signatures
-  export interface SignalSignatures extends PanelMenuButton.SignalSignatures {
-    'item-selected': () => void;
-    'menu-state-changed': (arg0: boolean) => void;
-  }
-}
-
-export interface SettingsMenu extends PanelMenuButton {
-  // Signals
-  /** @signal */
-  connect<K extends keyof SettingsMenu.SignalSignatures>(
-    signal: K,
-    callback: GObject.SignalCallback<this, SettingsMenu.SignalSignatures[K]>,
-  ): number;
-
-  /** @signal */
-  connect_after<K extends keyof SettingsMenu.SignalSignatures>(
-    signal: K,
-    callback: GObject.SignalCallback<this, SettingsMenu.SignalSignatures[K]>,
-  ): number;
-
-  /** @signal */
-  emit<K extends keyof SettingsMenu.SignalSignatures>(
-    signal: K,
-    ...args: GObject.GjsParameters<SettingsMenu.SignalSignatures[K]>
-  ): void;
+interface SettingsMenuSignalSignatures extends PanelMenuButton.SignalSignatures {
+  'item-selected': () => void;
+  'menu-state-changed': (arg0: boolean) => void;
 }
 
 @registerGObjectClass
 export class SettingsMenu extends PanelMenuButton {
+  declare connect: GObject.SignalMethods<this, SettingsMenuSignalSignatures>['connect'];
+  declare connect_after: GObject.SignalMethods<this, SettingsMenuSignalSignatures>['connect_after'];
+  declare emit: GObject.SignalMethods<this, SettingsMenuSignalSignatures>['emit'];
+
   static metaInfo: GObject.MetaInfo<Record<string, never>, Record<string, never>, SettingsMenuSignals> = {
     GTypeName: 'SettingsButton',
     Signals: {
