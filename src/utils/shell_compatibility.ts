@@ -92,7 +92,26 @@ export function setCursorType(actor: Clutter.Actor, cursor_type: Clutter.CursorT
   actor.set_cursor_type(cursor_type);
 }
 
+// compatibility check functions for gnome-shell 51
+
+// GNOME < 51 version used to have this function, but instead of importing all types for that, just type that one manually
+interface LegacyClutter {
+  get_default_backend(): Clutter.Backend;
+}
+
+function clutterHasDefaultBackend(): boolean {
+  return (Clutter as unknown as Partial<LegacyClutter>).get_default_backend !== undefined;
+}
+
 // actual compatibility functions
+
+export function getClutterBackendCompat(): Clutter.Backend {
+  if (clutterHasDefaultBackend()) {
+    return (Clutter as unknown as LegacyClutter).get_default_backend();
+  }
+
+  return global.stage.context.get_backend();
+}
 
 export type OrientationReturnType = { vertical: boolean } | { orientation: Clutter.Orientation };
 
